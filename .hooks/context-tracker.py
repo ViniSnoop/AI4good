@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
-# PostToolUse: Read — record CONTEXT.md reads (consumed by context-gate.py / bash-context-gate.py)
-# and interface-file reads (consumed by pre-read.sh: interface read unlocks its source). VERIFY.md W1.
+# PostToolUse: Read — record CONTEXT.md/SPEC.md reads (consumed by context-gate.py /
+# bash-context-gate.py / spec-read-gate.py) and interface-file reads (consumed by pre-read.sh:
+# interface read unlocks its source). VERIFY.md W1.
 import sys
 from pathlib import Path
 
@@ -32,7 +33,7 @@ def main() -> int:
 		path = str(Path(raw).resolve())
 	except OSError:
 		path = raw
-	if Path(raw).name == 'CONTEXT.md':
+	if Path(raw).name in ('CONTEXT.md', 'SPEC.md'):
 		if path not in load_seen(session_id):
 			mark_seen(session_id, path)
 	elif raw.endswith(IFACE_SUFFIXES):
