@@ -2,6 +2,9 @@
 **/__pycache__/
 **/*.pyc
 
+# Scratch / experiments (ablation benches, throwaway sandboxes, etc.)
+tmp/
+
 # Trash
 .Trash-1000/
 

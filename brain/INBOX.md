@@ -9,16 +9,51 @@
 
 <!-- add entries below, newest first -->
 
-me pergunto se o fable, dado que tenho 100 dólares de crédito pra gastar até setembro, ainda assim consome do meu limite por turno / semanal
+https://www.instagram.com/reel/Da4-EmYNYAP/?utm_source=ig_web_copy_link
+pode ser útil pra texpace subdsls em ui
+— via aiwbot · 2026-07-24
 
-tenho usado bastante o opus, com dificuldade de confiar no sonnet para as coisas que tenho feito... talvez preparar melhor o terreno pro sonnet. é por que tem tarefas que tenho feito que muitas vezes são dependentes de decisões que exigem discussão e pesquisa. triar o que ele pode fazer sem tanta 
+teoria dos jogos, design de mecanismos, modelos de democracia, votação digital, tecnologias e incentivos, crowdsourcing e gamification
+— via aiwbot · 2026-07-24
 
-git graph no vscode não mostra grafo dos subrepositórios, me pergunto se tem um jeito fácil de resolver isso
+https://www.instagram.com/reel/DbI7qoRw1uz/?utm_source=ig_web_copy_link
+dizer pros agentes que sou uma pessoal visual. funciono melhor com visualização de esquemas, e pra isso talvez criar alguma skill. wos e texpace
+— via aiwbot · 2026-07-24
 
-tabelas e bold continuam sem funcionar no bot.
+investigar esse, talvez seja útil pro wos
+https://www.instagram.com/opensession.co/reel/DXwl0ryhbgV/
+— via aiwbot · 2026-07-24
+
+https://www.instagram.com/reel/DbLIZ39D7sT/?utm_source=ig_web_copy_link
+considerar seriamente essas palavras. isso pode servir de abertura pra palestra que Rafael me convidoup pra dar no SENAI
+— via aiwbot · 2026-07-24
+
+https://www.instagram.com/reel/DXpDJCACt2V/?utm_source=ig_web_copy_link
+pode ser útil pro isoroll content
 — via aiwbot · 2026-07-23
 
-sobre emojis nas mensagens, tipo ampulhetas, luzes verde/amarela/vermelha... acho com frequência os emojis escolhidos meio bregas. prefiro emojis simples, se tiverem, por exemplo, a luz vermelha pode ser sem efeitos, sem gradiente, só uma bolha vermelha. a ampulheta poderia ser preta e branca. enfim, é só um gosto visual, longe de ser algo crítico, mas seria legal ter um design mais estiloso e minimalista
+I know that there is too much noise but maybe there is something to take as useful from these links for our wos
+https://github.com/ai-boost/awesome-harness-engineering
+https://github.com/RyanAlberts/best-of-Agent-Harnesses
+
+this seems to be VERY INTERESTING for us, maybe we can have an alternative or improvement over claude code
+https://yoonholee.com/meta-harness/
+
+sobre modelos de imagem, acredito que dá pra usar o opencode com chave da nvidia pra isso. digo isso por que tentamos algumas vezes usar o nanobanana com a key e não funcionou
+
+limpar o workspace, muitos arquivos, pastas, que foram criadas e estão jogadas ou fora do lugar ou simplesmente que não fazem mais sentido existir. pastas temp/, pastas de outputs/ entre outras.
+
+uniformizar tipos de arquivo UPPERCASE_IMPORTANT_WOS.md, temos já mais de 10 tipos na minha visão, redundância e ambiguidade tem que ser evitadas.
+
+why do several tools are python code but do not have the .py suffix? is that really ok?
+
+pra facilitar minha vida, chamar workspace-os de wos ou WOS ou w-os ou W-OS, todos válidos
+
+me pergunto se o fable, dado que tenho 100 dólares de crédito pra gastar até setembro, ainda assim consome do meu limite por turno / semanal
+
+tenho usado bastante o opus, com dificuldade de confiar no sonnet para as coisas que tenho feito... talvez preparar melhor o terreno pro sonnet. é por que tem tarefas que tenho feito que muitas vezes são dependentes de decisões que exigem discussão e pesquisa. triar o que ele pode fazer sem tanta "filosofia" talvez seja uma forma de economizar tokens
+
+git graph no vscode não mostra grafo dos subrepositórios, me pergunto se tem um jeito fácil de resolver isso
 
 usar nas minhas aulas, provavelmente em ai4good
 https://www.instagram.com/p/DbGep4CDGtk/?utm_source=ig_web_copy_link
@@ -96,3 +131,5 @@ adiantar pra jarbinhas, publicar a tese dele
 organizar a migração das pastas do drive e o espelhamento com a pasta academy aqui. organizar pastas ou algum tipo de referencia para os alunos/pessoas
 
 automaticamente ou pelo menos oferecer a opção de ao solicitar o plan mode e mandar um prompt perguntar se quero mudar de modelo para um mais poderoso na hora de planejar e igualmente perguntar ou sugerir um modelo mais simples para a execução, inclusive considerar um modelo mais simples para partes/etapas da execução. de toda forma temos que fazer um benchmark/avaliação do /loops em termos de resultado e de custo.
+
+ablation-bench primeiro piloto: tmp/ablation-bench/ — 1 trial per braço (with/without CONTEXT.md chain gate), race-bug toy-project, opencode+glm-5.2 operou end-to-end. resultado em REPORT.md: hipótese original não suportada (ambos braços leram CONTEXT.md voluntariamente por causa do prompt, então gate não adicionou segurança contra este prompt). achado: glm-5.2 completou o reduced /loops flow com self-report `executor:` e commit funcionando quando budget ≤ 10min. lições para follow-up em REPORT § "What a follow-up run would change" — prompt sem mencionar "documented contract", sem flag de marker no seeder, n≥4, budget de wall-clock igual, terceiro braço (gate-off + prompt-off) para isolamento.
