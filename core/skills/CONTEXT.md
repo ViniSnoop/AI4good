@@ -29,15 +29,29 @@ Linux is **case-sensitive**. The source dir is `core` (lowercase). Never write `
 
 `_template.md`, `*.original.md` (caveman-compress backups), and `CONTEXT.md` are not skills — `sync-skills` skips them.
 
-## Global skills (outside the workspace)
+## Global skills — folder-shaped, linked out instead of mirrored in
 
-The `caveman*` / `cavecrew` skills live in `~/.agents/skills/` and are mirrored via `~/.claude/skills/`. They are installed system-wide and not synced by `core/tools/sync-skills`.
+A skill that must work in **every** project (not just this workspace) lives here as a directory
+containing its own `SKILL.md`, subfiles, hooks, and scripts — `caveman/` is the case. `sync-skills`
+globs flat `core/skills/*.md`, so a directory is invisible to it by construction; exposure is by
+symlink instead:
+
+```bash
+core/tools/sync-global-skills            # link ~/.agents/skills + ~/.claude/hooks -> here
+core/tools/sync-global-skills --check    # verify (exit 1 if stale/broken/missing)
+```
+
+Run it after a fresh clone on a new machine. `$HOME` holds links, never copies — editing
+`~/.claude/hooks/caveman-*` means editing `core/skills/caveman/hooks/`. Do **not** also give a
+global skill a flat `core/skills/<name>.md`: that would register the same name twice (project +
+user scope). Details and upstream attribution: [`caveman/CONTEXT.md`](caveman/CONTEXT.md).
 
 <!-- routing:start -->
 ## Routing
 
 | Subdirectory | Description |
 |--------------|-------------|
+| [`caveman/`](caveman/CONTEXT.md) | Ultra-compressed communication mode — vendored suite: router skill, mode subfile |
 | [`foundry/`](foundry/CONTEXT.md) | Foundry VTT v14 module dev reference — skill suite. |
 | [`prepare/`](prepare/CONTEXT.md) | Prepare a raw prompt for Claude Code: optimize, contextualize, and recommend mod |
 
@@ -53,7 +67,7 @@ The `caveman*` / `cavecrew` skills live in `~/.agents/skills/` and are mirrored 
 | [`handoff.md`](handoff.md) | — | — | Emit a copy-pasteable resume prompt for the next session — the narrow last step only. For the full session-close ritual (archive done work + route knowledge + drain INBOX + verify, then hand off), use /roundup, which calls this. Invoke with /handoff [focus]. |
 | [`inbox.md`](inbox.md) | — | — | Triage brain/INBOX.md — route each entry to a goal, task, reference, project doc, writing draft, or delete. Cross-domain front door: reaches into code ROADMAP/KNOWN-BUGS and domain refs/, not just brain/. |
 | [`iso-visual.md`](iso-visual.md) | — | — | Isoroll visual-semantics reference: conventions that map isometric imagery to text, known model failure modes, and the hard rule for verifying visual/geometric output. Load before any session/loop that touches isoroll guides, kits, sprites, or scene assembly. Invoke with /iso-visual |
-| [`loops.md`](loops.md) | — | — | Run the loop-engineering flow: develop a feature in file-relayed loops with model autorouting (clarify → plan → ground → architecture → TDD → code → user test → ship). Invoke with /loops [task or feature request]. |
+| [`loops.md`](loops.md) | — | — | Run the craft flow: develop a feature in file-relayed loops with model autorouting (clarify → plan → ground → architecture → TDD → code → user test → ship). Invoke with /loops [task or feature request]. |
 | [`prepare.md`](prepare.md) | — | — | Prepare a raw prompt for an agent: interview, contextualize, plan, and recommend model/effort. The skill first interviews the user to clarify intent, then classifies the task, outputs the optimized prompt ready for copy-paste. Invoke with /prepare [your raw task] |
 | [`research.md`](research.md) | — | — | Execute a research workflow from the workspace Core research system. |
 | [`roundup.md`](roundup.md) | — | — | Full session-close ritual: archive completed work to HISTORY, route session knowledge to durable files, drain the INBOX, run the verification gate, then emit the resume prompt via /handoff. Use at session end. Invoke with /roundup [focus for next session]. |

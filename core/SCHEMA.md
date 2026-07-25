@@ -45,7 +45,7 @@ rejects a file with no `name`/`description` frontmatter.
 |-------|-----|-------|
 | `name` | ✅ | matches filename |
 | `description` | ✅ | one line: what evidence/output this worker produces |
-| `tier` | ✅ | `low` \| `medium` \| `high` \| `max` — the provider-agnostic effort ladder (same as loop-engineering) |
+| `tier` | ✅ | `low` \| `medium` \| `high` \| `max` — the provider-agnostic effort ladder (same as the craft flow) |
 | `tools` | ▲ | comma list; required for **worker** agents (locked-down allowlist) |
 | `output` | ▲ | default artifact filename; required for workers |
 | `defaultProgress` | — | `true` for long workers |
@@ -64,8 +64,9 @@ rejects a file with no `name`/`description` frontmatter.
 **Location rule.** A flow owned by a dispatcher skill lives in `core/flows/<skill>/` and its
 **filename equals the command tail** — `core/flows/research/scout.md` ⟺ `research scout`. Flows not
 owned by any dispatcher skill stay flat at `core/flows/`. Validation is recursive (`sync-skills`
-`validate_flows` walks subfolders); a `<skill>/CONTEXT.md` is exempt like the root one. The `loop-*`
-cluster is the current flat exception (its own engineering protocol; see below).
+`validate_flows` walks subfolders); a `<skill>/CONTEXT.md` is exempt like the root one. The
+engineering cluster owned by the `loops` skill lives in [`flows/craft/`](flows/craft/) —
+`craft` · `route` · `architect` (+ the `TREE.md` map) — and is exempt from the table below.
 
 | field | req | value |
 |-------|-----|-------|
@@ -74,6 +75,7 @@ cluster is the current flat exception (its own engineering protocol; see below).
 | `type` | ✅ | `research-brief` \| `utility` \| `domain` |
 | `confirm` | ✅ | `plan` (stop for explicit "yes" before work) \| `none` (summarize plan, continue) |
 | `agents` | — | comma list of worker agents the flow may spawn |
+| `uses` | — | comma list of other flows this flow invokes; empty/absent = leaf. The `uses:` graph must be a **DAG** (see *Composition and cycles*), enforced by `validate_flows` |
 
 `confirm` exists to kill the old contradiction where some flows blocked for approval and others
 didn't, with no way for a caller to know which. Now it is declared and readable.
@@ -90,18 +92,21 @@ Legend: ✅ required · ~ recommended · — not required
 | **scale-gate** — explicit direct vs decomposed rule ("narrow explainer → no subagents") | ✅ | ~ | ~ |
 | **integrity** — read-before-summarize, honest status, no invented sources/results | ✅ | ✅ | ✅ |
 
-The canonical wording for each discipline **belongs in** [`flows/_template.md`](flows/_template.md),
-annotated by which `type` requires it — copy from there. (Migration pending: the wording currently
-still sits in `flows/research/deep.md`; moving it is a step of the craft-flows execution item in
-[ROADMAP.md](ROADMAP.md). Until then read it there, but `deep` holds no special status.) Symmetry is
-required **within a type**, not flattened across all flows — a scheduler (`utility`) is not forced to
-emit a provenance sidecar.
+The canonical wording for each discipline lives in [`flows/_template.md`](flows/_template.md), each
+block annotated with the types that require it — **copy from there**. Symmetry is required **within
+a type**, not flattened across all flows: a scheduler (`utility`) is not forced to emit a provenance
+sidecar. Holding the wording is the template's only privilege; it is still just a template, not a
+reference implementation.
 
 Flow-type assignments:
-- **research-brief:** deep (→ `sota`, pending), literature, review, recipe, compare, audit, replicate, draft (in `flows/research/`)
+- **research-brief:** sota, literature, review, recipe, compare, audit, replicate, draft (in `flows/research/`)
 - **utility:** watch, explore, summarize (in `flows/research/`)
 - **domain:** mechanism-search
-- **engineering:** the `loop-*` cluster (→ `craft`/`route`/`architect`, pending) is its own protocol (declares tier routing directly); exempt from this table and from flow-layer validation.
+- **engineering:** `craft` · `route` · `architect` (in `flows/craft/`) — its own protocol, declares
+  tier routing directly; exempt from this table and from flow-layer validation. **Known asymmetry:**
+  `engineering` is not in the `type` enum, so the cluster is exempted by path rather than typed. The
+  symmetric fix (add `engineering` to the enum, give the three flows real frontmatter, delete the
+  exemption) is a schema change and is queued in [ROADMAP.md](ROADMAP.md), not taken silently here.
 
 ## Composition and cycles
 
@@ -134,14 +139,44 @@ This mirrors how effective agent loops (ReAct, Reflexion, Voyager) avoid running
 condition, a hard iteration cap as backstop, and **state that changes each pass**. A cycle whose
 state does not change is not iteration — it is a hang.
 
+## Routing depth and locality (structural policy)
+
+> Decided 2026-07-24 (workspace-os Frente 3). Governs how every subtree is structured, not just the
+> library. Two axes, deliberately separate — conflating them produced the wrong "flatten everything"
+> call in an earlier round.
+
+**Locality — keep it.** Small `CONTEXT.md` glued to the files it governs is **not** overhead. On a
+workspace that must also run on Sonnet and small local models, scattered local `CONTEXT.md` is what
+*makes weak models navigate*, and the always-loaded index is the most cache-friendly input there is.
+Do **not** consolidate local CONTEXT.md to "reduce clutter" — granularity is the feature.
+
+**Depth — cap it.** What costs is *hops to content*: a second routing level is not uniformly free —
+it helps some tasks, hurts others. So cap **chain depth**, not **file count**. When in doubt about
+adding a routing level, **measure** (a real task on the tier you care about), do not decree.
+
+**Net rule:** many small local CONTEXT.md files = good; deep CONTEXT.md → CONTEXT.md → CONTEXT.md
+chains = the thing to bound. File count is not the metric; hop count is.
+
+**Evidence + caveat.** Controlled study on haiku-4.5 + qwen3.6-27b ([P] 2607.17598): the flat skill
+pack reaches ~2× accuracy at ½ the tokens vs. raw at corpus scale, and *"the weaker the agent's
+native navigation, the earlier the skill pack earns its keep."* **Preprint = provisional** (see
+[refs/CONTEXT.md](refs/CONTEXT.md)); this policy is a default, not a hard gate, until our own
+depth-audit (Frente 3.2) or a published source confirms it.
+
 ## Enforcement
 
 `core/tools/sync-skills --check` parses frontmatter and fails on violations; it is wired into
 `.hooks/pre-commit`. All three layers are live:
 - **skill:** frontmatter present, `name:` + `description:`, non-skills rejected.
 - **flow:** `description:` + `args:` present, `type ∈ {research-brief, utility, domain}`,
-  `confirm ∈ {plan, none}`. Exempt: `CONTEXT.md`, `LOOP-TREE.md`, `loop-*` (engineering cluster).
+  `confirm ∈ {plan, none}`. Exempt: `CONTEXT.md`, `TREE.md`, `loop-*` (engineering cluster).
   Validation is **recursive** — it walks `flows/<skill>/` subfolders, not just the flat root.
-  *Not yet enforced (ROADMAP):* `uses:` acyclicity (the DAG check) and the runtime iteration cap.
+- **composition:** every `uses:` target resolves to a real flow, and the `uses:` graph is a **DAG**
+  (three-colour DFS; a path returning to its own start fails the check). The exemption list does
+  *not* apply here — every flow file is a node, so an engineering flow cannot smuggle in a cycle.
+  The **runtime iteration cap** is the other half of this guard and is *not* statically checkable:
+  any flow with an execution loop must declare a numeric cap plus an exit condition in prose
+  (wording in [`flows/_template.md`](flows/_template.md) § Execution Loops). Do not try to enforce
+  it with the DAG check — that check forbids cycles; the cap is what *permits* them, bounded.
 - **agent:** `name:` + `description:` present, `tier ∈ {low, medium, high, max}`, `model:`/`thinking:`
   forbidden in source, workers (everyone but `lead`) must carry `tools:` + `output:`.

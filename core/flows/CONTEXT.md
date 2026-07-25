@@ -1,19 +1,38 @@
 # Flows
 > Workflow protocols; each names the agents and steps to execute.
 
+Contract for the frontmatter, the `type` disciplines, and the `uses:` composition DAG:
+[`core/SCHEMA.md`](../SCHEMA.md). Canonical wording to copy when writing a flow:
+[`_template.md`](_template.md).
+
+## Rules that hold for every flow
+
+These were extracted from the craft monolith (2026-07-23) because they were never specific to one
+flow:
+
+- **The artifact is the memory.** A flow's durable output is a file on disk, not the chat. A run
+  that ends chat-only after work started produced nothing. State that survives the session is what
+  lets the next session — or a cheaper model — pick the work up.
+- **Delegate gathering, never synthesis.** Subagents collect; the flow that owns the artifact writes
+  it. A synthesis handed to a subagent comes back as a lossy retelling.
+- **A fresh session reads exactly one file.** When a flow relays work between sessions, each one
+  receives its own step plus a single input file — never conversation history. This is how a flow
+  *saves* tokens instead of spending them.
+- **Size is a signal.** A step whose artifact keeps growing past its cap is a step that is too big.
+  Split the work; do not raise the cap.
+- **Loops are bounded.** Returning to an earlier step is legal iteration only with an exit condition
+  and a numeric cap, and only if state changed. See `_template.md` § Execution Loops.
+
 <!-- routing:start -->
 ## Routing
 
 | Subdirectory | Description |
 |--------------|-------------|
+| [`craft/`](craft/CONTEXT.md) | The engineering cluster owned by the `loops` skill — build work in file-relayed  |
 | [`research/`](research/CONTEXT.md) | Research-workflow protocols owned by the `research` skill. Invoked as `research  |
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
-| [`LOOP-TREE.md`](LOOP-TREE.md) | — | — | The Loop Tree |
 | [`_template.md`](_template.md) | — | — | One line — what durable artifact this flow produces. |
-| [`loop-architecture.md`](loop-architecture.md) | — | — | Architecture-decision subtree of the loop tree — turn a design/technology choice into a recorded decision (problem → options → trade-offs → decision → ADR). Produces a durable decision record, not code. |
-| [`loop-engineering.md`](loop-engineering.md) | — | — | Looped engineering flow — development in file-relayed loops with model autorouting; each loop runs in a fresh, cheap session that reads exactly one file. |
-| [`loop-router.md`](loop-router.md) | — | — | Loop router — classify a /loops task by TYPE and dispatch to the right subtree flow (padaria · feature/SDD · research · architecture). Thin: it classifies and hands off, it does not do the work. |
 | [`mechanism-search.md`](mechanism-search.md) | — | — | Busca sistemática de mecanismos sociais (motivo individual → efeito coletivo) para um ralo quantificado — geração com diversidade forçada, filtro humano deliberativo, saída pronta para piloto test-to-kill. |
 <!-- routing:end -->
