@@ -139,6 +139,30 @@ This mirrors how effective agent loops (ReAct, Reflexion, Voyager) avoid running
 condition, a hard iteration cap as backstop, and **state that changes each pass**. A cycle whose
 state does not change is not iteration — it is a hang.
 
+## Routing depth and locality (structural policy)
+
+> Decided 2026-07-24 (workspace-os Frente 3). Governs how every subtree is structured, not just the
+> library. Two axes, deliberately separate — conflating them produced the wrong "flatten everything"
+> call in an earlier round.
+
+**Locality — keep it.** Small `CONTEXT.md` glued to the files it governs is **not** overhead. On a
+workspace that must also run on Sonnet and small local models, scattered local `CONTEXT.md` is what
+*makes weak models navigate*, and the always-loaded index is the most cache-friendly input there is.
+Do **not** consolidate local CONTEXT.md to "reduce clutter" — granularity is the feature.
+
+**Depth — cap it.** What costs is *hops to content*: a second routing level is not uniformly free —
+it helps some tasks, hurts others. So cap **chain depth**, not **file count**. When in doubt about
+adding a routing level, **measure** (a real task on the tier you care about), do not decree.
+
+**Net rule:** many small local CONTEXT.md files = good; deep CONTEXT.md → CONTEXT.md → CONTEXT.md
+chains = the thing to bound. File count is not the metric; hop count is.
+
+**Evidence + caveat.** Controlled study on haiku-4.5 + qwen3.6-27b ([P] 2607.17598): the flat skill
+pack reaches ~2× accuracy at ½ the tokens vs. raw at corpus scale, and *"the weaker the agent's
+native navigation, the earlier the skill pack earns its keep."* **Preprint = provisional** (see
+[refs/CONTEXT.md](refs/CONTEXT.md)); this policy is a default, not a hard gate, until our own
+depth-audit (Frente 3.2) or a published source confirms it.
+
 ## Enforcement
 
 `core/tools/sync-skills --check` parses frontmatter and fails on violations; it is wired into

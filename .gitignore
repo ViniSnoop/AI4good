@@ -23,6 +23,10 @@ outputs/
 **/iq-fix-roadmap.md
 HANDOFF.md
 ROADMAP.md
+# Exception: the root workspace-os ROADMAP is the durable v1-strong plan (NOT session-local) —
+# it holds decided policy that must sync across machines, tracked like core/ROADMAP.md. The
+# leading slash anchors to repo root so nested project ROADMAPs (academy/papers/…) stay local.
+!/ROADMAP.md
 
 # Domain folders: track only workspace-structure files by name.
 # Project-internal files (STATUS.md, BENCHMARKS.md, etc.) are not workspace
