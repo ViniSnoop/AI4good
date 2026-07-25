@@ -104,10 +104,15 @@ This is the peer-reviewed doc-decay problem ([A] ICSE 2025, IEEE TSE 2024).
 **Net:** the rodada-1 "flatten everything" was wrong for locality, right only for depth — and
 even depth is now "measure per task", not "decree".
 
-1. [x] 🔴 **DECIDED + WRITTEN 2026-07-24.** Policy recorded in [SCHEMA.md](core/SCHEMA.md) §
-   *Routing depth and locality*: keep CONTEXT.md local and granular (locality is what makes weak
-   models work + is the most cache-friendly input — [P] 2607.17598); cap **chain depth**, not file
-   count; measure before adding a routing level. Preprint caveat carried in the section.
+1. [x] 🔴 **DECIDED + WRITTEN 2026-07-24, INDUCED 2026-07-25.** Policy recorded in
+   [SCHEMA.md](core/SCHEMA.md) § *Routing depth and locality*: keep CONTEXT.md local and granular
+   (locality is what makes weak models work + is the most cache-friendly input — [P] 2607.17598);
+   cap **chain depth**, not file count; measure before adding a routing level. **Induction fix
+   (2026-07-25):** the full policy sat only in `core/SCHEMA.md` — a cold, core-scoped doc that a
+   cross-subtree agent never loads, so it was written but not *induced where needed*. Promoted the
+   rule to [AGENTS.md](AGENTS.md) (the always-read root), which folds F5's size-as-signal into the
+   same bullet; SCHEMA.md keeps the evidence + preprint caveat. Still **not enforced** (no depth
+   check) — enforcement is Frente 4 Tier 0.
 2. 🟡 **pilot-first — measure our own depth.** Instrument what actually loads at session start
    (AGENTS.md chain + every CONTEXT.md on a typical path + memory) and the real hop count to a
    leaf. This is the existing `core/ROADMAP.md` "Audit context building" item — merge, don't
