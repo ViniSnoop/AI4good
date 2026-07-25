@@ -9,6 +9,71 @@
 
 <!-- add entries below, newest first -->
 
+voice note (untranscribed)
+[attachment: brain/attachments/2026-07/aiwbot-awacageaaxkbaaib1wpj8wvtkahaowqzqxy4wkmqq0t4aajobwac0dwgr1ozdyr2dnaaat0e.ogg]
+— via aiwbot · 2026-07-24
+
+voice note (untranscribed)
+[attachment: brain/attachments/2026-07/aiwbot-awacageaaxkbaaib02pj7vffks7oy3wlcvg8ccozlu14aajmbwac0dwgr9yqu6dxgwezpqq.ogg]
+— via aiwbot · 2026-07-24
+
+voice note (untranscribed)
+[attachment: brain/attachments/2026-07/aiwbot-awacageaaxkbaaibzwpj7rolcvpoazwwlqzlmx5vx4bxaajlbwac0dwgr0wu4zob6j7xpqq.ogg]
+— via aiwbot · 2026-07-24
+
+no aiwbot, para mensagens que começam com bot, tanto para texto quanto para áudio, quero a opção de escolher o harness e o modelo se for o caso. então se começo com "bot, ..." e no meio da mensagem aparece qualquer menção ao claudecode, ou opencode e provavelmente vou usar o kimicode já está aí a dica de qual harness deve ser usado e depois se falo opus, sonnet, oh glm, deepseek, ou kimi3, kimi2.7 já sabemos o modelo. quero fazer essa triagem sem gastar tokens, será que dá?
+
+voice note (untranscribed)
+[attachment: brain/attachments/2026-07/aiwbot-awacageaaxkbaaibywpj7jwsbjvc46era6yybi5ldj4laajjbwac0dwgr1a50ifyaej2pqq.ogg]
+— via aiwbot · 2026-07-24
+
+https://www.instagram.com/p/DbHGtXoCOm-/?utm_source=ig_web_copy_link
+— via aiwbot · 2026-07-24
+
+checar se nossas skills e flows de pesquisa estão "à prova de alucinações"
+
+I think the skill is still called /loops but WE DID CHANGED it to flows I think. the term loops should be no longer used for that sort of thing, this was a long discussion and we decided to go with "flows" and the implications that this change means in terms of semantics and structure
+
+(document)
+[attachment: brain/attachments/2026-07/aiwbot-bqacageaaxkbaaibxwpj4xfjywlqfctnzyf8vteglu5laajdbwac0dwgrzehkai_2chdpqq.pdf]
+— via aiwbot · 2026-07-24
+
+(document)
+[attachment: brain/attachments/2026-07/aiwbot-bqacageaaxkbaaibw2pj4v7byleahqnlnuarq2oyaulraajcbwac0dwgrx9d9gpmbceqpqq.pdf]
+— via aiwbot · 2026-07-24
+
+bot sempre abre em modo de reply. não deveria. ao mesmo tempo acho que o modo reply deveria ser ativado automaticamente assim que o agente me desse 1 resposta (1 vez só, se eu fechasse o x ele sairia do modo reply DAQUELA mensagem mesmo que eu feche o app e volte depois)
+
+isso da concentração é triste viu, ainda mais pro melee
+é pq a ideia é aquela de que skills compensa né, que dá pra balancear tirando um pouco da capacidade de combate de uma classe pra colocar em "utilidades"
+— via aiwbot · 2026-07-24
+
+voice note (untranscribed)
+[attachment: brain/attachments/2026-07/aiwbot-awacageaaxkbaaibv2pjymfnjlewebzvstllsr0hpi_naaiybwac0dwgr9jmunobxjygpqq.ogg]
+— via aiwbot · 2026-07-24
+
+voice note (untranscribed)
+[attachment: brain/attachments/2026-07/aiwbot-awacageaaxkbaaibvwpjyk2eeel_fwzdauy1aozdtekoaaixbwac0dwgr5tfpvzrxt72pqq.ogg]
+— via aiwbot · 2026-07-24
+
+voice note (untranscribed)
+[attachment: brain/attachments/2026-07/aiwbot-awacageaaxkbaaibu2pjyicnxxsf-wzkrdrtrxa-qqp3aaiwbwac0dwgr-5veq0h6jkzpqq.ogg]
+— via aiwbot · 2026-07-24
+
+voice note (untranscribed)
+[attachment: brain/attachments/2026-07/aiwbot-awacageaaxkbaaibuwpjyb8aaqgtewr7vod9lcvef3skiwackwcaata8ieea7nsxj5gqdt0e.ogg]
+— via aiwbot · 2026-07-24
+
+voice note (untranscribed)
+[attachment: brain/attachments/2026-07/aiwbot-awacageaaxkbaaibt2pjyz1qrx4zsf5bu6esjp6a-xvvaaiqbwac0dwgr2s9dznsiz6ppqq.ogg]
+— via aiwbot · 2026-07-24
+
+estou com a sensação forte de que os ROADMAPS e outros arquivos .md (todo, goals) estão crescendo e não diminuindo, que as coisas não são excluídas devidamente. acho que temos que ter cuidado com os history.md também, talvez entender que o git funciona melhor como um histórico, não sei... forçar (enforced) mais commits a cada teste verde talvez seja uma forma de induzir uma prática de histórico mais detalhado no git.
+
+testar se todos os hooks estão funcionando no opencode
+
+tenho várias contas conectadas com o autenticador do google para acesso com 2 fatores de checage. o problema que vejo é se acontecer algo com meu celular. nesse caso como fico? tem como recuperar o autenticador? pode virar um pesadelo grande esse cenário.
+
 https://www.instagram.com/reel/Da4-EmYNYAP/?utm_source=ig_web_copy_link
 pode ser útil pra texpace subdsls em ui
 — via aiwbot · 2026-07-24
