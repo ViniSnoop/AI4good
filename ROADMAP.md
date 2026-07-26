@@ -128,6 +128,11 @@ even depth is now "measure per task", not "decree".
    (AGENTS.md chain + every CONTEXT.md on a typical path + memory) and the real hop count to a
    leaf. This is the existing `core/ROADMAP.md` "Audit context building" item — merge, don't
    duplicate. Decide per-path if any level is dead weight.
+   **Sub-question (INBOX 2026-07-26, Lucas):** measure whether `context-gate.py` /
+   `bash-context-gate.py` force a *subagent* to reread the full CONTEXT.md chain on every subtree
+   touch, not once per session — if so, a subagent spawned for a narrow task may be paying the
+   full-chain cost repeatedly. Check whether that's intended or an unwanted induction of Frente 3's
+   own policy.
    → **model: sonnet** to instrument + tabulate · **opus** to read the tradeoff.
 3. 🟡 **pilot-first — SLM confirmation run.** Before trusting the preprint on *our* content,
    run one real task on a small model (via `code/dobra` / opencode) against the flat vs. nested

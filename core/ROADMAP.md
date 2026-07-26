@@ -7,6 +7,15 @@ validator's oracle" status of `deepresearch` was retired 2026-07-23; see [SCHEMA
 
 ## Open
 
+- [ ] **`gitignore-self-heal.sh` wrongly stages `code/*` project dirs as bare gitlinks.** Found live
+      2026-07-26: 13 dirs (`code/aiwbot`, `dobra`, `flows`, `isoroll-module`, etc.) showed up staged
+      as mode-160000 gitlinks with no `.gitmodules`, which `gitflow-gate.sh`'s undeclared-gitlink
+      check correctly rejected at commit time. The self-heal hook (Frente 6, shipped 2026-07-25) is
+      meant to un-ignore new context-bearing subdirs so their `CONTEXT.md`/structural files get
+      tracked — it should never `git add` the nested-repo directory itself, only its own tracked
+      files. Fix the hook to skip/exclude paths that are themselves git repos (have `.git`).
+      Workaround used: `git rm --cached -f <path>` before commit. Same class as the pointer-
+      integrity bug above — anti-entropy tooling (Frente 4 Tier 0) catching its own sibling's bug.
 - [ ] **Ad-hoc venv deps have no declared home — three now.** Each was `pip install`ed directly into
       `.venv` to unblock a tool, so a fresh workspace clone silently loses the capability:
       `pypandoc-binary` (`core/tools/parse` on `.docx`, else `FileNotFoundError: pandoc`),
@@ -53,6 +62,36 @@ validator's oracle" status of `deepresearch` was retired 2026-07-23; see [SCHEMA
       files, so the skill kept its name; the result is one concept with two words at two layers,
       which the location rule (`flows/<skill>/` ⟺ dispatcher skill name) would otherwise make
       `flows/loops/`. Decide: rename the skill to `craft`, or keep `loops` and record why.
+
+- [ ] **Google-services auth CLI surface isn't standardized across drive/gmail/calendar.** Token
+      storage is already unified per `(service, alias)` (see `core/tools/CONTEXT.md`), but the
+      command/flag surface of `core/tools/drive|gmail|calendar` isn't — audit each tool's `auth`
+      subcommand + flags and converge on one shape. (INBOX 2026-07-26)
+- [ ] **Routing-sync tool (`context_synchronizer.py`) has two bugs**, found by the Tier-0
+      pointer-integrity checker (shipped 2026-07-25) but out of that checker's own scope:
+      1. Unrewritten relative links when hoisting — a child CONTEXT.md's line-2 description is
+         copied verbatim into the parent's routing-table row, including any relative markdown
+         links, which then resolve from the wrong directory one level up. Seen live:
+         `branches/casinhas/CONTEXT.md` (burocracia row: `BUROCRACIA.md`, `docs/`) and
+         `code/{apptime,dobra,isoroll-content}/CONTEXT.md` (refs row: `REFS.md`). Fix: strip links
+         from hoisted descriptions, or rewrite the path prefix on hoist.
+      2. Stale rows survive file deletion — the routing block only updates on save of an existing
+         file, so deleting a file out-of-band leaves a dangling row. Seen live:
+         `core/prompts/CONTEXT.md` (rows for deleted `fable-loop-engineering.md`,
+         `fable-multiview.md`) and `academy/papers/2027-CHI-cria/outputs/CONTEXT.md` (row for
+         deleted `cria-workflow.md`). Fix: a prune pass, or hook the delete path too.
+      (INBOX 2026-07-25, via pointer-integrity build)
+- [ ] **`core/tools/video --level full` crashes on image-only posts** (gallery-dl carousel path):
+      `assemble()` always tries `media().transcribe(audio)` when an audio path is truthy, but an
+      image post has no real audio stream → `IndexError: tuple index out of range` inside
+      `faster_whisper`/`av`. Workaround found live: use `--level visual` instead (skips audio
+      entirely) — works. Fix: `assemble()` should detect the image-post case (no video stream) and
+      skip the transcribe step instead of attempting it. Found triaging INBOX 2026-07-26.
+- [ ] **Subagent cost is concentrated — configure cheaper models where the work is mechanical.**
+      Measured usage (last 24h, this machine): 59% of usage from subagent-heavy sessions, 55% from
+      >150k-context sessions, 25% from `/roundup`, 22% from `/loops` subagents specifically.
+      Action: set cheaper models in `/roundup` and `/loops` (craft-flow) subagent frontmatter for
+      mechanical steps; re-measure after. (INBOX 2026-07-26)
 
 ## craft-flows — the execution item (decided 2026-07-23, not yet built)
 
