@@ -7,6 +7,15 @@ validator's oracle" status of `deepresearch` was retired 2026-07-23; see [SCHEMA
 
 ## Open
 
+- [ ] **`gitignore-self-heal.sh` wrongly stages `code/*` project dirs as bare gitlinks.** Found live
+      2026-07-26: 13 dirs (`code/aiwbot`, `dobra`, `flows`, `isoroll-module`, etc.) showed up staged
+      as mode-160000 gitlinks with no `.gitmodules`, which `gitflow-gate.sh`'s undeclared-gitlink
+      check correctly rejected at commit time. The self-heal hook (Frente 6, shipped 2026-07-25) is
+      meant to un-ignore new context-bearing subdirs so their `CONTEXT.md`/structural files get
+      tracked — it should never `git add` the nested-repo directory itself, only its own tracked
+      files. Fix the hook to skip/exclude paths that are themselves git repos (have `.git`).
+      Workaround used: `git rm --cached -f <path>` before commit. Same class as the pointer-
+      integrity bug above — anti-entropy tooling (Frente 4 Tier 0) catching its own sibling's bug.
 - [ ] **Ad-hoc venv deps have no declared home — three now.** Each was `pip install`ed directly into
       `.venv` to unblock a tool, so a fresh workspace clone silently loses the capability:
       `pypandoc-binary` (`core/tools/parse` on `.docx`, else `FileNotFoundError: pandoc`),
