@@ -10,6 +10,7 @@ Build a local AI setup compatible with Claude Code. Optimize agents to run fast 
 - https://arxiv.org/pdf/2604.14228  
 - https://arxiv.org/pdf/2601.10112  
 - https://arxiv.org/pdf/2602.11988  
+- https://www.instagram.com/p/DbKa8dzkRv4/ — [src: web:instagram.com] "no-limits local AI video gen" carousel (DM-gated, title cards only extracted so far)  
 
 >**signals**  
 transformative · expected · motivated
@@ -31,6 +32,7 @@ Open the weft repo (github.com/WeaveMindAI/weft). Read the README. Understand wh
 > [ ] [prototype-context] build a first prototype: dynamic context collapse for a specific task type  
 > [ ] [benchmark] measure: speed, reliability, quality vs cloud baseline  
 > [ ] [claude-code-alt] set up CLI coding agent alternative to Claude Code — candidates: qwencode + qwen model locally, GLM 5.1 (free cloud), opencode, codex  
+> [ ] [local-video-gen] evaluate the local AI video-gen setup as alternative to opencode+nvidia+image-model (INBOX 2026-07-26, IG carousel `DbKa8dzkRv4` — DM-gated, only title cards extracted; may need the "GUIDE" DM or independent search to get the real tool list)  
 > [ ] [vipassana-autonomous] explorar deixar um agente rodando com autonomia SEGURA durante os 10 dias de vipassana (1–12 ago, offline), entregando resultados RELEVANTES — candidatos: watcher que constrói/refina continuamente as revisões de estado-da-arte dos papers planejados; pasta sandbox pra prototipar. Pré-requisito duro: **mecânica de autostart de sessões** (o caso "sessão morreu, ninguém acorda o agente" do [workspace-os] triggers pós-janela). Definir escopo seguro ANTES; sem isso, não roda (INBOX 2026-07-23)  
 
 ## done
@@ -40,14 +42,14 @@ Open the weft repo (github.com/WeaveMindAI/weft). Read the README. Understand wh
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-23  ·  trend: advancing
+last-touch: 2026-07-25  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       8 |
-| trimester   |       9 |
-| semester    |       9 |
-| year        |       9 |
-| 2-year      |       9 |
-| 4-year      |       9 |
+| month       |       9 |
+| trimester   |      10 |
+| semester    |      10 |
+| year        |      10 |
+| 2-year      |      10 |
+| 4-year      |      10 |
 <!-- stats:end -->

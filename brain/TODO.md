@@ -104,6 +104,9 @@
 
 ## backlog
 
+- [ ] [academy] assess "mandato coletivo" (participatory-mandate: constituents vote on bills,
+      track spending, propose amendments) as a mechanism-design case worth citing/comparing against
+      current research angle (cria/instituto) — ref in `academy/refs/REFS.md` (INBOX 2026-07-26)
 - [ ] [workspace-os] live-smoke `core/tools/papers --ss --reviewed --min-cit` — validado só offline em 2026-07-23 (Semantic Scholar em HTTP 429 o dia todo); parser correto em 4 casos sintéticos, falta rodar contra a API viva
 - [ ] [workspace-os] TODO: anotar modelo/tier recomendado por tarefa + rastrear datas de criação/atribuição p/ flagrar tarefas paradas
 - [ ] [workspace-os] SPECS.md / KNOWN-BUGS.md / ROADMAP.md como file-trees em vez de arquivo único
