@@ -7,6 +7,7 @@
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
 | [`ARCHETYPE.md`](ARCHETYPE.md) | — | — | ← add first-line comment |
+| [`burocracia-academica.md`](burocracia-academica.md) | — | — | [ career | admin | year ] burocracia acadêmica |
 | [`career-ufrpe.md`](career-ufrpe.md) | — | — | [ career | ufrpe | near ] carreira UFRPE — progressão e renda |
 | [`corporal-expressiveness.md`](corporal-expressiveness.md) | — | — | [ spiritual | body | dream ] corporal expressiveness |
 | [`craft-flows.md`](craft-flows.md) | — | — | [ career | ai | now ] craft flows |
@@ -17,6 +18,7 @@
 | [`dance-frevo.md`](dance-frevo.md) | — | — | [ fun | dance | year ] frevo |
 | [`dance-salsa.md`](dance-salsa.md) | — | — | [ fun | dance | year ] salsa |
 | [`dance-samba.md`](dance-samba.md) | — | — | [ fun | dance | year ] samba |
+| [`ecovila.md`](ecovila.md) | — | — | [ finances | home | dream ] ecovila santuário dos jatobás |
 | [`exercise.md`](exercise.md) | — | — | [ health | body | year ] exercise |
 | [`finances.md`](finances.md) | — | — | [ finances | management | near ] finances |
 | [`guitar.md`](guitar.md) | — | — | [ fun | music | year ] guitar |

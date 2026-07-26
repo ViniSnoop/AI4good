@@ -31,6 +31,7 @@ Open the weft repo (github.com/WeaveMindAI/weft). Read the README. Understand wh
 > [ ] [prototype-context] build a first prototype: dynamic context collapse for a specific task type  
 > [ ] [benchmark] measure: speed, reliability, quality vs cloud baseline  
 > [ ] [claude-code-alt] set up CLI coding agent alternative to Claude Code — candidates: qwencode + qwen model locally, GLM 5.1 (free cloud), opencode, codex  
+> [ ] [vipassana-autonomous] explorar deixar um agente rodando com autonomia SEGURA durante os 10 dias de vipassana (1–12 ago, offline), entregando resultados RELEVANTES — candidatos: watcher que constrói/refina continuamente as revisões de estado-da-arte dos papers planejados; pasta sandbox pra prototipar. Pré-requisito duro: **mecânica de autostart de sessões** (o caso "sessão morreu, ninguém acorda o agente" do [workspace-os] triggers pós-janela). Definir escopo seguro ANTES; sem isso, não roda (INBOX 2026-07-23)  
 
 ## done
 
@@ -39,14 +40,14 @@ Open the weft repo (github.com/WeaveMindAI/weft). Read the README. Understand wh
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-22  ·  trend: advancing
+last-touch: 2026-07-23  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       7 |
-| trimester   |       8 |
-| semester    |       8 |
-| year        |       8 |
-| 2-year      |       8 |
-| 4-year      |       8 |
+| month       |       8 |
+| trimester   |       9 |
+| semester    |       9 |
+| year        |       9 |
+| 2-year      |       9 |
+| 4-year      |       9 |
 <!-- stats:end -->

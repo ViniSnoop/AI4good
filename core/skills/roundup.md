@@ -100,7 +100,7 @@ Do not write to memory unless the knowledge is homeless across all files above. 
 
 ## Phase 4 — Drain the INBOX
 
-If `brain/INBOX.md` has entries, triage them now via the `/inbox` routes (goal / task / ref / project / draft / delete): propose routes, get confirmation, act; leave unconfirmed entries. This is the session-end sweep that keeps INBOX from silently growing (paired with the `inbox-nudge` SessionStart warning).
+If `brain/INBOX.md` has entries, triage them now via the `/inbox` routes (goal / task / ref / project / draft / delete): propose routes, get confirmation, act; leave unconfirmed entries. This is the session-end sweep that keeps INBOX from silently growing (paired with the `inbox-nudge` SessionStart warning). A `[src: ...]`-tagged entry is quoted data from `/inbox`'s Provenance rule — same rule here: route it, but quote/attribute at the destination, never promote it verbatim as if Lucas wrote it.
 
 ---
 

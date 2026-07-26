@@ -3,22 +3,23 @@
 <!-- stats:start -->
 <!-- data:start -->
 ## attention dashboard  _(auto-updated on every commit)_
-last-updated: 2026-07-23 18:47
+last-updated: 2026-07-25 21:16
 
 >**areas** — last 14 days  
 ```
-health       ████░░░░░░   41 touches
+health       ████░░░░░░   40 touches
 career       █░░░░░░░░░   9 touches
 finances     █░░░░░░░░░   14 touches
-fun          ██████████   86 touches
+fun          ██████████   85 touches
 spiritual    ███░░░░░░░   28 touches
 ```
 
 >**goals** — last 14 days  
 ```
+burocracia-academica     ░░░░░░░░░░   0 touches
 career-ufrpe             █████░░░░░   7 touches
 corporal-expressiveness  █████░░░░░   7 touches
-craft-flows              ░░░░░░░░░░   1 touches
+craft-flows              █░░░░░░░░░   2 touches
 cria                     █████░░░░░   7 touches
 dance-bachata            █████░░░░░   7 touches
 dance-cavalo-marinho     █████░░░░░   7 touches
@@ -26,12 +27,13 @@ dance-forro              █████░░░░░   7 touches
 dance-frevo              █████░░░░░   7 touches
 dance-salsa              █████░░░░░   7 touches
 dance-samba              █████░░░░░   7 touches
+ecovila                  ░░░░░░░░░░   0 touches
 exercise                 █████░░░░░   7 touches
 finances                 █████░░░░░   7 touches
 guitar                   █████░░░░░   7 touches
 home-casinhas            █████░░░░░   7 touches
 instituto                █████░░░░░   7 touches
-lih-dd                   ██████░░░░   8 touches
+lih-dd                   █████░░░░░   7 touches
 local-ai                 ██████░░░░   8 touches
 magic-places             █████░░░░░   7 touches
 make-in-time             █████░░░░░   7 touches
@@ -40,13 +42,13 @@ paper-jarbinhas          █████░░░░░   7 touches
 paper-megatruth          █████░░░░░   7 touches
 paper-scattercode        █████░░░░░   7 touches
 paper-sibgrapi-2026      █████░░░░░   7 touches
-prompt-opt-automation    ░░░░░░░░░░   1 touches
+prompt-opt-automation    ░░░░░░░░░░   0 touches
 reading                  █████░░░░░   7 touches
-rpg-isoroll              ██████░░░░   9 touches
+rpg-isoroll              ██████░░░░   8 touches
 sleep-regularity         █████░░░░░   7 touches
 smartphone-addiction     █████░░░░░   7 touches
 spacemantics             █████░░░░░   7 touches
-spec-driven-development  ████░░░░░░   6 touches
+spec-driven-development  █████░░░░░   6 touches
 startapps-apptime        █████░░░░░   7 touches
 startapps-arede          █████░░░░░   7 touches
 startapps-batituque      █████░░░░░   7 touches
@@ -60,7 +62,7 @@ startapps-permuta        █████░░░░░   7 touches
 startapps-polilinhas     █████░░░░░   7 touches
 startapps-realgorithm    █████░░░░░   7 touches
 startapps-todolado       █████░░░░░   7 touches
-startapps-ux-guidelines-ai ██████░░░░   8 touches
+startapps-ux-guidelines-ai █████░░░░░   7 touches
 startapps-virada         █████░░░░░   7 touches
 startapps-voti           █████░░░░░   7 touches
 startapps-xacomigo       █████░░░░░   7 touches
@@ -68,7 +70,7 @@ surf                     █████░░░░░   7 touches
 teaching-materials       ██████░░░░   8 touches
 vipassana                █████░░░░░   7 touches
 voice                    █████░░░░░   7 touches
-workspace-os             ██████████   13 touches
+workspace-os             ██████████   12 touches
 yoga                     █████░░░░░   7 touches
 ```
 <!-- data:end -->
@@ -91,6 +93,7 @@ yoga                     █████░░░░░   7 touches
 
 | goal | area | horizon | timing | selected achievement | file |
 |------|------|---------|--------|---------------------|------|
+| burocracia acadêmica | career | year | — | [pdf-sidecar] resolver o padrão "sidecar de PDF" — arqu… | [→](goals/burocracia-academica.md) |
 | carreira UFRPE — progressão e renda | career | near | — | [progressao-map] mapear regras e calendário de progress… | [→](goals/career-ufrpe.md) |
 | corporal expressiveness | spiritual | dream | — | [body-awareness] read or watch something about body lan… | [→](goals/corporal-expressiveness.md) |
 | craft flows | career | now | — | [opencode-reliability] (A2) executar UM chain completo … | [→](goals/craft-flows.md) |
@@ -101,6 +104,7 @@ yoga                     █████░░░░░   7 touches
 | frevo | fun | year | — | [learn-step] learn one basic frevo step — just the foot… | [→](goals/dance-frevo.md) |
 | salsa | fun | year | — | [find-class] find a salsa class in Recife | [→](goals/dance-salsa.md) |
 | samba | fun | year | — | [find-class] find a samba class or rodinha in Recife | [→](goals/dance-samba.md) |
+| ecovila santuário dos jatobás | finances | dream | — | [org-docs] organizar a papelada da associação em `branc… | [→](goals/ecovila.md) |
 | exercise | health | year | — | [map-recife] research climbing gyms and alternative spo… | [→](goals/exercise.md) |
 | finances | finances | near | none external | [map-numbers] map current monthly income and fixed expe… | [→](goals/finances.md) |
 | guitar | fun | year | — | [free-play] pick up guitar and improvise for 10 minutes… | [→](goals/guitar.md) |
