@@ -55,8 +55,10 @@ rejects a file with no `name`/`description` frontmatter.
 - **orchestrator** (lead): `name` + `description` + `tier` only. `tools`/`output`/`defaultProgress`
   are N/A — the orchestrator inherits the full toolset and owns no single artifact.
 
-`tier` is the source of truth. The runtime mirror generator resolves `tier → provider/model` via
-[`tier-map.json`](tier-map.json) when a runtime needs a concrete model (Claude Code's `.claude/agents/`).
+`tier` is the source of truth. A runtime that needs a concrete model sets it by hand per mirror file
+— e.g. Claude Code's `.claude/agents/craft-high.md` carries `model: opus` for `tier: high`. There is
+no generator and no `tier-map.json`; that was the planned mechanism, never built. Until it exists,
+keep each mirror's `model:` in sync with its source `tier:` by hand.
 **No `thinking:` and no `model:` in `core/agents/` source** — that was the old two-convention drift.
 
 ## Layer: flow — `core/flows/[<skill>/]<name>.md`

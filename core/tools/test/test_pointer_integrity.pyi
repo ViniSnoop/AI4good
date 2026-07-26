@@ -1,0 +1,16 @@
+from _typeshed import Incomplete
+from pathlib import Path
+
+WORKSPACE_ROOT: Incomplete
+MEMORY_DIR: Incomplete
+EXCLUDE_DIRS: Incomplete
+STRUCTURAL_NAME: Incomplete
+LINK_RE: Incomplete
+FENCE_RE: Incomplete
+INLINE_CODE_RE: Incomplete
+ROUTING_BLOCK_RE: Incomplete
+
+def check_pointers(root: Path, memory_dir: Path) -> list: ...
+def test_pointer_integrity() -> None: ...
+def test_dangling_relative_link_is_detected(tmp_path) -> None: ...
+def test_clean_fixture_has_no_failures(tmp_path) -> None: ...

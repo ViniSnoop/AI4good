@@ -1,0 +1,96 @@
+# T0 pointer-integrity check (Frente 4 Tier 0, subsumes Frente 2): every relative
+# ](path) link across CONTEXT.md / ROADMAP*.md / SCHEMA.md / AGENTS.md (repo) and
+# MEMORY.md (auto-memory) must resolve. Zero-token, runs in verify-fast.
+#
+# [[slug]] resolution is intentionally NOT gated here — core/ROADMAP.md Frente 2
+# item 3 marks it decide-first: the memory spec allows a dangling [[slug]] as a
+# "planned, not yet written" memory, and the corpus mixes kebab-case `name:`
+# fields with underscore filenames as the link target, so there is no single
+# rule to enforce yet.
+import re
+from pathlib import Path
+
+WORKSPACE_ROOT = Path(__file__).resolve().parents[3]
+MEMORY_DIR = Path.home() / ".claude/projects/-mnt-workspace/memory"
+
+EXCLUDE_DIRS = {".git", "node_modules", ".venv", "__pycache__", ".loop"}
+STRUCTURAL_NAME = re.compile(r"^(CONTEXT|SCHEMA|AGENTS|ROADMAP|ROADMAP-.*)\.md$")
+
+LINK_RE = re.compile(r"!?\[[^\]]*\]\(([^)\s]+)\)")
+FENCE_RE = re.compile(r"^\s*```")
+INLINE_CODE_RE = re.compile(r"`[^`\n]+`")
+ROUTING_BLOCK_RE = re.compile(
+    r"<!-- routing:start -->.*?<!-- routing:end -->", re.DOTALL
+)
+
+
+def _strip_fences(text: str) -> str:
+    out, in_fence = [], False
+    for line in text.splitlines():
+        if FENCE_RE.match(line):
+            in_fence = not in_fence
+            continue
+        if not in_fence:
+            out.append(line)
+    text = "\n".join(out)
+    # Auto-generated routing tables (AGENTS.md: "do not edit manually") hoist a
+    # child CONTEXT.md's line-2 description verbatim, links and all; staleness
+    # there is a sync-tool bug (dead pointer, or an unrewritten relative path
+    # one level up), not a hand-authored one — out of scope for this Tier-0 gate.
+    text = ROUTING_BLOCK_RE.sub(" ", text)
+    # Inline single-backtick spans quote literal syntax for documentation
+    # (e.g. `` `[[slug]]` `` describing the convention itself) — not real refs.
+    return INLINE_CODE_RE.sub(" ", text)
+
+
+def _structural_files(root: Path, memory_dir: Path):
+    for path in root.rglob("*.md"):
+        if any(part in EXCLUDE_DIRS for part in path.parts):
+            continue
+        if STRUCTURAL_NAME.match(path.name):
+            yield path
+    if memory_dir.is_dir():
+        yield from memory_dir.glob("*.md")
+
+
+def check_pointers(root: Path, memory_dir: Path) -> list:
+    """Return a list of human-readable broken-pointer messages (empty = clean)."""
+    failures = []
+    for path in _structural_files(root, memory_dir):
+        text = _strip_fences(path.read_text(encoding="utf-8"))
+        for link in LINK_RE.findall(text):
+            if link.startswith(("http://", "https://", "mailto:")):
+                continue
+            if "<" in link:  # template placeholder, e.g. brain/goals/<slug>.md
+                continue
+            target = link.split("#", 1)[0]
+            if not target:
+                continue
+            resolved = (path.parent / target).resolve()
+            if not resolved.exists():
+                failures.append(f"{path}: broken link -> {link}")
+    return failures
+
+
+def test_pointer_integrity():
+    failures = check_pointers(WORKSPACE_ROOT, MEMORY_DIR)
+    assert not failures, "Pointer integrity broken:\n" + "\n".join(failures)
+
+
+def test_dangling_relative_link_is_detected(tmp_path):
+    # Regression fixture for the `../.vendor` dangling-link class of bug
+    # (core/skills/caveman/scripts/CONTEXT.md, fixed f3d837f-era).
+    sub = tmp_path / "scripts"
+    sub.mkdir()
+    (sub / "CONTEXT.md").write_text(
+        "attribution in [`../.vendor`](../.vendor).\n", encoding="utf-8"
+    )
+    failures = check_pointers(tmp_path, tmp_path / "no-memory-here")
+    assert len(failures) == 1
+    assert "../.vendor" in failures[0]
+
+
+def test_clean_fixture_has_no_failures(tmp_path):
+    (tmp_path / "target.md").write_text("target\n", encoding="utf-8")
+    (tmp_path / "CONTEXT.md").write_text("see [target](target.md).\n", encoding="utf-8")
+    assert check_pointers(tmp_path, tmp_path / "no-memory-here") == []

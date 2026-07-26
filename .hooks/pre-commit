@@ -14,6 +14,9 @@ fi
 
 BLOCKED=0
 
+# ── 0b. Self-healing .gitignore allowlist (Frente 6 item 2, decided 2026-07-24) ─
+/mnt/workspace/.hooks/gitignore-self-heal.sh .
+
 # ── 1. Line-count checks (code files only — not JSON, Markdown, binaries) ─────
 CODE_FILES=$(echo "$STAGED" | grep -E '\.(js|ts|tsx|py|dart|html|css|scss|tex)$' | grep -v '\.d\.ts$' || true)
 

@@ -1,0 +1,401 @@
+{
+  "agricultura": {
+    "nome": "Produção Agrícola",
+    "setor": "alimentacao",
+    "consumidor": "empresa",
+    "duracao_horas": 720,
+    "dependencias": [],
+    "homem_hora": {
+      "agricultor": 8.0
+    }
+  },
+
+  "processamento_alimentos": {
+    "nome": "Processamento de Alimentos",
+    "setor": "alimentacao",
+    "consumidor": "empresa",
+    "duracao_horas": 720,
+    "dependencias": ["agricultura", "distribuicao_energia"],
+    "homem_hora": {
+      "operador_industrial": 4.0,
+      "tecnico_eletrico": 0.5
+    }
+  },
+
+  "compras_mercado": {
+    "nome": "Compras no Mercado",
+    "setor": "alimentacao",
+    "consumidor": "pessoa",
+    "duracao_horas": 168,
+    "dependencias": ["processamento_alimentos"],
+    "homem_hora": {
+      "atendente": 0.5
+    }
+  },
+
+  "lanche": {
+    "nome": "Lanche",
+    "setor": "alimentacao",
+    "consumidor": "pessoa",
+    "duracao_horas": 8,
+    "dependencias": ["processamento_alimentos", "distribuicao_energia"],
+    "homem_hora": {
+      "cozinheiro": 0.25,
+      "atendente": 0.1
+    }
+  },
+
+  "refeicao": {
+    "nome": "Refeição",
+    "setor": "alimentacao",
+    "consumidor": "pessoa",
+    "duracao_horas": 8,
+    "dependencias": ["processamento_alimentos", "distribuicao_energia"],
+    "homem_hora": {
+      "cozinheiro": 0.5,
+      "atendente": 0.15
+    }
+  },
+
+  "materiais_construcao": {
+    "nome": "Materiais de Construção",
+    "setor": "moradia",
+    "consumidor": "empresa",
+    "duracao_horas": 720,
+    "dependencias": ["distribuicao_energia"],
+    "homem_hora": {
+      "operador_industrial": 6.0
+    }
+  },
+
+  "construcao_manutencao": {
+    "nome": "Construção e Manutenção Predial",
+    "setor": "moradia",
+    "consumidor": "empresa",
+    "duracao_horas": 720,
+    "dependencias": ["materiais_construcao", "distribuicao_agua"],
+    "homem_hora": {
+      "pedreiro": 8.0,
+      "eletricista": 2.0,
+      "encanador": 2.0
+    }
+  },
+
+  "aluguel": {
+    "nome": "Aluguel Residencial",
+    "setor": "moradia",
+    "consumidor": "pessoa",
+    "duracao_horas": 720,
+    "dependencias": ["construcao_manutencao", "distribuicao_energia", "distribuicao_agua"],
+    "homem_hora": {
+      "atendente": 0.5
+    }
+  },
+
+  "geracao_energia": {
+    "nome": "Geração de Energia",
+    "setor": "utilidades",
+    "consumidor": "empresa",
+    "duracao_horas": 720,
+    "dependencias": [],
+    "homem_hora": {
+      "tecnico_eletrico": 8.0
+    }
+  },
+
+  "distribuicao_energia": {
+    "nome": "Distribuição de Energia Elétrica",
+    "setor": "utilidades",
+    "consumidor": "ambos",
+    "duracao_horas": 720,
+    "dependencias": ["geracao_energia"],
+    "homem_hora": {
+      "tecnico_eletrico": 2.0,
+      "eletricista": 1.0
+    }
+  },
+
+  "captacao_agua": {
+    "nome": "Captação e Tratamento de Água",
+    "setor": "utilidades",
+    "consumidor": "empresa",
+    "duracao_horas": 720,
+    "dependencias": ["distribuicao_energia"],
+    "homem_hora": {
+      "tecnico_agua": 8.0
+    }
+  },
+
+  "distribuicao_agua": {
+    "nome": "Distribuição de Água e Saneamento",
+    "setor": "utilidades",
+    "consumidor": "ambos",
+    "duracao_horas": 720,
+    "dependencias": ["captacao_agua"],
+    "homem_hora": {
+      "tecnico_agua": 2.0,
+      "encanador": 1.0
+    }
+  },
+
+  "infraestrutura_telecom": {
+    "nome": "Infraestrutura de Telecomunicações",
+    "setor": "utilidades",
+    "consumidor": "empresa",
+    "duracao_horas": 720,
+    "dependencias": ["distribuicao_energia"],
+    "homem_hora": {
+      "tecnico_telecom": 8.0
+    }
+  },
+
+  "plano_internet": {
+    "nome": "Plano de Internet",
+    "setor": "utilidades",
+    "consumidor": "ambos",
+    "duracao_horas": 720,
+    "dependencias": ["infraestrutura_telecom"],
+    "homem_hora": {
+      "tecnico_telecom": 1.0,
+      "atendente": 0.25
+    }
+  },
+
+  "plano_telefone": {
+    "nome": "Plano de Telefone",
+    "setor": "utilidades",
+    "consumidor": "ambos",
+    "duracao_horas": 720,
+    "dependencias": ["infraestrutura_telecom"],
+    "homem_hora": {
+      "tecnico_telecom": 0.5,
+      "atendente": 0.25
+    }
+  },
+
+  "quimica_basica": {
+    "nome": "Química Básica e Insumos Farmacêuticos",
+    "setor": "saude",
+    "consumidor": "empresa",
+    "duracao_horas": 720,
+    "dependencias": ["distribuicao_energia", "distribuicao_agua"],
+    "homem_hora": {
+      "quimico": 6.0,
+      "operador_industrial": 2.0
+    }
+  },
+
+  "medicamento": {
+    "nome": "Medicamento",
+    "setor": "saude",
+    "consumidor": "pessoa",
+    "duracao_horas": 168,
+    "dependencias": ["quimica_basica"],
+    "homem_hora": {
+      "farmaceutico": 2.0,
+      "quimico": 1.0
+    }
+  },
+
+  "consulta_medica": {
+    "nome": "Consulta Médica",
+    "setor": "saude",
+    "consumidor": "pessoa",
+    "duracao_horas": 720,
+    "dependencias": ["medicamento", "distribuicao_energia", "distribuicao_agua"],
+    "homem_hora": {
+      "medico": 1.0,
+      "enfermeiro": 0.5,
+      "atendente": 0.25
+    }
+  },
+
+  "plano_saude": {
+    "nome": "Plano de Saúde",
+    "setor": "saude",
+    "consumidor": "pessoa",
+    "duracao_horas": 720,
+    "dependencias": ["consulta_medica"],
+    "homem_hora": {
+      "analista_financeiro": 0.5,
+      "atendente": 0.5
+    }
+  },
+
+  "material_didatico": {
+    "nome": "Material Didático",
+    "setor": "educacao",
+    "consumidor": "empresa",
+    "duracao_horas": 720,
+    "dependencias": ["distribuicao_energia"],
+    "homem_hora": {
+      "operador_industrial": 2.0
+    }
+  },
+
+  "ensino_basico": {
+    "nome": "Ensino Básico",
+    "setor": "educacao",
+    "consumidor": "pessoa",
+    "duracao_horas": 720,
+    "dependencias": ["material_didatico", "distribuicao_energia"],
+    "homem_hora": {
+      "professor_basico": 4.0,
+      "atendente": 0.5
+    }
+  },
+
+  "ensino_tecnico": {
+    "nome": "Ensino Técnico e Profissionalizante",
+    "setor": "educacao",
+    "consumidor": "pessoa",
+    "duracao_horas": 720,
+    "dependencias": ["material_didatico", "distribuicao_energia"],
+    "homem_hora": {
+      "professor_tecnico": 4.0,
+      "professor_basico": 1.0,
+      "atendente": 0.5
+    }
+  },
+
+  "ensino_superior": {
+    "nome": "Ensino Superior",
+    "setor": "educacao",
+    "consumidor": "pessoa",
+    "duracao_horas": 720,
+    "dependencias": ["material_didatico", "distribuicao_energia", "plano_internet"],
+    "homem_hora": {
+      "professor_superior": 6.0,
+      "professor_tecnico": 2.0,
+      "atendente": 0.5
+    }
+  },
+
+  "combustivel": {
+    "nome": "Combustível e Energia para Frota",
+    "setor": "transporte",
+    "consumidor": "empresa",
+    "duracao_horas": 720,
+    "dependencias": ["distribuicao_energia"],
+    "homem_hora": {
+      "tecnico_eletrico": 2.0,
+      "operador_industrial": 2.0
+    }
+  },
+
+  "manutencao_frota": {
+    "nome": "Manutenção de Frota",
+    "setor": "transporte",
+    "consumidor": "empresa",
+    "duracao_horas": 720,
+    "dependencias": ["combustivel"],
+    "homem_hora": {
+      "mecanico": 6.0
+    }
+  },
+
+  "transporte_coletivo": {
+    "nome": "Transporte Coletivo",
+    "setor": "transporte",
+    "consumidor": "pessoa",
+    "duracao_horas": 24,
+    "dependencias": ["manutencao_frota"],
+    "homem_hora": {
+      "motorista": 8.0,
+      "atendente": 0.5
+    }
+  },
+
+  "transporte_individual": {
+    "nome": "Transporte Individual por Viagem",
+    "setor": "transporte",
+    "consumidor": "pessoa",
+    "duracao_horas": 1,
+    "dependencias": ["combustivel"],
+    "homem_hora": {
+      "motorista": 1.0
+    }
+  },
+
+  "seguranca_privada": {
+    "nome": "Segurança Privada",
+    "setor": "seguranca",
+    "consumidor": "ambos",
+    "duracao_horas": 720,
+    "dependencias": [],
+    "homem_hora": {
+      "agente_seguranca": 8.0,
+      "atendente": 0.5
+    }
+  },
+
+  "producao_cultural": {
+    "nome": "Produção Cultural e de Conteúdo",
+    "setor": "lazer",
+    "consumidor": "empresa",
+    "duracao_horas": 720,
+    "dependencias": ["distribuicao_energia", "plano_internet"],
+    "homem_hora": {
+      "artista": 8.0
+    }
+  },
+
+  "entretenimento": {
+    "nome": "Entretenimento e Cultura",
+    "setor": "lazer",
+    "consumidor": "pessoa",
+    "duracao_horas": 4,
+    "dependencias": ["producao_cultural", "distribuicao_energia"],
+    "homem_hora": {
+      "artista": 0.5,
+      "atendente": 0.25
+    }
+  },
+
+  "lazer_recreativo": {
+    "nome": "Lazer Recreativo e Esportivo",
+    "setor": "lazer",
+    "consumidor": "pessoa",
+    "duracao_horas": 4,
+    "dependencias": [],
+    "homem_hora": {
+      "recreacionista": 1.0
+    }
+  },
+
+  "credito": {
+    "nome": "Crédito e Empréstimos",
+    "setor": "financeiro",
+    "consumidor": "ambos",
+    "duracao_horas": 720,
+    "dependencias": ["plano_internet"],
+    "homem_hora": {
+      "analista_financeiro": 2.0,
+      "contador": 1.0
+    }
+  },
+
+  "seguro": {
+    "nome": "Seguros",
+    "setor": "financeiro",
+    "consumidor": "ambos",
+    "duracao_horas": 720,
+    "dependencias": ["plano_internet"],
+    "homem_hora": {
+      "analista_financeiro": 1.0,
+      "atendente": 0.5
+    }
+  },
+
+  "investimento": {
+    "nome": "Investimentos e Poupança",
+    "setor": "financeiro",
+    "consumidor": "pessoa",
+    "duracao_horas": 720,
+    "dependencias": ["plano_internet"],
+    "homem_hora": {
+      "analista_financeiro": 2.0,
+      "contador": 1.0
+    }
+  }
+}

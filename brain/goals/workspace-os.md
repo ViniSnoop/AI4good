@@ -86,7 +86,25 @@ Build + verify in the order above, live-testing each numbered step via the paire
 > [x] [nested-gitlink-gate] DONE 2026-07-22 — untracked all 10 undeclared gitlinks (`git rm --cached`, files intact) + gitignored the nested-repo dirs + new `.hooks/nested-gitlink-gate.sh` (pre-commit 1f) blocks any future undeclared gitlink (verified: forced test gitlink rejected). The recurring workspace "M" is dead. Also extended `.hooks/gitflow-gate.sh` to enforce the workspace repo (papers exempt) + allow sanctioned merges.  
 > [ ] [stats-split-or-exempt] .hooks/brain_stats.py tem 392 linhas (> BLOCK_LINES=200 do pre-edit gate) → Edit recusa net-zero edits, só Bash contorna. Decidir: splitar em parse/stats/dashboard/done-log OU isentar .hooks/ do gate (2026-07-11 compass)  
 > [ ] [anti-capital-case] gate anti-capital-case em nomes de dir de topo (mesmo padrão Models/ ressurgindo; ComfyUI suspeito); suspeita de sessão que recria dirs capital-case (2026-07-11)  
-> [ ] [pre-edit-silent-fail] pre-edit.py falha SILENCIOSA ("No stderr output") em Write de arquivos novos em certos paths (scratchpad .html, test/*.py novo em isoroll-content) — bloqueia Write sem dizer por quê; workaround = heredoc via Bash. Investigar crash do hook (provável exceção não tratada em path fora do esperado) (2026-07-16)  
+> [ ] [pre-edit-silent-fail] pre-edit.py falha SILENCIOSA ("No stderr output") em Write de arquivos novos em certos paths (scratchpad .html, test/*.py novo em isoroll-content) — bloqueia Write sem dizer por quê; workaround = heredoc via Bash. Investigar crash do hook (provável exceção não tratada em path fora do esperado) (2026-07-16)
+
+### from INBOX 2026-07-23/24/25 (drained via /inbox)
+> [ ] [hallucination-proof] auditar se as skills e flows de pesquisa estão "à prova de alucinações" — checar cada uma (research/scout/sota) por pontos onde o modelo pode inventar sem fonte; onde falta, exigir provenance/verificação (INBOX 2026-07-24)
+> [ ] [workspace-cleanup] limpar o workspace — muitos arquivos/pastas jogados fora do lugar ou obsoletos: `temp/`, `outputs/`, e afins. Mover o REPORT do ablation-bench de `tmp/` pra `core/` ANTES (ver core/ROADMAP § ablation-bench). Amarra em [v1-strong] gap-2 (INBOX 2026-07-24)
+> [ ] [md-type-uniformity] uniformizar os tipos de arquivo `UPPERCASE_IMPORTANT.md` — já são >10 tipos na visão do Lucas; reduzir redundância/ambiguidade. Cruza com o naming-determinístico do /ROADMAP.md Frente 4 (INBOX 2026-07-24)
+> [ ] [tools-py-suffix] vários `core/tools/*` são código Python mas sem sufixo `.py` — decidir se é aceitável ou padronizar (questão de simetria) (INBOX 2026-07-24)
+> [ ] [setup-audit] auditar SETUP.md — ainda preciso? adições representadas? algo descartado mas ainda lá? cobertura (features/skills/hooks/flows/brain todos presentes) e precisão (dá o necessário pra um newcomer dar plugnplay em todas as funcionalidades). Cruza com [clonable-for-others] (INBOX 2026-07-24)
+> [ ] [clonable-for-others] tratar o workspace pra ser de fato adaptável/plugnplay pra qualquer um que clonar o repo (pensando nos alunos). Distinto de [courses-import]/[gdrive-integration]: aqui é a robustez do próprio scaffold pra terceiros (INBOX 2026-07-23)
+> [ ] [roundup-redesign] `/roundup` consome ~7% do uso — merece redesign. Junto: induzir troca de sessão automática pelo tamanho do contexto (checkpoints / effective transition points mais frequentes), e investigar se um agente consegue abrir uma nova sessão sozinho. Gestão de contexto não deveria ser trabalho do usuário. Cruza com o %-monitor de sessão e o item de triggers pós-janela (INBOX 2026-07-24)
+> [ ] [todo-redesign] TODO.md pouco funcional e conflita com os goals — torná-lo mais mutável, remover/arquivar atividades já feitas, e **avaliar o conflito TODO×goals** (o que pertence a cada um). Cruza com [todo-integration]/[todo-accountability] (INBOX 2026-07-24)
+> [ ] [md-growth] ROADMAPs/TODO/GOALS/HISTORY crescem e não diminuem — coisas não são excluídas devidamente. Ideia: usar o git como o histórico (não os HISTORY.md), e **forçar (enforce) commits a cada teste verde** pra induzir um histórico git detalhado. Cruza com [md-type-uniformity] e o delta-review-signal do AGENTS.md (INBOX 2026-07-23)
+> [ ] [task-metric] instrumentar a métrica *task expansion vs resolution* — quantas tarefas de fato resolvemos vs quantas criamos. Diagnóstico direto do [md-growth] (INBOX 2026-07-24)
+> [ ] [flows-benchmark] benchmark/avaliação do `/loops`(craft) em resultado E custo, e comparar nossas skills/flows com repos SOTA da indústria — com a ressalva de que a indústria se importa menos com tokens (dev US/EU gasta ~100 usd, Lucas ~20). Cruza com [survey-outside-skills] no core/ROADMAP (INBOX 2026-07-24)
+> [ ] [model-routing] estratégia de roteamento de modelo: (a) preparar melhor o terreno pro Sonnet — triar o que ele faz sem exigir "filosofia"/discussão pra economizar tokens; (b) no plan mode, oferecer subir pra um modelo mais forte pra planejar e sugerir um mais simples pra executar (inclusive por etapa da execução). Amarra em [goal-routing-populate] e no goal `prompt-opt-automation`; feeds o [flows-benchmark] (INBOX 2026-07-24)
+> [ ] [opencode-parity] confirmar que tudo que funciona no Claude Code também funciona no opencode E no copilot: testar todos os hooks no opencode, e definir um projeto-piloto concreto pra ser executado pelo opencode. Cruza com [provider-fallback] (INBOX 2026-07-24)
+> [ ] [user-md-reassess] repensar o `brain/USER.md` — ele é sempre carregado? qual o design certo? (hoje só o `MEMORY.md` index entra por sessão; USER.md entra via cadeia brain/). Decidir o que deve ser sempre-carregado sobre o Lucas (INBOX 2026-07-24)
+> [ ] [memory-concept] avaliar o conceito inteiro de "memory" (o auto-memory em `~/.claude/projects/-mnt-workspace/memory/` + `MEMORY.md` index carregado por sessão) vs o que já fazemos com os outros arquivos: USER.md, goals/, CONTEXT chain, WATCHLIST, refs/. Suspeita do Lucas: já tratamos memória via esses arquivos — há sobreposição/redundância. Decidir o papel de cada um (o que é sempre-carregado, o que é durável, onde vive cada tipo de fato) e se o memory separado se justifica ou deve fundir. Cruza com [user-md-reassess], o audit de context-building (core/ROADMAP) e o pedido de trimar MEMORY.md (INBOX 2026-07-25)
+> [ ] [inbox-link-to-task] policy: no /inbox, um link/ref não deve virar SÓ uma referência — deve gerar discussão e/ou uma tarefa associada, senão o potencial nunca é avaliado e some. Codificado no skill 2026-07-25 (ref→task pairing); este item = aplicar retroativamente aos refs órfãos já capturados + refinar (INBOX 2026-07-24)  
 
 ## done
 
@@ -102,10 +120,10 @@ last-touch: 2026-07-23  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |      13 |
-| trimester   |      14 |
-| semester    |      14 |
-| year        |      14 |
-| 2-year      |      14 |
-| 4-year      |      14 |
+| month       |      14 |
+| trimester   |      15 |
+| semester    |      15 |
+| year        |      15 |
+| 2-year      |      15 |
+| 4-year      |      15 |
 <!-- stats:end -->

@@ -1,0 +1,161 @@
+nome                   ,    patrimonio  ,   salario
+Carla de Carvalho      ,    20000000    ,   0
+Francisca Costa        ,    20000000    ,   0
+Natália Ferreira       ,    20000000    ,   0
+Jéssica Souza          ,    20000000    ,   0
+Rosa Martins           ,    20000000    ,   0
+Adriana Santos         ,    200000      ,   100000
+Débora Barbosa         ,    195000      ,   95000
+Marlene Santana        ,    190000      ,   90000
+Rosa Martins           ,    185000      ,   85000
+Lúcia Bezerra          ,    180000      ,   80000
+Rosa Alves             ,    175000      ,   75000
+Renata Carvalho        ,    170000      ,   70000
+Francisca Lima         ,    165000      ,   65000
+Fernanda de Araujo     ,    160000      ,   60000
+Gabriela Costa         ,    155000      ,   55000
+Cristiane Cardoso      ,    100000      ,   30000
+Sônia Cardoso          ,    99000       ,   29000
+Luana Bezerra          ,    98000       ,   28000
+Beatriz Oliveira       ,    97000       ,   27000
+Fabiana Mendes         ,    96000       ,   26000
+Raimunda da Silva      ,    95000       ,   25000
+Ana Borges             ,    94000       ,   24000
+Ângela Teixeira        ,    93000       ,   23000
+Andréia da Silva       ,    92000       ,   22000
+Camila Gomes           ,    91000       ,   21000
+Aparecida de Carvalho  ,    90000       ,   20000
+Vanessa Barbosa        ,    89000       ,   19000
+Júlia Lima             ,    88000       ,   18000
+Luciana Oliveira       ,    87000       ,   17000
+Francisca Gonçalves    ,    86000       ,   16000
+Cristiane Dias         ,    85000       ,   15000
+Patrícia Teixeira      ,    84000       ,   14000
+Raimunda de Araujo     ,    83000       ,   13000
+Aparecida Vieira       ,    82000       ,   12000
+Cristiane Nascimento   ,    81000       ,   11000
+Daniela Bezerra        ,    80000       ,   10000
+Vera de Almeida        ,    79000       ,   9000
+Ângela Machado         ,    78000       ,   8000
+Lúcia Pereira          ,    77000       ,   7000
+Vera Gonçalves         ,    76000       ,   6000
+Rita Marques           ,    10000       ,   5000
+Ana Vieira             ,    9950        ,   4950
+Andréia Gomes          ,    9900        ,   4900
+Aline Martins          ,    9850        ,   4850
+Júlia Borges           ,    9800        ,   4800
+Camila de Souza        ,    9750        ,   4750
+Cristiane Lima         ,    9700        ,   4700
+Larissa dos Santos     ,    9650        ,   4650
+Maria Bezerra          ,    9600        ,   4600
+Daniela Carvalho       ,    9550        ,   4550
+Mariana Santana        ,    9500        ,   4500
+Simone Alves           ,    9450        ,   4450
+Fabiana Soares         ,    9400        ,   4400
+Vera Pereira           ,    9350        ,   4350
+Letícia Mendes         ,    9300        ,   4300
+Camila da Silva        ,    9250        ,   4250
+Renata de Almeida      ,    9200        ,   4200
+Carla Silva            ,    9150        ,   4150
+Luana Rodrigues        ,    9100        ,   4100
+Luciana Silva          ,    9050        ,   4050
+Gabriela de Souza      ,    9000        ,   4000
+Rosângela Santos       ,    8950        ,   3950
+Rosa Silva             ,    8900        ,   3900
+Jaqueline de Sousa     ,    8850        ,   3850
+Patrícia Ramos         ,    8800        ,   3800
+Beatriz Lima           ,    8750        ,   3750
+Andréia Sousa          ,    8700        ,   3700
+Fernanda Teixeira      ,    8650        ,   3650
+Ângela Batista         ,    8600        ,   3600
+Bruna Gomes            ,    8550        ,   3550
+Ângela Batista         ,    8500        ,   3500
+Natália da Silva       ,    8450        ,   3450
+Renata Silva           ,    8400        ,   3400
+Márcia Araujo          ,    8350        ,   3350
+Natália Alves          ,    8300        ,   3300
+Rosa Fernandes         ,    8250        ,   3250
+Aparecida dos Santos   ,    8200        ,   3200
+Cláudia Santos         ,    8150        ,   3150
+Rosângela Bezerra      ,    8100        ,   3100
+Jaqueline Souza        ,    8050        ,   3050
+Júlia Lima             ,    8000        ,   3000
+Mariana Martins        ,    7950        ,   2950
+Letícia de Carvalho    ,    7900        ,   2900
+Sandra Pereira         ,    7850        ,   2850
+Simone Moreira         ,    7800        ,   2800
+Luciana Lima           ,    7750        ,   2750
+Cláudia Nascimento     ,    7700        ,   2700
+Rita Almeida           ,    7650        ,   2650
+Maria Oliveira         ,    7600        ,   2600
+Ângela do Nascimento   ,    7550        ,   2550
+Fernanda Moreira       ,    10000       ,   1518
+Antônia Costa          ,    10000       ,   1518
+Cláudia Pereira        ,    10000       ,   1518
+Fernanda Rocha         ,    10000       ,   1518
+Aparecida Machado      ,    10000       ,   1518
+Cristiane Vieira       ,    10000       ,   1518
+Ângela de Souza        ,    10000       ,   1518
+Luciana de Lima        ,    10000       ,   1518
+Luciana Gonçalves      ,    10000       ,   1518
+Lúcia de Oliveira      ,    10000       ,   1518
+Lúcia Teixeira         ,    10000       ,   1518
+Andréia Souza          ,    10000       ,   1518
+Débora Oliveira        ,    10000       ,   1518
+Luciana Batista        ,    10000       ,   1518
+Vanessa de Sousa       ,    10000       ,   1518
+Patrícia de Oliveira   ,    10000       ,   1518
+Aline de Sousa         ,    10000       ,   1518
+Vanessa Almeida        ,    10000       ,   1518
+Débora Barbosa         ,    10000       ,   1518
+Letícia Santana        ,    10000       ,   1518
+Larissa dos Santos     ,    10000       ,   1518
+Camila Fernandes       ,    10000       ,   1518
+Sônia Cardoso          ,    10000       ,   1518
+Eliane do Nascimento   ,    10000       ,   1518
+Raquel Marques         ,    10000       ,   1518
+Maria Costa            ,    10000       ,   1518
+Marlene Gomes          ,    10000       ,   1518
+Jaqueline Lima         ,    10000       ,   1518
+Cristiane do Nascimento,    10000       ,   1518
+Daniela Gonçalves      ,    10000       ,   1518
+Vanessa Vieira         ,    10000       ,   1518
+Rosa Rocha             ,    10000       ,   1518
+Cristiane Araujo       ,    10000       ,   1518
+Beatriz de Lima        ,    10000       ,   1518
+Lúcia Martins          ,    10000       ,   1518
+Francisca Dias         ,    10000       ,   1518
+Lúcia Sousa            ,    10000       ,   1518
+Ana de Carvalho        ,    10000       ,   1518
+Antônia Fernandes      ,    10000       ,   1518
+Bruna Nascimento       ,    10000       ,   1518
+Josefa Moreira         ,    10000       ,   1518
+Amanda de Sousa        ,    10000       ,   1518
+Bruna da Costa         ,    10000       ,   1518
+Rosa de Sousa          ,    10000       ,   1518
+Lúcia Lima             ,    10000       ,   1518
+Adriana Teixeira       ,    10000       ,   1518
+Luciana da Silva       ,    10000       ,   1518
+Patrícia de Almeida    ,    10000       ,   1518
+Terezinha Carvalho     ,    10000       ,   1518
+Beatriz Ribeiro        ,    10000       ,   1518
+Ângela da Costa        ,    10000       ,   1518
+Francisca Araujo       ,    10000       ,   1518
+Jaqueline Soares       ,    10000       ,   1518
+Natália de Oliveira    ,    10000       ,   1518
+Vanessa Alves          ,    10000       ,   1518
+Natália Santos         ,    10000       ,   1518
+Aparecida Nascimento   ,    10000       ,   1518
+Sandra Gomes           ,    10000       ,   1518
+Bruna Marques          ,    10000       ,   1518
+Sônia Pereira          ,    10000       ,   1518
+Fabiana de Souza       ,    10000       ,   1518
+Cláudia Costa          ,    10000       ,   1518
+Sandra de Sousa        ,    10000       ,   1518
+Cláudia da Silva       ,    10000       ,   1518
+Raquel Costa           ,    10000       ,   1518
+Simone de Sousa        ,    10000       ,   1518
+Débora Rocha           ,    10000       ,   1518
+Sônia de Almeida       ,    10000       ,   1518
+Patrícia Souza         ,    10000       ,   1518
+Francisca de Almeida   ,    10000       ,   1518

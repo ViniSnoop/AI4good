@@ -1,0 +1,38 @@
+{
+  "alimentacao": {
+    "nome": "Alimentação",
+    "percentual_renda": 0.25
+  },
+  "moradia": {
+    "nome": "Moradia",
+    "percentual_renda": 0.20
+  },
+  "saude": {
+    "nome": "Saúde",
+    "percentual_renda": 0.10
+  },
+  "educacao": {
+    "nome": "Educação",
+    "percentual_renda": 0.10
+  },
+  "transporte": {
+    "nome": "Transporte",
+    "percentual_renda": 0.10
+  },
+  "utilidades": {
+    "nome": "Utilidades",
+    "percentual_renda": 0.05
+  },
+  "seguranca": {
+    "nome": "Segurança",
+    "percentual_renda": 0.05
+  },
+  "lazer": {
+    "nome": "Lazer",
+    "percentual_renda": 0.10
+  },
+  "financeiro": {
+    "nome": "Financeiro",
+    "percentual_renda": 0.05
+  }
+}

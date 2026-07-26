@@ -131,6 +131,19 @@ canonical; flows compose into a DAG; loops live only at execution time, bounded.
       item 7. Note these live in `~/.agents/skills/` (global, outside the workspace) and are **not**
       synced by `core/tools/sync-skills` — check that before moving anything.
 
+## ablation-bench (INBOX 2026-07-25)
+
+- [ ] **Promote the ablation-bench pilot out of `tmp/` and run the follow-up.** First pilot lives in
+      `tmp/ablation-bench/` (1 trial per arm, with/without the CONTEXT.md chain gate, race-bug toy
+      project; opencode+glm-5.2 operated end-to-end). Result in its `REPORT.md`: the original
+      hypothesis was **not supported** — both arms read CONTEXT.md voluntarily because the prompt asked
+      for it, so the gate added no safety *against that prompt*. Real finding: glm-5.2 completed the
+      reduced `/loops` flow with a working `executor:` self-report + commit when budget ≤ 10 min.
+      Move the durable REPORT + design somewhere real **before** `tmp/` gets cleaned (it will — see
+      workspace-os cleanup). Follow-up changes (from REPORT § "What a follow-up run would change"):
+      prompt that does *not* mention a "documented contract", no marker flag in the seeder, n ≥ 4,
+      equal wall-clock budget per arm, and a **third arm** (gate-off + prompt-off) to isolate the effect.
+
 ## Notes
 
 - `.claude/` + `.opencode/` are generated mirrors (tracked). Never hand-edit; run `sync-skills`.

@@ -35,6 +35,10 @@ Lucas may write in pt-br (inbox, conversation). Agent always writes Brain files 
 - **Internal timing**: almost all timing self-imposed. Treat `anchor` dates as aspirations unless explicitly flagged hard. `tolerance` usually reveals missing = manageable.
 - **Motivation over obligation**: impact × engagement drives 80% of energy. `essential` requirement goals get 20% — enough to satisfy, not primary focus.
 
+## Working Style
+
+- **Visual thinker.** Lucas works best with visualization — schematics, diagrams, spatial layouts — not walls of prose. When explaining structure, a plan, or a comparison, prefer a diagram/table/schematic over paragraphs. Connects to the visual eyeball gate (`[[feedback_visual_eyeball_gate]]`) and to `spacemantics`/`texpace`. (INBOX 2026-07-24. Open question flagged in `workspace-os` [user-md-reassess]: is USER.md always loaded? if not, this trait may need a more reliable home.)
+
 ## Mantras
 
-Full text: [branches/writing/mantras.md](../branches/writing/mantras.md)
+Full text lives at `branches/writing/mantras.md` (not yet written).
