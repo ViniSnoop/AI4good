@@ -2,6 +2,9 @@
 **/__pycache__/
 **/*.pyc
 
+# Vendor / dependency directories — never tracked, workspace-wide.
+**/node_modules/
+
 # Scratch / experiments (ablation benches, throwaway sandboxes, etc.)
 tmp/
 
