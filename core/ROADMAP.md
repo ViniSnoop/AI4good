@@ -54,6 +54,36 @@ validator's oracle" status of `deepresearch` was retired 2026-07-23; see [SCHEMA
       which the location rule (`flows/<skill>/` ⟺ dispatcher skill name) would otherwise make
       `flows/loops/`. Decide: rename the skill to `craft`, or keep `loops` and record why.
 
+- [ ] **Google-services auth CLI surface isn't standardized across drive/gmail/calendar.** Token
+      storage is already unified per `(service, alias)` (see `core/tools/CONTEXT.md`), but the
+      command/flag surface of `core/tools/drive|gmail|calendar` isn't — audit each tool's `auth`
+      subcommand + flags and converge on one shape. (INBOX 2026-07-26)
+- [ ] **Routing-sync tool (`context_synchronizer.py`) has two bugs**, found by the Tier-0
+      pointer-integrity checker (shipped 2026-07-25) but out of that checker's own scope:
+      1. Unrewritten relative links when hoisting — a child CONTEXT.md's line-2 description is
+         copied verbatim into the parent's routing-table row, including any relative markdown
+         links, which then resolve from the wrong directory one level up. Seen live:
+         `branches/casinhas/CONTEXT.md` (burocracia row: `BUROCRACIA.md`, `docs/`) and
+         `code/{apptime,dobra,isoroll-content}/CONTEXT.md` (refs row: `REFS.md`). Fix: strip links
+         from hoisted descriptions, or rewrite the path prefix on hoist.
+      2. Stale rows survive file deletion — the routing block only updates on save of an existing
+         file, so deleting a file out-of-band leaves a dangling row. Seen live:
+         `core/prompts/CONTEXT.md` (rows for deleted `fable-loop-engineering.md`,
+         `fable-multiview.md`) and `academy/papers/2027-CHI-cria/outputs/CONTEXT.md` (row for
+         deleted `cria-workflow.md`). Fix: a prune pass, or hook the delete path too.
+      (INBOX 2026-07-25, via pointer-integrity build)
+- [ ] **`core/tools/video --level full` crashes on image-only posts** (gallery-dl carousel path):
+      `assemble()` always tries `media().transcribe(audio)` when an audio path is truthy, but an
+      image post has no real audio stream → `IndexError: tuple index out of range` inside
+      `faster_whisper`/`av`. Workaround found live: use `--level visual` instead (skips audio
+      entirely) — works. Fix: `assemble()` should detect the image-post case (no video stream) and
+      skip the transcribe step instead of attempting it. Found triaging INBOX 2026-07-26.
+- [ ] **Subagent cost is concentrated — configure cheaper models where the work is mechanical.**
+      Measured usage (last 24h, this machine): 59% of usage from subagent-heavy sessions, 55% from
+      >150k-context sessions, 25% from `/roundup`, 22% from `/loops` subagents specifically.
+      Action: set cheaper models in `/roundup` and `/loops` (craft-flow) subagent frontmatter for
+      mechanical steps; re-measure after. (INBOX 2026-07-26)
+
 ## craft-flows — the execution item (decided 2026-07-23, not yet built)
 
 All of the below was **decided in discussion with Lucas on 2026-07-23** and needs an execution

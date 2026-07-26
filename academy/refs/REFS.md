@@ -6,3 +6,4 @@
 - [Gary Stevenson — Gary's Economics](https://www.youtube.com/@GarysEconomics) — economics commentary; read + index where pertinent
 - [Rutger Bregman — Moral Ambition](https://www.rutgerbregman.com/) — read + index where pertinent
 - [World Inequality Lab — Global Justice Report](https://www.instagram.com/p/DbGep4CDGtk/) — first fully-quantified plan for equality + prosperity within planetary boundaries (income/wealth/power inequality reduction as a condition for shared prosperity, compatible with decarbonization). Lucas: usar nas aulas, provavelmente ai4good
+- [Luciano da Luz — "mandato coletivo" reel](https://www.instagram.com/reel/DaIgvighjQ6/) — [src: web:instagram.com] pitches a participatory-mandate model (constituents vote on bills, track spending, propose amendments alongside an elected rep); Lucas: sobre mechanism design — assessment task in `brain/TODO.md` backlog
