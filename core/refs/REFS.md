@@ -89,3 +89,11 @@
 - `[A]` [Kairotask: Probing the Bridge Between Vague Intents and Spatiotemporal Contexts](https://programs.sigchi.org/chi/2026/program/content/230059) (CHI 2026) — vague intent → actionable task; the `/inbox` problem, studied.
 - `[A]` [From Conversation to Human-AI Common Ground: Extracting Cognitive Workflows for Reuse](https://programs.sigchi.org/chi/2026/program/content/222599) (CHI 2026) — reusable workflow extraction from sessions; adjacent to `/roundup`.
 - `[P]` [One Is Not Enough: How People Use Multiple AI Models in Everyday Life](https://arxiv.org/abs/2603.26107) (2026) — multi-model practice; supports the provider-agnostic stance.
+
+## Tooling lists captured from Instagram (2026-07-27, via aiwbot) — unassessed
+
+Both are practitioner listicles, so `[C]`: signal about what people reach for, not evidence. Each
+has a paired assessment task in `brain/TODO.md` — a ref that lands without one never gets read.
+
+- `[C]` [Top 10 Open-Source Libraries to Fine-Tune LLMs Locally](https://www.analyticsvidhya.com/blog/2026/05/open-source-libraries-to-fine-tune-llm-locally/) — Unsloth, LLaMA-Factory, DeepSpeed, PEFT, Axolotl, TRL, torchtune, LitGPT, SWIFT, AutoTrain Advanced. Lucas: *"pode ser útil pensando no cenário de slms"* → bears on `code/dobra`'s SLM runner and the local-ai goal. Source post: instagram.com/p/DbTFbikjpEw
+- `[C]` [10 GitHub repos replacing paid tools](https://www.instagram.com/p/DbF347ajVbR/) — Lucas: *"checar se algumas são melhores do que as que já temos no wos"*. **The ten names are in the carousel images, not the caption**, so extracting them needs the image path (`core/tools/video` on the post pulls captions only; `video_images.py` does OCR per image).
