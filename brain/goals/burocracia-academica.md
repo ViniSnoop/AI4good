@@ -13,7 +13,7 @@ Pegar UM processo real recente (ex. a progressão CTA 23082.018263/2026-55) e es
 
 ## backlog
 
-> [ ] [pdf-sidecar] hook + convenção de sidecar por PDF: evita leitura desnecessária, cria na 1ª leitura, sinaliza necessidade de 2ª passada. Cruza com o item de OCR no TODO (PDFs image-only) e com [[dobra]] (folding de PDFs longos)
+> [ ] [pdf-sidecar] hook + convenção de sidecar por PDF: evita leitura desnecessária, cria na 1ª leitura, sinaliza necessidade de 2ª passada. Cruza com o item de OCR no TODO (PDFs image-only) e com `code/dobra` ([[local-ai]]) (folding de PDFs longos)
 > [ ] [map-org] mapear a estrutura organizacional (DC/UFRPE, colegiados, câmaras, GTs) — quem decide o quê
 > [ ] [map-flows] mapear os fluxos de processos recorrentes (progressão, afastamento, bancas, projetos de pesquisa, bolsas) como passo-a-passo editável
 > [ ] [gather-norms] reunir resoluções + instruções normativas + links oficiais num índice navegável (não copiar tudo — referenciar + anotar)
@@ -27,14 +27,14 @@ Pegar UM processo real recente (ex. a progressão CTA 23082.018263/2026-55) e es
 
 ## stats
 <!-- stats:start -->
-last-touch: —  ·  trend: new
+last-touch: 2026-07-25  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       0 |
-| trimester   |       0 |
-| semester    |       0 |
-| year        |       0 |
-| 2-year      |       0 |
-| 4-year      |       0 |
+| month       |       1 |
+| trimester   |       1 |
+| semester    |       1 |
+| year        |       1 |
+| 2-year      |       1 |
+| 4-year      |       1 |
 <!-- stats:end -->

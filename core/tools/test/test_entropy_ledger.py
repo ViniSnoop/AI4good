@@ -98,3 +98,34 @@ def test_no_item_lives_in_two_ledgers():
     dups = entropy_ledger.duplicate_slugs(LEDGERS)
     assert dups == {}, '; '.join(
         f'[{slug}] in {sorted(claims)}' for slug, claims in dups.items())
+
+
+def test_goal_vocabulary_holds_files_and_their_items(tmp_path):
+    (tmp_path / 'craft-flows.md').write_text(
+        '# g\n> [ ] [prompt-dsl] dsl as a contract\n', encoding='utf-8')
+    vocabulary = entropy_ledger.goal_vocabulary(tmp_path)
+    assert vocabulary == {'craft-flows', 'prompt-dsl'}
+
+
+def test_a_wiki_link_to_an_item_resolves(tmp_path):
+    target = tmp_path / 'note.md'
+    target.write_text('see [[prompt-dsl]] in [[craft-flows]]\n', encoding='utf-8')
+    vocabulary = {'craft-flows', 'prompt-dsl'}
+    assert entropy_ledger.wiki_link_hits([target], vocabulary, set()) == []
+
+
+def test_a_wiki_link_naming_nothing_is_flagged(tmp_path):
+    """[[dobra]] was exactly this: a project name, not a goal. Its goal is local-ai."""
+    target = tmp_path / 'note.md'
+    target.write_text('crosses with [[dobra]]\n', encoding='utf-8')
+    hits = entropy_ledger.wiki_link_hits([target], {'local-ai'}, set())
+    assert len(hits) == 1 and 'dobra' in hits[0]
+
+
+def test_every_wiki_link_in_the_workspace_resolves():
+    """The last piece of pointer integrity."""
+    hits = entropy_ledger.wiki_link_hits(
+        entropy_ledger.tracked_files(WORKSPACE_ROOT),
+        entropy_ledger.goal_vocabulary(WORKSPACE_ROOT / 'brain/goals'),
+        entropy_ledger.enforcement_paths(WORKSPACE_ROOT))
+    assert hits == [], '\n'.join(hits)

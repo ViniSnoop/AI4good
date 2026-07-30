@@ -18,6 +18,8 @@ import sys
 from pathlib import Path
 
 from entropy_context import check_goal_link, check_inventory
+from entropy_corpus import enforcement_paths
+from entropy_ledger import goal_vocabulary, wiki_link_hits
 from entropy_naming import check_dirs, check_placement, check_shape
 from schema_law import SCHEMA, WORKSPACE_ROOT, load_law, load_scopes
 
@@ -46,13 +48,15 @@ def staged_added_files() -> list:
     return [Path(line) for line in out.splitlines()]
 
 
-def failures_for(path: Path, allowed: set, exempt: set, scopes: dict) -> list:
-    return [f for f in (check_name(path, allowed, exempt),
-                        check_inventory(path) if path.name == 'CONTEXT.md' else None,
-                        check_goal_link(path),
-                        check_shape(path, allowed),
-                        check_dirs(path, WORKSPACE_ROOT),
-                        check_placement(path, scopes, WORKSPACE_ROOT)) if f]
+def failures_for(path: Path, allowed: set, exempt: set, scopes: dict,
+                 vocabulary: set) -> list:
+    found = [f for f in (check_name(path, allowed, exempt),
+                         check_inventory(path) if path.name == 'CONTEXT.md' else None,
+                         check_goal_link(path),
+                         check_shape(path, allowed),
+                         check_dirs(path, WORKSPACE_ROOT),
+                         check_placement(path, scopes, WORKSPACE_ROOT)) if f]
+    return found + wiki_link_hits([path], vocabulary, enforcement_paths(WORKSPACE_ROOT))
 
 
 def main() -> int:
@@ -60,10 +64,11 @@ def main() -> int:
         return 0  # not the workspace repo; nothing to enforce against
     allowed, exempt = load_law(SCHEMA)
     scopes = load_scopes(SCHEMA)
+    vocabulary = goal_vocabulary(WORKSPACE_ROOT / 'brain/goals')
     failures = []
     for path in staged_added_files():
         if path.exists():
-            failures.extend(failures_for(path, allowed, exempt, scopes))
+            failures.extend(failures_for(path, allowed, exempt, scopes, vocabulary))
     if failures:
         print('⛔ type gate:')
         for failure in failures:

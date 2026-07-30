@@ -15,6 +15,7 @@ SECTIONS = (
     ('inventories', 'CONTEXT.md hand-written inventories', 'the routing block owns inventory'),
     ('naming', 'Naming and placement', 'kebab-case ASCII, types where their scope allows'),
     ('goals', 'Projects not declaring their goal', 'line 3 of a code/ CONTEXT.md'),
+    ('wiki', 'Wiki-links naming nothing', 'a [[slug]] is a goal file or an item in one'),
     ('retired', 'Retired tokens still alive', 'a rename is unfinished until these are zero'),
     ('duplicates', 'Items claimed by two ledgers', 'v1 criterion 2 — an item lives in one place'),
     ('size', 'Size signals', 'a signal for review, never a cap — do not summarize to fit'),

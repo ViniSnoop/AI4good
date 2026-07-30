@@ -34,9 +34,8 @@ reduced mental load. That is the real test and it can only run after v1.
 Per-step `model` = the tier that is *enough* (a floor, not a ceiling).
 🔴 needs Lucas · 🟡 pilot on one subtree first · 🟢 mechanical.
 
-**Only four open steps need Lucas's own judgment: 3.1, 8.1, 9.1, 10.3** (plus one sub-decision
-inside 4.1: what an unresolved `[[slug]]` means). Everything else is Sonnet or Haiku. Stating that
-number is part of the cure for feeling lost.
+**Only four open steps need Lucas's own judgment: 3.1, 8.1, 9.1, 10.3.** Everything else is Sonnet
+or Haiku. Stating that number is part of the cure for feeling lost.
 
 **Load-bearing principle: automatic + zero-token beats agent-checked, and free checks are never
 coupled to paid ones.** Deterministic scripts per-commit; human judgment on demand.
@@ -136,9 +135,11 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
    out to be already done, all 14 projects declaring line 3. Six declare `goal: none` — and two of
    those, `gira` and `laplata`, **have** goal files (`startapps-gira`, `startapps-laplata`). A
    content question for Lucas, not a check failure.
-   One check left, and it needs a decision first:
-   - **`[[slug]]` resolution** — 🔴 open sub-decision, the last piece of pointer integrity: is an
-     unresolved `[[slug]]` a *planned* memory (allowed) or a typo (error)?
+   **Wiki-link resolution — decided 2026-07-30 (Lucas), and shipped.** A double-bracketed slug may
+   name a goal file *or* a bracketed item inside one: both are real pointers
+   (`spec-driven-development` is the file, `prompt-dsl` is an item in `craft-flows.md`) and both
+   resolve by scan. Vocabulary is 333 names. One dead link found and fixed — `dobra` is a project,
+   not a goal; its goal is `local-ai`. That closes pointer integrity, and Tier 0 with it.
 
    Conventions the checks had to be taught, each because it is a law that outranks ours: snake_case
    Python modules and `__init__`, PascalCase/camelCase in JS/TS, uppercase venue acronyms in

@@ -8,70 +8,15 @@
 #   duplicate slugs — a work item lives in exactly one ledger; a copy is a bug
 #                     (ROADMAP.md header). This is v1 criterion 2, verified by scan.
 import re
-import subprocess
 from pathlib import Path
 
-SCANNED = {'.md', '.py', '.ts', '.tsx', '.js', '.jsx', '.sh', '.dart',
-           '.yaml', '.yml', '.json', '.css', '.scss', '.tex', ''}
-
-# Never walked: build output, caches, and the two directories that inflated every earlier
-# measurement of this workspace (.venv 7.6 GB, .Trash-1000 6.6 GB).
-SKIP_DIRS = {'.venv', 'node_modules', '.mypy_cache', '.pytest_cache', '.Trash-1000',
-             '$RECYCLE.BIN', 'System Volume Information', 'outputs', 'tmp', 'models',
-             'Downloads'}
+from entropy_corpus import enforcement_paths, tracked_files  # noqa: F401
 
 # A bracketed slug is an item ID only in item position: after the bullet and the optional
 # checkbox, decoration allowed. Elsewhere in prose it is a reference to an item that lives
 # somewhere else, which is exactly what a single ledger is supposed to produce.
 ITEM_SLUG = re.compile(
     r'^\s*(?:[-*>]+\s*)*(?:\[[ xX]\]\s*)*\**`?\[([a-z0-9][a-z0-9-]+)\](?!\()', re.M)
-
-
-def tracked_files(root: Path, nested: bool = False) -> list:
-    """Text files git tracks, relative to root. git is the inventory; find is not.
-
-    `nested` also walks the 24 repos living inside the workspace. The dashboard wants
-    them — entropy does not stop at a repo boundary. Tests do NOT: an assertion in this
-    repo about another repo's content fails for reasons this repo cannot fix, and each
-    nested repo runs its own verify.
-    """
-    files = []
-    for repo in [root] + (sorted(nested_repos(root)) if nested else []):
-        out = subprocess.run(['git', '-C', str(repo), 'ls-files'],
-                             capture_output=True, text=True).stdout
-        files += [repo / line for line in out.splitlines()
-                  if Path(line).suffix.lower() in SCANNED]
-    return files
-
-
-def nested_repos(root: Path, depth: int = 3) -> list:
-    """Repos inside the workspace. Bounded walk — an unbounded one costs 14 GB of .venv
-    and trash, which is how earlier counts of this workspace came out wrong twice."""
-    found = []
-    def walk(directory: Path, level: int):
-        if level > depth:
-            return
-        for child in directory.iterdir():
-            if not child.is_dir() or child.name.startswith('.') or child.name in SKIP_DIRS:
-                continue
-            if (child / '.git').exists():
-                found.append(child)
-            else:
-                walk(child, level + 1)
-    walk(root, 0)
-    return found
-
-
-# The law, the check that enforces it, that check's tests, and the report that quotes the
-# findings all have to be able to NAME a retired token. Nothing else may.
-ENFORCEMENT = ('core/SCHEMA.md', 'entropy.md',
-               '.hooks/entropy_ledger.py', '.hooks/entropy_ledger.pyi',
-               'core/tools/test/test_entropy_ledger.py',
-               'core/tools/test/test_entropy_ledger.pyi')
-
-
-def enforcement_paths(root: Path) -> set:
-    return {(root / name).resolve() for name in ENFORCEMENT}
 
 
 def retired_hits(files: list, retired: dict, exempt: set) -> list:
@@ -125,3 +70,38 @@ def duplicate_slugs(namespaces: dict) -> dict:
             for slug in item_slugs(ledger):
                 owners.setdefault(slug, {})[namespace] = ledger
     return {slug: claims for slug, claims in owners.items() if len(claims) > 1}
+
+
+WIKI_LINK = re.compile(r'\[\[([a-z0-9][a-z0-9-]*)\]\]')
+
+
+def goal_vocabulary(goals_dir: Path) -> set:
+    """Every name a `[[slug]]` is allowed to use: a goal file, or an item inside one.
+
+    Decided 2026-07-30 (Lucas). Both halves are real pointers — `[[spec-driven-development]]`
+    names the file, `[[prompt-dsl]]` names an item living inside `craft-flows.md` — and both
+    are resolvable by scan, which is the only property a checker needs.
+    """
+    vocabulary = set()
+    for goal in goals_dir.glob('*.md'):
+        vocabulary.add(goal.stem)
+        vocabulary |= item_slugs(goal)
+    return vocabulary
+
+
+def wiki_link_hits(files: list, vocabulary: set, exempt: set) -> list:
+    """Every `[[slug]]` naming neither a goal file nor an item inside one."""
+    exempt = {path.resolve() for path in exempt}
+    hits = []
+    for path in files:
+        if path.suffix != '.md' or path.resolve() in exempt:
+            continue
+        try:
+            text = path.read_text(encoding='utf-8')
+        except (OSError, UnicodeDecodeError):
+            continue
+        for slug in sorted(set(WIKI_LINK.findall(text)) - vocabulary):
+            hits.append(f'{path}: [[{slug}]] names no goal file and no item in one.\n'
+                        f'   A `[[slug]]` points at brain/goals/<slug>.md or at a bracketed\n'
+                        f'   item inside a goal file. Fix the slug, or write the goal.')
+    return hits

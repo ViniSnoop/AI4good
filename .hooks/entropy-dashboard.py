@@ -13,11 +13,12 @@ import subprocess
 import sys
 from pathlib import Path
 
-from entropy_ledger import (duplicate_slugs, enforcement_paths, retired_hits,
-                            tracked_files)
 from entropy_context import check_goal_link
-from entropy_report import SECTIONS, render
+from entropy_corpus import enforcement_paths, tracked_files
+from entropy_ledger import (duplicate_slugs, goal_vocabulary, retired_hits,
+                            wiki_link_hits)
 from entropy_naming import check_dirs, check_placement, check_shape
+from entropy_report import SECTIONS, render
 from schema_law import SCHEMA, WORKSPACE_ROOT, load_law, load_retired, load_scopes
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -82,8 +83,10 @@ def collect(files: list) -> dict:
                         check_placement(path, scopes, WORKSPACE_ROOT)):
             if failure:
                 findings['naming'].append(failure)
-    findings['retired'] = retired_hits(files, load_retired(SCHEMA),
-                                       enforcement_paths(WORKSPACE_ROOT))
+    exempt = enforcement_paths(WORKSPACE_ROOT)
+    findings['retired'] = retired_hits(files, load_retired(SCHEMA), exempt)
+    findings['wiki'] = wiki_link_hits(
+        files, goal_vocabulary(WORKSPACE_ROOT / 'brain/goals'), exempt)
     findings['duplicates'] = [f'`[{slug}]` claimed by {", ".join(sorted(claims))}'
                               for slug, claims in duplicate_slugs(LEDGERS).items()]
     findings['size'] = size_signals(files)
