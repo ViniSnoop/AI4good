@@ -178,6 +178,22 @@ Cost-ordered by "automatic + zero-token beats agent-checked":
    a workspace-wide policy. Discuss before generalizing.
    → **model: sonnet** · ex-`TODO.md`.
 
+6. 🟢 **finish the `loops` → `flows` rename at the generator.** APPROVED 2026-07-29 (Lucas: *"we
+   renamed loops to be flows but apparently this keeps coming back"*). It keeps coming back because it
+   **was never a drift problem** — the rename stopped at the flow pool (`core/flows/`, flow renamed
+   `craft`) while three generators still emit the retired word *legitimately*, so no Tier-0 naming check
+   could ever flag it: (a) the skill/command is still `core/skills/loops.md` = `/loops`; (b)
+   `.loop/<slug>/` is the hardcoded per-run state dir in `craft.md`, `architect.md`, `runtimes.md`,
+   `routing.md` — 14 live dirs across `aiwbot`, `isoroll-content`, `isoroll-module`; (c) the cross-run
+   pattern library is `core/flows/.loop-skills/`. Retired `loop/*` git branches were the visible
+   symptom and are already gone (Frente 11.2). Scope: `/loops` → `/craft`, `.loop/` → `.craft/`,
+   `.loop-skills/` → `.craft-skills/`, sweep the 74 doc mentions. **Keep "Loop 0..6" as step names** —
+   an iterative step really is a loop; that word is correct English, not the retired label.
+   **The general lesson, which is the reusable part: an incomplete rename is indistinguishable from
+   entropy at the leaves, and only fixable at the generator.** Tier 0 should assert the retired token
+   appears nowhere *after* the rename lands, so a regression is caught instead of re-discovered.
+   → **model: sonnet** · **switch: `/loops`** (last time under that name).
+
 **Research lead (offered, not run — budget).** Two on-point links in `core/refs/REFS.md`
 (`awesome-harness-engineering`, `best-of-Agent-Harnesses`) plus the core/ROADMAP "survey outside
 skills" item. Mine them for prior-art anti-entropy tooling on a **Sonnet** subagent before building
@@ -364,22 +380,20 @@ currently *Lucas's* job, which it should not be.
 **Why.** Two machines share this workspace; unpushed work is invisible work, and `main` is the sync
 point, not a release tag. Measured 2026-07-29 — the nested `code/` repos are **out of policy**:
 
-| Repo | State |
-|------|-------|
-| `flows` | 12 unpushed, 25 dirty |
-| `corpora` | 6 unpushed, 4 dirty |
-| `futebots` | 6 unpushed, 1 dirty |
-| `voti` | 5 unpushed, 58 dirty |
-| `shortvid` | 4 unpushed, 24 dirty |
-| `apptime` | 3 unpushed, 36 dirty |
-| `ppc` | 3 unpushed, 24 dirty |
-| `isometric-perspective` | 2 unpushed, 2 dirty |
-| `cria` | **no remote at all**, 1 dirty |
-| `isoroll-content` | on `loop/arm-a-homography` — retired vocabulary, not gitflow shape |
-| `isoroll-module` | on `loop/painter-mvp-1` — same |
-| clean | `aiwbot`, `dobra`, `gira`, `laplata`, `spacemantics` |
+**Swept 2026-07-29 — criterion 3 MET.** 16/16 repos: zero unpushed, every branch `main` or
+`feature/*`, every repo has a remote. 41 commits pushed across 8 repos; `cria` published
+(`lsfcin/cria`, public, Lucas's call — 5 `.md` files, secret-scanned first); `loop/arm-a-homography`
+→ `feature/arm-a-homography` and `loop/painter-mvp-1` → `feature/painter-mvp-1`; 5 stale `loop/*`
+refs deleted (all ancestors of the live feature branches, zero unique commits). Dirty 215 → 93.
 
-41 unpushed commits, ~294 dirty files.
+The "294 dirty files" was wrong twice over. Real count was 215 (11.1's `.gitignore` fix had already
+cleared ~79), and **122 of those were unstaged generated interface stubs, not Lucas's work** —
+`.pyi`/`.d.ts`/`.dart.api` that the edit-time hook stages on Edit/Write but which files created by
+other means never got. That is Batch B item 5 with a measured blast radius, and the near-miss is
+worth recording: the first read of the evidence was that stubs are debris to gitignore. They are the
+opposite — SETUP.md:41 stages them and SETUP.md:536 *hard-blocks reading a source file when its
+interface is current*, so ignoring them breaks the read-gate on every fresh clone (criterion 4).
+Backfilled on `feature/stub-backfill` in 7 repos, stubs only, WIP untouched.
 
 1. [x] 🟢 **safe — `.gitignore` / self-heal correction.** DONE 2026-07-29. The self-heal hook
    (Frente 6, 2026-07-25) added a `!code/<n>/` + `code/<n>/*` + `!code/<n>/CONTEXT.md` triplet for
@@ -390,12 +404,30 @@ point, not a release tag. Measured 2026-07-29 — the nested `code/` repos are *
    `code/{cria,gira,laplata}` precedent), and `.hooks/gitignore-self-heal.sh` now **skips**
    `.git`-bearing dirs instead of emitting the triplet. Discoverability was never affected —
    [code/CONTEXT.md](code/CONTEXT.md)'s routing table hoists each project's description already.
-2. 🔴 **decide-first — the push sweep.** Per repo: check branch shape, run its verify, gitflow-promote,
-   push. Create a remote for `cria`. Rename `loop/*` → `feature/*`. The ~294 dirty files are Lucas's
-   live working state — **review with him, never auto-commit**. This is criterion 3; it needs its own
-   session.
-   → **model: sonnet** to execute · **Lucas decides** per dirty tree.
-3. 🟢 **safe — nested-repo git graph in VSCode.** The git graph does not show subrepository history;
+2. [x] 🔴 **decide-first — the push sweep.** DONE 2026-07-29 (see above).
+3. 🔴 **decide-first — what the sweep exposed that Lucas must rule on.** Four findings, none of them
+   guesses:
+   - **`Makefile` is untracked in 7 repos** (`apptime`, `shortvid`, `ppc`, `corpora`, `futebots`,
+     `isometric-perspective`, `flows`). The **verify entrypoint itself is not in the repo**, so a fresh
+     clone has no `make verify-fast` at all — a direct criterion-4 hole. Lucas declined committing them
+     in the sweep; the decision is still open.
+   - **`shortvid/shortvid/`** holds a *duplicated source tree* — `_crop_overlay.py`, `_effects.py`,
+     `_eraser.py`, `CONTEXT.md`, a whole second copy of the package one level deep, alongside the same
+     filenames untracked at `shortvid/ui/`. Not stub debris; either a wrongly-rooted tool write or the
+     live version of an in-progress UI split. Untouched by the sweep on purpose.
+   - **`prog1` and `programacao1` have no repo of their own** — they are tracked *inside* the workspace
+     structural repo, inverting the AGENTS.md rule that internal projects use own repos. No work is at
+     risk (they push with the workspace); the shape is wrong. Give them repos or declare them teaching
+     material that belongs in the workspace tree.
+   - **Two repos verify RED on already-committed code**: `flows` (3 failures in
+     `engine/tests/unit/test_ui_m10_client.py::TestHandleClient`) and `voti` (8
+     `react/no-unescaped-entities` errors — its `CONTEXT.md` §Working Rules already documents a
+     deliberate warn-level backlog, but these are `error`). Pushed anyway on Lucas's call: the red
+     predates the unpushed commits, and invisible work is the worse risk.
+   - Also: `apptime`'s verify **cannot run** — `flutter: not found`. An undeclared toolchain dep,
+     i.e. Frente 10.2's class with a fourth member.
+   → **Lucas decides** each · sonnet to execute.
+4. 🟢 **safe — nested-repo git graph in VSCode.** The git graph does not show subrepository history;
    find the extension or config that fixes it.
    → **model: haiku** (search + config).
 
