@@ -3,75 +3,75 @@
 <!-- stats:start -->
 <!-- data:start -->
 ## attention dashboard  _(auto-updated on every commit)_
-last-updated: 2026-07-26 17:33
+last-updated: 2026-07-29 21:32
 
 >**areas** — last 14 days  
 ```
-health       █████░░░░░   37 touches
-career       █░░░░░░░░░   9 touches
-finances     █░░░░░░░░░   13 touches
-fun          ██████████   73 touches
-spiritual    ███░░░░░░░   24 touches
+health       █████░░░░░   32 touches
+career       █░░░░░░░░░   8 touches
+finances     █░░░░░░░░░   11 touches
+fun          ██████████   61 touches
+spiritual    ███░░░░░░░   20 touches
 ```
 
 >**goals** — last 14 days  
 ```
 burocracia-academica     ░░░░░░░░░░   1 touches
-career-ufrpe             ████░░░░░░   6 touches
-corporal-expressiveness  ████░░░░░░   6 touches
+career-ufrpe             ████░░░░░░   5 touches
+corporal-expressiveness  ████░░░░░░   5 touches
 craft-flows              █░░░░░░░░░   2 touches
-cria                     ████░░░░░░   6 touches
-dance-bachata            ████░░░░░░   6 touches
-dance-cavalo-marinho     ████░░░░░░   6 touches
-dance-forro              ████░░░░░░   6 touches
-dance-frevo              ████░░░░░░   6 touches
-dance-salsa              ████░░░░░░   6 touches
-dance-samba              ████░░░░░░   6 touches
+cria                     ████░░░░░░   5 touches
+dance-bachata            ████░░░░░░   5 touches
+dance-cavalo-marinho     ████░░░░░░   5 touches
+dance-forro              ████░░░░░░   5 touches
+dance-frevo              ████░░░░░░   5 touches
+dance-salsa              ████░░░░░░   5 touches
+dance-samba              ████░░░░░░   5 touches
 ecovila                  ░░░░░░░░░░   1 touches
-exercise                 ████░░░░░░   6 touches
-finances                 ████░░░░░░   6 touches
-guitar                   ████░░░░░░   6 touches
-home-casinhas            ████░░░░░░   6 touches
-instituto                ████░░░░░░   6 touches
-lih-dd                   ████░░░░░░   6 touches
+exercise                 ████░░░░░░   5 touches
+finances                 ████░░░░░░   5 touches
+guitar                   ████░░░░░░   5 touches
+home-casinhas            ████░░░░░░   5 touches
+instituto                ████░░░░░░   5 touches
+lih-dd                   ████░░░░░░   5 touches
 local-ai                 ██████░░░░   8 touches
-magic-places             ████░░░░░░   6 touches
-make-in-time             ████░░░░░░   6 touches
-pandeiro                 ████░░░░░░   6 touches
-paper-jarbinhas          ████░░░░░░   6 touches
-paper-megatruth          ████░░░░░░   6 touches
-paper-scattercode        ████░░░░░░   6 touches
-paper-sibgrapi-2026      ████░░░░░░   6 touches
+magic-places             ████░░░░░░   5 touches
+make-in-time             ████░░░░░░   5 touches
+pandeiro                 ████░░░░░░   5 touches
+paper-jarbinhas          ████░░░░░░   5 touches
+paper-megatruth          ████░░░░░░   5 touches
+paper-scattercode        ████░░░░░░   5 touches
+paper-sibgrapi-2026      ████░░░░░░   5 touches
 prompt-opt-automation    ░░░░░░░░░░   0 touches
-reading                  ████░░░░░░   6 touches
-rpg-isoroll              █████░░░░░   7 touches
-sleep-regularity         ████░░░░░░   6 touches
-smartphone-addiction     ████░░░░░░   6 touches
-spacemantics             █████░░░░░   7 touches
-spec-driven-development  ████░░░░░░   6 touches
-startapps-apptime        ████░░░░░░   6 touches
-startapps-arede          ████░░░░░░   6 touches
-startapps-batituque      ████░░░░░░   6 touches
-startapps-come-bem       ████░░░░░░   6 touches
-startapps-cuida          ████░░░░░░   6 touches
-startapps-da-feirinha    ████░░░░░░   6 touches
-startapps-gira           ████░░░░░░   6 touches
-startapps-laplata        ████░░░░░░   6 touches
-startapps-marcapramim    ████░░░░░░   6 touches
-startapps-permuta        ████░░░░░░   6 touches
-startapps-polilinhas     ████░░░░░░   6 touches
-startapps-realgorithm    ████░░░░░░   6 touches
-startapps-todolado       ████░░░░░░   6 touches
-startapps-ux-guidelines-ai ████░░░░░░   6 touches
-startapps-virada         ████░░░░░░   6 touches
-startapps-voti           ████░░░░░░   6 touches
-startapps-xacomigo       ████░░░░░░   6 touches
-surf                     ████░░░░░░   6 touches
-teaching-materials       █████░░░░░   7 touches
-vipassana                ████░░░░░░   6 touches
-voice                    ████░░░░░░   6 touches
-workspace-os             ██████████   13 touches
-yoga                     ████░░░░░░   6 touches
+reading                  ████░░░░░░   5 touches
+rpg-isoroll              █████░░░░░   6 touches
+sleep-regularity         ████░░░░░░   5 touches
+smartphone-addiction     ████░░░░░░   5 touches
+spacemantics             █████░░░░░   6 touches
+spec-driven-development  █████░░░░░   6 touches
+startapps-apptime        ████░░░░░░   5 touches
+startapps-arede          ████░░░░░░   5 touches
+startapps-batituque      ████░░░░░░   5 touches
+startapps-come-bem       ████░░░░░░   5 touches
+startapps-cuida          ████░░░░░░   5 touches
+startapps-da-feirinha    ████░░░░░░   5 touches
+startapps-gira           ████░░░░░░   5 touches
+startapps-laplata        ████░░░░░░   5 touches
+startapps-marcapramim    ████░░░░░░   5 touches
+startapps-permuta        ████░░░░░░   5 touches
+startapps-polilinhas     ████░░░░░░   5 touches
+startapps-realgorithm    ████░░░░░░   5 touches
+startapps-todolado       ████░░░░░░   5 touches
+startapps-ux-guidelines-ai ████░░░░░░   5 touches
+startapps-virada         ████░░░░░░   5 touches
+startapps-voti           ████░░░░░░   5 touches
+startapps-xacomigo       ████░░░░░░   5 touches
+surf                     ████░░░░░░   5 touches
+teaching-materials       █████░░░░░   6 touches
+vipassana                ████░░░░░░   5 touches
+voice                    ████░░░░░░   5 touches
+workspace-os             ██████████   12 touches
+yoga                     ████░░░░░░   5 touches
 ```
 <!-- data:end -->
 

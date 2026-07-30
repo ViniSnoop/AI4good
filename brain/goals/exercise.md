@@ -17,6 +17,8 @@ List 3 activities you've done in life that felt like play, not exercise. Climbin
 > [ ] [try-one] try one new modality for 2 weeks — commit only to 2 weeks  
 > [ ] [build-2x] establish 2x/week rhythm — any activity, consistent slot  
 > [ ] [body-check] after 2 months of any exercise, check: strength, flexibility, energy  
+> [ ] [home-plan] montar um plano de exercícios em casa que realmente funcione pra mim — Lucas's own ask (INBOX 2026-07-28), triggered by a gym+home dumbbell back workout ([reel](https://www.instagram.com/reel/DZaTET8oBLs/)). The constraint is the same as the whole goal: it has to be wanted, not endured  
+> [ ] [form-details] calisthenics form details for pull-ups / push-ups / dips / pike push-ups ([reel](https://www.instagram.com/reel/DbRrzFQpJgV/), INBOX 2026-07-28) — read when a bodyweight rhythm actually exists, not before  
 
 ## done
 
@@ -29,10 +31,10 @@ last-touch: 2026-07-22  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       6 |
-| trimester   |       7 |
-| semester    |       7 |
-| year        |       7 |
-| 2-year      |       7 |
-| 4-year      |       7 |
+| month       |       7 |
+| trimester   |       8 |
+| semester    |       8 |
+| year        |       8 |
+| 2-year      |       8 |
+| 4-year      |       8 |
 <!-- stats:end -->
