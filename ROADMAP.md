@@ -92,9 +92,17 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
      was never 23. Also `code/CONTEXT.md:28` says *"See SPECS.md for the full table"* and inlines
      all of R1–R6 anyway.
    - **MOVE OUT** — constraints from CONTEXT.md → SPECS.md. **40** heads exceed 400 tok; **33 of
-     those have no sibling SPECS.md.** Worst: `academy/papers/CONTEXT.md` (1702 tok, ~120 lines of
-     pure constraint — 200-LOC rule, first-line-comment rule, ref YAML schema, tag taxonomy, five
-     writing-quality standards) makes opening one `.tex` cost 2.4k tok.
+     those have no sibling SPECS.md.** Two done as the pilot, and they establish the recipe:
+     `academy/papers` **1702→456 tok** (−73%, 1259 tok of constraint moved to a new `SPECS.md`) and
+     `code` **658→482** (the R1–R6 table was inlined directly under a pointer that said "see
+     SPECS.md for the full table"). **The recipe, in order:** (1) delete what a hook enforces — it
+     names the fix when it fires, except numbers that change how you write *before* the hook can
+     speak (the 150/200 line caps stay); (2) move constraints to `SPECS.md`, creating it if absent;
+     (3) move data out (alias lists, schemas); (4) delete stale claims; (5) keep identity +
+     navigation. Every pass so far has also surfaced a dead pointer or a false claim in the file it
+     touched, so budget for that. Next by size: `.opencode` (1650),
+     `code/apptime` (1635, and 4 placeholders), `code/isoroll-module/src/transform` (1353, 5
+     placeholders), `core/skills/caveman` (1328), `code/flows/libraries/tools` (1184).
    - **TRANSFORM** — the 14 retypings under Frente 12 (four disposal routes), plus the **15**
      CONTEXT.md whose *head* hand-lists files (`TREE`/`PATHS`/`TBL` signals), duplicating the
      generated block they sit above: `code/isoroll-content` (ASCII tree *and* File Map),
