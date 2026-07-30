@@ -296,12 +296,21 @@ is no conceptual intersection."* Each type answers exactly one question.
 | ROADMAP vs BUGS | BUGS owns the text; ROADMAP references by id and never restates it |
 
 1. 🟢 **retype what the gate now blocks but cannot fix.** `.hooks/type-gate.py` stops *new*
-   off-allowlist names; 39 existing ones remain, each routed by § The four disposal routes. Also
-   still open from the first pass: **5 nested repos carry `HISTORY.md`** (deleted as each is next
-   touched — `dobra` and `core` are done; one repo carries a live parallel session), and
-   `SPEC.md`→`SPECS.md` is decided but unshipped because it is load-bearing in five enforcement
-   points (`.hooks/pre-commit` §1d, `spec-read-gate.py`, `context-tracker.py:36`, `spec-scan`,
-   `spec-contract-check`) and must move as one reviewed change.
+   off-allowlist names; **40 existing ones remain, enumerated live in
+   [`entropy.md`](entropy.md)** — read the report, do not re-scan. They group into four jobs, in
+   order of how much judgment each needs:
+
+   | Job | Names | Route | Needs |
+   |---|---|---|---|
+   | **A. delete the archives** | `HISTORY.md` ×6 — `spacemantics`, `isoroll-content`, `flows`, `aiwbot`, `apptime`, `isoroll-module` | delete, unconditionally (`core/SCHEMA.md` § No archive types) | nothing — the law already decided. Haiku. |
+   | **B. the SPEC migration** | `SPEC.md` ×2 (`spacemantics`, `aiwbot`) + `code/_templates/module.SPEC.md` | → `SPECS.md` | blocked: load-bearing in five enforcement points (`.hooks/pre-commit` §1d, `spec-read-gate.py`, `context-tracker.py:36`, `spec-scan`, `spec-contract-check`). **One reviewed change**, never piecemeal. |
+   | **C. spacemantics' own vocabulary** | 11 more in that one repo: `TAXONOMY` · `TAXONOMY-FAMILIES` · `TYPES` · `LEXICON` · `GRAMMAR-JSON` · `CONFORMANCE` · `CHECKABILITY` · `EXAMPLES` · `CONFLICTS` · `INVENTORY` · `INVENTORY-ADVISORY` | mostly → `SPECS.md` or lowercase instance | **its own session.** A DSL project legitimately has many spec-shaped documents; deciding which are one `SPECS.md` and which are content is a design question about spacemantics, not a naming sweep. |
+   | **D. the long tail** | 20 across 9 repos: `isoroll-content` ×7, `flows` ×4, `casinhas` ×3, `instituto` ×3, `dobra` ×2, `2027-CHI-cria`, `2027-ICLR-dobra` | one of the four disposal routes each | a peek at each file. Sonnet, one repo at a time. |
+
+   **Do A first and alone.** It is 6 deletions with zero judgment, it clears 15% of the dashboard,
+   and it proves the per-repo commit path before anything harder rides on it. Five of the twelve
+   repos were dirty on 2026-07-30 (`isoroll-module` 16 files, `ppc` 15) — check `git status` in a
+   repo before touching it; a parallel session may own it.
 2. 🟢 **safe — one or two refinement passes over the surviving docs.** Crop dead parts, collapse
    overlaps, compress the prose (caveman-compress the writing style, keep every technical fact).
    Requested by Lucas 2026-07-30, after the type system lands so the passes are not wasted on files

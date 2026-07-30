@@ -31,6 +31,16 @@ Read every file found above before proceeding.
 
 If the project's `package.json` declares `verify:full`, run it now (`npm run verify:full`) and record the result (green / red + failing specs) — it flows into the resume prompt. A session must not hand off claiming working state without this proof. `verify:fast`-only projects: run that instead. No contract: note "no verification contract".
 
+### Entropy dashboard (workspace repo only)
+
+```bash
+make entropy      # regenerates entropy.md
+```
+
+Refresh it so the next session reads current numbers, and put the **summary table** in the resume
+prompt — a rising count is the earliest sign the workspace is drifting. Do not re-scan the tree by
+hand; the report is the interface. It commits with the rest of the session's work.
+
 ---
 
 ## Phase 2 — Clear completed work out of the ledgers

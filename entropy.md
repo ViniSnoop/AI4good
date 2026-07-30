@@ -110,7 +110,7 @@ Clean.
 *a signal for review, never a cap — do not summarize to fit*
 
 - .hooks/post-edit.sh — 208 lines, over the 200 cap; introduced by 44d9a02 lsfcin
-- ROADMAP.md — 417 lines (doc signal, review the delta)
+- ROADMAP.md — 426 lines (doc signal, review the delta)
 - SETUP.md — 624 lines (doc signal, review the delta)
 - academy/papers/2026-JBCS-relativistic_raytracer/outputs/iq-fix-roadmap.md — 372 lines (doc signal, review the delta)
 - academy/teaching/programacao-1/material/portas-logicas/slides.md — 635 lines (doc signal, review the delta)

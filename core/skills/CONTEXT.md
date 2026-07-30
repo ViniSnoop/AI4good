@@ -53,7 +53,7 @@ user scope). Details and upstream attribution: [`caveman/CONTEXT.md`](caveman/CO
 |--------------|-------------|
 | [`caveman/`](caveman/CONTEXT.md) | Ultra-compressed communication mode — vendored suite: router skill, mode subfile |
 | [`foundry/`](foundry/CONTEXT.md) | Foundry VTT v14 module dev reference — skill suite. |
-| [`prepare/`](prepare/CONTEXT.md) | Prepare a raw prompt for Claude Code: optimize, contextualize, and recommend mod |
+| [`prepare/`](prepare/CONTEXT.md) | Prepare a raw prompt for an agent: optimize, contextualize, and recommend tier/e |
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
