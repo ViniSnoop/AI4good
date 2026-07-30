@@ -9,6 +9,16 @@
 
 <!-- add entries below, newest first -->
 
+routing-sync gera link relativo quebrado no CONTEXT.md pai
+— achado durante o replan do isoroll-content · 2026-07-29
+`proj: workspace-os` · O gerador do bloco `<!-- routing -->` copia a linha 2 do CONTEXT.md filho
+verbatim como descricao. Se essa descricao contem um link relativo (ex: `refs/CONTEXT.md` diz
+"tier-1 links in [REFS.md](REFS.md)"), o link resolve no arquivo filho mas quebra no pai, que esta
+um nivel acima. Caso concreto: `code/isoroll-content/CONTEXT.md:118` -> `REFS.md` (deveria ser
+`refs/REFS.md`). Fix candidato: o gerador reescreve links relativos ao prefixar com o diretorio do
+filho, ou simplesmente strip de links na descricao copiada. Bloco e auto-gerenciado, entao editar
+a mao nao resolve — some no proximo sync.
+
 https://www.instagram.com/p/DbD_eQ2EhbF/?utm_source=ig_web_copy_link
 — via aiwbot · 2026-07-29
 [triagem 2026-07-29] extraído: Vyzual AI, "8 breakthroughs de julho 2026" — roundup genérico de

@@ -1,6 +1,6 @@
 # [ fun | rpg | near ] isoroll
 
-Foundry extension for isometric perspective — hades-like look — with automated content generation. UPDATE 2026-07-13: **painter grammar FROZEN** @ feel-rig v16.2 (19 design rounds; per-voxel scene, sloped groups roofs+stairs, opening voxels) — P6.5 ✅. P5 strategy pivoted to render→restyle lane (flat-shaded render → NB whole-sheet restyle; test-to-kill pre-registered). Now executing post-freeze plan: DSL v2 parsers (Python+TS twins) → P7 painter MVP ×2 loops → P5 arms test (Lucas web-app NB) → P8/P9. Canonical spec: `code/isoroll-content/SCENE-CREATION.md`; grammar log: `design/PAINTER-UX.md`.
+Foundry extension for isometric perspective with automated content generation. Look target revised 2026-07-29: **Dead-Cells production model** (geometry rendered offline to sprites), Feather-3D / Tiny Glade aesthetic — not literal Hades, which is hand-painted at artist cost. **REPLAN 2026-07-29 (MVP-first)**: renderer seam frozen, content strategy demoted from prerequisite to an A/B behind it, after four review rounds stalled on arm-A stair enclosure masks. Order: freeze seam → **playable in Foundry with ugly pixels and all 8+1 views** → content bake-off (kit-sprite vs scene-cell render vs NB textures) → props/lighting. Painter grammar stays FROZEN @ feel-rig v16.2 (19 rounds). Live plan: `code/isoroll-content/ROADMAP.md`; spec: `SCENE-CREATION.md`; grammar log: `design/PAINTER-UX.md`.
 
 >**signals**  
 transformative · expected · thrilled
@@ -18,17 +18,17 @@ how · avoiding the rebuild because it feels like repetition, not progress*
 Stalled by a concrete obstacle — not motivation, not clarity, just a missing environment. The rebuild is the gate. Documenting the setup this time is the real lesson: this shouldn't be able to happen twice. Get ComfyUI running, document the workflow, then return to where the code was.
 
 ## selected next achievement
-    [scene-seam] close the generate→play seam (program P2): manifest export from content + import into module — gray l-room loaded and playable in live Foundry
+    [playable] paint a room in live Foundry, walk a token, rotate all 9 views — ugly pixels accepted, look judged later
 
 **ease-start**  
-Nothing to set up — the seam pilot runs via `/loops export-manifest` in `code/isoroll-content` (Fable session 2026-07-09 orchestrates). Your part is the checkpoint after: open Foundry, eyeball the l-room, walls should block vision.
+Nothing to set up on your side. The seam freeze + cabin fixture run in `code/isoroll-content` (ROADMAP § SEAM), then the module work closes the painter. Your part is one checkpoint: open Foundry, paint a room, walk a token, rotate through the views. Walls, vision, fog and z-order must be right; the art is deliberately ugly at that gate.
 
 ## backlog
 
-> [ ] [scene-seam] = program P2 (export-manifest + module-walls-import + e2e Foundry)  
-> [ ] [scene-painter] in-Foundry grid painter MVP = program P7 (needs P4 assembler + P6 floor/fog spike)  
-> [ ] [kit-paint] NB paints the dimetric kit = program P5 (Lucas runs NB batches; ☐ checkpoint) — before the batches, read the two technique refs captured 2026-07-23 in `code/isoroll-content/refs/REFS.md` § Technique: seamless tileable painting (the exact failure mode of tile-sized pieces) and normal maps on 2D sprites (dynamic light without 3D)  
-> [ ] [multiview-8+1] view switching, dimetric remap + cardinal batch = program P8 (DECIDED 8+1, 2026-07-09)  
+> [ ] [playable] = ROADMAP § PLAYABLE — painter MVP + manifest walls/vision/fog + 8+1 view switching + DepthSorter + 8-dir token selection  
+> [ ] [bakeoff] content arms compared behind the frozen seam: A kit-sprite (baseline) vs B scene-cell world-uv render (continuity by construction) vs C NB-painted textures — your style score 1–5 decides, boarded side by side on the same cabin  
+> [ ] [props-mesh] props + characters via image→3D → render 9 views (Hunyuan3D / TripoSR) — multiview by geometry, never by generation  
+> [ ] [lighting] baked AO + ink + edge highlight + colour grade + clutter — where the perceived style budget actually lives; refs captured 2026-07-23 in `code/isoroll-content/refs/REFS.md` § Technique (seamless tileable painting, normal maps on 2D sprites)  
 > [ ] [alpha-pipeline] background transparency — largely resolved for tiles (per-cell rembg, S0-E6-fix5); still open for characters  
 > [ ] [8dir-sprites] 8-direction views per character — after tiles ship (NB cardinal weakness returns for tokens)  
 > [ ] [anim-pipeline] animate characters: idle, attack, defend, hurt, cast, crouch  
@@ -37,7 +37,7 @@ Nothing to set up — the seam pilot runs via `/loops export-manifest` in `code/
 > ~~[face-detailer] [hand-detailer]~~ superseded: local SD generation dead (kill-log) — revisit only if a character lane needs local refinement  
 > ~~[tile-generation]~~ absorbed into S0/SCENE-CREATION (kit batches)  
 > ~~[foundry-review] [iso-prototype]~~ done long since: isoroll-module is mature (slicing, depth sort, walls, fog, gizmos)  
-> ~~[content-gen-reconnect]~~ = [scene-seam] above  
+> ~~[content-gen-reconnect]~~ ~~[scene-seam]~~ = absorbed into [playable] above (manifest export + walls import shipped)  
 
 ## done
 
@@ -46,14 +46,14 @@ Nothing to set up — the seam pilot runs via `/loops export-manifest` in `code/
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-22  ·  trend: advancing
+last-touch: 2026-07-23  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       8 |
-| trimester   |       9 |
-| semester    |       9 |
-| year        |       9 |
-| 2-year      |       9 |
-| 4-year      |       9 |
+| month       |       9 |
+| trimester   |      10 |
+| semester    |      10 |
+| year        |      10 |
+| 2-year      |      10 |
+| 4-year      |      10 |
 <!-- stats:end -->
