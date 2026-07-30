@@ -47,7 +47,7 @@ name resolves without a decision meeting (decided 2026-07-30):
 |-------|------|---------------------------|
 | lowercase instance | **generated** by a tool | the old `LABELS` name → `labels.md` (×6 papers; emitted by `.hooks/tex-interface-gen.py`, header says "do not edit") |
 | lowercase instance | hand-authored **content** | `DRAFT.md`→`draft.md` (×3 embryo papers), `TREE.md`→`tree.md` (the craft-tree map: curated rationale, not generated — the first read of it corrected the route) |
-| → `SPECS.md` | hand-authored **constraint** | `BRIDGE.md`→`SPECS.md` § Paper Twin (×3): *"every measured number files a P-task"* is an invariant |
+| → `SPECS.md` | hand-authored **constraint** | `BRIDGE.md`→`SPECS.md` § Twin (×3, the section carries the same name on both sides — "Paper Twin" reads wrong inside the paper): *"every measured number files a P-task"* is an invariant |
 | new type | answers a question **no type answers** | `SETUP.md` only |
 
 `SPEC.md` is **not** a type: it collapses into `SPECS.md` (decided 2026-07-30, Lucas). The
