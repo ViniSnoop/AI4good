@@ -3,12 +3,12 @@
 <!-- stats:start -->
 <!-- data:start -->
 ## attention dashboard  _(auto-updated on every commit)_
-last-updated: 2026-07-30 11:32
+last-updated: 2026-07-30 12:40
 
 >**areas** — last 14 days  
 ```
-health       █████░░░░░   34 touches
-career       █░░░░░░░░░   8 touches
+health       █████░░░░░   35 touches
+career       █░░░░░░░░░   9 touches
 finances     █░░░░░░░░░   11 touches
 fun          ██████████   62 touches
 spiritual    ███░░░░░░░   20 touches
@@ -16,10 +16,11 @@ spiritual    ███░░░░░░░   20 touches
 
 >**goals** — last 14 days  
 ```
+CONTEXT                  ██░░░░░░░░   3 touches
 burocracia-academica     ░░░░░░░░░░   1 touches
 career-ufrpe             ███░░░░░░░   5 touches
 corporal-expressiveness  ███░░░░░░░   5 touches
-craft-flows              █░░░░░░░░░   2 touches
+craft-flows              ██░░░░░░░░   3 touches
 cria                     ███░░░░░░░   5 touches
 dance-bachata            ███░░░░░░░   5 touches
 dance-cavalo-marinho     ███░░░░░░░   5 touches
@@ -34,7 +35,7 @@ guitar                   ███░░░░░░░   5 touches
 home-casinhas            ███░░░░░░░   5 touches
 instituto                ███░░░░░░░   5 touches
 lih-dd                   ███░░░░░░░   5 touches
-local-ai                 ██████░░░░   8 touches
+local-ai                 █████░░░░░   8 touches
 magic-places             ███░░░░░░░   5 touches
 make-in-time             ███░░░░░░░   5 touches
 pandeiro                 ███░░░░░░░   5 touches
@@ -70,7 +71,7 @@ surf                     ███░░░░░░░   5 touches
 teaching-materials       ████░░░░░░   6 touches
 vipassana                ███░░░░░░░   5 touches
 voice                    ███░░░░░░░   5 touches
-workspace-os             ██████████   13 touches
+workspace-os             ██████████   14 touches
 yoga                     ███░░░░░░░   5 touches
 ```
 <!-- data:end -->

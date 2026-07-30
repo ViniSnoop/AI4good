@@ -29,9 +29,32 @@ get a new type.
 | `TODO.md` | What must I do in life this week? |
 | `INBOX.md` | Raw capture, zero taxonomy, drained to empty |
 | `USER.md` | Who is Lucas, and how does he fail? |
+| `SETUP.md` | How do I make this environment work? (toolchain install + config) |
 | `SCHEMA.md` | This file: the law about types. |
 
 Anything else is rejected: *"add it to the allowlist if you mean it."*
+
+`SETUP.md` earns its row on the evidence (added 2026-07-30, 8 instances): `README.md` is **repo-root
+only**, and 4 of the 8 sit in directories that are not repos — the workspace root, `academy/`,
+`code/`, `code/_templates/`. "How do I make this work" is not "what is this and how do I run it".
+
+### The four disposal routes
+
+An off-allowlist `UPPERCASE.md` is not automatically wrong — it is *unclassified*. Route it, so a new
+name resolves without a decision meeting (decided 2026-07-30):
+
+| Route | When | Cases resolved 2026-07-30 |
+|-------|------|---------------------------|
+| lowercase instance | **generated** by a tool | the old `LABELS` name → `labels.md` (×6 papers; emitted by `.hooks/tex-interface-gen.py`, header says "do not edit") |
+| lowercase instance | hand-authored **content** | `DRAFT.md`→`draft.md` (×3 embryo papers), `TREE.md`→`tree.md` (the craft-tree map: curated rationale, not generated — the first read of it corrected the route) |
+| → `SPECS.md` | hand-authored **constraint** | `BRIDGE.md`→`SPECS.md` § Paper Twin (×3): *"every measured number files a P-task"* is an invariant |
+| new type | answers a question **no type answers** | `SETUP.md` only |
+
+`SPEC.md` is **not** a type: it collapses into `SPECS.md` (decided 2026-07-30, Lucas). The
+singular/plural pair was the sharpest asymmetry in the corpus — two spellings, one meaning — and it
+had leaked into enforcement, so the `> spec:` convention, `.hooks/pre-commit` §1d,
+`.hooks/spec-read-gate.py`, `.hooks/context-tracker.py`, `core/tools/spec-scan` and
+`core/tools/spec-contract-check` all move with it.
 
 ### Boundaries where types nearly touch
 
@@ -139,7 +162,7 @@ keep each mirror's `model:` in sync with its source `tier:` by hand.
 owned by any dispatcher skill stay flat at `core/flows/`. Validation is recursive (`sync-skills`
 `validate_flows` walks subfolders); a `<skill>/CONTEXT.md` is exempt like the root one. The
 engineering cluster owned by the `loops` skill lives in [`flows/craft/`](flows/craft/) —
-`craft` · `route` · `architect` (+ the `TREE.md` map) — and is exempt from the table below.
+`craft` · `route` · `architect` (+ the `tree.md` map) — and is exempt from the table below.
 
 | field | req | value |
 |-------|-----|-------|
@@ -242,7 +265,7 @@ depth-audit (Frente 3.2) or a published source confirms it.
 `.hooks/pre-commit`. All three layers are live:
 - **skill:** frontmatter present, `name:` + `description:`, non-skills rejected.
 - **flow:** `description:` + `args:` present, `type ∈ {research-brief, utility, domain}`,
-  `confirm ∈ {plan, none}`. Exempt: `CONTEXT.md`, `TREE.md`, `loop-*` (engineering cluster).
+  `confirm ∈ {plan, none}`. Exempt: `CONTEXT.md`, `tree.md`, `loop-*` (engineering cluster).
   Validation is **recursive** — it walks `flows/<skill>/` subfolders, not just the flat root.
 - **composition:** every `uses:` target resolves to a real flow, and the `uses:` graph is a **DAG**
   (three-colour DFS; a path returning to its own start fails the check). The exemption list does

@@ -58,6 +58,50 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
    would duplicate it into every subtree. Trim its two non-profile intrusions: the dead pointer to
    `branches/writing/mantras.md` (does not exist) and the embedded wos TODO on line 40.
    → **model: opus**.
+2. 🟡 **the always-loaded corpus — measured 2026-07-30, disposition before compression.** Trigger
+   was Lucas hitting Claude Code limits and suspecting `AGENTS.md`. The measurement says otherwise:
+   `AGENTS.md` is 33 lines / **~1.3k tok**, while a *single* `context-gate` cascade in one session
+   cost **~5k tok** (six CONTEXT.md to run two `head` commands). Cutting `AGENTS.md` optimises the
+   wrong thing. Across all **171** `CONTEXT.md`:
+
+   | Block | Total | Verdict |
+   |---|---|---|
+   | curated head (rules, cues) | 44.3k tok | the content — keep, but see MOVE OUT |
+   | generated **Subdirectory** table (navigation) | **5.7k tok** (avg 34/file) | keep — cheap, and it *is* the useful routing |
+   | generated **File** table (per-file symbol dump) | **55.8k tok** | the whole problem |
+
+   The navigation half is cheap; the inventory half **outweighs every curated line in the workspace
+   combined**. Worst case `code/aiwbot/tests/CONTEXT.md`: 25 tok of context + **4608 tok of File
+   table** (184×). Root cause is structural, not lexical: `context-gate` forces the full CONTEXT.md
+   chain before any file access while `SPECS.md` is on-demand, so **every constraint written into a
+   CONTEXT.md is a tax on every session in that subtree, forever.**
+
+   Four buckets, in payoff order. **Compression is the LAST step** (Lucas, 2026-07-30) — assess
+   what to remove, move, and transform first.
+   - **REMOVE** — generated File tables from gate satisfaction: stop at the `| File |` header, not
+     at `routing:start` (an earlier draft cut the navigation too — wrong). Keeps every cue *and* all
+     navigation; `ls`/Read gets inventory on demand once you are already in the directory. Also:
+     **43** CONTEXT.md still carry `← add` placeholders — Frente 12.2 matched only
+     `← add description` and missed the `← add first-line comment` class entirely, so the real count
+     was never 23. Also `code/CONTEXT.md:28` says *"See SPECS.md for the full table"* and inlines
+     all of R1–R6 anyway.
+   - **MOVE OUT** — constraints from CONTEXT.md → SPECS.md. **40** heads exceed 400 tok; **33 of
+     those have no sibling SPECS.md.** Worst: `academy/papers/CONTEXT.md` (1702 tok, ~120 lines of
+     pure constraint — 200-LOC rule, first-line-comment rule, ref YAML schema, tag taxonomy, five
+     writing-quality standards) makes opening one `.tex` cost 2.4k tok.
+   - **TRANSFORM** — the 14 retypings under Frente 12 (four disposal routes), plus the **15**
+     CONTEXT.md whose *head* hand-lists files (`TREE`/`PATHS`/`TBL` signals), duplicating the
+     generated block they sit above: `code/isoroll-content` (ASCII tree *and* File Map),
+     `academy/papers` (`## Project Layout` tree), `brain/CONTEXT.md:9-14`.
+   - **KEEP** — curated cues and the Subdirectory table. Untouched.
+
+   Rejected here, with evidence: **`/caveman compress` on workspace docs.** Piloted on the worst
+   offender — 8571→8552 chars = **19 chars, 0.22%**, in 43s and one model call (no
+   `ANTHROPIC_API_KEY`, so it falls back to `claude --print` and spends *the same quota*). Six
+   trivial word swaps. Extrapolated: ~2h and 171 quota calls for ~0.3%. The docs are already
+   caveman-dense; there is no lexical fat. Reverted.
+   🔴 **Open for Lucas:** approve the gate stopping at `| File |`.
+   → **model: sonnet** for the sweeps · **opus** for the gate change.
 
 ---
 
@@ -70,13 +114,12 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
 
 1. 🟢 **Tier 0 — per-commit, zero-token, deterministic.** No LLM. Scripts in the pre-commit/verify
    path:
-   - **uppercase type allowlist** (decided 2026-07-30, Lucas). `UPPERCASE.md` = a **type**, meaning
-     the same thing in every subtree; `lowercase.md` = an **instance**, named freely. Uppercase
-     names are therefore a **closed set**, and inventing a new type must be a deliberate act (one
-     line added to the allowlist), never an accident. Evidence: 25 distinct uppercase names existed,
-     15 of them appearing exactly once. Allowlist: `AGENTS · CONTEXT · README · ROADMAP · SPECS ·
-     BUGS · REFS · SKILL · GOALS · TODO · INBOX · USER · SCHEMA`. Anything else blocks with "add it
-     to the allowlist if you mean it."
+   - **uppercase type allowlist** (decided 2026-07-30, Lucas). The law and the names live in
+     [core/SCHEMA.md](core/SCHEMA.md) § The `.md` type system — **the checker parses that table
+     instead of restating it**, because the allowlist was already duplicated in three files, which
+     is the exact drift class this gate exists to catch. Evidence for the rule: 25 distinct uppercase
+     names existed, 15 appearing exactly once. Off-allowlist blocks with "add it to the allowlist if
+     you mean it", and § The four disposal routes says where it should go instead.
    - **naming** — kebab-case, full words not truncations (the `architect`>`arch` rule made
      machine-checkable); lowercase top-level dirs; no spaces or accents in filenames (live
      violation: `academy/administration/coordenacao-lc/novo-ppc-bcc/Restrições Curriculares
@@ -221,7 +264,7 @@ is no conceptual intersection."* Each type answers exactly one question.
 | Type | The one question it answers | Absorbs |
 |---|---|---|
 | `AGENTS.md` | What rules always apply, and where do I start? | — |
-| `CONTEXT.md` | What is *this directory*, and where inside it do I go? | `TREE.md` |
+| `CONTEXT.md` | What is *this directory*, and where inside it do I go? | `tree.md` |
 | `ROADMAP.md` | What do we intend to do — and what did we reject and why? | `ARCHIVE`, `HISTORY` |
 | `SPECS.md` | What must be true of this thing, and *why*? | `FOUNDATIONS` |
 | `BUGS.md` | What is currently **untrue** that we know about? | — |

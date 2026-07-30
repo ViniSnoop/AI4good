@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-# tex-interface-gen.py: Generate .texif interfaces, LABELS.md, and bib/review checks.
+# tex-interface-gen.py: Generate .texif interfaces, labels.md, and bib/review checks.
 #
 # Usage:
-#   tex-interface-gen.py <file.tex>             — generate <stem>.texif + regenerate LABELS.md
+#   tex-interface-gen.py <file.tex>             — generate <stem>.texif + regenerate labels.md
 #   tex-interface-gen.py --bib-check <file.bib> — warn about missing refs/*.yaml files
 
 from __future__ import annotations
@@ -97,7 +97,7 @@ def regenerate_labels(paper_root: Path) -> None:
     dangling = [u for u in all_used if u['ref'] not in defined_set]
     ts = datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
     out = [
-        '# LABELS — cross-file label registry',
+        '# labels — cross-file label registry',
         f'> Auto-generated {ts} — do not edit.',
         '', '## Defined Labels', '',
         f'{"Label":<40} {"Type":<12} {"File":<50} Line',
@@ -114,8 +114,8 @@ def regenerate_labels(paper_root: Path) -> None:
             out.append(f'{dr["ref"]:<40} {dr["file"]:<50} {dr["line"]}')
     else:
         out += ['## Dangling References (0 issues)', '', r'All \ref{} usages resolved.']
-    (paper_root / 'LABELS.md').write_text('\n'.join(out) + '\n', encoding='utf-8')
-    print('✓ LABELS.md updated')
+    (paper_root / 'labels.md').write_text('\n'.join(out) + '\n', encoding='utf-8')
+    print('✓ labels.md updated')
 
 
 def bib_check(bib_path: Path) -> None:
@@ -165,7 +165,7 @@ def main() -> int:
         try:
             regenerate_labels(root)
         except Exception as e:
-            print(f'⚠ LABELS.md: {e}', file=sys.stderr)
+            print(f'⚠ labels.md: {e}', file=sys.stderr)
         try:
             check_relationships(data, root)
         except Exception as e:

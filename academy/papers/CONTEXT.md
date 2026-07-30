@@ -18,7 +18,7 @@ Use for both `paper-scaffold.py new` and manual creation.
 python3 /mnt/workspace/.hooks/paper-scaffold.py new <paper-name>
 ```
 
-Creates `academy/papers/<name>/` with full standard layout: `main.tex`, `.latexmkrc`, `.gitignore`, `CONTEXT.md`, `LABELS.md`, subdirectory `CONTEXT.md` files for `sections/`, `refs/`, `lib/`, `images/`, `tables/`, `outputs/`. `refs/CONTEXT.md` pre-filled with tag schema and workflow.
+Creates `academy/papers/<name>/` with full standard layout: `main.tex`, `.latexmkrc`, `.gitignore`, `CONTEXT.md`, `labels.md`, subdirectory `CONTEXT.md` files for `sections/`, `refs/`, `lib/`, `images/`, `tables/`, `outputs/`. `refs/CONTEXT.md` pre-filled with tag schema and workflow.
 
 Add missing scaffold files to **existing** paper without overwriting:
 
@@ -80,7 +80,7 @@ Use XeLaTeX for document classes requiring `fontspec` (e.g. SBC/JBCS). Artifacts
 
 Every `.tex` file gets `.texif` sibling on save. **Read `.texif` before source** — `pre-read` hook hard-blocks direct reads when interface is current. Contents: section/subsection structure with line numbers, equations and labels, figure/table captions, `\cite{}` keys, TODO comments.
 
-`LABELS.md` at paper root: all `\label{}` definitions and dangling `\ref{}` warnings. Check before adding cross-references.
+`labels.md` at paper root: all `\label{}` definitions and dangling `\ref{}` warnings. Check before adding cross-references.
 
 ## Reference Reviews (`refs/`)
 
