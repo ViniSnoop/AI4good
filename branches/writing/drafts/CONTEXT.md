@@ -8,3 +8,15 @@ Each file is a single piece. Filename = slug. No required format — write freel
 | Subdirectory | Description |
 |--------------|-------------|
 | (none) | flat folder, all drafts live here directly |
+
+<!-- routing:start -->
+## Routing
+
+| Subdirectory | Description |
+|--------------|-------------|
+| [`email/`](email/CONTEXT.md) | — |
+
+| File | Description |
+|------|-------------|
+| [`mantras.md`](mantras.md) | mantras |
+<!-- routing:end -->

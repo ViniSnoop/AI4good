@@ -4,7 +4,7 @@
 <!-- routing:start -->
 ## Routing
 
-| File | Interface | API | Description |
-|------|-----------|-----|-------------|
-| [`refs/research-summary.yaml`](refs/research-summary.yaml) | — | — | refs/research-summary.yaml |
+| File | Description |
+|------|-------------|
+| [`refs/research-summary.yaml`](refs/research-summary.yaml) | refs/research-summary.yaml |
 <!-- routing:end -->

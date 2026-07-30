@@ -4,4 +4,7 @@
 <!-- routing:start -->
 ## Routing
 
+| Subdirectory | Description |
+|--------------|-------------|
+| [`programacao-1/`](programacao-1/CONTEXT.md) | — |
 <!-- routing:end -->

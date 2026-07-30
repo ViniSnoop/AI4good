@@ -57,6 +57,7 @@ Thresholds: `.hooks/line-limits.env`. The `pre-commit` hook runs it automaticall
 
 | Subdirectory | Description |
 |--------------|-------------|
+| [`test/`](test/CONTEXT.md) | — |
 | [`verify/`](verify/CONTEXT.md) | Verification contract + patterns for all code projects: tiers T0-T3, script name |
 
 | File | Interface | API | Description |
@@ -95,11 +96,6 @@ Thresholds: `.hooks/line-limits.env`. The `pre-commit` hook runs it automaticall
 | [`sync-global-skills`](sync-global-skills) | — | — | link workspace-vendored global skills into $HOME |
 | [`sync-skills`](sync-skills) | — | — | regenerate skill mirrors from core/skills/*.md |
 | [`terms`](terms) | — | — | scan .tex files for terminology inconsistencies defined in terms.yaml |
-| [`test/conftest.py`](test/conftest.py) | [`test/conftest.pyi`](test/conftest.pyi) | `pytest_configure` | conftest.py — put core/tools on sys.path and register the network marker for video tests |
-| [`test/test_gitignore_self_heal.py`](test/test_gitignore_self_heal.py) | [`test/test_gitignore_self_heal.pyi`](test/test_gitignore_self_heal.pyi) | `test_new_context_bearing_subdir_gets_allowlisted`, `test_context_free_subdir_is_left_ignored`, `test_exception_listed_subdir_is_never_added`, `test_already_allowed_subdir_is_untouched`, `test_running_twice_is_idempotent` | T0 self-healing .gitignore allowlist check (Frente 6 item 2): a new domain subdir with a |
-| [`test/test_pointer_integrity.py`](test/test_pointer_integrity.py) | [`test/test_pointer_integrity.pyi`](test/test_pointer_integrity.pyi) | `check_pointers`, `test_pointer_integrity`, `test_dangling_relative_link_is_detected`, `test_clean_fixture_has_no_failures` | T0 pointer-integrity check (Frente 4 Tier 0, subsumes Frente 2): every relative |
-| [`test/test_video_core.py`](test/test_video_core.py) | [`test/test_video_core.pyi`](test/test_video_core.pyi) | `FakeProc`, `FakeMedia`, `test_probe_parses_dump`, `test_probe_failure_no_crash`, `test_clean_vtt` | test_video_core.py — T0/T1 unit tests for video_core (no network; fixtures + injected runners) |
-| [`test/test_video_images.py`](test/test_video_images.py) | [`test/test_video_images.pyi`](test/test_video_images.pyi) | `FakeProc`, `FakeMedia`, `test_probe_parses_gallery_dl_dump`, `test_probe_empty_output_is_not_ok`, `test_probe_unparseable_output_no_crash` | test_video_images.py — T1 unit tests for the image-post path (no network, injected runners) |
 | [`video`](video) | — | — | extract navigable text (metadata/captions/transcript/OCR/VLM caption) from a video or image link |
 | [`video.SETUP.md`](video.SETUP.md) | — | — | video tool — setup |
 | [`video_core.py`](video_core.py) | [`video_core.pyi`](video_core.pyi) | `source_of`, `probe`, `clean_vtt`, `get_captions`, `assemble` | video_core.py — extract navigable text (metadata, captions, transcript) from video/image URLs; whisper/OCR backends are config data |

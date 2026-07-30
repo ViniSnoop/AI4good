@@ -35,7 +35,6 @@ You are a SENIOR software architect, your code WILL be evaluated!
 | [`cria/`](cria/CONTEXT.md) | Workflow executável de ideação híbrida (motores de criatividade + score de front |
 | [`dobra/`](dobra/CONTEXT.md) | Context folding + small local models: task-tree runner where SLMs do leaf work u |
 | [`flows/`](flows/CONTEXT.md) | Graph-based workflow engine — typed slots, YAML-defined flows, pluggable agents |
-| [`futebots/`](futebots/CONTEXT.md) | Multi-agent football simulation with genetic algorithm agent evolution |
 | [`gira/`](gira/CONTEXT.md) | Protocolo + plataforma de crédito mútuo local com matching por agentes de IA — m |
 | [`isoroll-content/`](isoroll-content/CONTEXT.md) | Offline asset generation pipeline for the isoroll Foundry VTT module |
 | [`isoroll-module/`](isoroll-module/CONTEXT.md) | Foundry VTT v14 isometric projection module — TypeScript + Vite + SCSS. |
@@ -44,11 +43,11 @@ You are a SENIOR software architect, your code WILL be evaluated!
 | [`spacemantics/`](spacemantics/CONTEXT.md) | Verifiable spatial DSL (texpace) + deterministic checker that lift LLM spatial c |
 | [`voti/`](voti/CONTEXT.md) | Political alignment tool comparing user answers to real deputy voting records —  |
 
-| File | Interface | API | Description |
-|------|-----------|-----|-------------|
-| [`SETUP.md`](SETUP.md) | — | — | Code Setup |
-| [`SPEC-DRIVE.md`](SPEC-DRIVE.md) | — | — | SPEC-DRIVE — Spec-Driven Development Rollout |
-| [`SPECS.md`](SPECS.md) | — | — | Code — Specs |
-| [`VERIFY.md`](VERIFY.md) | — | — | VERIFY — Agent Verification & Enforcement Roadmap |
-| [`eslint.shared.js`](eslint.shared.js) | — | `localPlugin`, `sharedRules`, `countCallsInSubtree`, `getChainDepth` | Shared ESLint rules for all TypeScript/JavaScript projects under code/ — R1-R6 style enforcement. |
+| File | API | Description |
+|------|-----|-------------|
+| [`SETUP.md`](SETUP.md) | — | Code Setup |
+| [`SPEC-DRIVE.md`](SPEC-DRIVE.md) | — | SPEC-DRIVE — Spec-Driven Development Rollout |
+| [`SPECS.md`](SPECS.md) | — | Code — Specs |
+| [`VERIFY.md`](VERIFY.md) | — | VERIFY — Agent Verification & Enforcement Roadmap |
+| [`eslint.shared.js`](eslint.shared.js) | `localPlugin`, `sharedRules`, `countCallsInSubtree`, `getChainDepth` | Shared ESLint rules for all TypeScript/JavaScript projects under code/ — R1-R6 style enforcement. |
 <!-- routing:end -->

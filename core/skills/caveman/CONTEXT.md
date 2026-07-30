@@ -92,15 +92,15 @@ directory — they are links, not copies.
 
 | Subdirectory | Description |
 |--------------|-------------|
-| [`hooks/`](hooks/CONTEXT.md) | — |
+| [`hooks/`](hooks/CONTEXT.md) | Claude Code lifecycle hooks for the caveman suite — activation, mode tracking, s |
 | [`scripts/`](scripts/CONTEXT.md) | Compression CLI behind `/caveman compress <file>` — detect file type, call the m |
 
-| File | Interface | API | Description |
-|------|-----------|-----|-------------|
-| [`SKILL.md`](SKILL.md) | — | — | Ultra-compressed communication mode — router. Cuts token usage ~75% by speaking like a smart caveman while keeping full technical accuracy. Intensity levels: lite, full (default), ultra, wenyan-lite, wenyan-full, wenyan-ultra. Sub-commands: /caveman commit, review, compress, stats, crew, help. Use when the user says "caveman mode", "talk like caveman", "less tokens", "be brief", or invokes /caveman. Also auto-triggers when token efficiency is requested. |
-| [`cavecrew.md`](cavecrew.md) | — | — | Cavecrew — Delegating to Caveman Subagents |
-| [`commit.md`](commit.md) | — | — | Caveman — Commit Messages |
-| [`compress.md`](compress.md) | — | — | Caveman — Compress a Prose File |
-| [`modes.md`](modes.md) | — | — | Caveman — intensity levels, worked |
-| [`review.md`](review.md) | — | — | Caveman — Code Review Comments |
+| File | Description |
+|------|-------------|
+| [`SKILL.md`](SKILL.md) | Ultra-compressed communication mode — router. Cuts token usage ~75% by speaking like a smart caveman while keeping full technical accuracy. Intensity levels: lite, full (default), ultra, wenyan-lite, wenyan-full, wenyan-ultra. Sub-commands: /caveman commit, review, compress, stats, crew, help. Use when the user says "caveman mode", "talk like caveman", "less tokens", "be brief", or invokes /caveman. Also auto-triggers when token efficiency is requested. |
+| [`cavecrew.md`](cavecrew.md) | Cavecrew — Delegating to Caveman Subagents |
+| [`commit.md`](commit.md) | Caveman — Commit Messages |
+| [`compress.md`](compress.md) | Caveman — Compress a Prose File |
+| [`modes.md`](modes.md) | Caveman — intensity levels, worked |
+| [`review.md`](review.md) | Caveman — Code Review Comments |
 <!-- routing:end -->

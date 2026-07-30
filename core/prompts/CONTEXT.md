@@ -6,7 +6,7 @@ One file per prepared session. Produced by `/prepare` or triage sessions. Delete
 <!-- routing:start -->
 ## Routing
 
-| File | Interface | API | Description |
-|------|-----------|-----|-------------|
-| [`fable-instituto.md`](fable-instituto.md) | — | — | fable session — instituto: empregar amigos hackeando o capitalismo |
+| File | Description |
+|------|-------------|
+| [`fable-instituto.md`](fable-instituto.md) | fable session — instituto: empregar amigos hackeando o capitalismo |
 <!-- routing:end -->

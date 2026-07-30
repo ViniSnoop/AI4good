@@ -4,7 +4,8 @@ Attachments captured from Gmail and Telegram. Organized by month (YYYY-MM/). Gma
 <!-- routing:start -->
 ## Routing
 
-| File | Interface | API | Description |
-|------|-----------|-----|-------------|
-| [`instituto-estrategias.md`](instituto-estrategias.md) | — | — | Instituto — 3 Estratégias (Fable, 2026-07-06) |
+| File | Description |
+|------|-------------|
+| [`2026-07/instagram-video-by-bodam.sketch.md`](2026-07/instagram-video-by-bodam.sketch.md) | Video by bodam.sketch |
+| [`instituto-estrategias.md`](instituto-estrategias.md) | Instituto — 3 Estratégias (Fable, 2026-07-06) |
 <!-- routing:end -->

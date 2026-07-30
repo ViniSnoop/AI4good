@@ -35,13 +35,13 @@ file is a node in that graph.
 <!-- routing:start -->
 ## Routing
 
-| File | Interface | API | Description |
-|------|-----------|-----|-------------|
-| [`architect.md`](architect.md) | — | — | Architecture-decision subtree of the craft tree — turn a design/technology choice into a recorded decision (problem → options → trade-offs → decision → ADR). Produces a durable decision record, not code. |
-| [`craft.md`](craft.md) | — | — | Looped engineering flow — development in file-relayed loops with model autorouting; each loop runs in a fresh, cheap session that reads exactly one file. |
-| [`prior-art.md`](prior-art.md) | — | — | Craft — Prior Art, Provenance, and Case Study |
-| [`route.md`](route.md) | — | — | Loop router — classify a /loops task by TYPE and dispatch to the right subtree flow (padaria · feature/SDD · research · architecture). Thin: it classifies and hands off, it does not do the work. |
-| [`routing.md`](routing.md) | — | — | Craft — Provider Routing |
-| [`runtimes.md`](runtimes.md) | — | — | Craft — Runtime Spawn Recipes |
-| [`tree.md`](tree.md) | — | — | The Craft Tree |
+| File | Description |
+|------|-------------|
+| [`architect.md`](architect.md) | Architecture-decision subtree of the craft tree — turn a design/technology choice into a recorded decision (problem → options → trade-offs → decision → ADR). Produces a durable decision record, not code. |
+| [`craft.md`](craft.md) | Looped engineering flow — development in file-relayed loops with model autorouting; each loop runs in a fresh, cheap session that reads exactly one file. |
+| [`prior-art.md`](prior-art.md) | Craft — Prior Art, Provenance, and Case Study |
+| [`route.md`](route.md) | Loop router — classify a /loops task by TYPE and dispatch to the right subtree flow (padaria · feature/SDD · research · architecture). Thin: it classifies and hands off, it does not do the work. |
+| [`routing.md`](routing.md) | Craft — Provider Routing |
+| [`runtimes.md`](runtimes.md) | Craft — Runtime Spawn Recipes |
+| [`tree.md`](tree.md) | The Craft Tree |
 <!-- routing:end -->

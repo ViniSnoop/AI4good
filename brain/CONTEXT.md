@@ -39,12 +39,12 @@ Design rationale → [SPECS.md](SPECS.md) § Rationale.
 | [`attachments/`](attachments/CONTEXT.md) | — |
 | [`goals/`](goals/CONTEXT.md) | One file per goal — organic growth from seed to full. Dashboard + router: [GOALS |
 
-| File | Interface | API | Description |
-|------|-----------|-----|-------------|
-| [`GOALS.md`](GOALS.md) | — | — | goals |
-| [`INBOX.md`](INBOX.md) | — | — | inbox |
-| [`SPECS.md`](SPECS.md) | — | — | Brain — Specs |
-| [`TODO.md`](TODO.md) | — | — | to do |
-| [`USER.md`](USER.md) | — | — | User Profile |
-| [`drafts/context-folding-report.md`](drafts/context-folding-report.md) | — | — | Context Folding: A Graph-Based Architecture for Infinite-Horizon AI Agent Memory |
+| File | Description |
+|------|-------------|
+| [`GOALS.md`](GOALS.md) | goals |
+| [`INBOX.md`](INBOX.md) | inbox |
+| [`SPECS.md`](SPECS.md) | Brain — Specs |
+| [`TODO.md`](TODO.md) | to do |
+| [`USER.md`](USER.md) | User Profile |
+| [`drafts/context-folding-report.md`](drafts/context-folding-report.md) | Context Folding: A Graph-Based Architecture for Infinite-Horizon AI Agent Memory |
 <!-- routing:end -->
