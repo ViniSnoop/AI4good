@@ -82,6 +82,13 @@ The three real conflicts, with the resolving rule:
 `ARCHIVE.md`, `HISTORY.md` and `.log/done.md` are **deleted, not renamed**. A file that is "never
 auto-loaded, ask explicitly" is doing git's job. **Done work is deleted; git is the history.**
 
+The same rule applies *inside* a file, not only to whole files (Lucas, 2026-07-30): **a completed
+`ROADMAP.md` item is cut, not ticked.** `[x]` is an annotated corpse with a checkbox — it keeps
+paying rent in every read of the file, and it makes the roadmap's length measure history instead of
+remaining work. Trim on verified completion. Keep a line only when the next session needs it to
+*extend* the work rather than recreate it, and write that line as present-tense state ("extend
+`.hooks/type-gate.py`"), never as a report ("✅ built the type gate").
+
 One thing git cannot hold: an approach we *tried and rejected* was never committed. That content has
 exactly one home — a one-line entry under `## Rejected` in the relevant `ROADMAP.md` (for a ditched
 goal, under `## Ditched` in `brain/GOALS.md`). One line, with the reason, so a dead idea does not

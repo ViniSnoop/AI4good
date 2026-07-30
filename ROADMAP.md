@@ -8,6 +8,12 @@
 >
 > **Deletion policy: hard delete. Git is the history.** No strikethrough, no annotated corpses. A
 > killed item gets one line under *Rejected* so it does not resurface looking new.
+>
+> **Completion is deletion, not `[x]`** (Lucas, 2026-07-30). Once a task's verification passes, cut
+> the item out — do not tick it and leave it sitting there. A roadmap holds only what is still open,
+> so its length is a real measure of remaining work. What was built is recorded by the code, its
+> tests, and git. Keep a line only when the *next* session needs it to extend the work instead of
+> recreating it, and write that line as present-tense state, never as a report of what was done.
 
 ## v1 definition of done
 
@@ -113,38 +119,23 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
 > workspace itself.
 
 1. 🟢 **Tier 0 — per-commit, zero-token, deterministic.** No LLM. Scripts in the pre-commit/verify
-   path. **First two checks LIVE 2026-07-30** as `.hooks/type-gate.py` (pre-commit 1g, 13 tests):
-   the type allowlist and the CONTEXT.md no-hand-inventory rule. It is a **ratchet** — only files a
-   commit *adds* are blocked, so the 39 pre-existing off-allowlist names and 10 hand-inventory
-   `CONTEXT.md` are the dashboard's job (4.3), not a reason to fail every commit in a repo that
-   inherited them. Remaining below: naming, retired-token, placement, project⟺goal, size, dup-slug.
-   - **uppercase type allowlist** — ✅ **DONE.** The law and the names live in
-     [core/SCHEMA.md](core/SCHEMA.md) § The `.md` type system — **the checker parses that table
-     instead of restating it**, because the allowlist was already duplicated in three files, which
-     is the exact drift class this gate exists to catch. Evidence for the rule: 25 distinct uppercase
-     names existed, 15 appearing exactly once. Off-allowlist blocks with "add it to the allowlist if
-     you mean it", and § The four disposal routes says where it should go instead.
+   path. **Extend `.hooks/type-gate.py`** (live since 2026-07-30, pre-commit 1g, 13 tests) — do not
+   start a new script. It is a **ratchet**: only files a commit *adds* are blocked, which is why
+   39 pre-existing off-allowlist names and 10 hand-inventory `CONTEXT.md` are the dashboard's job
+   (4.3) rather than a reason to fail every commit in a repo that inherited them. Checks still to
+   write:
    - **naming** — kebab-case, full words not truncations (the `architect`>`arch` rule made
      machine-checkable); lowercase top-level dirs; no spaces or accents in filenames (live
      violation: `academy/administration/coordenacao-lc/novo-ppc-bcc/Restrições Curriculares
      Atualizado.md`).
    - **retired-token assertion** — after a rename lands, assert the retired token appears nowhere.
      This is what makes 4.2's class of bug catchable instead of re-discovered.
-   - **no hand-maintained file inventory in CONTEXT.md** — ✅ **DONE**, same gate. Three signals
-     above the routing block: an inventory heading, ASCII tree glyphs, and ≥3 bullets whose path
-     **exists on disk**. That existence requirement is not an optimisation — it is what separates an
-     inventory from a naming convention, and it killed a real false positive (a paper's
-     `images/CONTEXT.md` documenting `grav_cam2_gXX_sq.png`-style globs, which is CONTEXT.md doing
-     precisely its job). `code/voti` self-resolved when it was archived; `code/isoroll-content`
-     remains, untouched because a parallel session owns that repo. This was the answer to "can
-     CONTEXT.md files be smaller" — the problem was never size, it was three overlapping
-     inventories of the same files.
    - **placement** — a file's location matches its declared type; includes `core/tools/*` Python
      files carrying no `.py` suffix — decide accept-or-standardize.
    - **project ⟺ goal link** — every project `CONTEXT.md` declares its goal on line 3.
      **Backfill first, then enforce** (warn → block).
-   - **pointer integrity** — DONE. Open sub-decision: is an unresolved `[[slug]]` a *planned* memory
-     (allowed) or a typo (error)? Needed before the checker can gate it.
+   - **`[[slug]]` resolution** — open sub-decision blocking the last piece of pointer integrity:
+     is an unresolved `[[slug]]` a *planned* memory (allowed) or a typo (error)?
    - **size as a *signal*, never a cap** — warn-for-delta-review when a curated doc crosses a
      threshold; **never force-summarize** (ACE brevity-bias trap). Also list tracked files above
      `BLOCK_LINES` with the commit that introduced them, since `--no-verify` bypasses leave no trace.
@@ -290,16 +281,13 @@ is no conceptual intersection."* Each type answers exactly one question.
 | CONTEXT vs SPECS | rules that *constrain code* → SPECS; what the dir *is* → CONTEXT |
 | ROADMAP vs BUGS | BUGS owns the text; ROADMAP references by id and never restates it |
 
-1. [x] 🟢 **apply the type system.** DONE 2026-07-30. Law → [core/SCHEMA.md](core/SCHEMA.md) § The
-   `.md` type system. Deleted `ARCHIVE.md`, `core/HISTORY.md`, `.log/done.md`; folded `WATCHLIST` →
-   `refs/REFS.md` (`status: unjudged`) and `FOUNDATIONS` → `brain/SPECS.md` § Rationale;
-   `goals/ARCHETYPE.md` → `_template.md`. **The wiring was the real work:** `/roundup` deletes
-   instead of archiving (+ one `## Rejected` line per killed idea), `/compass` ditches to
-   `## Ditched` in `GOALS.md`, `brain_stats.py` lost `append_done_log`, and the `code/_templates` +
-   `code/SPECS.md` + `core/ROADMAP.md` all state the delete policy. Fixed in passing: the
-   `brain_stats` trailing-newline bug, and `test_pointer_integrity` scanning `.Trash-<uid>/` (a
-   file-manager delete could block every commit until the trash was emptied). Per-project
-   `HISTORY.md` files die as each nested repo is next touched — one carries a live parallel session.
+1. 🟢 **retype what the gate now blocks but cannot fix.** `.hooks/type-gate.py` stops *new*
+   off-allowlist names; 39 existing ones remain, each routed by § The four disposal routes. Also
+   still open from the first pass: **5 nested repos carry `HISTORY.md`** (deleted as each is next
+   touched — `dobra` and `core` are done; one repo carries a live parallel session), and
+   `SPEC.md`→`SPECS.md` is decided but unshipped because it is load-bearing in five enforcement
+   points (`.hooks/pre-commit` §1d, `spec-read-gate.py`, `context-tracker.py:36`, `spec-scan`,
+   `spec-contract-check`) and must move as one reviewed change.
 2. 🟢 **safe — one or two refinement passes over the surviving docs.** Crop dead parts, collapse
    overlaps, compress the prose (caveman-compress the writing style, keep every technical fact).
    Requested by Lucas 2026-07-30, after the type system lands so the passes are not wasted on files
