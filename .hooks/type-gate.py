@@ -1,31 +1,27 @@
 #!/usr/bin/env python3
-# Tier 0 type gate (ROADMAP Frente 4.1): every staged .md must be a known type or an
-# instance, and a CONTEXT.md must not hand-list files. Zero-token, deterministic, no LLM.
+# Tier 0 gate (ROADMAP.md Frente 4.1): a staged file must be a known .md type or a
+# well-shaped instance, must sit where its type is allowed to live, and a CONTEXT.md must
+# not hand-list files. Zero-token, deterministic, no LLM.
 #
-# The allowlist is PARSED from core/SCHEMA.md, never restated here. It was already
-# duplicated across three files before this gate existed, which is the exact drift class
-# the gate is meant to catch — a second copy in the checker would be the same bug wearing
-# a lab coat.
+# The law is PARSED from core/SCHEMA.md by schema_law.py, never restated here. It was
+# already duplicated across three files before this gate existed, which is the exact drift
+# class the gate is meant to catch — a second copy in the checker would be the same bug
+# wearing a lab coat.
 #
 # Ratchet, like the spec-drive gate (.hooks/pre-commit 1d): only files this commit ADDS
-# are blocked. Pre-existing violations are reported by the entropy dashboard (Frente 4.3),
-# not by failing every commit in a repo that inherited them.
+# are blocked. Pre-existing violations are reported by the entropy dashboard
+# (entropy-dashboard.py, Frente 4.3), not by failing every commit in a repo that
+# inherited them.
 import re
 import subprocess
 import sys
 from pathlib import Path
 
-WORKSPACE_ROOT = Path(__file__).resolve().parent.parent
-SCHEMA = WORKSPACE_ROOT / 'core/SCHEMA.md'
+from entropy_naming import check_dirs, check_placement, check_shape
+from schema_law import SCHEMA, WORKSPACE_ROOT, load_law, load_scopes
 
 # CLAUDE.md is mandated by the harness, not chosen by us; a gate cannot un-invent it.
 HARNESS_MANDATED = {'CLAUDE.md'}
-
-# core/SCHEMA.md § The one exception: transient initiative docs. Parsed, not restated,
-# for the same reason as the allowlist.
-TRANSIENT_HEADING = '### The one exception: transient initiative docs'
-TYPE_ROW = re.compile(r'^\|\s*`([A-Z][A-Z0-9_-]*\.md)`\s*\|', re.M)
-BACKTICKED_MD = re.compile(r'`([^`]+\.md)`')
 
 UPPERCASE_MD = re.compile(r'^[A-Z][A-Z0-9_.-]*\.md$')
 
@@ -37,26 +33,6 @@ PATH_BULLET = re.compile(r'^\s*[-*]\s+[`\[]([\w./-]+\.\w+|[\w./-]+/)', re.M)
 INVENTORY_HEADING = re.compile(
     r'^#+\s+.*\b(file map|repository shape|project layout|file list|directory structure|'
     r'folder structure|files?\s+in\s+this|inventory)\b', re.I)
-
-
-def _section(text: str, heading: str) -> str:
-    """Body of one '### ...' section, up to the next heading of the same or higher level."""
-    start = text.find(heading)
-    if start < 0:
-        return ''
-    body = text[start + len(heading):]
-    end = re.search(r'^#{1,3}\s', body, re.M)
-    return body[:end.start()] if end else body
-
-
-def load_law(schema_path: Path) -> tuple[set, set]:
-    """(allowed type names, exempt transient-doc names) read straight from the law."""
-    text = schema_path.read_text(encoding='utf-8')
-    allowed = set(TYPE_ROW.findall(text))
-    exempt = set()
-    for name in BACKTICKED_MD.findall(_section(text, TRANSIENT_HEADING)):
-        exempt.add(Path(name).name)
-    return allowed, exempt
 
 
 def check_name(path: Path, allowed: set, exempt: set) -> str | None:
@@ -101,20 +77,26 @@ def staged_added_files() -> list:
     """Only files this commit ADDS — the ratchet. Renames count as adds of the new name."""
     out = subprocess.run(['git', 'diff', '--cached', '--name-only', '--diff-filter=AR'],
                          capture_output=True, text=True).stdout
-    return [Path(line) for line in out.splitlines() if line.endswith('.md')]
+    return [Path(line) for line in out.splitlines()]
+
+
+def failures_for(path: Path, allowed: set, exempt: set, scopes: dict) -> list:
+    return [f for f in (check_name(path, allowed, exempt),
+                        check_inventory(path) if path.suffix == '.md' else None,
+                        check_shape(path, allowed),
+                        check_dirs(path, WORKSPACE_ROOT),
+                        check_placement(path, scopes, WORKSPACE_ROOT)) if f]
 
 
 def main() -> int:
     if not SCHEMA.exists():
         return 0  # not the workspace repo; nothing to enforce against
     allowed, exempt = load_law(SCHEMA)
+    scopes = load_scopes(SCHEMA)
     failures = []
     for path in staged_added_files():
-        if not path.exists():
-            continue
-        for failure in (check_name(path, allowed, exempt), check_inventory(path)):
-            if failure:
-                failures.append(failure)
+        if path.exists():
+            failures.extend(failures_for(path, allowed, exempt, scopes))
     if failures:
         print('⛔ type gate:')
         for failure in failures:

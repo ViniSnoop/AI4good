@@ -5,19 +5,13 @@ Levar a sério e aplicar craft flows: desenvolvimento em loops explícitos (clar
 >**signals**  
 transformative · essential · thrilled
 
-> **[DECIDIDO 2026-07-23] este goal vira `craft-flows`.** "Loop" foi aposentado como palavra pra
-> agentes conectados — o termo canônico é **flow**. Motivo (do Lucas): loop virou buzzword, e *flow*
-> é mais preciso — um loop vai do fim ao começo sem ramificação e com uma saída só; nossos
-> procedimentos ramificam, escapam e **compõem**. Loop segue válido só pra um repeat de verdade.
-> Renomeações decididas: `loop-engineering`→**`craft`**, `loop-router`→**`route`**,
-> `loop-architecture`→**`architect`**, `LOOP-TREE.md`→**`TREE.md`**; este arquivo →
-> `brain/goals/craft-flows.md`. Modelo: flows compõem flows (`uses:`), grafo de composição
-> **acíclico** (DAG), e ciclo só em **execução**, com teto de iterações. Racional completo em
-> [`core/SCHEMA.md`](../../core/SCHEMA.md) § *Composition and cycles*; plano de execução (8 passos)
-> em [`core/ROADMAP.md`](../../core/ROADMAP.md) § *craft-flows*. **Renomeação FEITA em 2026-07-23**:
-> flows em [`core/flows/craft/`](../../core/flows/craft/CONTEXT.md), agentes `craft-{low,medium,high}`,
-> este arquivo. Registros históricos (git, `outputs/`,
-> `code/*/.loop/*`) mantêm o nome antigo de propósito — são registro do que era verdade.
+> **Vocabulário: o termo canônico é *flow*, não *loop*.** Racional e modelo de composição
+> (flows compõem flows via `uses:`, grafo **acíclico**, ciclo só em execução com teto de
+> iterações) em [`core/SCHEMA.md`](../../core/SCHEMA.md) § *Composition and cycles*; as grafias
+> aposentadas estão em § *Retired tokens* e são verificadas por hook. Os flows vivem em
+> [`core/flows/craft/`](../../core/flows/craft/CONTEXT.md), executados por `craft-{low,medium,high}`.
+> **Ainda emitem a palavra aposentada**: a skill `/loops` e o dir de estado `.loop/<slug>/` —
+> rename pendente na [`/ROADMAP.md`](../../ROADMAP.md) Frente 4.2.
 
 ## selected next achievement
     [opencode-reliability] (A2) executar UM chain completo no opencode (menor feature isoroll) com MESMO modelo via openrouter em paralelo com uma run Claude Code; comparar verdicts/files; decidir: ajustar plugin OU trocar provider OU scope /loops ao Claude Code só
@@ -74,14 +68,14 @@ Abrir `core/flows/craft/craft.md` `## Field Practice` (7 runs auditados, A1 DONE
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-23  ·  trend: advancing
+last-touch: 2026-07-30  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       2 |
-| trimester   |       2 |
-| semester    |       2 |
-| year        |       2 |
-| 2-year      |       2 |
-| 4-year      |       2 |
+| month       |       3 |
+| trimester   |       3 |
+| semester    |       3 |
+| year        |       3 |
+| 2-year      |       3 |
+| 4-year      |       3 |
 <!-- stats:end -->

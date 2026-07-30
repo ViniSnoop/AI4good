@@ -4,7 +4,7 @@
 **Vocabulary.** "Flow" is the canonical word for a procedure that connects agents (decided
 2026-07-23, [`core/SCHEMA.md`](../../SCHEMA.md) § Composition and cycles). "Loop" survives here only
 in its literal sense — one bounded repeat, i.e. a single numbered step of `craft.md` run in a fresh
-session. The files were `loop-engineering` · `loop-router` · `loop-architecture` · `LOOP-TREE`.
+session.
 
 | File | Role | Loaded |
 |------|------|--------|

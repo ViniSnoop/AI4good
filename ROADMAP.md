@@ -21,8 +21,8 @@ Four criteria. Nothing else gates v1.
 
 | # | Criterion | Owner | State |
 |---|-----------|-------|-------|
-| 1 | **verify-fast green + Tier 0 live** — naming, placement, pointer integrity, size-as-signal deterministic; entropy dashboard reads clean | Frente 4 | open |
-| 2 | **One ledger, no duplicates** — this file is the sole wos ledger, verified by scan not eyeball | Frente 8 | open |
+| 1 | **verify-fast green + Tier 0 live** — naming, placement, pointer integrity, size-as-signal deterministic; entropy dashboard reads clean | Frente 4 | checks live 2026-07-30 · dashboard at 85 findings, must drain |
+| 2 | **One ledger, no duplicates** — this file is the sole wos ledger, verified by scan not eyeball | Frente 8 | ✅ **MET 2026-07-30** — `test_no_item_lives_in_two_ledgers` |
 | 3 | **Everything pushed, gitflow-shaped** — every `code/` repo on `main`/`feature/*`, zero unpushed, no repo without a remote | Frente 11 | ✅ **MET 2026-07-29** |
 | 4 | **Clonable by a student** — fresh clone gets every capability; deps declared, no undocumented hand-installs | Frente 10 | open |
 
@@ -34,8 +34,9 @@ reduced mental load. That is the real test and it can only run after v1.
 Per-step `model` = the tier that is *enough* (a floor, not a ceiling).
 🔴 needs Lucas · 🟡 pilot on one subtree first · 🟢 mechanical.
 
-**Only four open steps need Lucas's own judgment: 3.1, 8.1, 9.1, 10.3.** Everything else is Sonnet
-or Haiku. Stating that number is part of the cure for feeling lost.
+**Only four open steps need Lucas's own judgment: 3.1, 8.1, 9.1, 10.3** (plus one sub-decision
+inside 4.1: what an unresolved `[[slug]]` means). Everything else is Sonnet or Haiku. Stating that
+number is part of the cure for feeling lost.
 
 **Load-bearing principle: automatic + zero-token beats agent-checked, and free checks are never
 coupled to paid ones.** Deterministic scripts per-commit; human judgment on demand.
@@ -126,29 +127,23 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
 > the agent library has [core/SCHEMA.md](core/SCHEMA.md). Nothing yet governs the shape of the
 > workspace itself.
 
-1. 🟢 **Tier 0 — per-commit, zero-token, deterministic.** No LLM. Scripts in the pre-commit/verify
-   path. **Extend `.hooks/type-gate.py`** (live since 2026-07-30, pre-commit 1g, 13 tests) — do not
-   start a new script. It is a **ratchet**: only files a commit *adds* are blocked, which is why
-   39 pre-existing off-allowlist names and 10 hand-inventory `CONTEXT.md` are the dashboard's job
-   (4.3) rather than a reason to fail every commit in a repo that inherited them. Checks still to
-   write:
-   - **naming** — kebab-case, full words not truncations (the `architect`>`arch` rule made
-     machine-checkable); lowercase top-level dirs; no spaces or accents in filenames (live
-     violation: `academy/administration/coordenacao-lc/novo-ppc-bcc/Restrições Curriculares
-     Atualizado.md`).
-   - **retired-token assertion** — after a rename lands, assert the retired token appears nowhere.
-     This is what makes 4.2's class of bug catchable instead of re-discovered.
-   - **placement** — a file's location matches its declared type; includes `core/tools/*` Python
-     files carrying no `.py` suffix — decide accept-or-standardize.
+1. 🟢 **Tier 0 — per-commit, zero-token, deterministic.** Live: `.hooks/type-gate.py` (ratchet, only
+   what a commit *adds*) + `schema_law.py` · `entropy_naming.py` · `entropy_ledger.py`, asserted by
+   35 tests in `verify-fast`. Every rule is **parsed from `core/SCHEMA.md`**, never restated in a
+   checker. Covered: type allowlist, hand-inventory, filename shape, directory case, type placement,
+   retired tokens, duplicate slugs, size-as-signal.
+   Two checks still to write, both needing a decision first:
    - **project ⟺ goal link** — every project `CONTEXT.md` declares its goal on line 3.
      **Backfill first, then enforce** (warn → block).
-   - **`[[slug]]` resolution** — open sub-decision blocking the last piece of pointer integrity:
-     is an unresolved `[[slug]]` a *planned* memory (allowed) or a typo (error)?
-   - **size as a *signal*, never a cap** — warn-for-delta-review when a curated doc crosses a
-     threshold; **never force-summarize** (ACE brevity-bias trap). Also list tracked files above
-     `BLOCK_LINES` with the commit that introduced them, since `--no-verify` bypasses leave no trace.
-   - **duplicate-slug scan** — assert each bracketed item slug appears in exactly one ledger. This
-     is what keeps criterion 2 true without vigilance.
+   - **`[[slug]]` resolution** — 🔴 open sub-decision, the last piece of pointer integrity: is an
+     unresolved `[[slug]]` a *planned* memory (allowed) or a typo (error)?
+
+   Conventions the checks had to be taught, each because it is a law that outranks ours: snake_case
+   Python modules and `__init__`, PascalCase/camelCase in JS/TS, uppercase venue acronyms in
+   `academy/papers/<year>-<VENUE>-<slug>`, `_`-prefixed scaffolding, and **received documents keep
+   their names** — the 91 tracked paths with spaces and accents are all `.docx`/`.pdf` from the PPC
+   process, where the filename *is* the provenance. Decided the same way: `core/tools/*` CLI
+   entrypoints stay extensionless, which is the convention for anything meant to be run by name.
    → **model: sonnet** · **switch: `/loops`.**
 2. 🟢 **finish the `loops` → `flows` rename at the generator.** APPROVED 2026-07-29 (Lucas: *"we
    renamed loops to be flows but apparently this keeps coming back"*). It keeps coming back because
@@ -164,10 +159,18 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
    **The reusable lesson: an incomplete rename is indistinguishable from entropy at the leaves, and
    is only fixable at the generator.**
    → **model: sonnet**.
-3. 🟢 **the unifying artifact — an entropy dashboard.** One generated report written by the Tier-0
-   checks: naming violations, oversized curated docs, dead pointers, misplaced files. Agents and
-   Lucas read the **dashboard** (pre-computed, cheap), never re-scan the tree.
-   → **model: sonnet** · **switch: `/loops`.**
+3. 🟢 **the entropy dashboard — live.** `make entropy` → [`entropy.md`](entropy.md), 1904 tracked
+   files across the workspace **and its 24 nested repos**, ~1.3 s. Read the report; never re-scan
+   the tree. Baseline 2026-07-30: **85 findings** — 41 off-allowlist `.md` types (Frente 12.1's
+   backlog, `HISTORY.md` ×6 the biggest family), 29 size signals, 5 hand-inventory `CONTEXT.md`,
+   6 naming/placement, 4 retired tokens, 0 duplicate slugs. Criterion 1 wants this reading clean;
+   the remaining work is draining it.
+
+   The dashboard scans nested repos, the **tests do not** — an assertion in this repo about
+   another repo's content fails for reasons this repo cannot fix, and each nested repo runs its
+   own verify. Where a check is green workspace-wide it is asserted at zero in `verify-fast`
+   (retired tokens, duplicate slugs); where it is not, `test_entropy_naming.py` holds a named
+   **baseline** so a new violation fails the build and a fixed one must leave the list.
 
 ---
 
@@ -301,10 +304,6 @@ is no conceptual intersection."* Each type answers exactly one question.
    Requested by Lucas 2026-07-30, after the type system lands so the passes are not wasted on files
    about to be deleted.
    → **model: sonnet**.
-3. 🟢 **safe — `KNOWN-BUGS.md` → `BUGS.md`.** DONE 2026-07-30. Six files renamed, gate hook renamed
-   (`bugs-gate.py`) with its `.claude/settings.json` registration and the **functional
-   spawn-by-filename reference** in `.opencode/plugins/workspace-policy.js`. Zero old strings remain.
-
 > **A fourth type exists and must not be folded: the transient initiative doc.** `code/VERIFY.md`
 > self-declares this lifecycle and names `REFACTOR.md` as its species; siblings are
 > `code/SPEC-DRIVE.md`, `code/isoroll-module/REFACTOR.md`, `core/MIGRATION-STATUS.md`,
@@ -351,7 +350,6 @@ One test each. Nothing here needs a decision.
 - **`[offline-resilience]`** — the gaps are (a) network: [Reticulum](https://github.com/markqvist/Reticulum),
   E2E without infrastructure, and (b) an offline corpus: **Kiwix** (all of Wikipedia offline — almost
   certainly the "NOMAD project" Lucas half-remembered). Refs in `core/refs/REFS.md`.
-- **`[mvp-validate]`** — 30 days of daily use, assessed. Post-v1 by definition.
 - **Serious OCR** — real need (image-only PDFs in `branches/ecovila/burocracia/` where
   `core/tools/parse` returns empty; test Baidu "Unlimited OCR" first), but it belongs where the PDFs
   are, not in the wos ledger.
@@ -397,8 +395,11 @@ months anyway. Cheaper than a list nobody reads.
 1. **Frente 12.1** — apply the type system + write it into `core/SCHEMA.md`. Do it before 4.1 so
    Tier 0 enforces a vocabulary that is already true, and before 12.2 so the refinement passes are
    not spent on files about to be deleted.
-2. **Frente 4.1 + 4.3** — Tier 0 and the entropy dashboard. The keystone.
-3. **Frente 4.2** — the `loops`→`flows` generator rename.
+2. **Drain `entropy.md`** — the keystone is built; criterion 1 is now a drain, not a design. Biggest
+   families first: 41 off-allowlist types (this *is* Frente 12.1) and 29 size signals.
+3. **Frente 4.2** — the `loops`→`flows` generator rename. Its retired tokens are now declared in
+   `core/SCHEMA.md` § Retired tokens, so the sweep has an assertion waiting for it: add
+   `.loop`/`loops` to that table the moment the rename lands and the check proves it complete.
 4. **Frente 10** (1, 2) — SETUP split + declared deps.
 5. **Batch B** — parallel-safe, cheap.
 6. **Frente 12.2** — the refinement/compression passes.

@@ -11,7 +11,30 @@ concepts. This is **data, not a rule** — which is why it lives here and not in
 | Canonical | Also written |
 |-----------|--------------|
 | **workspace-os** | `wos` · `WOS` · `w-os` · `W-OS` |
-| **craft flow** | the `/loops` skill, `core/flows/craft/`; retired spellings `loop-engineering` · `loop-router` · `loop-architecture` · `LOOP-TREE` |
+| **craft flow** | the `/loops` skill, `core/flows/craft/` (retired spellings: § Retired tokens) |
+
+### Retired tokens
+
+**A rename is finished when its old token appears nowhere.** Until then the leaves drift back and the
+drift is indistinguishable from entropy — the lesson of the `loops`→`flows` rename, which kept
+resurfacing because nothing asserted its completion.
+
+This table *is* the assertion. `.hooks/entropy_ledger.py` fails if any token below survives in a
+tracked file, this file excepted — the law has to be able to name what it retires. Add a row the
+moment a rename lands, and delete the prose that would otherwise explain it: git holds the history,
+this table holds the guard.
+
+| Retired token | Replacement | Retired |
+|---------------|-------------|---------|
+| `loop-engineering` | `craft` | 2026-07-23 |
+| `loop-router` | `route` | 2026-07-23 |
+| `loop-architecture` | `architect` | 2026-07-23 |
+| `LOOP-TREE` | `tree.md` | 2026-07-23 |
+| `KNOWN-BUGS` | `BUGS.md` | 2026-07-30 |
+
+Not yet listed because the rename has not landed: `SPEC.md`→`SPECS.md` (load-bearing in five
+enforcement points; see [ROADMAP.md](../ROADMAP.md) Frente 12.1). A token joins this table only when
+the sweep is complete — a row that fails on the day it is written trains people to ignore the check.
 
 ## The `.md` type system
 

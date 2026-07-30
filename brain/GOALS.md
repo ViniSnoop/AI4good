@@ -3,7 +3,7 @@
 <!-- stats:start -->
 <!-- data:start -->
 ## attention dashboard  _(auto-updated on every commit)_
-last-updated: 2026-07-30 12:40
+last-updated: 2026-07-30 13:39
 
 >**areas** — last 14 days  
 ```
@@ -16,7 +16,7 @@ spiritual    ███░░░░░░░   20 touches
 
 >**goals** — last 14 days  
 ```
-CONTEXT                  ██░░░░░░░░   3 touches
+CONTEXT                  ██░░░░░░░░   4 touches
 burocracia-academica     ░░░░░░░░░░   1 touches
 career-ufrpe             ███░░░░░░░   5 touches
 corporal-expressiveness  ███░░░░░░░   5 touches
@@ -34,7 +34,7 @@ finances                 ███░░░░░░░   5 touches
 guitar                   ███░░░░░░░   5 touches
 home-casinhas            ███░░░░░░░   5 touches
 instituto                ███░░░░░░░   5 touches
-lih-dd                   ███░░░░░░░   5 touches
+lih-dd                   ████░░░░░░   6 touches
 local-ai                 █████░░░░░   8 touches
 magic-places             ███░░░░░░░   5 touches
 make-in-time             ███░░░░░░░   5 touches
