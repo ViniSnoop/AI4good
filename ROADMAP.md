@@ -1,317 +1,527 @@
-# Workspace-OS Robustness Roadmap
-> The v1-strong push: turn the workspace scaffold into something that survives weaker models, untrusted input, and its own drift. Goal: [workspace-os](brain/goals/workspace-os.md). Reference evidence: [core/refs/REFS.md](core/refs/REFS.md).
+# Workspace-OS Roadmap — the v1 push
+> **Single entrypoint for all workspace-os (wos) build work.** Goal file
+> [brain/goals/workspace-os.md](brain/goals/workspace-os.md) holds *why* (signals, dynamics, timing);
+> this file holds *what*. [brain/TODO.md](brain/TODO.md) holds life tasks only;
+> [core/ROADMAP.md](core/ROADMAP.md) holds agent-library internals only. An item lives in exactly one
+> of the four — a copy is a bug. Reference evidence: [core/refs/REFS.md](core/refs/REFS.md).
+
+## v1 definition of done
+
+wos v1 is not "all items closed". It is these four, and nothing else gates it:
+
+| # | Criterion | Owner |
+|---|-----------|-------|
+| 1 | **verify-fast green + Tier 0 live** — naming, placement, pointer integrity, size-as-signal all deterministic; entropy dashboard exists and reads clean | Frente 4 |
+| 2 | **One ledger, no duplicates** — this file is the sole wos work ledger, verified by scan not eyeball | Frente 8 |
+| 3 | **Everything pushed, gitflow-shaped** — every `code/` repo on `main`/`feature/*`, zero unpushed, no repo without a remote | Frente 11 |
+| 4 | **Clonable by a student** — fresh clone gets every capability; deps declared, no undocumented hand-installs | Frente 10 |
+
+Everything below either serves a criterion or is explicitly **parked** (last section). Post-v1
+validation is `[mvp-validate]`: use the system daily for 30 days, then assess whether it reduced
+mental load — that is the *real* test, and it can only run after v1.
 
 ## How to read this
 
-Each frente (front) below is a self-contained line of work with numbered steps. Every step
-carries two tags:
+Each frente (front) is a self-contained line of work with numbered steps. Every step carries:
 
-- **model** — which tier is enough: `haiku` (mechanical), `sonnet` (normal engineering /
-  writing), `opus` (design, security, cross-cutting judgment). This is the *floor* — a
-  bigger model always works, it just costs more.
-- **switch** — how to get that model onto that step (see the switching guide at the bottom).
+- **model** — the tier that is *enough*: `haiku` (mechanical), `sonnet` (normal engineering /
+  writing), `opus` (design, security, cross-cutting judgment). A floor, not a ceiling.
+- **switch** — how to get that model onto that step (guide at the bottom).
 
-**Impact flags** mark steps that change shared behavior and therefore **need discussion +
-more evidence before shipping**, not just implementation:
+Impact flags mark steps that change shared behavior and need discussion before shipping:
+🔴 **decide-first** (workspace-wide policy or security — needs Lucas's sign-off) ·
+🟡 **pilot-first** (prove on one subtree, measure, then generalize) ·
+🟢 **safe** (mechanical or additive, low blast radius).
 
-- 🔴 **decide-first** — changes a workspace-wide policy or touches security; do not code it
-  until Lucas signs off on the approach. Most carry an open question.
-- 🟡 **pilot-first** — prove it on one subtree, measure, then decide whether to generalize.
-- 🟢 **safe** — mechanical or additive; low blast radius, just do it well.
+> **Evidence caveat, stated once for the whole doc.** Several frentes lean on the two strongest but
+> *unreviewed* preprints in our refs — progressive disclosure ([P] 2607.17598) and ACE
+> ([P] 2510.04618). Preprint = provisional (see [core/refs/CONTEXT.md](core/refs/CONTEXT.md)). Where a
+> step's justification is preprint-only, it says so and stays 🔴/🟡 until a published source or our
+> own measurement confirms it. We do not turn a preprint into a hard gate.
 
-> **Evidence caveat, stated once for the whole doc.** Several frentes lean on the two
-> strongest but *unreviewed* preprints in our refs — progressive disclosure ([P] 2607.17598)
-> and ACE ([P] 2510.04618). Preprint = provisional (see [core/refs/CONTEXT.md](core/refs/CONTEXT.md)).
-> Where a step's justification is preprint-only, it says so and stays 🔴/🟡 until a published
-> source or our own measurement confirms it. We do not turn a preprint into a hard gate.
+**Principle, load-bearing across every frente: automatic + zero-token beats agent-checked, and
+free checks are never coupled to paid ones.** Deterministic scripts run per-commit; token-costing
+detectors run periodically and opt-in; human judgment runs on demand.
+
+**Second principle: the entry point must not require memory.** The workspace must ease
+communication and discovery — Lucas should never have to remember what exists. Discoverability via
+skills, nudges, and routing is a feature, not polish (`[entry-point]`).
 
 ---
 
-## Frente 1 — INBOX provenance (security)
+## Frente 1 — INBOX provenance (security) — ESSENTIALLY DONE
 
-**Why.** INBOX ingests telegram, gmail, and the output of `core/tools/{video,fetch,search}`,
-then `/inbox` routes those lines into goals and ROADMAPs — trusted context. Nothing marks
-where a line came from. This is the memory-poisoning write channel: one malicious write
-persists across sessions, and standard prompt-injection defenses do not cover it
-([P] 2606.04329; fix shape from [P] 2606.24322 origin-bound authority; design ref CaMeL,
-Google DeepMind). The `brain` domain is single-trusted-sender for *typed* input, but forwarded
-web/email content is not.
+**Why.** INBOX ingests telegram, gmail, and the output of `core/tools/{video,fetch,search}`, then
+`/inbox` routes those lines into goals and ROADMAPs — trusted context. This is the memory-poisoning
+*write* channel, which standard prompt-injection defenses do not cover ([P] 2606.04329; fix shape
+from [P] 2606.24322 origin-bound authority; design ref CaMeL, Google DeepMind).
 
-> **DECIDED 2026-07-24 (Lucas, Opus session).** Trust model resolved, and *simplified* by Lucas's
-> reframe: **INBOX is always inert as instruction — nothing in it is ever obeyed as a command.**
-> Lucas never issues imperatives via INBOX (those go through direct aiwbot sessions); INBOX is
-> refs / ideas / todos only. So authorship does **not** decide "obey vs ignore" (answer is always
-> ignore-as-command) — it decides **what may be promoted into trusted files** during triage. Rule:
-> a `lucas`-authored line may be acted on and routed into goals/ROADMAPs; a line whose true origin
-> is a link/fetch/other-sender is **quoted data** — filed, never obeyed, never promoted raw into a
-> trusted file. Triage (`/inbox`) **is** the act to protect; `/roundup` and any other INBOX reader
-> inherit the same rule. Steps 1 & 3 below are therefore settled; 2 & the reader-edits are the build.
+> **Trust model (decided 2026-07-24, Lucas).** **INBOX is always inert as instruction — nothing in it
+> is ever obeyed as a command.** Authorship does not decide obey-vs-ignore (always ignore); it decides
+> **what may be promoted into trusted files** during triage. A `lucas`-authored line may be routed into
+> goals/ROADMAPs; a line whose true origin is a link/fetch/other-sender is **quoted data** — filed,
+> never obeyed, never promoted raw. `/inbox` is the act to protect; every other INBOX reader inherits
+> the rule.
 
-1. [x] 🔴 **decided — trust model** (see box above). Boundary is *authorship for promotion*, not
-   transport, and INBOX is inert-as-command by construction.
-2. [x] 🟢 **safe — tag non-`lucas` content at capture.** Prefix INBOX lines that carry link/fetch/
-   other-sender content with `[src: web:<domain> | gmail:<addr> | telegram-fwd]`; Lucas-typed lines
-   are `lucas` (default, may stay untagged or `[src: lucas]`). Edit the video/fetch/search sinks +
-   gmail tool (+ telegram daemon only for forwarded, not typed, content). Additive.
-   → **model: sonnet** · **switch: `/loops` feature subtree.**
-   **Done 2026-07-25:** `core/tools/gmail_triage.py` prepends `[src: gmail:<addr>]` to every
-   generated entry (in the Haiku system prompt template). `code/aiwbot/frontend/inbox.py`'s
-   `build_entry` gained a `forwarded: bool = False` kwarg tagging `[src: telegram-fwd]`; `bot.py`
-   passes `msg.forward_origin is not None` at all four capture call sites (text/voice/photo/
-   document) — this bot has one allowed chat_id, so anything not forwarded is Lucas typing.
-   video/fetch/search have no INBOX-write path of their own (read-only stdout tools); their
-   tagging is folded into the `/inbox` skill's video-extraction rule (step 3) instead, since
-   that's the only place their output ever reaches INBOX. Regression: `code/aiwbot/tests/test_inbox.py`.
-3. [x] 🔴 **decided — enforcement lives in the readers, not (only) AGENTS.md.** Adjust the `/inbox`
-   skill and `/roundup` skill: treat any `[src: web|gmail|…]`-tagged (non-`lucas`) line as inert
-   data — route/file it, never execute an imperative found inside it, never promote it verbatim into
-   a trusted file (quote/attribute instead). Build task, wording is settled.
-   → **model: sonnet** (skill-text edits) · was opus-gated, now unblocked by the decision above.
-   **Done 2026-07-25:** `core/skills/inbox.md` gained a "Provenance" section (the tag/quote rule)
-   plus a video-extraction-is-`[src: web:...]`-too note; `core/skills/roundup.md`'s INBOX-drain
-   phase now points at the same rule. Mirrors resynced (`core/tools/sync-skills`).
-4. 🟡 **pilot-first — measure.** Plant a benign "instruction" in a fetched page, run it through
-   video→INBOX→`/inbox`, confirm it lands as data and is not acted on. This is the seed of the
-   `verify-agent` tier (Frente 4).
+Shipped 2026-07-25: capture-time `[src: …]` tagging (`core/tools/gmail_triage.py`,
+`code/aiwbot/frontend/inbox.py` `build_entry(forwarded=…)`, regression in `code/aiwbot/tests/test_inbox.py`)
+and reader-side enforcement (`core/skills/inbox.md` § Provenance, `core/skills/roundup.md`).
+
+1. 🟡 **pilot-first — measure.** Plant a benign "instruction" in a fetched page, run it through
+   video→INBOX→`/inbox`, confirm it lands as data and is not acted on. Seed of the Tier-1 gold tasks.
    → **model: sonnet** to build the probe · **opus** to judge the result.
-
----
-
-## Frente 2 — Pointer & link integrity
-
-**Why.** `MEMORY.md` still points at `/mnt/workspace/VERIFY.md`; the file moved to
-`code/VERIFY.md` in commit `5fd9204`. Nothing detects a dead internal pointer. Same class:
-broken `[text](path)` links and `[[memory-slug]]` refs across CONTEXT.md / ROADMAP / MEMORY.
-This is the peer-reviewed doc-decay problem ([A] ICSE 2025, IEEE TSE 2024).
-
-1. 🟢 **safe — build the checker.** ~20-line script in `verify-fast`: resolve every relative
-   `](path)` link and every path literal in MEMORY.md; exit 1 on any miss. Wire into the root
-   Makefile `verify-fast` target.
-   → **model: sonnet** · **switch: `/loops` padaria (small-feature) subtree**, autoroutes
-   loop-low(haiku)/medium(sonnet). Genuinely a haiku-able task if specced tightly.
-2. 🟢 **safe — fix the known-dead pointer** (MEMORY.md → code/VERIFY.md) as the checker's first
-   caught case.
-   → **model: haiku** · **switch: same session**, trivial edit.
-3. 🟡 **pilot-first — `[[slug]]` resolution.** Decide policy: an unresolved `[[slug]]` is a
-   *planned* memory (allowed) vs. a *typo* (error). The memory spec treats dangling links as
-   fine, so this needs a rule before it can gate.
-   → **model: sonnet** · **switch: same session.**
 
 ---
 
 ## Frente 3 — Routing depth vs. locality (the SLM question)
 
-**Why.** Two different axes, kept separate on purpose:
+**Why.** Two axes, kept separate on purpose:
 
 - **Locality** — small CONTEXT.md glued to the files it governs. Evidence ([P] 2607.17598,
-  controlled, on haiku-4.5 + qwen3.6-27b): *"the weaker the agent's native navigation, the
-  earlier the skill pack earns its keep"*; the flat pack hits ~2× accuracy at ½ the tokens vs.
-  raw at corpus scale, and the always-loaded index is the most cache-friendly input. **For a
-  workspace that must run on Sonnet and SLMs, scattered local CONTEXT.md is not overhead — it
-  is what makes weak models work, and it is cheaper.** → keep it.
-- **Depth** — how many hops to content. Same paper: a second routing level is *not* uniformly
-  free; it hurt some tasks, helped open-QA. Cost is task- and scale-specific.
+  controlled, on haiku-4.5 + qwen3.6-27b): *"the weaker the agent's native navigation, the earlier the
+  skill pack earns its keep"*; the flat pack hits ~2× accuracy at ½ the tokens vs. raw at corpus scale,
+  and the always-loaded index is the most cache-friendly input. **For a workspace that must run on
+  Sonnet and SLMs, scattered local CONTEXT.md is not overhead — it is what makes weak models work, and
+  it is cheaper.** → keep it.
+- **Depth** — hops to content. Same paper: a second routing level is *not* uniformly free; it hurt
+  some tasks, helped open-QA. Cost is task- and scale-specific → measure, don't decree.
 
-**Net:** the rodada-1 "flatten everything" was wrong for locality, right only for depth — and
-even depth is now "measure per task", not "decree".
+Policy written 2026-07-24 in [core/SCHEMA.md](core/SCHEMA.md) § *Routing depth and locality* and
+induced into [AGENTS.md](AGENTS.md) (the always-read root) 2026-07-25. Not yet **enforced** —
+enforcement is Frente 4 Tier 0.
 
-1. [x] 🔴 **DECIDED + WRITTEN 2026-07-24, INDUCED 2026-07-25.** Policy recorded in
-   [SCHEMA.md](core/SCHEMA.md) § *Routing depth and locality*: keep CONTEXT.md local and granular
-   (locality is what makes weak models work + is the most cache-friendly input — [P] 2607.17598);
-   cap **chain depth**, not file count; measure before adding a routing level. **Induction fix
-   (2026-07-25):** the full policy sat only in `core/SCHEMA.md` — a cold, core-scoped doc that a
-   cross-subtree agent never loads, so it was written but not *induced where needed*. Promoted the
-   rule to [AGENTS.md](AGENTS.md) (the always-read root), which folds F5's size-as-signal into the
-   same bullet; SCHEMA.md keeps the evidence + preprint caveat. Still **not enforced** (no depth
-   check) — enforcement is Frente 4 Tier 0.
-2. 🟡 **pilot-first — measure our own depth.** Instrument what actually loads at session start
-   (AGENTS.md chain + every CONTEXT.md on a typical path + memory) and the real hop count to a
-   leaf. This is the existing `core/ROADMAP.md` "Audit context building" item — merge, don't
-   duplicate. Decide per-path if any level is dead weight.
-   **Sub-question (INBOX 2026-07-26, Lucas):** measure whether `context-gate.py` /
-   `bash-context-gate.py` force a *subagent* to reread the full CONTEXT.md chain on every subtree
-   touch, not once per session — if so, a subagent spawned for a narrow task may be paying the
-   full-chain cost repeatedly. Check whether that's intended or an unwanted induction of Frente 3's
-   own policy.
+1. 🟡 **pilot-first — measure our own depth.** Instrument what actually loads at session start
+   (AGENTS.md chain + every CONTEXT.md on a typical path + memory) and the real hop count to a leaf.
+   Decide per-path if any level is dead weight. Includes: consider trimming `MEMORY.md`, and inspect
+   what is stored unannounced under `~/.claude/`.
+   **Sub-question (Lucas, 2026-07-26):** do `context-gate.py` / `bash-context-gate.py` force a
+   *subagent* to reread the full CONTEXT.md chain on every subtree touch rather than once per session?
+   If so, a subagent spawned for a narrow task may pay the full-chain cost repeatedly. Intended, or an
+   unwanted induction of this frente's own policy?
    → **model: sonnet** to instrument + tabulate · **opus** to read the tradeoff.
-3. 🟡 **pilot-first — SLM confirmation run.** Before trusting the preprint on *our* content,
-   run one real task on a small model (via `code/dobra` / opencode) against the flat vs. nested
-   layout, our files, and compare. Ties into loop-engineering `[A2] opencode-reliability`.
+2. 🟡 **pilot-first — SLM confirmation run.** Before trusting the preprint on *our* content, run one
+   real task on a small model (via `code/dobra` / opencode) against the flat vs. nested layout, our
+   files, and compare. Ties to Frente 10 (`opencode-parity`).
    → **model: sonnet** to design + judge · execution is *by* the SLM under test.
+3. 🔴 **decide-first — what is always-loaded about Lucas, and where does memory live?**
+   `brain/USER.md` enters via the brain CONTEXT chain; `MEMORY.md` index enters every session.
+   Lucas's suspicion: the auto-memory overlaps what `USER.md` + `goals/` + CONTEXT chain +
+   `WATCHLIST` + `refs/` already do. Decide the role of each (always-loaded vs durable vs
+   on-demand) and whether the separate memory store justifies itself or should fold.
+   → **model: opus** · depends on step 1's measurement.
 
 ---
 
-## Frente 4 — workspace anti-entropy (reframed 2026-07-24)
+## Frente 4 — workspace anti-entropy — **the keystone, v1 criterion 1**
 
-> **Reframed by Lucas, 2026-07-24.** The original frente was "verify-agent: 5 behavioral gold
-> tasks". Lucas widened it to the real target: the recurring decay he has flagged repeatedly —
-> **files grow, scatter, duplicate, and drift from naming/structure patterns.** verify-agent is now
-> *one detector inside* a three-tier strategy, not the whole frente.
+> Reframed by Lucas 2026-07-24 from "verify-agent gold tasks" to the real target: the recurring decay
+> he has flagged repeatedly — **files grow, scatter, duplicate, and drift from naming/structure
+> patterns.** verify-agent is now *one detector inside* a three-tier strategy.
 
-**The frame (the load-bearing idea): structure is a spec; drift is a test failure.** `code/` already
-has this (the `> spec:` gate); the agent library has it ([SCHEMA.md](core/SCHEMA.md), frontmatter).
-Nothing governs the **shape of the workspace itself** — naming, placement, size, pointers,
-redundancy. Promote structural soundness to a first-class enforced spec, checked like code. This
-**subsumes** Frente 2 (pointer integrity), Frente 5 (size reframe), and three `brain/TODO.md` items
-(200-LOC-.md, filename enforcement, "standardization as a recurring need → skill"). One concept.
+**The frame: structure is a spec; drift is a test failure.** `code/` already has this (the `> spec:`
+gate); the agent library has it ([core/SCHEMA.md](core/SCHEMA.md), frontmatter). Nothing governs the
+**shape of the workspace itself** — naming, placement, size, pointers, redundancy. This frente
+**subsumes** the old Frente 2 (pointer integrity — checker shipped 2026-07-25,
+[core/tools/test/test_pointer_integrity.py](core/tools/test/test_pointer_integrity.py), runs in
+`make verify-fast`), Frente 5 (size-as-signal), and four ex-`TODO.md` items (200-LOC-`.md`, `.md`
+filename enforcement, "standardization as a recurring need → skill", capital-case dir names).
 
 **Why.** The self-improvement survey ([P] 2607.13104) names evaluation as *the* open problem for
 scaffolds; practitioner tools (claudemd-check, agenteval, instrlint) only lint text. Anti-entropy is
-broader than eval — it is detection + consolidation across the whole tree.
+broader — detection + consolidation across the whole tree.
 
-**Cost-ordered by Lucas's rule "automatic + zero-token beats agent-checked":**
+Cost-ordered by "automatic + zero-token beats agent-checked":
 
 1. 🟢 **Tier 0 — per-commit, zero-token, deterministic.** No LLM. Scripts in the pre-commit/verify
-   path: **naming** (kebab-case, full words not truncations — the `architect`>`arch` rule made
-   machine-checkable); **placement** (a file's location matches its declared type — extend
-   `sync-skills`); **pointer integrity** (= Frente 2, every `](path)`/`[[slug]]` resolves); **size as
-   a *signal not a cap*** — warn-for-delta-review when a *curated* doc crosses a threshold, **never
-   force-summarize** (ACE brevity-bias trap, [P] 2510.04618 — this is Frente 5 made concrete); the
-   **Frente-6 self-healing allowlist**. Emits into the dashboard (below).
+   path:
+   - **naming** — kebab-case, full words not truncations (the `architect`>`arch` rule made
+     machine-checkable); lowercase top-level dirs (the `Models/`-recurrence class); the
+     `UPPERCASE_IMPORTANT.md` type set is >10 types in Lucas's view — **reduce the type vocabulary
+     first, then enforce it** (ex-`[md-type-uniformity]`).
+   - **placement** — a file's location matches its declared type (extend `sync-skills`); includes
+     `core/tools/*` Python files carrying no `.py` suffix — decide accept-or-standardize
+     (ex-`[tools-py-suffix]`).
+   - **project ⟺ goal link** — every project `CONTEXT.md` declares its goal on line 3,
+     `> goal: [slug](../../brain/goals/<slug>.md)`. **Backfill the ~15 projects first, then enforce**
+     via post-edit hook (warn → block). `dobra` has no goal yet: create one or declare `> goal: none`.
+     A reverse `> project:` link in the goal file is optional.
+   - **pointer integrity** — DONE. Open sub-decision: `[[slug]]` resolution policy — an unresolved
+     `[[slug]]` is a *planned* memory (allowed) or a *typo* (error)? The memory spec allows dangling,
+     and the corpus mixes kebab-case `name:` with underscore filenames, so there is no single rule
+     yet. Needed before the checker can gate it (the checker's own header comment points here).
+   - **size as a *signal*, never a cap** — warn-for-delta-review when a *curated* doc crosses a
+     threshold; **never force-summarize** (ACE brevity-bias trap, [P] 2510.04618). Also flags the
+     `--no-verify` debt class: bypasses leave no trace outside the commit message, so list tracked
+     files above `BLOCK_LINES` with the commit that introduced them (ex-`[no-verify-ledger]`).
+   - **self-healing `.gitignore` allowlist** — shipped 2026-07-25, corrected 2026-07-29 (see Frente 11.1).
    → **model: sonnet** · **switch: `/loops`.**
-2. 🟡 **Tier 1 — periodic, cheap-agent, `/compass`-cadence.** The token-costing checks, **separated
-   from Tier 0** (Lucas: free checks must not be coupled to paid ones) and run weekly / opt-in / on
-   the `/loop` scheduler — *not* every commit, nothing here is critical-often. On sonnet/haiku,
-   **through the aiwbot backend so it is harness-portable** (opencode/kimicode — Lucas's requirement;
-   the Agent-tool runner would Claude-Code-lock it). Detectors: **behavioral gold tasks** (routing
-   correctness — cold subagent, **substring-assert** grading per Lucas, start with **3** tasks not 5,
-   seed = the Frente-1 provenance probe); **semantic scatter/redundancy** (schedule the existing
-   `/dedup`, don't run per-commit); **misplacement audit** (does each doc still match its folder's
+2. 🟡 **Tier 1 — periodic, cheap-agent, `/compass`-cadence.** Token-costing checks, **separated from
+   Tier 0** (free checks must not be coupled to paid ones), run weekly / opt-in / on the `/loop`
+   scheduler — nothing here is critical-often. On sonnet/haiku **through the aiwbot backend so it stays
+   harness-portable** (the Agent-tool runner would Claude-Code-lock it). Detectors: **behavioral gold
+   tasks** (routing correctness — cold subagent, substring-assert grading, start with **3** tasks not
+   5, seed = the Frente 1.1 provenance probe); **semantic scatter/redundancy** (schedule the existing
+   `/dedup`, never per-commit); **misplacement audit** (does each doc still match its folder's
    `CONTEXT.md` charter?).
    → **model: sonnet** runner + judge · graded subagents run at the tier under test.
-3. 🟡 **Tier 2 — on-demand, human-triggered: a `/tidy` skill (Opus judgment).** Reads the cached
-   Tier-0/1 findings and does the *consolidation* — merge / move / rename / delete — as **curated
-   delta, not monolithic rewrite** (ACE context-collapse). This is the "standardization skill" TODO
-   given a precise job. Only runs when Lucas chooses.
+3. 🟡 **Tier 2 — on-demand, human-triggered: a `/tidy` skill.** Reads the cached Tier-0/1 findings and
+   does the *consolidation* — merge / move / rename / delete — as **curated delta, not monolithic
+   rewrite** (ACE context-collapse). This is the ex-`[padronização como skill]` item given a precise
+   job. Runs only when Lucas chooses.
    → **model: opus** · **switch: same session or `/loops` high tier.**
 4. 🟢 **The unifying artifact — an entropy dashboard.** One generated report written by the automatic
    Tier-0/1 checks: naming violations, oversized curated docs, dead pointers, dup candidates,
    misplaced files. Agents and Lucas read the **dashboard** (pre-computed, cheap), never re-scan the
-   tree. Detection is automatic and cached; only the Tier-2 *decision* costs tokens — the
-   "automatic + zero-token" principle applied to entropy itself.
+   tree. Detection automatic and cached; only the Tier-2 *decision* costs tokens.
    → **model: sonnet** · **switch: `/loops`.**
+5. 🟡 **pilot-first — high-coupling / import-graph detection.** Pilot on `isoroll-module`, then decide
+   a workspace-wide policy. Discuss before generalizing.
+   → **model: sonnet** · ex-`TODO.md`.
 
-**Research lead (offered, not yet run — budget).** Two on-point links already in `brain/INBOX.md`
-(`awesome-harness-engineering`, `best-of-Agent-Harnesses`) + the core/ROADMAP "survey outside skills"
-item. Mine them for prior-art anti-entropy tooling on a **Sonnet** subagent (spare Opus credits)
-before building Tier 0.
-
----
-
-## Frente 5 — Anti-collapse: size policy reframe
-
-**Why.** TODO.md backlog carries "consider a 200-LOC limit for `.md` files too". ACE
-([P] 2510.04618) measures the opposite failure: **brevity bias** (a summary drops the domain
-heuristic that mattered) and **context collapse** (monolithic rewrite erodes a doc until
-performance falls off a cliff). The fix is *incremental delta*, not a size cap that forces
-summarizing.
-
-1. [x] 🔴 **DECIDED 2026-07-24.** Reframe applied: split-by-navigation (many small linked files) =
-   yes; hard line-cap that forces a curated ROADMAP/CONTEXT to be summarized = no (ACE brevity-bias +
-   context-collapse, [P] 2510.04618). `brain/TODO.md` line 120 rewritten to say this. The enforcement
-   home is **Frente 4 Tier 0** — size becomes a *delta-review signal*, never a cap. This step is now
-   a pointer into that frente, not standalone work.
-2. 🟡 **pilot-first — anti-collapse gate (optional).** A hook that flags an edit shrinking a
-   curated `.md` above X% without an explicit `consolidate:` intent, forcing append-delta as
-   the default. Needs the Frente-3 audit first to know which files are "curated". Impact:
-   touches the edit path.
-   → **model: sonnet** to build · **opus** to set the threshold + exemptions.
+**Research lead (offered, not run — budget).** Two on-point links in `core/refs/REFS.md`
+(`awesome-harness-engineering`, `best-of-Agent-Harnesses`) plus the core/ROADMAP "survey outside
+skills" item. Mine them for prior-art anti-entropy tooling on a **Sonnet** subagent before building
+Tier 0.
 
 ---
 
-## Frente 6 — Hygiene (fast, low-risk)
+## Frente 5 — Anti-collapse: size policy (decided, folded)
 
-1. 🟢 **safe — clean the goal file.** `brain/goals/workspace-os.md` is 23.6 KB and embeds a
-   superseded 12-step Telegram-bot plan (lines 58-75), which the aiwbot rebuild replaced. Move
-   the live remnant to `code/aiwbot/ROADMAP.md` or delete it with a one-line rejection note
-   (per [[feedback_delete_weak_features]]). AGENTS.md says plans live in roadmaps, not goal
-   files.
-   → **model: sonnet** · **switch: same session.**
-2. [x] 🔴 **DECIDED 2026-07-24 — self-healing allowlist, not a warn-gate.** `.gitignore` uses a
-   `core/*` denylist with an explicit allowlist, so **any new `core/` subdir is silently untracked**
-   → invisible on the second machine (already bit `core/refs/`). Lucas rejected a warn-gate — warnings
-   nag forever, force agents to open `.gitignore`, and breed fatigue. **Chosen design (automatic,
-   zero-token, zero-warning):** a pre-commit hook detects any new domain subdir that **contains a
-   `CONTEXT.md`** (the existing "this is structural" signal) but lacks its `!core/<dir>/` allow line,
-   then **adds the line itself and stages it** — self-heal, no human/agent action. A subdir with no
-   `CONTEXT.md` stays ignored (correctly project-internal/scratch). The rare "structural but
-   deliberately ignored" case warns **once** and is recorded in a resolved-list so it never re-fires.
-   *Note: the WATCHLIST-ignored TODO this referenced is already fixed — `!core/WATCHLIST.md` is on
-   `.gitignore:107`; clear brain/TODO.md line 128.*
-   → **model: sonnet** — ~15-line hook addition; the rule (CONTEXT.md ⟺ tracked) is settled.
-   **Done 2026-07-25:** `.hooks/gitignore-self-heal.sh`, wired into `.hooks/pre-commit` (§0b,
-   guarded to the workspace repo only — this hook file is global via `core.hooksPath`). Generalized
-   beyond `core/*` to every domain using the same denylist pattern (`code/`, `academy/`, `branches/`,
-   `brain/`, `models/`, `datasets/`) — same bug, same fix, no reason to special-case core. Exceptions
-   list at `.hooks/gitignore-exceptions.txt`. Regression: `core/tools/test/test_gitignore_self_heal.py`.
-   **First run on the real repo found the bug live, at scale — 20 subdirs across `code/`, `academy/`,
-   `branches/`, `core/` were silently untracked** (`code/aiwbot`, `dobra`, `spacemantics`, `apptime`,
-   `corpora`, `flows`, `futebots`, `isometric-perspective`, `isoroll-content`, `isoroll-module`, `ppc`,
-   `prog1`, `programacao1`, `shortvid`, `voti`; `academy/administration`, `refs`, `talks`, `teaching`;
-   `branches/ecovila`; `core/prompts`) — invisible on the second machine this whole time. Of those,
-   15 `code/` entries are own-repo projects (AGENTS.md) and get the narrow triplet (`!dir/` +
-   `dir/*` + `!dir/CONTEXT.md`, matching the existing laplata/gira/cria shape — the script checks
-   for a nested `.git` and branches on it); the other 5 (`academy/{administration,refs,talks,
-   teaching}`, `branches/ecovila`, `core/prompts`, `code/{prog1,programacao1}`) are plain content
-   dirs and get the bare unignore, full content trackable. `.gitignore` now allowlists all of them
-   (staged); their contents still show `??` (untracked) — **not staged or committed**, that's a
-   separate, much bigger call Lucas should make deliberately, not something to fold into this fix
-   silently.
-3. 🟢 **safe — re-measure the doc count.** Goal file claims "617 curated `.md`"; a sweep today
-   (excluding `.venv`/`.git`/`node_modules`) counts 2266. Either the old number was wrong or it
-   tripled; gap-2 was closed on that number. Re-measure and correct the goal file before
-   declaring v1.
-   → **model: haiku** · **switch: same session** (one `find | wc` + an edit).
+**Why.** ACE ([P] 2510.04618) measures **brevity bias** (a summary drops the domain heuristic that
+mattered) and **context collapse** (monolithic rewrite erodes a doc until performance falls off a
+cliff). Decision 2026-07-24: split-by-navigation (many small linked files) = **yes**; hard line-cap
+that forces a curated ROADMAP/CONTEXT to be summarized = **no**. Enforcement home is Frente 4 Tier 0
+(size = delta-review signal).
+
+1. 🟡 **pilot-first — anti-collapse gate (optional).** A hook flagging an edit that shrinks a curated
+   `.md` above X% without an explicit `consolidate:` intent, making append-delta the default. Needs
+   Frente 3.1 first, to know which files are "curated". Touches the edit path.
+   → **model: sonnet** to build · **opus** to set threshold + exemptions.
+2. 🟢 **safe — split the known oversized docs by navigation.** `SETUP.md` (41 KB) is the flagged
+   example; `SPECS.md` / `KNOWN-BUGS.md` / `ROADMAP.md` become file-trees rather than single files
+   where size warrants. Split by *access pattern* (always-loaded vs on-demand), the technique proven
+   in the `craft.md` decomposition — not arbitrary fragmentation.
+   → **model: sonnet** · pairs with Frente 10.1 (SETUP audit) — do them together, same file.
+
+---
+
+## Frente 6 — Hygiene
+
+1. 🟢 **safe — clean the workspace floor.** `tmp/` is 297 MB and holds the ablation-bench pilot;
+   `outputs/` (384 KB) and assorted misplaced/obsolete files. **Move `tmp/ablation-bench/REPORT.md`
+   somewhere durable first** (see core/ROADMAP § ablation-bench) — `tmp/` will be cleaned. Also: 6
+   orphan `*.original.md`, duplicate `Modelo de Projeto (1)(2)(3)` in `Downloads`.
+   → **model: haiku** for the sweep · **sonnet** to judge what is obsolete.
+2. 🟢 **safe — Downloads unification.** Some programs still bypass the workspace path and write to
+   `~/Downloads` (partial fix 2026-07-21: `ementas/port.py` + `filler.py` hardcodes; other scripts not
+   swept). Then set up a shared Downloads across smartphone + both computers, unified on
+   `/mnt/workspace/Downloads/`.
+   → **model: sonnet** (grep for hardcoded paths) · the cross-device part is config, not code.
+3. 🟢 **safe — dated re-check: `GOALS.md` attention dashboard.** Re-check **after 2026-08-05**. Lucas
+   reported 2026-07-23 that it "isn't monitoring correctly" — nearly every goal showed exactly 7
+   touches. Verified *not* a live bug: the `f372446` fix (2026-07-22) stopped the hook from
+   `git add`-ing all 54 goals per commit, and today's commits touch 0-1 goal files. The 14-day window
+   washes the old history out by ~2026-08-05. If the numbers are still flat on 2026-08-06, **then** it
+   is a real bug.
+   → **model: haiku** (read the table, compare).
 
 ---
 
 ## Frente 7 — Scaffold update log (optional; paper thread)
 
-**Why.** The survey ([P] 2607.13104) frames the workspace as a *scaffold* and Lucas as the
-*update operator*. Git records *what* changed, not *what signal motivated it* or *whether it
-worked*. A `core/SCAFFOLD-LOG.md` (one line per scaffold change: trigger → change → outcome)
-closes that. Bonus: no published longitudinal study of one real user evolving an agent scaffold
-exists — this is paper-shaped, and Lucas runs a Hybrid Intelligence lab. Ties to
-[[project_dobra]] and the `spec-driven-development` goal.
+**Why.** The survey ([P] 2607.13104) frames the workspace as a *scaffold* and Lucas as the *update
+operator*. Git records *what* changed, not *what signal motivated it* or *whether it worked*. A
+`core/SCAFFOLD-LOG.md` (one line per scaffold change: trigger → change → outcome) closes that. No
+published longitudinal study of one real user evolving an agent scaffold exists — this is
+paper-shaped, and Lucas runs a Hybrid Intelligence lab.
 
-1. 🟡 **pilot-first — decide if it earns its keep.** A log only helps if it is actually
-   written. Trial: append one line per scaffold change for two weeks, see if it gets used.
-   → **model: sonnet** · **switch: same session.** Defer until Frentes 1-6 settle.
+1. 🟡 **pilot-first — decide if it earns its keep.** A log only helps if it is actually written.
+   Trial: one line per scaffold change for two weeks, then judge. Defer until v1 lands.
+   → **model: sonnet** · **switch: same session.**
+
+---
+
+## Frente 8 — The ledger discipline — **v1 criterion 2**
+
+**Why.** `[roadmap-entrypoint]`, `[todo-redesign]`, `[md-growth]` and `[task-metric]` were four names
+for one disease: ledgers grow, nothing is deleted, so no ledger is trusted. Measured 2026-07-29:
+~94 wos items across four files, with four *already-false* entries (two shipped frente steps still
+unchecked, a doc count off by 119, a "remove `Models/`" task for a directory that no longer exists).
+
+Collapsed 2026-07-29: this file is the single wos ledger; the goal file, `brain/TODO.md`, and
+`core/ROADMAP.md` were scoped to why / life / library respectively. **Deletion policy: hard delete.
+Git is the history** — no HISTORY append, no strikethrough, no annotated corpses.
+
+1. 🟢 **safe — duplicate scan in Tier 0.** Assert each bracketed item slug appears in exactly one
+   ledger. Cheap, deterministic, and it is what keeps criterion 2 true after today.
+   → **model: sonnet** · folds into Frente 4 Tier 0.
+2. 🟢 **safe — the `[task-metric]` instrument.** Count items closed vs. items created per week across
+   the four ledgers (git log over the ledger files gives it for free). This is the direct diagnostic
+   for `[md-growth]`, and the **post-v1 exit signal**: closed > created, sustained two weeks.
+   Baseline: 789 lines across the four ledgers on 2026-07-29, pre-collapse.
+   → **model: sonnet** · **switch: `/loops`.**
+3. 🔴 **decide-first — TODO layer redesign.** Reported twice, unprompted: *"sinto que o TODO.md
+   simplesmente não tá sendo usado"* (2026-07-27), and the evidence is that Lucas writes tasks into
+   the INBOX instead. Two questions, one design: (a) **what would make it actually get checked
+   daily** — accountability without the anxious tone the workspace exists to avoid (see
+   [brain/FOUNDATIONS.md](brain/FOUNDATIONS.md)); (b) **TODO × goals boundary** — what belongs in
+   which. Wanted: mutable, self-archiving, per-task recommended model/tier + creation date so stalled
+   tasks flag themselves.
+   → **model: opus** (design) · then sonnet to build.
+4. 🟢 **safe — `/inbox` refreshes the goals dashboard.** Run `brain_stats.py` as `/inbox`'s last step,
+   not only on commit, so the dashboard never goes stale between commits.
+   → **model: haiku**.
+5. 🟡 **pilot-first — `/inbox` offers `/compass` on a trigger only.** Fire when an anchor crossed
+   <3 weeks or a goal flipped to stalled — never automatically on every call. Cheap capture stays
+   cheap.
+   → **model: sonnet**.
+6. 🟢 **safe — retroactive ref→task pairing.** The policy (a captured link must spawn a paired
+   assessment task, never land ref-only) was coded into `core/skills/inbox.md` 2026-07-25. Apply it
+   **retroactively** to the refs already captured ref-only, and refine the wording.
+   → **model: sonnet**.
+7. 🔴 **decide-first — the ditch pass. DECIDED 2026-07-29, not yet run.** The collapse made the ledger
+   honest but not smaller: items 158 → 123, mass flat (789 → 780 lines). Lucas, same day: *"this wos is
+   already too big and I confess I am a bit lost"* — the second such report (the first was
+   `brain/TODO.md`, 2026-07-27), so it is a live problem, not a mood. **Mass is the disease and only
+   deletion cures it.** Procedure: Opus reads all ~45 frente steps and proposes a **kill list**, target
+   **≤20 steps**; Lucas approves or vetoes each; killed items get one line of rejection note and are
+   deleted (per `[[feedback_delete_weak_features]]`), not demoted. Accepted price: some killed ideas
+   will resurface in months looking new. That is cheaper than a list nobody reads.
+   **Orientation that should survive the pass:** of the open steps, only **five** need Lucas's own
+   judgment — 3.3 (memory design), 8.3 (TODO redesign), 9.2 (`/roundup` redesign), 10.3 (clonable for
+   students), 11.2 (dirty-tree calls). Everything else is Sonnet/Haiku mechanical or parked. Stating
+   that number is itself part of the cure.
+   → **model: opus** · **switch: same session**, right after the push sweep.
+8. 🟢 **safe — populate `>**routing**` tier·effort on goal files** (spec in `brain/SPECS.md`, vocab
+   shared with `core/skills/prepare.md`) and wire the router/`prepare` to read it.
+   → **model: sonnet**.
 
 ---
 
-## Sequencing (recommended)
+## Frente 9 — Cost & model routing
 
-> Updated 2026-07-24: all six 🔴 decide-first steps are now **settled** (Frentes 1, 3, 5, 6 fully;
-> Frente 4 reframed to *workspace anti-entropy*, which **subsumes Frente 2 and Frente 5**). What
-> remains is build work, all Sonnet/Haiku tier — no Opus judgment left gated. Order by
-> (impact × cheapness) ÷ risk:
+**Why.** Measured (24 h, this machine): 59% of usage from subagent-heavy sessions, 55% from
+>150k-context sessions, 25% from `/roundup`, 22% from `/loops` subagents. Context management is
+currently *Lucas's* job, which it should not be.
 
-1. **Frente 1** (provenance) — only real security gap, and cheap. Build: tag non-`lucas` at capture
-   + adjust `/inbox` + `/roundup` readers.
-2. **Frente 6** (hygiene) — self-healing allowlist hook + doc-count re-measure; clears the deck.
-3. **Frente 4 Tier 0** (anti-entropy, deterministic) — the zero-token per-commit checks; folds in
-   **Frente 2** (pointer integrity) and **Frente 5** (size-as-signal). Highest structural payoff.
-4. **Frente 4 Tier 1** (periodic cheap-agent) — gold tasks + `/dedup` + misplacement, `/compass`-paced.
-5. **Frente 4 Tier 2** (`/tidy`) + **entropy dashboard** — consolidation on demand.
-6. **Frente 3.2** (depth audit) — the one remaining measurement step; policy already written.
-7. **Frente 7** (scaffold log) — optional, the paper thread.
-
-Frentes 1, 3, 4, 5 each open with a 🔴 **decide-first** step. Those are the discussions to have
-before any code — that is the point of marking them.
+1. 🟢 **safe — cheaper models where the work is mechanical.** Set model frontmatter on `/roundup` and
+   `/loops` (craft-flow) subagents for mechanical steps; re-measure after.
+   → **model: sonnet**.
+2. 🔴 **decide-first — `/roundup` redesign + automatic session transition.** `/roundup` costs ~7% of
+   usage. Together with it: induce session switching by context size (frequent checkpoints /
+   effective transition points), and investigate whether an agent can open a new session by itself.
+   Includes the session-size monitor (a hook warning at ~40%/50% to evaluate handoff — 80% is too
+   late, likely to discard work) and **context-drift detection** (an objective recall probe: plant a
+   verifiable fact early, re-check periodically, tied to the %-monitor). Note the weak version:
+   the "canary call-me-Lucas" trick is a confounded proxy (caveman suppresses it, self-reported) —
+   keep it as a free passive tell, build no infrastructure on it.
+   → **model: opus** (design) · sonnet to build.
+3. 🟡 **pilot-first — model-routing strategy.** (a) Prepare the ground for Sonnet: triage what it can
+   do without philosophy/discussion, to save tokens. (b) In plan mode, offer to *raise* the model for
+   planning and *lower* it for execution, per step. Ties to Frente 8.7 and the
+   `prompt-opt-automation` goal; feeds step 4.
+   → **model: opus** to design the routing rules.
+4. 🟡 **pilot-first — benchmark `/loops` (craft) on result *and* cost**, and compare our skills/flows
+   against SOTA industry repos — with the caveat that industry cares less about tokens (a US/EU dev
+   spends ~$100/mo, Lucas ~$20). Pairs with core/ROADMAP § survey-outside-skills.
+   → **model: sonnet** to run · **opus** to read.
+5. 🟡 **pilot-first — triggers after a limit window renews.** Always-on use of the daily/weekly
+   limits. `ScheduleWakeup` (dynamic `/loop`) covers this *inside a live session*; the missing case is
+   "session died, limit renewed, nobody wakes the agent".
+   → **model: sonnet**.
 
 ---
+
+## Frente 10 — Portability & clonability — **v1 criterion 4**
+
+1. 🟢 **safe — SETUP.md audit.** Still needed? Are all additions represented? Anything discarded but
+   still documented? Two axes: **coverage** (features / skills / hooks / flows / brain all present)
+   and **accuracy** (a newcomer gets plug-and-play on every capability). Do it together with Frente
+   5.2 (the split) — same file, one pass.
+   → **model: sonnet**.
+2. 🟢 **safe — declare the ad-hoc venv deps.** Three known cases, each `pip install`ed straight into
+   `.venv` to unblock a tool, so a fresh clone silently loses the capability: `pypandoc-binary`
+   (`core/tools/parse` on `.docx`), `secretstorage` (`core/tools/video` reading Brave cookies —
+   without it, yt-dlp fails with an AES-CBC decrypt error that reads like bad credentials; cost a
+   session to diagnose), `gallery-dl` (`core/tools/video` carousel path). Fix the **class**: a declared
+   dep list or a SETUP step the whole `core/tools/` surface is checked against.
+   → **model: sonnet** · was core/ROADMAP, moved here as a v1 gate item.
+3. 🔴 **decide-first — clonable for others (the students case).** Make the workspace genuinely
+   adaptable/plug-and-play for anyone who clones the repo. Distinct from Frente 12's content import:
+   this is the robustness of the *scaffold* for third parties — what is Lucas-specific, what is
+   general, and how the two separate.
+   → **model: opus**.
+4. 🟡 **pilot-first — opencode + copilot parity.** Confirm everything working on Claude Code also
+   works on opencode **and** copilot: test every hook on opencode, and pick one concrete pilot project
+   to be executed by opencode end-to-end. Includes provider switching via workspace config
+   (openrouter → NVIDIA key when credits run out) so instability in one provider is survivable.
+   → **model: sonnet** · ties Frente 3.2.
+
+---
+
+## Frente 11 — Git & sync integrity — **v1 criterion 3**
+
+**Why.** Two machines share this workspace; unpushed work is invisible work, and `main` is the sync
+point, not a release tag. Measured 2026-07-29 — the nested `code/` repos are **out of policy**:
+
+| Repo | State |
+|------|-------|
+| `flows` | 12 unpushed, 25 dirty |
+| `corpora` | 6 unpushed, 4 dirty |
+| `futebots` | 6 unpushed, 1 dirty |
+| `voti` | 5 unpushed, 58 dirty |
+| `shortvid` | 4 unpushed, 24 dirty |
+| `apptime` | 3 unpushed, 36 dirty |
+| `ppc` | 3 unpushed, 24 dirty |
+| `isometric-perspective` | 2 unpushed, 2 dirty |
+| `cria` | **no remote at all**, 1 dirty |
+| `isoroll-content` | on `loop/arm-a-homography` — retired vocabulary, not gitflow shape |
+| `isoroll-module` | on `loop/painter-mvp-1` — same |
+| clean | `aiwbot`, `dobra`, `gira`, `laplata`, `spacemantics` |
+
+41 unpushed commits, ~294 dirty files.
+
+1. [x] 🟢 **safe — `.gitignore` / self-heal correction.** DONE 2026-07-29. The self-heal hook
+   (Frente 6, 2026-07-25) added a `!code/<n>/` + `code/<n>/*` + `!code/<n>/CONTEXT.md` triplet for
+   each own-repo project, intending to track its routing stub. **That pattern cannot work**: git
+   cannot track files inside a nested repo without submodules, which the 2026-07-22
+   `[nested-gitlink-gate]` decision deliberately killed. Net effect was 13 permanent `?? code/*`
+   entries in every `git status`. Fix: plain re-ignore lines (matching the pre-existing
+   `code/{cria,gira,laplata}` precedent), and `.hooks/gitignore-self-heal.sh` now **skips**
+   `.git`-bearing dirs instead of emitting the triplet. Discoverability was never affected —
+   [code/CONTEXT.md](code/CONTEXT.md)'s routing table hoists each project's description already.
+2. 🔴 **decide-first — the push sweep.** Per repo: check branch shape, run its verify, gitflow-promote,
+   push. Create a remote for `cria`. Rename `loop/*` → `feature/*`. The ~294 dirty files are Lucas's
+   live working state — **review with him, never auto-commit**. This is criterion 3; it needs its own
+   session.
+   → **model: sonnet** to execute · **Lucas decides** per dirty tree.
+3. 🟢 **safe — nested-repo git graph in VSCode.** The git graph does not show subrepository history;
+   find the extension or config that fixes it.
+   → **model: haiku** (search + config).
+
+---
+
+## Frente 12 — Content & integrations (mostly parked, listed for completeness)
+
+1. 🔴 **decide-first — Google Drive strategy** (`[gdrive-integration]`): link, sync, or selective
+   copy. The per-folder migration checklist lives in `brain/TODO.md` § drive migration — that is
+   *content work*, tracked as life tasks, not scaffold work.
+2. 🟢 **safe — Google Slides API** enable on GCP project 1048141740528 (same project as
+   drive/calendar), then the base slide templates (aula, talk acadêmico, projeto).
+3. 🟢 **safe — commit the `.claude/commands/{drive,calendar}.md` symlinks** — still pending.
+4. 🟢 **safe — serious OCR.** Sweep our already-annotated `refs/`/`WATCHLIST` (e.g.
+   `opendataloader-pdf` = parse, not OCR) plus a web+github search for the best PDF/scan OCR — **bad
+   OCR is actively harmful**. Precondition for reading the image-only PDFs in
+   `branches/ecovila/burocracia/`, where `core/tools/parse` returns empty. **Test first: Baidu
+   "Unlimited OCR"** — 100 pages in one pass, preserves layout/tables, runs local, MIT (ref in
+   `core/refs/REFS.md`, INBOX 2026-07-28).
+   → **model: sonnet**.
+5. 🟢 **safe — mobile INBOX access (Android).** Recover the 2 app options from the prior conversation,
+   pick one for the Xiaomi Redmi Note 10 Pro.
+6. 🟡 **pilot-first — brain coverage.** Every `GOALS.md` stub has a real goal file
+   (`[brain-full-files]`); `branches/` covers all active life domains (`[branches-coverage]`).
+7. 🟡 **pilot-first — English-learning mode.** Re-enable: log Lucas's English errors during use into
+   one doc with example + explanation + correction.
+8. 🟢 **safe — aiwbot is the away-from-PC front door.** Plan and status live in
+   [code/aiwbot/ROADMAP.md](code/aiwbot/ROADMAP.md) (own repo — do not duplicate it here). Open on the
+   wos side: Lucas live-tests `/new`, reply-to-continue on both backends, and plain-text capture via
+   @lsfaiwbot. The old `telegram_daemon.py` and its 12-step conversational-UX plan are **deleted**,
+   superseded by this rebuild (per `[[feedback_delete_weak_features]]`).
+9. 🟢 **safe — extract the "10 GitHub repos that replace paid tools" list.** The names are in the
+   carousel images, not the caption: run `core/tools/video_images.py` on the post, then compare the
+   list against what the wos already has. Ref in `core/refs/REFS.md`.
+   → **model: haiku** to extract · **sonnet** to compare.
+10. 🟡 **pilot-first — evaluate Surfsense** (self-hosted research assistant, NotebookLM-shaped). The
+   question is not whether it is good standalone but whether it beats the pieces we already have:
+   `core/tools/{search,papers,fetch,parse}` plus the research flow (ref in `core/refs/REFS.md`,
+   INBOX 2026-07-29). Judge against our stack, not in isolation.
+   → **model: sonnet**.
+11. 🟢 **safe — research-flow hallucination audit.** Check `research`/`scout`/`sota` for points where
+   the model can invent without a source; require provenance/verification where it is missing.
+   → **model: opus** to judge, sonnet to patch.
+
+---
+
+## Batch B — small fixes, ready to execute (Sonnet, `/loops`)
+
+One test each. Nothing here needs a decision.
+
+1. `.hooks/context_synchronizer.py`, two bugs: (a) hoisting a child CONTEXT.md's line-2 description
+   copies relative links verbatim into the parent's routing row, where they resolve one level up —
+   live in `branches/casinhas/CONTEXT.md` and `code/{apptime,dobra,isoroll-content}/CONTEXT.md`;
+   (b) stale rows survive file deletion (block only updates on save) — live in `core/prompts/CONTEXT.md`
+   and `academy/papers/2027-CHI-cria/outputs/CONTEXT.md`. Third, related: it appends a **duplicate**
+   routing block to a hand-curated CONTEXT.md that has a manual `## Routing` without sentinels.
+2. `core/tools/video`: `--level full` crashes on image-only posts — `assemble()` always calls
+   `media().transcribe(audio)` when the audio path is truthy, but an image post has no audio stream →
+   `IndexError: tuple index out of range` inside `faster_whisper`/`av`. Workaround is `--level visual`.
+   *Related but already closed:* the "OCR/video extraction doesn't always run during triage" report
+   (Lucas, 2026-07-29) was a **skill** gap, not a code one — `core/skills/inbox.md` now states the
+   extraction step is neither optional nor a judgement call (commit `17664e6`). This item is only the
+   crash.
+3. `pre-edit.py` vs `check-line-counts.sh` disagree on scope: the edit-time gate enforces the 200-line
+   block on `.hooks/*`, the commit-time gate **exempts** it. Pick one policy. (This is the real content
+   of the ex-`[stats-split-or-exempt]` item — the split itself already happened.)
+4. `pre-edit.py` fails **silently** ("No stderr output") on `Write` of new files in some paths
+   (scratchpad `.html`, a new `test/*.py` under `isoroll-content`) — blocks the write without saying
+   why; workaround is a Bash heredoc. Probably an unhandled exception on an unexpected path.
+5. `stubgen` misses projects: `.py` files created outside Edit/Write never get a `.pyi`. Consider a
+   pre-commit sweep.
+6. `.hooks/brain_stats.py` `compress_done()` writes `new_inner` without a trailing newline, so the
+   surviving last entry ends up glued to the `<!-- done:end -->` marker (seen live in
+   `brain/goals/workspace-os.md`, 2026-07-29). Cosmetic, one-line fix, no test needed beyond a
+   round-trip assertion. Same function also leaves `brain/.log/done.md` unstaged after appending —
+   the archive lands but the commit that caused it does not carry it.
+7. Live-smoke `core/tools/papers --ss --reviewed --min-cit`. Validated offline only 2026-07-23
+   (Semantic Scholar returned HTTP 429 all day); the parser is correct on 4 synthetic cases, but it
+   has never run against the live API.
+
+## Batch C — core library symmetry
+
+All decided, all build work — tracked in [core/ROADMAP.md](core/ROADMAP.md), not here. Listed as a
+pointer only: craft-agent tier source + generator, skill `flow:` field, `engineering` in the flow
+type enum, `loops`-vs-`craft` naming, Google-auth CLI convergence.
+
+## Parked — explicitly out of v1
+
+- **`[gdrive-integration]` / `[courses-import]`** — content migration, large; Frente 12.1 holds the
+  strategy decision, the per-folder work lives in `brain/TODO.md`.
+- **`[offline-resilience]`** — a workspace surviving a world without internet: the filesystem is
+  already the source of truth, so the gaps are (a) network — [Reticulum](https://github.com/markqvist/Reticulum),
+  E2E without infrastructure, and (b) an offline corpus — **Kiwix** (all of Wikipedia offline; this is
+  almost certainly the "NOMAD project" Lucas half-remembered). Ties to `[courses-import]`: local class
+  material is half of it. Refs in `core/WATCHLIST.md`.
+- **Frente 7** (scaffold log) — the paper thread; revisit after v1.
+- **`[mvp-validate]`** — 30 days of daily use, assessed. By definition post-v1.
+
+---
+
+## Sequencing
+
+1. **Frente 11.2** — the push sweep. Highest risk of *losing* work, and it is a v1 criterion.
+   **Confirmed by Lucas 2026-07-29 as the next session's opening item.**
+2. **Frente 8.7** — the ditch pass, immediately after the sweep, same session if budget allows.
+   Decided 2026-07-29; every later item is cheaper against a shorter list.
+3. **Frente 4 Tier 0** + the entropy dashboard (4.1, 4.4) — the keystone; subsumes old Frentes 2 and 5
+   and four ex-TODO items. Build after the ledger collapse so the dashboard does not inherit lies.
+4. **Batch B** — small fixes, parallel-safe, cheap.
+4. **Frente 10** (1, 2) — SETUP audit + declared deps, with Frente 5.2's split in the same pass.
+5. **Frente 8** (1, 2) — duplicate scan + `[task-metric]`, so criterion 2 stays true without vigilance.
+6. **Frente 4 Tier 1/2** — gold tasks, `/dedup`, `/tidy`.
+7. **Frente 3.1** — the depth audit; then 3.3 (memory design) which depends on it.
+8. **Frente 9** — cost and routing, once there is a stable baseline to measure against.
+
+Opus is needed for exactly five things: Frente 3.3, 8.3, 9.2, 10.3, 11.2's dirty-tree calls. Everything
+else is Sonnet or Haiku.
 
 ## Model-switching guide
 
-The per-step `model` + `switch` tags above use the workspace's canonical model-switching guide,
-which lives in the reusable flow that produced this plan:
-**[`core/flows/research/scout.md`](core/flows/research/scout.md) → "Canonical model-switching guide"** (same-session
-`/model` · `/loops` autorouting · Agent-tool `model:` override · `/handoff`). It is methodology,
-not specific to this plan, so it is not re-tabulated here.
+The per-step `model` + `switch` tags use the workspace's canonical model-switching guide, which lives
+in the reusable flow that produced this plan:
+**[`core/flows/research/scout.md`](core/flows/research/scout.md) → "Canonical model-switching guide"**
+(same-session `/model` · `/loops` autorouting · Agent-tool `model:` override · `/handoff`). It is
+methodology, not specific to this plan, so it is not re-tabulated here.
 
-**Mapping for this roadmap:** 🔴 decide-first steps → **Opus, same session** (judgment about
-shared behavior). 🟢/🟡 build steps → **Sonnet via `/loops`** (mechanical parts drop to haiku
-automatically; e.g. Frentes 1.2, 2.1, 4.3). Run **haiku deliberately** only inside the
-`verify-agent` gold tasks (Frente 4.2), where the weak model is the subject under test, spawned
-via the Agent-tool override.
+**Mapping:** 🔴 decide-first → **Opus, same session**. 🟢/🟡 build steps → **Sonnet via `/loops`**
+(mechanical parts drop to haiku automatically). Run **haiku deliberately** only inside the Tier-1 gold
+tasks, where the weak model is the subject under test.
