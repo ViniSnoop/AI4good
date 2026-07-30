@@ -1,10 +1,10 @@
 # Talk — WOS
-> SENAI talk (invited by Rafael) on workspace-os (WOS) — prep hub. Outline + opener in [OUTLINE.md](OUTLINE.md).
+> SENAI talk (invited by Rafael) on workspace-os (WOS) — prep hub. Outline + opener in [outline.md](outline.md).
 
 <!-- routing:start -->
 ## Routing
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
-| [`OUTLINE.md`](OUTLINE.md) | — | — | Talk — workspace-os (WOS) @ SENAI |
+| [`outline.md`](outline.md) | — | — | Talk — workspace-os (WOS) @ SENAI |
 <!-- routing:end -->

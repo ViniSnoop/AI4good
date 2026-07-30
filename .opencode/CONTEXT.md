@@ -113,13 +113,6 @@ block), edit a `.py` past `BLOCK_LINES` (expect block), edit a `.py` (expect
 `.pyi` timestamp updates), edit a `CONTEXT.md`-adjacent dir (expect
 `context_synchronizer` runs).
 
-### Files
-
-- `plugins/workspace-policy.js` — the plugin (this file's subject).
-- `package.json` — `"type": "module"` + `@opencode-ai/plugin` dependency.
-- `skills/` — opencode skill mirror (managed by sync-skills; see
-  `core/skills/sync-skills`).
-
 <!-- routing:start -->
 ## Routing
 

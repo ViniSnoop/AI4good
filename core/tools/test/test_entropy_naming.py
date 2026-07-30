@@ -18,7 +18,6 @@ import schema_law  # noqa: E402
 BASELINE = {
     'code/_templates/module.SPEC.md',   # SPEC.md -> SPECS.md, Frente 12.1
     'core/tools/video.SETUP.md',        # the third naming shape, Frente 10.1
-    'academy/administration/PDA',       # uppercase dir, Frente 4.1 backfill
 }
 
 
