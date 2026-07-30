@@ -454,7 +454,12 @@ One test each. Nothing here needs a decision.
    why; workaround is a Bash heredoc. Probably an unhandled exception on an unexpected path.
 5. `stubgen` misses projects: `.py` files created outside Edit/Write never get a `.pyi`. Consider a
    pre-commit sweep.
-6. Live-smoke `core/tools/papers --ss --reviewed --min-cit`. Validated offline only 2026-07-23
+6. `.hooks/brain_stats.py` `compress_done()` writes `new_inner` without a trailing newline, so the
+   surviving last entry ends up glued to the `<!-- done:end -->` marker (seen live in
+   `brain/goals/workspace-os.md`, 2026-07-29). Cosmetic, one-line fix, no test needed beyond a
+   round-trip assertion. Same function also leaves `brain/.log/done.md` unstaged after appending —
+   the archive lands but the commit that caused it does not carry it.
+7. Live-smoke `core/tools/papers --ss --reviewed --min-cit`. Validated offline only 2026-07-23
    (Semantic Scholar returned HTTP 429 all day); the parser is correct on 4 synthetic cases, but it
    has never run against the live API.
 
