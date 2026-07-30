@@ -87,7 +87,9 @@ def load_goal_files():
     files = {}
     for f in sorted(GOALS_DIR.glob("*.md")):
         slug = f.stem
-        if re.match(r'^[A-Z]+$', slug):
+        # `_`-prefixed files are scaffolding, never goals. This replaces an
+        # ALL-CAPS skip that only worked while the template was ARCHETYPE.md.
+        if slug.startswith("_"):
             continue
         files[slug] = f
     return files

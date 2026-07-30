@@ -16,7 +16,6 @@ spiritual    ███░░░░░░░   20 touches
 
 >**goals** — last 14 days  
 ```
-_template                ░░░░░░░░░░   0 touches
 burocracia-academica     ░░░░░░░░░░   1 touches
 career-ufrpe             ███░░░░░░░   5 touches
 corporal-expressiveness  ███░░░░░░░   5 touches
@@ -94,7 +93,6 @@ yoga                     ███░░░░░░░   5 touches
 
 | goal | area | horizon | timing | selected achievement | file |
 |------|------|---------|--------|---------------------|------|
-| goal title | area | horizon | ... | [short-id] full description of the achievement | [→](goals/_template.md) |
 | burocracia acadêmica | career | year | — | [pdf-sidecar] resolver o padrão "sidecar de PDF" — arqu… | [→](goals/burocracia-academica.md) |
 | carreira UFRPE — progressão e renda | career | near | — | [progressao-map] mapear regras e calendário de progress… | [→](goals/career-ufrpe.md) |
 | corporal expressiveness | spiritual | dream | — | [body-awareness] read or watch something about body lan… | [→](goals/corporal-expressiveness.md) |
