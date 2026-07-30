@@ -113,8 +113,12 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
 > workspace itself.
 
 1. 🟢 **Tier 0 — per-commit, zero-token, deterministic.** No LLM. Scripts in the pre-commit/verify
-   path:
-   - **uppercase type allowlist** (decided 2026-07-30, Lucas). The law and the names live in
+   path. **First two checks LIVE 2026-07-30** as `.hooks/type-gate.py` (pre-commit 1g, 13 tests):
+   the type allowlist and the CONTEXT.md no-hand-inventory rule. It is a **ratchet** — only files a
+   commit *adds* are blocked, so the 39 pre-existing off-allowlist names and 10 hand-inventory
+   `CONTEXT.md` are the dashboard's job (4.3), not a reason to fail every commit in a repo that
+   inherited them. Remaining below: naming, retired-token, placement, project⟺goal, size, dup-slug.
+   - **uppercase type allowlist** — ✅ **DONE.** The law and the names live in
      [core/SCHEMA.md](core/SCHEMA.md) § The `.md` type system — **the checker parses that table
      instead of restating it**, because the allowlist was already duplicated in three files, which
      is the exact drift class this gate exists to catch. Evidence for the rule: 25 distinct uppercase
@@ -126,11 +130,15 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
      Atualizado.md`).
    - **retired-token assertion** — after a rename lands, assert the retired token appears nowhere.
      This is what makes 4.2's class of bug catchable instead of re-discovered.
-   - **no hand-maintained file inventory in CONTEXT.md** — the routing block is generated and owns
-     inventory. Live violations: `code/voti/CONTEXT.md` (79 hand-written lines re-listing all 20
-     components) and `code/isoroll-content/CONTEXT.md` (a `Repository Shape` ASCII tree *and* a
-     File Map *and* the routing block). This is the answer to "can CONTEXT.md files be smaller" —
-     the problem was never size, it was three overlapping inventories of the same files.
+   - **no hand-maintained file inventory in CONTEXT.md** — ✅ **DONE**, same gate. Three signals
+     above the routing block: an inventory heading, ASCII tree glyphs, and ≥3 bullets whose path
+     **exists on disk**. That existence requirement is not an optimisation — it is what separates an
+     inventory from a naming convention, and it killed a real false positive (a paper's
+     `images/CONTEXT.md` documenting `grav_cam2_gXX_sq.png`-style globs, which is CONTEXT.md doing
+     precisely its job). `code/voti` self-resolved when it was archived; `code/isoroll-content`
+     remains, untouched because a parallel session owns that repo. This was the answer to "can
+     CONTEXT.md files be smaller" — the problem was never size, it was three overlapping
+     inventories of the same files.
    - **placement** — a file's location matches its declared type; includes `core/tools/*` Python
      files carrying no `.py` suffix — decide accept-or-standardize.
    - **project ⟺ goal link** — every project `CONTEXT.md` declares its goal on line 3.
