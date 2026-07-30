@@ -33,6 +33,8 @@
 - [ ] [finances] transferir pra painho o valor do terreno/chão do santuário jatobá (INBOX 2026-07-22)
 - [ ] [casinhas] catalogar as últimas finanças da obra — cockpit em `branches/casinhas/` (INBOX 2026-07-22)
 - [x] [ufrpe] PDA — plano de desenvolvimento (Lenina cobrou)
+- [ ] [ai4good] investigar o caso por trás do reel "this feels like a book burning" e decidir se entra nas aulas de ai4good — ref em `academy/refs/REFS.md` (INBOX 2026-07-28)
+- [ ] [community] responder o desafio público do Jake Van Clief com nossas ideias/visão — ele julga os 3 comentários mais curtidos, então tem janela curta ([reel](https://www.instagram.com/reel/DbWA6VOxVq-/), INBOX 2026-07-28)
 - [ ] [pandeiro / show-up] confirm Pandeirada time, show up Saturday
 - [ ] [sleep / streak-3] 3 consecutive nights in bed by 00:30
 - [ ] [brain] set up mobile inbox access for Android — recover 2 app options from prior Claude conversation, pick one for Xiaomi Redmi Note 10 Pro
@@ -43,7 +45,7 @@
 - [ ] [workspace-os / todo-accountability] design TODO accountability layer — what would make you actually check it daily? **Re-reported by Lucas 2026-07-27, unprompted: "sinto que o TODO.md simplesmente não tá sendo usado."** Second independent report, so this is a live problem rather than a nice-to-have — and note he wrote the retiro tasks into the INBOX rather than here, which is itself the evidence.
 - [ ] [ufrpe] relatar/assinar processo de progressão CTA — processo **23082.018263/2026-55** (Lenina inseriu no GT CTA); Lucas de férias até 24, assina seg/ter, pauta de terça (INBOX 2026-07-23)
 - [ ] [paper-jarbinhas] adiantar publicação da tese do Jarbinhas (ver goal `paper-jarbinhas`) (INBOX 2026-07-23)
-- [ ] [workspace-os] OCR sério: varrer nossos refs/WATCHLIST já anotados (ex. opendataloader-pdf = parse, não OCR) + busca web+github por melhor OCR de PDF/scan — bad OCR é ativamente nocivo. Precondição pra ler os PDFs de `branches/ecovila/burocracia/` (image-only, `core/tools/parse` retorna vazio) (INBOX 2026-07-24)
+- [ ] [workspace-os] OCR sério: varrer nossos refs/WATCHLIST já anotados (ex. opendataloader-pdf = parse, não OCR) + busca web+github por melhor OCR de PDF/scan — bad OCR é ativamente nocivo. Precondição pra ler os PDFs de `branches/ecovila/burocracia/` (image-only, `core/tools/parse` retorna vazio) (INBOX 2026-07-24). **Candidato novo a testar primeiro: Baidu "Unlimited OCR"** — 100 páginas num passe, preserva layout/tabelas, local, MIT (ref em `core/refs/REFS.md`, INBOX 2026-07-28)
 
 ## month
 
@@ -53,6 +55,8 @@
 - [ ] [ufrpe] PPC ementas: 41/44 já reformatadas p/ modelo SIGAA e subidas no Drive (`[MODELO-SIGAA] <nome>`, pasta EMENTAS/OBRIGATORIAS+NOVAS) — 2026-07-21. Falta: pedir a Paulo o conteúdo (EMENTA/CONTEÚDO) de 3 disciplinas sem fonte em lugar nenhum — FUNDAMENTOS DA EDUCAÇÃO, PROJETO INTEGRADOR EM DESENVOLVIMENTO DE ARTEFATOS EDUCACIONAIS, PROJETO INTEGRADOR EM EDUCAÇÃO EM COMPUTAÇÃO (ver `academy/administration/coordenacao-lc/novo-ppc-bcc/ementas/gaps.md`) → depois de obter o conteúdo, **criar as 3 ementas já no formato novo** (INBOX 2026-07-24)
 - [ ] [slides / portas-logicas] OR gate body still missing — see KNOWN-BUGS.md; investigate `CUSTOM` shape type in slide 23 group, then decide if worth further debugging
 - [ ] standardize workspace folder names to lowercase — update on Ubuntu and Windows
+- [ ] [flows] avaliar a orquestração graph-native de agentes do Claude Code contra o que `code/flows` já faz — e checar se o tal "Graph Engineering" (Microsoft/Stanford/Anthropic) existe de fato; o próprio post diz que só um dos dois é real (ref em `core/refs/REFS.md`, INBOX 2026-07-29)
+- [ ] [wos] avaliar Surfsense (assistente de pesquisa self-hosted, tipo NotebookLM) — a pergunta é se ganha das peças que já temos em `core/tools` + flow de research, não se é bom isolado (ref em `core/refs/REFS.md`, INBOX 2026-07-29)
 - [ ] fix downloads folder — some programs bypassing workspace path, still writing to ~/Downloads by default (partial: `ementas/port.py` + `filler.py` hardcode fixed 2026-07-21; other scripts may still have the same hardcode, not swept)
 - [ ] set up shared Downloads folder across smartphone + both computers, unify all apps/configs to /mnt/workspace/Downloads/
 - [ ] [workspace] remove duplicate Models/ dir (capital-M); keep only models/ lowercase

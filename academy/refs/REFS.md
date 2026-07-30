@@ -7,3 +7,5 @@
 - [Rutger Bregman — Moral Ambition](https://www.rutgerbregman.com/) — read + index where pertinent
 - [World Inequality Lab — Global Justice Report](https://www.instagram.com/p/DbGep4CDGtk/) — first fully-quantified plan for equality + prosperity within planetary boundaries (income/wealth/power inequality reduction as a condition for shared prosperity, compatible with decarbonization). Lucas: usar nas aulas, provavelmente ai4good
 - [Luciano da Luz — "mandato coletivo" reel](https://www.instagram.com/reel/DaIgvighjQ6/) — [src: web:instagram.com] pitches a participatory-mandate model (constituents vote on bills, track spending, propose amendments alongside an elected rep); Lucas: sobre mechanism design — assessment task in `brain/TODO.md` backlog
+- [Han Shlomo — "this feels like a book burning" reel](https://www.instagram.com/reel/DbW7yCzkeqX/) — [src: web:instagram.com] frames a current AI/knowledge-destruction moment in those terms. Lucas: *"investigar e usar nas minhas aulas de ai4good"* → task in `brain/TODO.md` week. The reel is the hook, not the argument: find the underlying event before using it in class.
+

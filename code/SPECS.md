@@ -26,6 +26,15 @@ These are enforced by code review, not hooks. Violation = redo before continuing
 - **Names must be guessable** — file, class, function, variable names without opening the file
 - **Flat over deep** — prefer sub-modules over nested directories beyond 2 levels
 - **After each prompt** — is the code cleaner or messier than before? If messier, redo
+- **Run test suites under a memory cap** — `(ulimit -v 3000000; timeout 120 <runner>)`. A runaway
+  loop in the code under test, or a failing assertion whose diff is enormous, is allocated by the
+  test process and can take the editor down with it: pytest's assertion introspection turned one
+  unbounded list into an OOM that killed VS Code three times before it was diagnosed (aiwbot,
+  2026-07-29). Capped, the child dies instead. Add `--assert=plain` when a failure is expected to
+  involve a huge object
+- **Eyeball output whose shape is the deliverable** — chat bubbles, rendered docs, images. Two
+  bugs in aiwbot (an answer reposted whole; `(1) (1/10)` double counters) passed every assertion
+  in their own spec file and were caught by printing the result and reading it
 
 ## Style Rules (R1-R6)
 
