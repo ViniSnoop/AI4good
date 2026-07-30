@@ -3,11 +3,11 @@
 <!-- stats:start -->
 <!-- data:start -->
 ## attention dashboard  _(auto-updated on every commit)_
-last-updated: 2026-07-29 21:32
+last-updated: 2026-07-29 22:09
 
 >**areas** — last 14 days  
 ```
-health       █████░░░░░   32 touches
+health       █████░░░░░   33 touches
 career       █░░░░░░░░░   8 touches
 finances     █░░░░░░░░░   11 touches
 fun          ██████████   61 touches
@@ -28,7 +28,7 @@ dance-frevo              ████░░░░░░   5 touches
 dance-salsa              ████░░░░░░   5 touches
 dance-samba              ████░░░░░░   5 touches
 ecovila                  ░░░░░░░░░░   1 touches
-exercise                 ████░░░░░░   5 touches
+exercise                 █████░░░░░   6 touches
 finances                 ████░░░░░░   5 touches
 guitar                   ████░░░░░░   5 touches
 home-casinhas            ████░░░░░░   5 touches
@@ -147,6 +147,6 @@ yoga                     ████░░░░░░   5 touches
 | teaching materials paradigm | craft | near | — | [research-tools] research best current teaching tools —… | [→](goals/teaching-materials.md) |
 | vipassana | spiritual | year | none external | [sit-5] sit in silence for 5 minutes — no guidance, no … | [→](goals/vipassana.md) |
 | voice | spiritual | near | — | [voice-map] identify one scenario where not being heard… | [→](goals/voice.md) |
-| workspace OS | health | year | none external | [v1-strong] make the first core version really strong —… | [→](goals/workspace-os.md) |
+| workspace OS | health | year | none external | [v1] pass the four-criterion v1 gate — Tier 0 anti-entr… | [→](goals/workspace-os.md) |
 | yoga | spiritual | year | none external | [mat-today] practice once this week with no goal — just… | [→](goals/yoga.md) |
 <!-- goals:end -->
