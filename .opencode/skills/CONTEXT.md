@@ -6,7 +6,7 @@
 
 | Subdirectory | Description |
 |--------------|-------------|
-| [`prepare/`](prepare/CONTEXT.md) | Prepare a raw prompt for Claude Code. |
+| [`prepare/`](prepare/CONTEXT.md) | Prepare a raw prompt for an agent: optimize, contextualize, and recommend tier/e |
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
@@ -21,5 +21,5 @@
 | [`iso-visual/SKILL.md`](iso-visual/SKILL.md) | — | — | Isoroll visual-semantics reference: conventions that map isometric imagery to text, known model failure modes, and the hard rule for verifying visual/geometric output. Load before any session/loop that touches isoroll guides, kits, sprites, or scene assembly. Invoke with /iso-visual |
 | [`loops/SKILL.md`](loops/SKILL.md) | — | — | Run the craft flow: develop a feature in file-relayed loops with model autorouting (clarify → plan → ground → architecture → TDD → code → user test → ship). Invoke with /loops [task or feature request]. |
 | [`research/SKILL.md`](research/SKILL.md) | — | — | Execute a research workflow from the workspace Core research system. |
-| [`roundup/SKILL.md`](roundup/SKILL.md) | — | — | Full session-close ritual: archive completed work to HISTORY, route session knowledge to durable files, drain the INBOX, run the verification gate, then emit the resume prompt via /handoff. Use at session end. Invoke with /roundup [focus for next session]. |
+| [`roundup/SKILL.md`](roundup/SKILL.md) | — | — | Full session-close ritual: clear completed work out of the ledgers, route session knowledge to durable files, drain the INBOX, run the verification gate, then emit the resume prompt via /handoff. Use at session end. Invoke with /roundup [focus for next session]. |
 <!-- routing:end -->

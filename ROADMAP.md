@@ -164,9 +164,9 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
    → **model: sonnet**.
 3. 🟢 **the entropy dashboard — live.** `make entropy` → [`entropy.md`](entropy.md), 1904 tracked
    files across the workspace **and its 24 nested repos**, ~1.3 s. Read the report; never re-scan
-   the tree. Baseline 2026-07-30: **85 findings** — 41 off-allowlist `.md` types (Frente 12.1's
-   backlog, `HISTORY.md` ×6 the biggest family), 29 size signals, 5 hand-inventory `CONTEXT.md`,
-   6 naming/placement, 4 retired tokens, 0 duplicate slugs. Criterion 1 wants this reading clean;
+   the tree. After job A drained the six `HISTORY.md`: **73 findings** — 34 off-allowlist `.md`
+   types (Frente 12.1's backlog), 26 size signals, 4 hand-inventory `CONTEXT.md`, 5
+   naming/placement, 4 retired tokens, 0 duplicate slugs. Criterion 1 wants this reading clean;
    the remaining work is draining it.
 
    The dashboard scans nested repos, the **tests do not** — an assertion in this repo about
@@ -302,15 +302,21 @@ is no conceptual intersection."* Each type answers exactly one question.
 
    | Job | Names | Route | Needs |
    |---|---|---|---|
-   | **A. delete the archives** | `HISTORY.md` ×6 — `spacemantics`, `isoroll-content`, `flows`, `aiwbot`, `apptime`, `isoroll-module` | delete, unconditionally (`core/SCHEMA.md` § No archive types) | nothing — the law already decided. Haiku. |
    | **B. the SPEC migration** | `SPEC.md` ×2 (`spacemantics`, `aiwbot`) + `code/_templates/module.SPEC.md` | → `SPECS.md` | blocked: load-bearing in five enforcement points (`.hooks/pre-commit` §1d, `spec-read-gate.py`, `context-tracker.py:36`, `spec-scan`, `spec-contract-check`). **One reviewed change**, never piecemeal. |
    | **C. spacemantics' own vocabulary** | 11 more in that one repo: `TAXONOMY` · `TAXONOMY-FAMILIES` · `TYPES` · `LEXICON` · `GRAMMAR-JSON` · `CONFORMANCE` · `CHECKABILITY` · `EXAMPLES` · `CONFLICTS` · `INVENTORY` · `INVENTORY-ADVISORY` | mostly → `SPECS.md` or lowercase instance | **its own session.** A DSL project legitimately has many spec-shaped documents; deciding which are one `SPECS.md` and which are content is a design question about spacemantics, not a naming sweep. |
    | **D. the long tail** | 20 across 9 repos: `isoroll-content` ×7, `flows` ×4, `casinhas` ×3, `instituto` ×3, `dobra` ×2, `2027-CHI-cria`, `2027-ICLR-dobra` | one of the four disposal routes each | a peek at each file. Sonnet, one repo at a time. |
 
-   **Do A first and alone.** It is 6 deletions with zero judgment, it clears 15% of the dashboard,
-   and it proves the per-repo commit path before anything harder rides on it. Five of the twelve
-   repos were dirty on 2026-07-30 (`isoroll-module` 16 files, `ppc` 15) — check `git status` in a
-   repo before touching it; a parallel session may own it.
+   **Job A is drained** (2026-07-30): the six `HISTORY.md` are gone, one commit per repo. It was
+   *not* zero judgment — 25 referrers had to be scrubbed, and the ROADMAP headers in `flows`,
+   `isoroll-module`, `gira` and `laplata` were **instructing every future session to write a
+   HISTORY.md**, which is what kept regenerating the type. **The lesson for B/C/D: delete the
+   generator before the artefact, or the name grows back.** Rejected-approach content is the one
+   thing git cannot hold — `aiwbot` (5 items) and `flows` (1) needed it salvaged to
+   `ROADMAP.md § Rejected` before the file could go.
+
+   Still on the floor from A: `flows` M12/M13 and `aiwbot`'s finish-line diagram are completed
+   milestones kept as `Status: complete` bodies and `~~strikethrough~~` — annotated corpses that
+   the same rule says to cut. Left for job D's pass over those repos, not smuggled into A.
 2. 🟢 **safe — one or two refinement passes over the surviving docs.** Crop dead parts, collapse
    overlaps, compress the prose (caveman-compress the writing style, keep every technical fact).
    Requested by Lucas 2026-07-30, after the type system lands so the passes are not wasted on files
