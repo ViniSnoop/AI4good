@@ -60,9 +60,10 @@ def test_running_twice_is_idempotent(tmp_path):
     assert gitignore.count("!core/newdir/") == 1
 
 
-def test_own_repo_subdir_gets_the_narrow_triplet_not_a_bare_unignore(tmp_path):
-    # AGENTS.md: internal projects use their own git repos — the workspace repo must track
-    # only the routing stub (CONTEXT.md), never the whole nested repo's content.
+def test_own_repo_subdir_is_never_touched(tmp_path):
+    # A nested git repo is unreachable from the outer repo: git cannot track files inside it
+    # without submodules, killed by the 2026-07-22 nested-gitlink-gate decision. Any allow line
+    # tracks nothing and leaves a permanent `?? <dir>` in git status — which is what the first
+    # version of this hook did to 13 code/ projects. Routing reads their CONTEXT.md off-disk.
     gitignore = _run(_make_fixture(tmp_path))
-    assert "!core/ownrepo/\ncore/ownrepo/*\n!core/ownrepo/CONTEXT.md\n" in gitignore
-    assert "!core/ownrepo/\n!core/ownrepo/CONTEXT.md\n" not in gitignore
+    assert "core/ownrepo" not in gitignore
