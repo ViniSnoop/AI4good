@@ -36,7 +36,7 @@ If the project's `package.json` declares `verify:full`, run it now (`npm run ver
 ## Phase 2 — Clear completed work out of the ledgers
 
 **Done work is deleted. Git is the history.** There is no `HISTORY.md`, no `ARCHIVE.md`, no done-log
-— those types were removed 2026-07-30 (see [`core/SCHEMA.md`](../SCHEMA.md) § No archive types). A
+— those types were removed 2026-07-30 (see [`core/SCHEMA.md`](../../core/SCHEMA.md) § No archive types). A
 completed item's record is its commit; re-writing it into an archive file only grows a doc nobody
 opens.
 

@@ -14,10 +14,10 @@ Arguments: $ARGUMENTS
 
 ## Protocol
 
-0. **Route first (the craft tree).** `/loops` is a tree, not one pipeline. Read [`core/flows/craft/route.md`](../flows/craft/route.md) and classify the task into a subtree — `padaria` · `feature` · `research` · `architecture` (map + rationale: [`core/flows/craft/tree.md`](../flows/craft/tree.md)). Record `subtree:` in the Carry block / STATUS. Then run that subtree's flow:
+0. **Route first (the craft tree).** `/loops` is a tree, not one pipeline. Read [`core/flows/craft/route.md`](../../core/flows/craft/route.md) and classify the task into a subtree — `padaria` · `feature` · `research` · `architecture` (map + rationale: [`core/flows/craft/tree.md`](../../core/flows/craft/tree.md)). Record `subtree:` in the Carry block / STATUS. Then run that subtree's flow:
    - `feature` / `padaria` → the craft flow below (feature is contract-first: Step 0 permission panel → Loop 3.5 Contract Layout → Loop 3 concept-symmetry review → TDD → ship).
    - `research` → the matching `core/flows/research/{sota,literature,explore,compare,recipe,replicate,review,summarize,watch,audit}.md` or `core/flows/mechanism-search.md`.
-   - `architecture` → [`core/flows/craft/architect.md`](../flows/craft/architect.md) (emits an ADR; chain into `feature` if it needs building).
+   - `architecture` → [`core/flows/craft/architect.md`](../../core/flows/craft/architect.md) (emits an ADR; chain into `feature` if it needs building).
 
    The steps below are the **feature/padaria** subtree. For research/architecture, hand off and stop.
 
@@ -27,7 +27,7 @@ Arguments: $ARGUMENTS
    echo "active: ${OPENCODE_MODEL:-?}"                            # orchestrator's own model (provider prefix = chain provider)
    rtk grep -E '"model":\s*"[^/]+' ~/.config/opencode/opencode.json[c]? opencode.json[c]? 2>/dev/null   # fallback
    ```
-   Select the active provider's tier-map row from [`core/flows/craft/routing.md`](../flows/craft/routing.md) (or, if the runtime is Claude Code/Copilot CLI, the anthropic/copilot row). If you plan **downward delegation** (e.g. orchestrator on openrouter → all loops on nvidia free), pick the tier-map row of the *delegate* provider and record `chain-deleg: deleg=<from>→<to>` in the Carry block. Fill the Carry `provider:` / `tier-map:` / `chain-deleg:` fields at Loop 0 — a chain without them is undefined.
+   Select the active provider's tier-map row from [`core/flows/craft/routing.md`](../../core/flows/craft/routing.md) (or, if the runtime is Claude Code/Copilot CLI, the anthropic/copilot row). If you plan **downward delegation** (e.g. orchestrator on openrouter → all loops on nvidia free), pick the tier-map row of the *delegate* provider and record `chain-deleg: deleg=<from>→<to>` in the Carry block. Fill the Carry `provider:` / `tier-map:` / `chain-deleg:` fields at Loop 0 — a chain without them is undefined.
 
 2. Read `core/flows/craft/craft.md` in full — it is the spine (Core Principle, Carry, Autorouting, Return Flags, Orchestration, Loops 0–6.5, Cost Gate, Field Practice). Then read `core/flows/craft/routing.md` **once** (tier → concrete model, delegation) and only your runtime's section of `core/flows/craft/runtimes.md` (spawn recipe). Do not load `prior-art.md` to run a chain.
 3. Execute it with the task: $ARGUMENTS. This session is the orchestrator. You hold only verdict lines and the chain's provider+map — never paste loop file contents here.
