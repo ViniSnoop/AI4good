@@ -25,19 +25,18 @@ reduced mental load. That is the real test and it can only run after v1.
 
 ## How to read this
 
-Each step carries the model tier that is *enough* — `haiku` (mechanical), `sonnet` (normal
-engineering), `opus` (design, security, cross-cutting judgment). A floor, not a ceiling.
-🔴 needs Lucas's sign-off · 🟡 prove on one subtree first · 🟢 mechanical or additive.
+Per-step `model` = the tier that is *enough* (a floor, not a ceiling).
+🔴 needs Lucas · 🟡 pilot on one subtree first · 🟢 mechanical.
 
-**Only four open steps need Lucas's own judgment: 3.1, 8.1, 9.1, 10.3.** Everything else is
-Sonnet or Haiku. Stating that number is part of the cure for feeling lost.
+**Only four open steps need Lucas's own judgment: 3.1, 8.1, 9.1, 10.3.** Everything else is Sonnet
+or Haiku. Stating that number is part of the cure for feeling lost.
 
 **Load-bearing principle: automatic + zero-token beats agent-checked, and free checks are never
-coupled to paid ones.** Deterministic scripts run per-commit; human judgment runs on demand.
+coupled to paid ones.** Deterministic scripts per-commit; human judgment on demand.
 
 > **Evidence caveat, once for the whole doc.** Some steps lean on two strong but *unreviewed*
-> preprints — progressive disclosure ([P] 2607.17598) and ACE ([P] 2510.04618). Preprint =
-> provisional. We never turn a preprint into a hard gate.
+> preprints — progressive disclosure ([P] 2607.17598) and ACE ([P] 2510.04618). Provisional; never a
+> hard gate.
 
 ---
 
@@ -187,16 +186,15 @@ sessions, 25% from `/roundup`. Context management is currently Lucas's job, whic
 
 ## Frente 11 — Git & sync integrity — **v1 criterion 3 — MET**
 
-**Swept 2026-07-29.** 16/16 repos: zero unpushed, every branch `main` or `feature/*`, every repo has
-a remote. 41 commits pushed across 8 repos; `cria` published (`lsfcin/cria`, public, secret-scanned
-first); `loop/*` branches renamed to `feature/*` and 5 stale ones deleted (all ancestors of live
-feature branches, zero unique commits). Dirty 215 → 93.
+**Swept 2026-07-29.** 16/16 repos: zero unpushed, every branch `main`/`feature/*`, every repo has a
+remote. 41 commits pushed across 8 repos; `cria` published (public, secret-scanned first); `loop/*`
+renamed to `feature/*`, 5 stale ones deleted (ancestors of live branches, zero unique commits).
+Dirty 215 → 93.
 
-The "294 dirty files" figure was wrong twice over. Real count was 215, and **122 of those were
-unstaged generated interface stubs, not Lucas's work**. The near-miss is worth recording: the first
-read was that stubs are debris to gitignore. They are the opposite — `SETUP.md:41` stages them and
-`SETUP.md:536` *hard-blocks reading a source file when its interface is current*, so ignoring them
-breaks the read-gate on every fresh clone.
+The "294 dirty files" was wrong twice: 215 real, and **122 of those were unstaged generated stubs,
+not Lucas's work**. Near-miss worth keeping: the first read was that stubs are gitignorable debris.
+Opposite — `SETUP.md:41` stages them and `SETUP.md:536` hard-blocks reading source while its
+interface is current, so ignoring them breaks the read-gate on every fresh clone.
 
 1. 🔴 **decide-first — four findings the sweep exposed.** Explanations pending Lucas's direction:
    - **`Makefile` untracked in 7 repos** (`apptime`, `shortvid`, `ppc`, `corpora`, `futebots`,
@@ -241,19 +239,16 @@ is no conceptual intersection."* Each type answers exactly one question.
 | CONTEXT vs SPECS | rules that *constrain code* → SPECS; what the dir *is* → CONTEXT |
 | ROADMAP vs BUGS | BUGS owns the text; ROADMAP references by id and never restates it |
 
-1. [x] 🟢 **safe — apply the type system.** DONE 2026-07-30. Law written into
-   [core/SCHEMA.md](core/SCHEMA.md) § The `.md` type system (13-name allowlist, the three boundary
-   rules, No-archive-types, and the transient-initiative-doc exception). Deleted `brain/ARCHIVE.md`,
-   `core/HISTORY.md`, `brain/.log/done.md`, `core/WATCHLIST.md`, `brain/FOUNDATIONS.md`. Folded
-   WATCHLIST into `core/refs/REFS.md` as a `status: unjudged` section and FOUNDATIONS into
-   `brain/SPECS.md` § Rationale. Renamed `brain/goals/ARCHETYPE.md` → `_template.md`.
-   **Rewired the live wiring, which was the actual work:** `/roundup` Phase 2 no longer archives
-   (it deletes, and writes one `## Rejected` line for a killed idea), `/compass` ditches to a
-   `## Ditched` line in `brain/GOALS.md` instead of ARCHIVE, `.hooks/brain_stats.py` lost
-   `append_done_log`, and `code/_templates/{ROADMAP,BUGS}.md` + `code/SPECS.md` + `core/ROADMAP.md`
-   now state the delete policy. The `brain_stats` trailing-newline bug (ex-Batch B) was fixed in the
-   same pass. Per-project `HISTORY.md` files remain in the nested repos — deleted per repo as each is
-   next touched, since some carry a live parallel session.
+1. [x] 🟢 **apply the type system.** DONE 2026-07-30. Law → [core/SCHEMA.md](core/SCHEMA.md) § The
+   `.md` type system. Deleted `ARCHIVE.md`, `core/HISTORY.md`, `.log/done.md`; folded `WATCHLIST` →
+   `refs/REFS.md` (`status: unjudged`) and `FOUNDATIONS` → `brain/SPECS.md` § Rationale;
+   `goals/ARCHETYPE.md` → `_template.md`. **The wiring was the real work:** `/roundup` deletes
+   instead of archiving (+ one `## Rejected` line per killed idea), `/compass` ditches to
+   `## Ditched` in `GOALS.md`, `brain_stats.py` lost `append_done_log`, and the `code/_templates` +
+   `code/SPECS.md` + `core/ROADMAP.md` all state the delete policy. Fixed in passing: the
+   `brain_stats` trailing-newline bug, and `test_pointer_integrity` scanning `.Trash-<uid>/` (a
+   file-manager delete could block every commit until the trash was emptied). Per-project
+   `HISTORY.md` files die as each nested repo is next touched — one carries a live parallel session.
 2. 🟢 **safe — one or two refinement passes over the surviving docs.** Crop dead parts, collapse
    overlaps, compress the prose (caveman-compress the writing style, keep every technical fact).
    Requested by Lucas 2026-07-30, after the type system lands so the passes are not wasted on files
