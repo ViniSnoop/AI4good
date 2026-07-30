@@ -88,12 +88,21 @@ def file_description(path: Path) -> str:
         if m: return m.group(1).strip()
     return ''
 
+# A `test_*` name is collected by the runner, never imported by another module, so it is
+# not API — listing it in the routing table spends tokens naming something no reader can
+# call. Deliberately keyed on the SYMBOL, not on the path: a `tests/` or `test_*.py`
+# exemption would be a door an agent could walk production code through to dodge the
+# facade and interface-stub gates. Here there is no door — a function only leaves the API
+# column by taking a name the test runner will collect, which stops it being usable API.
+def _is_api(name: str) -> bool:
+    return not name.startswith('_') and not name.startswith('test_')
+
 def python_api(path: Path) -> list:
     try: tree = ast.parse(path.read_text(encoding='utf-8', errors='ignore'))
     except SyntaxError: return []
     return [n.name for n in ast.walk(tree)
             if isinstance(n, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef))
-            and not n.name.startswith('_')][:5]
+            and _is_api(n.name)][:5]
 
 def js_api(path: Path) -> list:
     text = path.read_text(encoding='utf-8', errors='ignore')
@@ -102,7 +111,7 @@ def js_api(path: Path) -> list:
     names, seen = [], set()
     for pat in pats:
         for n in re.findall(pat, text, re.MULTILINE):
-            if n not in seen: seen.add(n); names.append(n)
+            if n not in seen and _is_api(n): seen.add(n); names.append(n)
     return names[:5]
 
 def extract_api(path: Path) -> str:

@@ -291,8 +291,50 @@ Do **not** consolidate local CONTEXT.md to "reduce clutter" — granularity is t
 it helps some tasks, hurts others. So cap **chain depth**, not **file count**. When in doubt about
 adding a routing level, **measure** (a real task on the tier you care about), do not decree.
 
+**Fanout — signal it.** *Refines the line below, measured 2026-07-30 (Frente 3.2).* "File count is
+not the metric" was written about **CONTEXT.md granularity** and still holds there. It was read for
+two years as though it also licensed a directory holding 51 source files, which is a different
+axis and one this workspace already legislated: `workspace_scanner.SPLIT_THRESHOLD` = 7 code files,
+warned by `context_synchronizer.sync` since long before this note. That warning printed to stdout
+during a sync nobody reads, so the tail grew unopposed to 35 directories.
+
+The three axes, kept separate on purpose:
+
+| Axis | Rule | Enforced by |
+|---|---|---|
+| **locality** | many small local `CONTEXT.md` = good, never consolidate | judgement |
+| **depth** | cap hops to content; measure before adding a routing level | judgement |
+| **fanout** | > 7 code files in one directory is a **signal** | `entropy_fanout.py`, dashboard |
+
+**Where they meet:** splitting an over-full directory *adds a hop*, so fanout and depth trade against
+each other directly. Pay the hop only when the split removes more table than it adds. Worked example:
+`code/aiwbot/tests/` is 51 flat files costing 4954 tok of routing table in a 6068 tok chain; splitting
+it three ways (`bugs/` `features/` `unit/`) takes depth 3 → 4 and the chain to ~3000. It pays. A
+directory at 9 files usually does not — the hop costs more than the two rows it saves.
+
 **Net rule:** many small local CONTEXT.md files = good; deep CONTEXT.md → CONTEXT.md → CONTEXT.md
-chains = the thing to bound. File count is not the metric; hop count is.
+chains = the thing to bound. For *routing levels*, hop count is the metric, not file count. For
+*source files in one directory*, fanout is the signal and 7 is the number.
+
+### What the routing table may spend tokens on
+
+Measured 2026-07-30 across 159 `CONTEXT.md` / 1242 rows: the generated **File** table is 55k tok of
+a 102k corpus — but no session reads the corpus. A real gate cascade is **2126 tok median, of which
+457 (22%) is the File table**, about one `AGENTS.md`. The size is a tail, not a tax, and the tail is
+row *count* (median 7 rows, worst 51), i.e. the fanout signal above. So the table stays; two rules
+trim what it says:
+
+1. **A generated column empty on every row is not emitted.** 773 of 1242 rows carried an em-dash
+   `Interface`, paying width to say "nothing here". `File` and `Description` always survive.
+2. **`test_*` symbols are not API** — the runner collects them, no module imports one. Keyed on the
+   **symbol, never the path**: a `tests/`-directory exemption would be a door to walk production code
+   through, dodging the facade and interface-stub gates. Guarded by
+   `test_a_production_symbol_in_a_test_directory_still_appears`.
+
+The `Description` column is **not** on the table for trimming: it is each file's own first-line
+comment, written by hand at the source and only *surfaced* here. Measured noise is 6%. That is
+curated content, which is the side of the evidence split that helps — see [refs/REFS.md](refs/REFS.md)
+§ Context engineering.
 
 **Evidence + caveat.** Controlled study on haiku-4.5 + qwen3.6-27b ([P] 2607.17598): the flat skill
 pack reaches ~2× accuracy at ½ the tokens vs. raw at corpus scale, and *"the weaker the agent's

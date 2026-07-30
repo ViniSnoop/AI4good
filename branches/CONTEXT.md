@@ -7,5 +7,7 @@
 | Subdirectory | Description |
 |--------------|-------------|
 | [`casinhas/`](casinhas/CONTEXT.md) | Gestão unificada da obra: 7 casas geminadas + 3 salas comerciais em Rua Isaac Bu |
-| [`writing/`](writing/CONTEXT.md) | — |
+| [`ecovila/`](ecovila/CONTEXT.md) | Cockpit da ecovila Santuário dos Jatobás: lote de 200 m² comprado com o pai numa |
+| [`instituto/`](instituto/CONTEXT.md) | Cockpit do programa do instituto: núcleos de ideias sobre fluxos de dinheiro e c |
+| [`writing/`](writing/CONTEXT.md) | Writing that is not academic — drafts, notes, mantras, personal essays. |
 <!-- routing:end -->

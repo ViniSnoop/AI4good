@@ -20,12 +20,12 @@
 <!-- routing:start -->
 ## Routing
 
-| File | Interface | API | Description |
-|------|-----------|-----|-------------|
-| [`BUGS.md`](BUGS.md) | — | — | [Project Name] — Known Bugs |
-| [`README.md`](README.md) | — | — | [Project Name] |
-| [`ROADMAP.md`](ROADMAP.md) | — | — | [Project Name] — Roadmap |
-| [`SETUP.md`](SETUP.md) | — | — | [Project Name] — Dev Setup |
-| [`SPECS.md`](SPECS.md) | — | — | [Project Name] — Specs |
-| [`module.SPEC.md`](module.SPEC.md) | — | — | SPEC: [module name] |
+| File | Description |
+|------|-------------|
+| [`BUGS.md`](BUGS.md) | [Project Name] — Known Bugs |
+| [`README.md`](README.md) | [Project Name] |
+| [`ROADMAP.md`](ROADMAP.md) | [Project Name] — Roadmap |
+| [`SETUP.md`](SETUP.md) | [Project Name] — Dev Setup |
+| [`SPECS.md`](SPECS.md) | [Project Name] — Specs |
+| [`module.SPEC.md`](module.SPEC.md) | SPEC: [module name] |
 <!-- routing:end -->

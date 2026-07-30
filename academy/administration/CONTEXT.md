@@ -4,4 +4,11 @@
 <!-- routing:start -->
 ## Routing
 
+| Subdirectory | Description |
+|--------------|-------------|
+| [`coordenacao-lc/`](coordenacao-lc/CONTEXT.md) | — |
+
+| File | Interface | Description |
+|------|-----------|-------------|
+| [`pda/pda_2026.tex`](pda/pda_2026.tex) | [`pda/pda_2026.texif`](pda/pda_2026.texif) | ← add first-line comment |
 <!-- routing:end -->

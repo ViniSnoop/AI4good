@@ -14,12 +14,12 @@ Each file is a complete operating context for one agent role. In Claude Code, sp
 <!-- routing:start -->
 ## Routing
 
-| File | Interface | API | Description |
-|------|-----------|-----|-------------|
-| [`_template.md`](_template.md) | — | — | One line — what evidence or output this worker produces. |
-| [`lead.md`](lead.md) | — | — | Orchestrates research workflows; plans tasks, delegates to worker agents, synthesizes results. |
-| [`researcher.md`](researcher.md) | — | — | Gather primary evidence across papers, web sources, repos, docs, and local artifacts. |
-| [`reviewer.md`](reviewer.md) | — | — | Simulate a tough but constructive AI research peer reviewer with inline annotations. |
-| [`verifier.md`](verifier.md) | — | — | Post-process a draft to add inline citations and verify every source URL. |
-| [`writer.md`](writer.md) | — | — | Turn research notes into clear, structured briefs and drafts. |
+| File | Description |
+|------|-------------|
+| [`_template.md`](_template.md) | One line — what evidence or output this worker produces. |
+| [`lead.md`](lead.md) | Orchestrates research workflows; plans tasks, delegates to worker agents, synthesizes results. |
+| [`researcher.md`](researcher.md) | Gather primary evidence across papers, web sources, repos, docs, and local artifacts. |
+| [`reviewer.md`](reviewer.md) | Simulate a tough but constructive AI research peer reviewer with inline annotations. |
+| [`verifier.md`](verifier.md) | Post-process a draft to add inline citations and verify every source URL. |
+| [`writer.md`](writer.md) | Turn research notes into clear, structured briefs and drafts. |
 <!-- routing:end -->

@@ -21,7 +21,7 @@ Four criteria. Nothing else gates v1.
 
 | # | Criterion | Owner | State |
 |---|-----------|-------|-------|
-| 1 | **verify-fast green + Tier 0 live** — naming, placement, pointer integrity, size-as-signal deterministic; entropy dashboard reads clean | Frente 4 | checks live 2026-07-30 · dashboard at 85 findings, must drain |
+| 1 | **verify-fast green + Tier 0 live** — naming, placement, pointer integrity, size-as-signal deterministic; entropy dashboard reads clean | Frente 4 | checks live 2026-07-30 · dashboard at 73 findings, must drain |
 | 2 | **One ledger, no duplicates** — this file is the sole wos ledger, verified by scan not eyeball | Frente 8 | ✅ **MET 2026-07-30** — `test_no_item_lives_in_two_ledgers` |
 | 3 | **Everything pushed, gitflow-shaped** — every `code/` repo on `main`/`feature/*`, zero unpushed, no repo without a remote | Frente 11 | ✅ **MET 2026-07-29** |
 | 4 | **Clonable by a student** — fresh clone gets every capability; deps declared, no undocumented hand-installs | Frente 10 | open |
@@ -74,20 +74,43 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
    |---|---|---|
    | curated head (rules, cues) | 44.3k tok | the content — keep, but see MOVE OUT |
    | generated **Subdirectory** table (navigation) | **5.7k tok** (avg 34/file) | keep — cheap, and it *is* the useful routing |
-   | generated **File** table (per-file symbol dump) | **55.8k tok** | the whole problem |
+   | generated **File** table (per-file symbol dump) | **55.8k tok** | ~~the whole problem~~ — see below |
 
-   The navigation half is cheap; the inventory half **outweighs every curated line in the workspace
-   combined**. Worst case `code/aiwbot/tests/CONTEXT.md`: 25 tok of context + **4608 tok of File
-   table** (184×). Root cause is structural, not lexical: `context-gate` forces the full CONTEXT.md
-   chain before any file access while `SPECS.md` is on-demand, so **every constraint written into a
-   CONTEXT.md is a tax on every session in that subtree, forever.**
+   ✅ **SETTLED 2026-07-30 with Lucas. The corpus framing above was wrong and is retired.** 55.8k is
+   a sum nobody pays: no session reads the corpus, it reads a *chain*. Measured over all 159 chains:
+   **2126 tok median, of which the File table is 457 (22%)** — about one `AGENTS.md`, cached. Not a
+   tax; a tail. Only 10 chains exceed 5k.
+
+   And the tail is row **count**, not row width (median 7 rows, worst 51 — width is a flat 40 tok/row).
+   Which makes it a *code organisation* problem wearing a context-cost disguise: `code/aiwbot/tests/`
+   is 51 flat test files. **The rule already existed** — `workspace_scanner.SPLIT_THRESHOLD = 7`,
+   warned by `context_synchronizer.sync` — but it printed to stdout during a sync nobody reads.
+
+   Landed, in order of evidence: **(a)** the fanout signal promoted to Tier 0 (`entropy_fanout.py`,
+   dashboard section, 8 tests incl. a ratchet) — surfaces **35 pre-existing** over-full directories,
+   which is why the dashboard total rose to 108 rather than a regression; **(b)** a generated column
+   empty on every row is no longer emitted (773 of 1242 rows carried an em-dash `Interface`);
+   **(c)** `test_*` symbols dropped from the `API` column, keyed on the **symbol not the path** so
+   there is no `tests/`-shaped door for production code to dodge the facade gate through — guarded by
+   `test_a_production_symbol_in_a_test_directory_still_appears`. Rules + the depth/fanout
+   reconciliation are in `core/SCHEMA.md` § Routing depth and locality; the research verdict table is
+   in `core/refs/REFS.md` § What this evidence actually settles for us.
+
+   **Read-gate change: dropped, correctly.** Lucas rejected stopping the gate at `| File |` and he was
+   right — the table is cheap per chain and its `Description` column is curated at source (6% noise).
+   New `[P]` evidence cuts both ways and is now filed: Gloaguen et al. (ETH) found repository overviews
+   unhelpful and >20% costlier, but the harm concentrates in *LLM-generated* files while *curated* ones
+   help. Nobody has A/B'd our tables on our tasks; probe-and-refine is the method if it ever matters.
+
+   Still open from the original framing: `context-gate` forces the full CONTEXT.md chain before any
+   file access while `SPECS.md` is on-demand, so **every constraint written into a CONTEXT.md head is
+   paid by every session in that subtree** — that is the MOVE OUT bucket below, and it is about the
+   41.9k tok *head*, which the evidence says is the half that actually earns its keep.
 
    Four buckets, in payoff order. **Compression is the LAST step** (Lucas, 2026-07-30) — assess
    what to remove, move, and transform first.
-   - **REMOVE** — generated File tables from gate satisfaction: stop at the `| File |` header, not
-     at `routing:start` (an earlier draft cut the navigation too — wrong). Keeps every cue *and* all
-     navigation; `ls`/Read gets inventory on demand once you are already in the directory. Also:
-     **43** CONTEXT.md still carry `← add` placeholders — Frente 12.2 matched only
+   - **REMOVE** — ~~stop the gate at `| File |`~~ **rejected, see above.** Still live here:
+     **43** CONTEXT.md carry `← add` placeholders — Frente 12.2 matched only
      `← add description` and missed the `← add first-line comment` class entirely, so the real count
      was never 23. Also `code/CONTEXT.md:28` says *"See SPECS.md for the full table"* and inlines
      all of R1–R6 anyway.
@@ -114,8 +137,7 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
    `ANTHROPIC_API_KEY`, so it falls back to `claude --print` and spends *the same quota*). Six
    trivial word swaps. Extrapolated: ~2h and 171 quota calls for ~0.3%. The docs are already
    caveman-dense; there is no lexical fat. Reverted.
-   🔴 **Open for Lucas:** approve the gate stopping at `| File |`.
-   → **model: sonnet** for the sweeps · **opus** for the gate change.
+   → **model: sonnet** for the sweeps.
 
 ---
 

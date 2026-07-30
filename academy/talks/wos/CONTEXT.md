@@ -4,7 +4,7 @@
 <!-- routing:start -->
 ## Routing
 
-| File | Interface | API | Description |
-|------|-----------|-----|-------------|
-| [`outline.md`](outline.md) | — | — | Talk — workspace-os (WOS) @ SENAI |
+| File | Description |
+|------|-------------|
+| [`outline.md`](outline.md) | Talk — workspace-os (WOS) @ SENAI |
 <!-- routing:end -->

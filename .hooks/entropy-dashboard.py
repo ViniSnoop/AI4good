@@ -15,6 +15,7 @@ from pathlib import Path
 
 from entropy_context import check_goal_link
 from entropy_corpus import enforcement_paths, tracked_files
+from entropy_fanout import fanout_signals
 from entropy_ledger import (duplicate_slugs, goal_vocabulary, retired_hits,
                             wiki_link_hits)
 from entropy_naming import check_dirs, check_placement, check_shape
@@ -90,6 +91,7 @@ def collect(files: list) -> dict:
     findings['duplicates'] = [f'`[{slug}]` claimed by {", ".join(sorted(claims))}'
                               for slug, claims in duplicate_slugs(LEDGERS).items()]
     findings['size'] = size_signals(files)
+    findings['fanout'] = fanout_signals(files, WORKSPACE_ROOT)
     # One directory-level finding is reported by every file under it; dedupe so a count
     # means "things to fix", not "files touched by a thing to fix".
     findings['naming'] = sorted(set(findings['naming']))

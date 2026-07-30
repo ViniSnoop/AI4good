@@ -22,16 +22,16 @@ they are upstream re-diff noise, and `stubgen` mangles them into a nested `scrip
 <!-- routing:start -->
 ## Routing
 
-| File | Interface | API | Description |
-|------|-----------|-----|-------------|
-| [`__init__.py`](__init__.py) | — | — | **facade** — **facade** — **facade** — **facade** — **facade** — **facade** — **facade** — **facade** — **facade** — **facade** — **facade** — **facade** — **facade** — **facade** — **facade** — **facade** — **facade** — **facade** — **facade** — **facade** — **facade** — ← add first-line comment |
-| [`__main__.py`](__main__.py) | — | — | ← add first-line comment |
-| [`benchmark.py`](benchmark.py) | — | `count_tokens`, `benchmark_pair`, `print_table`, `main` | ← add first-line comment |
-| [`cli.py`](cli.py) | — | `print_usage`, `main` | ← add first-line comment |
-| [`compress.py`](compress.py) | — | `call_claude`, `compress_file` | Caveman memory compression orchestrator: compress, back up, validate, retry, restore. |
-| [`detect.py`](detect.py) | — | `detect_file_type`, `should_compress` | Detect whether a file is natural language (compressible) or code/config (skip). |
-| [`extract.py`](extract.py) | — | `read_file`, `extract_headings`, `extract_code_blocks`, `extract_urls`, `extract_paths` | Markdown extractors: pull out the structures compression must not disturb. |
-| [`prompts.py`](prompts.py) | — | `build_compress_prompt`, `build_fix_prompt` | Prompt bodies for the compress and fix passes — text only, no I/O. |
-| [`safety.py`](safety.py) | — | `is_sensitive_path`, `strip_llm_wrapper` | Refuse-before-read denylist: files that must never be shipped to a third-party API. |
-| [`validate.py`](validate.py) | — | `ValidationResult`, `validate_headings`, `validate_code_blocks`, `validate_urls`, `validate_paths` | Post-compression checks: what the model was forbidden to touch must be identical. |
+| File | API | Description |
+|------|-----|-------------|
+| [`__init__.py`](__init__.py) | — | **facade** — **facade** — **facade** — **facade** — **facade** — **facade** — **facade** — **facade** — **facade** — **facade** — **facade** — **facade** — **facade** — **facade** — **facade** — **facade** — **facade** — **facade** — **facade** — **facade** — **facade** — **facade** — ← add first-line comment |
+| [`__main__.py`](__main__.py) | — | ← add first-line comment |
+| [`benchmark.py`](benchmark.py) | `count_tokens`, `benchmark_pair`, `print_table`, `main` | ← add first-line comment |
+| [`cli.py`](cli.py) | `print_usage`, `main` | ← add first-line comment |
+| [`compress.py`](compress.py) | `call_claude`, `compress_file` | Caveman memory compression orchestrator: compress, back up, validate, retry, restore. |
+| [`detect.py`](detect.py) | `detect_file_type`, `should_compress` | Detect whether a file is natural language (compressible) or code/config (skip). |
+| [`extract.py`](extract.py) | `read_file`, `extract_headings`, `extract_code_blocks`, `extract_urls`, `extract_paths` | Markdown extractors: pull out the structures compression must not disturb. |
+| [`prompts.py`](prompts.py) | `build_compress_prompt`, `build_fix_prompt` | Prompt bodies for the compress and fix passes — text only, no I/O. |
+| [`safety.py`](safety.py) | `is_sensitive_path`, `strip_llm_wrapper` | Refuse-before-read denylist: files that must never be shipped to a third-party API. |
+| [`validate.py`](validate.py) | `ValidationResult`, `validate_headings`, `validate_code_blocks`, `validate_urls`, `validate_paths` | Post-compression checks: what the model was forbidden to touch must be identical. |
 <!-- routing:end -->

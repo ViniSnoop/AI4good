@@ -3,12 +3,12 @@
 <!-- stats:start -->
 <!-- data:start -->
 ## attention dashboard  _(auto-updated on every commit)_
-last-updated: 2026-07-30 16:26
+last-updated: 2026-07-30 17:50
 
 >**areas** — last 14 days  
 ```
 health       █████░░░░░   35 touches
-career       █░░░░░░░░░   10 touches
+career       █░░░░░░░░░   11 touches
 finances     █░░░░░░░░░   11 touches
 fun          ██████████   62 touches
 spiritual    ███░░░░░░░   20 touches
@@ -17,7 +17,7 @@ spiritual    ███░░░░░░░   20 touches
 >**goals** — last 14 days  
 ```
 CONTEXT                  ██░░░░░░░░   4 touches
-burocracia-academica     ░░░░░░░░░░   1 touches
+burocracia-academica     █░░░░░░░░░   2 touches
 career-ufrpe             ███░░░░░░░   5 touches
 corporal-expressiveness  ███░░░░░░░   5 touches
 craft-flows              ██░░░░░░░░   4 touches

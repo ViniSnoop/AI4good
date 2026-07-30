@@ -54,12 +54,21 @@ def subdir_scan(directory: Path, rs: str, re_end: str) -> tuple:
     return fold_list, link_list
 
 def parse_preserved_files(inner: str) -> dict:
+    """Descriptions already in the table, kept across a re-sync.
+
+    Column-count agnostic on purpose: build_file_rows drops generated columns that are
+    empty for every row, so a table may have 2, 3 or 4 columns. The filename is always
+    first and the description always last — anchor on those, never on a fixed arity.
+    """
     rows = {}
     for line in inner.splitlines():
-        m = re.match(r'\|\s*\[?`([^`]+)`\]?[^|]*\|[^|]*\|[^|]*\|\s*([^|]+?)\s*\|', line)
-        if m:
-            fname, desc = m.group(1), m.group(2).strip()
-            if desc not in ('Description', '—', '', PLACEHOLDER): rows[fname] = desc
+        if not line.startswith('|'): continue
+        cells = [c.strip() for c in line.strip().strip('|').split('|')]
+        if len(cells) < 2: continue
+        m = re.match(r'\[?`([^`]+)`\]?', cells[0])
+        if not m: continue
+        fname, desc = m.group(1), cells[-1]
+        if desc not in ('Description', '—', '', PLACEHOLDER): rows[fname] = desc
     return rows
 
 def parse_preserved_subs(inner: str) -> dict:
@@ -88,13 +97,30 @@ def build_sub_rows(link_list: list, preserved_subs: dict) -> str:
         rows.append(f'| [`{sub.name}/`]({link}) | {desc} |')
     return '\n'.join(rows)
 
+HEADERS   = ('File', 'Interface', 'API', 'Description')
+ALWAYS    = (0, 3)          # File and Description are the table; the rest earn their place
+EMPTY_CELL = {'—', '-', ''}
+
 def build_file_rows(files_with_rel: list, preserved: dict, ctx_dir: Path) -> str:
-    lines = ['| File | Interface | API | Description |', '|------|-----------|-----|-------------|']
+    """The routing table, minus any generated column that is empty on every row.
+
+    Measured 2026-07-30: 773 of 1242 rows workspace-wide carried an em-dash Interface,
+    paying table width in every read to say "nothing here". A column that says nothing
+    for every file in a directory is not information about that directory.
+    """
+    rows = []
     for f, rel in sorted(files_with_rel, key=lambda x: (x[0].name not in FACADE_NAMES, x[1])):
         pre  = '**facade** — ' if f.name in FACADE_NAMES else ''
         desc = pre + (file_description(f) or preserved.get(rel, preserved.get(f.name, PLACEHOLDER)))
-        lines.append(f'| [`{rel}`]({rel}) | {interface_for(f, ctx_dir)} | {extract_api(f)} | {desc} |')
-    return '\n'.join(lines)
+        rows.append((f'[`{rel}`]({rel})', interface_for(f, ctx_dir), extract_api(f), desc))
+    if not rows:
+        return ''
+    keep = [i for i in range(len(HEADERS))
+            if i in ALWAYS or any(r[i] not in EMPTY_CELL for r in rows)]
+    out = ['| ' + ' | '.join(HEADERS[i] for i in keep) + ' |',
+           '|' + '|'.join('-' * (len(HEADERS[i]) + 2) for i in keep) + '|']
+    out += ['| ' + ' | '.join(r[i] for i in keep) + ' |' for r in rows]
+    return '\n'.join(out)
 
 def build_routing_block(sub_content: str, file_content: str, rs: str, re_end: str) -> str:
     parts = [rs, '## Routing', '']

@@ -61,8 +61,8 @@ protocols: [core/flows/](../../core/flows/CONTEXT.md).
 | [`pls-pix/`](pls-pix/CONTEXT.md) | Paper embrião: prize-linked savings via Pix contra o dreno das bets no Brasil —  |
 | [`spacemantics/`](spacemantics/CONTEXT.md) | Benchmark+method paper: a verifiable spatial DSL lifts LLM spatial capability ac |
 
-| File | Interface | API | Description |
-|------|-----------|-----|-------------|
-| [`ROADMAP.md`](ROADMAP.md) | — | — | Papers Roadmap |
-| [`SPECS.md`](SPECS.md) | — | — | Papers — Specs |
+| File | Description |
+|------|-------------|
+| [`ROADMAP.md`](ROADMAP.md) | Papers Roadmap |
+| [`SPECS.md`](SPECS.md) | Papers — Specs |
 <!-- routing:end -->

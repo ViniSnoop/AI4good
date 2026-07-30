@@ -12,4 +12,7 @@ Plano e próximos passos vivem no goal: [`brain/goals/ecovila.md`](../../brain/g
 <!-- routing:start -->
 ## Routing
 
+| Subdirectory | Description |
+|--------------|-------------|
+| [`burocracia/`](burocracia/CONTEXT.md) | Documentos da Associação Ecovila Santuário dos Jatobás e papelada do lote. Vário |
 <!-- routing:end -->
