@@ -65,6 +65,12 @@ academy/lab/*
 !academy/papers/
 academy/papers/*
 !academy/papers/CONTEXT.md
+# ROADMAP.md is the papers-DOMAIN roadmap, sibling to the CONTEXT.md above — not a
+# per-paper roadmap (those live inside each paper's own repo and stay local, see the
+# note at the top of this file). Excepted 2026-07-30: it was ignored and untracked
+# everywhere, so it had no history in any repo, which breaks the one assumption the
+# "done work is deleted, git is the history" policy rests on.
+!academy/papers/ROADMAP.md
 !academy/papers/pls-pix/
 academy/papers/pls-pix/*
 !academy/papers/pls-pix/CONTEXT.md

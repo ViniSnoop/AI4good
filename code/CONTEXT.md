@@ -58,7 +58,7 @@ You are a SENIOR software architect, your code WILL be evaluated!
 | [`laplata/`](laplata/CONTEXT.md) | Mapa vivo dos fluxos de dinheiro no Brasil — pipeline de dados abertos (BCB, IBG |
 | [`ppc/`](ppc/CONTEXT.md) | Interactive browser tool for experimenting with LC/UFRPE curriculum redesign |
 | [`spacemantics/`](spacemantics/CONTEXT.md) | Verifiable spatial DSL (texpace) + deterministic checker that lift LLM spatial c |
-| [`voti/`](voti/CONTEXT.md) | Political alignment tool comparing user answers to real deputy voting records |
+| [`voti/`](voti/CONTEXT.md) | Political alignment tool comparing user answers to real deputy voting records —  |
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
