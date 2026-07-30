@@ -279,7 +279,20 @@ Git is the history** — no HISTORY append, no strikethrough, no annotated corps
    assessment task, never land ref-only) was coded into `core/skills/inbox.md` 2026-07-25. Apply it
    **retroactively** to the refs already captured ref-only, and refine the wording.
    → **model: sonnet**.
-7. 🟢 **safe — populate `>**routing**` tier·effort on goal files** (spec in `brain/SPECS.md`, vocab
+7. 🔴 **decide-first — the ditch pass. DECIDED 2026-07-29, not yet run.** The collapse made the ledger
+   honest but not smaller: items 158 → 123, mass flat (789 → 780 lines). Lucas, same day: *"this wos is
+   already too big and I confess I am a bit lost"* — the second such report (the first was
+   `brain/TODO.md`, 2026-07-27), so it is a live problem, not a mood. **Mass is the disease and only
+   deletion cures it.** Procedure: Opus reads all ~45 frente steps and proposes a **kill list**, target
+   **≤20 steps**; Lucas approves or vetoes each; killed items get one line of rejection note and are
+   deleted (per `[[feedback_delete_weak_features]]`), not demoted. Accepted price: some killed ideas
+   will resurface in months looking new. That is cheaper than a list nobody reads.
+   **Orientation that should survive the pass:** of the open steps, only **five** need Lucas's own
+   judgment — 3.3 (memory design), 8.3 (TODO redesign), 9.2 (`/roundup` redesign), 10.3 (clonable for
+   students), 11.2 (dirty-tree calls). Everything else is Sonnet/Haiku mechanical or parked. Stating
+   that number is itself part of the cure.
+   → **model: opus** · **switch: same session**, right after the push sweep.
+8. 🟢 **safe — populate `>**routing**` tier·effort on goal files** (spec in `brain/SPECS.md`, vocab
    shared with `core/skills/prepare.md`) and wire the router/`prepare` to read it.
    → **model: sonnet**.
 
@@ -486,9 +499,12 @@ type enum, `loops`-vs-`craft` naming, Google-auth CLI convergence.
 ## Sequencing
 
 1. **Frente 11.2** — the push sweep. Highest risk of *losing* work, and it is a v1 criterion.
-2. **Frente 4 Tier 0** + the entropy dashboard (4.1, 4.4) — the keystone; subsumes old Frentes 2 and 5
+   **Confirmed by Lucas 2026-07-29 as the next session's opening item.**
+2. **Frente 8.7** — the ditch pass, immediately after the sweep, same session if budget allows.
+   Decided 2026-07-29; every later item is cheaper against a shorter list.
+3. **Frente 4 Tier 0** + the entropy dashboard (4.1, 4.4) — the keystone; subsumes old Frentes 2 and 5
    and four ex-TODO items. Build after the ledger collapse so the dashboard does not inherit lies.
-3. **Batch B** — small fixes, parallel-safe, cheap.
+4. **Batch B** — small fixes, parallel-safe, cheap.
 4. **Frente 10** (1, 2) — SETUP audit + declared deps, with Frente 5.2's split in the same pass.
 5. **Frente 8** (1, 2) — duplicate scan + `[task-metric]`, so criterion 2 stays true without vigilance.
 6. **Frente 4 Tier 1/2** — gold tasks, `/dedup`, `/tidy`.
