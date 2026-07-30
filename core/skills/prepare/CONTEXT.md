@@ -1,5 +1,5 @@
 # prepare
-> Prepare a raw prompt for Claude Code: optimize, contextualize, and recommend model/effort settings.
+> Prepare a raw prompt for an agent: optimize, contextualize, and recommend tier/effort settings.
 
 <!-- routing:start -->
 ## Routing

@@ -1,12 +1,8 @@
 #!/usr/bin/env python3
 # paper-scaffold.py: Initialize or adapt a paper directory to workspace standards.
-#
-# Usage:
-#   paper-scaffold.py new <name>     — create academy/papers/<name>/ from template
-#   paper-scaffold.py adapt <path>   — add missing scaffold files to existing paper
-#
+#   new <name>    — create academy/papers/<name>/ from template
+#   adapt <path>  — add missing scaffold files to an existing paper
 # Both modes are safe: existing files are never overwritten (skipped with ~).
-
 from __future__ import annotations
 import re
 import sys
@@ -114,7 +110,12 @@ def _main_tex(name: str) -> str:
 
 _LATEXMKRC = '$pdf_mode = 5;\n$out_dir = ".";\n$aux_dir = "build";\n'
 _GITIGNORE = 'build/\nmain.pdf\n*.synctex.gz\n*.fls\n*.fdb_latexmk\n*.aux\n*.log\n'
-_SUB_CTX = lambda d: f'# {d.title()}\n> ← add description\n\n{ROUTE}'
+# Line 2 is hoisted into the parent's routing row: a placeholder renders as "—" and the
+# parent stops being navigable. These dirs are known by name — never placeholder them.
+_SUB_DESC = {'lib': 'LaTeX includes for this paper — bibliography, macros, and style files.',
+             'images': 'Figures for this paper — source assets and exported plots used by sections/.',
+             'tables': 'Tables for this paper — generated .tex fragments included by sections/.'}
+_SUB_CTX = lambda d: f'# {d.title()}\n> {_SUB_DESC.get(d, "← add description")}\n\n{ROUTE}'
 
 
 def _terms_yaml() -> str:
