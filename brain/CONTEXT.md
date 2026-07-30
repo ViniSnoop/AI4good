@@ -12,7 +12,6 @@ Agent is first-class collaborator, not just reader.
 | [goals/](goals/) | One file per goal — organic growth from seed to full |
 | [USER.md](USER.md) | User profile — identity, language, patterns, what helps |
 | [INBOX.md](INBOX.md) | Zero-friction capture, no taxonomy |
-| [ARCHIVE.md](ARCHIVE.md) | Closed goals — never auto-loaded, ask explicitly |
 
 ## Area Taxonomy
 
@@ -30,7 +29,7 @@ Agent is first-class collaborator, not just reader.
 - `/inbox` — triage INBOX.md entries
 
 Goal file format, section specs, signals/dynamics/timing fields → [SPECS.md](SPECS.md).
-Philosophical foundations → [FOUNDATIONS.md](FOUNDATIONS.md).
+Design rationale → [SPECS.md](SPECS.md) § Rationale.
 
 <!-- routing:start -->
 ## Routing
@@ -42,8 +41,6 @@ Philosophical foundations → [FOUNDATIONS.md](FOUNDATIONS.md).
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
-| [`ARCHIVE.md`](ARCHIVE.md) | — | — | Archive |
-| [`FOUNDATIONS.md`](FOUNDATIONS.md) | — | — | Foundations |
 | [`GOALS.md`](GOALS.md) | — | — | goals |
 | [`INBOX.md`](INBOX.md) | — | — | inbox |
 | [`SPECS.md`](SPECS.md) | — | — | Brain — Specs |

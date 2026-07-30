@@ -1,6 +1,6 @@
 # Core Library Roadmap
 > Making the agent library sound: one enforced frontmatter contract per layer, symmetric within
-> layer/type. Contract in [SCHEMA.md](SCHEMA.md). Completed work archived in [HISTORY.md](HISTORY.md).
+> layer/type. Contract in [SCHEMA.md](SCHEMA.md). Completed work is deleted -- git is the history.
 >
 > **Scope: agent-library internals only** — skills, agents, flows, tools, and their schema. Workspace
 > scaffold work (hooks, gitignore, anti-entropy, cost, portability) lives in the single wos ledger,
@@ -49,7 +49,7 @@ validator's oracle" status of `deepresearch` was retired 2026-07-23; see [SCHEMA
 
 ## craft-flows — DONE 2026-07-23/25
 
-All 8 steps shipped: `loop-*` vocabulary retired for **flow** (`craft`/`route`/`architect`, `TREE.md`),
+All 8 steps shipped: `loop-*` vocabulary retired for **flow** (`craft`/`route`/`architect`, `tree.md`),
 the goal renamed `craft-flows`, `deep` redefined as `sota` (tiered `REFS.md` + per-paper yaml + a
 ≤200-line decision-support summary), `scout` composes `sota` via a declared `uses:` edge (the first
 real DAG edge), the template consolidated with the oracle retired, the cycle guard built as two

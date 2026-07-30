@@ -8,7 +8,7 @@ Tool names are literal. Use only tools visible in the current tool set. See `cor
 
 Decide: $@
 
-This is an execution request. Produce a recorded decision, not a discussion. Reached via [`route.md`](route.md) with `subtree: architecture`; see [`TREE.md`](TREE.md).
+This is an execution request. Produce a recorded decision, not a discussion. Reached via [`route.md`](route.md) with `subtree: architecture`; see [`tree.md`](tree.md).
 
 ## When this subtree runs
 

@@ -64,7 +64,7 @@ Synthesis on top of fears:
 
 - Selected achievement = always first unchecked `[ ]` item in backlog
 - Remaining unchecked = ordered by Lucas's judgment — **by live motivation first, deadlines second**
-  (ordering wins over pressure; see FOUNDATIONS). Deadlines are a gentle nudge, never the organizing axis.
+  (ordering wins over pressure; see § Rationale below). Deadlines are a gentle nudge, never the organizing axis.
 - Done items = move to `## done` section
 - Achievement format: `[short-id] description` — short-id is 2–4 word kebab-case slug
 - Optional inline timing: `> [ ] [id] description — Jun 01`
@@ -81,7 +81,7 @@ Lucas decides, using these moves:
 - **timing negotiation** — "is this the right moment, or better timing?" → if later, push the goal's
   `target` (chosen, not slipped).
 - **ditch** — dropping a goal that no longer makes sense: move the whole goal file's entry to
-  `brain/ARCHIVE.md` with a one-line reason. A valid move, never a failure.
+  one line under `## Ditched` in `brain/GOALS.md`, then delete the goal file. A valid move, never a failure.
 - **defer** — keep the goal, push its `target` forward. Distinct from ditch.
 - **close a win** — flip `[ ]`→`[x]`, move to the `done` block, advance the selected achievement, write
   a fresh ease-start, set `motion: advancing`, acknowledge the win (the folded `/brain-finished`).
@@ -134,3 +134,21 @@ Optional per-goal hints so a session on this goal starts at the right power/cost
 - **effort**: `low` / `medium` / `high` / `max` — reasoning depth / thoroughness for the run.
 
 Placed as a `>**routing**` block near `>**signals**`. Example: `>**routing**  \nhigh · high` for a research goal like cria; `low · low` for a startapp stub. The router (or `/prepare`) reads it to pick the actual model. Never write a model/provider name in the field itself.
+
+## Rationale — why Brain is shaped this way
+
+> Folded in from `brain/FOUNDATIONS.md` 2026-07-30: a spec says what must be true, its rationale says
+> why. Keeping them apart made the *why* a file nobody opened. Every line below is a cited result,
+> and each one is load-bearing for a design choice above.
+
+- **Non-completion = emotion regulation failure**, not laziness (Steel 2007; Sirois & Pychyl 2013). Fix the emotional mechanism, not the discipline.
+- **Perfectionism = ego-protection**. Completing exposes work to judgment. The `fears` block surfaces this so it cannot operate invisibly.
+- **Writing a specific plan closes open loops** without completing the task (Masicampo & Baumeister 2011). Specific `ease-start` steps discharge Zeigarnik tension.
+- **Maximizers get worse outcomes AND less satisfaction** than satisficers (Parker 2007). `closure` pre-commits the satisficing threshold *before* perfectionism can move the goalposts.
+- **Autonomous motivation outperforms willpower** for sustained creative work (Deci & Ryan, SDT; 2022 meta-review). Design for alignment, not obligation.
+- **Small consistent progress is self-reinforcing**: wins → satisfaction → importance → expectancy → more wins (Strand et al. 2025). Celebrate `[x]`, not just final delivery.
+- **Fear made workable, not eliminated**, reduces its behavioural grip (ACT — Wolitzky-Taylor 2015, d≈1.0). The `fears` block is not therapy, it is intelligence.
+- **External timing supplements internal motivation** without replacing it (Ariely & Wertenbroch 2002). `anchor` dates are chosen, never imposed.
+- **Ordering by motivation beats deadline pressure**. Energy follows what has wind, not the clock (SDT). Reviews order by live motivation first; deadlines surface gently and second.
+- **Ditching and deferring are strategic moves, not failures**. A satisficer releases cleanly rather than dragging every open loop (Parker 2007). The compass offers the drop as a valid option, never a verdict.
+- **Timing is negotiated, not imposed**. *"Is this the right moment, or is there better timing?"* — moving a chosen `target` is alignment, not slippage.

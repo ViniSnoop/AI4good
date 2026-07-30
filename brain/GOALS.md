@@ -3,75 +3,76 @@
 <!-- stats:start -->
 <!-- data:start -->
 ## attention dashboard  _(auto-updated on every commit)_
-last-updated: 2026-07-29 22:09
+last-updated: 2026-07-30 16:26
 
 >**areas** — last 14 days  
 ```
-health       █████░░░░░   33 touches
-career       █░░░░░░░░░   8 touches
+health       █████░░░░░   35 touches
+career       █░░░░░░░░░   10 touches
 finances     █░░░░░░░░░   11 touches
-fun          ██████████   61 touches
+fun          ██████████   62 touches
 spiritual    ███░░░░░░░   20 touches
 ```
 
 >**goals** — last 14 days  
 ```
+CONTEXT                  ██░░░░░░░░   4 touches
 burocracia-academica     ░░░░░░░░░░   1 touches
-career-ufrpe             ████░░░░░░   5 touches
-corporal-expressiveness  ████░░░░░░   5 touches
-craft-flows              █░░░░░░░░░   2 touches
-cria                     ████░░░░░░   5 touches
-dance-bachata            ████░░░░░░   5 touches
-dance-cavalo-marinho     ████░░░░░░   5 touches
-dance-forro              ████░░░░░░   5 touches
-dance-frevo              ████░░░░░░   5 touches
-dance-salsa              ████░░░░░░   5 touches
-dance-samba              ████░░░░░░   5 touches
+career-ufrpe             ███░░░░░░░   5 touches
+corporal-expressiveness  ███░░░░░░░   5 touches
+craft-flows              ██░░░░░░░░   4 touches
+cria                     ███░░░░░░░   5 touches
+dance-bachata            ███░░░░░░░   5 touches
+dance-cavalo-marinho     ███░░░░░░░   5 touches
+dance-forro              ███░░░░░░░   5 touches
+dance-frevo              ███░░░░░░░   5 touches
+dance-salsa              ███░░░░░░░   5 touches
+dance-samba              ███░░░░░░░   5 touches
 ecovila                  ░░░░░░░░░░   1 touches
-exercise                 █████░░░░░   6 touches
-finances                 ████░░░░░░   5 touches
-guitar                   ████░░░░░░   5 touches
-home-casinhas            ████░░░░░░   5 touches
-instituto                ████░░░░░░   5 touches
-lih-dd                   ████░░░░░░   5 touches
-local-ai                 ██████░░░░   8 touches
-magic-places             ████░░░░░░   5 touches
-make-in-time             ████░░░░░░   5 touches
-pandeiro                 ████░░░░░░   5 touches
-paper-jarbinhas          ████░░░░░░   5 touches
-paper-megatruth          ████░░░░░░   5 touches
-paper-scattercode        ████░░░░░░   5 touches
-paper-sibgrapi-2026      ████░░░░░░   5 touches
+exercise                 ████░░░░░░   6 touches
+finances                 ███░░░░░░░   5 touches
+guitar                   ███░░░░░░░   5 touches
+home-casinhas            ███░░░░░░░   5 touches
+instituto                ███░░░░░░░   5 touches
+lih-dd                   ████░░░░░░   6 touches
+local-ai                 █████░░░░░   8 touches
+magic-places             ███░░░░░░░   5 touches
+make-in-time             ███░░░░░░░   5 touches
+pandeiro                 ███░░░░░░░   5 touches
+paper-jarbinhas          ███░░░░░░░   5 touches
+paper-megatruth          ███░░░░░░░   5 touches
+paper-scattercode        ███░░░░░░░   5 touches
+paper-sibgrapi-2026      ███░░░░░░░   5 touches
 prompt-opt-automation    ░░░░░░░░░░   0 touches
-reading                  ████░░░░░░   5 touches
-rpg-isoroll              █████░░░░░   6 touches
-sleep-regularity         ████░░░░░░   5 touches
-smartphone-addiction     ████░░░░░░   5 touches
-spacemantics             █████░░░░░   6 touches
-spec-driven-development  █████░░░░░   6 touches
-startapps-apptime        ████░░░░░░   5 touches
-startapps-arede          ████░░░░░░   5 touches
-startapps-batituque      ████░░░░░░   5 touches
-startapps-come-bem       ████░░░░░░   5 touches
-startapps-cuida          ████░░░░░░   5 touches
-startapps-da-feirinha    ████░░░░░░   5 touches
-startapps-gira           ████░░░░░░   5 touches
-startapps-laplata        ████░░░░░░   5 touches
-startapps-marcapramim    ████░░░░░░   5 touches
-startapps-permuta        ████░░░░░░   5 touches
-startapps-polilinhas     ████░░░░░░   5 touches
-startapps-realgorithm    ████░░░░░░   5 touches
-startapps-todolado       ████░░░░░░   5 touches
-startapps-ux-guidelines-ai ████░░░░░░   5 touches
-startapps-virada         ████░░░░░░   5 touches
-startapps-voti           ████░░░░░░   5 touches
-startapps-xacomigo       ████░░░░░░   5 touches
-surf                     ████░░░░░░   5 touches
-teaching-materials       █████░░░░░   6 touches
-vipassana                ████░░░░░░   5 touches
-voice                    ████░░░░░░   5 touches
-workspace-os             ██████████   12 touches
-yoga                     ████░░░░░░   5 touches
+reading                  ███░░░░░░░   5 touches
+rpg-isoroll              █████░░░░░   7 touches
+sleep-regularity         ███░░░░░░░   5 touches
+smartphone-addiction     ███░░░░░░░   5 touches
+spacemantics             ████░░░░░░   6 touches
+spec-driven-development  ████░░░░░░   6 touches
+startapps-apptime        ███░░░░░░░   5 touches
+startapps-arede          ███░░░░░░░   5 touches
+startapps-batituque      ███░░░░░░░   5 touches
+startapps-come-bem       ███░░░░░░░   5 touches
+startapps-cuida          ███░░░░░░░   5 touches
+startapps-da-feirinha    ███░░░░░░░   5 touches
+startapps-gira           ███░░░░░░░   5 touches
+startapps-laplata        ███░░░░░░░   5 touches
+startapps-marcapramim    ███░░░░░░░   5 touches
+startapps-permuta        ███░░░░░░░   5 touches
+startapps-polilinhas     ███░░░░░░░   5 touches
+startapps-realgorithm    ███░░░░░░░   5 touches
+startapps-todolado       ███░░░░░░░   5 touches
+startapps-ux-guidelines-ai ███░░░░░░░   5 touches
+startapps-virada         ███░░░░░░░   5 touches
+startapps-voti           ███░░░░░░░   5 touches
+startapps-xacomigo       ███░░░░░░░   5 touches
+surf                     ███░░░░░░░   5 touches
+teaching-materials       ████░░░░░░   6 touches
+vipassana                ███░░░░░░░   5 touches
+voice                    ███░░░░░░░   5 touches
+workspace-os             ██████████   14 touches
+yoga                     ███░░░░░░░   5 touches
 ```
 <!-- data:end -->
 
@@ -121,7 +122,7 @@ yoga                     ████░░░░░░   5 touches
 | paper sibgrapi 2026 | craft | now | 2026 submission | [sib-01] download updated dataset from Artur | [→](goals/paper-sibgrapi-2026.md) |
 | prompt optimization automation | career | now | — | — | [→](goals/prompt-opt-automation.md) |
 | reading | fun | near | none external | [pick-book] pick one book and read one page today | [→](goals/reading.md) |
-| isoroll | fun | near | — | [scene-seam] close the generate→play seam (program P2):… | [→](goals/rpg-isoroll.md) |
+| isoroll | fun | near | — | [playable] paint a room in live Foundry, walk a token, … | [→](goals/rpg-isoroll.md) |
 | sleep regularity | health | near | none external | [streak-3] 3 consecutive days on target — in bed by 00:… | [→](goals/sleep-regularity.md) |
 | smartphone addiction | health | near | none external | [map-usage] track phone pickups for 3 days without chan… | [→](goals/smartphone-addiction.md) |
 | spacemantics — capacidade espacial/visual verificável para agentes | craft | now | — | [m1-slice] fatia vertical 2.5D end-to-end (texpace DSL … | [→](goals/spacemantics.md) |
@@ -150,3 +151,11 @@ yoga                     ████░░░░░░   5 touches
 | workspace OS | health | year | none external | [v1] pass the four-criterion v1 gate — Tier 0 anti-entr… | [→](goals/workspace-os.md) |
 | yoga | spiritual | year | none external | [mat-today] practice once this week with no goal — just… | [→](goals/yoga.md) |
 <!-- goals:end -->
+
+## Ditched
+
+> One line per goal deliberately dropped, with the reason. The goal file itself is deleted —
+> git holds the file, but not *why* we let it go, and that is the only part worth keeping.
+> Dropping a goal is a strategic move, never a failure (`brain/SPECS.md` § Rationale).
+
+_(none yet)_

@@ -55,7 +55,7 @@
           },
           {
             "type": "command",
-            "command": "python3 /mnt/workspace/.hooks/known-bugs-gate.py"
+            "command": "python3 /mnt/workspace/.hooks/bugs-gate.py"
           },
           {
             "type": "command",

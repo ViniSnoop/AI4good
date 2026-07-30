@@ -34,7 +34,7 @@ problem for a non-Claude agent. Field-name lists (`PATH_KEYS`,
 | `tool.execute.before`, `edit`/`write` | PreToolUse `Edit\|Write` | `.hooks/pre-edit.py` | exit 2 → throw |
 | `tool.execute.before`, `edit`/`write` | PreToolUse `Edit\|Write` | `.hooks/facade-scan.py` | (warn only; never exits 2) |
 | `tool.execute.before`, `edit`/`write`/`apply_patch` | PreToolUse `Edit\|Write` | `.hooks/facade-gate.py` | exit 2 → throw |
-| `tool.execute.before`, `edit`/`write`/`apply_patch` | PreToolUse `Edit\|Write` | `.hooks/known-bugs-gate.py` | exit 2 → throw |
+| `tool.execute.before`, `edit`/`write`/`apply_patch` | PreToolUse `Edit\|Write` | `.hooks/bugs-gate.py` | exit 2 → throw |
 | `tool.execute.before`, `edit`/`write`/`apply_patch` | PreToolUse `Edit\|Write` | `.hooks/spec-read-gate.py` | exit 2 → throw |
 | `tool.execute.before`, `bash` | PreToolUse `Bash` | `.hooks/bash-context-gate.py` | exit 2 → throw |
 | `tool.execute.after`, `read` | PostToolUse `Read` | `.hooks/facade-tracker.py` | n/a (no block) |
@@ -99,11 +99,11 @@ test harness in the session that created this file — it covers seven original
 scenarios: read-block-with-pyi, read-allow-no-pyi, write-block-no-comment,
 write-block-oversized, write-allow-small, edit-allow-then-post-regenerates-pyi,
 read-facade-allow-then-tracker-silent. G6 (context-gate/bash-context-gate/
-context-tracker/known-bugs-gate) added three more, verified the same way:
+context-tracker/bugs-gate) added three more, verified the same way:
 read/bash blocked on an unread CONTEXT.md chain then allowed after the chain
-is marked seen via the after-hook, and an edit flipping a KNOWN-BUGS.md entry
+is marked seen via the after-hook, and an edit flipping a BUGS.md entry
 to FIXED without a matching `test/**/b<N>-*` spec blocked once the chain is
-seen (context-gate has to pass first to reach known-bugs-gate, same ordering
+seen (context-gate has to pass first to reach bugs-gate, same ordering
 as `copilot-pre-tool.py`'s `gate()` chain).
 
 To validate inside a real opencode session, start opencode in `/mnt/workspace`
@@ -112,13 +112,6 @@ and run the test plan from the resume prompt: try to read a `.py` with a current
 block), edit a `.py` past `BLOCK_LINES` (expect block), edit a `.py` (expect
 `.pyi` timestamp updates), edit a `CONTEXT.md`-adjacent dir (expect
 `context_synchronizer` runs).
-
-### Files
-
-- `plugins/workspace-policy.js` — the plugin (this file's subject).
-- `package.json` — `"type": "module"` + `@opencode-ai/plugin` dependency.
-- `skills/` — opencode skill mirror (managed by sync-skills; see
-  `core/skills/sync-skills`).
 
 <!-- routing:start -->
 ## Routing

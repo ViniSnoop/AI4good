@@ -138,6 +138,12 @@ if [ -x /mnt/workspace/.hooks/gitflow-gate.sh ]; then
   /mnt/workspace/.hooks/gitflow-gate.sh || exit 1
 fi
 
+# ── 1g. Tier 0 type gate — .md type allowlist + CONTEXT.md hand-inventory ─────
+# Ratchet/boy-scout, same shape as 1c/1d: fires only on files this commit ADDS, so a
+# repo that inherited violations is not blocked on every commit. The allowlist is
+# parsed from core/SCHEMA.md, never restated. See ROADMAP.md Frente 4.1.
+python3 /mnt/workspace/.hooks/type-gate.py || exit 1
+
 # ── 1f. Nested-gitlink gate (workspace repo) ──────────────────────────────────
 if [ -x /mnt/workspace/.hooks/nested-gitlink-gate.sh ]; then
   /mnt/workspace/.hooks/nested-gitlink-gate.sh || exit 1

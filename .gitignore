@@ -64,7 +64,13 @@ academy/lab/*
 !academy/lab/CONTEXT.md
 !academy/papers/
 academy/papers/*
-!academy/papers/CONTEXT.md
+# Domain-level .md files here are structural workspace types (CONTEXT, ROADMAP, SPECS,
+# …) and belong to the workspace repo; the per-paper SUBDIRECTORIES stay ignored and
+# keep their own repos. Excepting the whole top-level *.md glob rather than one name at
+# a time (2026-07-30): ROADMAP.md had been ignored and untracked in every repo, so it
+# had no history anywhere, which breaks the assumption that "done work is deleted, git
+# is the history" rests on. Naming each type individually is how that gap appeared.
+!academy/papers/*.md
 !academy/papers/pls-pix/
 academy/papers/pls-pix/*
 !academy/papers/pls-pix/CONTEXT.md

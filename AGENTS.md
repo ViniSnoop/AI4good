@@ -2,20 +2,20 @@
 > Canonical workspace entrypoint. Read before any task.
 
 - FILESYSTEM = source of truth. No memory, no assumptions.
-- IMPROVE WORKSPACE at any opportunity. Findings can be 'existing bad' or 'new good' flows, instructions, skills, etc. Fix it or at least WRITE IT DOWN at the end of INBOX.md
+- IMPROVE WORKSPACE at any opportunity. WRITE ISSUES DOWN at the end of INBOX.md
 - DON'T ASSUME, interview user if in doubt about his idea or intent.
-- EXPAND ACRONYMS on first use — write the term out in full the first time it appears, before discussing it. For a very specific concept, add a short footnote. Never assume a term is shared vocabulary. (Glossary note: **workspace-os** may be written **wos** / **WOS** / **w-os** / **W-OS** — all valid aliases for the same thing.)
-- PREFER EDIT OVER CREATE: edit / refine / improve / reduce **wins over** creating new, almost always — the exception is deliberate prototyping of new possibilities. Fix and reduce based on what works; avoid scattering.
-- SYMMETRY IS A CORE VALUE, semantic and structural. Alike things look alike; a name means the same thing everywhere; no privileged special cases (a template is a template, not also an oracle). When you find an asymmetry, fix it or write it down.
-- STRUCTURE HAS A SHAPE, and it holds across every subtree. Keep `CONTEXT.md` **local and granular** — small files glued to what they govern are what let weak models navigate and are the most cache-friendly input; do not consolidate them to "reduce clutter". Cap routing-chain **depth** (hops to content), not **file count**; measure before adding a routing level. Treat a curated doc's size as a **delta-review signal, never a hard cap** — forcing a ROADMAP/CONTEXT to be summarized erases the heuristic that mattered (brevity bias). Full policy + evidence: [`core/SCHEMA.md` § Routing depth and locality](core/SCHEMA.md).
-- Before declaring a capability is missing or impossible, read [`core/tools/CONTEXT.md`](core/tools/CONTEXT.md) and [`core/flows/CONTEXT.md`](core/flows/CONTEXT.md) — a CLI tool or flow already exists for most research/web/file/Google/PDF/GitHub needs. Same for any task that "would be easier with a tool": check the catalog first, then act.
-- If uncertain SEARCH web first via `core/tools/search "<query>"` (bash, any agent, no MCP, no per-agent wiring). Backend resolution is internal: Exa when `~/.feynman/web-search.json` carries an `exaApiKey`, otherwise `ddgr` (DuckDuckGo, no key). Exa-only flags: `--type neural|keyword`, `--since YYYY-MM-DD`, `--domains d1,d2`, `--content` (full page text). Force a backend with `--backend exa|ddgr`. See [SETUP.md §12](SETUP.md#12-unified-web-search-cli-all-agents).
-- Workspace repo commits structural files (`AGENTS.md`, `CONTEXT.md`, domain docs). Internal projects use their own git repos.
-- Git branching = gitflow. `main` is the primary/production branch (protected in spirit); `develop` is the integration branch feature branches merge into first. Cycle: `develop` → create `feature/*` → merge to `develop` → merge `develop` to `main` → rest on `main`. `master` is retired (deleted 2026-07-21) — never recreate it or target it in a PR. **Never commit directly to `main` or `develop` — always branch `feature/*` first.** This is **enforced** by the pre-commit gate `.hooks/gitflow-gate.sh` for every `code/*` project repo **and the workspace repo itself**; paper repos (`academy/papers/*`) and other nested repos are exempt. Emergency bypass: `git commit --no-verify`.
-- PUSH POLICY (two machines share this workspace — unpushed work is invisible work). Three layers: (1) `feature/*` is **auto-pushed** by `.hooks/post-commit` after every commit — never rely on remembering; (2) promotion `feature/*` → `develop` → `main` + push happens in `/roundup` Phase 5, gated on a green verification run; (3) `/handoff` only **reports** divergence, never merges — it can run mid-session. `main` is therefore the sync point between machines, not just a release tag. `--no-verify` bypasses leave no trace outside the commit message — always state the reason there and file a TODO to pay it back.
-- PLANS LIVE IN ROADMAPS: any plan (plan mode or otherwise) must be persisted in the target project's `ROADMAP.md` — either inline or as a sub-roadmap file referenced from it. `~/.claude/plans/*` is a scratch copy, never the canonical home.
+- EXPAND ACRONYMS on first use. Aliases: [`core/SCHEMA.md`](core/SCHEMA.md) § Vocabulary.
+- WOS = workspace os.
+- EDIT > CREATE: refine / improve / reduce **wins over** creating new, except for prototyping. Avoid scattering.
+- SYMMETRY IS A CORE VALUE, semantic and structural. When you find an asymmetry, write it down.
+- **`UPPERCASE.md` = a type, `lowercase.md` = an instance.** Types are a closed allowlist.
+- **DONE WORK IS DELETED. GIT IS THE HISTORY.** No strikethrough, no annotated corpses.
+- USE OUR TOOLS / FLOWS: we want those to be useful and perfected.
+- PLANS LIVE IN ROADMAPS: any plan must be persisted in the target project's `ROADMAP.md` — inline or as a `ROADMAP-<slug>.md` referenced from it.
 
-See [SETUP.md](SETUP.md) for hooks, stubgen, tsc, caveman, and toolchain setup.
+Git Flow, the branch gate's scope, the `--no-verify` protocol, and the push policy:
+[`code/SPECS.md`](code/SPECS.md) § Git Branching. *Gated by `.hooks/gitflow-gate.sh`.*
+Hooks, stubgen, tsc, caveman, toolchain: [SETUP.md](SETUP.md).
 
 <!-- routing:start -->
 ## Routing

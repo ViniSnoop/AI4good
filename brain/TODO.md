@@ -13,12 +13,6 @@
 - [ ] [cnpq] checar ELEGIBILIDADE na chamada UNIVERSAL — porta de entrada, antes de qualquer escrita (2026-07-23)
 - [ ] sleep by 00:30 — streak-3 starts tonight
 
-## programacao1 — simulador social
-
-- [ ] criar repo GitHub `lsfcin/programacao1-simulador` (novo, separado de `programming-101`)
-- [ ] `git init` em `code/programacao1/` + git flow (main → develop)
-- [ ] começar coding: `src/setup.py` + `src/qualidade.py` (Milestone 1 no ROADMAP.md)
-
 ## week
 
 - [ ] revisar artigo do svr — prazo ~25/07 (fazer nos próximos 2 dias, confirmado 23/07)
@@ -43,7 +37,7 @@
 - [ ] [casinhas] averbação do terreno
 - [ ] [vipassana] retiro 1–12 agosto; mover férias (ver goal vipassana)
 - [ ] [ufrpe] PPC ementas: 41/44 já reformatadas p/ modelo SIGAA e subidas no Drive (`[MODELO-SIGAA] <nome>`, pasta EMENTAS/OBRIGATORIAS+NOVAS) — 2026-07-21. Falta: pedir a Paulo o conteúdo (EMENTA/CONTEÚDO) de 3 disciplinas sem fonte em lugar nenhum — FUNDAMENTOS DA EDUCAÇÃO, PROJETO INTEGRADOR EM DESENVOLVIMENTO DE ARTEFATOS EDUCACIONAIS, PROJETO INTEGRADOR EM EDUCAÇÃO EM COMPUTAÇÃO (ver `academy/administration/coordenacao-lc/novo-ppc-bcc/ementas/gaps.md`) → depois de obter o conteúdo, **criar as 3 ementas já no formato novo** (INBOX 2026-07-24)
-- [ ] [slides / portas-logicas] OR gate body still missing — see KNOWN-BUGS.md; investigate `CUSTOM` shape type in slide 23 group, then decide if worth further debugging
+- [ ] [slides / portas-logicas] OR gate body still missing — see BUGS.md; investigate `CUSTOM` shape type in slide 23 group, then decide if worth further debugging
 - [ ] [security] backup/recovery do Google Authenticator — várias contas com 2FA nele; se o celular quebrar/sumir, como recuperar? Mapear códigos de recuperação por conta + método de restauração antes que vire pesadelo (INBOX 2026-07-24)
 - [ ] [billing] confirmar se o crédito Fable (100 usd até setembro) ainda consome do limite por turno/semanal, ou se é isento (INBOX 2026-07-24)
 - [ ] [isoroll-content] testar geração de imagem via opencode + chave NVIDIA — nanobanana com a key falhou algumas vezes; validar esse caminho alternativo (INBOX 2026-07-24)
@@ -97,6 +91,6 @@
 - [ ] [academy] assess "mandato coletivo" (participatory-mandate: constituents vote on bills,
       track spending, propose amendments) as a mechanism-design case worth citing/comparing against
       current research angle (cria/instituto) — ref in `academy/refs/REFS.md` (INBOX 2026-07-26)
-- [ ] [code] novo projeto: gerador de animações (claude-code + remotion) — separado do shortvid
+- [ ] [code] novo projeto: gerador de animações (claude-code + remotion)
 - [ ] [flows] avaliar a orquestração graph-native de agentes do Claude Code contra o que `code/flows` já faz — e checar se o tal "Graph Engineering" (Microsoft/Stanford/Anthropic) existe de fato; o próprio post diz que só um dos dois é real (ref em `core/refs/REFS.md`, INBOX 2026-07-29)
 - [ ] [dobra / local-ai] avaliar as 10 libs de fine-tuning local (Unsloth, LLaMA-Factory, PEFT, Axolotl, TRL, torchtune, LitGPT, SWIFT, DeepSpeed, AutoTrain) — quais servem ao runner de SLM do dobra na RTX 3050 6GB? ref em `core/refs/REFS.md` (INBOX 2026-07-27)

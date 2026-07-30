@@ -29,7 +29,7 @@ pre-commit gate discovers `verify:fast` by convention — no per-project wiring.
    A diagnostic with its own math is a second implementation that can lie.
 3. Oracles assert on the dump, never on pixels (pixels are T3's job).
 4. Every visually-confirmed bug exports its scene/state as a committed fixture.
-5. Regression specs are named `b<N>-*.spec.*`; KNOWN-BUGS.md FIXED flips are hook-gated
+5. Regression specs are named `b<N>-*.spec.*`; BUGS.md FIXED flips are hook-gated
    on their existence. Open bugs carry `xfail` specs; XPASS means the bug died — promote.
 
 ## Reference implementation

@@ -1,5 +1,140 @@
 # Core Library Schema
-> The enforced frontmatter contract for skills, flows, and agents. Drift from this is a bug.
+> The enforced frontmatter contract for skills, flows, and agents, plus the workspace-wide `.md`
+> type system. Drift from this is a bug.
+
+## Vocabulary
+
+Aliases that mean exactly one thing, so a reader never has to guess whether two spellings are two
+concepts. This is **data, not a rule** — which is why it lives here and not in the always-loaded
+`AGENTS.md` (moved 2026-07-30).
+
+| Canonical | Also written |
+|-----------|--------------|
+| **workspace-os** | `wos` · `WOS` · `w-os` · `W-OS` |
+| **craft flow** | the `/loops` skill, `core/flows/craft/` (retired spellings: § Retired tokens) |
+
+### Retired tokens
+
+**A rename is finished when its old token appears nowhere.** Until then the leaves drift back and the
+drift is indistinguishable from entropy — the lesson of the `loops`→`flows` rename, which kept
+resurfacing because nothing asserted its completion.
+
+This table *is* the assertion. `.hooks/entropy_ledger.py` fails if any token below survives in a
+tracked file, this file excepted — the law has to be able to name what it retires. Add a row the
+moment a rename lands, and delete the prose that would otherwise explain it: git holds the history,
+this table holds the guard.
+
+| Retired token | Replacement | Retired |
+|---------------|-------------|---------|
+| `loop-engineering` | `craft` | 2026-07-23 |
+| `loop-router` | `route` | 2026-07-23 |
+| `loop-architecture` | `architect` | 2026-07-23 |
+| `LOOP-TREE` | `tree.md` | 2026-07-23 |
+| `KNOWN-BUGS` | `BUGS.md` | 2026-07-30 |
+
+Not yet listed because the rename has not landed: `SPEC.md`→`SPECS.md` (load-bearing in five
+enforcement points; see [ROADMAP.md](../ROADMAP.md) Frente 12.1). A token joins this table only when
+the sweep is complete — a row that fails on the day it is written trains people to ignore the check.
+
+## The `.md` type system
+
+> Decided 2026-07-30. Lucas: *"delimit precisely where one file ends and another begins, so there is
+> no conceptual intersection."*
+
+**`UPPERCASE.md` is a type. `lowercase.md` is an instance.** A type means the same thing in every
+subtree; an instance is content, named freely. Uppercase names are therefore a **closed set** —
+inventing a type must be a deliberate act (one line added below), never an accident. Before this
+rule there were 25 distinct uppercase names, 15 appearing exactly once.
+
+Each type answers exactly one question. If you cannot say which question a file answers, it does not
+get a new type.
+
+| Type | The one question it answers |
+|------|------------------------------|
+| `AGENTS.md` | What rules always apply, and where do I start? (root only) |
+| `CONTEXT.md` | What is *this directory*, and where inside it do I go? |
+| `ROADMAP.md` | What do we intend to do — and what did we reject, and why? |
+| `SPECS.md` | What must be true of this thing, and *why*? (contract + rationale) |
+| `BUGS.md` | What is currently **untrue** that we know about? |
+| `README.md` | I just cloned this. What is it and how do I run it? (repo root only) |
+| `REFS.md` | What external material exists, and what did we conclude about it? |
+| `SKILL.md` | What procedure does the agent follow when invoked? |
+| `GOALS.md` | Which goals have wind right now? (dashboard + router) |
+| `TODO.md` | What must I do in life this week? |
+| `INBOX.md` | Raw capture, zero taxonomy, drained to empty |
+| `USER.md` | Who is Lucas, and how does he fail? |
+| `SETUP.md` | How do I make this environment work? (toolchain install + config) |
+| `SCHEMA.md` | This file: the law about types. |
+
+Anything else is rejected: *"add it to the allowlist if you mean it."*
+
+`SETUP.md` earns its row on the evidence (added 2026-07-30, 8 instances): `README.md` is **repo-root
+only**, and 4 of the 8 sit in directories that are not repos — the workspace root, `academy/`,
+`code/`, `code/_templates/`. "How do I make this work" is not "what is this and how do I run it".
+
+### The four disposal routes
+
+An off-allowlist `UPPERCASE.md` is not automatically wrong — it is *unclassified*. Route it, so a new
+name resolves without a decision meeting (decided 2026-07-30):
+
+| Route | When | Cases resolved 2026-07-30 |
+|-------|------|---------------------------|
+| lowercase instance | **generated** by a tool | the old `LABELS` name → `labels.md` (×6 papers; emitted by `.hooks/tex-interface-gen.py`, header says "do not edit") |
+| lowercase instance | hand-authored **content** | `DRAFT.md`→`draft.md` (×3 embryo papers), `TREE.md`→`tree.md` (the craft-tree map: curated rationale, not generated — the first read of it corrected the route) |
+| → `SPECS.md` | hand-authored **constraint** | `BRIDGE.md`→`SPECS.md` § Twin (×3, the section carries the same name on both sides — "Paper Twin" reads wrong inside the paper): *"every measured number files a P-task"* is an invariant |
+| new type | answers a question **no type answers** | `SETUP.md` only |
+
+`SPEC.md` is **not** a type: it collapses into `SPECS.md` (decided 2026-07-30, Lucas). The
+singular/plural pair was the sharpest asymmetry in the corpus — two spellings, one meaning — and it
+had leaked into enforcement, so the `> spec:` convention, `.hooks/pre-commit` §1d,
+`.hooks/spec-read-gate.py`, `.hooks/context-tracker.py`, `core/tools/spec-scan` and
+`core/tools/spec-contract-check` all move with it.
+
+### Boundaries where types nearly touch
+
+The three real conflicts, with the resolving rule:
+
+| Conflict | Rule |
+|----------|------|
+| `CONTEXT.md` vs its own routing block | CONTEXT **never hand-lists files**; the generated routing block owns inventory. A hand-written File Map is a bug. |
+| `CONTEXT.md` vs `SPECS.md` | Rules that *constrain code* → SPECS. What the directory *is* → CONTEXT. |
+| `ROADMAP.md` vs `BUGS.md` | BUGS owns the bug text; ROADMAP references it by id and never restates it. Intent vs. state: a roadmap item leaves the list when deprioritised, a bug does not stop being true. |
+
+### No archive types
+
+`ARCHIVE.md`, `HISTORY.md` and `.log/done.md` are **deleted, not renamed**. A file that is "never
+auto-loaded, ask explicitly" is doing git's job. **Done work is deleted; git is the history.**
+
+The same rule applies *inside* a file, not only to whole files (Lucas, 2026-07-30): **a completed
+`ROADMAP.md` item is cut, not ticked.** `[x]` is an annotated corpse with a checkbox — it keeps
+paying rent in every read of the file, and it makes the roadmap's length measure history instead of
+remaining work. Trim on verified completion. Keep a line only when the next session needs it to
+*extend* the work rather than recreate it, and write that line as present-tense state ("extend
+`.hooks/type-gate.py`"), never as a report ("✅ built the type gate").
+
+One thing git cannot hold: an approach we *tried and rejected* was never committed. That content has
+exactly one home — a one-line entry under `## Rejected` in the relevant `ROADMAP.md` (for a ditched
+goal, under `## Ditched` in `brain/GOALS.md`). One line, with the reason, so a dead idea does not
+resurface looking new.
+
+### The one exception: transient initiative docs
+
+A **cross-project rollout** with cited anchor ids and a defined death date is a real type and is not
+a ROADMAP. Members: `code/VERIFY.md`, `code/SPEC-DRIVE.md`, `code/isoroll-module/REFACTOR.md`,
+`core/MIGRATION-STATUS.md`, `code/dobra/DECISIONS.md`.
+
+Folding `VERIFY.md` into a ROADMAP was investigated 2026-07-30 and **rejected as unsafe**: it has 24
+inbound references, 7 of them in `.hooks/*` source comments citing stable anchors (`VERIFY.md W1`,
+`W2`, `I2`, `G1`, `G3`, `G7`, `A1`). Breaking those would silently orphan the reasoning behind live
+gates.
+
+These are exempt from the allowlist **and** carry an obligation: each must state its own death
+condition on line 3, and be deleted when its rollout completes. They are the only `.md` type allowed
+to be temporary, so a stale one is the most expensive kind of clutter.
+
+---
+
+## Frontmatter contract
 
 Companion to the code-side spec-drive convention (the `> spec:` module gate in `.hooks/pre-commit`,
 tracked under the [[spec-driven-development]] goal): that governs `code/` modules, this governs the
@@ -68,7 +203,7 @@ keep each mirror's `model:` in sync with its source `tier:` by hand.
 owned by any dispatcher skill stay flat at `core/flows/`. Validation is recursive (`sync-skills`
 `validate_flows` walks subfolders); a `<skill>/CONTEXT.md` is exempt like the root one. The
 engineering cluster owned by the `loops` skill lives in [`flows/craft/`](flows/craft/) —
-`craft` · `route` · `architect` (+ the `TREE.md` map) — and is exempt from the table below.
+`craft` · `route` · `architect` (+ the `tree.md` map) — and is exempt from the table below.
 
 | field | req | value |
 |-------|-----|-------|
@@ -171,7 +306,7 @@ depth-audit (Frente 3.2) or a published source confirms it.
 `.hooks/pre-commit`. All three layers are live:
 - **skill:** frontmatter present, `name:` + `description:`, non-skills rejected.
 - **flow:** `description:` + `args:` present, `type ∈ {research-brief, utility, domain}`,
-  `confirm ∈ {plan, none}`. Exempt: `CONTEXT.md`, `TREE.md`, `loop-*` (engineering cluster).
+  `confirm ∈ {plan, none}`. Exempt: `CONTEXT.md`, `tree.md`, `loop-*` (engineering cluster).
   Validation is **recursive** — it walks `flows/<skill>/` subfolders, not just the flat root.
 - **composition:** every `uses:` target resolves to a real flow, and the `uses:` graph is a **DAG**
   (three-colour DFS; a path returning to its own start fails the check). The exemption list does

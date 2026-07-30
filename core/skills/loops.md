@@ -14,10 +14,10 @@ Arguments: $ARGUMENTS
 
 ## Protocol
 
-0. **Route first (the craft tree).** `/loops` is a tree, not one pipeline. Read [`core/flows/craft/route.md`](../flows/route.md) and classify the task into a subtree — `padaria` · `feature` · `research` · `architecture` (map + rationale: [`core/flows/craft/TREE.md`](../flows/TREE.md)). Record `subtree:` in the Carry block / STATUS. Then run that subtree's flow:
+0. **Route first (the craft tree).** `/loops` is a tree, not one pipeline. Read [`core/flows/craft/route.md`](../flows/craft/route.md) and classify the task into a subtree — `padaria` · `feature` · `research` · `architecture` (map + rationale: [`core/flows/craft/tree.md`](../flows/craft/tree.md)). Record `subtree:` in the Carry block / STATUS. Then run that subtree's flow:
    - `feature` / `padaria` → the craft flow below (feature is contract-first: Step 0 permission panel → Loop 3.5 Contract Layout → Loop 3 concept-symmetry review → TDD → ship).
    - `research` → the matching `core/flows/research/{sota,literature,explore,compare,recipe,replicate,review,summarize,watch,audit}.md` or `core/flows/mechanism-search.md`.
-   - `architecture` → [`core/flows/craft/architect.md`](../flows/architect.md) (emits an ADR; chain into `feature` if it needs building).
+   - `architecture` → [`core/flows/craft/architect.md`](../flows/craft/architect.md) (emits an ADR; chain into `feature` if it needs building).
 
    The steps below are the **feature/padaria** subtree. For research/architecture, hand off and stop.
 

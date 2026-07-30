@@ -57,7 +57,7 @@ Fires on every `Edit`, `Write`, `Read` tool call during Claude Code sessions.
 | `.hooks/context-gate.py` | PreToolUse: Read, Edit, Write, Grep, NotebookEdit | **Hard-blocks** file access until the target subtree's CONTEXT.md chain was Read this session (whole workspace; session-deduped; CONTEXT.md/AGENTS.md targets exempt) |
 | `.hooks/bash-context-gate.py` | PreToolUse: Bash | **Hard-blocks** Bash commands naming workspace files in subtrees whose CONTEXT.md chain is unread (closes the cat/grep bypass) |
 | `.hooks/context-tracker.py` | PostToolUse: Read | Records CONTEXT.md reads (context-gate state) and interface reads (pre-read source unlock) |
-| `.hooks/known-bugs-gate.py` | PreToolUse: Edit, Write (`KNOWN-BUGS.md`) | **Hard-blocks** flipping a bug to FIXED unless a matching `test/**/b<N>-*` regression spec exists |
+| `.hooks/bugs-gate.py` | PreToolUse: Edit, Write (`BUGS.md`) | **Hard-blocks** flipping a bug to FIXED unless a matching `test/**/b<N>-*` regression spec exists |
 | `.hooks/spec-read-gate.py` | PreToolUse: Edit, Write (`code/` files) | **Hard-blocks** editing a spec-locked module's files (CONTEXT.md `> spec:` + SPEC.md `status: locked`) until its `SPEC.md` was Read this session; nudges on new files in spec-less `code/` modules (SDD — [code/SPEC-DRIVE.md](code/SPEC-DRIVE.md)) |
 | `.hooks/precompact-wipe.sh` | PreCompact | Wipes context seen-markers — CONTEXT chain is re-read after compaction |
 | `.hooks/session-prune.sh` | SessionStart | Prunes stale session marker files (>2 days) |
@@ -90,7 +90,7 @@ All canonical enforcement lives in `.hooks/`. Each agent needs a shim that calls
 | Context-gate (CONTEXT.md chain) | — | `.claude/settings.json` ✅ | `copilot-pre-tool.py` ✅ | `workspace-policy.js` ✅ |
 | Bash context-gate (cat/grep bypass) | — | `.claude/settings.json` ✅ | `copilot-pre-tool.py` ✅ (terminal hints) | `workspace-policy.js` ✅ (bash tool) |
 | Context/interface read tracker | — | `.claude/settings.json` ✅ | `copilot-post-tool.py` ✅ | `workspace-policy.js` ✅ |
-| KNOWN-BUGS gate (FIXED needs spec) | — | `.claude/settings.json` ✅ | `copilot-pre-tool.py` ✅ | `workspace-policy.js` ✅ |
+| BUGS gate (FIXED needs spec) | — | `.claude/settings.json` ✅ | `copilot-pre-tool.py` ✅ | `workspace-policy.js` ✅ |
 | Spec-read-gate (spec-locked module edits) | — | `.claude/settings.json` ✅ | `copilot-pre-tool.py` ✅ | `workspace-policy.js` ✅ |
 | Spec-driven new-module gate (1d) | `pre-commit` ✅ hard-block | — | — | automatic (git) |
 | Duplication gate (jscpd) | `pre-commit` ✅ hard-block | — | — | automatic (git) |
@@ -157,7 +157,7 @@ Every save of supported source file unconditionally produces interface file. Gen
 | JavaScript | `.d.ts` | `tsc --allowJs --emitDeclarationOnly` | Auto on every Claude edit; `jsconfig.json` auto-scaffolded if missing (IDE use only) |
 | TypeScript | `.d.ts` | `tsc --emitDeclarationOnly` | Auto on every Claude edit; `tsconfig.json` auto-scaffolded if no ancestor config found |
 | Dart/Flutter | `.dart.api` | `dart-api-extract.py` | Auto on every Claude edit; extracts public class/mixin/method signatures |
-| LaTeX | `.texif` | `tex-interface-gen.py` + `tex_interface_parser.py` | Auto on every Claude edit; extracts structure, equations (full), figures/tables/listings, citations, TODO comments, section/subsection opening sentences. Also regenerates `LABELS.md` (cross-file label registry + dangling ref check) in paper root. `.bib` edits warn about missing `reviews/<key>.yaml` files. |
+| LaTeX | `.texif` | `tex-interface-gen.py` + `tex_interface_parser.py` | Auto on every Claude edit; extracts structure, equations (full), figures/tables/listings, citations, TODO comments, section/subsection opening sentences. Also regenerates `labels.md` (cross-file label registry + dangling ref check) in paper root. `.bib` edits warn about missing `reviews/<key>.yaml` files. |
 
 **Enforcement**: `pre-read.sh` hard-blocks reading source file when interface file is current (interface timestamp ≥ source timestamp). Reading interface first is not optional when interface is trustworthy.
 
@@ -534,7 +534,7 @@ Behavioral verification (inside Claude Code session):
 - Edit `.ts` file → `.d.ts` regenerates; `tsconfig.json` auto-created if no ancestor config found
 - Edit `.dart` file → `.dart.api` regenerates immediately
 - Read `.py`/`.js`/`.ts`/`.dart`/`.tex` source when interface (`.pyi`/`.d.ts`/`.dart.api`/`.texif`) is current → hard-blocked; must read interface first
-- Edit `.tex` file → `.texif` regenerated + `LABELS.md` regenerated immediately
+- Edit `.tex` file → `.texif` regenerated + `labels.md` regenerated immediately
 - Edit `.bib` file → warning printed for bib keys missing `reviews/<key>.yaml`
 - Attempt to grow code file past 200 lines (`.js .ts .tsx .py .dart .html .css .scss .tex`) → Claude Code blocks edit
 - Attempt to create new file without first-line description comment → Claude Code blocks Write
@@ -559,7 +559,7 @@ All infrastructure lives in workspace git repo:
   context_synchronizer.py             ← CONTEXT.md Routing block synchronizer: add/remove/link files, extract API
   check-facade-imports.py ← Facade boundary enforcer: blocks cross-module imports bypassing index/__init__
   dart-api-extract.py     ← Dart public API extractor: produces .dart.api stubs from .dart sources
-  tex-interface-gen.py    ← LaTeX interface extractor: produces .texif (structure/equations/floats/citations) + LABELS.md; bib-check mode warns about missing reviews/*.yaml
+  tex-interface-gen.py    ← LaTeX interface extractor: produces .texif (structure/equations/floats/citations) + labels.md; bib-check mode warns about missing reviews/*.yaml
   tex_interface_parser.py ← LaTeX parser module imported by tex-interface-gen.py (parse_tex, find_paper_root, helpers)
   paper-scaffold.py       ← paper directory initializer: `new <name>` creates full layout; `adapt <path>` fills missing files
   copilot-pre-tool.py     ← Copilot PreToolUse shim: dispatches to pre-read.sh / pre-edit.py

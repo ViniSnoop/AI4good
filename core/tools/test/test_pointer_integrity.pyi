@@ -4,6 +4,7 @@ from pathlib import Path
 WORKSPACE_ROOT: Incomplete
 MEMORY_DIR: Incomplete
 EXCLUDE_DIRS: Incomplete
+EXCLUDE_PREFIXES: Incomplete
 STRUCTURAL_NAME: Incomplete
 LINK_RE: Incomplete
 FENCE_RE: Incomplete

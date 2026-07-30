@@ -34,7 +34,7 @@ Write 3 sentences: what LIH.DD is, why it matters, what it produces. No referenc
 > [ ] [postgrad-check] check DC/UFRPE postgrad program: next admission window and requirements  
 > [ ] [lab-page] create a minimal public page for LIH.DD  
 > [ ] [paper-submit] submit first paper  
-> [ ] [mechanism-search] avaliar o motor de ideação do instituto como flagship metodológico do lab — paper em [academy/papers/mechanism-search/](../../academy/papers/mechanism-search/DRAFT.md), pipeline em [branches/instituto/MOTOR.md](../../branches/instituto/MOTOR.md); alvo EAAMO  
+> [ ] [mechanism-search] avaliar o motor de ideação do instituto como flagship metodológico do lab — paper em [academy/papers/mechanism-search/](../../academy/papers/mechanism-search/draft.md), pipeline em [branches/instituto/MOTOR.md](../../branches/instituto/MOTOR.md); alvo EAAMO  
 > [ ] [foresight] incorporar foresight (Institute for the Future, Jane McGonigal) + design especulativo na agenda do lab (feed cria)  
 
 ## done
@@ -48,10 +48,10 @@ last-touch: 2026-07-22  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       8 |
-| trimester   |       9 |
-| semester    |       9 |
-| year        |       9 |
-| 2-year      |       9 |
-| 4-year      |       9 |
+| month       |       9 |
+| trimester   |      10 |
+| semester    |      10 |
+| year        |      10 |
+| 2-year      |      10 |
+| 4-year      |      10 |
 <!-- stats:end -->

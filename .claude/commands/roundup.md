@@ -1,7 +1,7 @@
 ---
 name: roundup
 description: >
-  Full session-close ritual: archive completed work to HISTORY, route session knowledge to durable files, drain the INBOX, run the verification gate, then emit the resume prompt via /handoff. Use at session end. Invoke with /roundup [focus for next session].
+  Full session-close ritual: clear completed work out of the ledgers, route session knowledge to durable files, drain the INBOX, run the verification gate, then emit the resume prompt via /handoff. Use at session end. Invoke with /roundup [focus for next session].
 ---
 
 # Roundup skill
@@ -18,16 +18,14 @@ Arguments: $ARGUMENTS  (focus for next session — passed through to `/handoff`)
 
 ```bash
 find . -maxdepth 3 \( \
-  -name "ROADMAP.md" -o -name "KNOWN-BUGS.md" -o -name "HISTORY.md" \
-  -o -name "CHANGELOG.md" -o -name "TODO.md" -o -name "AGENTS.md" \
-  -o -name "TASKS.md" -o -name "BACKLOG.md" -o -name "INPUT.md" \
+  -name "ROADMAP.md" -o -name "BUGS.md" -o -name "TODO.md" -o -name "AGENTS.md" \
 \) 2>/dev/null | sort
 
 git log --oneline -10 2>/dev/null || echo "no git"
 git status --short 2>/dev/null || echo "no git status"
 ```
 
-Read every file found above **except HISTORY.md** before proceeding.
+Read every file found above before proceeding.
 
 ### Verification gate
 
@@ -35,29 +33,30 @@ If the project's `package.json` declares `verify:full`, run it now (`npm run ver
 
 ---
 
-## Phase 2 — Archive completed work
+## Phase 2 — Clear completed work out of the ledgers
+
+**Done work is deleted. Git is the history.** There is no `HISTORY.md`, no `ARCHIVE.md`, no done-log
+— those types were removed 2026-07-30 (see [`core/SCHEMA.md`](../../core/SCHEMA.md) § No archive types). A
+completed item's record is its commit; re-writing it into an archive file only grows a doc nobody
+opens.
 
 ### ROADMAP cleanup
 If `ROADMAP.md` exists:
 1. Identify completed items (`- [x]`, "done", "shipped", "merged", "✅").
-2. Append to `HISTORY.md` under `## Completed — YYYY-MM-DD`.
-3. Remove completed items from `ROADMAP.md`.
-4. Nothing completed → skip, do not modify.
+2. **Delete them.** Do not archive them anywhere.
+3. Nothing completed → skip, do not modify.
 
-### KNOWN-BUGS cleanup
-If `KNOWN-BUGS.md` exists:
+### BUGS cleanup
+If `BUGS.md` exists:
 1. Identify resolved items (`- [x]`, "fixed", "resolved", "closed").
-2. Append to `HISTORY.md` under `## Resolved Bugs — YYYY-MM-DD`.
-3. Remove resolved items from `KNOWN-BUGS.md`.
-4. Nothing resolved → skip.
+2. **Delete them.** The regression spec (`test/**/b<N>-*`) is the durable proof a bug is dead — that
+   is what the gate in `.hooks/bugs-gate.py` enforces, and it outlives any prose archive.
+3. Nothing resolved → skip.
 
-### HISTORY.md
-Create only if there is content to add:
-```markdown
-# History
-
-Archive of completed work and resolved issues.
-```
+### The one thing that must not be deleted
+An approach we **tried and rejected** was never committed, so git cannot hold it. If the session
+killed an idea, write **one line** under `## Rejected` in the relevant `ROADMAP.md` (for a ditched
+goal: under `## Ditched` in `brain/GOALS.md`) with the reason. One line — not a post-mortem.
 
 ---
 
@@ -71,7 +70,7 @@ Identify all knowledge from the session. Route each piece using the table below.
 |---|---|
 | Non-obvious design decision + rationale | `SPECS.md` → Architecture Decisions |
 | Discovered convention / coding rule | `SPECS.md` → Conventions |
-| Bug found, not fixed | `KNOWN-BUGS.md` |
+| Bug found, not fixed | `BUGS.md` |
 | New technical work item (project has `ROADMAP.md`) | `ROADMAP.md` |
 | Reference / link / paper / tool worth keeping | domain `refs/REFS.md` (route-by-domain — see `/inbox`) |
 | Personal / admin / life / teaching task — or project task with hard deadline | `brain/TODO.md` (right horizon: today / week / month / backlog) |
@@ -137,7 +136,7 @@ Report each branch's final state (pushed / unpromoted + reason) — it flows int
 Run `/handoff $ARGUMENTS` to emit the resume prompt. Then report:
 
 > Roundup complete.
-> [If HISTORY.md updated]: HISTORY.md updated with [N] items.
-> [If files trimmed]: ROADMAP.md / KNOWN-BUGS.md trimmed.
+> [If items cleared]: [N] completed items deleted from ROADMAP.md / BUGS.md.
+> [If anything was killed]: [N] rejection lines written.
 > [List every file written this session, one line each.]
 > Start the next session with `/clear` or a fresh window, pasting the resume block above.

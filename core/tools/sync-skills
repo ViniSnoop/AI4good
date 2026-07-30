@@ -97,11 +97,44 @@ check_mirror() {
   return $rc
 }
 
+# A command file is the skill body relocated to a different directory depth, so a
+# straight `cp` leaves every relative link pointing at nothing: `../flows/x.md` in
+# core/skills/ means core/flows/x.md, but from .claude/commands/ it resolves to
+# .claude/flows/x.md. All 6 relative links across the mirrors were dead this way
+# (found 2026-07-30). Rewrite them against the source dir on the way out; the
+# staleness check compares the same rendered form, or every file reads as stale.
+render_command() {
+  python3 - "$1" "$SRC" "$COMMANDS_DIR" <<'PY'
+import os, re, sys
+
+src_file, src_dir, dst_dir = sys.argv[1:4]
+
+
+# Code spans and fences quote syntax rather than link to it — `[what it is](url)`
+# in core/skills/inbox.md is the shape a ref entry must take, not a path to fix.
+PROTECTED_OR_LINK = re.compile(r'(```.*?```|`[^`\n]+`)|\]\(([^)\s]+)\)', re.DOTALL)
+
+
+def rewrite(match):
+    if match.group(1):
+        return match.group(0)
+    path, sep, frag = match.group(2).partition('#')
+    if not path or path.startswith(('http://', 'https://', 'mailto:')):
+        return match.group(0)
+    absolute = os.path.normpath(os.path.join(src_dir, path))
+    return '](' + os.path.relpath(absolute, dst_dir) + sep + frag + ')'
+
+
+text = open(src_file, encoding='utf-8').read()
+sys.stdout.write(PROTECTED_OR_LINK.sub(rewrite, text))
+PY
+}
+
 sync_commands() {
   mkdir -p "$COMMANDS_DIR"
   local name
   while IFS= read -r name; do
-    cp "$SRC/$name.md" "$COMMANDS_DIR/$name.md"
+    render_command "$SRC/$name.md" > "$COMMANDS_DIR/$name.md"
   done < <(list_commands)
 }
 
@@ -112,8 +145,8 @@ check_commands() {
     src="$SRC/$name.md"
     if [[ ! -f "$cmd" ]]; then
       echo "MISSING command: $cmd"; rc=1
-    elif ! diff -q "$src" "$cmd" >/dev/null 2>&1; then
-      echo "STALE command: $cmd (differs from $src)"; rc=1
+    elif ! diff -q <(render_command "$src") "$cmd" >/dev/null 2>&1; then
+      echo "STALE command: $cmd (differs from rendered $src)"; rc=1
     fi
   done < <(list_commands)
   return $rc

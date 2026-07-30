@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 
 BRAIN: Incomplete
 GOALS_FILE: Incomplete
-DONE_LOG: Incomplete
+LOG_DIR: Incomplete
 GOALS_DIR: Incomplete
 PERIODS: Incomplete
 DONE_KEEP: int

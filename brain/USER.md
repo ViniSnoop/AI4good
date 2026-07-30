@@ -9,7 +9,6 @@ Vice-coordinator of Licenciatura em Computação (LC) at DC/UFRPE. Leading manda
 
 Creative, fuzzy thinker. Strong starter; struggles to finish.
 
-
 ## Language
 
 Lucas may write in pt-br (inbox, conversation). Agent always writes Brain files in en-us.
@@ -17,7 +16,7 @@ Lucas may write in pt-br (inbox, conversation). Agent always writes Brain files 
 ## What Helps
 
 - Internal motivation and alignment — works best when genuinely believes in what he's doing
-- Forward-looking framing ("next achievement to celebrate") over completion pressure
+- Forward-looking framing ("next achievement to celebrate") wins over completion pressure
 - Long-term, horizon, dream, to have a clear light to follow
 - Small consistent wins over milestone sprints
 - Right question asked, not task list given
@@ -37,8 +36,4 @@ Lucas may write in pt-br (inbox, conversation). Agent always writes Brain files 
 
 ## Working Style
 
-- **Visual thinker.** Lucas works best with visualization — schematics, diagrams, spatial layouts — not walls of prose. When explaining structure, a plan, or a comparison, prefer a diagram/table/schematic over paragraphs. Connects to the visual eyeball gate (`[[feedback_visual_eyeball_gate]]`) and to `spacemantics`/`texpace`. (INBOX 2026-07-24. Open question flagged in `workspace-os` [user-md-reassess]: is USER.md always loaded? if not, this trait may need a more reliable home.)
-
-## Mantras
-
-Full text lives at `branches/writing/mantras.md` (not yet written).
+- **Visual thinker.** Lucas works best with visualization — schematics, diagrams, spatial layouts — not walls of prose. When explaining structure, a plan, or a comparison, prefer a diagram/table/schematic over paragraphs. Connects to the visual eyeball gate (`[[feedback_visual_eyeball_gate]]`) and to `spacemantics`/`texpace`.
