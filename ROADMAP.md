@@ -132,7 +132,7 @@ feeling lost twice. **Mass is the disease and only deletion cures it.**
    simplesmente não tá sendo usado"*, and the evidence is that Lucas writes tasks into the INBOX
    instead. Two questions, one design: (a) **what would make it actually get checked daily** —
    accountability without the anxious tone the workspace exists to avoid (see
-   [brain/FOUNDATIONS.md](brain/FOUNDATIONS.md)); (b) **TODO × goals boundary**. Wanted: mutable,
+   [brain/SPECS.md](brain/SPECS.md) § Rationale); (b) **TODO × goals boundary**. Wanted: mutable,
    self-archiving, per-task recommended tier + creation date so stalled tasks flag themselves.
    → **model: opus** (design) · then sonnet to build.
 2. 🟢 **safe — `/inbox` refreshes the goals dashboard.** Run `brain_stats.py` as `/inbox`'s last
@@ -241,17 +241,19 @@ is no conceptual intersection."* Each type answers exactly one question.
 | CONTEXT vs SPECS | rules that *constrain code* → SPECS; what the dir *is* → CONTEXT |
 | ROADMAP vs BUGS | BUGS owns the text; ROADMAP references by id and never restates it |
 
-1. 🟢 **safe — apply the type system.** Delete `brain/ARCHIVE.md` and the `HISTORY.md` files (a file
-   that self-describes as "never auto-loaded, ask explicitly" is doing git's job; there is even a
-   third, `brain/.log/done.md`). Fold `core/WATCHLIST.md` into `core/refs/REFS.md` with a
-   `status: unjudged|judged|rejected` field — unjudged-vs-judged is a **state of a link, not a kind
-   of file**, and state belongs in a field. Fold `brain/FOUNDATIONS.md` into `brain/SPECS.md`
-   § Rationale (15 cited lines; spec + rationale in one file is what ADRs do). Then write the type
-   table and the allowlist into [core/SCHEMA.md](core/SCHEMA.md) as enforced law.
-   **One irreplaceable thing must survive the HISTORY deletion:** git records what changed but never
-   *what we tried and rejected* — a rejected approach was never committed. That content's new home is
-   the *Rejected* section of the relevant ROADMAP.
-   → **model: sonnet**.
+1. [x] 🟢 **safe — apply the type system.** DONE 2026-07-30. Law written into
+   [core/SCHEMA.md](core/SCHEMA.md) § The `.md` type system (13-name allowlist, the three boundary
+   rules, No-archive-types, and the transient-initiative-doc exception). Deleted `brain/ARCHIVE.md`,
+   `core/HISTORY.md`, `brain/.log/done.md`, `core/WATCHLIST.md`, `brain/FOUNDATIONS.md`. Folded
+   WATCHLIST into `core/refs/REFS.md` as a `status: unjudged` section and FOUNDATIONS into
+   `brain/SPECS.md` § Rationale. Renamed `brain/goals/ARCHETYPE.md` → `_template.md`.
+   **Rewired the live wiring, which was the actual work:** `/roundup` Phase 2 no longer archives
+   (it deletes, and writes one `## Rejected` line for a killed idea), `/compass` ditches to a
+   `## Ditched` line in `brain/GOALS.md` instead of ARCHIVE, `.hooks/brain_stats.py` lost
+   `append_done_log`, and `code/_templates/{ROADMAP,BUGS}.md` + `code/SPECS.md` + `core/ROADMAP.md`
+   now state the delete policy. The `brain_stats` trailing-newline bug (ex-Batch B) was fixed in the
+   same pass. Per-project `HISTORY.md` files remain in the nested repos — deleted per repo as each is
+   next touched, since some carry a live parallel session.
 2. 🟢 **safe — one or two refinement passes over the surviving docs.** Crop dead parts, collapse
    overlaps, compress the prose (caveman-compress the writing style, keep every technical fact).
    Requested by Lucas 2026-07-30, after the type system lands so the passes are not wasted on files

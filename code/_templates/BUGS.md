@@ -1,7 +1,8 @@
 # [Project Name] — Known Bugs
 
 <!-- One section per confirmed bug. Number sequentially (B1, B2, …) — numbers are permanent,
-     never reused. Keep root-cause analysis here; move resolved entries to HISTORY.md.
+     never reused. Keep root-cause analysis here; DELETE resolved entries (git is the history) --
+     the regression spec test/**/b<N>-* is the durable proof.
 
      RULE (enforced by bugs-gate hook): a bug flips to FIXED only when a matching
      regression spec exists at test/**/b<N>-*.* and passes. Open bugs may carry an xfail

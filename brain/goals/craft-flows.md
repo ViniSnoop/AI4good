@@ -16,7 +16,7 @@ transformative · essential · thrilled
 > [`core/SCHEMA.md`](../../core/SCHEMA.md) § *Composition and cycles*; plano de execução (8 passos)
 > em [`core/ROADMAP.md`](../../core/ROADMAP.md) § *craft-flows*. **Renomeação FEITA em 2026-07-23**:
 > flows em [`core/flows/craft/`](../../core/flows/craft/CONTEXT.md), agentes `craft-{low,medium,high}`,
-> este arquivo. Registros históricos (`core/HISTORY.md`, `brain/.log/done.md`, `outputs/`,
+> este arquivo. Registros históricos (git, `outputs/`,
 > `code/*/.loop/*`) mantêm o nome antigo de propósito — são registro do que era verdade.
 
 ## selected next achievement
@@ -78,10 +78,10 @@ last-touch: 2026-07-23  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       1 |
-| trimester   |       1 |
-| semester    |       1 |
-| year        |       1 |
-| 2-year      |       1 |
-| 4-year      |       1 |
+| month       |       2 |
+| trimester   |       2 |
+| semester    |       2 |
+| year        |       2 |
+| 2-year      |       2 |
+| 4-year      |       2 |
 <!-- stats:end -->

@@ -1,5 +1,6 @@
 # [Project Name] — Roadmap
-> Pending work only. Completed milestones move to HISTORY.md.
+> Pending work only. Completed items are deleted -- git is the history. A rejected idea gets one
+> line under `## Rejected` so it does not resurface looking new.
 
 <!-- Goal: agent-ready roadmap. Each milestone must include enough file paths, function names,
      flag names, and technical context that implementation is possible without prior session context.

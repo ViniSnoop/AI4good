@@ -37,8 +37,4 @@ Lucas may write in pt-br (inbox, conversation). Agent always writes Brain files 
 
 ## Working Style
 
-- **Visual thinker.** Lucas works best with visualization — schematics, diagrams, spatial layouts — not walls of prose. When explaining structure, a plan, or a comparison, prefer a diagram/table/schematic over paragraphs. Connects to the visual eyeball gate (`[[feedback_visual_eyeball_gate]]`) and to `spacemantics`/`texpace`. (INBOX 2026-07-24. Open question flagged in `workspace-os` [user-md-reassess]: is USER.md always loaded? if not, this trait may need a more reliable home.)
-
-## Mantras
-
-Full text lives at `branches/writing/mantras.md` (not yet written).
+- **Visual thinker.** Lucas works best with visualization — schematics, diagrams, spatial layouts — not walls of prose. When explaining structure, a plan, or a comparison, prefer a diagram/table/schematic over paragraphs. Connects to the visual eyeball gate (`[[feedback_visual_eyeball_gate]]`) and to `spacemantics`/`texpace`.

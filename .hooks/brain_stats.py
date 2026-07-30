@@ -5,7 +5,7 @@ import re
 from datetime import date
 
 from brain_common import (
-    DONE_KEEP, DONE_LOG, GOALS_DIR, GOALS_FILE, PERIODS,
+    DONE_KEEP, GOALS_DIR, GOALS_FILE, LOG_DIR, PERIODS,
     git, last_touch_date, replace_block, touch_count,
 )
 from brain_dashboard import update_goals_md, update_goals_table
@@ -75,27 +75,11 @@ def compress_done(content, slug):
     archive = done_lines[DONE_KEEP:]
     other   = [l for l in lines if not DONE_RE.search(l)]
 
-    new_inner   = "\n".join(other + keep)
+    new_inner = "\n".join(other + keep)
+    if not new_inner.endswith("\n"):
+        new_inner += "\n"          # else the last entry glues to the done:end marker
     new_content = pattern.sub(lambda _: start + new_inner + end, content)
     return new_content, archive
-
-
-def append_done_log(slug, archived):
-    today = date.today().isoformat()
-    DONE_LOG.parent.mkdir(parents=True, exist_ok=True)
-
-    if not DONE_LOG.exists():
-        DONE_LOG.write_text(
-            "# Done Log\n"
-            "> Achievements archived from goal files. Newest last.\n"
-            "> Format: date | goal | achievement\n\n---\n\n"
-        )
-
-    with open(DONE_LOG, "a") as f:
-        for line in archived:
-            item = re.sub(r'^>\s*\[x\]\s*', '', line, flags=re.IGNORECASE).strip()
-            if item:
-                f.write(f"{today} | {slug} | {item}\n")
 
 # ── Commit orchestration ───────────────────────────────────────────────────────
 
@@ -139,9 +123,9 @@ def pre_commit():
         if updated:
             content = updated
 
-        content, archived = compress_done(content, slug)
-        if archived:
-            append_done_log(slug, archived)
+        # Overflow entries are dropped, not archived: git is the history
+        # (core/SCHEMA.md, No archive types). The done-log was deleted 2026-07-30.
+        content, _ = compress_done(content, slug)
 
         if content != original:
             path.write_text(content)
@@ -163,7 +147,7 @@ def pre_commit():
 
 
 def check_compass_reminder():
-    compass_log = DONE_LOG.parent / "compass-last.txt"
+    compass_log = LOG_DIR / "compass-last.txt"
     if not compass_log.exists():
         print("[Brain] ⚠ compass review never run — try /compass")
         return

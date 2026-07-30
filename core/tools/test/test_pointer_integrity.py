@@ -13,7 +13,12 @@ from pathlib import Path
 WORKSPACE_ROOT = Path(__file__).resolve().parents[3]
 MEMORY_DIR = Path.home() / ".claude/projects/-mnt-workspace/memory"
 
-EXCLUDE_DIRS = {".git", "node_modules", ".venv", "__pycache__", ".loop"}
+# Deleted content still on disk is not workspace structure. A file manager moves a
+# deleted project into .Trash-<uid>/, whose stale relative links then fail the check
+# and block every commit until the trash is emptied — a gate nobody can fix by editing
+# the workspace. Trash is excluded by prefix because the uid varies per machine.
+EXCLUDE_DIRS = {".git", "node_modules", ".venv", "__pycache__", ".loop", ".craft"}
+EXCLUDE_PREFIXES = (".Trash",)
 STRUCTURAL_NAME = re.compile(r"^(CONTEXT|SCHEMA|AGENTS|ROADMAP|ROADMAP-.*)\.md$")
 
 LINK_RE = re.compile(r"!?\[[^\]]*\]\(([^)\s]+)\)")
@@ -45,7 +50,8 @@ def _strip_fences(text: str) -> str:
 
 def _structural_files(root: Path, memory_dir: Path):
     for path in root.rglob("*.md"):
-        if any(part in EXCLUDE_DIRS for part in path.parts):
+        if any(part in EXCLUDE_DIRS or part.startswith(EXCLUDE_PREFIXES)
+               for part in path.parts):
             continue
         if STRUCTURAL_NAME.match(path.name):
             yield path

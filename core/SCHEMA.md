@@ -1,5 +1,76 @@
 # Core Library Schema
-> The enforced frontmatter contract for skills, flows, and agents. Drift from this is a bug.
+> The enforced frontmatter contract for skills, flows, and agents, plus the workspace-wide `.md`
+> type system. Drift from this is a bug.
+
+## The `.md` type system
+
+> Decided 2026-07-30. Lucas: *"delimit precisely where one file ends and another begins, so there is
+> no conceptual intersection."*
+
+**`UPPERCASE.md` is a type. `lowercase.md` is an instance.** A type means the same thing in every
+subtree; an instance is content, named freely. Uppercase names are therefore a **closed set** —
+inventing a type must be a deliberate act (one line added below), never an accident. Before this
+rule there were 25 distinct uppercase names, 15 appearing exactly once.
+
+Each type answers exactly one question. If you cannot say which question a file answers, it does not
+get a new type.
+
+| Type | The one question it answers |
+|------|------------------------------|
+| `AGENTS.md` | What rules always apply, and where do I start? (root only) |
+| `CONTEXT.md` | What is *this directory*, and where inside it do I go? |
+| `ROADMAP.md` | What do we intend to do — and what did we reject, and why? |
+| `SPECS.md` | What must be true of this thing, and *why*? (contract + rationale) |
+| `BUGS.md` | What is currently **untrue** that we know about? |
+| `README.md` | I just cloned this. What is it and how do I run it? (repo root only) |
+| `REFS.md` | What external material exists, and what did we conclude about it? |
+| `SKILL.md` | What procedure does the agent follow when invoked? |
+| `GOALS.md` | Which goals have wind right now? (dashboard + router) |
+| `TODO.md` | What must I do in life this week? |
+| `INBOX.md` | Raw capture, zero taxonomy, drained to empty |
+| `USER.md` | Who is Lucas, and how does he fail? |
+| `SCHEMA.md` | This file: the law about types. |
+
+Anything else is rejected: *"add it to the allowlist if you mean it."*
+
+### Boundaries where types nearly touch
+
+The three real conflicts, with the resolving rule:
+
+| Conflict | Rule |
+|----------|------|
+| `CONTEXT.md` vs its own routing block | CONTEXT **never hand-lists files**; the generated routing block owns inventory. A hand-written File Map is a bug. |
+| `CONTEXT.md` vs `SPECS.md` | Rules that *constrain code* → SPECS. What the directory *is* → CONTEXT. |
+| `ROADMAP.md` vs `BUGS.md` | BUGS owns the bug text; ROADMAP references it by id and never restates it. Intent vs. state: a roadmap item leaves the list when deprioritised, a bug does not stop being true. |
+
+### No archive types
+
+`ARCHIVE.md`, `HISTORY.md` and `.log/done.md` are **deleted, not renamed**. A file that is "never
+auto-loaded, ask explicitly" is doing git's job. **Done work is deleted; git is the history.**
+
+One thing git cannot hold: an approach we *tried and rejected* was never committed. That content has
+exactly one home — a one-line entry under `## Rejected` in the relevant `ROADMAP.md` (for a ditched
+goal, under `## Ditched` in `brain/GOALS.md`). One line, with the reason, so a dead idea does not
+resurface looking new.
+
+### The one exception: transient initiative docs
+
+A **cross-project rollout** with cited anchor ids and a defined death date is a real type and is not
+a ROADMAP. Members: `code/VERIFY.md`, `code/SPEC-DRIVE.md`, `code/isoroll-module/REFACTOR.md`,
+`core/MIGRATION-STATUS.md`, `code/dobra/DECISIONS.md`.
+
+Folding `VERIFY.md` into a ROADMAP was investigated 2026-07-30 and **rejected as unsafe**: it has 24
+inbound references, 7 of them in `.hooks/*` source comments citing stable anchors (`VERIFY.md W1`,
+`W2`, `I2`, `G1`, `G3`, `G7`, `A1`). Breaking those would silently orphan the reasoning behind live
+gates.
+
+These are exempt from the allowlist **and** carry an obligation: each must state its own death
+condition on line 3, and be deleted when its rollout completes. They are the only `.md` type allowed
+to be temporary, so a stale one is the most expensive kind of clutter.
+
+---
+
+## Frontmatter contract
 
 Companion to the code-side spec-drive convention (the `> spec:` module gate in `.hooks/pre-commit`,
 tracked under the [[spec-driven-development]] goal): that governs `code/` modules, this governs the

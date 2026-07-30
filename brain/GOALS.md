@@ -3,19 +3,20 @@
 <!-- stats:start -->
 <!-- data:start -->
 ## attention dashboard  _(auto-updated on every commit)_
-last-updated: 2026-07-29 23:46
+last-updated: 2026-07-30 11:32
 
 >**areas** — last 14 days  
 ```
 health       █████░░░░░   34 touches
 career       █░░░░░░░░░   8 touches
 finances     █░░░░░░░░░   11 touches
-fun          ██████████   61 touches
+fun          ██████████   62 touches
 spiritual    ███░░░░░░░   20 touches
 ```
 
 >**goals** — last 14 days  
 ```
+_template                ░░░░░░░░░░   0 touches
 burocracia-academica     ░░░░░░░░░░   1 touches
 career-ufrpe             ███░░░░░░░   5 touches
 corporal-expressiveness  ███░░░░░░░   5 touches
@@ -44,7 +45,7 @@ paper-scattercode        ███░░░░░░░   5 touches
 paper-sibgrapi-2026      ███░░░░░░░   5 touches
 prompt-opt-automation    ░░░░░░░░░░   0 touches
 reading                  ███░░░░░░░   5 touches
-rpg-isoroll              ████░░░░░░   6 touches
+rpg-isoroll              █████░░░░░   7 touches
 sleep-regularity         ███░░░░░░░   5 touches
 smartphone-addiction     ███░░░░░░░   5 touches
 spacemantics             ████░░░░░░   6 touches
@@ -93,6 +94,7 @@ yoga                     ███░░░░░░░   5 touches
 
 | goal | area | horizon | timing | selected achievement | file |
 |------|------|---------|--------|---------------------|------|
+| goal title | area | horizon | ... | [short-id] full description of the achievement | [→](goals/_template.md) |
 | burocracia acadêmica | career | year | — | [pdf-sidecar] resolver o padrão "sidecar de PDF" — arqu… | [→](goals/burocracia-academica.md) |
 | carreira UFRPE — progressão e renda | career | near | — | [progressao-map] mapear regras e calendário de progress… | [→](goals/career-ufrpe.md) |
 | corporal expressiveness | spiritual | dream | — | [body-awareness] read or watch something about body lan… | [→](goals/corporal-expressiveness.md) |
@@ -150,3 +152,11 @@ yoga                     ███░░░░░░░   5 touches
 | workspace OS | health | year | none external | [v1] pass the four-criterion v1 gate — Tier 0 anti-entr… | [→](goals/workspace-os.md) |
 | yoga | spiritual | year | none external | [mat-today] practice once this week with no goal — just… | [→](goals/yoga.md) |
 <!-- goals:end -->
+
+## Ditched
+
+> One line per goal deliberately dropped, with the reason. The goal file itself is deleted —
+> git holds the file, but not *why* we let it go, and that is the only part worth keeping.
+> Dropping a goal is a strategic move, never a failure (`brain/SPECS.md` § Rationale).
+
+_(none yet)_

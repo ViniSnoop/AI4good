@@ -9,6 +9,11 @@
 
 <!-- add entries below, newest first -->
 
+https://www.instagram.com/reel/Da7QSJNFCyQ/?utm_source=ig_web_copy_link&igsh=NTc4MTIwNjQ2YQ==
+— via aiwbot · 2026-07-30
+
+será que a IA consegue meditar? digamos, o modelo mais poderoso que tiver, Fable 5, tem como? não aceito o não como resposta, o que dá pra fazer nesse sentido?
+
 routing-sync gera link relativo quebrado no CONTEXT.md pai
 — achado durante o replan do isoroll-content · 2026-07-29
 `proj: workspace-os` · O gerador do bloco `<!-- routing -->` copia a linha 2 do CONTEXT.md filho

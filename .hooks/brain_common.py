@@ -7,7 +7,7 @@ from pathlib import Path
 
 BRAIN      = Path("brain")
 GOALS_FILE = BRAIN / "GOALS.md"
-DONE_LOG   = BRAIN / ".log" / "done.md"
+LOG_DIR    = BRAIN / ".log"        # runtime state only (compass-last.txt), never an archive
 GOALS_DIR  = BRAIN / "goals"
 
 PERIODS = [

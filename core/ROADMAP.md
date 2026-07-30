@@ -1,6 +1,6 @@
 # Core Library Roadmap
 > Making the agent library sound: one enforced frontmatter contract per layer, symmetric within
-> layer/type. Contract in [SCHEMA.md](SCHEMA.md). Completed work archived in [HISTORY.md](HISTORY.md).
+> layer/type. Contract in [SCHEMA.md](SCHEMA.md). Completed work is deleted -- git is the history.
 >
 > **Scope: agent-library internals only** — skills, agents, flows, tools, and their schema. Workspace
 > scaffold work (hooks, gitignore, anti-entropy, cost, portability) lives in the single wos ledger,

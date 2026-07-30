@@ -94,7 +94,6 @@ Each project CAN have:
 - `SPECS.md` — architecture decisions and design rationale (WHY, not WHAT)
 - `ROADMAP.md` — pending milestones with agent-ready technical context
 - `SETUP.md` — dev environment setup from scratch
-- `HISTORY.md` — archive of completed milestones (moved from ROADMAP.md)
 - `BUGS.md` — tracked bugs with reproduction steps
 
 Skeletons for all files: [`_templates/`](_templates/)

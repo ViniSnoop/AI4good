@@ -70,5 +70,5 @@ user scope). Details and upstream attribution: [`caveman/CONTEXT.md`](caveman/CO
 | [`loops.md`](loops.md) | — | — | Run the craft flow: develop a feature in file-relayed loops with model autorouting (clarify → plan → ground → architecture → TDD → code → user test → ship). Invoke with /loops [task or feature request]. |
 | [`prepare.md`](prepare.md) | — | — | Prepare a raw prompt for an agent: interview, contextualize, plan, and recommend model/effort. The skill first interviews the user to clarify intent, then classifies the task, outputs the optimized prompt ready for copy-paste. Invoke with /prepare [your raw task] |
 | [`research.md`](research.md) | — | — | Execute a research workflow from the workspace Core research system. |
-| [`roundup.md`](roundup.md) | — | — | Full session-close ritual: archive completed work to HISTORY, route session knowledge to durable files, drain the INBOX, run the verification gate, then emit the resume prompt via /handoff. Use at session end. Invoke with /roundup [focus for next session]. |
+| [`roundup.md`](roundup.md) | — | — | Full session-close ritual: clear completed work out of the ledgers, route session knowledge to durable files, drain the INBOX, run the verification gate, then emit the resume prompt via /handoff. Use at session end. Invoke with /roundup [focus for next session]. |
 <!-- routing:end -->

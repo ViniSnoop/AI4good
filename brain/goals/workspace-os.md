@@ -41,7 +41,7 @@ work, and the first step is pure inspection: `git -C code/<repo> status` on the 
    floor-sweeping is Frente 6.1.
 3. **the gentle-resurfacing rhythm was missing.** Strong at *capture* (inbox/gmail/telegram/goals),
    but nothing gently resurfaced the *inspiring work waiting*. Explicitly **not** an accountability
-   gap — that anxious tone is the opposite of this workspace's purpose ([FOUNDATIONS.md](../FOUNDATIONS.md)).
+   gap — that anxious tone is the opposite of this workspace's purpose ([SPECS.md](../SPECS.md) § Rationale).
    Fixed by folding motivation-ordering, timing negotiation, and guilt-free ditching into `/compass`,
    plus a soft nudge. **Closed 2026-07-22** — first dogfood of the new skill.
 
@@ -75,14 +75,14 @@ fallback · iterate — MVP can always be extended*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-25  ·  trend: advancing
+last-touch: 2026-07-29  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |      16 |
-| trimester   |      17 |
-| semester    |      17 |
-| year        |      17 |
-| 2-year      |      17 |
-| 4-year      |      17 |
+| month       |      17 |
+| trimester   |      18 |
+| semester    |      18 |
+| year        |      18 |
+| 2-year      |      18 |
+| 4-year      |      18 |
 <!-- stats:end -->

@@ -143,4 +143,14 @@ Done items move to ## Done below.
 
 ## stats
 <!-- stats:start -->
+last-touch: —  ·  trend: new
+
+| period      | touches |
+|-------------|----------|
+| month       |       0 |
+| trimester   |       0 |
+| semester    |       0 |
+| year        |       0 |
+| 2-year      |       0 |
+| 4-year      |       0 |
 <!-- stats:end -->

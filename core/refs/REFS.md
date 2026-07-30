@@ -2,6 +2,13 @@
 > Tier-1 capture for the workspace-os / agent-library scaffold. One line per ref.
 > Tier markers `[A] [B] [P] [V] [C]` defined in [CONTEXT.md](CONTEXT.md) — `[P]` = preprint, provisional.
 > Captured 2026-07-23 (rounds 1+2 of the workspace-os robustness sweep).
+>
+> **Judged vs unjudged is a `status:`, not a separate file** (2026-07-30). The old
+> `core/WATCHLIST.md` was folded in here: "candidates to try" and "references to read" are the same
+> object — a link — at two points of one pipeline (`INBOX` → unjudged → judged → a ROADMAP item or
+> a rejection line). Everything above this file's last section is `status: judged`; the
+> **Unjudged** section at the bottom is the intake queue. Promote by moving the line up and giving it
+> a tier; reject by deleting it and leaving one line in the relevant ROADMAP.
 
 ## Context engineering & progressive disclosure
 
@@ -100,4 +107,42 @@ has a paired assessment task in `brain/TODO.md` — a ref that lands without one
 - `[C]` [Baidu "Unlimited OCR"](https://www.instagram.com/reel/DbWZwciSP4l/) — [src: web:instagram.com] claims a compact model that reads a 100-page PDF in one pass, preserving layout, tables and reading order, running locally under MIT. Lucas: *"checar se é útil pra gente"* → lands squarely on the open OCR task in `brain/TODO.md` week (image-only PDFs in `branches/ecovila/burocracia/` that `core/tools/parse` returns empty for). Claim is a vendor/practitioner post, not a benchmark — verify on a real scanned PDF before touching the toolchain.
 - `[C]` [Surfsense](https://www.instagram.com/reel/DbTp-OayCcU/) — [src: web:instagram.com] self-hostable research assistant in the NotebookLM/Perplexity mould, pitched as connecting your own sources. Overlaps what `core/tools` + the research flow already do, so the question is whether it beats the parts we own — assessment task in `brain/TODO.md` backlog.
 - `[C]` [Claude Code graph-native agent orchestration](https://www.instagram.com/p/DbVwFxaDYPw/) — [src: web:instagram.com] Vyzual AI: Claude Code shipped a graph-native way to orchestrate agents, and a separate viral post credits a Microsoft/Stanford/Anthropic "Graph Engineering" discovery — the post itself says only one of the two is real, so treat both as unverified. Lucas: *"acho que serve pra gente"* → bears directly on `code/flows` (graph workflow engine) and the craft flow; assessment task in `brain/TODO.md` backlog.
+
+---
+
+## Unjudged — `status: unjudged`
+
+Candidates to try, not references to read. Nothing here has been assessed, so nothing here may be
+cited or used to justify a decision. Promote a winner by moving its line up into a judged section
+with a tier marker; kill the rest by deleting the line. Folded in from `core/WATCHLIST.md` 2026-07-30.
+
+### Frameworks / methods
+- [weft](https://github.com/WeaveMindAI/weft) · [node docs](https://weavemind.ai/docs/nodes) — node language; test the principles or the language itself
+- [OpenJarvis](https://github.com/open-jarvis/OpenJarvis) — assistant framework
+- [claude-code + remotion animations (van Clief)](https://www.skool.com/cliefnotes/classroom/d3907117?md=f7a33a9888604a08a7e48bb876682691) — tutorial; feeds the animation-generator project idea
+- Jake van Clief — folders-replace-agents method: [classroom](https://www.skool.com/cliefnotes/classroom/036893d9?md=2b4a8ab7461c4f6d828e21c0eb196a6a) · [folder structure video](https://www.skool.com/cliefnotes/new-video-how-i-structure-folders-to-replace-ai-agents)
+- [Claude Code skills for UI animation](https://www.instagram.com/p/Da7y0g3DLWT/) — 3D scenes, scroll effects, Lottie. ⚠ DM-bait post, no links delivered; the *idea* is the value
+- [three-lane model routing](https://www.instagram.com/reel/DbHHdF4gLWS/) — cheap model reads everything and compresses to one briefing, expensive model sees only the briefing. Same tiering the craft flow does
+- [Charlie Hills — match-the-model-to-the-job routing](https://www.instagram.com/p/DbHGtXoCOm-/) — 9-step workflow: high tier plans, mid builds, low does grunt work, then **two judges** review and every catch is logged back so the setup compounds. The two-judge review and log-every-catch angles are the new bits
+- [opensession.co — PRD-driven agent orchestration](https://www.instagram.com/opensession.co/reel/DXwl0ryhbgV/) — PRDs → task briefs, planning over hundreds of tasks, configurable model routing; 22 agents / 11 commands / 8 skills. Compare against our flows before importing
+- [awesome-harness-engineering](https://github.com/ai-boost/awesome-harness-engineering) + [best-of-Agent-Harnesses](https://github.com/RyanAlberts/best-of-Agent-Harnesses) — Lucas: *"muito ruído, mas talvez algo útil pro wos"*
+- [meta-harness (Yoonho Lee)](https://yoonholee.com/meta-harness/) — Lucas: *"VERY INTERESTING, maybe an alternative or improvement over Claude Code"*; read seriously as a harness-design candidate
+- [Vyzual — weekly ship log](https://www.instagram.com/p/DbIo0eaErW9/) — per-agent effort levels (low→max) as the cheapest multi-agent lever, live simulator pane, screen-reader mode, security-scanner plugin. Effort levels bear directly on our subagent cost
+
+### Data / ingestion
+- [opendataloader-pdf](https://github.com/opendataloader-project/opendataloader-pdf) — 0.015s/page PDF parsing on CPU. Candidate backend for `core/tools/parse`, which exists and is slower. **Parse, not OCR** — does not solve the image-only PDFs
+
+### Models / runtimes
+- kimi 2.6 · kimi 2.7 · GLM-5.2 · moonshot AI · qwen code
+- airLLM + Qwen3.6 (14B–20B) and/or Laguna XS.2; LFM2.5
+- turbovec (google compressions, 31b → 4b)
+- [Qwen3.6-27B 1-bit / ternary](https://www.instagram.com/reel/Da0UiHfsvUk/) — 54GB fp16 → 3.9GB at 1-bit, 5.9GB ternary, architecture untouched. Phone-viable
+- [KittenTTS](https://github.com/KittenML/KittenTTS) — TTS under 25MB, CPU, free. ⚠ pt-BR support unverified — check that first, it decides everything
+
+### Agents / tools
+- claude council · ECC · odysseus (pewdiepie) · hermes agent · higgsfield mcp
+
+### Offline resilience (parked, see /ROADMAP.md)
+- [Reticulum](https://github.com/markqvist/Reticulum) — E2E-encrypted network stack that keeps working with no internet or infrastructure
+- **Kiwix** — all of Wikipedia offline; almost certainly the "NOMAD project" Lucas half-remembered
 

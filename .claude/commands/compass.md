@@ -12,7 +12,7 @@ Arguments: $ARGUMENTS
 
 ## Protocol
 
-Read: `brain/GOALS.md` + all files in `brain/goals/` (skip ARCHETYPE.md). Read `brain/FOUNDATIONS.md`
+Read: `brain/GOALS.md` + all files in `brain/goals/` (skip `_template.md`). Read `brain/SPECS.md` § Rationale
 if you need to recalibrate the tone.
 Run: `git log --oneline --since="14 days ago" -- brain/goals/`
 
@@ -44,8 +44,9 @@ Walk Lucas through the surfaced goals, one light touch each. Motivation is the p
 - **timing** → "is this the right moment, or is there better timing?" If later, push the `target`
   (chosen, not slipped) — a first-class move, not a failure.
 - **ditch / defer** → "does this still make sense? if not, we can drop it — that's a good strategic
-  move, not a loss." True ditch → move the goal to `brain/ARCHIVE.md` with a one-line reason. Defer →
-  push `target`.
+  move, not a loss." True ditch → **delete the goal file** and leave one line under
+  `## Ditched` in `brain/GOALS.md` with the reason (git holds the file; the reason is the only
+  thing git cannot recover). Defer → push `target`.
 - **reorder** → reorder selected achievements / focus by Lucas's *live* motivation. Deadlines never
   override motivation here.
 
@@ -72,7 +73,7 @@ Each touched goal file:
 - `>**pareto**` — 2–3 top goals with one-line rationale each
 - `>**gap**` — gaps found, each with diagnosed type
 
-Ditched goals → `brain/ARCHIVE.md` (with the reason). Then write today's date to
+Ditched goals → goal file deleted, one line under `## Ditched` in `brain/GOALS.md`. Then write today's date to
 `brain/.log/compass-last.txt` (format: YYYY-MM-DD).
 
 ### Tone
