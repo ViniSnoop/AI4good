@@ -9,6 +9,10 @@
 
 <!-- add entries below, newest first -->
 
+review our skills, see if they are effective, if they are verbose or giving extra work. check also for rendundancies, ambiguities, etc
+
+do a routine checkup on our WOS. see if things are working as planned.
+
 pq temos alguns arquivos python sem extensão .py?
 
 https://www.instagram.com/reel/Da7QSJNFCyQ/?utm_source=ig_web_copy_link&igsh=NTc4MTIwNjQ2YQ==
