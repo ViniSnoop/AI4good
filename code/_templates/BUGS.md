@@ -3,7 +3,7 @@
 <!-- One section per confirmed bug. Number sequentially (B1, B2, …) — numbers are permanent,
      never reused. Keep root-cause analysis here; move resolved entries to HISTORY.md.
 
-     RULE (enforced by known-bugs-gate hook): a bug flips to FIXED only when a matching
+     RULE (enforced by bugs-gate hook): a bug flips to FIXED only when a matching
      regression spec exists at test/**/b<N>-*.* and passes. Open bugs may carry an xfail
      spec that encodes the expected failure. See workspace VERIFY.md. -->
 

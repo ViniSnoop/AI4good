@@ -95,7 +95,7 @@ Each project CAN have:
 - `ROADMAP.md` — pending milestones with agent-ready technical context
 - `SETUP.md` — dev environment setup from scratch
 - `HISTORY.md` — archive of completed milestones (moved from ROADMAP.md)
-- `KNOWN-BUGS.md` — tracked bugs with reproduction steps
+- `BUGS.md` — tracked bugs with reproduction steps
 
 Skeletons for all files: [`_templates/`](_templates/)
 

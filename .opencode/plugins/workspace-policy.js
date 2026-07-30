@@ -6,7 +6,7 @@
 //   - pre-edit.py         : first-line comment, line-count limits, CONTEXT.md line-2
 //   - facade-scan.py      : list facade exports before writing a new Code/ file
 //   - facade-gate.py      : block Code/ module edits until the module facade is read
-//   - known-bugs-gate.py  : KNOWN-BUGS.md FIXED flips require a regression spec
+//   - bugs-gate.py  : BUGS.md FIXED flips require a regression spec
 //   - spec-read-gate.py   : spec-locked module edits require its SPEC.md read first
 //   - pre-read.sh         : block source reads when a current interface file exists
 //   - post-edit.sh        : regenerate interfaces, terms check, context_synchronizer
@@ -19,7 +19,7 @@
 // expect, and maps Claude exit-2 to opencode throw. Design lifted from
 // .hooks/copilot-pre-tool.py / copilot-post-tool.py (prior art for a non-Claude
 // agent — copilot-pre-tool.py's `gate()` ordering is the reference this plugin
-// mirrors: context-gate before pre-read/pre-edit, known-bugs-gate after
+// mirrors: context-gate before pre-read/pre-edit, bugs-gate after
 // facade-gate). Translation helpers live in ../wp-helpers.js (kept out of
 // plugins/ so opencode does not auto-load them as a plugin).
 //
@@ -89,9 +89,9 @@ export const WorkspacePolicy = async ({ client }) => {
         const r = run(`${HOOKS}/facade-gate.py`, p, m.canonical, { stdin: true })
         if (r.status === 2) throw new Error(blockMsg(r, "READ FACADE FIRST"))
         if (r.stdout && r.stdout.trim()) await warn(client, r.stdout)
-        // 5. known-bugs-gate.py — KNOWN-BUGS.md FIXED flips need a regression spec.
-        const k = run(`${HOOKS}/known-bugs-gate.py`, p, m.canonical, { stdin: true })
-        if (k.status === 2) throw new Error(blockMsg(k, "KNOWN-BUGS GATE"))
+        // 5. bugs-gate.py — BUGS.md FIXED flips need a regression spec.
+        const k = run(`${HOOKS}/bugs-gate.py`, p, m.canonical, { stdin: true })
+        if (k.status === 2) throw new Error(blockMsg(k, "BUGS GATE"))
         if (k.stdout && k.stdout.trim()) await warn(client, k.stdout)
         // 6. spec-read-gate.py — spec-locked module edits need its SPEC.md read first.
         const s = run(`${HOOKS}/spec-read-gate.py`, p, m.canonical, { stdin: true })

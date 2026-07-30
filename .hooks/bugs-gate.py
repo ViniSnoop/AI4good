@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# PreToolUse: Edit|Write on KNOWN-BUGS.md — flipping a bug to FIXED requires a matching
+# PreToolUse: Edit|Write on BUGS.md — flipping a bug to FIXED requires a matching
 # regression spec (test/**/b<N>-*.*) in the same repo. See workspace VERIFY.md I2.
 import re
 import subprocess
@@ -36,7 +36,7 @@ def main() -> int:
 	if tool not in ('Edit', 'Write'):
 		return 0
 	file_path = Path(str(tool_input.get('file_path', '')))
-	if file_path.name != 'KNOWN-BUGS.md':
+	if file_path.name != 'BUGS.md':
 		return 0
 
 	if tool == 'Write':
@@ -57,7 +57,7 @@ def main() -> int:
 	if not missing:
 		return 0
 
-	print('KNOWN-BUGS GATE - FIXED requires executable proof.', file=sys.stderr)
+	print('BUGS GATE - FIXED requires executable proof.', file=sys.stderr)
 	for b in missing:
 		print(f'   B{b}: no regression spec found (expected test/**/b{b}-*.*).', file=sys.stderr)
 	print('   Write the regression spec first, verify it passes, then flip the status.', file=sys.stderr)

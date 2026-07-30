@@ -13,7 +13,7 @@ Ver `SPECS.md` para arquitetura completa do simulador.
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
-| [`KNOWN-BUGS.md`](KNOWN-BUGS.md) | — | — | programacao1 — Known Bugs |
+| [`BUGS.md`](BUGS.md) | — | — | programacao1 — Known Bugs |
 | [`ROADMAP.md`](ROADMAP.md) | — | — | programacao1 — ROADMAP |
 | [`SPECS.md`](SPECS.md) | — | — | programacao1 — SPECS |
 | [`main.py`](main.py) | — | — | ← add first-line comment |

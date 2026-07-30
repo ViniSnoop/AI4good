@@ -214,7 +214,7 @@ that forces a curated ROADMAP/CONTEXT to be summarized = **no**. Enforcement hom
    Frente 3.1 first, to know which files are "curated". Touches the edit path.
    → **model: sonnet** to build · **opus** to set threshold + exemptions.
 2. 🟢 **safe — split the known oversized docs by navigation.** `SETUP.md` (41 KB) is the flagged
-   example; `SPECS.md` / `KNOWN-BUGS.md` / `ROADMAP.md` become file-trees rather than single files
+   example; `SPECS.md` / `BUGS.md` / `ROADMAP.md` become file-trees rather than single files
    where size warrants. Split by *access pattern* (always-loaded vs on-demand), the technique proven
    in the `craft.md` decomposition — not arbitrary fragmentation.
    → **model: sonnet** · pairs with Frente 10.1 (SETUP audit) — do them together, same file.

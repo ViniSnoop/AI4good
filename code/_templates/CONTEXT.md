@@ -22,7 +22,7 @@
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
-| [`KNOWN-BUGS.md`](KNOWN-BUGS.md) | — | — | [Project Name] — Known Bugs |
+| [`BUGS.md`](BUGS.md) | — | — | [Project Name] — Known Bugs |
 | [`README.md`](README.md) | — | — | [Project Name] |
 | [`ROADMAP.md`](ROADMAP.md) | — | — | [Project Name] — Roadmap |
 | [`SETUP.md`](SETUP.md) | — | — | [Project Name] — Dev Setup |

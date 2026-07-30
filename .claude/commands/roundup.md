@@ -18,7 +18,7 @@ Arguments: $ARGUMENTS  (focus for next session — passed through to `/handoff`)
 
 ```bash
 find . -maxdepth 3 \( \
-  -name "ROADMAP.md" -o -name "KNOWN-BUGS.md" -o -name "HISTORY.md" \
+  -name "ROADMAP.md" -o -name "BUGS.md" -o -name "HISTORY.md" \
   -o -name "CHANGELOG.md" -o -name "TODO.md" -o -name "AGENTS.md" \
   -o -name "TASKS.md" -o -name "BACKLOG.md" -o -name "INPUT.md" \
 \) 2>/dev/null | sort
@@ -44,11 +44,11 @@ If `ROADMAP.md` exists:
 3. Remove completed items from `ROADMAP.md`.
 4. Nothing completed → skip, do not modify.
 
-### KNOWN-BUGS cleanup
-If `KNOWN-BUGS.md` exists:
+### BUGS cleanup
+If `BUGS.md` exists:
 1. Identify resolved items (`- [x]`, "fixed", "resolved", "closed").
 2. Append to `HISTORY.md` under `## Resolved Bugs — YYYY-MM-DD`.
-3. Remove resolved items from `KNOWN-BUGS.md`.
+3. Remove resolved items from `BUGS.md`.
 4. Nothing resolved → skip.
 
 ### HISTORY.md
@@ -71,7 +71,7 @@ Identify all knowledge from the session. Route each piece using the table below.
 |---|---|
 | Non-obvious design decision + rationale | `SPECS.md` → Architecture Decisions |
 | Discovered convention / coding rule | `SPECS.md` → Conventions |
-| Bug found, not fixed | `KNOWN-BUGS.md` |
+| Bug found, not fixed | `BUGS.md` |
 | New technical work item (project has `ROADMAP.md`) | `ROADMAP.md` |
 | Reference / link / paper / tool worth keeping | domain `refs/REFS.md` (route-by-domain — see `/inbox`) |
 | Personal / admin / life / teaching task — or project task with hard deadline | `brain/TODO.md` (right horizon: today / week / month / backlog) |
@@ -138,6 +138,6 @@ Run `/handoff $ARGUMENTS` to emit the resume prompt. Then report:
 
 > Roundup complete.
 > [If HISTORY.md updated]: HISTORY.md updated with [N] items.
-> [If files trimmed]: ROADMAP.md / KNOWN-BUGS.md trimmed.
+> [If files trimmed]: ROADMAP.md / BUGS.md trimmed.
 > [List every file written this session, one line each.]
 > Start the next session with `/clear` or a fresh window, pasting the resume block above.

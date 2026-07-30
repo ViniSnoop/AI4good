@@ -19,7 +19,7 @@ You are a SENIOR software architect, your code WILL be evaluated!
 - New files require first-line description comment
 - Interface stubs (`.d.ts`, `.pyi`, `.dart.api`) regenerated at commit
 - Duplicated blocks involving staged files block the commit (jscpd) — extract, never copy
-- Projects declaring `verify:fast` must be green to commit; KNOWN-BUGS FIXED flips require a `test/**/b<N>-*` regression spec (see [VERIFY.md](VERIFY.md))
+- Projects declaring `verify:fast` must be green to commit; BUGS FIXED flips require a `test/**/b<N>-*` regression spec (see [VERIFY.md](VERIFY.md))
 
 **You enforce** (hooks cannot catch these):
 - REUSE always
