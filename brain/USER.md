@@ -9,7 +9,6 @@ Vice-coordinator of Licenciatura em Computação (LC) at DC/UFRPE. Leading manda
 
 Creative, fuzzy thinker. Strong starter; struggles to finish.
 
-
 ## Language
 
 Lucas may write in pt-br (inbox, conversation). Agent always writes Brain files in en-us.
@@ -17,7 +16,7 @@ Lucas may write in pt-br (inbox, conversation). Agent always writes Brain files 
 ## What Helps
 
 - Internal motivation and alignment — works best when genuinely believes in what he's doing
-- Forward-looking framing ("next achievement to celebrate") over completion pressure
+- Forward-looking framing ("next achievement to celebrate") wins over completion pressure
 - Long-term, horizon, dream, to have a clear light to follow
 - Small consistent wins over milestone sprints
 - Right question asked, not task list given

@@ -9,6 +9,8 @@
 
 <!-- add entries below, newest first -->
 
+pq temos alguns arquivos python sem extensão .py?
+
 https://www.instagram.com/reel/Da7QSJNFCyQ/?utm_source=ig_web_copy_link&igsh=NTc4MTIwNjQ2YQ==
 — via aiwbot · 2026-07-30
 

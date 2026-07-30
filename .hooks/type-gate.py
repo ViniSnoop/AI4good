@@ -17,6 +17,7 @@ import subprocess
 import sys
 from pathlib import Path
 
+from entropy_context import check_goal_link, check_inventory
 from entropy_naming import check_dirs, check_placement, check_shape
 from schema_law import SCHEMA, WORKSPACE_ROOT, load_law, load_scopes
 
@@ -24,15 +25,6 @@ from schema_law import SCHEMA, WORKSPACE_ROOT, load_law, load_scopes
 HARNESS_MANDATED = {'CLAUDE.md'}
 
 UPPERCASE_MD = re.compile(r'^[A-Z][A-Z0-9_.-]*\.md$')
-
-# A CONTEXT.md head that re-lists the files below it. The generated routing block owns
-# inventory (core/SCHEMA.md § Boundaries where types nearly touch).
-ROUTING_START = '<!-- routing:start -->'
-TREE_GLYPH = re.compile(r'[├└│]──')
-PATH_BULLET = re.compile(r'^\s*[-*]\s+[`\[]([\w./-]+\.\w+|[\w./-]+/)', re.M)
-INVENTORY_HEADING = re.compile(
-    r'^#+\s+.*\b(file map|repository shape|project layout|file list|directory structure|'
-    r'folder structure|files?\s+in\s+this|inventory)\b', re.I)
 
 
 def check_name(path: Path, allowed: set, exempt: set) -> str | None:
@@ -47,32 +39,6 @@ def check_name(path: Path, allowed: set, exempt: set) -> str | None:
             f"   allowlist in core/SCHEMA.md § The `.md` type system if you mean it.")
 
 
-def check_inventory(path: Path) -> str | None:
-    """CONTEXT.md must not hand-list files above its generated routing block."""
-    if path.name != 'CONTEXT.md':
-        return None
-    text = path.read_text(encoding='utf-8')
-    head = text.split(ROUTING_START, 1)[0]
-    reasons = []
-    heading = next((l for l in head.splitlines() if INVENTORY_HEADING.match(l)), None)
-    if heading:
-        reasons.append(f'inventory heading {heading.strip()!r}')
-    if TREE_GLYPH.search(head):
-        reasons.append('an ASCII directory tree')
-    # A bullet counts only when the path REALLY EXISTS beside the CONTEXT.md. Documenting
-    # a naming convention with globs (`grav_cam2_gXX_sq.png` in a paper's images/) is
-    # legitimate CONTEXT content — describing the directory, which is its whole job. Only
-    # a list of actual files duplicates the generated block.
-    bullets = [b for b in PATH_BULLET.findall(head) if (path.parent / b).exists()]
-    if len(bullets) >= 3:
-        reasons.append(f'{len(bullets)} bullets listing real files')
-    if not reasons:
-        return None
-    return (f"{path}: hand-written file inventory ({', '.join(reasons)}).\n"
-            f"   The generated routing block owns inventory (core/SCHEMA.md § Boundaries\n"
-            f"   where types nearly touch). Describe the directory; do not list it.")
-
-
 def staged_added_files() -> list:
     """Only files this commit ADDS — the ratchet. Renames count as adds of the new name."""
     out = subprocess.run(['git', 'diff', '--cached', '--name-only', '--diff-filter=AR'],
@@ -82,7 +48,8 @@ def staged_added_files() -> list:
 
 def failures_for(path: Path, allowed: set, exempt: set, scopes: dict) -> list:
     return [f for f in (check_name(path, allowed, exempt),
-                        check_inventory(path) if path.suffix == '.md' else None,
+                        check_inventory(path) if path.name == 'CONTEXT.md' else None,
+                        check_goal_link(path),
                         check_shape(path, allowed),
                         check_dirs(path, WORKSPACE_ROOT),
                         check_placement(path, scopes, WORKSPACE_ROOT)) if f]

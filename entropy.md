@@ -8,6 +8,7 @@
 | Off-allowlist `.md` types | 41 |
 | CONTEXT.md hand-written inventories | 5 |
 | Naming and placement | 6 |
+| Projects not declaring their goal | 0 |
 | Retired tokens still alive | 4 |
 | Items claimed by two ledgers | 0 |
 | Size signals | 29 |
@@ -79,6 +80,12 @@
 - core/tools/video.SETUP.md: 'video.SETUP.md' is neither a lowercase instance nor a known type.
 - academy/administration/PDA: directory 'PDA' is not lowercase kebab-case.
 
+## Projects not declaring their goal
+
+*line 3 of a code/ CONTEXT.md*
+
+Clean.
+
 ## Retired tokens still alive
 
 *a rename is unfinished until these are zero*
@@ -99,7 +106,7 @@ Clean.
 *a signal for review, never a cap — do not summarize to fit*
 
 - .hooks/post-edit.sh — 208 lines, over the 200 cap; introduced by 44d9a02 lsfcin
-- ROADMAP.md — 414 lines (doc signal, review the delta)
+- ROADMAP.md — 416 lines (doc signal, review the delta)
 - SETUP.md — 624 lines (doc signal, review the delta)
 - academy/papers/2026-JBCS-relativistic_raytracer/outputs/iq-fix-roadmap.md — 372 lines (doc signal, review the delta)
 - academy/teaching/programacao-1/material/portas-logicas/slides.md — 635 lines (doc signal, review the delta)

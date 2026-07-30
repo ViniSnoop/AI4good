@@ -16,6 +16,7 @@ from pathlib import Path
 
 from entropy_ledger import (duplicate_slugs, enforcement_paths, retired_hits,
                             tracked_files)
+from entropy_context import check_goal_link
 from entropy_naming import check_dirs, check_placement, check_shape
 from schema_law import SCHEMA, WORKSPACE_ROOT, load_law, load_retired, load_scopes
 
@@ -69,12 +70,14 @@ def collect(files: list) -> dict:
     gate = _type_gate()
     allowed, exempt = load_law(SCHEMA)
     scopes = load_scopes(SCHEMA)
-    findings = {'types': [], 'inventories': [], 'naming': []}
+    findings = {'types': [], 'inventories': [], 'naming': [], 'goals': []}
     for path in files:
         if failure := gate.check_name(path, allowed, exempt):
             findings['types'].append(failure)
         if path.name == 'CONTEXT.md' and (failure := gate.check_inventory(path)):
             findings['inventories'].append(failure)
+        if failure := check_goal_link(path):
+            findings['goals'].append(failure)
         for failure in (check_shape(path, allowed), check_dirs(path, WORKSPACE_ROOT),
                         check_placement(path, scopes, WORKSPACE_ROOT)):
             if failure:
@@ -112,6 +115,7 @@ SECTIONS = (
     ('types', 'Off-allowlist `.md` types', 'route via core/SCHEMA.md § four disposal routes'),
     ('inventories', 'CONTEXT.md hand-written inventories', 'the routing block owns inventory'),
     ('naming', 'Naming and placement', 'kebab-case ASCII, types where their scope allows'),
+    ('goals', 'Projects not declaring their goal', 'line 3 of a code/ CONTEXT.md'),
     ('retired', 'Retired tokens still alive', 'a rename is unfinished until these are zero'),
     ('duplicates', 'Items claimed by two ledgers', 'v1 criterion 2 — an item lives in one place'),
     ('size', 'Size signals', 'a signal for review, never a cap — do not summarize to fit'),

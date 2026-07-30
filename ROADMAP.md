@@ -132,9 +132,11 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
    35 tests in `verify-fast`. Every rule is **parsed from `core/SCHEMA.md`**, never restated in a
    checker. Covered: type allowlist, hand-inventory, filename shape, directory case, type placement,
    retired tokens, duplicate slugs, size-as-signal.
-   Two checks still to write, both needing a decision first:
-   - **project ⟺ goal link** — every project `CONTEXT.md` declares its goal on line 3.
-     **Backfill first, then enforce** (warn → block).
+   The **project ⟺ goal link** check went straight to blocking, no warn phase: the backfill turned
+   out to be already done, all 14 projects declaring line 3. Six declare `goal: none` — and two of
+   those, `gira` and `laplata`, **have** goal files (`startapps-gira`, `startapps-laplata`). A
+   content question for Lucas, not a check failure.
+   One check left, and it needs a decision first:
    - **`[[slug]]` resolution** — 🔴 open sub-decision, the last piece of pointer integrity: is an
      unresolved `[[slug]]` a *planned* memory (allowed) or a typo (error)?
 
