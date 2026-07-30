@@ -23,7 +23,8 @@ case "$BRANCH" in
   main|master|develop)
     printf "⛔ Git Flow: direct commits to '%s' are not allowed.\n" "$BRANCH"
     printf "   Branch first:  git checkout -b feature/<name>   (or release/*, hotfix/*).\n"
-    printf "   See AGENTS.md / code/SPECS.md § Git Flow. (Emergency bypass: git commit --no-verify.)\n"
+    printf "   See code/SPECS.md § Git Branching. (Emergency bypass: git commit --no-verify —\n"
+    printf "   state the reason in the commit message and file a TODO to pay it back.)\n"
     exit 1 ;;
   feature/*|release/*|hotfix/*|HEAD)
     exit 0 ;;   # HEAD = detached (rebase/bisect) — don't block

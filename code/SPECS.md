@@ -167,3 +167,18 @@ All projects under `code/` follow Git Flow:
 - Tag `main` on every release: `v<semver>`
 
 **Enforcement.** `.hooks/gitflow-gate.sh` (pre-commit block 1e) **hard-blocks** in `code/` repos: any commit on `main`/`master`/`develop`, or on a branch not matching `feature/*`/`release/*`/`hotfix/*`. Emergency bypass: `git commit --no-verify`. The **merge-only-via-PR** rule is *not* locally enforceable — set it up as GitHub branch protection on `main` and `develop` per repo (require PR + passing checks). Migration note: a project still committing to `main`/`master` directly must create `develop` and switch to `feature/*` before its next commit, or the gate blocks it.
+
+**Scope of the gate** (moved here from `AGENTS.md` 2026-07-30, when the always-loaded root
+stopped restating rules a hook already enforces): the gate covers every `code/*` repo **and the
+workspace repo itself**. Paper repos (`academy/papers/*`) and other nested repos are **exempt** —
+Overleaf is authoritative there and co-authors commit straight to the default branch.
+
+**The bypass leaves no trace** outside the commit message, which is the only reason it is
+dangerous. So when using `--no-verify`: state the reason in the commit message, and file a TODO to
+pay it back. An undocumented bypass is indistinguishable from the gate never having run.
+
+**Push policy** (moved here from `AGENTS.md` for the same reason; the ritual lives in
+`core/skills/roundup.md`). Two machines share this workspace, so **unpushed work is invisible
+work** and `main` is the sync point, not a release tag. `feature/*` auto-pushes via
+`.hooks/post-commit`; promotion to `develop`/`main` happens in `/roundup` Phase 5 behind a green
+verification run; `/handoff` only *reports* divergence and never merges.

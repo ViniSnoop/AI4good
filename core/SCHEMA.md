@@ -2,6 +2,17 @@
 > The enforced frontmatter contract for skills, flows, and agents, plus the workspace-wide `.md`
 > type system. Drift from this is a bug.
 
+## Vocabulary
+
+Aliases that mean exactly one thing, so a reader never has to guess whether two spellings are two
+concepts. This is **data, not a rule** — which is why it lives here and not in the always-loaded
+`AGENTS.md` (moved 2026-07-30).
+
+| Canonical | Also written |
+|-----------|--------------|
+| **workspace-os** | `wos` · `WOS` · `w-os` · `W-OS` |
+| **craft flow** | the `/loops` skill, `core/flows/craft/`; retired spellings `loop-engineering` · `loop-router` · `loop-architecture` · `LOOP-TREE` |
+
 ## The `.md` type system
 
 > Decided 2026-07-30. Lucas: *"delimit precisely where one file ends and another begins, so there is
