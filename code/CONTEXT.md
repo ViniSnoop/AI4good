@@ -5,27 +5,22 @@ You are a SENIOR software architect, your code WILL be evaluated!
 
 **Before editing any file:**
 1. Read it first. Before modifying a function, grep for all callers. Research before you edit.
-2. Read the target project's CONTEXT.md.
-3. For architecture/flow questions, use `codegraph` (via Bash) before reading raw source — projects with a `.codegraph/` index are indexed; see [SETUP.md](SETUP.md#codegraph). The index auto-syncs after every edit via the post-edit hook.
-4. Read the facade (`index.ts` / `__init__.py`) of every module you'll touch.
+2. Read the facade (`index.ts` / `__init__.py`) of every module you'll touch.
 
 **You enforce this — no hook can:**
 - REUSE always. NEVER copy-paste: refactor, extract a function or class.
 - ONE responsibility per file — SMALL IS BETTER.
 - REFACTOR after each coding prompt, and report only *after* refactoring.
-- Names must be guessable without opening the file, reading the function, or inspecting the variable.
+- Names must be guessable without reading files, functions, or inspecting variables.
 
 **Language rules, file templates, and the R1–R6 style table:** [SPECS.md](SPECS.md) § Style Rules (R1-R6).
-R1–R6 apply to **all** languages — TypeScript has ESLint enforcement, the rest are induced.
-Git Flow, the branch gate's scope, and the push policy: [SPECS.md](SPECS.md) § Git Branching.
 
-**Hooks block automatically** — each explains itself and names the fix when it fires, so only the
-numbers you need *while writing* are here: files warn at **150 lines**, hard-block at **200**. The
-rest (facade boundaries, missing first-line comments, duplicated blocks, the CONTEXT.md chain,
-interface stubs, `verify:fast` green, a BUGS FIXED flip needing a `test/**/b<N>-*` spec) surface at
-the moment they apply. Reasoning behind them: [VERIFY.md](VERIFY.md).
+**Git Flow**, the branch gate's scope, and the push policy: [SPECS.md](SPECS.md) § Git Branching.
+
+**Hooks block automatically** — each explains itself and names the fix when it fires, so only the numbers you need *while writing* are here: files warn at **150 lines**, hard-block at **200**. The rest (facade boundaries, missing first-line comments, duplicated blocks, the CONTEXT.md chain, interface stubs, `verify:fast` green, a BUGS FIXED flip needing a `test/**/b<N>-*` spec) surface at the moment they apply. Reasoning behind them: [VERIFY.md](VERIFY.md).
 
 **New project**: needs `CONTEXT.md` + `README.md`. Templates: [`_templates/`](_templates/).
+
 **CONTEXT.md files**: line 2 = `> description`, line 3 = `> spec:` for a module. The routing block is auto-managed — never edit it by hand.
 
 <!-- routing:start -->
