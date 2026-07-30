@@ -124,7 +124,7 @@ codegraph init /mnt/workspace/code/<project>
 
 ### Projects with codegraph
 
-All current projects are indexed: `isoroll-module`, `flows`, `apptime`, `voti`, `shortvid`, `corpora`, `futebots`, `ppc`.
+All current projects are indexed: `isoroll-module`, `flows`, `apptime`, `corpora`, `futebots`, `ppc`.
 
 ---
 
@@ -141,5 +141,4 @@ Each project has its own git repo. Project-specific environment setup lives in t
 | `voti` | Next.js / TypeScript | `npm install` |
 | `corpora` | Python / PyTorch | `pip install -r requirements.txt` |
 | `futebots` | Python | `pip install -r requirements.txt` |
-| `shortvid` | Python / PySide6 | `pip install -r requirements.txt` |
 | `ppc` | Vanilla HTML / Alpine.js | open `index.html` via local server |

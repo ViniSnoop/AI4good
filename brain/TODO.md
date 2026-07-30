@@ -13,12 +13,6 @@
 - [ ] [cnpq] checar ELEGIBILIDADE na chamada UNIVERSAL — porta de entrada, antes de qualquer escrita (2026-07-23)
 - [ ] sleep by 00:30 — streak-3 starts tonight
 
-## programacao1 — simulador social
-
-- [ ] criar repo GitHub `lsfcin/programacao1-simulador` (novo, separado de `programming-101`)
-- [ ] `git init` em `code/programacao1/` + git flow (main → develop)
-- [ ] começar coding: `src/setup.py` + `src/qualidade.py` (Milestone 1 no ROADMAP.md)
-
 ## week
 
 - [ ] revisar artigo do svr — prazo ~25/07 (fazer nos próximos 2 dias, confirmado 23/07)
@@ -97,6 +91,6 @@
 - [ ] [academy] assess "mandato coletivo" (participatory-mandate: constituents vote on bills,
       track spending, propose amendments) as a mechanism-design case worth citing/comparing against
       current research angle (cria/instituto) — ref in `academy/refs/REFS.md` (INBOX 2026-07-26)
-- [ ] [code] novo projeto: gerador de animações (claude-code + remotion) — separado do shortvid
+- [ ] [code] novo projeto: gerador de animações (claude-code + remotion)
 - [ ] [flows] avaliar a orquestração graph-native de agentes do Claude Code contra o que `code/flows` já faz — e checar se o tal "Graph Engineering" (Microsoft/Stanford/Anthropic) existe de fato; o próprio post diz que só um dos dois é real (ref em `core/refs/REFS.md`, INBOX 2026-07-29)
 - [ ] [dobra / local-ai] avaliar as 10 libs de fine-tuning local (Unsloth, LLaMA-Factory, PEFT, Axolotl, TRL, torchtune, LitGPT, SWIFT, DeepSpeed, AutoTrain) — quais servem ao runner de SLM do dobra na RTX 3050 6GB? ref em `core/refs/REFS.md` (INBOX 2026-07-27)
