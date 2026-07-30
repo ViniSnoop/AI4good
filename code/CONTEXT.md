@@ -45,6 +45,7 @@ You are a SENIOR software architect, your code WILL be evaluated!
 | Subdirectory | Description |
 |--------------|-------------|
 | [`_templates/`](_templates/CONTEXT.md) | Project scaffolding templates — CONTEXT.md, README.md, SPECS.md, ROADMAP.md skel |
+| [`aiwbot/`](aiwbot/CONTEXT.md) | Provider-agnostic bot: control swappable coding agents (claude·opencode·copilot) |
 | [`apptime/`](apptime/CONTEXT.md) | Android app to reduce phone addiction through awareness, without blocking |
 | [`corpora/`](corpora/CONTEXT.md) | Real-time 3D computer vision pipeline — depth, pose, segmentation from webcam |
 | [`cria/`](cria/CONTEXT.md) | Workflow executável de ideação híbrida (motores de criatividade + score de front |

@@ -102,6 +102,11 @@ It prints the extracted text — metadata → captions → speech → OCR → VL
 something is found. Route on that text, the same way you route any other entry.
 
 Rules:
+- **This step is not optional and not a judgement call** (Lucas, 2026-07-29: *"em algumas triagens
+  de links o OCR e o leitor de vídeo não funcionam automaticamente. é para funcionar sempre"*). It
+  had been skipped when a link "looked obvious" or when there were many at once. There is no such
+  case: an unextracted link is an unroutable entry, so it stays in INBOX until the tool has run on
+  it. Report a skip explicitly — never route around it silently.
 - Lucas's own note next to the link is the strongest signal there is ("útil pro isoroll content"
   *is* the route). Read it before the extracted text, not after.
 - Extraction failed (login-gated, dead link)? Say so, leave the entry, move on. Instagram needs
