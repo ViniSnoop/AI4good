@@ -6,38 +6,27 @@ You are a SENIOR software architect, your code WILL be evaluated!
 **Before editing any file:**
 1. Read it first. Before modifying a function, grep for all callers. Research before you edit.
 2. Read the target project's CONTEXT.md.
-3. For architecture/flow questions, use `codegraph` (via Bash) before reading raw source — projects with a `.codegraph/` index are indexed; see [SETUP.md](SETUP.md#codegraph).
-4. Read the facade (`index.ts` / `__init__.py`) of every module you'll touch — `facade-gate` will block edits until you do.
-5. Language/pattern rules and file templates: [SPECS.md](SPECS.md).
+3. For architecture/flow questions, use `codegraph` (via Bash) before reading raw source — projects with a `.codegraph/` index are indexed; see [SETUP.md](SETUP.md#codegraph). The index auto-syncs after every edit via the post-edit hook.
+4. Read the facade (`index.ts` / `__init__.py`) of every module you'll touch.
 
-**codegraph** — most projects indexed; call via Bash (no MCP). Index auto-syncs after every edit via post-edit hook. Command reference: [SETUP.md](SETUP.md#codegraph).
+**You enforce this — no hook can:**
+- REUSE always. NEVER copy-paste: refactor, extract a function or class.
+- ONE responsibility per file — SMALL IS BETTER.
+- REFACTOR after each coding prompt, and report only *after* refactoring.
+- Names must be guessable without opening the file, reading the function, or inspecting the variable.
 
-**Hooks enforce automatically** (no need to re-check):
-- CONTEXT.md chain of the target subtree must be Read before any file access (context-gate)
-- File size: warn at 150 LOC, hard block at 200 LOC
-- Cross-folder imports only through `index` / `__init__` (facade boundary)
-- New files require first-line description comment
-- Interface stubs (`.d.ts`, `.pyi`, `.dart.api`) regenerated at commit
-- Duplicated blocks involving staged files block the commit (jscpd) — extract, never copy
-- Projects declaring `verify:fast` must be green to commit; BUGS FIXED flips require a `test/**/b<N>-*` regression spec (see [VERIFY.md](VERIFY.md))
+**Language rules, file templates, and the R1–R6 style table:** [SPECS.md](SPECS.md) § Style Rules (R1-R6).
+R1–R6 apply to **all** languages — TypeScript has ESLint enforcement, the rest are induced.
+Git Flow, the branch gate's scope, and the push policy: [SPECS.md](SPECS.md) § Git Branching.
 
-**You enforce** (hooks cannot catch these):
-- REUSE always
-- NEVER copy-paste, instead, REFACTOR, extract a function or class
-- ONE responsibility per file - SMALL IS BETTER
-- Style rules R1-R6 apply to ALL languages — TypeScript has ESLint enforcement, Python/others are induced. See [SPECS.md](SPECS.md#style-rules-r1-r6) for the full table
-  - **R1** One statement per line
-  - **R2** One function/method call per statement — no `foo(bar())`, no `arr.filter().map()`; use intermediate variables
-  - **R3** Single return per function
-  - **R4** No untyped casts (`as any`, `# type: ignore`)
-  - **R5** Max 40 lines per function
-  - **R6** Max 2 property accesses from root (`a.b.c` limit; split `a.b.c.d` into two statements)
-- REFACTOR after each coding prompt, report only AFTER refactoring
-- Names must be guessable, no need to open the file, read the function or inspect the variable
+**Hooks block automatically** — each explains itself and names the fix when it fires, so only the
+numbers you need *while writing* are here: files warn at **150 lines**, hard-block at **200**. The
+rest (facade boundaries, missing first-line comments, duplicated blocks, the CONTEXT.md chain,
+interface stubs, `verify:fast` green, a BUGS FIXED flip needing a `test/**/b<N>-*` spec) surface at
+the moment they apply. Reasoning behind them: [VERIFY.md](VERIFY.md).
 
-**Git**: projects use own repos — `git -C <project-path> commit`. Git Flow branching.
 **New project**: needs `CONTEXT.md` + `README.md`. Templates: [`_templates/`](_templates/).
-**CONTEXT.md files**: line 2 = `> description`. Routing block auto-managed — do not edit manually.
+**CONTEXT.md files**: line 2 = `> description`, line 3 = `> spec:` for a module. The routing block is auto-managed — never edit it by hand.
 
 <!-- routing:start -->
 ## Routing
