@@ -304,7 +304,7 @@ The three axes, kept separate on purpose:
 |---|---|---|
 | **locality** | many small local `CONTEXT.md` = good, never consolidate | judgement |
 | **depth** | cap hops to content; measure before adding a routing level | judgement |
-| **fanout** | > 7 code files in one directory is a **signal** | `entropy_fanout.py`, dashboard |
+| **fanout** | `WARN_FILES=7` asks for a look, `BLOCK_FILES=10` is the cap | `entropy_fanout.py`, dashboard |
 
 **Where they meet:** splitting an over-full directory *adds a hop*, so fanout and depth trade against
 each other directly. Pay the hop only when the split removes more table than it adds. Worked example:
@@ -314,7 +314,9 @@ directory at 9 files usually does not — the hop costs more than the two rows i
 
 **Net rule:** many small local CONTEXT.md files = good; deep CONTEXT.md → CONTEXT.md → CONTEXT.md
 chains = the thing to bound. For *routing levels*, hop count is the metric, not file count. For
-*source files in one directory*, fanout is the signal and 7 is the number.
+*source files in one directory*, fanout is the signal — **two** numbers, symmetric with the file
+pair, both in [`core/hooks/limits.env`](hooks/limits.env): warn at 7, block at 10. The gap between
+them is deliberate and is where "a split that saves two rows does not pay for its hop" lives.
 
 ### What the routing table may spend tokens on
 

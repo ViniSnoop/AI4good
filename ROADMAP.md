@@ -21,7 +21,7 @@ Four criteria. Nothing else gates v1.
 
 | # | Criterion | Owner | State |
 |---|-----------|-------|-------|
-| 1 | **verify-fast green + Tier 0 live** — naming, placement, pointer integrity, size-as-signal deterministic; entropy dashboard reads clean | Frente 4 | checks live 2026-07-30 · dashboard at 73 findings, must drain |
+| 1 | **verify-fast green + Tier 0 live** — naming, placement, pointer integrity, size-as-signal deterministic; entropy dashboard reads clean | Frente 4 | checks live · **read [`entropy.md`](entropy.md) for the count, never a copy of it** |
 | 2 | **One ledger, no duplicates** — this file is the sole wos ledger, verified by scan not eyeball | Frente 8 | ✅ **MET 2026-07-30** — `test_no_item_lives_in_two_ledgers` |
 | 3 | **Everything pushed, gitflow-shaped** — every `code/` repo on `main`/`feature/*`, zero unpushed, no repo without a remote | Frente 11 | ✅ **MET 2026-07-29** |
 | 4 | **Clonable by a student** — fresh clone gets every capability; deps declared, no undocumented hand-installs | Frente 10 | open |
@@ -139,6 +139,19 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
    caveman-dense; there is no lexical fat. Reverted.
    → **model: sonnet** for the sweeps.
 
+3. ✅ **CLOSED 2026-07-31 — the trim shipped and the nested repos are resynced.** All 24 nested
+   repos regenerated and pushed to their default branch. The corpus barely moved (54.9k → 53.9k)
+   because this same session *added* 7 CONTEXT.md by splitting `pre-commit` and `sync-skills` — but
+   the tail, which was the actual problem, collapsed: `code/aiwbot/tests` **4604 → 2048 tok
+   (−56%)**, `code/isoroll-content/test` **2507 → 1189 (−53%)**, `code/spacemantics/tests`
+   829 → 498. Median chain 2126 → 2075 tok, File-table share still 22%.
+
+   **What this cost, recorded because the estimate was wrong.** The plan called it a mechanical
+   resync. It surfaced the root defect below (Frente 4.4) and three live bugs: the gitignore
+   allowlist silently dropped new files in a moved directory, `pre-edit.py` counted lines one
+   higher than every other counter, and `entropy_corpus.ENFORCEMENT` spelled out a sibling path
+   that stopped exempting the retired-token checker the moment the hooks moved.
+
 ---
 
 ## Frente 4 — workspace anti-entropy — **the keystone, v1 criterion 1**
@@ -186,16 +199,39 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
    → **model: sonnet**.
 3. 🟢 **the entropy dashboard — live.** `make entropy` → [`entropy.md`](entropy.md), 1904 tracked
    files across the workspace **and its 24 nested repos**, ~1.3 s. Read the report; never re-scan
-   the tree. After job A drained the six `HISTORY.md`: **73 findings** — 34 off-allowlist `.md`
-   types (Frente 12.1's backlog), 26 size signals, 4 hand-inventory `CONTEXT.md`, 5
-   naming/placement, 4 retired tokens, 0 duplicate slugs. Criterion 1 wants this reading clean;
-   the remaining work is draining it.
+   the tree. **Never copy its counts into this file** — a copied number is the drift these checks
+   exist to catch; the summary table at the top of the report is the interface. Criterion 1 wants
+   it reading clean; the remaining work is draining it.
 
    The dashboard scans nested repos, the **tests do not** — an assertion in this repo about
    another repo's content fails for reasons this repo cannot fix, and each nested repo runs its
    own verify. Where a check is green workspace-wide it is asserted at zero in `verify-fast`
    (retired tokens, duplicate slugs); where it is not, `test_entropy_naming.py` holds a named
    **baseline** so a new violation fails the build and a fixed one must leave the list.
+
+4. ✅ **the file law — one definition of "a code file", shipped 2026-07-31.** It was defined **five**
+   times (`check-line-counts.sh`, `entropy-dashboard.py`, `workspace_meta.py`, `pre-edit.py`,
+   `facade-gate.py`) and no two agreed. `.sh` and extensionless executables were invisible to the
+   **blocking** gate, which is how `pre-commit` reached 385 lines and `sync-skills` 341 unopposed —
+   *not* a `--no-verify` bypass, as this file previously claimed. Now
+   [`core/hooks/file_law.py`](core/hooks/file_law.py), the numeric-law sibling of `schema_law.py`,
+   with `limits.env` holding all four numbers and `vendored.txt` / `extensionless.txt` as named
+   exception lists. Guarded by `test_no_checker_carries_its_own_extension_list`.
+
+   Hooks moved `.hooks/` → [`core/hooks/`](core/hooks/CONTEXT.md) the same day: nothing about the
+   location was Claude-specific, and hidden meant unmonitored by its own checks.
+
+5. 🟡 **drain to zero, then flip fanout to a hard block** (Lucas 2026-07-31: hard block, no
+   grandfathering). The flip is coherent only at zero — switching it on today fails every commit in
+   eight repos, including the commits that would fix it. Live lists in `entropy.md`; when both read
+   Clean, add fanout to `core/hooks/gates/` beside the type gate and delete `BASELINE` from
+   `test_entropy_fanout.py` in the same commit.
+   - **files over `BLOCK_LINES`** — `post-edit.sh` (208) and `s3_batch.sh` (209) are one small split
+     each; the rest are `code/flows/engine/ui/src/*.jsx`, which is a React refactor, not a sweep.
+   - **directories over `BLOCK_FILES`** — worst first: `isoroll-content/src/pipeline` (55),
+     `aiwbot/tests` (51 — natural split `bugs/ features/ unit/`), `core/hooks` (49, halved by its
+     own split already), `aiwbot/frontend` (38), `core/tools` (37).
+   → **model: sonnet**, one repo at a time.
 
 ---
 
