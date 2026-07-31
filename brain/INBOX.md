@@ -9,6 +9,43 @@
 
 <!-- add entries below, newest first -->
 
+https://www.instagram.com/p/DbQNApxEnCh/?img_index=3&igsh=ODVqMmEzdjZyMWQ2
+ver se é verdade e se for estudar como aproveitar no wos
+— via aiwbot · 2026-07-31
+
+https://www.instagram.com/p/Da5jnu9E_0n/?img_index=5&igsh=MW93NndwcWZ5MWdteg==
+— via aiwbot · 2026-07-31
+
+https://www.instagram.com/reel/DbUJiTmiIRA/?igsh=MTMzYzRkcmFxbjIwbA==
+tenho que olhar isso!
+— via aiwbot · 2026-07-31
+
+To automatically resume a Claude Code session when the usage limit resets, you can use open-source community tools or custom scripts since native auto-continue is not yet built-in. 
+1. Use claude-auto-retry (Recommended) This is a dedicated open-source tool that intercepts the claude command, monitors for rate limits, and automatically sends "continue" when the window opens.
+npm i -g claude-auto-retry
+claude-auto-retry install
+How it works: It uses tmux to send keys to the active pane. It is timezone-aware and requires no dependencies beyond Node.js. 
+2. Bash Function (claude_go) For a lightweight solution, add this function to your ~/.bashrc to sleep until the reset time and then resume.
+function claude_go() {
+  local message="${1:-go on}"
+  local reset_time=$(claude -p 'check' | awk '{print $NF}')
+  local reset_ts=$(date -d "$reset_time" +%s)
+  local now_ts=$(date +%s)
+  local sleep_duration=$(( reset_ts - now_ts ))
+  if [[ $sleep_duration -lt 0 ]]; then sleep_duration=$(( sleep_duration + 86400 )); fi
+  echo "Sleeping until $reset_time..."; sleep "$sleep_duration"
+  claude --permission-mode acceptEdits -c "$message"
+}
+3. Python Script with pyautogui A simple script can type "continue" and press enter after a set timer.
+import time, pyautogui
+time.sleep(3 * 60 * 60) # Wait 3 hours
+pyautogui.typewrite("continue")
+pyautogui.press("enter")
+Best Practices:
+Context Preservation: Users recommend saving a state note (current task, files touched) before the limit hits to ensure the resumed session picks up efficiently. 
+Optimization: Reduce context size by disabling unused skills/tools in settings.json to maximize the effective window of your limit.
+— via aiwbot · 2026-07-31
+
 https://www.instagram.com/reel/Da5HMCMBY62/?utm_source=ig_web_copy_link&igsh=NTc4MTIwNjQ2YQ==
 pro projeto da ecovila
 — via aiwbot · 2026-07-31

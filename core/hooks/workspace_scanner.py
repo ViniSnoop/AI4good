@@ -2,11 +2,14 @@
 import re
 from pathlib import Path
 
+from file_law import load_limits
 from workspace_meta import (
     ALL_EXTS, PLACEHOLDER, extract_api, file_description, interface_for,
 )
 
-SPLIT_THRESHOLD = 7
+# The number lives in limits.env, never here — this file held the only copy for months
+# while three other checkers each invented their own (see file_law.py).
+SPLIT_THRESHOLD = load_limits()['WARN_FILES']
 _SKIP_DIRS   = {'node_modules', '__pycache__', '.git', 'dist', 'build', '.venv', 'venv'}
 FACADE_NAMES = {'index.ts', 'index.tsx', 'index.js', 'index.jsx', '__init__.py', 'index.dart'}
 

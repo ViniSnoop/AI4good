@@ -3,7 +3,7 @@
 import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
-from workspace_meta import CODE_EXTS
+from file_law import is_code_file
 from workspace_scanner import (
     SPLIT_THRESHOLD,
     code_files, has_code_content, subdir_scan,
@@ -146,7 +146,7 @@ def sync(target: Path):
         print(f'  removed stale entry: {r}')
 
     if not workspace_mode:
-        code_count = sum(1 for f, _ in direct_files if f.suffix in CODE_EXTS)
+        code_count = sum(1 for f, _ in direct_files if is_code_file(f))
         if code_count > SPLIT_THRESHOLD:
             print(f'⚠  {directory}: {code_count} code files — consider splitting')
 

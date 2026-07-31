@@ -3,7 +3,7 @@ from pathlib import Path
 
 WORKSPACE: Incomplete
 FACADE_NAMES: Incomplete
-CODE_EXTS: Incomplete
+FACADE_EXTS: Incomplete
 TEST_RE: Incomplete
 
 def facades_read(session_id: str) -> set[str]: ...

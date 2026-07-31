@@ -1,10 +1,8 @@
 from _typeshed import Incomplete
+from file_law import CODE_EXTS as CODE_EXTS
 
-CODE_EXTS: Incomplete
 CONTENT_EXTS: Incomplete
-
-def load_line_limits() -> tuple[int, int]: ...
-
+WORKSPACE_ROOT: Incomplete
 WARN_LINES: Incomplete
 BLOCK_LINES: Incomplete
 FIRST_LINE_COMMENT: Incomplete

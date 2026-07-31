@@ -16,6 +16,7 @@ from pathlib import Path
 from entropy_context import check_goal_link
 from entropy_corpus import enforcement_paths, tracked_files
 from entropy_fanout import fanout_signals
+from file_law import is_code_file, is_vendored, load_limits
 from entropy_ledger import (duplicate_slugs, goal_vocabulary, retired_hits,
                             wiki_link_hits)
 from entropy_naming import check_dirs, check_placement, check_shape
@@ -26,11 +27,9 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from importlib.util import module_from_spec, spec_from_file_location  # noqa: E402
 
 REPORT = WORKSPACE_ROOT / 'entropy.md'
-LIMITS = WORKSPACE_ROOT / 'core/hooks/line-limits.env'
 # A curated doc past this asks for a delta review. Docs are long because thinking is long;
 # this is the point where it is worth asking whether two documents are wearing one name.
 DOC_SIGNAL_LINES = 300
-CODE_SUFFIXES = {'.py', '.ts', '.tsx', '.js', '.jsx', '.dart', '.sh'}
 
 LEDGERS = {
     'wos-roadmap': [WORKSPACE_ROOT / 'ROADMAP.md'],
@@ -48,10 +47,7 @@ def _type_gate():
 
 
 def _block_lines() -> int:
-    for line in LIMITS.read_text(encoding='utf-8').splitlines():
-        if line.startswith('BLOCK_LINES='):
-            return int(line.split('=', 1)[1])
-    return 200
+    return load_limits()['BLOCK_LINES']
 
 
 def _added_by(path: Path) -> str:
@@ -102,7 +98,8 @@ def size_signals(files: list) -> list:
     block = _block_lines()
     signals = []
     for path in files:
-        if path.suffix not in CODE_SUFFIXES and path.suffix != '.md':
+        code = is_code_file(path) and not is_vendored(path, WORKSPACE_ROOT)
+        if not code and path.suffix != '.md':
             continue
         try:
             lines = len(path.read_text(encoding='utf-8').splitlines())
@@ -110,7 +107,7 @@ def size_signals(files: list) -> list:
             continue
         if path.suffix == '.md' and lines > DOC_SIGNAL_LINES:
             signals.append(f'{_rel(path)} — {lines} lines (doc signal, review the delta)')
-        elif path.suffix in CODE_SUFFIXES and lines > block:
+        elif code and lines > block:
             signals.append(f'{_rel(path)} — {lines} lines, over the {block} cap; '
                            f'introduced by {_added_by(path)}')
     return signals

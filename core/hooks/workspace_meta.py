@@ -2,8 +2,10 @@
 import re, ast
 from pathlib import Path
 
-CODE_EXTS    = {'.js', '.ts', '.tsx', '.py', '.dart', '.html', '.css', '.scss'}
-CONTENT_EXTS = {'.md', '.yaml', '.yml', '.tex', '.toml'}
+# One definition, from core/hooks/file_law.py — this module used to carry its own copy.
+from file_law import CODE_EXTS  # noqa: E402  (re-exported: callers import it from here)
+
+CONTENT_EXTS = {'.md', '.yaml', '.yml', '.toml'}
 ALL_EXTS     = CODE_EXTS | CONTENT_EXTS
 PLACEHOLDER  = '← add first-line comment'
 

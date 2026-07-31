@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from pathlib import Path
 
-SPLIT_THRESHOLD: int
+SPLIT_THRESHOLD: Incomplete
 FACADE_NAMES: Incomplete
 
 def code_files(directory: Path) -> list: ...

@@ -4,25 +4,14 @@ import os, re, sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
+from file_law import CODE_EXTS, is_code_file, is_vendored, load_limits
 from hook_input import parse_stdin
 
-CODE_EXTS    = {'.js', '.ts', '.tsx', '.py', '.dart', '.html', '.css', '.scss', '.tex'}
 CONTENT_EXTS = {'.md', '.yaml', '.yml', '.toml'}
+WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 
-
-def load_line_limits() -> tuple[int, int]:
-	limits_path = Path(__file__).with_name('line-limits.env')
-	limits: dict[str, int] = {}
-	for raw_line in limits_path.read_text().splitlines():
-		line = raw_line.strip()
-		if not line or line.startswith('#') or '=' not in line:
-			continue
-		name, value = line.split('=', 1)
-		limits[name] = int(value)
-	return limits['WARN_LINES'], limits['BLOCK_LINES']
-
-
-WARN_LINES, BLOCK_LINES = load_line_limits()
+_limits = load_limits()
+WARN_LINES, BLOCK_LINES = _limits['WARN_LINES'], _limits['BLOCK_LINES']
 
 FIRST_LINE_COMMENT = {
 	'.py': r'^\s*#',    '.js':   r'^\s*//', '.ts':   r'^\s*//',
@@ -56,7 +45,8 @@ if basename == 'CONTEXT.md' and tool == 'Write' and not os.path.exists(file_path
 		sys.exit(2)
 
 _, ext = os.path.splitext(file_path)
-is_code    = ext in CODE_EXTS and not file_path.endswith('.d.ts')
+_path      = Path(file_path)
+is_code    = is_code_file(_path) and not is_vendored(_path, WORKSPACE_ROOT)
 is_content = ext in CONTENT_EXTS and basename != 'CONTEXT.md'
 
 if not is_code and not is_content:

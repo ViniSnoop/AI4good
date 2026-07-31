@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
+from file_law import CODE_EXTS
 from pathlib import Path
 
-CODE_EXTS: Incomplete
 CONTENT_EXTS: Incomplete
 ALL_EXTS = CODE_EXTS | CONTENT_EXTS
 PLACEHOLDER: str

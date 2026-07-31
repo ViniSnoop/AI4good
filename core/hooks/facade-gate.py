@@ -9,7 +9,9 @@ from hook_input import parse_stdin
 
 WORKSPACE    = Path('/mnt/workspace')
 FACADE_NAMES = {'index.ts', 'index.tsx', 'index.js', 'index.jsx', '__init__.py', 'index.dart'}
-CODE_EXTS    = {'.ts', '.tsx', '.js', '.jsx', '.py', '.dart'}
+# NOT the file_law code set: this is "languages that have a facade convention", a genuinely
+# narrower question than "is this code". Named apart so the two never get conflated again.
+FACADE_EXTS  = {'.ts', '.tsx', '.js', '.jsx', '.py', '.dart'}
 TEST_RE      = re.compile(r'(?:^|/)(?:test_[^/]+|[^/]+_test|[^/]+\.(?:test|spec))\.[^/]+$')
 
 
@@ -42,7 +44,7 @@ def main() -> int:
 	file_path = Path(str(tool_input.get('file_path', '')))
 	if 'code' not in file_path.parts:
 		return 0
-	if file_path.suffix not in CODE_EXTS:
+	if file_path.suffix not in FACADE_EXTS:
 		return 0
 	if file_path.name in FACADE_NAMES:
 		return 0
