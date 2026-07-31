@@ -222,15 +222,32 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
    location was Claude-specific, and hidden meant unmonitored by its own checks.
 
 5. 🟡 **drain to zero, then flip fanout to a hard block** (Lucas 2026-07-31: hard block, no
-   grandfathering). The flip is coherent only at zero — switching it on today fails every commit in
-   eight repos, including the commits that would fix it. Live lists in `entropy.md`; when both read
-   Clean, add fanout to `core/hooks/gates/` beside the type gate and delete `BASELINE` from
+   grandfathering). The flip is coherent only at zero — the pre-commit hook is global
+   (`core.hooksPath`), so switching it on while nested repos are over the cap fails every commit in
+   those repos, including the commits that would fix it. Live lists in `entropy.md`; when both read
+   Clean, add fanout to `core/hooks/checks/` beside the type gate and delete `BASELINE` from
    `test_entropy_fanout.py` in the same commit.
-   - **files over `BLOCK_LINES`** — `post-edit.sh` (208) and `s3_batch.sh` (209) are one small split
-     each; the rest are `code/flows/engine/ui/src/*.jsx`, which is a React refactor, not a sweep.
+
+   **This repo is done (2026-07-31).** `core/hooks` 50 → a root of 6 and 13 responsibilities;
+   `core/tools` 37 → 8 families, every CLI path changed (Lucas's call over a named exception);
+   `core/tools/test` 12 → `law/ workspace/ video/`. No directory in the wos repo is over
+   `BLOCK_FILES`; the five that remain are 8-10 files, which `limits.env` calls a warning on
+   purpose. The `BASELINE` in `test_entropy_fanout.py` is down to three entries, none in `core/`
+   except the two caveman directories.
+
+   **The lesson worth keeping.** Moving files satisfies the fanout count without helping the
+   reader: the routing generator folds any directory under `WARN_FILES` back into its parent, so a
+   split only pays off once each new directory declares itself with a `CONTEXT.md`. Both splits
+   here did that — `core/hooks/CONTEXT.md` went 50 rows → 19, `core/tools/CONTEXT.md` 37 → 12.
+   A split that leaves the parent table the same size is the check being gamed, not answered.
+
+   **What is left, all of it in nested repos:**
+   - **files over `BLOCK_LINES`** — 8 × `code/flows/engine/ui/src/*.jsx` (App.jsx 844, RouterNode
+     515, ExecutorNode 428): a React refactor, not a sweep. Plus `isoroll-content/src/pipeline/
+     s3_batch.sh` (209), one small split, owned by the parallel isoroll session.
    - **directories over `BLOCK_FILES`** — worst first: `isoroll-content/src/pipeline` (55),
-     `aiwbot/tests` (51 — natural split `bugs/ features/ unit/`), `core/hooks` (49, halved by its
-     own split already), `aiwbot/frontend` (38), `core/tools` (37).
+     `aiwbot/tests` (51 — natural split `bugs/ features/ unit/`), `aiwbot/frontend` (38),
+     `isoroll-content/test` (31), `isoroll-module/src/render` (30).
    → **model: sonnet**, one repo at a time.
 
 ---
