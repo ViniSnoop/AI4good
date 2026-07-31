@@ -10,7 +10,7 @@
 import re
 from pathlib import Path
 
-WORKSPACE_ROOT = Path(__file__).resolve().parents[3]
+from conftest import WORKSPACE_ROOT  # the depth lives in one file, not nine
 MEMORY_DIR = Path.home() / ".claude/projects/-mnt-workspace/memory"
 
 # Deleted content still on disk is not workspace structure. A file manager moves a

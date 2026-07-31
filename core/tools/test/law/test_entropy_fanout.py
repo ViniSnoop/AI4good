@@ -11,7 +11,7 @@
 import sys
 from pathlib import Path
 
-WORKSPACE_ROOT = Path(__file__).resolve().parents[3]
+from conftest import WORKSPACE_ROOT  # the depth lives in one file, not nine
 # sys.path for the enforcement layer is set once, by conftest.py — a second copy
 # here would go stale the next time core/hooks is split.
 
@@ -24,7 +24,6 @@ WARN = load_limits()['WARN_FILES']
 # Inherited fanout, each a directory that owes a split. Nothing else may join.
 BASELINE = {
     'core/tools',
-    'core/tools/test',
     'core/skills/caveman/scripts',
     'core/skills/caveman/hooks',
     'academy/administration/coordenacao-lc/novo-ppc-bcc/ementas',

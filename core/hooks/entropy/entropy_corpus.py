@@ -51,9 +51,12 @@ def nested_repos(root: Path, depth: int = 3) -> list:
 
 # The law, the check that enforces it, that check's tests, and the report that quotes the
 # findings all have to be able to NAME a retired token. Nothing else may.
-ENFORCEMENT = ('core/SCHEMA.md', 'entropy.md',
-               'core/tools/test/test_entropy_ledger.py',
-               'core/tools/test/test_entropy_ledger.pyi')
+ENFORCEMENT = ('core/SCHEMA.md', 'entropy.md')
+
+# The ledger check's own tests, found by name instead of by path. Spelling the path out is
+# what broke this exemption the moment core/tools/test was split (2026-07-31) — the same
+# defect as the hard-coded sibling path below, one directory over.
+_CHECKER_TESTS = 'core/tools/test/**/test_entropy_ledger.py*'
 
 # The checker and its stub are SIBLINGS of this file, so they are derived rather than
 # spelled out. A hard-coded path here stops exempting them the moment the hooks directory
@@ -64,4 +67,5 @@ _CHECKER = ('entropy_ledger.py', 'entropy_ledger.pyi')
 def enforcement_paths(root: Path) -> set:
     here = Path(__file__).resolve().parent
     return ({(root / name).resolve() for name in ENFORCEMENT}
-            | {here / name for name in _CHECKER})
+            | {here / name for name in _CHECKER}
+            | {p.resolve() for p in root.glob(_CHECKER_TESTS)})

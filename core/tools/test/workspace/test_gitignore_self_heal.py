@@ -3,7 +3,9 @@
 import subprocess
 from pathlib import Path
 
-SCRIPT = Path(__file__).resolve().parents[3] / "core/hooks/git" / "gitignore-self-heal.sh"
+from conftest import WORKSPACE_ROOT
+
+SCRIPT = WORKSPACE_ROOT / "core/hooks/git" / "gitignore-self-heal.sh"
 
 
 def _make_fixture(tmp_path: Path) -> Path:

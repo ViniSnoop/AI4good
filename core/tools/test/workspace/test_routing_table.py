@@ -12,7 +12,7 @@
 import sys
 from pathlib import Path
 
-WORKSPACE_ROOT = Path(__file__).resolve().parents[3]
+from conftest import WORKSPACE_ROOT  # the depth lives in one file, not nine
 # sys.path for the enforcement layer is set once, by conftest.py — a second copy
 # here would go stale the next time core/hooks is split.
 
