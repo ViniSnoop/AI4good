@@ -118,6 +118,7 @@ core/*
 !core/WATCHLIST.md
 !core/agents/
 !core/flows/
+!core/hooks/
 !core/refs/
 !core/skills/
 !core/tools/
