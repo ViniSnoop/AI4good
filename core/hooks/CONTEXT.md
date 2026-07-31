@@ -67,6 +67,14 @@ toolchain they depend on: [`SETUP.md`](../../SETUP.md).
 | [`facade-scan.py`](facade-scan.py) | [`facade-scan.pyi`](facade-scan.pyi) | — | Pre-Write hook: list existing facade exports before creating a new file in the same module. |
 | [`facade-tracker.py`](facade-tracker.py) | [`facade-tracker.pyi`](facade-tracker.pyi) | `main` | PostToolUse: Read — record facade file reads to session state for facade-gate.py. |
 | [`file_law.py`](file_law.py) | [`file_law.pyi`](file_law.pyi) | `is_code_file`, `load_limits`, `allowed_extensionless`, `is_vendored`, `main` | What a file IS, and which rules apply to it. The numeric-law sibling of schema_law.py: |
+| [`gates/duplication-and-terms.sh`](gates/duplication-and-terms.sh) | — | — | ← add first-line comment |
+| [`gates/lint.sh`](gates/lint.sh) | — | — | ← add first-line comment |
+| [`gates/project-contract.sh`](gates/project-contract.sh) | — | — | ← add first-line comment |
+| [`gates/source-quality.sh`](gates/source-quality.sh) | — | — | ← add first-line comment |
+| [`generators/interfaces.sh`](generators/interfaces.sh) | — | — | ← add first-line comment |
+| [`generators/prepare.sh`](generators/prepare.sh) | — | — | ← add first-line comment |
+| [`generators/routing.sh`](generators/routing.sh) | — | — | ← add first-line comment |
+| [`generators/skills.sh`](generators/skills.sh) | — | — | ← add first-line comment |
 | [`gitflow-gate.sh`](gitflow-gate.sh) | — | — | ← add first-line comment |
 | [`gitignore-self-heal.sh`](gitignore-self-heal.sh) | — | — | ← add first-line comment |
 | [`hook_input.py`](hook_input.py) | [`hook_input.pyi`](hook_input.pyi) | `parse_stdin`, `seen_file`, `load_seen`, `mark_seen` | Shared parser for Claude Code hook stdin JSON — nested (current) and flat (legacy shim) schemas. |
@@ -75,7 +83,7 @@ toolchain they depend on: [`SETUP.md`](../../SETUP.md).
 | [`paper-scaffold.py`](paper-scaffold.py) | [`paper-scaffold.pyi`](paper-scaffold.pyi) | `scaffold`, `main`, `put` | paper-scaffold.py: Initialize or adapt a paper directory to workspace standards. |
 | [`post-commit`](post-commit) | — | — | auto-push feature/* so work survives a dead session |
 | [`post-edit.sh`](post-edit.sh) | — | — | ← add first-line comment |
-| [`pre-commit`](pre-commit) | — | — | Workspace pre-commit hook |
+| [`pre-commit`](pre-commit) | — | — | the dispatcher. |
 | [`pre-edit.py`](pre-edit.py) | [`pre-edit.pyi`](pre-edit.pyi) | — | PreToolUse: Edit|Write — size gate (200-line block), first-line comment, CONTEXT.md description. |
 | [`pre-read.sh`](pre-read.sh) | — | — | ← add first-line comment |
 | [`precompact-wipe.sh`](precompact-wipe.sh) | — | — | ← add first-line comment |

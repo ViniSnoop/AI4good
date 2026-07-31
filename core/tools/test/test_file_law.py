@@ -91,11 +91,15 @@ def test_every_extensionless_tracked_file_is_explained() -> None:
 
 def test_no_checker_carries_its_own_extension_list() -> None:
     """The defect this whole module exists to prevent: a second definition of "code"."""
+    checkers = ['entropy-dashboard.py', 'entropy_fanout.py', 'workspace_meta.py',
+                'pre-edit.py', 'context_synchronizer.py', 'check-line-counts.sh']
+    checkers += [f'gates/{p.name}' for p in sorted((HOOKS / 'gates').glob('*.sh'))]
+    checkers += [f'generators/{p.name}' for p in sorted((HOOKS / 'generators').glob('*.sh'))]
     offenders = []
-    for name in ('entropy-dashboard.py', 'entropy_fanout.py', 'workspace_meta.py',
-                 'pre-edit.py', 'context_synchronizer.py', 'check-line-counts.sh'):
+    for name in checkers:
         source = (HOOKS / name).read_text(encoding='utf-8')
-        if "'.py'" in source and "'.ts'" in source and 'file_law' not in source:
+        restates = ("'.py'" in source and "'.ts'" in source) or 'js|ts|tsx|py' in source
+        if restates and 'file_law' not in source:
             offenders.append(name)
     assert not offenders, f'these restate the code-file law instead of importing it: {offenders}'
 
