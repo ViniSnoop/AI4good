@@ -18,7 +18,7 @@ Lines with no explicit `solidFill.color` (empty dict or missing `solidFill`) are
 `weightedFontFamily.weight = 400` (Regular) is not emitted as inline CSS — body text inherits from `style.css` global rule (`font-weight: 300`). Only non-400 weights (300, 700, 900) are emitted as `font-weight:N` spans. This means body text rendered without explicit weight gets Raleway Light (300) from CSS default.
 
 ### style.css is regenerated on every port
-`_make_style_css()` in `core/tools/slides` rewrites `style.css` on each port. Must include all desired global rules there, not just font imports.
+`_make_style_css()` in `core/tools/slides/slides` rewrites `style.css` on each port. Must include all desired global rules there, not just font imports.
 
 ### mouseWheel: true in Slidev frontmatter doesn't work
 Slidev 52.16.0 ignores `mouseWheel: true` in frontmatter. Wheel navigation requires a custom `setup/main.ts` with a `wheel` event listener. Current impl uses delta accumulation (`accum += deltaY`; advance at ±100 threshold) so one mechanical tick = one slide, trackpad works too. Import `@slidev/types` fails — `@slidev/types` is nested inside `@slidev/cli/node_modules/` and not resolvable from project root. Use plain TypeScript function signatures instead.

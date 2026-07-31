@@ -65,7 +65,7 @@ EOF
 		fi
 		;;
 	*.csv|*.tsv)
-		python3 /mnt/workspace/core/tools/inspect "$file" 2>/dev/null \
+		python3 /mnt/workspace/core/tools/assets/inspect "$file" 2>/dev/null \
 			&& printf "✓ .csvif: %sif\n" "$file"
 		;;
 	*.dart)
@@ -78,8 +78,8 @@ EOF
 		while [ "$paper_root" != "/" ] && [ ! -f "$paper_root/terms.yaml" ]; do
 			paper_root=$(dirname "$paper_root")
 		done
-		if [ -f "$paper_root/terms.yaml" ] && [ -x "/mnt/workspace/core/tools/terms" ]; then
-			/mnt/workspace/core/tools/terms "$paper_root" 2>/dev/null | grep -E "^[[:space:]]|^⚠" || true
+		if [ -f "$paper_root/terms.yaml" ] && [ -x "/mnt/workspace/core/tools/paper/terms" ]; then
+			/mnt/workspace/core/tools/paper/terms "$paper_root" 2>/dev/null | grep -E "^[[:space:]]|^⚠" || true
 		fi
 		;;
 	*.bib)

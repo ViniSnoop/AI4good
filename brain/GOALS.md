@@ -3,12 +3,12 @@
 <!-- stats:start -->
 <!-- data:start -->
 ## attention dashboard  _(auto-updated on every commit)_
-last-updated: 2026-07-31 13:16
+last-updated: 2026-07-31 20:25
 
 >**areas** — last 14 days  
 ```
 health       █████░░░░░   36 touches
-career       █░░░░░░░░░   12 touches
+career       ██░░░░░░░░   13 touches
 finances     █░░░░░░░░░   11 touches
 fun          ██████████   62 touches
 spiritual    ███░░░░░░░   20 touches
@@ -20,7 +20,7 @@ CONTEXT                  ███░░░░░░░   5 touches
 burocracia-academica     █░░░░░░░░░   2 touches
 career-ufrpe             ███░░░░░░░   5 touches
 corporal-expressiveness  ███░░░░░░░   5 touches
-craft-flows              ███░░░░░░░   5 touches
+craft-flows              ████░░░░░░   6 touches
 cria                     ███░░░░░░░   5 touches
 dance-bachata            ███░░░░░░░   5 touches
 dance-cavalo-marinho     ███░░░░░░░   5 touches

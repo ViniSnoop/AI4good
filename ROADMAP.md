@@ -281,13 +281,13 @@ sessions, 25% from `/roundup`. Context management is currently Lucas's job, whic
    steps, which should be an *executable installer* (criterion 4 is clonability, and a script is
    testable where prose is not), and capability prose, which is `README.md`. Split by access
    pattern, the technique proven in the `craft.md` decomposition. Retires the third naming shape
-   `core/tools/video.SETUP.md`.
+   `core/tools/video/SETUP.md`.
    → **model: sonnet**.
 2. 🟢 **safe — declare the ad-hoc venv deps.** Four known cases, each installed straight into `.venv`
    to unblock a tool, so a fresh clone silently loses the capability: `pypandoc-binary`
-   (`core/tools/parse` on `.docx`), `secretstorage` (`core/tools/video` reading Brave cookies —
+   (`core/tools/paper/parse` on `.docx`), `secretstorage` (`core/tools/video/video` reading Brave cookies —
    without it yt-dlp fails with an AES-CBC decrypt error that reads like bad credentials; cost a
-   session to diagnose), `gallery-dl` (`core/tools/video` carousel path), and **`flutter`** (found
+   session to diagnose), `gallery-dl` (`core/tools/video/video` carousel path), and **`flutter`** (found
    2026-07-29: `apptime`'s verify cannot run at all). Fix the **class**: a declared dep list the
    whole `core/tools/` surface is checked against.
    → **model: sonnet**.
@@ -415,7 +415,7 @@ One test each. Nothing here needs a decision.
    (b) stale rows survive file deletion (block only updates on save) — live in
    `core/prompts/CONTEXT.md`; (c) it appends a **duplicate** routing block to a hand-curated
    CONTEXT.md that has a manual `## Routing` without sentinels.
-2. `core/tools/video`: `--level full` crashes on image-only posts — `assemble()` always calls
+2. `core/tools/video/video`: `--level full` crashes on image-only posts — `assemble()` always calls
    `media().transcribe(audio)` when the audio path is truthy, but an image post has no audio stream →
    `IndexError: tuple index out of range` inside `faster_whisper`/`av`. Workaround: `--level visual`.
 3. `pre-edit.py` fails **silently** ("No stderr output") on `Write` of new files in some paths
@@ -440,7 +440,7 @@ One test each. Nothing here needs a decision.
   E2E without infrastructure, and (b) an offline corpus: **Kiwix** (all of Wikipedia offline — almost
   certainly the "NOMAD project" Lucas half-remembered). Refs in `core/refs/REFS.md`.
 - **Serious OCR** — real need (image-only PDFs in `branches/ecovila/burocracia/` where
-  `core/tools/parse` returns empty; test Baidu "Unlimited OCR" first), but it belongs where the PDFs
+  `core/tools/paper/parse` returns empty; test Baidu "Unlimited OCR" first), but it belongs where the PDFs
   are, not in the wos ledger.
 
 ## Rejected — killed 2026-07-30, one line each
@@ -476,7 +476,7 @@ months anyway. Cheaper than a list nobody reads.
 - **Evaluate Surfsense** — our `core/tools/{search,papers,fetch,parse}` + research flow already cover it.
 - **Research-flow hallucination audit** — real but unforced; no observed fabrication.
 - **`pre-edit.py` vs `check-line-counts.sh` scope disagreement** — policy nit, no live symptom.
-- **`core/tools/papers --ss` live smoke** — it will smoke itself on the next real use.
+- **`core/tools/paper/papers --ss` live smoke** — it will smoke itself on the next real use.
 - **Commit the `.claude/commands/{drive,calendar}.md` symlinks** — done inline rather than tracked.
 
 ## Sequencing

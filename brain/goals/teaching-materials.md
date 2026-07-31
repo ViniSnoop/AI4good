@@ -13,7 +13,7 @@ Write what bothers you about your current slides, and what an ideal alternative 
 
 ## backlog
 
-> [ ] [research-tools] research best current teaching tools — interactive slides, animations, open formats — start from the animation entries in `core/WATCHLIST.md` (claude-code+remotion, Claude Code UI-animation skills); the workspace already has `core/tools/slides` (Slidev) shipped, so the open question is animation, not slides  
+> [ ] [research-tools] research best current teaching tools — interactive slides, animations, open formats — start from the animation entries in `core/WATCHLIST.md` (claude-code+remotion, Claude Code UI-animation skills); the workspace already has `core/tools/slides/slides` (Slidev) shipped, so the open question is animation, not slides  
 > [ ] [pick-format] pick a target format or tool — one concrete candidate to prototype with  
 > [ ] [migrate-one] convert one existing lecture to the new format as a test  
 > [ ] [agent-access] verify lecture files are in workspace and agent-accessible  
@@ -26,14 +26,14 @@ Write what bothers you about your current slides, and what an ideal alternative 
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-22  ·  trend: advancing
+last-touch: 2026-07-23  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       7 |
-| trimester   |       8 |
-| semester    |       8 |
-| year        |       8 |
-| 2-year      |       8 |
-| 4-year      |       8 |
+| month       |       8 |
+| trimester   |       9 |
+| semester    |       9 |
+| year        |       9 |
+| 2-year      |       9 |
+| 4-year      |       9 |
 <!-- stats:end -->

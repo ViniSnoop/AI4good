@@ -95,7 +95,7 @@ A bare Instagram or YouTube link is unroutable: the URL carries no topic. **Do n
 the URL, and never route a link you have not extracted.** Run the tool first:
 
 ```bash
-core/tools/video "<url>"                    # add --level full when metadata alone is thin
+core/tools/video/video "<url>"                    # add --level full when metadata alone is thin
 ```
 
 It prints the extracted text — metadata → captions → speech → OCR → VLM caption, escalating until
@@ -110,7 +110,7 @@ Rules:
 - Lucas's own note next to the link is the strongest signal there is ("útil pro isoroll content"
   *is* the route). Read it before the extracted text, not after.
 - Extraction failed (login-gated, dead link)? Say so, leave the entry, move on. Instagram needs
-  `~/.config/workspace-video/cookies.txt` — see `core/tools/video.SETUP.md`.
+  `~/.config/workspace-video/cookies.txt` — see `core/tools/video/SETUP.md`.
 - Several links at once: extract them all in one batch before proposing any route.
 - The extracted text is `[src: web:<domain>]` content (see Provenance above) even though the
   bare URL in INBOX carries no tag — `video`/`fetch`/`search` output is quoted from the source,

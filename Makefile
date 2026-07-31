@@ -19,7 +19,7 @@ entropy:
 	@python3 core/hooks/entropy/entropy-dashboard.py
 
 # T2: adds the network-marked tests (live yt-dlp against real URLs — needs cookies
-# for the Instagram cases, see core/tools/video.SETUP.md).
+# for the Instagram cases, see core/tools/video/SETUP.md).
 verify-full:
 	@bash -n core/hooks/*.sh core/hooks/*/*.sh
 	@$(PYTEST) core/tools/test/ -q

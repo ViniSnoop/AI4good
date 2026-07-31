@@ -4,7 +4,7 @@
 # entropy-dashboard.py, workspace_meta.py, pre-edit.py and facade-gate.py each carried an
 # extension list, and no two agreed. `.sh` and extensionless executables were invisible to
 # the BLOCKING gate, which is how core/hooks/pre-commit reached 385 lines and
-# core/tools/sync-skills 341 without ever being stopped.
+# core/tools/wos/sync-skills 341 without ever being stopped.
 #
 # test_no_checker_carries_its_own_extension_list is the one that makes that unrepeatable.
 import subprocess

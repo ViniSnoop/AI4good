@@ -1,6 +1,5 @@
 from _typeshed import Incomplete
 
-WORKSPACE_ROOT: Incomplete
 HOOKS: Incomplete
 
 def test_an_extensionless_executable_is_code(tmp_path) -> None: ...

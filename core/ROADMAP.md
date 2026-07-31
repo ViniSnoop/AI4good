@@ -30,7 +30,7 @@ validator's oracle" status of `deepresearch` was retired 2026-07-23; see [SCHEMA
       Decide: rename the skill to `craft`, or keep `loops` and record why.
 - [ ] **Google-services auth CLI surface isn't standardized across drive/gmail/calendar.** Token
       storage is already unified per `(service, alias)` (see [tools/CONTEXT.md](tools/CONTEXT.md)), but
-      the command/flag surface of `core/tools/drive|gmail|calendar` isn't — audit each tool's `auth`
+      the command/flag surface of `core/tools/google/drive|gmail|calendar` isn't — audit each tool's `auth`
       subcommand + flags and converge on one shape. (INBOX 2026-07-26)
 - [ ] **Routing-sync tool (`context_synchronizer.py`) bugs** — found by the Tier-0 pointer-integrity
       checker but out of that checker's scope. Three known: unrewritten relative links when hoisting a

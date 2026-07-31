@@ -23,7 +23,7 @@ Abrir `core/flows/craft/craft.md` `## Field Practice` (7 runs auditados, A1 DONE
 
 > [x] [iterate] ajustar flags de retorno e tabela de roteamento após 7 usos reais — DONE 2026-07-16 (A1; ver [A1] em `## done`)
 > [x] [skill-tree] montar árvore de loops pessoais — DONE 2026-07-18: craft tree = router (`core/flows/craft/route.md`) + 4 subtrees (padaria/feature/research/architecture); mapa em `core/flows/craft/TREE.md`. Feature subtree = SDD contract-first (painel de permissão no Loop 0, Loop 3.5 Contract Layout, revisão de simetria de conceitos no Loop 3).  
-> [x] [craft-flows] executar os 8 passos de `core/ROADMAP.md` § craft-flows — DONE 2026-07-23: passos 1–6 (renomeação loop→flow + `flows/craft/` + goal→`craft-flows.md`; `sota` redefinido; `scout uses: sota`; template canônico; guarda de DAG no `validate_flows`). passo 7 (split do monolito `craft.md` em craft/routing/runtimes/prior-art) e passo 8 (suite caveman trazida pra dentro do workspace em `core/skills/caveman/`, links globais via `core/tools/sync-global-skills`). Casa com [loop-anchors] (grafo de flows) e [prompt-dsl] (contrato tipado na aresta entre flows)  
+> [x] [craft-flows] executar os 8 passos de `core/ROADMAP.md` § craft-flows — DONE 2026-07-23: passos 1–6 (renomeação loop→flow + `flows/craft/` + goal→`craft-flows.md`; `sota` redefinido; `scout uses: sota`; template canônico; guarda de DAG no `validate_flows`). passo 7 (split do monolito `craft.md` em craft/routing/runtimes/prior-art) e passo 8 (suite caveman trazida pra dentro do workspace em `core/skills/caveman/`, links globais via `core/tools/wos/sync-global-skills`). Casa com [loop-anchors] (grafo de flows) e [prompt-dsl] (contrato tipado na aresta entre flows)  
 > [ ] [prompt-dsl] DSLs como contratos entre agentes: cada agente especializado usa uma DSL própria; prompt só é repassado se o parsing é perfeito (sem ambiguidade). Questão aberta: LLMs lidam bem com gramáticas novas? Avaliar acoplar tools à LLM pra facilitar parse DSL (ver [C-C] skill-library; spacemantics texpace é o caso-teste concreto)  
 > [ ] [A2] [opencode-reliability] executar UM chain completo no opencode (menor feature isoroll) com MESMO modelo via openrouter em paralelo com uma run Claude Code; comparar verdicts/files; decidir: ajustar plugin OU trocar provider OU scope /loops ao Claude Code só. Dados: NENHUMA run `.loop/` em opencode hoje (todos os executor: tags são craft-low/medium/high/claude-fable-5 via Claude Code)  
 > [ ] [A3] adicionar `.loop/<slug>/STATUS.md` por chain (active | blocked-flag-pending-user | abandoned | shipped) — Loop 0 cria, Loop 6 muta; `/loops --status` = `cat code/*/.loop/*/STATUS.md`. Motivação: `isoroll-module/.loop/floor-fog-spike` e `.loop/painter-mvp-1` pararam sem 6-ship e sem status visível
@@ -62,7 +62,7 @@ Abrir `core/flows/craft/craft.md` `## Field Practice` (7 runs auditados, A1 DONE
 
 <!-- done:start -->
 
-> [x] [loop-tree] DONE 2026-07-18: `/loops` virou árvore. Router (`core/flows/craft/route.md`) classifica task→subtree (padaria/feature/research/architecture); mapa canônico `core/flows/craft/TREE.md`. Feature subtree = SDD contract-first: painel de permissão (Loop 0, default permissivo), Loop 3.5 Contract Layout (SPEC.md + stubs + grafo de conexões type-checado por `core/tools/spec-contract-check` ANTES do código), revisão de simetria de conceitos (Loop 3, checklist + codegraph + /dedup). Novo subtree de decisão arquitetural `core/flows/craft/architect.md` (→ ADR). Gitflow enforced (`core/hooks/git/gitflow-gate.sh`, pre-commit 1e). loops skill roteia primeiro. Fecha [skill-tree]; cobre parte de [research-loops]/[arch-algo-vs-lib].
+> [x] [loop-tree] DONE 2026-07-18: `/loops` virou árvore. Router (`core/flows/craft/route.md`) classifica task→subtree (padaria/feature/research/architecture); mapa canônico `core/flows/craft/TREE.md`. Feature subtree = SDD contract-first: painel de permissão (Loop 0, default permissivo), Loop 3.5 Contract Layout (SPEC.md + stubs + grafo de conexões type-checado por `core/tools/wos/spec-contract-check` ANTES do código), revisão de simetria de conceitos (Loop 3, checklist + codegraph + /dedup). Novo subtree de decisão arquitetural `core/flows/craft/architect.md` (→ ADR). Gitflow enforced (`core/hooks/git/gitflow-gate.sh`, pre-commit 1e). loops skill roteia primeiro. Fecha [skill-tree]; cobre parte de [research-loops]/[arch-algo-vs-lib].
 > [x] [A1] ajustar tabela de roteamento + flag protocol após 7 usos reais (DONE 2026-07-16, sessão de avaliação /loops): `core/flows/craft/craft.md` recebeu `## Field Practice` com tabela de overrides, `## Status` em Loop 6, `## Second-opinion verifier` em Loop 3+6, `## Loop 6.5 Skill Extraction`, `last-reviewed` na tabela volátil. /loops skill ganhou pointer de prior art. dobra cross-ref noun.
 > [x] [fable-spec] sessão Fable paralela (2026-07-06) → `core/flows/craft/craft.md` + skill `/loops` + agents craft-low/medium/high  <!-- done:end -->
 
@@ -72,10 +72,10 @@ last-touch: 2026-07-31  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       5 |
-| trimester   |       5 |
-| semester    |       5 |
-| year        |       5 |
-| 2-year      |       5 |
-| 4-year      |       5 |
+| month       |       6 |
+| trimester   |       6 |
+| semester    |       6 |
+| year        |       6 |
+| 2-year      |       6 |
+| 4-year      |       6 |
 <!-- stats:end -->

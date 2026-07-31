@@ -16,7 +16,7 @@ in [REFS.md](REFS.md) carries a tier marker so a later reader knows how much wei
 | `[C]` | Community / practitioner — blog, repo, spec draft | Signal about practice, not evidence |
 
 **Rule for research passes**: a query round that returns only `[P]` is incomplete. Re-run it
-against a venue-aware source before concluding. `core/tools/papers --ss` reports `venue` and
+against a venue-aware source before concluding. `core/tools/paper/papers --ss` reports `venue` and
 `peer_reviewed` per hit; `--reviewed` drops preprints, `--min-cit N` drops noise.
 Web search often surfaces the published version (`aclanthology.org`, `dl.acm.org`,
 `openreview.net` with a venue) when arXiv only shows the preprint — prefer that URL.

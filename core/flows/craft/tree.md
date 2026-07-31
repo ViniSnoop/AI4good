@@ -28,7 +28,7 @@
 The `feature` subtree is the spec-driven pipeline. Its distinctive spine:
 
 1. **Step 0 permission panel** — the interview asks which human gates the user wants; **default permissive** (agent runs unattended, saves tokens). Records `supervision: io-signoff · arch-review · arch-review-supervised` in the Carry block.
-2. **Loop 3.5 Contract Layout (mandatory)** — every touched module's `SPEC.md` (Inputs/Outputs/Invariants) + interface stubs + the connection graph are laid out *before* any code; `core/tools/spec-contract-check` verifies every module has a complete contract and every edge's types match. The contract is never optional; only human *sign-off* on it is (the panel's `io-signoff`).
+2. **Loop 3.5 Contract Layout (mandatory)** — every touched module's `SPEC.md` (Inputs/Outputs/Invariants) + interface stubs + the connection graph are laid out *before* any code; `core/tools/wos/spec-contract-check` verifies every module has a complete contract and every edge's types match. The contract is never optional; only human *sign-off* on it is (the panel's `io-signoff`).
 3. **Concept-Symmetry Review (Loop 3, recurrent)** — per the panel's `arch-review` cadence: a judgment checklist (alike-look-alike, naming coherence, boundary consistency, model soundness) + automation (`codegraph` structural outliers, `/dedup` semantic near-duplicates).
 4. **TDD + ship** — tests-first, fill the placeholders against the contracts, `verify:fast` green, ship on a `feature/*` branch.
 

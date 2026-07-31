@@ -87,8 +87,8 @@ name resolves without a decision meeting (decided 2026-07-30):
 `SPEC.md` is **not** a type: it collapses into `SPECS.md` (decided 2026-07-30, Lucas). The
 singular/plural pair was the sharpest asymmetry in the corpus — two spellings, one meaning — and it
 had leaked into enforcement, so the `> spec:` convention, `core/hooks/pre-commit` §1d,
-`core/hooks/read/spec-read-gate.py`, `core/hooks/read/context-tracker.py`, `core/tools/spec-scan` and
-`core/tools/spec-contract-check` all move with it.
+`core/hooks/read/spec-read-gate.py`, `core/hooks/read/context-tracker.py`, `core/tools/wos/spec-scan` and
+`core/tools/wos/spec-contract-check` all move with it.
 
 ### Boundaries where types nearly touch
 
@@ -346,7 +346,7 @@ depth-audit (Frente 3.2) or a published source confirms it.
 
 ## Enforcement
 
-`core/tools/sync-skills --check` parses frontmatter and fails on violations; it is wired into
+`core/tools/wos/sync-skills --check` parses frontmatter and fails on violations; it is wired into
 `core/hooks/pre-commit`. All three layers are live:
 - **skill:** frontmatter present, `name:` + `description:`, non-skills rejected.
 - **flow:** `description:` + `args:` present, `type ∈ {research-brief, utility, domain}`,

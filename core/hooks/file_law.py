@@ -7,7 +7,7 @@
 # entropy-dashboard.py, workspace_meta.py and workspace_scanner.py each carried their own
 # extension list, and no two agreed. `.sh` and extensionless executables were invisible to
 # the BLOCKING gate, which is how core/hooks/pre-commit reached 385 lines and
-# core/tools/sync-skills 341 without ever being stopped. One definition, one home.
+# core/tools/wos/sync-skills 341 without ever being stopped. One definition, one home.
 import fnmatch
 import sys
 from pathlib import Path

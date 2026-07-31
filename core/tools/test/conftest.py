@@ -11,14 +11,25 @@ WORKSPACE_ROOT = HERE.parents[2]
 
 # Own directory first, so tests in subdirectories can `from conftest import WORKSPACE_ROOT`.
 sys.path.insert(0, str(HERE))
-sys.path.insert(0, str(WORKSPACE_ROOT / 'core/tools'))
 
-# core/hooks is one flat root (the law) plus one directory per responsibility. Derived by
-# scan, never listed: a spelled-out list would go stale the next time a hook is split, and
-# the tests would fail for a reason that has nothing to do with the law they assert.
+# core/hooks and core/tools are each one root plus one directory per responsibility. Both
+# are derived by scan, never listed: a spelled-out list would go stale the next time either
+# is split, and the tests would fail for a reason that has nothing to do with what they
+# assert. That is exactly what happened when core/tools/test itself was split.
 HOOKS = WORKSPACE_ROOT / 'core/hooks'
-for _dir in [HOOKS, *sorted(p for p in HOOKS.iterdir()
-                            if p.is_dir() and not p.name.startswith(('.', '_')))]:
+TOOLS = WORKSPACE_ROOT / 'core/tools'
+
+
+def _tree(root):
+    """The root, then every directory under it that holds importable modules."""
+    yield root
+    for child in sorted(root.rglob('*')):
+        if child.is_dir() and not any(part.startswith(('.', '_')) for part in
+                                      child.relative_to(root).parts):
+            yield child
+
+
+for _dir in [*_tree(HOOKS), *_tree(TOOLS)]:
     sys.path.insert(0, str(_dir))
 
 

@@ -23,7 +23,6 @@ WARN = load_limits()['WARN_FILES']
 
 # Inherited fanout, each a directory that owes a split. Nothing else may join.
 BASELINE = {
-    'core/tools',
     'core/skills/caveman/scripts',
     'core/skills/caveman/hooks',
     'academy/administration/coordenacao-lc/novo-ppc-bcc/ementas',

@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
+from pathlib import Path as Path
 
-WORKSPACE_ROOT: Incomplete
 BASELINE: Incomplete
 
 def test_no_new_naming_violation() -> None: ...

@@ -243,8 +243,8 @@ installer any more; it would overwrite the links with copies and re-fork the two
 Requires Node ≥18. On a fresh clone (new machine), one command wires the whole suite:
 
 ```bash
-core/tools/sync-global-skills            # links ~/.agents/skills/caveman + ~/.claude/hooks/caveman-*
-core/tools/sync-global-skills --check    # verify
+core/tools/wos/sync-global-skills            # links ~/.agents/skills/caveman + ~/.claude/hooks/caveman-*
+core/tools/wos/sync-global-skills --check    # verify
 ```
 
 Then add the hook entries to `~/.claude/settings.json` (`SessionStart` → `caveman-activate.js`,
@@ -396,7 +396,7 @@ No action needed after clone; both are inert config files until Copilot (VS Code
 
 ### 12. Unified web-search CLI (all agents)
 
-[`core/tools/search`](core/tools/search) is the single entrypoint for web search — callable from any agent's bash, no MCP, no per-agent wiring. Backend resolution is internal:
+[`core/tools/web/search`](core/tools/web/search) is the single entrypoint for web search — callable from any agent's bash, no MCP, no per-agent wiring. Backend resolution is internal:
 
 | Backend | When used | Setup |
 |---------|-----------|-------|
@@ -418,28 +418,28 @@ sudo apt install -y ddgr          # required for the fallback path; harmless if 
 **Verify:**
 ```bash
 ddgr --version                          # expected: 2.2 or later
-core/tools/search "test query" --n 3    # expected: JSON array; auto-picks Exa if key present, else ddgr
-core/tools/search "test query" --backend ddgr    # force DDG path
-core/tools/search "test query" --backend exa     # force Exa (errors propagate, no fallback)
+core/tools/web/search "test query" --n 3    # expected: JSON array; auto-picks Exa if key present, else ddgr
+core/tools/web/search "test query" --backend ddgr    # force DDG path
+core/tools/web/search "test query" --backend exa     # force Exa (errors propagate, no fallback)
 ```
 
 **Usage from any agent (bash):**
 ```bash
-core/tools/search "<query>"                                # auto backend, 10 results
-core/tools/search "<query>" --n 5                          # fewer results
-core/tools/search "<query>" --type keyword                 # Exa only: keyword (vs neural default)
-core/tools/search "<query>" --since 2026-01-01             # Exa only: date floor
-core/tools/search "<query>" --domains arxiv.org,github.com # Exa only: domain whitelist
-core/tools/search "<query>" --content                      # Exa only: include full page text in `abstract`
-core/tools/search "<query>" --region de-de                # ddgr only: DDG region (default us-en)
-WEB_RETRIES=8 WEB_REGION=uk-en core/tools/search "<query>" # tuning via env
+core/tools/web/search "<query>"                                # auto backend, 10 results
+core/tools/web/search "<query>" --n 5                          # fewer results
+core/tools/web/search "<query>" --type keyword                 # Exa only: keyword (vs neural default)
+core/tools/web/search "<query>" --since 2026-01-01             # Exa only: date floor
+core/tools/web/search "<query>" --domains arxiv.org,github.com # Exa only: domain whitelist
+core/tools/web/search "<query>" --content                      # Exa only: include full page text in `abstract`
+core/tools/web/search "<query>" --region de-de                # ddgr only: DDG region (default us-en)
+WEB_RETRIES=8 WEB_REGION=uk-en core/tools/web/search "<query>" # tuning via env
 ```
 
 Exa-only flags are silently ignored when the ddgr backend is in use (fallback or forced).
 
 **Quirk — DDG HTTP 202:** DuckDuckGo intermittently returns HTTP 202 (Accepted, empty body) for non-interactive / piped requests, especially after a burst of calls from the same IP. The ddgr fallback retries with exponential backoff (`WEB_RETRIES`, default 5). If both backends ultimately fail, the script exits non-zero with `{"error": "all backends failed", ...}` on stderr — callers can branch on that.
 
-**Per-agent wiring:** none. Every agent's existing bash hook (Claude Code, opencode, Copilot, Feynman) already passes bash commands through to the system shell — `core/tools/search` works the moment `ddgr` is installed (and even earlier if only the Exa path is used). New agents just need their system prompt to point at [`AGENTS.md`](AGENTS.md) for the discovery rule.
+**Per-agent wiring:** none. Every agent's existing bash hook (Claude Code, opencode, Copilot, Feynman) already passes bash commands through to the system shell — `core/tools/web/search` works the moment `ddgr` is installed (and even earlier if only the Exa path is used). New agents just need their system prompt to point at [`AGENTS.md`](AGENTS.md) for the discovery rule.
 
 ---
 

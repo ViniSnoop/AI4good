@@ -121,7 +121,7 @@ _SUB_CTX = lambda d: f'# {d.title()}\n> {_SUB_DESC.get(d, "← add description")
 def _terms_yaml() -> str:
     return """\
 # terms.yaml — canonical terminology for this paper.
-# Run: Core/tools/terms <paper-path>
+# Run: Core/tools/paper/terms <paper-path>
 # Each key is the CORRECT form. The list is wrong forms to flag.
 # The pre-commit hook runs this scan and warns on deviations.
 #

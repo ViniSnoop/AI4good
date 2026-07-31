@@ -69,7 +69,7 @@ Convenções: checkbox `( X )` marcado; defaults `NÃO TEM`; código `NOVA` para
 
 ## Caminho de escrita em Google Docs (decisão do Lucas = "Docs direto", automatizado)
 
-**Escrita EXISTE no workspace** — não é só read-only. O `core/tools/drive` é read-only (scope `drive.readonly`), MAS `core/tools/drive_migrate_core.py` usa **`SCOPES_WRITE = ["https://www.googleapis.com/auth/drive"]`** (escrita total) com token separado `drive-write`, e já criou pastas/copiou arquivos antes (`find_or_create_folder`, `copy_file`).
+**Escrita EXISTE no workspace** — não é só read-only. O `core/tools/google/drive` é read-only (scope `drive.readonly`), MAS `core/tools/google/api/drive_migrate_core.py` usa **`SCOPES_WRITE = ["https://www.googleapis.com/auth/drive"]`** (escrita total) com token separado `drive-write`, e já criou pastas/copiou arquivos antes (`find_or_create_folder`, `copy_file`).
 
 Estado dos tokens de escrita (`~/.config/workspace-drive-write/`):
 - ✅ `personal.token.json` e `cin.token.json` existem (Lucas já autorizou escrita antes).
@@ -87,7 +87,7 @@ Estado dos tokens de escrita (`~/.config/workspace-drive-write/`):
 Objetivo: tirar a escrita de `drive_migrate` (script específico cin→personal) e criar um seam de Drive read+write, account-agnostic. Seguir `core/SCHEMA.md` + gerar `.pyi` (interface enforçada).
 
 **Estado atual (verificado nesta sessão):**
-- `core/tools/drive` (CLI) + `drive_fetch.py`: só leitura, scope `drive.readonly`. `DOWNLOAD_DIR = ~/Downloads/workspace-drive` (**bug**: deve cair sob `/mnt/workspace/Downloads` — item do Lucas no INBOX).
+- `core/tools/google/drive` (CLI) + `drive_fetch.py`: só leitura, scope `drive.readonly`. `DOWNLOAD_DIR = ~/Downloads/workspace-drive` (**bug**: deve cair sob `/mnt/workspace/Downloads` — item do Lucas no INBOX).
 - `drive_migrate_core.py`: `SCOPES_WRITE=["…/auth/drive"]`, `get_cin_service`/`get_personal_service` (contas hardcoded), `find_or_create_folder`, `copy_file`. Auth via `google_auth.auth(alias,'drive-write',SCOPES_WRITE)` → token em `~/.config/workspace-drive-write/<alias>.token.json`.
 - Token `drive-write` da **ufrpe** recém-criado pelo Lucas (validar liveness antes de usar).
 
@@ -151,7 +151,7 @@ Antes de fechar, rodar uma checagem completa e entregar ao Lucas:
 ---
 
 ## Efeito colateral desta run (registrar)
-- **pandoc instalado** (`pip install pypandoc-binary` no `.venv`; symlinks em `.venv/bin/pandoc` e `~/.local/bin/pandoc`). `core/tools/parse` agora lê `.docx`. Melhoria durável — anotar no `brain/INBOX.md`.
+- **pandoc instalado** (`pip install pypandoc-binary` no `.venv`; symlinks em `.venv/bin/pandoc` e `~/.local/bin/pandoc`). `core/tools/paper/parse` agora lê `.docx`. Melhoria durável — anotar no `brain/INBOX.md`.
 
 ---
 
@@ -182,10 +182,10 @@ Períodos (OBRIGATORIAS): `1 Periodo=1TvICk8Hxq4x4YwINRwb45NYdXvIHHOH6`; demais:
 2. Extrair campos **VERBATIM** das tabelas nested-sdt (`ementas/port.py`, adaptado).
 3. OBJETIVOS: gerar só se vazio, mapeado 1:1 ao CONTEÚDO, **sem AISlop/alucinação** (datas/anos/páginas/títulos = nunca inventar; verbatim only).
 4. Preencher MODELO fresco (`ementas/filler.py`: dedupe células mescladas + **Times New Roman em todos os runs** — senão Cambria no Docs).
-5. Upload: `core/tools/drive put --account ufrpe --parent <id_subpasta> --gdoc --name "[MODELO-SIGAA] <nome>" <arquivo.docx>` → converte p/ Google Doc na mesma subpasta.
+5. Upload: `core/tools/google/drive put --account ufrpe --parent <id_subpasta> --gdoc --name "[MODELO-SIGAA] <nome>" <arquivo.docx>` → converte p/ Google Doc na mesma subpasta.
 
 ## Ferramentas prontas (desta run)
-- **Write path**: `core/tools/drive` (branch `feature/drive-core-write`, commit `5726518`, pushed) — `mkdir`, `put`, `put --gdoc`, `auth --write/--reauth`. `drive_core.py` = seam read+write. **Token `drive-write` da ufrpe já vivo.**
+- **Write path**: `core/tools/google/drive` (branch `feature/drive-core-write`, commit `5726518`, pushed) — `mkdir`, `put`, `put --gdoc`, `auth --write/--reauth`. `drive_core.py` = seam read+write. **Token `drive-write` da ufrpe já vivo.**
 - **Scripts**: `ementas/port.py` + `ementas/filler.py` (persistidos; port.py precisa da adaptação nested-sdt + gdoc export).
 - Se auth falhar (`invalid_grant`): `drive auth ufrpe --write --reauth` (sessão interativa).
 
