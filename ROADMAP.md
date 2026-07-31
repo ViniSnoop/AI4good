@@ -23,7 +23,7 @@ Four criteria. Nothing else gates v1.
 |---|-----------|-------|-------|
 | 1 | **verify-fast green + Tier 0 live** — naming, placement, pointer integrity, size-as-signal deterministic; entropy dashboard reads clean | Frente 4 | checks live · **read [`entropy.md`](entropy.md) for the count, never a copy of it** |
 | 2 | **One ledger, no duplicates** — this file is the sole wos ledger, verified by scan not eyeball | Frente 8 | ✅ **MET 2026-07-30** — `test_no_item_lives_in_two_ledgers` |
-| 3 | **Everything pushed, gitflow-shaped** — every `code/` repo on `main`/`feature/*`, zero unpushed, no repo without a remote | Frente 11 | ✅ **MET 2026-07-29** |
+| 3 | **Everything pushed, gitflow-shaped** — every `code/` repo on `main`/`feature/*`, zero unpushed, no repo without a remote | Frente 11 | 🟡 **one repo short** — audited 2026-07-31, see below |
 | 4 | **Clonable by a student** — fresh clone gets every capability; deps declared, no undocumented hand-installs | Frente 10 | open |
 
 Post-v1 validation is `[mvp-validate]`: use the system daily for 30 days, then assess whether it
@@ -298,10 +298,23 @@ sessions, 25% from `/roundup`. Context management is currently Lucas's job, whic
 
 ---
 
-## Frente 11 — Git & sync integrity — **v1 criterion 3 — MET**
+## Frente 11 — Git & sync integrity — **v1 criterion 3 — one repo short**
 
-**Swept 2026-07-29.** 16/16 repos: zero unpushed, every branch `main`/`feature/*`, every repo has a
-remote. 41 commits pushed across 8 repos; `cria` published (public, secret-scanned first); `loop/*`
+**Re-audited 2026-07-31 across all 25 repos** (the 2026-07-29 sweep covered 16 and the count has
+grown). Result: zero unpushed anywhere, every branch `main`/`master`/`feature/*` — but **three repos
+had no remote at all**, which the criterion forbids and the earlier sweep did not catch.
+
+Two are now private GitHub remotes (`instituto`, `mechanism-search`), matching the convention
+already used by the non-Overleaf papers. **`branches/casinhas` cannot be pushed as-is:**
+`modelo/sketchup-referencia/volume-lucas-v04.skp` is **199 MB**, over GitHub's hard 100 MB limit, so
+the push is rejected by a pre-receive hook. Three ways out, all Lucas's call because two rewrite
+history: (a) **Git LFS** for `*.skp` — keeps the file, needs `git lfs migrate import`, still a
+rewrite; (b) drop the binary from history and keep it local-only via `.gitignore`; (c) leave the
+repo local and carve the criterion to exclude it deliberately. Until one is chosen, criterion 3 is
+**not** met — recorded here rather than left as a green tick that is false.
+
+*Original sweep, 2026-07-29:* 16/16 repos: zero unpushed, every branch `main`/`feature/*`, every
+repo had a remote. 41 commits pushed across 8 repos; `cria` published (public, secret-scanned first); `loop/*`
 renamed to `feature/*`, 5 stale ones deleted (ancestors of live branches, zero unique commits).
 Dirty 215 → 93.
 

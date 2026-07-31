@@ -9,6 +9,8 @@
 
 <!-- add entries below, newest first -->
 
+I'm a bit worried we may have messed up the VERIFY strategy after several commits on the latest sessions.
+
 https://www.instagram.com/p/DbQNApxEnCh/?img_index=3&igsh=ODVqMmEzdjZyMWQ2
 ver se é verdade e se for estudar como aproveitar no wos
 — via aiwbot · 2026-07-31
