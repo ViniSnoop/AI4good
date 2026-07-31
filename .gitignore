@@ -118,6 +118,7 @@ core/*
 !core/WATCHLIST.md
 !core/agents/
 !core/flows/
+!core/hooks/
 !core/refs/
 !core/skills/
 !core/tools/
@@ -153,7 +154,7 @@ brain/goals/*
 # their own repos). They must NOT be embedded as gitlinks in the workspace: a fresh
 # clone can't fetch them, and every internal commit flags a spurious "M". Git can't
 # track individual files (e.g. CONTEXT.md) inside a nested repo anyway — routing reads
-# them off-disk. So ignore each repo dir wholesale. Enforced by .hooks/nested-gitlink-gate.sh.
+# them off-disk. So ignore each repo dir wholesale. Enforced by core/hooks/nested-gitlink-gate.sh.
 academy/papers/2027-CHI-cria
 academy/papers/ai4good
 academy/papers/mechanism-search

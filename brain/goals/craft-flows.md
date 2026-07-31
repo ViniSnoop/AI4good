@@ -62,7 +62,7 @@ Abrir `core/flows/craft/craft.md` `## Field Practice` (7 runs auditados, A1 DONE
 
 <!-- done:start -->
 
-> [x] [loop-tree] DONE 2026-07-18: `/loops` virou árvore. Router (`core/flows/craft/route.md`) classifica task→subtree (padaria/feature/research/architecture); mapa canônico `core/flows/craft/TREE.md`. Feature subtree = SDD contract-first: painel de permissão (Loop 0, default permissivo), Loop 3.5 Contract Layout (SPEC.md + stubs + grafo de conexões type-checado por `core/tools/spec-contract-check` ANTES do código), revisão de simetria de conceitos (Loop 3, checklist + codegraph + /dedup). Novo subtree de decisão arquitetural `core/flows/craft/architect.md` (→ ADR). Gitflow enforced (`.hooks/gitflow-gate.sh`, pre-commit 1e). loops skill roteia primeiro. Fecha [skill-tree]; cobre parte de [research-loops]/[arch-algo-vs-lib].
+> [x] [loop-tree] DONE 2026-07-18: `/loops` virou árvore. Router (`core/flows/craft/route.md`) classifica task→subtree (padaria/feature/research/architecture); mapa canônico `core/flows/craft/TREE.md`. Feature subtree = SDD contract-first: painel de permissão (Loop 0, default permissivo), Loop 3.5 Contract Layout (SPEC.md + stubs + grafo de conexões type-checado por `core/tools/spec-contract-check` ANTES do código), revisão de simetria de conceitos (Loop 3, checklist + codegraph + /dedup). Novo subtree de decisão arquitetural `core/flows/craft/architect.md` (→ ADR). Gitflow enforced (`core/hooks/gitflow-gate.sh`, pre-commit 1e). loops skill roteia primeiro. Fecha [skill-tree]; cobre parte de [research-loops]/[arch-algo-vs-lib].
 > [x] [A1] ajustar tabela de roteamento + flag protocol após 7 usos reais (DONE 2026-07-16, sessão de avaliação /loops): `core/flows/craft/craft.md` recebeu `## Field Practice` com tabela de overrides, `## Status` em Loop 6, `## Second-opinion verifier` em Loop 3+6, `## Loop 6.5 Skill Extraction`, `last-reviewed` na tabela volátil. /loops skill ganhou pointer de prior art. dobra cross-ref noun.
 > [x] [fable-spec] sessão Fable paralela (2026-07-06) → `core/flows/craft/craft.md` + skill `/loops` + agents craft-low/medium/high  <!-- done:end -->
 
@@ -72,10 +72,10 @@ last-touch: 2026-07-30  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       3 |
-| trimester   |       3 |
-| semester    |       3 |
-| year        |       3 |
-| 2-year      |       3 |
-| 4-year      |       3 |
+| month       |       4 |
+| trimester   |       4 |
+| semester    |       4 |
+| year        |       4 |
+| 2-year      |       4 |
+| 4-year      |       4 |
 <!-- stats:end -->

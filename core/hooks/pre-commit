@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+# Workspace pre-commit hook — the dispatcher.
+# Applied via: git config --global core.hooksPath /mnt/workspace/core/hooks
+#
+# Was 385 lines of 21 numbered sections that had drifted out of execution order
+# (1, 2, 1a, 1c, 1d, 1e, 1g, 1f, 1b, 2b, 3, 4 …). Split 2026-07-31 by responsibility:
+# a GATE may reject the commit, a GENERATOR writes artifacts and stages them.
+#
+# The parts are SOURCED, not executed: they share $STAGED and reject by calling `exit`.
+# Running them as subprocesses would silently break both. Order below is the original
+# execution order, preserved exactly — in particular `gates/lint.sh` stays last because
+# ESLint needs the .d.ts files `generators/interfaces.sh` writes.
+
+HOOKS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+STAGED=$(git diff --cached --name-only --diff-filter=ACM 2>/dev/null)
+[ -z "$STAGED" ] && exit 0
+
+for part in \
+  generators/prepare \
+  gates/source-quality \
+  gates/project-contract \
+  gates/duplication-and-terms \
+  generators/routing \
+  generators/interfaces \
+  generators/skills \
+  gates/lint
+do
+  # shellcheck source=/dev/null
+  source "$HOOKS_DIR/$part.sh"
+done
+
+exit 0

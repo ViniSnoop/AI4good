@@ -36,15 +36,15 @@ The `subagent` capability is runtime-specific and has no CLI wrapper:
 
 ## Workspace line-limit checker
 
-Not a research tool — lives in `.hooks/` alongside the commit hooks:
+Not a research tool — lives in `core/hooks/` alongside the commit hooks:
 
 ```bash
-bash .hooks/check-line-counts.sh             # scan all code files in cwd
-bash .hooks/check-line-counts.sh file.py     # check one file
-find . -name "*.py" | bash .hooks/check-line-counts.sh --from-stdin
+bash core/hooks/check-line-counts.sh             # scan all code files in cwd
+bash core/hooks/check-line-counts.sh file.py     # check one file
+find . -name "*.py" | bash core/hooks/check-line-counts.sh --from-stdin
 ```
 
-Thresholds: `.hooks/line-limits.env`. The `pre-commit` hook runs it automatically; `pre-edit.py` enforces per-edit. Both read the same limits file.
+Thresholds: `core/hooks/line-limits.env`. The `pre-commit` hook runs it automatically; `pre-edit.py` enforces per-edit. Both read the same limits file.
 
 ## Adding a tool
 
@@ -57,7 +57,7 @@ Thresholds: `.hooks/line-limits.env`. The `pre-commit` hook runs it automaticall
 
 | Subdirectory | Description |
 |--------------|-------------|
-| [`test/`](test/CONTEXT.md) | — |
+| [`test/`](test/CONTEXT.md) | The verify-fast suite: every Tier 0 check plus the tool unit tests. Zero-token,  |
 | [`verify/`](verify/CONTEXT.md) | Verification contract + patterns for all code projects: tiers T0-T3, script name |
 
 | File | Interface | API | Description |
@@ -85,6 +85,8 @@ Thresholds: `.hooks/line-limits.env`. The `pre-commit` hook runs it automaticall
 | [`papers`](papers) | — | — | search academic papers via arXiv (default) or Semantic Scholar (--ss, reports venue + peer_reviewed); returns JSON |
 | [`parse`](parse) | — | — | extract readable text from PDF, DOCX, PPTX, or plain text files; returns raw text |
 | [`search`](search) | — | — | unified web search; Exa (keyed) by default, ddgr (no-key) fallback; returns normalized JSON array [{title, url, abstract, score?}] |
+| [`skills/mirror.sh`](skills/mirror.sh) | — | — | ← add first-line comment |
+| [`skills/validate.sh`](skills/validate.sh) | — | — | ← add first-line comment |
 | [`slides`](slides) | — | — | Slidev presentation CLI: auth, new, serve, build, port |
 | [`slides_fetch.py`](slides_fetch.py) | [`slides_fetch.pyi`](slides_fetch.pyi) | `get_service`, `get_presentation`, `list_presentations` | slides_fetch.py — Google Slides API read-only for workspace OS |
 | [`slides_port.py`](slides_port.py) | [`slides_port.pyi`](slides_port.pyi) | `convert` | slides_port.py — Convert Google Slides API JSON to Slidev markdown |

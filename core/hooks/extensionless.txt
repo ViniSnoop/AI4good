@@ -1,0 +1,31 @@
+# Files allowed to have no extension because something OUTSIDE this workspace dictates the
+# name. Everything else without an extension must be an executable carrying a shebang —
+# enforced by test_every_extensionless_tracked_file_is_explained.
+#
+# This list is the answer to "can we just require extensions everywhere?": no, not fully.
+# Git names its own hooks, make names its own file, and vendored suites bring their own
+# conventions. Making the exemption a NAMED list is what keeps it from being a blind spot —
+# extensionless files were invisible to the line-count gate for months (core/hooks/pre-commit
+# reached 385 lines unblocked) precisely because nobody had written down which ones existed.
+#
+# Basenames, one per line.
+
+# git dictates these exactly — a hook named pre-commit.sh is never run.
+pre-commit
+post-commit
+post-merge
+post-checkout
+pre-push
+pre-rebase
+commit-msg
+prepare-commit-msg
+
+# other external tools
+Makefile
+.gitignore
+.claudeignore
+.latexmkrc
+.hidden
+
+# upstream caveman suite convention (vendored — see core/skills/caveman/CONTEXT.md § Attribution)
+ENTRYPOINTS

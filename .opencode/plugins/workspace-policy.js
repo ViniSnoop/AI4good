@@ -13,11 +13,11 @@
 //   - facade-tracker      : record facade reads for facade-gate session state
 //   - context-tracker.py  : record CONTEXT.md/interface reads for context-gate + pre-read
 //
-// The existing .hooks/* scripts remain the single source of truth. This plugin
+// The existing core/hooks/* scripts remain the single source of truth. This plugin
 // only TRANSLATES opencode's tool.execute.before/after events into the
 // stdin-JSON + CLAUDE_TOOL_NAME/CLAUDE_TOOL_INPUT env schema the scripts already
 // expect, and maps Claude exit-2 to opencode throw. Design lifted from
-// .hooks/copilot-pre-tool.py / copilot-post-tool.py (prior art for a non-Claude
+// core/hooks/copilot-pre-tool.py / copilot-post-tool.py (prior art for a non-Claude
 // agent — copilot-pre-tool.py's `gate()` ordering is the reference this plugin
 // mirrors: context-gate before pre-read/pre-edit, bugs-gate after
 // facade-gate). Translation helpers live in ../wp-helpers.js (kept out of

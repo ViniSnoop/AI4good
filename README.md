@@ -26,3 +26,4 @@ New machine or reinstall → see [SETUP.md](SETUP.md).
 - `core/` — fully tracked
 - `code/`, `academy/`, `models/`, `Outputs/` — first-level `.md` files only
 - `.vscode/settings.json` — workspace editor config
+# probe

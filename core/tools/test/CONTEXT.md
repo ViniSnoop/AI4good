@@ -11,6 +11,7 @@
 | [`test_entropy_fanout.py`](test_entropy_fanout.py) | [`test_entropy_fanout.pyi`](test_entropy_fanout.pyi) | — | T0 directory fanout (Frente 4.1 Tier 0). Zero-token, runs in verify-fast. |
 | [`test_entropy_ledger.py`](test_entropy_ledger.py) | [`test_entropy_ledger.pyi`](test_entropy_ledger.pyi) | — | T0 ledger and vocabulary checks (Frente 4.1 Tier 0). Zero-token, runs in verify-fast. |
 | [`test_entropy_naming.py`](test_entropy_naming.py) | [`test_entropy_naming.pyi`](test_entropy_naming.pyi) | — | T0 naming and placement (Frente 4.1 Tier 0). Zero-token, runs in verify-fast. |
+| [`test_file_law.py`](test_file_law.py) | [`test_file_law.pyi`](test_file_law.pyi) | — | T0 file law (Frente 3.2 close-out). Zero-token, runs in verify-fast. |
 | [`test_gitignore_self_heal.py`](test_gitignore_self_heal.py) | [`test_gitignore_self_heal.pyi`](test_gitignore_self_heal.pyi) | — | T0 self-healing .gitignore allowlist check (Frente 6 item 2): a new domain subdir with a |
 | [`test_pointer_integrity.py`](test_pointer_integrity.py) | [`test_pointer_integrity.pyi`](test_pointer_integrity.pyi) | `check_pointers` | T0 pointer-integrity check (Frente 4 Tier 0, subsumes Frente 2): every relative |
 | [`test_routing_table.py`](test_routing_table.py) | [`test_routing_table.pyi`](test_routing_table.pyi) | — | The routing table's generated columns (Frente 3.2). Zero-token, runs in verify-fast. |

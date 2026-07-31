@@ -23,7 +23,7 @@ sequencing item at the top: the push sweep (Frente 11.2). It is the only item wh
 work, and the first step is pure inspection: `git -C code/<repo> status` on the eight repos listed.
 
 **findings — the 3 original gaps, all localized (2026-07-21 sweep), all resolved or absorbed:**
-1. **overengineering → the `.hooks/` layer.** ~40 files, 3068 LOC, apparent near-duplicate families.
+1. **overengineering → the `core/hooks/` layer.** ~40 files, 3068 LOC, apparent near-duplicate families.
    Investigation reversed most of the diagnosis: `copilot-*` is LIVE (wired to the craft flow) and the
    `.pyi` mirrors are LIVE (the interface-first read-gate requires them) — not dead weight. Genuine
    cruft was one FUSE orphan. `brain_stats.py` 393 LOC was split into three files under 200, which also
@@ -69,20 +69,20 @@ fallback · iterate — MVP can always be extended*
 
 <!-- done:start -->
 
-> [x] [mvp-gaps] DONE 2026-07-22 — all 3 gaps localized with hard numbers (see findings above): (1) `.hooks` overengineering (~40 files / 3068 LOC), (2) 14 GB workspace-root cruft (`.Trash-1000` + root `.venv`), (3) reframed to the missing gentle-resurfacing rhythm → shipped as the `/compass` fold. Closed via `/compass`, first dogfood of the new skill.
+> [x] [mvp-gaps] DONE 2026-07-22 — all 3 gaps localized with hard numbers (see findings above): (1) `core/hooks` overengineering (~40 files / 3068 LOC), (2) 14 GB workspace-root cruft (`.Trash-1000` + root `.venv`), (3) reframed to the missing gentle-resurfacing rhythm → shipped as the `/compass` fold. Closed via `/compass`, first dogfood of the new skill.
 > [x] [v1-strong] DONE 2026-07-29 — superseded by the explicit [v1] gate. Its three parts each landed or moved: cruft reclaimed (6.6 GB, gap 2), hooks de-overengineered (gap 1, and the diagnosis partly reversed — most "duplicate families" were live), telegram_daemon retired into `code/aiwbot`. What remained became ROADMAP Frentes 6 and 12.8.
 > [x] [roadmap-entrypoint] DONE 2026-07-29 — wos work collapsed from four overlapping ledgers (~94 items, 789 lines, four of them already false) into one: `/ROADMAP.md`. Goal file = why, `brain/TODO.md` = life, `core/ROADMAP.md` = library. Deletion policy set: hard delete, git is the history. Discipline now tracked as ROADMAP Frente 8.<!-- done:end -->
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-29  ·  trend: advancing
+last-touch: 2026-07-30  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |      17 |
-| trimester   |      18 |
-| semester    |      18 |
-| year        |      18 |
-| 2-year      |      18 |
-| 4-year      |      18 |
+| month       |      18 |
+| trimester   |      19 |
+| semester    |      19 |
+| year        |      19 |
+| 2-year      |      19 |
+| 4-year      |      19 |
 <!-- stats:end -->

@@ -13,14 +13,14 @@ Claude Code: first-line comment, line-count limits, CONTEXT.md line-2
 description, facade-first reads, interface-first source reads, and interface
 regeneration after edits.
 
-The existing `.hooks/*` scripts remain the single source of truth for policy
+The existing `core/hooks/*` scripts remain the single source of truth for policy
 logic. The plugin only TRANSLATES opencode's `tool.execute.before`/`after`
 events into the stdin-JSON + `CLAUDE_TOOL_NAME`/`CLAUDE_TOOL_INPUT` env schema
 the scripts already expect, and maps Claude's exit-2 block convention to
 opencode's `throw` from `tool.execute.before`.
 
-Design lifted from the parallel `.hooks/copilot-pre-tool.py` and
-`.hooks/copilot-post-tool.py`, which already solve the same translation
+Design lifted from the parallel `core/hooks/copilot-pre-tool.py` and
+`core/hooks/copilot-post-tool.py`, which already solve the same translation
 problem for a non-Claude agent. Field-name lists (`PATH_KEYS`,
 `CONTENT_KEYS`, `OLD_KEYS`, `NEW_KEYS`) are reused verbatim.
 
@@ -28,18 +28,18 @@ problem for a non-Claude agent. Field-name lists (`PATH_KEYS`,
 
 | opencode event + tool name | Claude matcher | Script | Block via |
 |---|---|---|---|
-| `tool.execute.before`, `read` | PreToolUse `Read` | `.hooks/context-gate.py` | exit 2 → throw |
-| `tool.execute.before`, `read` | PreToolUse `Read` | `.hooks/pre-read.sh` | exit 2 → throw |
-| `tool.execute.before`, `edit`/`write` | PreToolUse `Edit\|Write` | `.hooks/context-gate.py` | exit 2 → throw |
-| `tool.execute.before`, `edit`/`write` | PreToolUse `Edit\|Write` | `.hooks/pre-edit.py` | exit 2 → throw |
-| `tool.execute.before`, `edit`/`write` | PreToolUse `Edit\|Write` | `.hooks/facade-scan.py` | (warn only; never exits 2) |
-| `tool.execute.before`, `edit`/`write`/`apply_patch` | PreToolUse `Edit\|Write` | `.hooks/facade-gate.py` | exit 2 → throw |
-| `tool.execute.before`, `edit`/`write`/`apply_patch` | PreToolUse `Edit\|Write` | `.hooks/bugs-gate.py` | exit 2 → throw |
-| `tool.execute.before`, `edit`/`write`/`apply_patch` | PreToolUse `Edit\|Write` | `.hooks/spec-read-gate.py` | exit 2 → throw |
-| `tool.execute.before`, `bash` | PreToolUse `Bash` | `.hooks/bash-context-gate.py` | exit 2 → throw |
-| `tool.execute.after`, `read` | PostToolUse `Read` | `.hooks/facade-tracker.py` | n/a (no block) |
-| `tool.execute.after`, `read` | PostToolUse `Read` | `.hooks/context-tracker.py` | n/a (no block) |
-| `tool.execute.after`, `edit`/`write`/`apply_patch` | PostToolUse `Edit\|Write` | `.hooks/post-edit.sh` | n/a (no block) |
+| `tool.execute.before`, `read` | PreToolUse `Read` | `core/hooks/context-gate.py` | exit 2 → throw |
+| `tool.execute.before`, `read` | PreToolUse `Read` | `core/hooks/pre-read.sh` | exit 2 → throw |
+| `tool.execute.before`, `edit`/`write` | PreToolUse `Edit\|Write` | `core/hooks/context-gate.py` | exit 2 → throw |
+| `tool.execute.before`, `edit`/`write` | PreToolUse `Edit\|Write` | `core/hooks/pre-edit.py` | exit 2 → throw |
+| `tool.execute.before`, `edit`/`write` | PreToolUse `Edit\|Write` | `core/hooks/facade-scan.py` | (warn only; never exits 2) |
+| `tool.execute.before`, `edit`/`write`/`apply_patch` | PreToolUse `Edit\|Write` | `core/hooks/facade-gate.py` | exit 2 → throw |
+| `tool.execute.before`, `edit`/`write`/`apply_patch` | PreToolUse `Edit\|Write` | `core/hooks/bugs-gate.py` | exit 2 → throw |
+| `tool.execute.before`, `edit`/`write`/`apply_patch` | PreToolUse `Edit\|Write` | `core/hooks/spec-read-gate.py` | exit 2 → throw |
+| `tool.execute.before`, `bash` | PreToolUse `Bash` | `core/hooks/bash-context-gate.py` | exit 2 → throw |
+| `tool.execute.after`, `read` | PostToolUse `Read` | `core/hooks/facade-tracker.py` | n/a (no block) |
+| `tool.execute.after`, `read` | PostToolUse `Read` | `core/hooks/context-tracker.py` | n/a (no block) |
+| `tool.execute.after`, `edit`/`write`/`apply_patch` | PostToolUse `Edit\|Write` | `core/hooks/post-edit.sh` | n/a (no block) |
 
 `bash` is not in `TOOL_MAP` (its payload is a command string, not a file path) —
 handled by a dedicated branch in `tool.execute.before` that extracts

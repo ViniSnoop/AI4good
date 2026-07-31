@@ -21,7 +21,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 /mnt/workspace/.hooks/context-gate.py"
+            "command": "python3 /mnt/workspace/core/hooks/context-gate.py"
           }
         ]
       },
@@ -30,7 +30,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 /mnt/workspace/.hooks/bash-context-gate.py"
+            "command": "python3 /mnt/workspace/core/hooks/bash-context-gate.py"
           },
           {
             "type": "command",
@@ -43,23 +43,23 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 /mnt/workspace/.hooks/pre-edit.py"
+            "command": "python3 /mnt/workspace/core/hooks/pre-edit.py"
           },
           {
             "type": "command",
-            "command": "python3 /mnt/workspace/.hooks/facade-scan.py"
+            "command": "python3 /mnt/workspace/core/hooks/facade-scan.py"
           },
           {
             "type": "command",
-            "command": "python3 /mnt/workspace/.hooks/facade-gate.py"
+            "command": "python3 /mnt/workspace/core/hooks/facade-gate.py"
           },
           {
             "type": "command",
-            "command": "python3 /mnt/workspace/.hooks/bugs-gate.py"
+            "command": "python3 /mnt/workspace/core/hooks/bugs-gate.py"
           },
           {
             "type": "command",
-            "command": "python3 /mnt/workspace/.hooks/spec-read-gate.py"
+            "command": "python3 /mnt/workspace/core/hooks/spec-read-gate.py"
           }
         ]
       },
@@ -68,7 +68,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash /mnt/workspace/.hooks/pre-read.sh"
+            "command": "bash /mnt/workspace/core/hooks/pre-read.sh"
           }
         ]
       }
@@ -79,7 +79,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash /mnt/workspace/.hooks/post-edit.sh"
+            "command": "bash /mnt/workspace/core/hooks/post-edit.sh"
           }
         ]
       },
@@ -88,11 +88,11 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 /mnt/workspace/.hooks/facade-tracker.py"
+            "command": "python3 /mnt/workspace/core/hooks/facade-tracker.py"
           },
           {
             "type": "command",
-            "command": "python3 /mnt/workspace/.hooks/context-tracker.py"
+            "command": "python3 /mnt/workspace/core/hooks/context-tracker.py"
           }
         ]
       }
@@ -102,7 +102,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash /mnt/workspace/.hooks/precompact-wipe.sh"
+            "command": "bash /mnt/workspace/core/hooks/precompact-wipe.sh"
           }
         ]
       }
@@ -112,15 +112,15 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash /mnt/workspace/.hooks/session-prune.sh"
+            "command": "bash /mnt/workspace/core/hooks/session-prune.sh"
           },
           {
             "type": "command",
-            "command": "python3 /mnt/workspace/.hooks/inbox-nudge.py"
+            "command": "python3 /mnt/workspace/core/hooks/inbox-nudge.py"
           },
           {
             "type": "command",
-            "command": "python3 /mnt/workspace/.hooks/compass-nudge.py"
+            "command": "python3 /mnt/workspace/core/hooks/compass-nudge.py"
           }
         ]
       }

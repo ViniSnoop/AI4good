@@ -1,0 +1,9 @@
+from _typeshed import Incomplete
+
+REPORT: Incomplete
+DOC_SIGNAL_LINES: int
+LEDGERS: Incomplete
+
+def collect(files: list) -> dict: ...
+def size_signals(files: list) -> list: ...
+def main() -> int: ...

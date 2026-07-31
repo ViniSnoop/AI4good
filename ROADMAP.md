@@ -21,7 +21,7 @@ Four criteria. Nothing else gates v1.
 
 | # | Criterion | Owner | State |
 |---|-----------|-------|-------|
-| 1 | **verify-fast green + Tier 0 live** — naming, placement, pointer integrity, size-as-signal deterministic; entropy dashboard reads clean | Frente 4 | checks live 2026-07-30 · dashboard at 73 findings, must drain |
+| 1 | **verify-fast green + Tier 0 live** — naming, placement, pointer integrity, size-as-signal deterministic; entropy dashboard reads clean | Frente 4 | checks live · **read [`entropy.md`](entropy.md) for the count, never a copy of it** |
 | 2 | **One ledger, no duplicates** — this file is the sole wos ledger, verified by scan not eyeball | Frente 8 | ✅ **MET 2026-07-30** — `test_no_item_lives_in_two_ledgers` |
 | 3 | **Everything pushed, gitflow-shaped** — every `code/` repo on `main`/`feature/*`, zero unpushed, no repo without a remote | Frente 11 | ✅ **MET 2026-07-29** |
 | 4 | **Clonable by a student** — fresh clone gets every capability; deps declared, no undocumented hand-installs | Frente 10 | open |
@@ -139,6 +139,19 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
    caveman-dense; there is no lexical fat. Reverted.
    → **model: sonnet** for the sweeps.
 
+3. ✅ **CLOSED 2026-07-31 — the trim shipped and the nested repos are resynced.** All 24 nested
+   repos regenerated and pushed to their default branch. The corpus barely moved (54.9k → 53.9k)
+   because this same session *added* 7 CONTEXT.md by splitting `pre-commit` and `sync-skills` — but
+   the tail, which was the actual problem, collapsed: `code/aiwbot/tests` **4604 → 2048 tok
+   (−56%)**, `code/isoroll-content/test` **2507 → 1189 (−53%)**, `code/spacemantics/tests`
+   829 → 498. Median chain 2126 → 2075 tok, File-table share still 22%.
+
+   **What this cost, recorded because the estimate was wrong.** The plan called it a mechanical
+   resync. It surfaced the root defect below (Frente 4.4) and three live bugs: the gitignore
+   allowlist silently dropped new files in a moved directory, `pre-edit.py` counted lines one
+   higher than every other counter, and `entropy_corpus.ENFORCEMENT` spelled out a sibling path
+   that stopped exempting the retired-token checker the moment the hooks moved.
+
 ---
 
 ## Frente 4 — workspace anti-entropy — **the keystone, v1 criterion 1**
@@ -148,7 +161,7 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
 > the agent library has [core/SCHEMA.md](core/SCHEMA.md). Nothing yet governs the shape of the
 > workspace itself.
 
-1. 🟢 **Tier 0 — per-commit, zero-token, deterministic.** Live: `.hooks/type-gate.py` (ratchet, only
+1. 🟢 **Tier 0 — per-commit, zero-token, deterministic.** Live: `core/hooks/type-gate.py` (ratchet, only
    what a commit *adds*) + `schema_law.py` · `entropy_naming.py` · `entropy_ledger.py`, asserted by
    35 tests in `verify-fast`. Every rule is **parsed from `core/SCHEMA.md`**, never restated in a
    checker. Covered: type allowlist, hand-inventory, filename shape, directory case, type placement,
@@ -186,16 +199,39 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
    → **model: sonnet**.
 3. 🟢 **the entropy dashboard — live.** `make entropy` → [`entropy.md`](entropy.md), 1904 tracked
    files across the workspace **and its 24 nested repos**, ~1.3 s. Read the report; never re-scan
-   the tree. After job A drained the six `HISTORY.md`: **73 findings** — 34 off-allowlist `.md`
-   types (Frente 12.1's backlog), 26 size signals, 4 hand-inventory `CONTEXT.md`, 5
-   naming/placement, 4 retired tokens, 0 duplicate slugs. Criterion 1 wants this reading clean;
-   the remaining work is draining it.
+   the tree. **Never copy its counts into this file** — a copied number is the drift these checks
+   exist to catch; the summary table at the top of the report is the interface. Criterion 1 wants
+   it reading clean; the remaining work is draining it.
 
    The dashboard scans nested repos, the **tests do not** — an assertion in this repo about
    another repo's content fails for reasons this repo cannot fix, and each nested repo runs its
    own verify. Where a check is green workspace-wide it is asserted at zero in `verify-fast`
    (retired tokens, duplicate slugs); where it is not, `test_entropy_naming.py` holds a named
    **baseline** so a new violation fails the build and a fixed one must leave the list.
+
+4. ✅ **the file law — one definition of "a code file", shipped 2026-07-31.** It was defined **five**
+   times (`check-line-counts.sh`, `entropy-dashboard.py`, `workspace_meta.py`, `pre-edit.py`,
+   `facade-gate.py`) and no two agreed. `.sh` and extensionless executables were invisible to the
+   **blocking** gate, which is how `pre-commit` reached 385 lines and `sync-skills` 341 unopposed —
+   *not* a `--no-verify` bypass, as this file previously claimed. Now
+   [`core/hooks/file_law.py`](core/hooks/file_law.py), the numeric-law sibling of `schema_law.py`,
+   with `limits.env` holding all four numbers and `vendored.txt` / `extensionless.txt` as named
+   exception lists. Guarded by `test_no_checker_carries_its_own_extension_list`.
+
+   Hooks moved `.hooks/` → [`core/hooks/`](core/hooks/CONTEXT.md) the same day: nothing about the
+   location was Claude-specific, and hidden meant unmonitored by its own checks.
+
+5. 🟡 **drain to zero, then flip fanout to a hard block** (Lucas 2026-07-31: hard block, no
+   grandfathering). The flip is coherent only at zero — switching it on today fails every commit in
+   eight repos, including the commits that would fix it. Live lists in `entropy.md`; when both read
+   Clean, add fanout to `core/hooks/gates/` beside the type gate and delete `BASELINE` from
+   `test_entropy_fanout.py` in the same commit.
+   - **files over `BLOCK_LINES`** — `post-edit.sh` (208) and `s3_batch.sh` (209) are one small split
+     each; the rest are `code/flows/engine/ui/src/*.jsx`, which is a React refactor, not a sweep.
+   - **directories over `BLOCK_FILES`** — worst first: `isoroll-content/src/pipeline` (55),
+     `aiwbot/tests` (51 — natural split `bugs/ features/ unit/`), `core/hooks` (49, halved by its
+     own split already), `aiwbot/frontend` (38), `core/tools` (37).
+   → **model: sonnet**, one repo at a time.
 
 ---
 
@@ -317,14 +353,14 @@ is no conceptual intersection."* Each type answers exactly one question.
 | CONTEXT vs SPECS | rules that *constrain code* → SPECS; what the dir *is* → CONTEXT |
 | ROADMAP vs BUGS | BUGS owns the text; ROADMAP references by id and never restates it |
 
-1. 🟢 **retype what the gate now blocks but cannot fix.** `.hooks/type-gate.py` stops *new*
+1. 🟢 **retype what the gate now blocks but cannot fix.** `core/hooks/type-gate.py` stops *new*
    off-allowlist names; **40 existing ones remain, enumerated live in
    [`entropy.md`](entropy.md)** — read the report, do not re-scan. They group into four jobs, in
    order of how much judgment each needs:
 
    | Job | Names | Route | Needs |
    |---|---|---|---|
-   | **B. the SPEC migration** | `SPEC.md` ×2 (`spacemantics`, `aiwbot`) + `code/_templates/module.SPEC.md` | → `SPECS.md` | blocked: load-bearing in five enforcement points (`.hooks/pre-commit` §1d, `spec-read-gate.py`, `context-tracker.py:36`, `spec-scan`, `spec-contract-check`). **One reviewed change**, never piecemeal. |
+   | **B. the SPEC migration** | `SPEC.md` ×2 (`spacemantics`, `aiwbot`) + `code/_templates/module.SPEC.md` | → `SPECS.md` | blocked: load-bearing in five enforcement points (`core/hooks/pre-commit` §1d, `spec-read-gate.py`, `context-tracker.py:36`, `spec-scan`, `spec-contract-check`). **One reviewed change**, never piecemeal. |
    | **C. spacemantics' own vocabulary** | 11 more in that one repo: `TAXONOMY` · `TAXONOMY-FAMILIES` · `TYPES` · `LEXICON` · `GRAMMAR-JSON` · `CONFORMANCE` · `CHECKABILITY` · `EXAMPLES` · `CONFLICTS` · `INVENTORY` · `INVENTORY-ADVISORY` | mostly → `SPECS.md` or lowercase instance | **its own session.** A DSL project legitimately has many spec-shaped documents; deciding which are one `SPECS.md` and which are content is a design question about spacemantics, not a naming sweep. |
    | **D. the long tail** | 20 across 9 repos: `isoroll-content` ×7, `flows` ×4, `casinhas` ×3, `instituto` ×3, `dobra` ×2, `2027-CHI-cria`, `2027-ICLR-dobra` | one of the four disposal routes each | a peek at each file. Sonnet, one repo at a time. |
 
@@ -348,7 +384,7 @@ is no conceptual intersection."* Each type answers exactly one question.
 > self-declares this lifecycle and names `REFACTOR.md` as its species; siblings are
 > `code/SPEC-DRIVE.md`, `code/isoroll-module/REFACTOR.md`, `core/MIGRATION-STATUS.md`,
 > `code/dobra/DECISIONS.md`. Folding `VERIFY.md` into a ROADMAP was **investigated 2026-07-30 and
-> rejected as unsafe**: it has 24 inbound references, 7 of them in `.hooks/*` source comments citing
+> rejected as unsafe**: it has 24 inbound references, 7 of them in `core/hooks/*` source comments citing
 > stable anchor IDs (`VERIFY.md W1/W2/I2/G1/G3/G7/A1`). It is a cross-project rollout with cited
 > anchors and a defined death date — genuinely not a per-project ROADMAP. Open question for Lucas:
 > the type is legitimate, but does it need a **name convention** (all five are named differently) and
@@ -360,7 +396,7 @@ is no conceptual intersection."* Each type answers exactly one question.
 
 One test each. Nothing here needs a decision.
 
-1. `.hooks/context_synchronizer.py`, three bugs: (a) hoisting a child CONTEXT.md's line-2 description
+1. `core/hooks/context_synchronizer.py`, three bugs: (a) hoisting a child CONTEXT.md's line-2 description
    copies relative links verbatim into the parent's routing row, where they resolve one level up —
    live in `branches/casinhas/CONTEXT.md` and `code/{apptime,dobra,isoroll-content}/CONTEXT.md`;
    (b) stale rows survive file deletion (block only updates on save) — live in
@@ -376,7 +412,7 @@ One test each. Nothing here needs a decision.
    staged. Blast radius measured 2026-07-29: **122 unstaged stubs across 7 repos**, and since the
    read-gate blocks reading source when the interface is current, a missing stub breaks a fresh
    clone. Needs a pre-commit sweep, not an edit-time hook.
-5. `.hooks/brain_stats.py` `compress_done()` writes `new_inner` without a trailing newline, so the
+5. `core/hooks/brain_stats.py` `compress_done()` writes `new_inner` without a trailing newline, so the
    surviving last entry is glued to the `<!-- done:end -->` marker. Same function leaves
    `brain/.log/done.md` unstaged after appending — the archive lands but the commit does not carry it.
 6. `.opencode/plugins/jsconfig.json` is self-defeating: `include: ["*.js"]` with
