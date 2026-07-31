@@ -20,6 +20,9 @@ from copilot_shared import (
 )
 
 
+HOOKS = Path(__file__).resolve().parents[1]
+
+
 def emit_allow(messages: list[str] | None = None) -> None:
     output: dict[str, Any] = {"continue": True}
     if messages:
@@ -44,8 +47,8 @@ def main() -> int:
     if any(hint in tool_name_lower for hint in READ_HINTS) and paths:
         for file_path in paths:
             payload = {"file_path": file_path, "session_id": session_id()}
-            run_script(workspace_root / ".hooks" / "facade-tracker.py", payload, "Read", workspace_root, via_env=True)
-            run_script(workspace_root / ".hooks" / "context-tracker.py", payload, "Read", workspace_root, via_env=True)
+            run_script(HOOKS / "read/facade-tracker.py", payload, "Read", workspace_root, via_env=True)
+            run_script(HOOKS / "read/context-tracker.py", payload, "Read", workspace_root, via_env=True)
         emit_allow()
         return 0
 
@@ -58,7 +61,7 @@ def main() -> int:
     canonical_tool_name = "Write" if write_like else "Edit"
     for file_path in paths:
         payload = build_payload(file_path, tool_input)
-        result = run_script(workspace_root / ".hooks" / "post-edit.sh", payload, canonical_tool_name, workspace_root, via_env=True)
+        result = run_script(HOOKS / "post-edit.sh", payload, canonical_tool_name, workspace_root, via_env=True)
         if result.stdout.strip():
             messages.append(result.stdout.strip())
         if result.stderr.strip():

@@ -12,7 +12,8 @@ import sys
 from pathlib import Path
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[3]
-sys.path.insert(0, str(WORKSPACE_ROOT / 'core/hooks'))
+# sys.path for the enforcement layer is set once, by conftest.py — a second copy
+# here would go stale the next time core/hooks is split.
 
 from file_law import (CODE_EXTS, allowed_extensionless,  # noqa: E402
                       is_code_file, is_vendored, load_limits)
@@ -91,8 +92,9 @@ def test_every_extensionless_tracked_file_is_explained() -> None:
 
 def test_no_checker_carries_its_own_extension_list() -> None:
     """The defect this whole module exists to prevent: a second definition of "code"."""
-    checkers = ['entropy-dashboard.py', 'entropy_fanout.py', 'workspace_meta.py',
-                'pre-edit.py', 'context_synchronizer.py', 'check-line-counts.sh']
+    checkers = ['entropy/entropy-dashboard.py', 'entropy/entropy_fanout.py',
+                'routing/workspace_meta.py', 'checks/pre-edit.py',
+                'routing/context_synchronizer.py', 'checks/check-line-counts.sh']
     checkers += [f'gates/{p.name}' for p in sorted((HOOKS / 'gates').glob('*.sh'))]
     checkers += [f'generators/{p.name}' for p in sorted((HOOKS / 'generators').glob('*.sh'))]
     offenders = []
@@ -110,5 +112,5 @@ def test_every_limit_has_one_home() -> None:
     assert set(limits) == {'WARN_LINES', 'BLOCK_LINES', 'WARN_FILES', 'BLOCK_FILES'}
     assert limits['WARN_LINES'] < limits['BLOCK_LINES']
     assert limits['WARN_FILES'] < limits['BLOCK_FILES']
-    scanner = (HOOKS / 'workspace_scanner.py').read_text(encoding='utf-8')
+    scanner = (HOOKS / 'routing/workspace_scanner.py').read_text(encoding='utf-8')
     assert 'SPLIT_THRESHOLD = 7' not in scanner

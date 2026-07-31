@@ -13,7 +13,8 @@ import sys
 from pathlib import Path
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[3]
-sys.path.insert(0, str(WORKSPACE_ROOT / 'core/hooks'))
+# sys.path for the enforcement layer is set once, by conftest.py — a second copy
+# here would go stale the next time core/hooks is split.
 
 from workspace_meta import extract_api  # noqa: E402
 from workspace_scanner import build_file_rows, parse_preserved_files  # noqa: E402

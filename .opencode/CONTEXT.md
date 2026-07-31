@@ -19,8 +19,8 @@ events into the stdin-JSON + `CLAUDE_TOOL_NAME`/`CLAUDE_TOOL_INPUT` env schema
 the scripts already expect, and maps Claude's exit-2 block convention to
 opencode's `throw` from `tool.execute.before`.
 
-Design lifted from the parallel `core/hooks/copilot-pre-tool.py` and
-`core/hooks/copilot-post-tool.py`, which already solve the same translation
+Design lifted from the parallel `core/hooks/copilot/copilot-pre-tool.py` and
+`core/hooks/copilot/copilot-post-tool.py`, which already solve the same translation
 problem for a non-Claude agent. Field-name lists (`PATH_KEYS`,
 `CONTENT_KEYS`, `OLD_KEYS`, `NEW_KEYS`) are reused verbatim.
 
@@ -28,17 +28,17 @@ problem for a non-Claude agent. Field-name lists (`PATH_KEYS`,
 
 | opencode event + tool name | Claude matcher | Script | Block via |
 |---|---|---|---|
-| `tool.execute.before`, `read` | PreToolUse `Read` | `core/hooks/context-gate.py` | exit 2 → throw |
-| `tool.execute.before`, `read` | PreToolUse `Read` | `core/hooks/pre-read.sh` | exit 2 → throw |
-| `tool.execute.before`, `edit`/`write` | PreToolUse `Edit\|Write` | `core/hooks/context-gate.py` | exit 2 → throw |
-| `tool.execute.before`, `edit`/`write` | PreToolUse `Edit\|Write` | `core/hooks/pre-edit.py` | exit 2 → throw |
-| `tool.execute.before`, `edit`/`write` | PreToolUse `Edit\|Write` | `core/hooks/facade-scan.py` | (warn only; never exits 2) |
-| `tool.execute.before`, `edit`/`write`/`apply_patch` | PreToolUse `Edit\|Write` | `core/hooks/facade-gate.py` | exit 2 → throw |
-| `tool.execute.before`, `edit`/`write`/`apply_patch` | PreToolUse `Edit\|Write` | `core/hooks/bugs-gate.py` | exit 2 → throw |
-| `tool.execute.before`, `edit`/`write`/`apply_patch` | PreToolUse `Edit\|Write` | `core/hooks/spec-read-gate.py` | exit 2 → throw |
-| `tool.execute.before`, `bash` | PreToolUse `Bash` | `core/hooks/bash-context-gate.py` | exit 2 → throw |
-| `tool.execute.after`, `read` | PostToolUse `Read` | `core/hooks/facade-tracker.py` | n/a (no block) |
-| `tool.execute.after`, `read` | PostToolUse `Read` | `core/hooks/context-tracker.py` | n/a (no block) |
+| `tool.execute.before`, `read` | PreToolUse `Read` | `core/hooks/read/context-gate.py` | exit 2 → throw |
+| `tool.execute.before`, `read` | PreToolUse `Read` | `core/hooks/read/pre-read.sh` | exit 2 → throw |
+| `tool.execute.before`, `edit`/`write` | PreToolUse `Edit\|Write` | `core/hooks/read/context-gate.py` | exit 2 → throw |
+| `tool.execute.before`, `edit`/`write` | PreToolUse `Edit\|Write` | `core/hooks/checks/pre-edit.py` | exit 2 → throw |
+| `tool.execute.before`, `edit`/`write` | PreToolUse `Edit\|Write` | `core/hooks/facade/facade-scan.py` | (warn only; never exits 2) |
+| `tool.execute.before`, `edit`/`write`/`apply_patch` | PreToolUse `Edit\|Write` | `core/hooks/facade/facade-gate.py` | exit 2 → throw |
+| `tool.execute.before`, `edit`/`write`/`apply_patch` | PreToolUse `Edit\|Write` | `core/hooks/checks/bugs-gate.py` | exit 2 → throw |
+| `tool.execute.before`, `edit`/`write`/`apply_patch` | PreToolUse `Edit\|Write` | `core/hooks/read/spec-read-gate.py` | exit 2 → throw |
+| `tool.execute.before`, `bash` | PreToolUse `Bash` | `core/hooks/read/bash-context-gate.py` | exit 2 → throw |
+| `tool.execute.after`, `read` | PostToolUse `Read` | `core/hooks/facade/facade-tracker.py` | n/a (no block) |
+| `tool.execute.after`, `read` | PostToolUse `Read` | `core/hooks/read/context-tracker.py` | n/a (no block) |
 | `tool.execute.after`, `edit`/`write`/`apply_patch` | PostToolUse `Edit\|Write` | `core/hooks/post-edit.sh` | n/a (no block) |
 
 `bash` is not in `TOOL_MAP` (its payload is a command string, not a file path) —

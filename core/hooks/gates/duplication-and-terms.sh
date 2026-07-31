@@ -5,7 +5,7 @@
 # ── 1b. Duplication gate (jscpd) — blocks clones involving staged files ───────
 DUP_FILES=$(echo "$STAGED" | grep -E '\.(js|jsx|ts|tsx|py|dart)$' | grep -vE '\.(d\.ts|pyi|min\.js)$' || true)
 if [ -n "$DUP_FILES" ]; then
-  if ! echo "$DUP_FILES" | python3 /mnt/workspace/core/hooks/check-duplication.py; then
+  if ! echo "$DUP_FILES" | python3 /mnt/workspace/core/hooks/checks/check-duplication.py; then
     exit 1
   fi
 fi
@@ -13,7 +13,7 @@ fi
 # ── 2b. Facade boundary check ─────────────────────────────────────────────────
 FACADE_FILES=$(echo "$STAGED" | grep -E '\.(ts|tsx|js|jsx|py|dart)$' | grep -v '\.d\.ts$' || true)
 if [ -n "$FACADE_FILES" ]; then
-  if ! echo "$FACADE_FILES" | python3 /mnt/workspace/core/hooks/check-facade-imports.py; then
+  if ! echo "$FACADE_FILES" | python3 /mnt/workspace/core/hooks/facade/check-facade-imports.py; then
     exit 1
   fi
 fi

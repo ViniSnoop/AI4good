@@ -1,0 +1,14 @@
+# checks
+> Standalone blocking checks the commit and edit hooks run.
+
+<!-- routing:start -->
+## Routing
+
+| File | Interface | API | Description |
+|------|-----------|-----|-------------|
+| [`bugs-gate.py`](bugs-gate.py) | [`bugs-gate.pyi`](bugs-gate.pyi) | `fixed_ids`, `repo_root`, `has_spec`, `main` | PreToolUse: Edit|Write on BUGS.md — flipping a bug to FIXED requires a matching |
+| [`check-duplication.py`](check-duplication.py) | [`check-duplication.pyi`](check-duplication.pyi) | `main`, `rel` | Pre-commit duplication gate — jscpd over the repo; blocks when a clone involves a staged |
+| [`check-line-counts.sh`](check-line-counts.sh) | — | — | ← add first-line comment |
+| [`pre-edit.py`](pre-edit.py) | [`pre-edit.pyi`](pre-edit.pyi) | — | PreToolUse: Edit|Write — size gate (200-line block), first-line comment, CONTEXT.md description. |
+| [`type-gate.py`](type-gate.py) | [`type-gate.pyi`](type-gate.pyi) | `check_name`, `staged_added_files`, `failures_for`, `main` | Tier 0 gate (ROADMAP.md Frente 4.1): a staged file must be a known .md type or a |
+<!-- routing:end -->

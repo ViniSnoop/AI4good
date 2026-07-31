@@ -3,12 +3,12 @@
 <!-- stats:start -->
 <!-- data:start -->
 ## attention dashboard  _(auto-updated on every commit)_
-last-updated: 2026-07-31 01:59
+last-updated: 2026-07-31 13:16
 
 >**areas** — last 14 days  
 ```
-health       █████░░░░░   35 touches
-career       █░░░░░░░░░   11 touches
+health       █████░░░░░   36 touches
+career       █░░░░░░░░░   12 touches
 finances     █░░░░░░░░░   11 touches
 fun          ██████████   62 touches
 spiritual    ███░░░░░░░   20 touches
@@ -20,7 +20,7 @@ CONTEXT                  ███░░░░░░░   5 touches
 burocracia-academica     █░░░░░░░░░   2 touches
 career-ufrpe             ███░░░░░░░   5 touches
 corporal-expressiveness  ███░░░░░░░   5 touches
-craft-flows              ██░░░░░░░░   4 touches
+craft-flows              ███░░░░░░░   5 touches
 cria                     ███░░░░░░░   5 touches
 dance-bachata            ███░░░░░░░   5 touches
 dance-cavalo-marinho     ███░░░░░░░   5 touches
@@ -45,7 +45,7 @@ paper-scattercode        ███░░░░░░░   5 touches
 paper-sibgrapi-2026      ███░░░░░░░   5 touches
 prompt-opt-automation    ░░░░░░░░░░   0 touches
 reading                  ███░░░░░░░   5 touches
-rpg-isoroll              █████░░░░░   7 touches
+rpg-isoroll              ████░░░░░░   7 touches
 sleep-regularity         ███░░░░░░░   5 touches
 smartphone-addiction     ███░░░░░░░   5 touches
 spacemantics             ████░░░░░░   6 touches
@@ -71,7 +71,7 @@ surf                     ███░░░░░░░   5 touches
 teaching-materials       ████░░░░░░   6 touches
 vipassana                ███░░░░░░░   5 touches
 voice                    ███░░░░░░░   5 touches
-workspace-os             ██████████   14 touches
+workspace-os             ██████████   15 touches
 yoga                     ███░░░░░░░   5 touches
 ```
 <!-- data:end -->

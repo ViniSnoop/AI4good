@@ -1,9 +1,11 @@
 # Workspace scanner: directory discovery and CONTEXT.md routing-table assembly.
 import re
+import sys
 from pathlib import Path
 
-from file_law import load_limits
-from workspace_meta import (
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from file_law import load_limits  # noqa: E402
+from workspace_meta import (  # noqa: E402
     ALL_EXTS, PLACEHOLDER, extract_api, file_description, interface_for,
 )
 

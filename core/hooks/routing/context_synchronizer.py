@@ -2,7 +2,7 @@
 # Sync the Routing block in CONTEXT.md (or AGENTS.md at workspace root).
 import sys
 from pathlib import Path
-sys.path.insert(0, str(Path(__file__).parent))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from file_law import is_code_file
 from workspace_scanner import (
     SPLIT_THRESHOLD,

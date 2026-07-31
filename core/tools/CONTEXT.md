@@ -39,12 +39,12 @@ The `subagent` capability is runtime-specific and has no CLI wrapper:
 Not a research tool — lives in `core/hooks/` alongside the commit hooks:
 
 ```bash
-bash core/hooks/check-line-counts.sh             # scan all code files in cwd
-bash core/hooks/check-line-counts.sh file.py     # check one file
-find . -name "*.py" | bash core/hooks/check-line-counts.sh --from-stdin
+bash core/hooks/checks/check-line-counts.sh             # scan all code files in cwd
+bash core/hooks/checks/check-line-counts.sh file.py     # check one file
+find . -name "*.py" | bash core/hooks/checks/check-line-counts.sh --from-stdin
 ```
 
-Thresholds: `core/hooks/line-limits.env`. The `pre-commit` hook runs it automatically; `pre-edit.py` enforces per-edit. Both read the same limits file.
+Thresholds: `core/hooks/limits.env`. The `pre-commit` hook runs it automatically; `pre-edit.py` enforces per-edit. Both read the same limits file.
 
 ## Adding a tool
 

@@ -2,7 +2,7 @@
 # Copilot wrapper that honors .agentrc.json and runs session-start and hooks
 set -euo pipefail
 
-workspace_root=$(cd "$(dirname "$0")/../.." && pwd)
+workspace_root=$(cd "$(dirname "$0")/../../.." && pwd)
 cfg="$workspace_root/.agentrc.json"
 
 if [ ! -f "$cfg" ]; then
@@ -24,8 +24,8 @@ fi
 
 echo "Running workspace session-start: $start_session"
 # If PowerShell Core is available and a PS1 start file exists, use it.
-if command -v pwsh >/dev/null 2>&1 && [ -f "$workspace_root/core/hooks/start-session.ps1" ]; then
-  pwsh -NoProfile -File "$workspace_root/core/hooks/start-session.ps1"
+if command -v pwsh >/dev/null 2>&1 && [ -f "$workspace_root/core/hooks/session/start-session.ps1" ]; then
+  pwsh -NoProfile -File "$workspace_root/core/hooks/session/start-session.ps1"
 else
   bash "$workspace_root/$start_session"
 fi

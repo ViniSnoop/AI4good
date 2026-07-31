@@ -1,4 +1,4 @@
-Workspace policy lives in AGENTS.md — injected at session start via `core/hooks/copilot-session-start.py`.
+Workspace policy lives in AGENTS.md — injected at session start via `core/hooks/copilot/copilot-session-start.py`.
 
 <!-- rtk-instructions v2 -->
 # RTK — Token-Optimized CLI

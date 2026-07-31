@@ -3,7 +3,7 @@
 import subprocess
 from pathlib import Path
 
-SCRIPT = Path(__file__).resolve().parents[3] / "core/hooks" / "gitignore-self-heal.sh"
+SCRIPT = Path(__file__).resolve().parents[3] / "core/hooks/git" / "gitignore-self-heal.sh"
 
 
 def _make_fixture(tmp_path: Path) -> Path:

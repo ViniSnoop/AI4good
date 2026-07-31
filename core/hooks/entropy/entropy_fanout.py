@@ -12,10 +12,12 @@
 # problem, it is the directory telling you it holds more than one responsibility. Splitting
 # it costs one routing hop, so this is a SIGNAL, never a cap — see core/SCHEMA.md
 # § Routing depth and locality for when the hop is worth paying.
+import sys
 from collections import Counter
 from pathlib import Path
 
-from file_law import is_code_file, is_vendored, load_limits
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from file_law import is_code_file, is_vendored, load_limits  # noqa: E402
 
 
 def fanout_counts(files: list, root: Path) -> Counter:

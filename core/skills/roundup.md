@@ -60,7 +60,7 @@ If `ROADMAP.md` exists:
 If `BUGS.md` exists:
 1. Identify resolved items (`- [x]`, "fixed", "resolved", "closed").
 2. **Delete them.** The regression spec (`test/**/b<N>-*`) is the durable proof a bug is dead — that
-   is what the gate in `core/hooks/bugs-gate.py` enforces, and it outlives any prose archive.
+   is what the gate in `core/hooks/checks/bugs-gate.py` enforces, and it outlives any prose archive.
 3. Nothing resolved → skip.
 
 ### The one thing that must not be deleted
@@ -118,7 +118,7 @@ If `brain/INBOX.md` has entries, triage them now via the `/inbox` routes (goal /
 The session end is the **only** reliable moment to promote work. `feature/*` is already safe — the
 `post-commit` hook auto-pushes it. This phase moves work up so the other machine sees it on `main`.
 
-Applies to the workspace repo and `code/*` repos (same scope as `core/hooks/gitflow-gate.sh`).
+Applies to the workspace repo and `code/*` repos (same scope as `core/hooks/git/gitflow-gate.sh`).
 Other repos (`academy/papers/*`, `branches/*`): push the current branch, skip the merges.
 
 ```bash

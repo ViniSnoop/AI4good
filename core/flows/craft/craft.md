@@ -176,7 +176,7 @@ verdict: PASS | FAIL
 
 Mechanical grounding: create the branch from the correct base; verify every path in the plan's `files` column exists (or its parent dir does, for new files); verify `test-cmd` actually runs (may be red, must not error out).
 
-**Git Flow (enforced).** The branch MUST be `feature/<slug>` off `develop` (or `hotfix/<slug>` off `main`) — `core/hooks/gitflow-gate.sh` blocks commits on `main`/`master`/`develop` or any non-flow branch name in `code/` repos, so a wrong branch here fails at Loop 6 ship. If the project has no `develop` yet, create it from `main` first.
+**Git Flow (enforced).** The branch MUST be `feature/<slug>` off `develop` (or `hotfix/<slug>` off `main`) — `core/hooks/git/gitflow-gate.sh` blocks commits on `main`/`master`/`develop` or any non-flow branch name in `code/` repos, so a wrong branch here fails at Loop 6 ship. If the project has no `develop` yet, create it from `main` first.
 
 ```markdown
 ## Carry

@@ -17,11 +17,16 @@ import subprocess
 import sys
 from pathlib import Path
 
-from entropy_context import check_goal_link, check_inventory
-from entropy_corpus import enforcement_paths
-from entropy_ledger import goal_vocabulary, wiki_link_hits
-from entropy_naming import check_dirs, check_placement, check_shape
-from schema_law import SCHEMA, WORKSPACE_ROOT, load_law, load_scopes
+# The law is one level up; the checks this gate runs live in entropy/.
+_HOOKS = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(_HOOKS))
+sys.path.insert(0, str(_HOOKS / 'entropy'))
+
+from entropy_context import check_goal_link, check_inventory  # noqa: E402
+from entropy_corpus import enforcement_paths  # noqa: E402
+from entropy_ledger import goal_vocabulary, wiki_link_hits  # noqa: E402
+from entropy_naming import check_dirs, check_placement, check_shape  # noqa: E402
+from schema_law import SCHEMA, WORKSPACE_ROOT, load_law, load_scopes  # noqa: E402
 
 # CLAUDE.md is mandated by the harness, not chosen by us; a gate cannot un-invent it.
 HARNESS_MANDATED = {'CLAUDE.md'}

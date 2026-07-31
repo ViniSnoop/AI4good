@@ -9,17 +9,17 @@ PYTEST := .venv/bin/pytest
 
 # T0 static + T1 unit. No network, no model downloads, no browser.
 verify-fast:
-	@bash -n core/hooks/*.sh
+	@bash -n core/hooks/*.sh core/hooks/*/*.sh
 	@$(PYTEST) core/tools/test/ -m "not network" -q
 
 # The entropy dashboard: every Tier 0 check over the workspace AND its 24 nested repos,
 # written to entropy.md. Read the report; never re-scan the tree by hand. Not part of
 # verify-fast — it writes a file, and a verification step must not have side effects.
 entropy:
-	@python3 core/hooks/entropy-dashboard.py
+	@python3 core/hooks/entropy/entropy-dashboard.py
 
 # T2: adds the network-marked tests (live yt-dlp against real URLs — needs cookies
 # for the Instagram cases, see core/tools/video.SETUP.md).
 verify-full:
-	@bash -n core/hooks/*.sh
+	@bash -n core/hooks/*.sh core/hooks/*/*.sh
 	@$(PYTEST) core/tools/test/ -q

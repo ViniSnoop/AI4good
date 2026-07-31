@@ -6,7 +6,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).parent))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from hook_input import parse_stdin
 
 FIXED_RE = re.compile(r'##\s*B(\d+)\b[^\n]*\bFIXED\b', re.IGNORECASE)

@@ -69,10 +69,10 @@ EOF
 			&& printf "✓ .csvif: %sif\n" "$file"
 		;;
 	*.dart)
-		python3 /mnt/workspace/core/hooks/dart-api-extract.py "$file" 2>/dev/null
+		python3 /mnt/workspace/core/hooks/stubgen/dart-api-extract.py "$file" 2>/dev/null
 		;;
 	*.tex)
-		python3 /mnt/workspace/core/hooks/tex-interface-gen.py "$file" 2>/dev/null
+		python3 /mnt/workspace/core/hooks/stubgen/tex-interface-gen.py "$file" 2>/dev/null
 		# Term consistency check (warn-only; requires terms.yaml in paper root)
 		paper_root="$dir"
 		while [ "$paper_root" != "/" ] && [ ! -f "$paper_root/terms.yaml" ]; do
@@ -83,6 +83,6 @@ EOF
 		fi
 		;;
 	*.bib)
-		python3 /mnt/workspace/core/hooks/tex-interface-gen.py --bib-check "$file" 2>/dev/null
+		python3 /mnt/workspace/core/hooks/stubgen/tex-interface-gen.py --bib-check "$file" 2>/dev/null
 		;;
 esac

@@ -1,8 +1,9 @@
 # Workspace metadata extraction: file descriptions, public APIs, and interface links.
-import re, ast
+import re, ast, sys
 from pathlib import Path
 
 # One definition, from core/hooks/file_law.py — this module used to carry its own copy.
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from file_law import CODE_EXTS  # noqa: E402  (re-exported: callers import it from here)
 
 CONTENT_EXTS = {'.md', '.yaml', '.yml', '.toml'}

@@ -4,7 +4,7 @@
 
 # ── Sync CONTEXT.md Routing block — leaf dir only ─────────────────────────────
 [ -f "$dir/CONTEXT.md" ] \
-    && python3 /mnt/workspace/core/hooks/context_synchronizer.py "$dir" 2>/dev/null
+    && python3 /mnt/workspace/core/hooks/routing/context_synchronizer.py "$dir" 2>/dev/null
 
 # ── codegraph sync — keep index fresh after every source edit ─────────────────
 if [[ "$file" == /mnt/workspace/code/* ]]; then

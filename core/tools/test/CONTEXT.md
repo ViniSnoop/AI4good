@@ -6,7 +6,7 @@
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
-| [`conftest.py`](conftest.py) | [`conftest.pyi`](conftest.pyi) | `pytest_configure` | conftest.py — put core/tools on sys.path and register the network marker for video tests |
+| [`conftest.py`](conftest.py) | [`conftest.pyi`](conftest.pyi) | `pytest_configure` | conftest.py — put core/tools and the enforcement layer on sys.path, and register the |
 | [`test_entropy_context.py`](test_entropy_context.py) | [`test_entropy_context.pyi`](test_entropy_context.pyi) | — | T0 CONTEXT.md rules (Frente 4.1 Tier 0). Zero-token, runs in verify-fast. |
 | [`test_entropy_fanout.py`](test_entropy_fanout.py) | [`test_entropy_fanout.pyi`](test_entropy_fanout.pyi) | — | T0 directory fanout (Frente 4.1 Tier 0). Zero-token, runs in verify-fast. |
 | [`test_entropy_ledger.py`](test_entropy_ledger.py) | [`test_entropy_ledger.pyi`](test_entropy_ledger.pyi) | — | T0 ledger and vocabulary checks (Frente 4.1 Tier 0). Zero-token, runs in verify-fast. |

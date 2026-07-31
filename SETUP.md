@@ -13,11 +13,11 @@ Hook can block read/edit/commit → **ENFORCED**. File only injects guidance →
 
 | Task | Canonical files | Claude files | Copilot / VS Code files | Behavior |
 |------|-----------------|--------------|--------------------------|----------|
-| Add workspace parity config and wrapper scripts | `AGENTS.md`, `core/hooks/pre-read.sh`, `core/hooks/pre-edit.py`, `core/hooks/post-edit.sh`, `core/hooks/start-session.sh`, `core/hooks/start-session.ps1` | `CLAUDE.md`, `.claude/settings.json` | `.agentrc.json`, `core/hooks/copilot-agent.sh`, `.github/copilot-instructions.md` | **ENFORCED** |
-| Wire Copilot wrapper to call pre-read / pre-edit / post-edit hooks | `core/hooks/pre-read.sh`, `core/hooks/pre-edit.py`, `core/hooks/post-edit.sh`, `core/hooks/copilot-session-start.py`, `core/hooks/copilot-pre-tool.py`, `core/hooks/copilot-post-tool.py` | `.claude/settings.json` | `.github/hooks/workspace-policy.json`, `.vscode/settings.json` | **ENFORCED** |
-| Integrate `context_synchronizer.py` and interface generation into wrapper | `core/hooks/post-edit.sh`, `core/hooks/pre-read.sh`, `core/hooks/pre-edit.py`, `core/hooks/context_synchronizer.py` | `.claude/settings.json` | `.github/hooks/workspace-policy.json` | **ENFORCED** |
-| Add VS Code tasks / settings to run session-start checks | `core/hooks/start-session.sh`, `core/hooks/start-session.ps1`, `core/hooks/copilot-session-start.py` | `CLAUDE.md` | `.vscode/tasks.json`, `.vscode/settings.json`, `.github/copilot-instructions.md` | **INDUCED** |
-| Test workflow: simulate read / edit / commit and fix issues | `core/hooks/pre-read.sh`, `core/hooks/pre-edit.py`, `core/hooks/post-edit.sh`, `core/hooks/copilot-pre-tool.py`, `core/hooks/copilot-post-tool.py`, `core/hooks/pre-commit` | `.claude/settings.json` | `.vscode/tasks.json` | **INDUCED** |
+| Add workspace parity config and wrapper scripts | `AGENTS.md`, `core/hooks/read/pre-read.sh`, `core/hooks/checks/pre-edit.py`, `core/hooks/post-edit.sh`, `core/hooks/session/start-session.sh`, `core/hooks/session/start-session.ps1` | `CLAUDE.md`, `.claude/settings.json` | `.agentrc.json`, `core/hooks/copilot/copilot-agent.sh`, `.github/copilot-instructions.md` | **ENFORCED** |
+| Wire Copilot wrapper to call pre-read / pre-edit / post-edit hooks | `core/hooks/read/pre-read.sh`, `core/hooks/checks/pre-edit.py`, `core/hooks/post-edit.sh`, `core/hooks/copilot/copilot-session-start.py`, `core/hooks/copilot/copilot-pre-tool.py`, `core/hooks/copilot/copilot-post-tool.py` | `.claude/settings.json` | `.github/hooks/workspace-policy.json`, `.vscode/settings.json` | **ENFORCED** |
+| Integrate `context_synchronizer.py` and interface generation into wrapper | `core/hooks/post-edit.sh`, `core/hooks/read/pre-read.sh`, `core/hooks/checks/pre-edit.py`, `core/hooks/routing/context_synchronizer.py` | `.claude/settings.json` | `.github/hooks/workspace-policy.json` | **ENFORCED** |
+| Add VS Code tasks / settings to run session-start checks | `core/hooks/session/start-session.sh`, `core/hooks/session/start-session.ps1`, `core/hooks/copilot/copilot-session-start.py` | `CLAUDE.md` | `.vscode/tasks.json`, `.vscode/settings.json`, `.github/copilot-instructions.md` | **INDUCED** |
+| Test workflow: simulate read / edit / commit and fix issues | `core/hooks/read/pre-read.sh`, `core/hooks/checks/pre-edit.py`, `core/hooks/post-edit.sh`, `core/hooks/copilot/copilot-pre-tool.py`, `core/hooks/copilot/copilot-post-tool.py`, `core/hooks/pre-commit` | `.claude/settings.json` | `.vscode/tasks.json` | **INDUCED** |
 
 ### Additional Files Not Tied To One Task
 
@@ -34,13 +34,13 @@ Hook can block read/edit/commit → **ENFORCED**. File only injects guidance →
 
 ### Git Pre-Commit Hook (`core/hooks/pre-commit`)
 Applied globally via `core.hooksPath`. Fires on every `git commit` across all repos under this workspace.
-- Warns on code files ≥ 150 lines; blocks commits on code files ≥ 200 lines (`.js .ts .tsx .py .dart .html .css .scss .tex` — not data files). Shared thresholds in [`core/hooks/line-limits.env`](core/hooks/line-limits.env)
+- Warns on code files ≥ 150 lines; blocks commits on code files ≥ 200 lines (`.js .ts .tsx .py .dart .html .css .scss .tex` — not data files). Shared thresholds in [`core/hooks/limits.env`](core/hooks/limits.env)
 - Warns when newly staged code file lacks first-line description comment
 - **Hard-blocks cross-module imports bypassing facade** (`index` / `__init__`) via `check-facade-imports.py`
 - **Auto-syncs CONTEXT.md Routing block** via `context_synchronizer.py` for every dir with staged files, stages result
 - Auto-generates `.pyi` stubs for Python files (via `stubgen`), stages them
 - Auto-generates `.d.ts` declarations for JS/TS files (via `tsc`) and `.dart.api` stubs for Dart files (via `dart-api-extract.py`), stages them
-- Shares staged-file line-count enforcement with `core/hooks/check-line-counts.sh`, which can also run manually for workspace-wide audit
+- Shares staged-file line-count enforcement with `core/hooks/checks/check-line-counts.sh`, which can also run manually for workspace-wide audit
 - **No exemptions for vendored third-party code.** Anything brought into the workspace complies with the same gates as our own code — size limits, first-line comments, generated interfaces. A `.vendor` marker that switched the gates off was tried and **rejected** (2026-07-23, Lucas: *"even thirdparty solutions, once brought to our w-os should comply with our rules. opening exceptions is quite dangerous"*). Vendoring means adopting and adapting, not parking a copy: split what is too big, and record the deviations so a future re-sync knows what it is merging against — see `core/skills/caveman/CONTEXT.md` § Local adaptations.
 
 ### Claude Code Hooks (`.claude/settings.json`)
@@ -48,26 +48,26 @@ Fires on every `Edit`, `Write`, `Read` tool call during Claude Code sessions.
 
 | Script | Trigger | Behavior |
 |--------|---------|----------|
-| `core/hooks/pre-edit.py` | PreToolUse: Edit, Write | **Hard-blocks** edits pushing code file past 200 lines; **hard-blocks Write of new files missing first-line description comment** |
-| `core/hooks/facade-scan.py` | PreToolUse: Write (new files in `code/`) | **Informs** — prints exports already declared in the target module's facade before a new file is created. Warns if exports list is empty (facade needs updating). Not a block. |
+| `core/hooks/checks/pre-edit.py` | PreToolUse: Edit, Write | **Hard-blocks** edits pushing code file past 200 lines; **hard-blocks Write of new files missing first-line description comment** |
+| `core/hooks/facade/facade-scan.py` | PreToolUse: Write (new files in `code/`) | **Informs** — prints exports already declared in the target module's facade before a new file is created. Warns if exports list is empty (facade needs updating). Not a block. |
 | `core/hooks/post-edit.sh` | PostToolUse: Edit, Write | Regenerates `.pyi` / `.d.ts` / `.dart.api`; auto-scaffolds `jsconfig.json`/`tsconfig.json` if missing; reminds about missing first-line comment; runs `context_synchronizer.py` |
-| `core/hooks/pre-read.sh` | PreToolUse: Read | **Hard-blocks** reading source file when interface is current (timestamp check); warns when interface is stale. Reading the interface unlocks the source for the session |
-| `core/hooks/facade-gate.py` | PreToolUse: Edit, Write (`code/` files) | **Hard-blocks** edits to any `code/` module file until the nearest facade has been Read this session |
-| `core/hooks/facade-tracker.py` | PostToolUse: Read | Records facade reads to `/tmp/claude_facades_<session_id>.txt`; consumed by `facade-gate.py` |
-| `core/hooks/context-gate.py` | PreToolUse: Read, Edit, Write, Grep, NotebookEdit | **Hard-blocks** file access until the target subtree's CONTEXT.md chain was Read this session (whole workspace; session-deduped; CONTEXT.md/AGENTS.md targets exempt) |
-| `core/hooks/bash-context-gate.py` | PreToolUse: Bash | **Hard-blocks** Bash commands naming workspace files in subtrees whose CONTEXT.md chain is unread (closes the cat/grep bypass) |
-| `core/hooks/context-tracker.py` | PostToolUse: Read | Records CONTEXT.md reads (context-gate state) and interface reads (pre-read source unlock) |
-| `core/hooks/bugs-gate.py` | PreToolUse: Edit, Write (`BUGS.md`) | **Hard-blocks** flipping a bug to FIXED unless a matching `test/**/b<N>-*` regression spec exists |
-| `core/hooks/spec-read-gate.py` | PreToolUse: Edit, Write (`code/` files) | **Hard-blocks** editing a spec-locked module's files (CONTEXT.md `> spec:` + SPEC.md `status: locked`) until its `SPEC.md` was Read this session; nudges on new files in spec-less `code/` modules (SDD — [code/SPEC-DRIVE.md](code/SPEC-DRIVE.md)) |
-| `core/hooks/precompact-wipe.sh` | PreCompact | Wipes context seen-markers — CONTEXT chain is re-read after compaction |
-| `core/hooks/session-prune.sh` | SessionStart | Prunes stale session marker files (>2 days) |
+| `core/hooks/read/pre-read.sh` | PreToolUse: Read | **Hard-blocks** reading source file when interface is current (timestamp check); warns when interface is stale. Reading the interface unlocks the source for the session |
+| `core/hooks/facade/facade-gate.py` | PreToolUse: Edit, Write (`code/` files) | **Hard-blocks** edits to any `code/` module file until the nearest facade has been Read this session |
+| `core/hooks/facade/facade-tracker.py` | PostToolUse: Read | Records facade reads to `/tmp/claude_facades_<session_id>.txt`; consumed by `facade-gate.py` |
+| `core/hooks/read/context-gate.py` | PreToolUse: Read, Edit, Write, Grep, NotebookEdit | **Hard-blocks** file access until the target subtree's CONTEXT.md chain was Read this session (whole workspace; session-deduped; CONTEXT.md/AGENTS.md targets exempt) |
+| `core/hooks/read/bash-context-gate.py` | PreToolUse: Bash | **Hard-blocks** Bash commands naming workspace files in subtrees whose CONTEXT.md chain is unread (closes the cat/grep bypass) |
+| `core/hooks/read/context-tracker.py` | PostToolUse: Read | Records CONTEXT.md reads (context-gate state) and interface reads (pre-read source unlock) |
+| `core/hooks/checks/bugs-gate.py` | PreToolUse: Edit, Write (`BUGS.md`) | **Hard-blocks** flipping a bug to FIXED unless a matching `test/**/b<N>-*` regression spec exists |
+| `core/hooks/read/spec-read-gate.py` | PreToolUse: Edit, Write (`code/` files) | **Hard-blocks** editing a spec-locked module's files (CONTEXT.md `> spec:` + SPEC.md `status: locked`) until its `SPEC.md` was Read this session; nudges on new files in spec-less `code/` modules (SDD — [code/SPEC-DRIVE.md](code/SPEC-DRIVE.md)) |
+| `core/hooks/session/precompact-wipe.sh` | PreCompact | Wipes context seen-markers — CONTEXT chain is re-read after compaction |
+| `core/hooks/session/session-prune.sh` | SessionStart | Prunes stale session marker files (>2 days) |
 
 ### Git Pre-Commit additions (see [code/VERIFY.md](code/VERIFY.md))
 
 | Gate | Behavior |
 |------|----------|
 | `verify:fast` contract (1a) | Projects whose package.json declares `verify:fast` must be green — **hard-blocks** commit |
-| `core/hooks/check-duplication.py` (1b) | jscpd over the committing repo — **hard-blocks** clones involving staged files (75 tokens / 10 lines) |
+| `core/hooks/checks/check-duplication.py` (1b) | jscpd over the committing repo — **hard-blocks** clones involving staged files (75 tokens / 10 lines) |
 | Spec-driven module gate (1d) | New module `CONTEXT.md` under `code/` must declare `> spec: <file>` (existing) or `> spec: none` — **hard-blocks** commit otherwise (ratchet; existing modules grandfathered) |
 
 For codegraph setup and bash tool reference, see [`code/SETUP.md`](code/SETUP.md#codegraph).
@@ -100,18 +100,18 @@ All canonical enforcement lives in `core/hooks/`. Each agent needs a shim that c
 
 **Existing shims:**
 - **Claude Code** — `.claude/settings.json` (PreToolUse/PostToolUse matchers).
-- **Copilot** — `core/hooks/copilot-pre-tool.py` + `core/hooks/copilot-post-tool.py` (translate Copilot's tool events to the Claude stdin-JSON + `CLAUDE_TOOL_NAME` env schema).
+- **Copilot** — `core/hooks/copilot/copilot-pre-tool.py` + `core/hooks/copilot/copilot-post-tool.py` (translate Copilot's tool events to the Claude stdin-JSON + `CLAUDE_TOOL_NAME` env schema).
 - **opencode** — `.opencode/plugins/workspace-policy.js` (translates opencode's `tool.execute.before`/`after` events to the same schema; maps Claude exit-2 → opencode `throw`). Helpers in `.opencode/wp-helpers.js`, re-exported through `.opencode/index.js` facade. See [`.opencode/CONTEXT.md`](.opencode/CONTEXT.md) for the full event → script mapping.
 
 **Wiring a new agent — three hook points:**
 
 ```
-PreTool (Read)  → bash /mnt/workspace/core/hooks/pre-read.sh
-PreTool (Edit)  → python3 /mnt/workspace/core/hooks/pre-edit.py
-                  python3 /mnt/workspace/core/hooks/facade-scan.py  (write/create only)
-                  python3 /mnt/workspace/core/hooks/facade-gate.py
+PreTool (Read)  → bash /mnt/workspace/core/hooks/read/pre-read.sh
+PreTool (Edit)  → python3 /mnt/workspace/core/hooks/checks/pre-edit.py
+                  python3 /mnt/workspace/core/hooks/facade/facade-scan.py  (write/create only)
+                  python3 /mnt/workspace/core/hooks/facade/facade-gate.py
 PostTool (Edit) → bash /mnt/workspace/core/hooks/post-edit.sh
-PostTool (Read) → python3 /mnt/workspace/core/hooks/facade-tracker.py
+PostTool (Read) → python3 /mnt/workspace/core/hooks/facade/facade-tracker.py
 ```
 
 Each canonical hook expects:
@@ -124,7 +124,7 @@ Return code `2` = hard block; stdout = message shown to agent. See `copilot-pre-
 
 **Session isolation caveat**: `facade-gate` and `facade-tracker` use Claude Code's process PID to isolate parallel sessions. Other agents must adapt `get_session_id()` in those scripts to use their own session identifier.
 
-### CONTEXT.md Auto-Sync (`core/hooks/context_synchronizer.py`)
+### CONTEXT.md Auto-Sync (`core/hooks/routing/context_synchronizer.py`)
 Runs on every Claude edit (via `post-edit.sh` — also re-syncs parent dir) and every git commit (via `pre-commit`). Keeps each project's `## Routing` block accurate without manual maintenance:
 
 - **Adds** new files with description from: first-line comment (code files), `description:` YAML frontmatter (`.md` files), usage comment after ` — ` (extensionless executable scripts)
@@ -138,7 +138,7 @@ Runs on every Claude edit (via `post-edit.sh` — also re-syncs parent dir) and 
 
 **Renames not tracked automatically.** Old entry disappears, new file appears with placeholder description. Update description in CONTEXT.md manually after rename.
 
-Manual run: `python3 /mnt/workspace/core/hooks/context_synchronizer.py <directory>`
+Manual run: `python3 /mnt/workspace/core/hooks/routing/context_synchronizer.py <directory>`
 
 ### First-Line Description Convention
 Every code file must begin with one-line description comment. `context_synchronizer.py` reads this as canonical description and writes it into CONTEXT.md automatically.
@@ -161,7 +161,7 @@ Every save of supported source file unconditionally produces interface file. Gen
 
 **Enforcement**: `pre-read.sh` hard-blocks reading source file when interface file is current (interface timestamp ≥ source timestamp). Reading interface first is not optional when interface is trustworthy.
 
-**To bypass size gate temporarily**: edit `BLOCK_LINES` in `core/hooks/line-limits.env`, perform operation, revert. Both `pre-edit.py` and `check-line-counts.sh` pick up new value immediately.
+**To bypass size gate temporarily**: edit `BLOCK_LINES` in `core/hooks/limits.env`, perform operation, revert. Both `pre-edit.py` and `check-line-counts.sh` pick up new value immediately.
 
 ### Engineering Policies
 See [code/CONTEXT.md](code/CONTEXT.md) for full file size policy, modularization strategy, and interface conventions Claude follows during coding sessions.
@@ -188,11 +188,11 @@ git config --global core.hooksPath
 ### 2. Make Hook Scripts Executable
 ```bash
 chmod +x /mnt/workspace/core/hooks/post-edit.sh
-chmod +x /mnt/workspace/core/hooks/pre-read.sh
+chmod +x /mnt/workspace/core/hooks/read/pre-read.sh
 chmod +x /mnt/workspace/core/hooks/pre-commit
-chmod +x /mnt/workspace/core/hooks/check-line-counts.sh
-chmod +x /mnt/workspace/core/hooks/copilot-agent.sh
-chmod +x /mnt/workspace/core/hooks/start-session.sh
+chmod +x /mnt/workspace/core/hooks/checks/check-line-counts.sh
+chmod +x /mnt/workspace/core/hooks/copilot/copilot-agent.sh
+chmod +x /mnt/workspace/core/hooks/session/start-session.sh
 ```
 (`pre-edit.py`, `copilot-pre-tool.py`, `copilot-post-tool.py`, `copilot-session-start.py`, `dart-api-extract.py` invoked via `python3` — no execute permission needed.)
 
@@ -310,9 +310,9 @@ Every agent in this workspace should activate caveman via one of two mechanisms:
 | **Installed** | Claude Code | `SessionStart` + `UserPromptSubmit` hooks in `~/.claude/settings.json` call `caveman-activate.js` (a link into `core/skills/caveman/hooks/`). Auto-activates every session. |
 | **Induced** | Copilot | `copilot-session-start.py` reads `~/.config/caveman/config.json` and injects rules as `additionalContext` at session start. |
 
-When adding new agent: if it supports session-start hooks or context injection, add caveman injection there following induced pattern in `core/hooks/copilot-session-start.py`. Both mechanisms read same config file — one toggle controls all agents.
+When adding new agent: if it supports session-start hooks or context injection, add caveman injection there following induced pattern in `core/hooks/copilot/copilot-session-start.py`. Both mechanisms read same config file — one toggle controls all agents.
 
-> **New agent checklist:** the suite is vendored, so wire a new agent by hand rather than re-running an upstream installer — follow the induced pattern in `core/hooks/copilot-session-start.py` and point it at `core/skills/caveman/`. Upstream's [INSTALL.md](https://github.com/JuliusBrussee/caveman/blob/main/INSTALL.md) is still the reference for what a given agent needs, but do not let its generator write into this workspace.
+> **New agent checklist:** the suite is vendored, so wire a new agent by hand rather than re-running an upstream installer — follow the induced pattern in `core/hooks/copilot/copilot-session-start.py` and point it at `core/skills/caveman/`. Upstream's [INSTALL.md](https://github.com/JuliusBrussee/caveman/blob/main/INSTALL.md) is still the reference for what a given agent needs, but do not let its generator write into this workspace.
 
 Responses use caveman compression by default. Deactivate for a session: say "stop caveman" or "normal mode". To change the default, see `SETUP.md §6`.
 
@@ -509,7 +509,7 @@ node --input-type=module -e "import('/mnt/workspace/.opencode/plugins/workspace-
 # Expected: function
 
 # 5. Hook scripts are executable
-ls -la /mnt/workspace/core/hooks/post-edit.sh /mnt/workspace/core/hooks/pre-read.sh /mnt/workspace/core/hooks/pre-commit /mnt/workspace/core/hooks/check-line-counts.sh
+ls -la /mnt/workspace/core/hooks/post-edit.sh /mnt/workspace/core/hooks/read/pre-read.sh /mnt/workspace/core/hooks/pre-commit /mnt/workspace/core/hooks/checks/check-line-counts.sh
 ```
 
 ESLint / Prettier verification:
@@ -608,11 +608,11 @@ Projects under `code/` — and any other workspace subdirectory with non-trivial
 
 ### Line-limit rule (canonicalized)
 
-- Warning threshold: 150 lines (`WARN_LINES` in `core/hooks/line-limits.env`)
-- Hard block: 200 lines (`BLOCK_LINES` in `core/hooks/line-limits.env`)
+- Warning threshold: 150 lines (`WARN_LINES` in `core/hooks/limits.env`)
+- Hard block: 200 lines (`BLOCK_LINES` in `core/hooks/limits.env`)
 - Pre-commit hook **incremental only** — checks staged files per commit, not full tree.
 - Intent: force graph-like design — small single-responsibility nodes with explicit edges (imports).
-- To change thresholds: edit only `core/hooks/line-limits.env`. Both `pre-edit.py` and `check-line-counts.sh` read from it; no other file needs updating.
+- To change thresholds: edit only `core/hooks/limits.env`. Both `pre-edit.py` and `check-line-counts.sh` read from it; no other file needs updating.
 - Project-specific overrides: add note in project's `CONTEXT.md`, document exemption reason. Exempt categories so far: vendored ML model architecture files, generated string-table files, Dart `part of` split fragments.
 
 ---

@@ -3,7 +3,7 @@
 # tree and writes ONE generated report, so agents and Lucas read a pre-computed file
 # instead of re-scanning the workspace. Zero-token, no LLM.
 #
-# Division of labour with core/hooks/type-gate.py: the gate is a ratchet and only blocks what
+# Division of labour with core/hooks/checks/type-gate.py: the gate is a ratchet and only blocks what
 # a commit ADDS, which is why a repo that inherited violations is not blocked on every
 # commit. Everything it lets through historically shows up here, once, with a count.
 #
@@ -11,20 +11,23 @@
 # it does not ask anyone to summarize a document down. Forced brevity is the trap.
 import subprocess
 import sys
+from importlib.util import module_from_spec, spec_from_file_location
 from pathlib import Path
 
-from entropy_context import check_goal_link
-from entropy_corpus import enforcement_paths, tracked_files
-from entropy_fanout import fanout_signals
-from file_law import is_code_file, is_vendored, load_limits
-from entropy_ledger import (duplicate_slugs, goal_vocabulary, retired_hits,
-                            wiki_link_hits)
-from entropy_naming import check_dirs, check_placement, check_shape
-from entropy_report import SECTIONS, render
-from schema_law import SCHEMA, WORKSPACE_ROOT, load_law, load_retired, load_scopes
+# The law (file_law, schema_law) lives one level up, at the root of the enforcement layer;
+# the checks below are siblings here in entropy/.
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
-from importlib.util import module_from_spec, spec_from_file_location  # noqa: E402
+from entropy_context import check_goal_link  # noqa: E402
+from entropy_corpus import enforcement_paths, tracked_files  # noqa: E402
+from entropy_fanout import fanout_signals  # noqa: E402
+from entropy_ledger import (duplicate_slugs, goal_vocabulary,  # noqa: E402
+                            retired_hits, wiki_link_hits)
+from entropy_naming import check_dirs, check_placement, check_shape  # noqa: E402
+from entropy_report import SECTIONS, render  # noqa: E402
+from file_law import is_code_file, is_vendored, load_limits  # noqa: E402
+from schema_law import (SCHEMA, WORKSPACE_ROOT, load_law,  # noqa: E402
+                        load_retired, load_scopes)
 
 REPORT = WORKSPACE_ROOT / 'entropy.md'
 # A curated doc past this asks for a delta review. Docs are long because thinking is long;
@@ -40,7 +43,8 @@ LEDGERS = {
 
 
 def _type_gate():
-    spec = spec_from_file_location('type_gate', WORKSPACE_ROOT / 'core/hooks/type-gate.py')
+    spec = spec_from_file_location(
+        'type_gate', WORKSPACE_ROOT / 'core/hooks/checks/type-gate.py')
     module = module_from_spec(spec)
     spec.loader.exec_module(module)
     return module

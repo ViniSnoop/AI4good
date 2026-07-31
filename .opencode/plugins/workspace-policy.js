@@ -17,7 +17,7 @@
 // only TRANSLATES opencode's tool.execute.before/after events into the
 // stdin-JSON + CLAUDE_TOOL_NAME/CLAUDE_TOOL_INPUT env schema the scripts already
 // expect, and maps Claude exit-2 to opencode throw. Design lifted from
-// core/hooks/copilot-pre-tool.py / copilot-post-tool.py (prior art for a non-Claude
+// core/hooks/copilot/copilot-pre-tool.py / copilot-post-tool.py (prior art for a non-Claude
 // agent — copilot-pre-tool.py's `gate()` ordering is the reference this plugin
 // mirrors: context-gate before pre-read/pre-edit, bugs-gate after
 // facade-gate). Translation helpers live in ../wp-helpers.js (kept out of

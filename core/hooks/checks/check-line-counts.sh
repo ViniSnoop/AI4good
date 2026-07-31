@@ -2,8 +2,9 @@
 # Check workspace code file line counts and print warnings/errors.
 set -euo pipefail
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-source "$SCRIPT_DIR/limits.env"
+# The law and its numbers live at the root of the enforcement layer, one level up.
+HOOKS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+source "$HOOKS_DIR/limits.env"
 
 : "${WARN_LINES:=150}"
 : "${BLOCK_LINES:=200}"
@@ -12,7 +13,7 @@ source "$SCRIPT_DIR/limits.env"
 # script carrying its own list is what let .sh and extensionless scripts past the gate for
 # months (core/hooks/pre-commit reached 385 lines unblocked).
 is_code() {
-  printf '%s\n' "$1" | python3 "$SCRIPT_DIR/file_law.py" --filter-code | grep -q .
+  printf '%s\n' "$1" | python3 "$HOOKS_DIR/file_law.py" --filter-code | grep -q .
 }
 
 check_file() {
@@ -47,7 +48,7 @@ elif [ "$#" -gt 0 ]; then
   files=("$@")
 else
   # No argument: every tracked file, filtered by the same law check_file uses.
-  mapfile -t files < <(git ls-files | python3 "$SCRIPT_DIR/file_law.py" --filter-code)
+  mapfile -t files < <(git ls-files | python3 "$HOOKS_DIR/file_law.py" --filter-code)
 fi
 
 for f in "${files[@]}"; do
