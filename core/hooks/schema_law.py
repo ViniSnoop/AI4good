@@ -8,7 +8,7 @@
 import re
 from pathlib import Path
 
-WORKSPACE_ROOT = Path(__file__).resolve().parent.parent
+WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SCHEMA = WORKSPACE_ROOT / 'core/SCHEMA.md'
 
 TRANSIENT_HEADING = '### The one exception: transient initiative docs'

@@ -96,7 +96,7 @@ because they are cheap per chain, not because the evidence endorses them.
 
 - `[C]` [AGENTS.md](https://agents.md/) · [openai/agents.md](https://github.com/openai/agents.md) — the portable agent-instruction file convention our workspace root already follows.
 - `[C]` [Anthropic Agent Skills spec](https://github.com/anthropics/skills) — SKILL.md packaging; `core/skills/` mirrors it.
-- `[C]` [Deterministic Enforcement in Probabilistic LLM Systems: the case for Claude Code hooks](https://medium.com/neuralnotions/deterministic-enforcement-in-probabilistic-llm-systems-the-engineering-case-for-claude-code-hooks-64a4196c7d32) — the argument our `.hooks/` layer already embodies; we are ahead of practice here.
+- `[C]` [Deterministic Enforcement in Probabilistic LLM Systems: the case for Claude Code hooks](https://medium.com/neuralnotions/deterministic-enforcement-in-probabilistic-llm-systems-the-engineering-case-for-claude-code-hooks-64a4196c7d32) — the argument our `core/hooks/` layer already embodies; we are ahead of practice here.
 
 ## Tooling — linting / evaluating an agent setup
 

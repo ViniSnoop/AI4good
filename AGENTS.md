@@ -14,7 +14,7 @@
 - PLANS LIVE IN ROADMAPS: any plan must be persisted in the target project's `ROADMAP.md` — inline or as a `ROADMAP-<slug>.md` referenced from it.
 
 Git Flow, the branch gate's scope, the `--no-verify` protocol, and the push policy:
-[`code/SPECS.md`](code/SPECS.md) § Git Branching. *Gated by `.hooks/gitflow-gate.sh`.*
+[`code/SPECS.md`](code/SPECS.md) § Git Branching. *Gated by `core/hooks/gitflow-gate.sh`.*
 Hooks, stubgen, tsc, caveman, toolchain: [SETUP.md](SETUP.md).
 
 <!-- routing:start -->

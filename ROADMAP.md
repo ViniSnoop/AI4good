@@ -148,7 +148,7 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
 > the agent library has [core/SCHEMA.md](core/SCHEMA.md). Nothing yet governs the shape of the
 > workspace itself.
 
-1. 🟢 **Tier 0 — per-commit, zero-token, deterministic.** Live: `.hooks/type-gate.py` (ratchet, only
+1. 🟢 **Tier 0 — per-commit, zero-token, deterministic.** Live: `core/hooks/type-gate.py` (ratchet, only
    what a commit *adds*) + `schema_law.py` · `entropy_naming.py` · `entropy_ledger.py`, asserted by
    35 tests in `verify-fast`. Every rule is **parsed from `core/SCHEMA.md`**, never restated in a
    checker. Covered: type allowlist, hand-inventory, filename shape, directory case, type placement,
@@ -317,14 +317,14 @@ is no conceptual intersection."* Each type answers exactly one question.
 | CONTEXT vs SPECS | rules that *constrain code* → SPECS; what the dir *is* → CONTEXT |
 | ROADMAP vs BUGS | BUGS owns the text; ROADMAP references by id and never restates it |
 
-1. 🟢 **retype what the gate now blocks but cannot fix.** `.hooks/type-gate.py` stops *new*
+1. 🟢 **retype what the gate now blocks but cannot fix.** `core/hooks/type-gate.py` stops *new*
    off-allowlist names; **40 existing ones remain, enumerated live in
    [`entropy.md`](entropy.md)** — read the report, do not re-scan. They group into four jobs, in
    order of how much judgment each needs:
 
    | Job | Names | Route | Needs |
    |---|---|---|---|
-   | **B. the SPEC migration** | `SPEC.md` ×2 (`spacemantics`, `aiwbot`) + `code/_templates/module.SPEC.md` | → `SPECS.md` | blocked: load-bearing in five enforcement points (`.hooks/pre-commit` §1d, `spec-read-gate.py`, `context-tracker.py:36`, `spec-scan`, `spec-contract-check`). **One reviewed change**, never piecemeal. |
+   | **B. the SPEC migration** | `SPEC.md` ×2 (`spacemantics`, `aiwbot`) + `code/_templates/module.SPEC.md` | → `SPECS.md` | blocked: load-bearing in five enforcement points (`core/hooks/pre-commit` §1d, `spec-read-gate.py`, `context-tracker.py:36`, `spec-scan`, `spec-contract-check`). **One reviewed change**, never piecemeal. |
    | **C. spacemantics' own vocabulary** | 11 more in that one repo: `TAXONOMY` · `TAXONOMY-FAMILIES` · `TYPES` · `LEXICON` · `GRAMMAR-JSON` · `CONFORMANCE` · `CHECKABILITY` · `EXAMPLES` · `CONFLICTS` · `INVENTORY` · `INVENTORY-ADVISORY` | mostly → `SPECS.md` or lowercase instance | **its own session.** A DSL project legitimately has many spec-shaped documents; deciding which are one `SPECS.md` and which are content is a design question about spacemantics, not a naming sweep. |
    | **D. the long tail** | 20 across 9 repos: `isoroll-content` ×7, `flows` ×4, `casinhas` ×3, `instituto` ×3, `dobra` ×2, `2027-CHI-cria`, `2027-ICLR-dobra` | one of the four disposal routes each | a peek at each file. Sonnet, one repo at a time. |
 
@@ -348,7 +348,7 @@ is no conceptual intersection."* Each type answers exactly one question.
 > self-declares this lifecycle and names `REFACTOR.md` as its species; siblings are
 > `code/SPEC-DRIVE.md`, `code/isoroll-module/REFACTOR.md`, `core/MIGRATION-STATUS.md`,
 > `code/dobra/DECISIONS.md`. Folding `VERIFY.md` into a ROADMAP was **investigated 2026-07-30 and
-> rejected as unsafe**: it has 24 inbound references, 7 of them in `.hooks/*` source comments citing
+> rejected as unsafe**: it has 24 inbound references, 7 of them in `core/hooks/*` source comments citing
 > stable anchor IDs (`VERIFY.md W1/W2/I2/G1/G3/G7/A1`). It is a cross-project rollout with cited
 > anchors and a defined death date — genuinely not a per-project ROADMAP. Open question for Lucas:
 > the type is legitimate, but does it need a **name convention** (all five are named differently) and
@@ -360,7 +360,7 @@ is no conceptual intersection."* Each type answers exactly one question.
 
 One test each. Nothing here needs a decision.
 
-1. `.hooks/context_synchronizer.py`, three bugs: (a) hoisting a child CONTEXT.md's line-2 description
+1. `core/hooks/context_synchronizer.py`, three bugs: (a) hoisting a child CONTEXT.md's line-2 description
    copies relative links verbatim into the parent's routing row, where they resolve one level up —
    live in `branches/casinhas/CONTEXT.md` and `code/{apptime,dobra,isoroll-content}/CONTEXT.md`;
    (b) stale rows survive file deletion (block only updates on save) — live in
@@ -376,7 +376,7 @@ One test each. Nothing here needs a decision.
    staged. Blast radius measured 2026-07-29: **122 unstaged stubs across 7 repos**, and since the
    read-gate blocks reading source when the interface is current, a missing stub breaks a fresh
    clone. Needs a pre-commit sweep, not an edit-time hook.
-5. `.hooks/brain_stats.py` `compress_done()` writes `new_inner` without a trailing newline, so the
+5. `core/hooks/brain_stats.py` `compress_done()` writes `new_inner` without a trailing newline, so the
    surviving last entry is glued to the `<!-- done:end -->` marker. Same function leaves
    `brain/.log/done.md` unstaged after appending — the archive lands but the commit does not carry it.
 6. `.opencode/plugins/jsconfig.json` is self-defeating: `include: ["*.js"]` with

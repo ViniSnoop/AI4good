@@ -3,7 +3,7 @@
 # tree and writes ONE generated report, so agents and Lucas read a pre-computed file
 # instead of re-scanning the workspace. Zero-token, no LLM.
 #
-# Division of labour with .hooks/type-gate.py: the gate is a ratchet and only blocks what
+# Division of labour with core/hooks/type-gate.py: the gate is a ratchet and only blocks what
 # a commit ADDS, which is why a repo that inherited violations is not blocked on every
 # commit. Everything it lets through historically shows up here, once, with a count.
 #
@@ -26,7 +26,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from importlib.util import module_from_spec, spec_from_file_location  # noqa: E402
 
 REPORT = WORKSPACE_ROOT / 'entropy.md'
-LIMITS = WORKSPACE_ROOT / '.hooks/line-limits.env'
+LIMITS = WORKSPACE_ROOT / 'core/hooks/line-limits.env'
 # A curated doc past this asks for a delta review. Docs are long because thinking is long;
 # this is the point where it is worth asking whether two documents are wearing one name.
 DOC_SIGNAL_LINES = 300
@@ -41,7 +41,7 @@ LEDGERS = {
 
 
 def _type_gate():
-    spec = spec_from_file_location('type_gate', WORKSPACE_ROOT / '.hooks/type-gate.py')
+    spec = spec_from_file_location('type_gate', WORKSPACE_ROOT / 'core/hooks/type-gate.py')
     module = module_from_spec(spec)
     spec.loader.exec_module(module)
     return module

@@ -12,7 +12,7 @@ sits on the always-loaded path and SPECS does not.
 ## Starting a new paper
 
 ```bash
-python3 /mnt/workspace/.hooks/paper-scaffold.py new <paper-name>
+python3 /mnt/workspace/core/hooks/paper-scaffold.py new <paper-name>
 ```
 
 Creates the full standard layout: `main.tex`, `.latexmkrc`, `.gitignore`, `labels.md`, and a
@@ -22,7 +22,7 @@ with `refs/CONTEXT.md` pre-filled with the tag schema and workflow.
 Add missing scaffold files to an **existing** paper without overwriting:
 
 ```bash
-python3 /mnt/workspace/.hooks/paper-scaffold.py adapt <path-to-paper>
+python3 /mnt/workspace/core/hooks/paper-scaffold.py adapt <path-to-paper>
 ```
 
 The `post-edit` hook warns with the `adapt` command if `refs/CONTEXT.md` is missing when a `.tex`

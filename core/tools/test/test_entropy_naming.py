@@ -8,7 +8,7 @@ import sys
 from pathlib import Path
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[3]
-sys.path.insert(0, str(WORKSPACE_ROOT / '.hooks'))
+sys.path.insert(0, str(WORKSPACE_ROOT / 'core/hooks'))
 
 import entropy_ledger  # noqa: E402
 import entropy_naming  # noqa: E402

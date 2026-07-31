@@ -5,14 +5,14 @@
 //
 // These are the translation layer between opencode's tool.execute.before
 // /after events and the stdin-JSON + CLAUDE_TOOL_NAME/CLAUDE_TOOL_INPUT env
-// schema that the existing .hooks/* scripts already expect (see
-// .claude/settings.json and .hooks/copilot-pre-tool.py for the prior art).
+// schema that the existing core/hooks/* scripts already expect (see
+// .claude/settings.json and core/hooks/copilot-pre-tool.py for the prior art).
 
 import { spawnSync } from "node:child_process"
 import { resolve } from "node:path"
 
 export const WORKSPACE = "/mnt/workspace"
-export const HOOKS = `${WORKSPACE}/.hooks`
+export const HOOKS = `${WORKSPACE}/core/hooks`
 
 // opencode tool names -> Claude canonical env value + matcher group.
 //   read             -> Read  (pre-read.sh, facade-tracker)

@@ -9,6 +9,10 @@
 
 <!-- add entries below, newest first -->
 
+https://www.instagram.com/reel/Da5HMCMBY62/?utm_source=ig_web_copy_link&igsh=NTc4MTIwNjQ2YQ==
+pro projeto da ecovila
+— via aiwbot · 2026-07-31
+
 review our skills, see if they are effective, if they are verbose or giving extra work. check also for rendundancies, ambiguities, etc
 
 do a routine checkup on our WOS. see if things are working as planned.
@@ -87,7 +91,7 @@ Rota de descarte para nome UPPERCASE fora da allowlist — regra, nao lista
    (README e *repo-root only*; 4 dos 8 SETUP.md estao em dir que nao e repo — raiz, `academy/`,
    `code/`, `code/_templates/`). Allowlist 13 -> 14.
 Decidido tambem: `SPEC.md` -> `SPECS.md` (colapsa; reescrever a convencao `> spec:`,
-`.hooks/pre-commit` §1d, `core/tools/spec-scan`, `core/tools/spec-contract-check`).
+`core/hooks/pre-commit` §1d, `core/tools/spec-scan`, `core/tools/spec-contract-check`).
 
 `/caveman compress` nao serve pra doc do workspace — medido e rejeitado
 — piloto 2026-07-30, `academy/papers/CONTEXT.md` (pior ofensor: 159 linhas)

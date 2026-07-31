@@ -2,7 +2,7 @@
 # Git Flow branch gate — block direct commits to main/master/develop; require feature/|release/|hotfix/
 # branch names. Scoped to code/ project repos AND the workspace structural repo.
 # Paper repos (academy/papers/*) and any other nested repo are exempt.
-# Called from .hooks/pre-commit. Convention: AGENTS.md (workspace) / code/SPECS.md § Git Flow (projects).
+# Called from core/hooks/pre-commit. Convention: AGENTS.md (workspace) / code/SPECS.md § Git Flow (projects).
 
 TOPLEVEL=$(git rev-parse --show-toplevel 2>/dev/null || true)
 case "$TOPLEVEL" in

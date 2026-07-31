@@ -64,7 +64,7 @@ if not is_code and not is_content:
 
 if tool == 'Write':
 	content   = data.get('content', '')
-	new_lines = content.count('\n') + 1
+	new_lines = len(content.splitlines())
 	if not os.path.exists(file_path):
 		pattern = FIRST_LINE_COMMENT.get(ext)
 		first   = content.splitlines()[0] if content.strip() else ''
@@ -77,7 +77,7 @@ if tool == 'Write':
 elif tool == 'Edit':
 	if not os.path.exists(file_path):
 		sys.exit(0)
-	current_lines = open(file_path).read().count('\n') + 1
+	current_lines = len(open(file_path).read().splitlines())
 	net       = data.get('new_string', '').count('\n') - data.get('old_string', '').count('\n')
 	new_lines = current_lines + net
 

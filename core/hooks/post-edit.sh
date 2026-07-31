@@ -90,10 +90,10 @@ EOF
 			&& printf "✓ .csvif: %sif\n" "$file"
 		;;
 	*.dart)
-		python3 /mnt/workspace/.hooks/dart-api-extract.py "$file" 2>/dev/null
+		python3 /mnt/workspace/core/hooks/dart-api-extract.py "$file" 2>/dev/null
 		;;
 	*.tex)
-		python3 /mnt/workspace/.hooks/tex-interface-gen.py "$file" 2>/dev/null
+		python3 /mnt/workspace/core/hooks/tex-interface-gen.py "$file" 2>/dev/null
 		# Term consistency check (warn-only; requires terms.yaml in paper root)
 		paper_root="$dir"
 		while [ "$paper_root" != "/" ] && [ ! -f "$paper_root/terms.yaml" ]; do
@@ -104,7 +104,7 @@ EOF
 		fi
 		;;
 	*.bib)
-		python3 /mnt/workspace/.hooks/tex-interface-gen.py --bib-check "$file" 2>/dev/null
+		python3 /mnt/workspace/core/hooks/tex-interface-gen.py --bib-check "$file" 2>/dev/null
 		;;
 esac
 
@@ -157,7 +157,7 @@ fi
 
 # ── Sync CONTEXT.md Routing block — leaf dir only ─────────────────────────────
 [ -f "$dir/CONTEXT.md" ] \
-    && python3 /mnt/workspace/.hooks/context_synchronizer.py "$dir" 2>/dev/null
+    && python3 /mnt/workspace/core/hooks/context_synchronizer.py "$dir" 2>/dev/null
 
 # ── codegraph sync — keep index fresh after every source edit ─────────────────
 if [[ "$file" == /mnt/workspace/code/* ]]; then

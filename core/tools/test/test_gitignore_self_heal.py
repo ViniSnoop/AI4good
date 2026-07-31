@@ -3,15 +3,15 @@
 import subprocess
 from pathlib import Path
 
-SCRIPT = Path(__file__).resolve().parents[3] / ".hooks" / "gitignore-self-heal.sh"
+SCRIPT = Path(__file__).resolve().parents[3] / "core/hooks" / "gitignore-self-heal.sh"
 
 
 def _make_fixture(tmp_path: Path) -> Path:
     (tmp_path / ".gitignore").write_text(
         "core/*\n!core/CONTEXT.md\n!core/tools/\n", encoding="utf-8"
     )
-    (tmp_path / ".hooks").mkdir()
-    (tmp_path / ".hooks" / "gitignore-exceptions.txt").write_text(
+    (tmp_path / "core/hooks").mkdir(parents=True)
+    (tmp_path / "core/hooks" / "gitignore-exceptions.txt").write_text(
         "core/excluded\n", encoding="utf-8"
     )
     (tmp_path / "core" / "tools").mkdir(parents=True)

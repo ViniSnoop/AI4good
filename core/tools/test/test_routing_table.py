@@ -13,7 +13,7 @@ import sys
 from pathlib import Path
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[3]
-sys.path.insert(0, str(WORKSPACE_ROOT / '.hooks'))
+sys.path.insert(0, str(WORKSPACE_ROOT / 'core/hooks'))
 
 from workspace_meta import extract_api  # noqa: E402
 from workspace_scanner import build_file_rows, parse_preserved_files  # noqa: E402

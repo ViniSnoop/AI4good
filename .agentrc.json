@@ -1,13 +1,13 @@
 {
   "_comment": "start_session is read by copilot-agent.sh. All other keys are declarative documentation — they are not consumed by any hook script.",
   "read_on_start": true,
-  "start_session": ".hooks/start-session.sh",
-  "start_session_windows": ".hooks/start-session.ps1",
-  "pre_read_hook": ".hooks/pre-read.sh",
-  "pre_edit_hook": ".hooks/pre-edit.py",
-  "post_edit_hook": ".hooks/post-edit.sh",
+  "start_session": "core/hooks/start-session.sh",
+  "start_session_windows": "core/hooks/start-session.ps1",
+  "pre_read_hook": "core/hooks/pre-read.sh",
+  "pre_edit_hook": "core/hooks/pre-edit.py",
+  "post_edit_hook": "core/hooks/post-edit.sh",
   "interface_first": true,
   "generate_interfaces": true,
   "require_first_line": true,
-  "hooks_dir": ".hooks"
+  "hooks_dir": "core/hooks"
 }

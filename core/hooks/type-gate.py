@@ -8,7 +8,7 @@
 # class the gate is meant to catch — a second copy in the checker would be the same bug
 # wearing a lab coat.
 #
-# Ratchet, like the spec-drive gate (.hooks/pre-commit 1d): only files this commit ADDS
+# Ratchet, like the spec-drive gate (core/hooks/pre-commit 1d): only files this commit ADDS
 # are blocked. Pre-existing violations are reported by the entropy dashboard
 # (entropy-dashboard.py, Frente 4.3), not by failing every commit in a repo that
 # inherited them.

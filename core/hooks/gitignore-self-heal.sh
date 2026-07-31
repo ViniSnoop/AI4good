@@ -22,7 +22,7 @@ fi
 
 ROOT="${1:-.}"
 GITIGNORE="$ROOT/.gitignore"
-EXCEPTIONS="$ROOT/.hooks/gitignore-exceptions.txt"
+EXCEPTIONS="$ROOT/core/hooks/gitignore-exceptions.txt"
 
 [ -f "$GITIGNORE" ] || exit 0
 

@@ -12,7 +12,7 @@ import sys
 from pathlib import Path
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[3]
-sys.path.insert(0, str(WORKSPACE_ROOT / '.hooks'))
+sys.path.insert(0, str(WORKSPACE_ROOT / 'core/hooks'))
 
 import entropy_fanout  # noqa: E402
 import entropy_ledger  # noqa: E402
@@ -20,7 +20,7 @@ from workspace_scanner import SPLIT_THRESHOLD  # noqa: E402
 
 # Inherited fanout, each a directory that owes a split. Nothing else may join.
 BASELINE = {
-    '.hooks',                                              # the enforcement layer itself
+    'core/hooks',                                              # the enforcement layer itself
     'core/tools',
     'core/tools/test',
     'core/skills/caveman/scripts',
@@ -74,6 +74,6 @@ def test_interface_stubs_do_not_count_toward_fanout(tmp_path) -> None:
 
 def test_the_threshold_has_exactly_one_home() -> None:
     """The number is imported from the scanner, never restated — a second copy is drift."""
-    source = (WORKSPACE_ROOT / '.hooks/entropy_fanout.py').read_text(encoding='utf-8')
+    source = (WORKSPACE_ROOT / 'core/hooks/entropy_fanout.py').read_text(encoding='utf-8')
     assert 'from workspace_scanner import SPLIT_THRESHOLD' in source
     assert f'= {SPLIT_THRESHOLD}' not in source

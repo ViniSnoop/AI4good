@@ -11,12 +11,12 @@ from pathlib import Path
 import pytest
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[3]
-sys.path.insert(0, str(WORKSPACE_ROOT / '.hooks'))
+sys.path.insert(0, str(WORKSPACE_ROOT / 'core/hooks'))
 
 import importlib.util
 
 spec = importlib.util.spec_from_file_location(
-    'type_gate', WORKSPACE_ROOT / '.hooks/type-gate.py')
+    'type_gate', WORKSPACE_ROOT / 'core/hooks/type-gate.py')
 type_gate = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(type_gate)
 

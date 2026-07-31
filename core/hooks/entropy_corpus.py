@@ -52,10 +52,16 @@ def nested_repos(root: Path, depth: int = 3) -> list:
 # The law, the check that enforces it, that check's tests, and the report that quotes the
 # findings all have to be able to NAME a retired token. Nothing else may.
 ENFORCEMENT = ('core/SCHEMA.md', 'entropy.md',
-               '.hooks/entropy_ledger.py', '.hooks/entropy_ledger.pyi',
                'core/tools/test/test_entropy_ledger.py',
                'core/tools/test/test_entropy_ledger.pyi')
 
+# The checker and its stub are SIBLINGS of this file, so they are derived rather than
+# spelled out. A hard-coded path here stops exempting them the moment the hooks directory
+# moves — which is exactly what happened when the hooks moved into `core/` (2026-07-31).
+_CHECKER = ('entropy_ledger.py', 'entropy_ledger.pyi')
+
 
 def enforcement_paths(root: Path) -> set:
-    return {(root / name).resolve() for name in ENFORCEMENT}
+    here = Path(__file__).resolve().parent
+    return ({(root / name).resolve() for name in ENFORCEMENT}
+            | {here / name for name in _CHECKER})

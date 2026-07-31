@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Workspace pre-commit hook
-# Location: /mnt/workspace/.hooks/pre-commit
+# Location: /mnt/workspace/core/hooks/pre-commit
 # Applied via: git config --global core.hooksPath /mnt/workspace/.hooks
 
 STAGED=$(git diff --cached --name-only --diff-filter=ACM 2>/dev/null)
@@ -9,19 +9,19 @@ STAGED=$(git diff --cached --name-only --diff-filter=ACM 2>/dev/null)
 # ── 0. Brain stats (update goal stats, stage changes into this commit) ─────────
 # Only runs when Brain/goals/ files are staged — avoids polluting unrelated commits
 if [ -f "brain/GOALS.md" ]; then
-  echo "$STAGED" | grep -q '^brain/goals/' && python3 .hooks/brain_stats.py
+  echo "$STAGED" | grep -q '^brain/goals/' && python3 core/hooks/brain_stats.py
 fi
 
 BLOCKED=0
 
 # ── 0b. Self-healing .gitignore allowlist (Frente 6 item 2, decided 2026-07-24) ─
-/mnt/workspace/.hooks/gitignore-self-heal.sh .
+/mnt/workspace/core/hooks/gitignore-self-heal.sh .
 
 # ── 1. Line-count checks (code files only — not JSON, Markdown, binaries) ─────
 CODE_FILES=$(echo "$STAGED" | grep -E '\.(js|ts|tsx|py|dart|html|css|scss|tex)$' | grep -v '\.d\.ts$' || true)
 
 if [ -n "$CODE_FILES" ]; then
-  if ! printf '%s\n' "$CODE_FILES" | /mnt/workspace/.hooks/check-line-counts.sh --from-stdin >/tmp/workspace-line-counts.$$ 2>&1; then
+  if ! printf '%s\n' "$CODE_FILES" | /mnt/workspace/core/hooks/check-line-counts.sh --from-stdin >/tmp/workspace-line-counts.$$ 2>&1; then
     cat /tmp/workspace-line-counts.$$
     rm -f /tmp/workspace-line-counts.$$
     exit 1
@@ -134,25 +134,25 @@ case "$TOPLEVEL" in
 esac
 
 # ── 1e. Git Flow branch gate (code/ repos) ────────────────────────────────────
-if [ -x /mnt/workspace/.hooks/gitflow-gate.sh ]; then
-  /mnt/workspace/.hooks/gitflow-gate.sh || exit 1
+if [ -x /mnt/workspace/core/hooks/gitflow-gate.sh ]; then
+  /mnt/workspace/core/hooks/gitflow-gate.sh || exit 1
 fi
 
 # ── 1g. Tier 0 type gate — .md type allowlist + CONTEXT.md hand-inventory ─────
 # Ratchet/boy-scout, same shape as 1c/1d: fires only on files this commit ADDS, so a
 # repo that inherited violations is not blocked on every commit. The allowlist is
 # parsed from core/SCHEMA.md, never restated. See ROADMAP.md Frente 4.1.
-python3 /mnt/workspace/.hooks/type-gate.py || exit 1
+python3 /mnt/workspace/core/hooks/type-gate.py || exit 1
 
 # ── 1f. Nested-gitlink gate (workspace repo) ──────────────────────────────────
-if [ -x /mnt/workspace/.hooks/nested-gitlink-gate.sh ]; then
-  /mnt/workspace/.hooks/nested-gitlink-gate.sh || exit 1
+if [ -x /mnt/workspace/core/hooks/nested-gitlink-gate.sh ]; then
+  /mnt/workspace/core/hooks/nested-gitlink-gate.sh || exit 1
 fi
 
 # ── 1b. Duplication gate (jscpd) — blocks clones involving staged files ───────
 DUP_FILES=$(echo "$STAGED" | grep -E '\.(js|jsx|ts|tsx|py|dart)$' | grep -vE '\.(d\.ts|pyi|min\.js)$' || true)
 if [ -n "$DUP_FILES" ]; then
-  if ! echo "$DUP_FILES" | python3 /mnt/workspace/.hooks/check-duplication.py; then
+  if ! echo "$DUP_FILES" | python3 /mnt/workspace/core/hooks/check-duplication.py; then
     exit 1
   fi
 fi
@@ -160,7 +160,7 @@ fi
 # ── 2b. Facade boundary check ─────────────────────────────────────────────────
 FACADE_FILES=$(echo "$STAGED" | grep -E '\.(ts|tsx|js|jsx|py|dart)$' | grep -v '\.d\.ts$' || true)
 if [ -n "$FACADE_FILES" ]; then
-  if ! echo "$FACADE_FILES" | python3 /mnt/workspace/.hooks/check-facade-imports.py; then
+  if ! echo "$FACADE_FILES" | python3 /mnt/workspace/core/hooks/check-facade-imports.py; then
     exit 1
   fi
 fi
@@ -205,7 +205,7 @@ if [ -n "$CODE_FILES" ]; then
     if [ -z "${_ctx_synced[$leaf_dir]+x}" ]; then
       _ctx_synced["$leaf_dir"]=1
       if [ -f "$leaf_dir/CONTEXT.md" ]; then
-        python3 /mnt/workspace/.hooks/context_synchronizer.py "$leaf_dir" 2>/dev/null \
+        python3 /mnt/workspace/core/hooks/context_synchronizer.py "$leaf_dir" 2>/dev/null \
           && git add "$leaf_dir/CONTEXT.md" 2>/dev/null || true
       fi
     fi
@@ -218,7 +218,7 @@ TEX_FILES=$(echo "$STAGED" | grep '\.tex$' || true)
 if [ -n "$TEX_FILES" ]; then
   while IFS= read -r f; do
     [ -f "$f" ] || continue
-    if python3 /mnt/workspace/.hooks/tex-interface-gen.py "$f" 2>/dev/null; then
+    if python3 /mnt/workspace/core/hooks/tex-interface-gen.py "$f" 2>/dev/null; then
       texif="${f%.tex}.texif"
       [ -f "$texif" ] && git add "$texif"
     else
@@ -325,7 +325,7 @@ DART_FILES=$(echo "$STAGED" | grep '\.dart$' || true)
 if [ -n "$DART_FILES" ]; then
   while IFS= read -r f; do
     [ -f "$f" ] || continue
-    if python3 /mnt/workspace/.hooks/dart-api-extract.py "$f" 2>/dev/null; then
+    if python3 /mnt/workspace/core/hooks/dart-api-extract.py "$f" 2>/dev/null; then
       dartapi="${f%.dart}.dart.api"
       [ -f "$dartapi" ] && git add "$dartapi"
     else

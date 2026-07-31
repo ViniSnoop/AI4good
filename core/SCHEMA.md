@@ -19,7 +19,7 @@ concepts. This is **data, not a rule** — which is why it lives here and not in
 drift is indistinguishable from entropy — the lesson of the `loops`→`flows` rename, which kept
 resurfacing because nothing asserted its completion.
 
-This table *is* the assertion. `.hooks/entropy_ledger.py` fails if any token below survives in a
+This table *is* the assertion. `core/hooks/entropy_ledger.py` fails if any token below survives in a
 tracked file, this file excepted — the law has to be able to name what it retires. Add a row the
 moment a rename lands, and delete the prose that would otherwise explain it: git holds the history,
 this table holds the guard.
@@ -79,15 +79,15 @@ name resolves without a decision meeting (decided 2026-07-30):
 
 | Route | When | Cases resolved 2026-07-30 |
 |-------|------|---------------------------|
-| lowercase instance | **generated** by a tool | the old `LABELS` name → `labels.md` (×6 papers; emitted by `.hooks/tex-interface-gen.py`, header says "do not edit") |
+| lowercase instance | **generated** by a tool | the old `LABELS` name → `labels.md` (×6 papers; emitted by `core/hooks/tex-interface-gen.py`, header says "do not edit") |
 | lowercase instance | hand-authored **content** | `DRAFT.md`→`draft.md` (×3 embryo papers), `TREE.md`→`tree.md` (the craft-tree map: curated rationale, not generated — the first read of it corrected the route) |
 | → `SPECS.md` | hand-authored **constraint** | `BRIDGE.md`→`SPECS.md` § Twin (×3, the section carries the same name on both sides — "Paper Twin" reads wrong inside the paper): *"every measured number files a P-task"* is an invariant |
 | new type | answers a question **no type answers** | `SETUP.md` only |
 
 `SPEC.md` is **not** a type: it collapses into `SPECS.md` (decided 2026-07-30, Lucas). The
 singular/plural pair was the sharpest asymmetry in the corpus — two spellings, one meaning — and it
-had leaked into enforcement, so the `> spec:` convention, `.hooks/pre-commit` §1d,
-`.hooks/spec-read-gate.py`, `.hooks/context-tracker.py`, `core/tools/spec-scan` and
+had leaked into enforcement, so the `> spec:` convention, `core/hooks/pre-commit` §1d,
+`core/hooks/spec-read-gate.py`, `core/hooks/context-tracker.py`, `core/tools/spec-scan` and
 `core/tools/spec-contract-check` all move with it.
 
 ### Boundaries where types nearly touch
@@ -110,7 +110,7 @@ The same rule applies *inside* a file, not only to whole files (Lucas, 2026-07-3
 paying rent in every read of the file, and it makes the roadmap's length measure history instead of
 remaining work. Trim on verified completion. Keep a line only when the next session needs it to
 *extend* the work rather than recreate it, and write that line as present-tense state ("extend
-`.hooks/type-gate.py`"), never as a report ("✅ built the type gate").
+`core/hooks/type-gate.py`"), never as a report ("✅ built the type gate").
 
 One thing git cannot hold: an approach we *tried and rejected* was never committed. That content has
 exactly one home — a one-line entry under `## Rejected` in the relevant `ROADMAP.md` (for a ditched
@@ -124,7 +124,7 @@ a ROADMAP. Members: `code/VERIFY.md`, `code/SPEC-DRIVE.md`, `code/isoroll-module
 `core/MIGRATION-STATUS.md`, `code/dobra/DECISIONS.md`.
 
 Folding `VERIFY.md` into a ROADMAP was investigated 2026-07-30 and **rejected as unsafe**: it has 24
-inbound references, 7 of them in `.hooks/*` source comments citing stable anchors (`VERIFY.md W1`,
+inbound references, 7 of them in `core/hooks/*` source comments citing stable anchors (`VERIFY.md W1`,
 `W2`, `I2`, `G1`, `G3`, `G7`, `A1`). Breaking those would silently orphan the reasoning behind live
 gates.
 
@@ -136,7 +136,7 @@ to be temporary, so a stale one is the most expensive kind of clutter.
 
 ## Frontmatter contract
 
-Companion to the code-side spec-drive convention (the `> spec:` module gate in `.hooks/pre-commit`,
+Companion to the code-side spec-drive convention (the `> spec:` module gate in `core/hooks/pre-commit`,
 tracked under the [[spec-driven-development]] goal): that governs `code/` modules, this governs the
 `core/` agent library.
 
@@ -345,7 +345,7 @@ depth-audit (Frente 3.2) or a published source confirms it.
 ## Enforcement
 
 `core/tools/sync-skills --check` parses frontmatter and fails on violations; it is wired into
-`.hooks/pre-commit`. All three layers are live:
+`core/hooks/pre-commit`. All three layers are live:
 - **skill:** frontmatter present, `name:` + `description:`, non-skills rejected.
 - **flow:** `description:` + `args:` present, `type ∈ {research-brief, utility, domain}`,
   `confirm ∈ {plan, none}`. Exempt: `CONTEXT.md`, `tree.md`, `loop-*` (engineering cluster).

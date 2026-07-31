@@ -3,7 +3,7 @@
 # workspace structural repo. Internal projects use their own git repos (AGENTS.md);
 # they must NOT be embedded as gitlinks (a fresh clone can't fetch them → broken pins
 # + recurring "M" noise every time you commit inside them). Real submodules declared
-# in .gitmodules are allowed. Called from .hooks/pre-commit.
+# in .gitmodules are allowed. Called from core/hooks/pre-commit.
 
 # Only the workspace structural repo.
 TOPLEVEL=$(git rev-parse --show-toplevel 2>/dev/null || true)

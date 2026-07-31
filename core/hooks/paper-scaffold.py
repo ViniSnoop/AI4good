@@ -8,7 +8,7 @@ import re
 import sys
 from pathlib import Path
 
-PAPERS = Path(__file__).parent.parent / 'academy' / 'papers'
+PAPERS = Path(__file__).resolve().parents[2] / 'academy' / 'papers'
 _slug_to_name = lambda s: re.sub(r'^\d{4}-[^-]+-', '', s).replace('_', ' ').title()
 RS, RE = '<!-- routing:start -->', '<!-- routing:end -->'
 ROUTE = f'{RS}\n## Routing\n\n{RE}\n'
