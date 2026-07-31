@@ -1,0 +1,88 @@
+# Regenerate the interface next to the file just edited — .pyi, .d.ts, .dart.api, .texif.
+# Sourced by core/hooks/post-edit.sh — a FRAGMENT, not a standalone script:
+# it relies on $file, $dir, $TSC and find_tsconfig from the caller.
+
+# ── Interface regeneration ──────────────────────────────────────────────────────
+case "$file" in
+	*.py)
+		STUBGEN="/mnt/workspace/.venv/bin/stubgen"
+		[ -x "$STUBGEN" ] && "$STUBGEN" "$file" -o "$dir" --quiet 2>/dev/null \
+			&& printf "✓ .pyi: ${file%.py}.pyi\n"
+		;;
+	*.js)
+		if [ -n "$TSC" ]; then
+			"$TSC" --allowJs --checkJs false --declaration --emitDeclarationOnly \
+						 --declarationDir "$dir" --target ES2020 "$file" 2>/dev/null \
+				&& printf "✓ .d.ts: ${file%.js}.d.ts\n"
+		fi
+		if [ ! -f "$dir/jsconfig.json" ]; then
+			cat > "$dir/jsconfig.json" << 'EOF'
+{
+	"compilerOptions": {
+		"allowJs": true, "checkJs": false,
+		"declaration": true, "emitDeclarationOnly": true,
+		"outDir": ".", "target": "ES2020"
+	},
+	"include": ["*.js"]
+}
+EOF
+			printf "✓ jsconfig.json scaffolded: %s\n" "$dir"
+		fi
+		;;
+	*.ts)
+		if [ -n "$TSC" ]; then
+			tsconfig=$(find_tsconfig "$dir")
+			if [ -n "$tsconfig" ]; then
+				proj_root=$(dirname "$tsconfig")
+				decl_cfg="$proj_root/tsconfig.declarations.json"
+				if [ -f "$decl_cfg" ]; then
+					# Project-specific declarations config — handles complex typeRoots (e.g. Foundry VTT).
+					# noEmitOnError:false allows partial emission despite unresolved globals; suppress
+					# diagnostic noise since errors are expected (Foundry globals are bundler-only).
+					"$TSC" -p "$decl_cfg" >/dev/null 2>&1 || true
+					printf "✓ .d.ts regenerated: %s\n" "$proj_root"
+				else
+					"$TSC" --declaration --emitDeclarationOnly \
+								 --declarationDir "$dir" --target ES2020 --skipLibCheck \
+								 "$file" 2>/dev/null \
+						&& printf "✓ .d.ts: ${file%.ts}.d.ts\n"
+				fi
+			else
+				"$TSC" --declaration --emitDeclarationOnly \
+							 --declarationDir "$dir" --target ES2020 --skipLibCheck \
+							 "$file" 2>/dev/null \
+					&& printf "✓ .d.ts: ${file%.ts}.d.ts\n"
+				cat > "$dir/tsconfig.json" << 'EOF'
+{
+	"compilerOptions": {
+		"declaration": true, "emitDeclarationOnly": true,
+		"outDir": ".", "target": "ES2020", "strict": true
+	}
+}
+EOF
+				printf "✓ tsconfig.json scaffolded: %s\n" "$dir"
+			fi
+		fi
+		;;
+	*.csv|*.tsv)
+		python3 /mnt/workspace/core/tools/inspect "$file" 2>/dev/null \
+			&& printf "✓ .csvif: %sif\n" "$file"
+		;;
+	*.dart)
+		python3 /mnt/workspace/core/hooks/dart-api-extract.py "$file" 2>/dev/null
+		;;
+	*.tex)
+		python3 /mnt/workspace/core/hooks/tex-interface-gen.py "$file" 2>/dev/null
+		# Term consistency check (warn-only; requires terms.yaml in paper root)
+		paper_root="$dir"
+		while [ "$paper_root" != "/" ] && [ ! -f "$paper_root/terms.yaml" ]; do
+			paper_root=$(dirname "$paper_root")
+		done
+		if [ -f "$paper_root/terms.yaml" ] && [ -x "/mnt/workspace/core/tools/terms" ]; then
+			/mnt/workspace/core/tools/terms "$paper_root" 2>/dev/null | grep -E "^[[:space:]]|^⚠" || true
+		fi
+		;;
+	*.bib)
+		python3 /mnt/workspace/core/hooks/tex-interface-gen.py --bib-check "$file" 2>/dev/null
+		;;
+esac

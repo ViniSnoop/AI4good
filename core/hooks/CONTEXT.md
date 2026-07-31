@@ -83,6 +83,10 @@ toolchain they depend on: [`SETUP.md`](../../SETUP.md).
 | [`paper-scaffold.py`](paper-scaffold.py) | [`paper-scaffold.pyi`](paper-scaffold.pyi) | `scaffold`, `main`, `put` | paper-scaffold.py: Initialize or adapt a paper directory to workspace standards. |
 | [`post-commit`](post-commit) | — | — | auto-push feature/* so work survives a dead session |
 | [`post-edit.sh`](post-edit.sh) | — | — | ← add first-line comment |
+| [`postedit/interfaces.sh`](postedit/interfaces.sh) | — | — | ← add first-line comment |
+| [`postedit/lint.sh`](postedit/lint.sh) | — | — | ← add first-line comment |
+| [`postedit/reminders.sh`](postedit/reminders.sh) | — | — | ← add first-line comment |
+| [`postedit/sync.sh`](postedit/sync.sh) | — | — | ← add first-line comment |
 | [`pre-commit`](pre-commit) | — | — | the dispatcher. |
 | [`pre-edit.py`](pre-edit.py) | [`pre-edit.pyi`](pre-edit.pyi) | — | PreToolUse: Edit|Write — size gate (200-line block), first-line comment, CONTEXT.md description. |
 | [`pre-read.sh`](pre-read.sh) | — | — | ← add first-line comment |
