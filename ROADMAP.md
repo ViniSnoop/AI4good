@@ -241,13 +241,30 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
    here did that — `core/hooks/CONTEXT.md` went 50 rows → 19, `core/tools/CONTEXT.md` 37 → 12.
    A split that leaves the parent table the same size is the check being gamed, not answered.
 
+   **`code/aiwbot` is done (2026-08-01)**, on `feature/fanout-drain`: `tests` 51 → nine subjects,
+   `frontend` 38 → a root of 5 and seven surfaces, `backend` 12 → a provider-agnostic root and
+   `providers/`. Nothing in the repo is over `BLOCK_FILES` now; two directories sit at 8. Tests
+   and source carry the same directory names, so a surface and its coverage are one word apart.
+
+   **Two hazards that only show up in a package, both worth expecting in the next repo.** A
+   directory turns a flat import into a boundary, so the facade gate starts firing on imports
+   that were legal the day before — five of them here, fixed by re-exporting from the new
+   package `__init__.py` rather than by importing past it. And `spec-read-gate.py` stops at the
+   *nearest* ancestor declaring `> spec:`, so a new subdirectory written with `spec: none`
+   silently unlocks a spec-locked module; every subdirectory of a locked module must re-declare
+   `> spec: ../SPEC.md`.
+
    **What is left, all of it in nested repos:**
    - **files over `BLOCK_LINES`** — 8 × `code/flows/engine/ui/src/*.jsx` (App.jsx 844, RouterNode
      515, ExecutorNode 428): a React refactor, not a sweep. Plus `isoroll-content/src/pipeline/
      s3_batch.sh` (209), one small split, owned by the parallel isoroll session.
-   - **directories over `BLOCK_FILES`** — worst first: `isoroll-content/src/pipeline` (55),
-     `aiwbot/tests` (51 — natural split `bugs/ features/ unit/`), `aiwbot/frontend` (38),
-     `isoroll-content/test` (31), `isoroll-module/src/render` (30).
+   - **directories over `BLOCK_FILES`** — worst first: `isoroll-content/src/pipeline` (58),
+     `isoroll-content/test` (31), `isoroll-module/src/render` (31) — all three owned by the
+     parallel isoroll session, coordinate before touching them. Then, free to take:
+     `flows/libraries/tools` (24), `flows/engine/tests/unit` (23), `flows/engine/ui` (20) and
+     `ui/src/components` (19), `isoroll-module/src/transform` (20) and `/walls` (16),
+     `isoroll-module/test/unit` (21), `apptime/lib/screens/analytics` (18) and `/screens` (15)
+     and `/data` (14), `spacemantics/checker` (15).
    → **model: sonnet**, one repo at a time.
 
 ---
