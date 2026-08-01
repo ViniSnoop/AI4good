@@ -9,7 +9,17 @@
 
 <!-- add entries below, newest first -->
 
-I'm a bit worried we may have messed up the VERIFY strategy after several commits on the latest sessions.
+https://www.instagram.com/reel/DbOOs0WpCXJ/?utm_source=ig_web_copy_link&igsh=NTc4MTIwNjQ2YQ==
+JCode, averiguar se realmente é bom. também fiquei curioso pra entender se realmente é o harness que deixa tudo caro.
+— via aiwbot · 2026-07-31
+
+**Para a sessão paralela do isoroll** — dois avisos, ambos de fora do isoroll:
+`main` andou (fiz merge de `feature/playable-seam` e `feature/stub-backfill` antes de saber
+da sessão paralela; só commits que já existiam, o WIP não-commitado de vocês está intacto).
+E **todo caminho de `core/tools/` mudou** em 2026-07-31: `core/tools/video` agora é
+`core/tools/video/video`, `core/tools/search` é `core/tools/web/search`, etc. — ver
+`core/tools/CONTEXT.md`.
+— deixado 2026-08-01
 
 https://www.instagram.com/p/DbQNApxEnCh/?img_index=3&igsh=ODVqMmEzdjZyMWQ2
 ver se é verdade e se for estudar como aproveitar no wos
@@ -130,7 +140,7 @@ Rota de descarte para nome UPPERCASE fora da allowlist — regra, nao lista
    (README e *repo-root only*; 4 dos 8 SETUP.md estao em dir que nao e repo — raiz, `academy/`,
    `code/`, `code/_templates/`). Allowlist 13 -> 14.
 Decidido tambem: `SPEC.md` -> `SPECS.md` (colapsa; reescrever a convencao `> spec:`,
-`core/hooks/pre-commit` §1d, `core/tools/spec-scan`, `core/tools/spec-contract-check`).
+`core/hooks/pre-commit` §1d, `core/tools/wos/spec-scan`, `core/tools/wos/spec-contract-check`).
 
 `/caveman compress` nao serve pra doc do workspace — medido e rejeitado
 — piloto 2026-07-30, `academy/papers/CONTEXT.md` (pior ofensor: 159 linhas)

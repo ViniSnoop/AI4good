@@ -90,20 +90,45 @@ def test_every_extensionless_tracked_file_is_explained() -> None:
         f'core/hooks/extensionless.txt: {unexplained}')
 
 
+# Extension sets in the hook tree that are deliberately NOT "a code file". Each names a
+# different population, so importing is_code_file would be wrong, not right. Named and
+# reviewed — the same shape as vendored.txt, and for the same reason: the alternative is a
+# heuristic that quietly decides for us.
+NOT_THE_CODE_LAW = {
+    'entropy/entropy_corpus.py':      'SCANNED — text files worth walking, includes .md/.json',
+    'entropy/entropy_naming.py':      'AUTHORED — the files our naming rules apply to',
+    'facade/check-facade-imports.py': 'per-language import syntax, not file-ness',
+    'facade/facade-scan.py':          'extension -> facade filename',
+}
+
+
 def test_no_checker_carries_its_own_extension_list() -> None:
-    """The defect this whole module exists to prevent: a second definition of "code"."""
-    checkers = ['entropy/entropy-dashboard.py', 'entropy/entropy_fanout.py',
-                'routing/workspace_meta.py', 'checks/pre-edit.py',
-                'routing/context_synchronizer.py', 'checks/check-line-counts.sh']
-    checkers += [f'gates/{p.name}' for p in sorted((HOOKS / 'gates').glob('*.sh'))]
-    checkers += [f'generators/{p.name}' for p in sorted((HOOKS / 'generators').glob('*.sh'))]
+    """The defect this whole module exists to prevent: a second definition of "code".
+
+    Walks the hook tree rather than naming checkers. The hand-list this replaced covered 14
+    of 62 files and had no way to notice the other 48 — a blind spot that survived the
+    core/hooks split precisely because nothing measured it.
+    """
     offenders = []
-    for name in checkers:
-        source = (HOOKS / name).read_text(encoding='utf-8')
+    for path in sorted(HOOKS.rglob('*')):
+        rel = path.relative_to(HOOKS)
+        if any(part.startswith(('.', '_')) for part in rel.parts):
+            continue
+        if not path.is_file() or not is_code_file(path) or str(rel) in NOT_THE_CODE_LAW:
+            continue
+        source = path.read_text(encoding='utf-8', errors='ignore')
         restates = ("'.py'" in source and "'.ts'" in source) or 'js|ts|tsx|py' in source
         if restates and 'file_law' not in source:
-            offenders.append(name)
-    assert not offenders, f'these restate the code-file law instead of importing it: {offenders}'
+            offenders.append(str(rel))
+    assert not offenders, (
+        f'these restate the code-file law instead of importing file_law: {offenders}. '
+        f'If the set is a different population, add it to NOT_THE_CODE_LAW with the reason.')
+
+
+def test_the_exemption_list_has_no_corpses() -> None:
+    """An exemption that no longer names a real file stops exempting and starts hiding."""
+    missing = sorted(name for name in NOT_THE_CODE_LAW if not (HOOKS / name).exists())
+    assert not missing, f'NOT_THE_CODE_LAW names files that do not exist: {missing}'
 
 
 def test_every_limit_has_one_home() -> None:
