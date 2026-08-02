@@ -6,7 +6,7 @@
 // These are the translation layer between opencode's tool.execute.before
 // /after events and the stdin-JSON + CLAUDE_TOOL_NAME/CLAUDE_TOOL_INPUT env
 // schema that the existing core/hooks/* scripts already expect (see
-// .claude/settings.json and core/hooks/copilot-pre-tool.py for the prior art).
+// .claude/settings.json and core/hooks/copilot/copilot-pre-tool.py for the prior art).
 
 import { spawnSync } from "node:child_process"
 import { resolve } from "node:path"

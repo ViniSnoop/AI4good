@@ -65,24 +65,24 @@ EOF
 		fi
 		;;
 	*.csv|*.tsv)
-		python3 /mnt/workspace/core/tools/inspect "$file" 2>/dev/null \
+		python3 /mnt/workspace/core/tools/assets/inspect "$file" 2>/dev/null \
 			&& printf "✓ .csvif: %sif\n" "$file"
 		;;
 	*.dart)
-		python3 /mnt/workspace/core/hooks/dart-api-extract.py "$file" 2>/dev/null
+		python3 /mnt/workspace/core/hooks/stubgen/dart-api-extract.py "$file" 2>/dev/null
 		;;
 	*.tex)
-		python3 /mnt/workspace/core/hooks/tex-interface-gen.py "$file" 2>/dev/null
+		python3 /mnt/workspace/core/hooks/stubgen/tex-interface-gen.py "$file" 2>/dev/null
 		# Term consistency check (warn-only; requires terms.yaml in paper root)
 		paper_root="$dir"
 		while [ "$paper_root" != "/" ] && [ ! -f "$paper_root/terms.yaml" ]; do
 			paper_root=$(dirname "$paper_root")
 		done
-		if [ -f "$paper_root/terms.yaml" ] && [ -x "/mnt/workspace/core/tools/terms" ]; then
-			/mnt/workspace/core/tools/terms "$paper_root" 2>/dev/null | grep -E "^[[:space:]]|^⚠" || true
+		if [ -f "$paper_root/terms.yaml" ] && [ -x "/mnt/workspace/core/tools/paper/terms" ]; then
+			/mnt/workspace/core/tools/paper/terms "$paper_root" 2>/dev/null | grep -E "^[[:space:]]|^⚠" || true
 		fi
 		;;
 	*.bib)
-		python3 /mnt/workspace/core/hooks/tex-interface-gen.py --bib-check "$file" 2>/dev/null
+		python3 /mnt/workspace/core/hooks/stubgen/tex-interface-gen.py --bib-check "$file" 2>/dev/null
 		;;
 esac

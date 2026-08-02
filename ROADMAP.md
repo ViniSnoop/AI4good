@@ -161,7 +161,7 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
 > the agent library has [core/SCHEMA.md](core/SCHEMA.md). Nothing yet governs the shape of the
 > workspace itself.
 
-1. 🟢 **Tier 0 — per-commit, zero-token, deterministic.** Live: `core/hooks/type-gate.py` (ratchet, only
+1. 🟢 **Tier 0 — per-commit, zero-token, deterministic.** Live: `core/hooks/checks/type-gate.py` (ratchet, only
    what a commit *adds*) + `schema_law.py` · `entropy_naming.py` · `entropy_ledger.py`, asserted by
    35 tests in `verify-fast`. Every rule is **parsed from `core/SCHEMA.md`**, never restated in a
    checker. Covered: type allowlist, hand-inventory, filename shape, directory case, type placement,
@@ -222,15 +222,49 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
    location was Claude-specific, and hidden meant unmonitored by its own checks.
 
 5. 🟡 **drain to zero, then flip fanout to a hard block** (Lucas 2026-07-31: hard block, no
-   grandfathering). The flip is coherent only at zero — switching it on today fails every commit in
-   eight repos, including the commits that would fix it. Live lists in `entropy.md`; when both read
-   Clean, add fanout to `core/hooks/gates/` beside the type gate and delete `BASELINE` from
+   grandfathering). The flip is coherent only at zero — the pre-commit hook is global
+   (`core.hooksPath`), so switching it on while nested repos are over the cap fails every commit in
+   those repos, including the commits that would fix it. Live lists in `entropy.md`; when both read
+   Clean, add fanout to `core/hooks/checks/` beside the type gate and delete `BASELINE` from
    `test_entropy_fanout.py` in the same commit.
-   - **files over `BLOCK_LINES`** — `post-edit.sh` (208) and `s3_batch.sh` (209) are one small split
-     each; the rest are `code/flows/engine/ui/src/*.jsx`, which is a React refactor, not a sweep.
-   - **directories over `BLOCK_FILES`** — worst first: `isoroll-content/src/pipeline` (55),
-     `aiwbot/tests` (51 — natural split `bugs/ features/ unit/`), `core/hooks` (49, halved by its
-     own split already), `aiwbot/frontend` (38), `core/tools` (37).
+
+   **This repo is done (2026-07-31).** `core/hooks` 50 → a root of 6 and 13 responsibilities;
+   `core/tools` 37 → 8 families, every CLI path changed (Lucas's call over a named exception);
+   `core/tools/test` 12 → `law/ workspace/ video/`. No directory in the wos repo is over
+   `BLOCK_FILES`; the five that remain are 8-10 files, which `limits.env` calls a warning on
+   purpose. The `BASELINE` in `test_entropy_fanout.py` is down to three entries, none in `core/`
+   except the two caveman directories.
+
+   **The lesson worth keeping.** Moving files satisfies the fanout count without helping the
+   reader: the routing generator folds any directory under `WARN_FILES` back into its parent, so a
+   split only pays off once each new directory declares itself with a `CONTEXT.md`. Both splits
+   here did that — `core/hooks/CONTEXT.md` went 50 rows → 19, `core/tools/CONTEXT.md` 37 → 12.
+   A split that leaves the parent table the same size is the check being gamed, not answered.
+
+   **`code/aiwbot` is done (2026-08-01)**, on `feature/fanout-drain`: `tests` 51 → nine subjects,
+   `frontend` 38 → a root of 5 and seven surfaces, `backend` 12 → a provider-agnostic root and
+   `providers/`. Nothing in the repo is over `BLOCK_FILES` now; two directories sit at 8. Tests
+   and source carry the same directory names, so a surface and its coverage are one word apart.
+
+   **Two hazards that only show up in a package, both worth expecting in the next repo.** A
+   directory turns a flat import into a boundary, so the facade gate starts firing on imports
+   that were legal the day before — five of them here, fixed by re-exporting from the new
+   package `__init__.py` rather than by importing past it. And `spec-read-gate.py` stops at the
+   *nearest* ancestor declaring `> spec:`, so a new subdirectory written with `spec: none`
+   silently unlocks a spec-locked module; every subdirectory of a locked module must re-declare
+   `> spec: ../SPEC.md`.
+
+   **What is left, all of it in nested repos:**
+   - **files over `BLOCK_LINES`** — 8 × `code/flows/engine/ui/src/*.jsx` (App.jsx 844, RouterNode
+     515, ExecutorNode 428): a React refactor, not a sweep. Plus `isoroll-content/src/pipeline/
+     s3_batch.sh` (209), one small split, owned by the parallel isoroll session.
+   - **directories over `BLOCK_FILES`** — worst first: `isoroll-content/src/pipeline` (58),
+     `isoroll-content/test` (31), `isoroll-module/src/render` (31) — all three owned by the
+     parallel isoroll session, coordinate before touching them. Then, free to take:
+     `flows/libraries/tools` (24), `flows/engine/tests/unit` (23), `flows/engine/ui` (20) and
+     `ui/src/components` (19), `isoroll-module/src/transform` (20) and `/walls` (16),
+     `isoroll-module/test/unit` (21), `apptime/lib/screens/analytics` (18) and `/screens` (15)
+     and `/data` (14), `spacemantics/checker` (15).
    → **model: sonnet**, one repo at a time.
 
 ---
@@ -281,13 +315,13 @@ sessions, 25% from `/roundup`. Context management is currently Lucas's job, whic
    steps, which should be an *executable installer* (criterion 4 is clonability, and a script is
    testable where prose is not), and capability prose, which is `README.md`. Split by access
    pattern, the technique proven in the `craft.md` decomposition. Retires the third naming shape
-   `core/tools/video.SETUP.md`.
+   `core/tools/video/SETUP.md`.
    → **model: sonnet**.
 2. 🟢 **safe — declare the ad-hoc venv deps.** Four known cases, each installed straight into `.venv`
    to unblock a tool, so a fresh clone silently loses the capability: `pypandoc-binary`
-   (`core/tools/parse` on `.docx`), `secretstorage` (`core/tools/video` reading Brave cookies —
+   (`core/tools/paper/parse` on `.docx`), `secretstorage` (`core/tools/video/video` reading Brave cookies —
    without it yt-dlp fails with an AES-CBC decrypt error that reads like bad credentials; cost a
-   session to diagnose), `gallery-dl` (`core/tools/video` carousel path), and **`flutter`** (found
+   session to diagnose), `gallery-dl` (`core/tools/video/video` carousel path), and **`flutter`** (found
    2026-07-29: `apptime`'s verify cannot run at all). Fix the **class**: a declared dep list the
    whole `core/tools/` surface is checked against.
    → **model: sonnet**.
@@ -366,7 +400,7 @@ is no conceptual intersection."* Each type answers exactly one question.
 | CONTEXT vs SPECS | rules that *constrain code* → SPECS; what the dir *is* → CONTEXT |
 | ROADMAP vs BUGS | BUGS owns the text; ROADMAP references by id and never restates it |
 
-1. 🟢 **retype what the gate now blocks but cannot fix.** `core/hooks/type-gate.py` stops *new*
+1. 🟢 **retype what the gate now blocks but cannot fix.** `core/hooks/checks/type-gate.py` stops *new*
    off-allowlist names; **40 existing ones remain, enumerated live in
    [`entropy.md`](entropy.md)** — read the report, do not re-scan. They group into four jobs, in
    order of how much judgment each needs:
@@ -409,13 +443,13 @@ is no conceptual intersection."* Each type answers exactly one question.
 
 One test each. Nothing here needs a decision.
 
-1. `core/hooks/context_synchronizer.py`, three bugs: (a) hoisting a child CONTEXT.md's line-2 description
+1. `core/hooks/routing/context_synchronizer.py`, three bugs: (a) hoisting a child CONTEXT.md's line-2 description
    copies relative links verbatim into the parent's routing row, where they resolve one level up —
    live in `branches/casinhas/CONTEXT.md` and `code/{apptime,dobra,isoroll-content}/CONTEXT.md`;
    (b) stale rows survive file deletion (block only updates on save) — live in
    `core/prompts/CONTEXT.md`; (c) it appends a **duplicate** routing block to a hand-curated
    CONTEXT.md that has a manual `## Routing` without sentinels.
-2. `core/tools/video`: `--level full` crashes on image-only posts — `assemble()` always calls
+2. `core/tools/video/video`: `--level full` crashes on image-only posts — `assemble()` always calls
    `media().transcribe(audio)` when the audio path is truthy, but an image post has no audio stream →
    `IndexError: tuple index out of range` inside `faster_whisper`/`av`. Workaround: `--level visual`.
 3. `pre-edit.py` fails **silently** ("No stderr output") on `Write` of new files in some paths
@@ -425,7 +459,7 @@ One test each. Nothing here needs a decision.
    staged. Blast radius measured 2026-07-29: **122 unstaged stubs across 7 repos**, and since the
    read-gate blocks reading source when the interface is current, a missing stub breaks a fresh
    clone. Needs a pre-commit sweep, not an edit-time hook.
-5. `core/hooks/brain_stats.py` `compress_done()` writes `new_inner` without a trailing newline, so the
+5. `core/hooks/brain/brain_stats.py` `compress_done()` writes `new_inner` without a trailing newline, so the
    surviving last entry is glued to the `<!-- done:end -->` marker. Same function leaves
    `brain/.log/done.md` unstaged after appending — the archive lands but the commit does not carry it.
 6. `.opencode/plugins/jsconfig.json` is self-defeating: `include: ["*.js"]` with
@@ -440,7 +474,7 @@ One test each. Nothing here needs a decision.
   E2E without infrastructure, and (b) an offline corpus: **Kiwix** (all of Wikipedia offline — almost
   certainly the "NOMAD project" Lucas half-remembered). Refs in `core/refs/REFS.md`.
 - **Serious OCR** — real need (image-only PDFs in `branches/ecovila/burocracia/` where
-  `core/tools/parse` returns empty; test Baidu "Unlimited OCR" first), but it belongs where the PDFs
+  `core/tools/paper/parse` returns empty; test Baidu "Unlimited OCR" first), but it belongs where the PDFs
   are, not in the wos ledger.
 
 ## Rejected — killed 2026-07-30, one line each
@@ -476,7 +510,7 @@ months anyway. Cheaper than a list nobody reads.
 - **Evaluate Surfsense** — our `core/tools/{search,papers,fetch,parse}` + research flow already cover it.
 - **Research-flow hallucination audit** — real but unforced; no observed fabrication.
 - **`pre-edit.py` vs `check-line-counts.sh` scope disagreement** — policy nit, no live symptom.
-- **`core/tools/papers --ss` live smoke** — it will smoke itself on the next real use.
+- **`core/tools/paper/papers --ss` live smoke** — it will smoke itself on the next real use.
 - **Commit the `.claude/commands/{drive,calendar}.md` symlinks** — done inline rather than tracked.
 
 ## Sequencing

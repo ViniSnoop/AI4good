@@ -14,8 +14,8 @@ This is an execution request. Do not explain the protocol — run it.
 ## Tool Discipline (read first)
 
 Tool names are literal; use only tools visible in the current tool set. Gathering tools:
-`core/tools/search` (web), `core/tools/code-search` (repos), `core/tools/papers` (academia,
-`--ss`/`--reviewed`/`--min-cit` for venue filtering), `core/tools/fetch` (URL). If a tool
+`core/tools/web/search` (web), `core/tools/web/code-search` (repos), `core/tools/paper/papers` (academia,
+`--ss`/`--reviewed`/`--min-cit` for venue filtering), `core/tools/web/fetch` (URL). If a tool
 returns `Tool not found`, map to the canonical visible tool or record the capability as blocked.
 
 ## Required Artifacts

@@ -2,7 +2,7 @@
 > Claude Code lifecycle hooks for the caveman suite — activation, mode tracking, stats, statusline.
 
 These are **standalone scripts run by node/bash**, not an importable module: `~/.claude/settings.json`
-names four of them by absolute path (through the symlinks `core/tools/sync-global-skills` creates).
+names four of them by absolute path (through the symlinks `core/tools/wos/sync-global-skills` creates).
 That is why there is no facade here — nothing outside this directory imports it.
 
 [`ENTRYPOINTS`](ENTRYPOINTS) declares which files get linked into `~/.claude/hooks`. Add a helper

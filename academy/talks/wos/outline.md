@@ -23,4 +23,4 @@ local-ai direction (`brain/goals/local-ai.md`, `code/dobra`).
 ## Prep TODO
 - [ ] confirm date / audience / length with Rafael
 - [ ] pull reusable material from `brain/goals/workspace-os.md` and `academy/talks/` (Drive import)
-- [ ] slides via `core/tools/slides` (talk template) once arc is firm
+- [ ] slides via `core/tools/slides/slides` (talk template) once arc is firm

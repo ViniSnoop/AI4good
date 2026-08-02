@@ -6,7 +6,7 @@
 CODE_FILES=$(echo "$STAGED" | python3 "$HOOKS_DIR/file_law.py" --filter-code || true)
 
 if [ -n "$CODE_FILES" ]; then
-  if ! printf '%s\n' "$CODE_FILES" | /mnt/workspace/core/hooks/check-line-counts.sh --from-stdin >/tmp/workspace-line-counts.$$ 2>&1; then
+  if ! printf '%s\n' "$CODE_FILES" | /mnt/workspace/core/hooks/checks/check-line-counts.sh --from-stdin >/tmp/workspace-line-counts.$$ 2>&1; then
     cat /tmp/workspace-line-counts.$$
     rm -f /tmp/workspace-line-counts.$$
     exit 1

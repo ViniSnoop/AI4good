@@ -33,11 +33,11 @@ The artifact is the memory. A run that leaves only a chat answer produced nothin
 Tool names are literal. Use only tools visible in the current tool set. See `core/tools/` for
 runtime-specific mappings.
 
-- Web: `core/tools/search` (flags `--type neural|keyword`, `--since`, `--domains`, `--content`)
-- Academia: `core/tools/papers` (`--ss` reports `venue` + `peer_reviewed`; `--reviewed` drops
+- Web: `core/tools/web/search` (flags `--type neural|keyword`, `--since`, `--domains`, `--content`)
+- Academia: `core/tools/paper/papers` (`--ss` reports `venue` + `peer_reviewed`; `--reviewed` drops
   preprints; `--min-cit N` drops noise)
-- Repos: `core/tools/code-search`
-- Fetch a URL: `core/tools/fetch`
+- Repos: `core/tools/web/code-search`
+- Fetch a URL: `core/tools/web/fetch`
 - Agent delegation: use `subagent` when available
 - On `Tool not found`: map to the canonical visible tool or record the capability as blocked.
   Never invent a tool name, never silently skip the step.

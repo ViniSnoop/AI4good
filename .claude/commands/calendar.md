@@ -13,15 +13,15 @@ Arguments: $ARGUMENTS
 
 ## Overview
 
-Access Google Calendar (read-only) across 3 accounts via `core/tools/calendar`.
+Access Google Calendar (read-only) across 3 accounts via `core/tools/google/calendar`.
 
 ## Commands
 
 ```bash
-core/tools/calendar upcoming  [--account all|personal|cin|ufrpe] [--days 7]
-core/tools/calendar range     [--account ...] <from_date> <to_date>   # YYYY-MM-DD
-core/tools/calendar calendars [--account ...]
-core/tools/calendar auth <alias>   # first-time per account
+core/tools/google/calendar upcoming  [--account all|personal|cin|ufrpe] [--days 7]
+core/tools/google/calendar range     [--account ...] <from_date> <to_date>   # YYYY-MM-DD
+core/tools/google/calendar calendars [--account ...]
+core/tools/google/calendar auth <alias>   # first-time per account
 ```
 
 ## Auth (first-time setup)
@@ -29,9 +29,9 @@ core/tools/calendar auth <alias>   # first-time per account
 Tokens stored at `~/.config/workspace-calendar/{alias}.token.json`. Run once per account:
 
 ```bash
-core/tools/calendar auth personal
-core/tools/calendar auth cin
-core/tools/calendar auth ufrpe
+core/tools/google/calendar auth personal
+core/tools/google/calendar auth cin
+core/tools/google/calendar auth ufrpe
 ```
 
 ## Workflow

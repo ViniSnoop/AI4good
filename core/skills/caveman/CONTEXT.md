@@ -13,12 +13,12 @@ the upstream project keeps the credit for the idea and the original implementati
 It was installed globally under `~/.agents/skills/` + `~/.claude/hooks/`, outside version control:
 invisible to the second machine, lost on a fresh clone, and unmodifiable without editing untracked
 files in `$HOME`. Vendoring it makes the workspace the source of truth — the same rule the rest of
-`core/` already follows. `core/tools/sync-global-skills` (re)creates the global symlinks, so setting
+`core/` already follows. `core/tools/wos/sync-global-skills` (re)creates the global symlinks, so setting
 up a new computer is one command.
 
 ## Layout — this is a folder-shaped skill, not a flat one
 
-`core/tools/sync-skills` mirrors flat `core/skills/*.md` files only, so this directory is **not**
+`core/tools/wos/sync-skills` mirrors flat `core/skills/*.md` files only, so this directory is **not**
 mirrored into `.claude/skills/` — deliberately. The suite is exposed **globally** (every project),
 which is how it worked before and what it is for. One registration, no project/user name collision.
 
@@ -80,8 +80,8 @@ which is how it worked before and what it is for. One registration, no project/u
 `hooks/` here. Re-create every link with:
 
 ```bash
-core/tools/sync-global-skills            # link
-core/tools/sync-global-skills --check    # verify (exit 1 if stale/broken/missing)
+core/tools/wos/sync-global-skills            # link
+core/tools/wos/sync-global-skills --check    # verify (exit 1 if stale/broken/missing)
 ```
 
 Editing anything under `~/.claude/hooks/caveman-*` or `~/.agents/skills/caveman` means editing this

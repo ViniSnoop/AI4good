@@ -100,7 +100,7 @@ DART_FILES=$(echo "$STAGED" | grep '\.dart$' || true)
 if [ -n "$DART_FILES" ]; then
   while IFS= read -r f; do
     [ -f "$f" ] || continue
-    if python3 /mnt/workspace/core/hooks/dart-api-extract.py "$f" 2>/dev/null; then
+    if python3 /mnt/workspace/core/hooks/stubgen/dart-api-extract.py "$f" 2>/dev/null; then
       dartapi="${f%.dart}.dart.api"
       [ -f "$dartapi" ] && git add "$dartapi"
     else
