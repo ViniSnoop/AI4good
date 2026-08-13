@@ -60,7 +60,7 @@
 
 - code/apptime/CONTEXT.md: hand-written file inventory (inventory heading '## File Map').
 - code/corpora/CONTEXT.md: hand-written file inventory (inventory heading '## File Map', 14 bullets listing real files).
-- code/flows/CONTEXT.md: hand-written file inventory (inventory heading '## File Map', 20 bullets listing real files).
+- code/flows/CONTEXT.md: hand-written file inventory (14 bullets listing real files).
 - code/isoroll-content/CONTEXT.md: hand-written file inventory (inventory heading '## Repository Shape', 6 bullets listing real files).
 
 ## Naming and placement
@@ -103,7 +103,7 @@ Clean.
 
 *a signal for review, never a cap — do not summarize to fit*
 
-- ROADMAP.md — 572 lines (doc signal, review the delta)
+- ROADMAP.md — 588 lines (doc signal, review the delta)
 - SETUP.md — 624 lines (doc signal, review the delta)
 - academy/papers/2026-JBCS-relativistic_raytracer/outputs/iq-fix-roadmap.md — 372 lines (doc signal, review the delta)
 - academy/teaching/programacao-1/material/portas-logicas/slides.md — 635 lines (doc signal, review the delta)
