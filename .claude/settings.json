@@ -97,6 +97,16 @@
         ]
       }
     ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 /mnt/workspace/core/hooks/session/context-meter.py"
+          }
+        ]
+      }
+    ],
     "PreCompact": [
       {
         "hooks": [

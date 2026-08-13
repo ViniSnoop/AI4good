@@ -132,9 +132,15 @@ def test_the_exemption_list_has_no_corpses() -> None:
 
 
 def test_every_limit_has_one_home() -> None:
-    """Four numbers, one file. A checker hard-coding one of them is drift."""
+    """Every number, one file. A checker hard-coding one of them is drift.
+
+    Asserted as a subset, not an equality: pinning the exact set made adding a limit
+    fail here for a reason that has nothing to do with the file law (it happened when
+    the context meter landed CTX_WARN/CTX_LOUD). What must hold is that each pair is
+    present and ordered warn-before-block, not that the population never grows.
+    """
     limits = load_limits()
-    assert set(limits) == {'WARN_LINES', 'BLOCK_LINES', 'WARN_FILES', 'BLOCK_FILES'}
+    assert {'WARN_LINES', 'BLOCK_LINES', 'WARN_FILES', 'BLOCK_FILES'} <= set(limits)
     assert limits['WARN_LINES'] < limits['BLOCK_LINES']
     assert limits['WARN_FILES'] < limits['BLOCK_FILES']
     scanner = (HOOKS / 'routing/workspace_scanner.py').read_text(encoding='utf-8')
