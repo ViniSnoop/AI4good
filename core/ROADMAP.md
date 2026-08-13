@@ -12,6 +12,18 @@ validator's oracle" status of `deepresearch` was retired 2026-07-23; see [SCHEMA
 
 ## Open
 
+- [ ] **stubgen writes stubs into a doubled path when a package gains a subdirectory.** Splitting
+      `code/flows/engine/tests/unit` into subject directories made stubgen emit
+      `engine/tests/unit/<subject>/unit/<subject>/*.pyi` — a mirror of the path inside itself, one
+      per new directory, all untracked. Same shape as the older `engine/tests/benchmarks/benchmarks/`
+      debris. It resolves the output root relative to the wrong anchor. Deleted by hand both times;
+      the next directory split will recreate it. (Found 2026-08-02 during the flows fanout drain.)
+- [ ] **The generated `jsconfig.json` excludes the directory it is meant to include.** Every
+      stubgen run over a JS folder printed `error TS18003: No inputs were found in config file
+      '.../jsconfig.json'. Specified 'include' paths were '["*.js"]' and 'exclude' paths were
+      '["<that same directory>"]'` — so no `.d.ts` is generated for any JS module and the failure is
+      only a warning nobody reads. Sibling of the long-known broken `exclude` in
+      `.opencode/plugins/jsconfig.json`; likely the same generator line. (Found 2026-08-02.)
 - [ ] **2b — craft-agent tier source + generator.** Create `core/agents/craft-{low,medium,high}.md`
       carrying `tier:`; extract the craft flow's tier→model map to `core/tier-map.json`; add a
       generator that emits `.claude/agents/craft-*.md` with `model:` resolved. Removes the last

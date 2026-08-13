@@ -278,10 +278,16 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
 
    **The lesson from flows: check whether the directory is a split or a delete.** The biggest
    one was neither tangled nor needed — 14 dead modules whose own headers still said
-   "Cytoscape", plus five orphan React components. `ROADMAP.md` had ticked an exit criterion
-   against one of them (M13's flow-in-slot zoom), so the milestone was reopened. **A file
-   nothing imports is the first thing to look for in an over-full directory**, and `git log`
-   on the orphans names the migration that abandoned them.
+   "Cytoscape". **A file nothing imports is the first thing to look for in an over-full
+   directory.**
+
+   **But "nothing imports it" is not proof it is dead, and I got this wrong once today.** Five
+   orphan React components read as debris on imports plus `git log`; the repo's own `ROADMAP.md`
+   said otherwise — one milestone had *deliberately unwired* two of them, and the next milestone
+   planned to reuse them. They were drafts for open work. Deleting them stayed right (drafts,
+   over the line cap, git holds them) but only once each milestone was made to name the commit
+   they live at. **Grep the repo's ROADMAP for the filename before calling it dead**; that is
+   the step the import graph cannot give you.
 
    Two more hazards, on top of the two above: barrel `index.js` facades **defeat tree-shaking**
    (the dead components started being bundled the moment a facade re-exported them), and a
