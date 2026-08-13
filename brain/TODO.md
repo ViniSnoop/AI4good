@@ -10,7 +10,6 @@
 
 ## today
 
-- [ ] [cnpq] checar ELEGIBILIDADE na chamada UNIVERSAL — porta de entrada, antes de qualquer escrita (2026-07-23)
 - [ ] sleep by 00:30 — streak-3 starts tonight
 
 ## week
@@ -22,20 +21,16 @@
 - [ ] [casinhas] catalogar as últimas finanças da obra — cockpit em `branches/casinhas/` (INBOX 2026-07-22)
 - [ ] [community] responder o desafio público do Jake Van Clief com nossas ideias/visão — ele julga os 3 comentários mais curtidos, então tem janela curta ([reel](https://www.instagram.com/reel/DbWA6VOxVq-/), INBOX 2026-07-28)
 - [ ] [ai4good] investigar o caso por trás do reel "this feels like a book burning" e decidir se entra nas aulas de ai4good — ref em `academy/refs/REFS.md` (INBOX 2026-07-28)
+- [ ] [wos] checkup de rotina do workspace (INBOX 2026-07-30) — está funcionando como planejado? Rodar `core/tools/test/verify-fast`, ler `entropy.md` (contagem, nunca uma cópia dela), e auditar os 4 critérios de v1 no `/ROADMAP.md` contra o que é verdade hoje. Sessão de leitura + medição; o que virar trabalho vira item de lá, não daqui
 - [ ] [pandeiro / show-up] confirm Pandeirada time, show up Saturday
 - [ ] [sleep / streak-3] 3 consecutive nights in bed by 00:30
 - [ ] [ic-ufrpe] bolsa IC — NÃO submetido. Bloqueado por 2 pré-requisitos: (1) projeto de pesquisa aprovado no CTA, (2) nomes dos alunos candidatos. Só faz sentido mexer depois disso (2026-07-23)
-- [ ] [vipassana] organizar lista de caronas — oferecer 3 vagas (INBOX 2026-07-27; retiro começa 01/08)
-- [ ] [vipassana] mapear o que levar, conforme as recomendações do próprio retiro (INBOX 2026-07-27)
-- [ ] [vipassana] fechar a semana: decidir como quero cada dia até o retiro (INBOX 2026-07-27)
 - [ ] [ufrpe] relatar/assinar processo de progressão CTA — processo **23082.018263/2026-55** (Lenina inseriu no GT CTA); Lucas de férias até 24, assina seg/ter, pauta de terça (INBOX 2026-07-23)
 - [ ] [paper-jarbinhas] adiantar publicação da tese do Jarbinhas (ver goal `paper-jarbinhas`) (INBOX 2026-07-23)
 
 ## month
 
-- [ ] [cnpq] submeter proposta chamada UNIVERSAL — deadline oficial 03/08, mas **deadline real = 31/07** (retiro vipassana 1–12 ago = offline no dia 03). Passo 1 = checar elegibilidade (ver `today`) (https://www.gov.br/cnpq/pt-br/assuntos/noticias/cnpq-em-acao/chamada-universal-vai-financiar-r-300-milhoes-em-projetos-de-pesquisa-em-todo-pais-inscricoes-vao-ate-03-08)
 - [ ] [casinhas] averbação do terreno
-- [ ] [vipassana] retiro 1–12 agosto; mover férias (ver goal vipassana)
 - [ ] [ufrpe] PPC ementas: 41/44 já reformatadas p/ modelo SIGAA e subidas no Drive (`[MODELO-SIGAA] <nome>`, pasta EMENTAS/OBRIGATORIAS+NOVAS) — 2026-07-21. Falta: pedir a Paulo o conteúdo (EMENTA/CONTEÚDO) de 3 disciplinas sem fonte em lugar nenhum — FUNDAMENTOS DA EDUCAÇÃO, PROJETO INTEGRADOR EM DESENVOLVIMENTO DE ARTEFATOS EDUCACIONAIS, PROJETO INTEGRADOR EM EDUCAÇÃO EM COMPUTAÇÃO (ver `academy/administration/coordenacao-lc/novo-ppc-bcc/ementas/gaps.md`) → depois de obter o conteúdo, **criar as 3 ementas já no formato novo** (INBOX 2026-07-24)
 - [ ] [slides / portas-logicas] OR gate body still missing — see BUGS.md; investigate `CUSTOM` shape type in slide 23 group, then decide if worth further debugging
 - [ ] [security] backup/recovery do Google Authenticator — várias contas com 2FA nele; se o celular quebrar/sumir, como recuperar? Mapear códigos de recuperação por conta + método de restauração antes que vire pesadelo (INBOX 2026-07-24)
@@ -93,4 +88,9 @@
       current research angle (cria/instituto) — ref in `academy/refs/REFS.md` (INBOX 2026-07-26)
 - [ ] [code] novo projeto: gerador de animações (claude-code + remotion)
 - [ ] [flows] avaliar a orquestração graph-native de agentes do Claude Code contra o que `code/flows` já faz — e checar se o tal "Graph Engineering" (Microsoft/Stanford/Anthropic) existe de fato; o próprio post diz que só um dos dois é real (ref em `core/refs/REFS.md`, INBOX 2026-07-29)
+- [ ] [wos / core] averiguar o JCode — reimplementação em Rust do harness do Claude Code, com multi-agente
+      no mesmo projeto. Duas perguntas separadas, e a segunda vale mais que a primeira: (1) a ferramenta
+      presta? (2) **é mesmo o harness que deixa tudo caro**, ou o custo é do modelo? A (2) dá pra medir
+      aqui sem instalar nada — comparar tokens de scaffolding vs tokens de conteúdo numa sessão nossa.
+      Ref em `core/refs/REFS.md` § Comparable systems (INBOX 2026-07-31)
 - [ ] [dobra / local-ai] avaliar as 10 libs de fine-tuning local (Unsloth, LLaMA-Factory, PEFT, Axolotl, TRL, torchtune, LitGPT, SWIFT, DeepSpeed, AutoTrain) — quais servem ao runner de SLM do dobra na RTX 3050 6GB? ref em `core/refs/REFS.md` (INBOX 2026-07-27)

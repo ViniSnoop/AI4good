@@ -36,6 +36,7 @@ Write 3 sentences: what LIH.DD is, why it matters, what it produces. No referenc
 > [ ] [paper-submit] submit first paper  
 > [ ] [mechanism-search] avaliar o motor de ideação do instituto como flagship metodológico do lab — paper em [academy/papers/mechanism-search/](../../academy/papers/mechanism-search/draft.md), pipeline em [branches/instituto/MOTOR.md](../../branches/instituto/MOTOR.md); alvo EAAMO  
 > [ ] [foresight] incorporar foresight (Institute for the Future, Jane McGonigal) + design especulativo na agenda do lab (feed cria)  
+> [ ] [ai-contemplative] "será que a IA consegue meditar?" (INBOX 2026-07-30) — Lucas: *"o modelo mais poderoso que tiver, Fable 5, tem como? não aceito o não como resposta"*. Transformar a provocação em probe: definir o que contaria como meditar pra um modelo (atenção sustentada sem tool, sem objetivo, sem output instrumental — o oposto exato do regime agêntico), o que se mede (deriva do estado interno? estabilidade sob prompt vazio repetido? o que o modelo relata depois?), e o que o resultado significaria. Encaixa no pilar **hybrid intelligence** (co-evolução simbiótica humano/MAS) — a pergunta é se uma prática contemplativa humana tem análogo computacional ou se só existe por analogia; as duas respostas são publicáveis. Escopo de probe, não de paper ainda  
 
 ## done
 
@@ -44,14 +45,14 @@ Write 3 sentences: what LIH.DD is, why it matters, what it produces. No referenc
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-22  ·  trend: advancing
+last-touch: 2026-07-30  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       9 |
-| trimester   |      10 |
-| semester    |      10 |
-| year        |      10 |
-| 2-year      |      10 |
-| 4-year      |      10 |
+| month       |       7 |
+| trimester   |      11 |
+| semester    |      11 |
+| year        |      11 |
+| 2-year      |      11 |
+| 4-year      |      11 |
 <!-- stats:end -->

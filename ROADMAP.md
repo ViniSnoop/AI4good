@@ -151,6 +151,22 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
    allowlist silently dropped new files in a moved directory, `pre-edit.py` counted lines one
    higher than every other counter, and `entropy_corpus.ENFORCEMENT` spelled out a sibling path
    that stopped exempting the retired-token checker the moment the hooks moved.
+4. 🟡 **test the six "inverted practices" against our own instructions.** Claim, from a practitioner post
+   (`[C]`, ref in [core/refs/REFS.md](core/refs/REFS.md), captured INBOX 2026-07-31, Lucas: *"ver se é
+   verdade e se for estudar como aproveitar no wos"*): Anthropic cut **>80%** of Claude Code's system
+   prompt for its newest models and replaced hardcoded rules with judgement over rules, interfaces over
+   examples, disclosure over dumping — `TodoWrite` reportedly going from ~9.1k chars of worked examples to
+   an enum-typed interface, verification and code review moving out of the prompt into on-demand skills,
+   and tool definitions deferred behind `ToolSearch` until needed.
+   **The 80% number is self-reported with no published benchmark and is not independently verifiable — do
+   not cite it.** The *framework* is testable here, which is the whole value: our own hooks already prove
+   the mechanism half of it (a hook's error message is a zero-token instruction that arrives exactly when
+   it applies), and the MOVE OUT bucket in 3.2 is the same move by another name.
+   Concrete probe, cheapest first: take the two or three most rule-shaped surfaces we own — `AGENTS.md`,
+   the fattest `CONTEXT.md` heads, and the skills flagged in `core/ROADMAP.md` — and ask per rule whether
+   it could be a **tool parameter, an enum, or a hook message** instead of prose. Whatever survives that
+   question is prose that earns its place. Feeds directly into 3.2's MOVE OUT and the skills audit.
+   → **model: opus** for the judgement pass, sonnet for the rewrites.
 
 ---
 
@@ -254,18 +270,34 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
    silently unlocks a spec-locked module; every subdirectory of a locked module must re-declare
    `> spec: ../SPEC.md`.
 
+   **`code/flows` is done (2026-08-02).** `engine/ui` 20 → 6 by **deleting** the pre-React
+   Cytoscape canvas rather than splitting it; `libraries/tools` 24 → five families; `engine/tests/
+   unit` 23 → seven subjects plus two shared kits; `components` 19 → four groups; `App.jsx`
+   844 → 187 and the two node cards 515/428 → 126/63. The bundle came out **smaller than before
+   the work started** (74.05 → 70.51 kB) because the node cards were near-copies of each other.
+
+   **The lesson from flows: check whether the directory is a split or a delete.** The biggest
+   one was neither tangled nor needed — 14 dead modules whose own headers still said
+   "Cytoscape", plus five orphan React components. `ROADMAP.md` had ticked an exit criterion
+   against one of them (M13's flow-in-slot zoom), so the milestone was reopened. **A file
+   nothing imports is the first thing to look for in an over-full directory**, and `git log`
+   on the orphans names the migration that abandoned them.
+
+   Two more hazards, on top of the two above: barrel `index.js` facades **defeat tree-shaking**
+   (the dead components started being bundled the moment a facade re-exported them), and a
+   `parts/` directory may not import its own parent's constants — that needs a third leaf
+   (`nodes/shared/`) or the facade gate and a module cycle fight each other.
+
    **What is left, all of it in nested repos:**
-   - **files over `BLOCK_LINES`** — 8 × `code/flows/engine/ui/src/*.jsx` (App.jsx 844, RouterNode
-     515, ExecutorNode 428): a React refactor, not a sweep. Plus `isoroll-content/src/pipeline/
-     s3_batch.sh` (209), one small split, owned by the parallel isoroll session.
-   - **directories over `BLOCK_FILES`** — worst first: `isoroll-content/src/pipeline` (58),
-     `isoroll-content/test` (31), `isoroll-module/src/render` (31) — all three owned by the
-     parallel isoroll session, coordinate before touching them. Then, free to take:
-     `flows/libraries/tools` (24), `flows/engine/tests/unit` (23), `flows/engine/ui` (20) and
-     `ui/src/components` (19), `isoroll-module/src/transform` (20) and `/walls` (16),
-     `isoroll-module/test/unit` (21), `apptime/lib/screens/analytics` (18) and `/screens` (15)
-     and `/data` (14), `spacemantics/checker` (15).
-   → **model: sonnet**, one repo at a time.
+   - **files over `BLOCK_LINES`** — one: `isoroll-content/src/pipeline/s3_batch.sh` (209),
+     owned by the parallel isoroll session.
+   - **directories over `BLOCK_FILES`** — the isoroll set, owned by that session:
+     `isoroll-content/src/pipeline` (58), `/test` (31), `/src/cli` (18);
+     `isoroll-module/src/render` (31), `/transform` (20), `/walls` (16), `test/unit` (21).
+     Free to take: `apptime/lib/screens/analytics` (18), `/screens` (15), `/data` (14);
+     `spacemantics/checker` (15).
+   → **model: sonnet**, one repo at a time. `apptime` is Dart/Flutter — the routing generator
+   and the facade gate both know `index.dart`, but no gate has been exercised on that repo yet.
 
 ---
 
@@ -329,6 +361,18 @@ sessions, 25% from `/roundup`. Context management is currently Lucas's job, whic
    plug-and-play for anyone who clones it: what is Lucas-specific, what is general, and how the two
    separate.
    → **model: opus**.
+4. 🟡 **the WOS installer — an interview, not a README.** Lucas (INBOX 2026-08-13): *"preparar um
+   'INSTALL' do WOS pra quem quiser"* — the person answers a few questions (which harnesses, which
+   tools, gdrive? gmail?, which hooks) and the workspace installs itself for them. **This is what
+   step 1 already decided SETUP.md must become**, now with the shape named: not a script that
+   installs everything, but one that asks and installs a subset. Two consequences that make it work
+   as a v1 exit test rather than a nice-to-have: it can only ask about capabilities that step 2's
+   declared dep list makes checkable, and it forces step 3's Lucas-specific/general split to be
+   *executable* instead of documented. **Requirement Lucas stated explicitly: each hook is offered
+   with what it is for and what it buys you** — nobody accepts an enforcement layer they cannot see
+   the value of, and writing that sentence per hook is itself an audit of whether the hook earns its
+   place. Sequence it after 1 and 2; running it on a clean machine is the honest test of criterion 4.
+   → **model: sonnet** to build, **opus** for the question set.
 
 ---
 
@@ -448,13 +492,20 @@ One test each. Nothing here needs a decision.
    live in `branches/casinhas/CONTEXT.md` and `code/{apptime,dobra,isoroll-content}/CONTEXT.md`;
    (b) stale rows survive file deletion (block only updates on save) — live in
    `core/prompts/CONTEXT.md`; (c) it appends a **duplicate** routing block to a hand-curated
-   CONTEXT.md that has a manual `## Routing` without sentinels.
+   CONTEXT.md that has a manual `## Routing` without sentinels; (d) a description **prefix accumulates**
+   across regenerations instead of replacing — live in `core/skills/caveman/scripts/CONTEXT.md:27`, where
+   `__init__.py`'s description reads `**facade** — ` repeated **22 times** before the placeholder.
 2. `core/tools/video/video`: `--level full` crashes on image-only posts — `assemble()` always calls
    `media().transcribe(audio)` when the audio path is truthy, but an image post has no audio stream →
    `IndexError: tuple index out of range` inside `faster_whisper`/`av`. Workaround: `--level visual`.
-3. `pre-edit.py` fails **silently** ("No stderr output") on `Write` of new files in some paths
-   (scratchpad `.html`, a new `test/*.py` under `isoroll-content`) — blocks the write without saying
-   why; workaround is a Bash heredoc. Probably an unhandled exception on an unexpected path.
+   ⚠ **May already be fixed** — `--level full` on an image-only carousel (`instagram.com/p/DbBJSzvnP3J`)
+   ran clean through OCR + VLM captions on 2026-08-13. Reproduce before spending a loop on it.
+3. `pre-edit.py` fails **silently** ("No stderr output") on some paths — blocks the edit without naming
+   the fix, costing a round of investigation each time. Two shapes seen: `Write` of new files (scratchpad
+   `.html`, a new `test/*.py` under `isoroll-content`), and **`Edit` of an existing file**
+   (`code/isoroll-content/src/pipeline/kit_modules.py`, 2026-08-01). Running the hook by hand with a
+   payload that busts the size gate prints the right message, so at least one rejection path exits
+   non-zero mute. Workaround is a Bash heredoc. Probably an unhandled exception on an unexpected path.
 4. **`stubgen` misses projects** — `.py`/`.ts` files created outside Edit/Write never get their stub
    staged. Blast radius measured 2026-07-29: **122 unstaged stubs across 7 repos**, and since the
    read-gate blocks reading source when the interface is current, a missing stub breaks a fresh

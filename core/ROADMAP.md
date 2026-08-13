@@ -28,10 +28,39 @@ validator's oracle" status of `deepresearch` was retired 2026-07-23; see [SCHEMA
       `/loops` still dispatches to `flows/craft/craft.md`. One concept, two words at two layers; the
       location rule (`flows/<skill>/` ⟺ dispatcher skill name) would otherwise make it `flows/loops/`.
       Decide: rename the skill to `craft`, or keep `loops` and record why.
-- [ ] **Google-services auth CLI surface isn't standardized across drive/gmail/calendar.** Token
-      storage is already unified per `(service, alias)` (see [tools/CONTEXT.md](tools/CONTEXT.md)), but
-      the command/flag surface of `core/tools/google/drive|gmail|calendar` isn't — audit each tool's `auth`
-      subcommand + flags and converge on one shape. (INBOX 2026-07-26)
+- [ ] **Google-services CLI surface isn't standardized — two axes, one pass.** Token storage is already
+      unified per `(service, alias)` (see [tools/CONTEXT.md](tools/CONTEXT.md)). What isn't:
+      (a) **flags** — the command/flag surface of `core/tools/google/drive|gmail|calendar` diverges; audit
+      each tool's `auth` subcommand + flags and converge on one shape (INBOX 2026-07-26);
+      (b) **names** — Lucas wants `gmail`/`gdrive`/`gslides`/`gsheets` read as one family, but today it is
+      `google/{drive,gmail,calendar}` plus a separate `slides/slides`, and no sheets tool exists at all.
+      Decide the convention before a fifth tool lands: the `g` prefix is redundant *inside* `google/` and
+      load-bearing *outside* it, so this is a directory-vs-name question, not a rename. (INBOX 2026-08-13)
+- [ ] **Slides motion animation — is it scriptable at all?** Lucas wants movement authored from the CLI in
+      Google Slides: lines and shapes moving, with start/end positions and controlled velocity and
+      acceleration. First act is a capability check, not code — the Slides API exposes slide *transitions*
+      and static shape geometry, so per-object motion tweens may simply not be in the API surface.
+      **Lucas already named the fallback and it is the better-scoped problem:** if real motion is not
+      scriptable, work out how far *slide-to-slide transition* can simulate it — the constraint being that
+      it must survive export to **PDF**, i.e. the motion is carried by a generated sequence of slides
+      (position/velocity/acceleration sampled into frames), not by a player feature. That version is
+      squarely in reach of the existing `core/tools/slides/` surface and does not depend on the API
+      answer. (INBOX 2026-08-13)
+- [ ] **Notion access without MCP.** Lucas: *"será que dá pra acessar o meu notion? sem MCP? gostaria"* —
+      a `core/tools/notion/notion` CLI on the official REST API with an internal integration token, shaped
+      like `core/tools/google/` (per-alias token under `~/.config/workspace-notion/`). The MCP connector
+      needs an interactive OAuth flow this workspace cannot run headless, which is precisely the argument
+      for owning the CLI. Scope: list/search/read pages first; writing later. (INBOX 2026-08-13)
+- [ ] **Audit our own skills — effective, or verbose and making work?** Lucas (INBOX 2026-08-13): check
+      every `core/skills/*.md` for verbosity, redundancy, ambiguity, and steps that cost more than they
+      save. Distinct from the survey bullet below — that one imports from outside, this one prunes what we
+      already run. Sequence it after the six-practices assessment in [/ROADMAP.md](../ROADMAP.md) Frente 3,
+      which decides the *shape* to prune toward (rules → interfaces).
+- [ ] **`/caveman compress` — two bugs that outlive the rejection.** The measured rejection of compressing
+      workspace docs is recorded in [/ROADMAP.md](../ROADMAP.md) Frente 3.2; these two survive it because
+      the tool still runs on demand: (a) it strips the file's trailing newline
+      (`skills/caveman/scripts/compress.py`, `write_text(compressed)`); (b) `compress.py:34` defaults
+      `CAVEMAN_MODEL` to `claude-sonnet-4-5`, a stale model id. (INBOX 2026-07-30)
 - [ ] **Routing-sync tool (`context_synchronizer.py`) bugs** — found by the Tier-0 pointer-integrity
       checker but out of that checker's scope. Three known: unrewritten relative links when hoisting a
       child's line-2 description; stale rows surviving file deletion; a duplicate routing block appended
@@ -46,6 +75,10 @@ validator's oracle" status of `deepresearch` was retired 2026-07-23; see [SCHEMA
       — the first three overlap what `AGENTS.md` + `/loops` + CONTEXT.md already do, so the question is
       overlap vs gap) and the NB-oriented pair captured in `code/isoroll-content/refs/REFS.md`.
       Lucas also asked for a general sweep for **game-asset-generation** skills while doing this.
+      A third lead arrived twice (INBOX 2026-08-02, two posts, same list): an **animation/UI skill set** —
+      `threejs-skills`, `gsap-skills`, `motion-design-skill` (Lottie), `design-dna` (extract a site's visual
+      identity), `genjutsu` (UI system). Same DM-bait shape, names only, no links — ref in
+      [refs/REFS.md](refs/REFS.md). Worth a look for `code/isoroll-*` and `code/apptime` if any is real.
 
 ## craft-flows — DONE 2026-07-23/25
 
