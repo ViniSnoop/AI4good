@@ -713,38 +713,34 @@ is no conceptual intersection."* Each type answers exactly one question.
 
 ---
 
-## Batch B — live bugs, ready to execute (Sonnet, `/loops`)
+## Batch B — drained 2026-08-14
 
-One test each. Nothing here needs a decision.
+All six items closed. Two were stale (`brain_stats` was already fixed; the `video` image-post
+crash is guarded twice in current code and could not be reproduced), and the four real ones each
+turned out to be a *class* rather than the single defect reported:
 
-1. `core/hooks/routing/context_synchronizer.py`, three bugs: (a) hoisting a child CONTEXT.md's line-2 description
-   copies relative links verbatim into the parent's routing row, where they resolve one level up —
-   live in `branches/casinhas/CONTEXT.md` and `code/{apptime,dobra,isoroll-content}/CONTEXT.md`;
-   (b) stale rows survive file deletion (block only updates on save) — live in
-   `core/prompts/CONTEXT.md`; (c) it appends a **duplicate** routing block to a hand-curated
-   CONTEXT.md that has a manual `## Routing` without sentinels; (d) a description **prefix accumulates**
-   across regenerations instead of replacing — live in `core/skills/caveman/scripts/CONTEXT.md:27`, where
-   `__init__.py`'s description reads `**facade** — ` repeated **22 times** before the placeholder.
-2. `core/tools/video/video`: `--level full` crashes on image-only posts — `assemble()` always calls
-   `media().transcribe(audio)` when the audio path is truthy, but an image post has no audio stream →
-   `IndexError: tuple index out of range` inside `faster_whisper`/`av`. Workaround: `--level visual`.
-   ⚠ **May already be fixed** — `--level full` on an image-only carousel (`instagram.com/p/DbBJSzvnP3J`)
-   ran clean through OCR + VLM captions on 2026-08-13. Reproduce before spending a loop on it.
-3. `pre-edit.py` fails **silently** ("No stderr output") on some paths — blocks the edit without naming
-   the fix, costing a round of investigation each time. Two shapes seen: `Write` of new files (scratchpad
-   `.html`, a new `test/*.py` under `isoroll-content`), and **`Edit` of an existing file**
-   (`code/isoroll-content/src/pipeline/kit_modules.py`, 2026-08-01). Running the hook by hand with a
-   payload that busts the size gate prints the right message, so at least one rejection path exits
-   non-zero mute. Workaround is a Bash heredoc. Probably an unhandled exception on an unexpected path.
-4. **`stubgen` misses projects** — `.py`/`.ts` files created outside Edit/Write never get their stub
-   staged. Blast radius measured 2026-07-29: **122 unstaged stubs across 7 repos**, and since the
-   read-gate blocks reading source when the interface is current, a missing stub breaks a fresh
-   clone. Needs a pre-commit sweep, not an edit-time hook.
-5. **`stubgen` resolves its output root against the wrong anchor** — the live half of the
-   doubled-path family. The debris is gone and
-   `core/tools/test/workspace/test_interface_generators.py` now fails on any stub sitting inside a
-   mirror of its own path, so the *symptom* is guarded; the generator that produced it is not
-   fixed. Repro and blast radius: [`core/ROADMAP.md`](core/ROADMAP.md) § Open, first bullet.
+- **the JS declaration path had never emitted anything** — `jsconfig.json` implies `noEmit`, and
+  `"outDir": "."` lands in tsc's own default exclude list. Forcing both open exposed a third
+  (TS5055: a project build reads its own previous output as an input, because our stubs sit
+  beside their sources), which is why declarations are now emitted per file.
+- **stubgen** missed every file that entered outside a staged commit — 213 workspace-wide, not
+  the 122 recorded in July — *and* wrote what it did generate into a mirror of its own path,
+  because it follows package structure under `-o`.
+- **`pre-edit.py`** blocked edits on stdout, which Claude Code drops on a PreToolUse exit 2. It
+  was the only one of six gates not on stderr, so every rejection arrived with no reason.
+- **the routing generator** corrupted its own table four ways, plus a fifth found on the way out
+  (a healthy sync reported every subdirectory as a removed file).
+
+**The pattern worth keeping: every one of these was silent.** Not one failed loudly — they
+exited 0, or blocked with no message, or wrote a file nobody re-read. A bug that announces
+itself gets fixed the day it lands; these survived months because the only detector was Lucas's
+eye. Each now has a test, and three of them are cross-cutting invariants rather than one-file
+guards: no stub inside a doubled path, no blocking gate off stderr, no jsconfig carrying emit
+keys.
+
+Still open, in [`core/ROADMAP.md`](core/ROADMAP.md) § Open: the `.d.ts` half of the stub gap
+(203 files, all in nested repos, now counted in [`entropy.md`](entropy.md)) is per-repo drain
+work under the criterion-1 baseline rule, not a wos item.
 
 ## Parked — explicitly out of v1
 
@@ -804,10 +800,9 @@ months anyway. Cheaper than a list nobody reads.
    `core/SCHEMA.md` § Retired tokens, so the sweep has an assertion waiting for it: add
    `.loop`/`loops` to that table the moment the rename lands and the check proves it complete.
 4. **Frente 10** (1, 2) — SETUP split + declared deps.
-5. **Batch B** — parallel-safe, cheap.
-6. **Frente 12.2** — the refinement/compression passes.
-7. **Frente 11.1** — the four sweep rulings, whenever Lucas has direction.
-8. **Frente 3.1, 8.1, 9.1, 10.3** — the four judgment calls, in whatever order has wind.
+5. **Frente 12.2** — the refinement/compression passes.
+6. **Frente 11.1** — the four sweep rulings, whenever Lucas has direction.
+7. **Frente 3.1, 8.1, 9.1, 10.3** — the four judgment calls, in whatever order has wind.
 
 ## Model-switching guide
 

@@ -12,18 +12,6 @@ validator's oracle" status of `deepresearch` was retired 2026-07-23; see [SCHEMA
 
 ## Open
 
-- [ ] **stubgen writes stubs into a doubled path when a package gains a subdirectory.** Splitting
-      `code/flows/engine/tests/unit` into subject directories made stubgen emit
-      `engine/tests/unit/<subject>/unit/<subject>/*.pyi` — a mirror of the path inside itself, one
-      per new directory, all untracked. Same shape as the older `engine/tests/benchmarks/benchmarks/`
-      debris. It resolves the output root relative to the wrong anchor. Deleted by hand both times;
-      the next directory split will recreate it. (Found 2026-08-02 during the flows fanout drain.)
-      The **same anchor defect** was found on the JS side 2026-08-14 and its debris deleted
-      (`.opencode/plugins/plugins/workspace-policy.d.ts`, plus two `.d.ts` written a level below
-      their sources), so this is a family, not one tool.
-      `core/tools/test/workspace/test_interface_generators.py::test_no_generated_stub_sits_in_a_doubled_path`
-      now fails on any stub inside a mirror of its own path — **the next recurrence is caught by
-      the suite instead of by eye**, which is what makes fixing the anchor safe to schedule.
 - [ ] **2b — craft-agent tier source + generator.** Create `core/agents/craft-{low,medium,high}.md`
       carrying `tier:`; extract the craft flow's tier→model map to `core/tier-map.json`; add a
       generator that emits `.claude/agents/craft-*.md` with `model:` resolved. Removes the last
@@ -92,12 +80,6 @@ validator's oracle" status of `deepresearch` was retired 2026-07-23; see [SCHEMA
       the tool still runs on demand: (a) it strips the file's trailing newline
       (`skills/caveman/scripts/compress.py`, `write_text(compressed)`); (b) `compress.py:34` defaults
       `CAVEMAN_MODEL` to `claude-sonnet-4-5`, a stale model id. (INBOX 2026-07-30)
-- [ ] **Routing-sync tool (`context_synchronizer.py`) bugs** — found by the Tier-0 pointer-integrity
-      checker but out of that checker's scope. Three known: unrewritten relative links when hoisting a
-      child's line-2 description; stale rows surviving file deletion; a duplicate routing block appended
-      to hand-curated CONTEXT.md files that use a manual `## Routing` without sentinels. Live cases and
-      the fix shape are specced in [/ROADMAP.md](../ROADMAP.md) § Batch B item 1 — execute from there,
-      this line is the library-side pointer.
 - [ ] **Survey outside skills, decide what to import.** Lucas's ask (INBOX 2026-07-23): take skills
       seriously as a category and study whether any are worth importing into `core/skills/`. Two
       concrete leads, both DM-bait posts that name skills without linking them, so both need a real

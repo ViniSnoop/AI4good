@@ -138,3 +138,39 @@ def test_cli_usage_exits_1():
     r = subprocess.run([sys.executable, str(cli)], capture_output=True, text=True)
     assert r.returncode == 1
     assert "Usage" in r.stderr
+
+
+class ExplodingMedia(FakeMedia):
+    """An image post has no audio stream. faster_whisper does not fail politely on one —
+    it raises IndexError from deep inside av. So the assertion is that transcribe is never
+    REACHED, not that it returns empty: reaching it at all is the bug (ROADMAP Batch B 2)."""
+    def transcribe(self, path):
+        raise AssertionError("transcribe() reached for a post with no audio stream")
+
+
+def test_image_post_never_reaches_transcribe():
+    """--level full on an image-only carousel. yt-dlp reads video only, so the post probes
+    as a failure and the whole ok-gated escalation — audio, OCR, captions — is skipped in
+    favour of the gallery-dl image path."""
+    class FakeImages:
+        def gather(self, url, level="auto"):
+            return {"ok": True, "title": "carousel"}, ["text in the images"], ["ocr"]
+
+    out = vc.assemble("http://insta/p/x", level="full",
+                      _probe=lambda u: {"ok": False, "error": "Unsupported URL"},
+                      _media=ExplodingMedia(spoken="never"),
+                      _images=FakeImages())
+    assert out["ok"]
+    assert "text in the images" in out["text"]
+    assert "ocr" in out["method"]
+
+
+def test_no_audio_stream_does_not_reach_transcribe():
+    """The second guard, for a video whose audio download yields nothing: `transcribe(audio)
+    if audio else ""`. Without it the same IndexError arrives by a different road."""
+    media = ExplodingMedia(spoken="")          # download_audio returns None
+    out = vc.assemble("http://x", level="speech",
+                      _probe=lambda u: {"ok": True, "title": "T", "uploader": "U",
+                                        "description": "", "subtitles": [], "auto_captions": []},
+                      _media=media)
+    assert "speech" not in out["method"]
