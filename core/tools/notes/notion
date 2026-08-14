@@ -1,0 +1,112 @@
+#!/mnt/workspace/.venv/bin/python3
+# Usage: core/tools/notes/notion <cmd> [args] — Notion CLI: auth, whoami, list, search, read
+import sys, json, getpass, pathlib, argparse
+
+_HERE = pathlib.Path(__file__).resolve().parent
+sys.path.insert(0, str(_HERE))
+import notion_auth, notion_core, notion_outline
+
+
+def cmd_auth(alias: str) -> None:
+    """The secret arrives on stdin — as an argument it would sit in argv and shell history."""
+    prompt = f"Paste the Notion integration secret for '{alias}': "
+    secret = (sys.stdin.readline() if not sys.stdin.isatty() else getpass.getpass(prompt)).strip()
+    if not secret:
+        sys.exit(notion_auth.setup_text(alias))
+    path = notion_auth.save_token(alias, secret)
+    who = notion_core.whoami(alias)
+    reach = notion_core.search(alias, limit=100)
+    print(f"Stored: {path} (mode 600)")
+    print(f"Integration: {who.get('name', '?')}  id:{who.get('id', '?')}")
+    print(f"Reaches {len(reach)} shared object(s)."
+          + ("" if reach else "  Nothing is connected yet — share a page with the integration."))
+
+
+def cmd_whoami(account: str) -> None:
+    who = notion_core.whoami(account)
+    owner = who.get("bot", {}).get("workspace_name", "?")
+    print(f"[{account}] integration '{who.get('name', '?')}' on workspace '{owner}'"
+          f"  id:{who.get('id', '?')}")
+
+
+def _print_objects(items: list, name: str = "") -> None:
+    shown = 0
+    for item in items:
+        title = notion_outline.title_of(item)
+        if name and name.lower() not in title.lower():
+            continue
+        shown += 1
+        print(f"  [{item.get('object', '?')}] {title}"
+              f"  ({item.get('last_edited_time', '')[:10]})  id:{item.get('id', '?')}")
+    if not shown:
+        print("  (nothing shared with the integration matches)")
+
+
+def cmd_list(account: str, kind: str, name: str) -> None:
+    print(f"\n── Notion ({account}) ──")
+    _print_objects(notion_core.search(account, "", kind, 0), name)
+
+
+def cmd_search(account: str, query: str, kind: str, limit: int) -> None:
+    print(f"\n── '{query}' ({account}) ──")
+    _print_objects(notion_core.search(account, query, kind, limit))
+
+
+def cmd_read(account: str, ident: str, depth: int, limit: int, as_json: bool,
+             verbose: bool) -> None:
+    obj = notion_core.fetch(account, ident)
+    if obj.get("object") == "database":
+        entries = notion_core.rows(account, obj["id"], limit)
+        if as_json:
+            print(json.dumps({"database": obj, "rows": entries}, ensure_ascii=False, indent=2))
+            return
+        print(f"# {notion_outline.title_of(obj)}  (database)")
+        print(f"  id: {obj.get('id', '?')}\n  {len(entries)} row(s)\n")
+        print("\n".join(notion_outline.row_line(row) for row in entries))
+        return
+    content = notion_core.blocks(account, obj["id"], depth)
+    print(json.dumps({"page": obj, "blocks": content}, ensure_ascii=False, indent=2) if as_json
+          else notion_outline.outline(obj, content, verbose))
+
+
+def main():
+    p = argparse.ArgumentParser(prog="notion")
+    sub = p.add_subparsers(dest="cmd")
+
+    pa = sub.add_parser("auth", help="store an integration secret (prompted, never in argv)")
+    pa.add_argument("alias", nargs="?", default="personal")
+
+    pw = sub.add_parser("whoami", help="prove the stored token is alive")
+    pw.add_argument("--account", default="personal")
+
+    pl = sub.add_parser("list", help="everything shared with the integration")
+    pl.add_argument("--account", default="personal")
+    pl.add_argument("--kind", default="", choices=["", "page", "database"])
+    pl.add_argument("--name", default="", help="filter by title substring")
+
+    ps = sub.add_parser("search")
+    ps.add_argument("--account", default="personal")
+    ps.add_argument("--kind", default="", choices=["", "page", "database"])
+    ps.add_argument("--n", type=int, default=25, dest="limit")
+    ps.add_argument("query")
+
+    pr = sub.add_parser("read", help="page as navigable text, or a database as rows")
+    pr.add_argument("--account", default="personal")
+    pr.add_argument("--depth", type=int, default=3, help="how far to follow nested blocks")
+    pr.add_argument("--n", type=int, default=50, dest="limit", help="database rows to fetch")
+    pr.add_argument("--json", dest="as_json", action="store_true", help="raw API JSON")
+    pr.add_argument("--verbose", action="store_true", help="include blocks that carry no text")
+    pr.add_argument("target", help="page/database id, or a pasted Notion URL")
+
+    args = p.parse_args()
+    if   args.cmd == "auth":   cmd_auth(args.alias)
+    elif args.cmd == "whoami": cmd_whoami(args.account)
+    elif args.cmd == "list":   cmd_list(args.account, args.kind, args.name)
+    elif args.cmd == "search": cmd_search(args.account, args.query, args.kind, args.limit)
+    elif args.cmd == "read":   cmd_read(args.account, args.target, args.depth, args.limit,
+                                        args.as_json, args.verbose)
+    else:                      p.print_help()
+
+
+if __name__ == "__main__":
+    notion_core.run(main)

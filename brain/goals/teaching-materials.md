@@ -35,7 +35,7 @@ cada uma mora. Sem organizar nada ainda — só o inventário.
 ## backlog
 
 > [ ] [inventory-material] mapear o que existe e onde — pastas do Drive por disciplina, páginas do Notion, o que é fonte e o que é cópia; sem isso não dá pra saber o que "conectar" significa  
-> [ ] [notion-read] WOS lê a página da turma no Notion — depende do CLI rastreado em `core/ROADMAP.md` (REST oficial + token de integração interna, sem MCP)  
+> [ ] [notion-read] WOS lê a página da turma no Notion — **o CLI está pronto e parado num passo seu**: criar a integração em https://www.notion.so/my-integrations, colar o segredo (`core/tools/notes/notion auth personal` pergunta) e conectar a página da turma a ela. É o único passo que nenhum agente consegue fazer por você  
 > [ ] [notion-write] WOS edita a página da turma — escrita só depois que a leitura estiver confiável  
 > [ ] [roundtrip-one] editar **uma** aula real pelo CLI e devolver ao lugar onde os alunos veem; é o teste honesto de que a conexão existe  
 > [ ] [research-tools] research best current teaching tools — interactive slides, animations, open formats — start from the animation entries in `core/WATCHLIST.md` (claude-code+remotion, Claude Code UI-animation skills). **Reescopado 2026-08-14:** o WOS agora lê e edita os decks direto no Google Slides (`core/tools/slides/gslides`), e Slidev foi deletado — a pergunta aberta não é mais qual formato local adotar, é quanto de animação dá pra autorar como sequência de slides gerada  
@@ -54,10 +54,10 @@ last-touch: 2026-08-14  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |      15 |
-| trimester   |      25 |
-| semester    |      25 |
-| year        |      25 |
-| 2-year      |      25 |
-| 4-year      |      25 |
+| month       |      16 |
+| trimester   |      26 |
+| semester    |      26 |
+| year        |      26 |
+| 2-year      |      26 |
+| 4-year      |      26 |
 <!-- stats:end -->

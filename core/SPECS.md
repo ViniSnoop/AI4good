@@ -131,6 +131,30 @@ aconteceu: o token `slides` estava morto enquanto o `slides-write` recém-consen
 Contas que só receberam a concessão de leitura seguem intactas. Vale para qualquer serviço novo com
 split read/write — `notes/notion` deve nascer assim.
 
+### AD-12 — Provedor sem OAuth: o auth mora ao lado da ferramenta (2026-08-14)
+`notes/notion` autentica por **segredo de integração interna**, não por OAuth2, então não importa
+`auth/gauth.py` — e o módulo que guarda o segredo (`notes/notion_auth.py`) fica **na família**, não
+em `auth/`. Não é exceção à AD-10: é a regra de locality do [`tools/CONTEXT.md`](tools/CONTEXT.md)
+("módulo importado por exatamente uma família mora ao lado da ferramenta") batendo com a de auth.
+`gauth` está em `auth/` porque quatro famílias o importam; este muda de lugar no dia em que uma
+segunda família precisar de token do Notion, não antes.
+
+Duas consequências que a CLI carrega e nenhum tool Google tem:
+
+1. **O agente não consegue rodar a recuperação.** No Google o consentimento abre browser na máquina
+   do Lucas e o agente dispara isso sozinho; aqui o segredo é cunhado dentro da conta dele. Então a
+   mensagem de falha é uma instrução para **ele**, com os três cliques, e o agente só automatiza a
+   colagem — que entra por **stdin**, nunca por argumento (argv é legível por qualquer processo do
+   usuário e sobrevive no histórico do shell).
+2. **404 é falha de compartilhamento até prova em contrário.** O Notion responde o mesmo código para
+   "não conectado a esta integração" e "id não existe", e o primeiro é muito mais comum: conteúdo é
+   *invisível* para a integração, não proibido. A mensagem diz isso nessa ordem — começar por "id
+   errado" manda o Lucas para o lado errado.
+
+Sobre AD-11 (leitura usa o consentimento mais forte): no Notion não existe split read/write de
+token — as capacidades são escolhidas na criação da integração, então um segredo com *Read +
+Update + Insert* já é a concessão inteira.
+
 ---
 
 ## Conventions
@@ -141,6 +165,8 @@ split read/write — `notes/notion` deve nascer assim.
 - Nova skill (suite): criar `core/skills/<suite>/SKILL.md` + sub-arquivos `<slug>.md`.
 - Sub-skills relacionadas em pasta são sempre preferidas a skills flat com prefixo longo quando > 2 sub-skills.
 - Novos serviços Google: importar `auth/gauth.py`, definir `SCOPES` e o nome do serviço, seguir o padrão de `files/drive_core.py` (seam read+write, account-agnostic) — e registrar o comando de recuperação em `gauth._REAUTH_CMD` no mesmo commit em que a CLI ganha `--reauth`; um teste verifica que todo comando dessa tabela aponta para uma ferramenta que existe.
+- Novo provedor **sem** OAuth: seguir `notes/notion` — segredo guardado ao lado da ferramenta, toda
+  falha imprimindo a instrução completa, segredo entrando por stdin (AD-12).
 - Tokens OAuth nunca commitados — ficam em `~/.config/workspace-*/`.
 - **Pasta `refs/` em skills**: quando uma skill acumular referências externas, criar `core/skills/<name>/refs/` (ou `core/skills/<suite>/refs/`) e manter todos os arquivos de referência lá. Não criar `refs/` dentro de `.opencode/skills/` ou `.claude/skills/` — esses são mirrors gerados automaticamente.
 - **Formato de arquivos em `refs/`**: notas de leitura, links rápidos e sumários informais vão em `*.md`. Referências estruturadas (papers com metadados, datasets com schema, configurações de ferramentas) vão em `*.yaml` com frontmatter ou schema claro. Preferir YAML para anything que uma skill vai parsear ou que precisa de schema.
