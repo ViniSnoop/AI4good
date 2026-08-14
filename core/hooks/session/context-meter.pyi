@@ -1,7 +1,6 @@
 from _typeshed import Incomplete
 
 TAIL_BYTES: Incomplete
-HANDOFF_ARTIFACT: str
 
 def state_file(session_id: str) -> str: ...
 def announced(session_id: str) -> int: ...

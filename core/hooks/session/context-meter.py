@@ -17,11 +17,9 @@ from hook_input import parse_stdin  # noqa: E402
 
 TAIL_BYTES = 512 * 1024
 
-# Where /handoff leaves the resume prompt. The meter only names it; core/skills/handoff.md
-# writes it, and test_meter_and_skill_name_the_same_artifact keeps the two from drifting.
-# Under outputs/ because it is session-local and gitignored — never an UPPERCASE type
-# (`HANDOFF.md` is off the core/SCHEMA.md allowlist, which is why it never existed).
-HANDOFF_ARTIFACT = 'outputs/handoff.md'
+# The meter names /roundup and nothing else. Where the resume prompt lands is the skill's
+# business (core/skills/handoff.md → outputs/handoff.md); repeating the path here would put
+# the same fact in two files and hand the agent a second thing to decide about.
 
 
 def state_file(session_id: str) -> str:
@@ -85,11 +83,10 @@ def message(ctx: int, crossed: int, loud: int) -> str:
 	size = f'{ctx // 1000}k'
 	if crossed >= loud:
 		return (f'CONTEXT WINDOW: {size} used — turns now cost ~2x a fresh session and stay '
-		        f'there. Close with /roundup; it writes {HANDOFF_ARTIFACT}. '
-		        f'Next window: "Read {HANDOFF_ARTIFACT} and continue."')
+		        f'there. Run /roundup to close this session once the current thread is done.')
 	return (f'CONTEXT WINDOW: {size} used — turn cost climbs ~45% from here and never drops '
-	        f'back. If a good stopping point is near with real work after it, hand off there; '
-	        f'if this thread is nearly done, ignore this and finish.')
+	        f'back. At a good stopping point, run /roundup to close this session; if this '
+	        f'thread is nearly done, ignore this and finish.')
 
 
 def main() -> None:

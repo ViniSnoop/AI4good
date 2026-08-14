@@ -413,29 +413,33 @@ seam worth splitting at?", not "you are large". Only the second names `/roundup`
    expensive session — it would add a *second* agent working the same branch unattended while the
    live one keeps going. That is divergence bought at the price of a `/handoff` run, not a saving.
    So `claude --bg` stays available for delegated unattended work and is **not** wired into the
-   meter. What ships instead is an artifact:
-   - `CTX_LOUD` message names **one** command — `/roundup` — and the file it lands in,
-     `outputs/handoff.md`. Still prints once, still never blocks.
-   - `/handoff` **writes** that file before printing the block — a path survives a `/clear`, a
-     pasted block does not. `/roundup` Phase 6 already calls it, so the artifact is a by-product
-     of closing properly rather than a second thing to remember.
+   meter. What ships instead is an artifact and a single instruction:
+   - **both messages name `/roundup` and nothing else.** They print once, never block, and stay
+     under 240 characters (198 and 146 today).
+   - `/handoff` **writes** `outputs/handoff.md` before printing the block — a path survives a
+     `/clear`, a pasted block does not. `/roundup` Phase 6 already calls it, so the artifact is a
+     by-product of closing properly rather than a second thing to remember.
    - the next window starts with one typed line: `Read outputs/handoff.md and continue.`
 
-   **The meter names exactly one command, and the reason is worth keeping.** It first said "run
-   `/handoff` now, then close with `/roundup`" — as insurance against a session dying mid-thread.
-   Lucas rejected it twice and was right both times: `/roundup` Phase 6 *is* `/handoff`, so that
-   ran the same ritual twice, and "run `/handoff` now" contradicted "finish the current thread"
-   in the same breath. The insurance was never needed either — `core/hooks/post-commit`
-   auto-pushes `feature/*`, so **work already survives a dead session through commits**; a resume
-   prompt written 50 turns before the end is a stale snapshot, not a safety net.
+   **The meter names exactly one command, and the reason is worth keeping** — three drafts were
+   rejected to get there, each teaching the same lesson. First it said "run `/handoff` now, then
+   close with `/roundup`", as insurance against a session dying mid-thread: but `/roundup`
+   Phase 6 *is* `/handoff`, so that ran the ritual twice, and "run `/handoff` now" contradicted
+   "finish the current thread" in the same breath. The insurance was never needed either —
+   `core/hooks/post-commit` auto-pushes `feature/*`, so **work already survives a dead session
+   through commits**; a resume prompt written 50 turns early is a stale snapshot, not a safety
+   net. Then it still named `outputs/handoff.md` and offered "hand off there" — **an instruction
+   the session can improvise against.** A message read mid-thread is not documentation: every
+   extra noun is a decision the agent might make differently from the flow we built. So the path
+   lives only in the skill that writes it, and the meter says one thing.
 
-   Guarded by five tests: the meter and the skill name the same path; that path stays lowercase
+   Guarded by five tests: both messages name `/roundup` and contain exactly one `/`; the warn
+   stays ignorable ("ignore this and finish" in as many words); the written path stays lowercase
    (a resume prompt is an instance — `HANDOFF.md` is off the `core/SCHEMA.md` allowlist, which is
    why it never existed; its dead `.gitignore` line is now gone); the meter holds no spawn
-   primitive; the loud message asks for one ritual, not two; and both messages stay under 240
-   characters, free of cost-table jargon, and open with `CONTEXT WINDOW:` — they interrupt a live
-   thread, so they are two lines of plain words or they get skimmed. Successor works the **same
-   branch** — safe precisely because nothing runs until Lucas moves.
+   primitive; and both messages stay short, jargon-free, and open with `CONTEXT WINDOW:` — they
+   interrupt a live thread, so they are two lines of plain words or they get skimmed. Successor
+   works the **same branch** — safe precisely because nothing runs until Lucas moves.
 
    **Context-drift detection stays parked** — the "canary call-me-Lucas" trick is a confounded proxy
    (caveman suppresses it, self-reported); keep it as a free passive tell, build nothing on it.
@@ -447,6 +451,19 @@ seam worth splitting at?", not "you are large". Only the second names `/roundup`
    have. The fix is not to shorten the prose — it is to move the deterministic phases (entropy
    regen, branch sync, the verification gate) into one script the agent calls once, leaving only
    the two judgment phases (ledger cleanup, routing knowledge) as instructions.
+
+   **Second defect, named by Lucas 2026-08-13: the output does not scale with what happened.**
+   `/roundup` reports every phase at full length even when a phase found nothing — a session
+   that concluded cleanly still gets a wall of next steps, open threads, and routing notes
+   invented to fill the shape. That is worse than noise at the exact moment it fires: this is
+   the most expensive turn of the session, and it is the last thing read before a `/clear`,
+   so padding is what the *next* session inherits. **A phase with nothing to say should say
+   nothing** — one line, or no line. The template is the bug: it prescribes sections, so the
+   model fills sections. Same lesson the meter messages just learned three times over — every
+   extra noun in a closing instruction is something the next session acts on.
+
+   Together these make one job, not two: the deterministic half becomes a script (silent when
+   clean, by construction), and what stays prose gets a hard rule that empty phases collapse.
    → **model: sonnet**.
 3. 🟢 **safe — cheaper models where the work is mechanical.** Measured split: opus 68%, fable 24%,
    sonnet 7.8%, haiku ~0%. Worth doing, but note the ceiling — routing cannot beat a 3x context
