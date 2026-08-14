@@ -119,8 +119,10 @@ can see it.
 
 ## Phase 5 — Hand off
 
-Run `/handoff $ARGUMENTS`. Then report, in this order, **omitting every line with nothing behind
-it**:
+Run `/handoff $ARGUMENTS`. It decides whether a hand-off is warranted at all — with the work
+finished and no next action it deletes `outputs/handoff.md` and writes nothing, which is the output
+rule applied to itself. Do not pre-empt that judgment here, and do not write a block by hand if it
+declines. Then report, in this order, **omitting every line with nothing behind it**:
 
 - what was deleted, from which ledger — one line, only if something was
 - what was written, one line per file — only files actually written this phase
@@ -128,4 +130,4 @@ it**:
 
 Nothing else. No session summary, no next steps: `/handoff` just emitted those, and repeating them
 is the padding this skill exists to not produce. Close with one instruction — start the next
-session with `Read outputs/handoff.md and continue.`
+session with `Read outputs/handoff.md and continue.` — or, if `/handoff` skipped, with nothing.

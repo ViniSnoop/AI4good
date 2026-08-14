@@ -1,38 +1,40 @@
 #!/usr/bin/env bash
-# Usage: core/tools/wos/roundup [--no-promote <reason>] — the deterministic half of the /roundup
-# ritual: verification gate, entropy regen, branch promotion. Prints the three state facts /handoff
-# needs and anything that needs a decision; nothing else.
+# Usage: core/tools/wos/roundup [--no-promote <reason>] [--leave-dirty] — the deterministic half of the /roundup ritual
+# Verification gate, entropy regen, branch promotion. Prints the three state facts /handoff needs
+# and anything that needs a decision; nothing else.
 #
-# Same name as core/skills/roundup.md on purpose: one ritual, two layers. The skill is the judgment
-# (what to delete, where knowledge goes, what the INBOX means); this is everything with one right
-# answer. Lucas types /roundup; the skill calls this.
-#
-# Exists because these three phases used to be prose in core/skills/roundup.md, executed by the
-# model at the most expensive turns a session ever has (ROADMAP Frente 9.2). Judgment — clearing
-# ledgers, routing knowledge, draining the INBOX — stays in the skill. Everything with one right
-# answer lives here, where it costs one tool call.
+# Same name as core/skills/roundup.md on purpose: one ritual, two layers. Judgment — what to delete,
+# where knowledge goes, what the INBOX means — stays in the skill; everything with one right answer
+# lives here, where it costs one tool call instead of prose reasoned about at the most expensive
+# turns a session ever has (ROADMAP Frente 9.2). Lucas types /roundup; the skill calls this.
 set -uo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 WORKSPACE="$(cd "$SCRIPT_DIR/../../.." && pwd)"
 
 NO_PROMOTE=""
-case "${1:-}" in
-  "") : ;;
-  --no-promote) NO_PROMOTE="${2:?--no-promote needs a reason}" ;;
-  *) echo "Usage: $0 [--no-promote <reason>]" >&2; exit 64 ;;
-esac
+LEAVE_DIRTY=""
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --no-promote) NO_PROMOTE="${2:?--no-promote needs a reason}"; shift 2 ;;
+    --leave-dirty) LEAVE_DIRTY=1; shift ;;
+    *) echo "Usage: $0 [--no-promote <reason>] [--leave-dirty]" >&2; exit 64 ;;
+  esac
+done
 
 ROOT="$(git rev-parse --show-toplevel 2>/dev/null)" || { echo "not a git repo: $PWD" >&2; exit 64; }
 cd "$ROOT" || exit 64
 BRANCH="$(git rev-parse --abbrev-ref HEAD)"
 
-# ── Uncommitted work is the agent's call (a commit message is judgment), so stop before touching
-#    anything: entropy regen and the merges below both assume a clean tree.
+# ── Uncommitted work is the agent's call (a commit message is judgment), so stop. The one message
+#    here naming two actions, because the question is binary and the script cannot answer it: dirt
+#    may be this session's or a parallel session's. Asserting the first was the defect (Frente 9.2)
+#    — it asked for a commit that would have swept another session's half-done work into main.
 DIRTY="$(git status --porcelain | wc -l)"
-if [ "$DIRTY" -gt 0 ]; then
-  printf '%s uncommitted on %s — commit, then rerun.\n' "$DIRTY" "$BRANCH"
+if [ "$DIRTY" -gt 0 ] && [ -z "$LEAVE_DIRTY" ]; then
+  printf '%s uncommitted on %s — whose?\n' "$DIRTY" "$BRANCH"
   git status --short | head -20
+  printf 'Yours: commit, then rerun.\nAnother session'"'"'s: rerun with --leave-dirty.\n'
   exit 2
 fi
 
@@ -61,12 +63,20 @@ findings() { grep -oE '\*\*[0-9]+ findings\*\*' entropy.md 2>/dev/null | grep -o
 ENTROPY=""
 if [ "$ROOT" = "$WORKSPACE" ]; then
   BEFORE="$(findings)"
+  WAS_CLEAN=0; git diff --quiet entropy.md 2>/dev/null && WAS_CLEAN=1
   if make entropy >/dev/null 2>&1; then
     AFTER="$(findings)"
     if [ "$AFTER" = "$BEFORE" ]; then ENTROPY="$AFTER findings (flat)"; else ENTROPY="$AFTER findings (was ${BEFORE:-?})"; fi
+    # The commit stages the whole index — safe only because the dirty stop guaranteed it empty.
+    # Under --leave-dirty it is not, so the count is reported and the write is rolled back: a
+    # regenerated entropy.md left behind would ride into the other session's next `git add -A`.
     if ! git diff --quiet entropy.md 2>/dev/null; then
-      git add entropy.md && git commit -q -m "chore(entropy): regenerate at session close" \
-        || ENTROPY="$ENTROPY · commit failed, entropy.md left dirty"
+      if [ -n "$LEAVE_DIRTY" ]; then
+        [ "$WAS_CLEAN" = 1 ] && git checkout -q -- entropy.md 2>/dev/null
+        ENTROPY="$ENTROPY · reported only, not committed (tree holds another session's work)"
+      elif ! { git add entropy.md && git commit -q -m "chore(entropy): regenerate at session close"; }; then
+        ENTROPY="$ENTROPY · commit failed, entropy.md left dirty"
+      fi
     fi
   else
     ENTROPY="regen failed"
@@ -93,16 +103,25 @@ promote() {  # feature → develop → main, each pushed; abort the whole thing 
       SYNC="$target is behind origin — a parallel session is mid-flight; not promoted"
       return 1
     fi
-    git checkout -q "$target" || { SYNC="checkout of $target failed; not promoted"; return 1; }
-    if ! git merge --no-edit -q "$source" >/dev/null 2>&1; then
-      git merge --abort 2>/dev/null
-      git checkout -q "$BRANCH"
-      SYNC="conflict merging $source → $target — aborted, branches untouched"
+    # A fast-forward needs no checkout, so it never touches the working tree — which is what
+    # makes promoting past another session's dirt safe. Only a real merge needs HEAD to move.
+    if [ "$target" != "$BRANCH" ] && git merge-base --is-ancestor "$target" "$source" 2>/dev/null; then
+      git fetch -q . "$source:$target" || { SYNC="fast-forward of $target failed; not promoted"; return 1; }
+    elif [ -n "$LEAVE_DIRTY" ] && [ "$target" != "$BRANCH" ]; then
+      SYNC="$target needs a real merge — not promoted while the tree holds another session's work"
       return 1
+    else
+      git checkout -q "$target" || { SYNC="checkout of $target failed; not promoted"; return 1; }
+      if ! git merge --no-edit -q "$source" >/dev/null 2>&1; then
+        git merge --abort 2>/dev/null
+        git checkout -q "$BRANCH"
+        SYNC="conflict merging $source → $target — aborted, branches untouched"
+        return 1
+      fi
+      git checkout -q "$BRANCH"
     fi
-    git push -q origin "$target" 2>/dev/null || { SYNC="$target merged but push failed"; git checkout -q "$BRANCH"; return 1; }
+    git push -q origin "$target" 2>/dev/null || { SYNC="$target merged but push failed"; return 1; }
   done
-  git checkout -q "$BRANCH"
   return 0
 }
 

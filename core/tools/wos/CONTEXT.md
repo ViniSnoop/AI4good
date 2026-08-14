@@ -6,7 +6,7 @@
 
 | File | Description |
 |------|-------------|
-| [`roundup`](roundup) | the deterministic half of the /roundup |
+| [`roundup`](roundup) | the deterministic half of the /roundup ritual |
 | [`skills/mirror.sh`](skills/mirror.sh) | ← add first-line comment |
 | [`skills/validate.sh`](skills/validate.sh) | ← add first-line comment |
 | [`spec-contract-check`](spec-contract-check) | verify every spec-locked module has a complete SPEC.md contract (Inputs/Outputs/Invariants filled); optionally type-check declared edges. Exit 1 on any gap. See code/SPEC-DRIVE.md. |

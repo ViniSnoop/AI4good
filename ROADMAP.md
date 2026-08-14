@@ -455,53 +455,47 @@ seam worth splitting at?", not "you are large". Only the second names `/roundup`
    (caveman suppresses it, self-reported); keep it as a free passive tell, build nothing on it.
    → **shipped**. Nothing remains here. The attention half — moving Lucas, not the work — is
    `code/aiwbot`'s, on its own ledger: it is already the front door when he is away from the PC.
-2. 🟡 **`/roundup` redesign — the split shipped, the collapse is half done.** Two defects, one job:
-   `/roundup` ran **six phases at the session's maximum context**, and its **output did not scale
-   with what happened** (a clean session still got a wall of invented next steps, at the most
-   expensive turn *and* as the last thing read before a `/clear`).
-
-   **Shipped 2026-08-13.** The deterministic half is [`core/tools/wos/roundup`](core/tools/wos/roundup)
-   — verification gate, entropy regen, branch promotion, one call, three lines of output
-   (`verify:` / `entropy:` / `sync:`). The skill keeps only judgment: clear the ledgers, route
-   knowledge, drain the INBOX (162 → 130 lines, six phases → three + the script + hand-off), under
-   a hard rule that **a phase with nothing to say contributes no line** — no header, no "nothing to
-   do", no invented next step. Three decisions worth keeping:
+2. ✅ **CLOSED 2026-08-14 — `/roundup` split into judgment and script.** Two defects, one job: it
+   ran **six phases at the session's maximum context**, and its **output did not scale with what
+   happened**. The deterministic half is [`core/tools/wos/roundup`](core/tools/wos/roundup) —
+   verification gate, entropy regen, branch promotion, one call, three lines (`verify:` /
+   `entropy:` / `sync:`). The skill keeps only judgment (162 → 133 lines), under a hard rule that
+   **a phase with nothing to say contributes no line**. Guarded by 20 tests in
+   [`core/tools/test/wos/`](core/tools/test/wos/CONTEXT.md), which build throwaway workspaces so
+   the gitflow and entropy paths are reachable at all. Six decisions worth keeping:
    - **the tool carries the skill's name.** One ritual, two layers; a second vocabulary word for
      the same thing is the drift. `close` was drafted and rejected — it reads terminal, and
      "roundup" means closure *and* continuity.
-   - **the script commits `entropy.md` itself** (`chore(entropy)`). It must run on a clean tree
-     (a commit message is judgment, so it stops rather than invent one), which leaves regenerated
-     entropy homeless otherwise. Precedent: 3 of the last 8 touches to that file already are
-     exactly that commit.
-   - **it refuses to promote and says why** — verify red, or a target branch behind origin (a
-     parallel session mid-flight) — rather than merging around either. The one case a script
-     cannot see, an incoherent branch, is passed in: `--no-promote "<reason>"`.
-
-   **Open, and the reason this is still 🟡:**
-   - **the hand-off must become optional.** Lucas 2026-08-13: if the work is finished and there is
-     no next action, emitting a resume prompt *manufactures* one at the last turn before `/clear`
-     — the output rule applied to the hand-off itself. Blocked on one sub-decision: a skipped
-     hand-off leaves the **previous** session's `outputs/handoff.md` in place, and the next window
-     opens by reading that path. Recommended: skipping **deletes** it, so the file's existence
-     means "a thread is open". Alternatives are leaving it stale (hazardous) or writing a two-line
-     "nothing open" stub.
-   - **`core/skills/handoff.md`'s template still prescribes its four sections** — agreed shape:
-     `Worked on` ≤3 bullets and only what is *not* already in a ledger, `Open threads` omitted
-     rather than "none.", `State` = the script's three lines verbatim, ≤2 file pointers. Last
-     session's block was 48 lines and 3 of its 5 open threads were already written in this file.
-   - **no tests yet.** The tool is smoke-tested on five paths (clean promote, dirty tree, red
-     verify, `--no-promote`, behind-origin) in throwaway repos, but nothing guards it in
-     `verify-fast`, and nothing guards the skill against re-inlining `make entropy` or the merges.
-   - **the dirty-tree stop cannot tell whose dirt it is** — found by running the tool for real at
-     this session's close: a **parallel session** was mid-compass in `brain/`, so 13 files it had
-     staged looked, to the script, like work this session forgot to commit. It stopped and asked
-     for a commit that would have swept another session's half-finished goal merge into `main`.
-     The guard was right to stop; its message names the wrong cause. Options: print the paths and
-     let the agent judge (it did, which is why nothing broke), or `--leave-dirty` for the case the
-     dirt is not ours — a merge does not carry the working tree, so promoting past foreign dirt is
-     safe when the branches agree. Decide before writing the tests, because it changes what
-     "dirty" asserts.
-   → **model: sonnet**.
+   - **the script commits `entropy.md` itself** (`chore(entropy)`), so no session writes that
+     message by hand. Precedent: 3 of the last 8 touches to that file already are exactly it.
+   - **it refuses to promote and says why** — verify red, or a target branch behind origin —
+     rather than merging around either. The case a script cannot see, an incoherent branch, is
+     passed in: `--no-promote "<reason>"`.
+   - **dirt has two possible owners and the script cannot tell them apart.** Found by running the
+     tool for real: a parallel session was mid-compass in `brain/`, and the 13 files it had staged
+     read as work this session forgot to commit — the stop asked for a commit that would have
+     swept another session's half-finished goal merge into `main`. The guard was right; its
+     message asserted an owner it had not established. It now prints the paths and *asks whose*,
+     naming both exits. `--leave-dirty` answers "not mine" and is the one message here that names
+     two actions, because the question is irreducibly binary.
+   - **promotion fast-forwards without a checkout** (`git fetch . <src>:<dst>`), so it never
+     touches the working tree — which is what makes promoting past another session's dirt safe,
+     rather than a claim about merges in general. Only a real merge needs HEAD to move, and under
+     `--leave-dirty` a diverged target is reported, never merged.
+   - **the hand-off is optional, and skipping deletes `outputs/handoff.md`.** Lucas 2026-08-13:
+     with the work finished and no next action, emitting a resume prompt *manufactures* one at the
+     last turn before `/clear` — the output rule applied to the hand-off itself. Deleting is what
+     makes the path a signal: **the file's existence means a thread is open.** A stale block was
+     rejected as hazardous, a "nothing open" stub as costing a read to learn there is nothing to
+     read. The template caps followed the same rule — `Worked on` ≤3 bullets and only what no
+     ledger already holds, `Open threads` omitted rather than answered "none.", `State` = the
+     script's three lines verbatim, ≤2 pointers. Last session's block was 48 lines and 3 of its 5
+     open threads were already written in this file.
+   → **shipped**. One hazard remains, and it is not this frente's: promoting a **diverged** branch
+   still checks out `develop`/`main`, so a parallel session committing in that window lands on the
+   wrong branch. `--leave-dirty` refuses exactly this case, but a *clean* tree with a live parallel
+   session is unguarded — the script cannot see the other session. Fixing it means promoting from
+   a worktree, which belongs with the branch cleanup in Frente 11.2.
 3. 🟢 **safe — cheaper models where the work is mechanical.** Measured split: opus 68%, fable 24%,
    sonnet 7.8%, haiku ~0%. Worth doing, but note the ceiling — routing cannot beat a 3x context
    multiplier, so sequence it after 1.

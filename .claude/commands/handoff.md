@@ -12,7 +12,37 @@ Arguments: $ARGUMENTS  (focus for next session)
 
 > **Narrow by design.** This emits only the resume prompt. To also archive completed work, route session knowledge to durable files, drain the INBOX, and run the verification gate first, use `/roundup` — it runs those phases, then calls `/handoff`.
 
+## Decide first — is there anything to hand off?
+
+**If the work is finished and there is no next action, do not emit a resume prompt.** Writing one
+*manufactures* a next action at the last turn before a `/clear` — the output rule
+([`roundup.md`](../../core/skills/roundup.md) § The output rule) applied to the hand-off itself. That is not a rare
+edge case; it is how a session that closed properly ends.
+
+Skipping is one command and one line:
+
+```bash
+rm -f outputs/handoff.md
+```
+
+Then say: *nothing open — no hand-off written.* Nothing else, and stop here.
+
+Deleting is the point. **The file's existence means exactly one thing: a thread is open.** Leaving
+the previous session's block in place would let the next window resume a thread that closed
+sessions ago, and a stub saying "nothing open" costs a read to learn there is nothing to read.
+
+Hand off when any of these is true: work is mid-flight, a decision is pending, or something was
+tried and left unresolved. Ambiguity resolves toward writing it — a hand-off nobody needed costs
+one read; a thread dropped silently costs the session that re-derives it.
+
 ## Gather state
+
+**If [`core/tools/wos/roundup`](../../core/tools/wos/roundup) ran this session, its three printed lines
+*are* the State block — copy them verbatim and gather nothing.** They are the same facts, already
+paid for. Re-deriving them costs a second round of git at the session's most expensive turn, and
+lets the two disagree.
+
+Only when it did not run (`/handoff` invoked mid-session, standalone):
 
 ```bash
 git branch --show-current 2>/dev/null
@@ -22,12 +52,12 @@ git for-each-ref --format='%(refname:short) %(upstream:track)' refs/heads 2>/dev
 git log --oneline main..develop 2>/dev/null | wc -l
 ```
 
-If a fresh verification result exists from this session, cite it. If not run this session, say "not run".
+Cite a verification result only if one is fresh from this session; otherwise say "not run".
 
 **Report sync divergence, never fix it.** `/handoff` can be invoked mid-session, so merging here risks
 promoting unverified work. Just state what is unpushed or unpromoted (`[ahead N]` on any branch, or
 `develop` ahead of `main`) so a session resumed on another machine knows what it is missing.
-Promotion is `/roundup` Phase 5 — point there if anything is behind.
+Promotion is `/roundup` Phase 4 — point there if anything is behind.
 
 ## Output
 
@@ -43,6 +73,15 @@ can start a fresh-context agent but cannot move the terminal Lucas types into, s
 successor would work the same branch *unattended, in parallel with the live session*. Prepare
 the artifact; let Lucas move his own attention.
 
+**Every section earns its place or is omitted** — the same rule as the phases in
+[`roundup.md`](../../core/skills/roundup.md). A section with nothing behind it is deleted, header and all; there is
+no "none.", no placeholder, no shape to fill. Last session's block ran 48 lines and 3 of its 5
+open threads were already written in `ROADMAP.md` — that is what these caps exist to stop.
+
+**Say it once.** If a fact is already in a ledger — a `ROADMAP.md` item, a `BUGS.md` entry, a
+`SPECS.md` decision — point at the file; do not restate it. The next session reads those anyway,
+and a hand-off that duplicates them is a second copy to keep in sync.
+
 Print the block between the `---` markers:
 
 ---
@@ -51,18 +90,19 @@ Print the block between the `---` markers:
 ## Resume — [PROJECT] — [DATE]
 
 ### Next action
-[If $ARGUMENTS: use as directive. Else: single most strategic next step from ROADMAP + current state.]
+[If $ARGUMENTS: use as directive. Else: the single next step, from ROADMAP + current state.]
 
 ### Worked on
-[Specific tasks, terse; last 30 min first. Not a project overview.]
+[≤3 bullets, and only what no ledger already holds. Shipped work is in git and the ROADMAP —
+ what belongs here is what a reader of those files would still not know.]
 
 ### Open threads
-[Discussed but unresolved — include dead ends and what was tried. If none: "none."]
+[Discussed but unresolved — dead ends and what was tried. Omit the whole section if there are none.]
 
 ### State
-branch@sha · N uncommitted · verify: green / red / not-run
-sync: all pushed / [branch ahead N unpushed] / develop N ahead of main
-[Files worth reading first — one line each, only if not obvious from ROADMAP.]
+[The three lines core/tools/wos/roundup printed — verify: / entropy: / sync: — verbatim.
+ If it did not run this session, one line: "roundup not run".]
+[≤2 files worth opening first, one line each, only if not obvious from ROADMAP.]
 ```
 
 ---
