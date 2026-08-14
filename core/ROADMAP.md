@@ -58,11 +58,20 @@ validator's oracle" status of `deepresearch` was retired 2026-07-23; see [SCHEMA
       (position/velocity/acceleration sampled into frames), not by a player feature. That version is
       squarely in reach of the existing `core/tools/slides/` surface and does not depend on the API
       answer. (INBOX 2026-08-13)
-- [ ] **Notion access without MCP.** Lucas: *"será que dá pra acessar o meu notion? sem MCP? gostaria"* —
-      a `core/tools/notion/notion` CLI on the official REST API with an internal integration token, shaped
-      like `core/tools/google/` (per-alias token under `~/.config/workspace-notion/`). The MCP connector
-      needs an interactive OAuth flow this workspace cannot run headless, which is precisely the argument
-      for owning the CLI. Scope: list/search/read pages first; writing later. (INBOX 2026-08-13)
+- [ ] **Notion access without MCP — now has a named consumer and a semester behind it.** Lucas: *"será
+      que dá pra acessar o meu notion? sem MCP? gostaria"* — a `core/tools/notion/notion` CLI on the
+      official REST API with an internal integration token, shaped like `core/tools/google/` (per-alias
+      token under `~/.config/workspace-notion/`). The MCP connector needs an interactive OAuth flow this
+      workspace cannot run headless, which is precisely the argument for owning the CLI. Scope:
+      list/search/read pages first; writing later. (INBOX 2026-08-13)
+      **Promoted 2026-08-14:** this is no longer a nice-to-have. Lucas's teaching material lives on
+      Google Drive (slides, forms) and Notion (the class page), and *"I WANT the WOS to be connected
+      with it, to be aware of it and capable of editing it"* — the semester has started. The intent and
+      ordering live in [`brain/goals/teaching-materials.md`](../brain/goals/teaching-materials.md)
+      (`[notion-read]` → `[notion-write]`); **this line owns only the build**, so neither file restates
+      the other. Same session found the Google half is *also* down: the Drive token is dead
+      (`invalid_grant`), which takes out every `core/tools/google/drive` call, not just teaching — and
+      the recovery needs an interactive browser, so it is Lucas's to run.
 - [ ] **Audit our own skills — effective, or verbose and making work?** Lucas (INBOX 2026-08-13): check
       every `core/skills/*.md` for verbosity, redundancy, ambiguity, and steps that cost more than they
       save. Distinct from the survey bullet below — that one imports from outside, this one prunes what we

@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
+from pathlib import Path as Path
 
-WORKSPACE_ROOT: Incomplete
 spec: Incomplete
 type_gate: Incomplete
 SCHEMA: Incomplete

@@ -119,18 +119,41 @@ resurface looking new.
 
 ### The one exception: transient initiative docs
 
-A **cross-project rollout** with cited anchor ids and a defined death date is a real type and is not
-a ROADMAP. Members: `code/VERIFY.md`, `code/SPEC-DRIVE.md`, `code/isoroll-module/REFACTOR.md`,
-`core/MIGRATION-STATUS.md`, `code/dobra/DECISIONS.md`.
+A **cross-project rollout** with cited anchor ids and a defined death date is a real thing, but
+**it is not a new type** — ruled 2026-08-14 by Lucas: *"unify, use the semantic symmetry strategy,
+guarantee coverage and precision with zero conceptual intersection between those files… and make
+sure as well that we do not create a new .md file for each specific minor thing."*
 
-Folding `VERIFY.md` into a ROADMAP was investigated 2026-07-30 and **rejected as unsafe**: it has 24
+The resolution follows from the type table itself. A rollout is *intent, plan, and what we rejected*,
+scoped to one initiative — which is precisely the question ROADMAP answers. It never needed a name
+of its own; it needed a **scope suffix**, and the workspace already sanctions one: the workspace
+root rules ([AGENTS.md](../AGENTS.md)) say a plan lives inline in the target project's roadmap **or
+as a referenced ROADMAP-\<slug\>.md**. So the target shape is ROADMAP-\<slug\>.md, the conceptual
+intersection with ROADMAP disappears (there was one: both answer *what do we intend to do*), and the
+type count does not grow. **Five differently-named files were the symptom of a missing suffix, not
+of a missing type.**
+
+Membership is **closed at four** and each has a route. The fifth, a skill-suite migration report
+under core/, was deleted 2026-08-14: it opened with *"What was done (2026-07-05)"*, making it an
+annotated corpse of a finished migration — the thing § No archive types forbids. Its one durable
+paragraph, the convention for skill `refs/` folders, was moved to § Layer: skill.
+
+| File | Route | Why |
+|---|---|---|
+| `code/VERIFY.md` | → ROADMAP-verify.md | the rename is mechanical but not free — see below |
+| `code/SPEC-DRIVE.md` | → ROADMAP-spec-drive.md | same shape, no anchor citations |
+| `code/isoroll-module/REFACTOR.md` | → ROADMAP-refactor.md | project-local, cheapest of the four |
+| `code/dobra/DECISIONS.md` | → that project's SPECS.md | **not a roadmap at all** — decisions are *what must be true and why*, which is the SPECS question. It sat in this list by naming accident |
+
+Folding `VERIFY.md` into a ROADMAP was investigated 2026-07-30 and rejected *as a fold* — it has 24
 inbound references, 7 of them in `core/hooks/*` source comments citing stable anchors (`VERIFY.md W1`,
-`W2`, `I2`, `G1`, `G3`, `G7`, `A1`). Breaking those would silently orphan the reasoning behind live
-gates.
+`W2`, `I2`, `G1`, `G3`, `G7`, `A1`). That objection survives and prices the work, but it does not
+survive as an argument for a separate type: **a rename preserves every anchor id**, and only the 24
+paths move. Do it as one reviewed commit, never piecemeal.
 
-These are exempt from the allowlist **and** carry an obligation: each must state its own death
-condition on line 3, and be deleted when its rollout completes. They are the only `.md` type allowed
-to be temporary, so a stale one is the most expensive kind of clutter.
+Until each rename lands, these four stay exempt from the allowlist **and** carry an obligation: each
+must state its own death condition on line 3, and be deleted when its rollout completes. They are the
+only `.md` files allowed to be temporary, so a stale one is the most expensive kind of clutter.
 
 ---
 
@@ -173,6 +196,21 @@ No `model`, `tier`, `tools`, or `subagents` on a skill — those are execution d
 A skill is THIN (dispatches to a flow) or FAT (self-contained protocol); both are valid. Any
 `core/skills/*.md` that is not a skill (status doc, ADR) does **not** belong here — the validator
 rejects a file with no `name`/`description` frontmatter.
+
+**A skill's `refs/` folder** (salvaged 2026-08-14 from the deleted skill-suite migration report,
+which was the only place these rules were written down):
+
+1. The folder sits **beside the skill file**, at `core/skills/<name>/refs/`.
+2. `.yaml` for structured references — papers, datasets, configs with a schema.
+3. `.md` for reading notes and informal summaries.
+4. `REFS.md` for one-line link captures, the shape `/inbox` writes.
+5. **Never** create `refs/` under `.claude/` or `.opencode/` — those are generated mirrors, and
+   `sync-skills` prunes anything it did not put there.
+
+**Sub-skills group into a suite folder** when a parent routes to them: the parent stays at
+`core/skills/<name>.md` and is the only file mirrored; sub-skills live at `core/skills/<name>/*.md`,
+are read from source, and drop the parent's prefix from their filenames (`foundry-canvas.md` inside
+`foundry/` is `canvas.md` — the folder already says `foundry`).
 
 ## Layer: agent — `core/agents/<name>.md`
 
