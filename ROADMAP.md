@@ -414,17 +414,28 @@ seam worth splitting at?", not "you are large". Only the second names `/roundup`
    live one keeps going. That is divergence bought at the price of a `/handoff` run, not a saving.
    So `claude --bg` stays available for delegated unattended work and is **not** wired into the
    meter. What ships instead is an artifact:
-   - `CTX_LOUD` message names `/handoff` and `outputs/handoff.md`, still printing once, still
-     never blocking.
-   - `/handoff` **writes** that file before printing the block, so a resume point survives a
-     session that dies, compacts, or is abandoned mid-thread.
+   - `CTX_LOUD` message names **one** command — `/roundup` — and the file it lands in,
+     `outputs/handoff.md`. Still prints once, still never blocks.
+   - `/handoff` **writes** that file before printing the block — a path survives a `/clear`, a
+     pasted block does not. `/roundup` Phase 6 already calls it, so the artifact is a by-product
+     of closing properly rather than a second thing to remember.
    - the next window starts with one typed line: `Read outputs/handoff.md and continue.`
 
-   Guarded by three tests: the meter and the skill must name the same path, that path must stay
-   lowercase (a resume prompt is an instance — `HANDOFF.md` is off the `core/SCHEMA.md` allowlist,
-   which is why it never existed; its dead `.gitignore` line is now gone), and the meter must
-   contain no spawn primitive at all. Successor works the **same branch** — safe precisely because
-   nothing runs until Lucas moves.
+   **The meter names exactly one command, and the reason is worth keeping.** It first said "run
+   `/handoff` now, then close with `/roundup`" — as insurance against a session dying mid-thread.
+   Lucas rejected it twice and was right both times: `/roundup` Phase 6 *is* `/handoff`, so that
+   ran the same ritual twice, and "run `/handoff` now" contradicted "finish the current thread"
+   in the same breath. The insurance was never needed either — `core/hooks/post-commit`
+   auto-pushes `feature/*`, so **work already survives a dead session through commits**; a resume
+   prompt written 50 turns before the end is a stale snapshot, not a safety net.
+
+   Guarded by five tests: the meter and the skill name the same path; that path stays lowercase
+   (a resume prompt is an instance — `HANDOFF.md` is off the `core/SCHEMA.md` allowlist, which is
+   why it never existed; its dead `.gitignore` line is now gone); the meter holds no spawn
+   primitive; the loud message asks for one ritual, not two; and both messages stay under 240
+   characters, free of cost-table jargon, and open with `CONTEXT WINDOW:` — they interrupt a live
+   thread, so they are two lines of plain words or they get skimmed. Successor works the **same
+   branch** — safe precisely because nothing runs until Lucas moves.
 
    **Context-drift detection stays parked** — the "canary call-me-Lucas" trick is a confounded proxy
    (caveman suppresses it, self-reported); keep it as a free passive tell, build nothing on it.

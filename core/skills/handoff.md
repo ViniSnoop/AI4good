@@ -32,11 +32,11 @@ Promotion is `/roundup` Phase 5 — point there if anything is behind.
 ## Output
 
 **Write the block to `outputs/handoff.md`, then print it.** The file is the deliverable; the
-print is a convenience. Writing it means a resume point survives a session that dies, gets
-compacted, or is abandoned mid-thread — which is the whole reason
-[`core/hooks/session/context-meter.py`](../hooks/session/context-meter.py) names this path at
-`CTX_LOUD`. Overwrite it: the newest hand-off is the only one worth resuming, and `outputs/` is
-gitignored, so nothing durable is lost.
+print is a convenience. A path is what survives a `/clear` — the next session opens by reading
+it, with no block to carry across by hand, which is why
+[`core/hooks/session/context-meter.py`](../hooks/session/context-meter.py) names this same path
+at `CTX_LOUD`. Overwrite it: the newest hand-off is the only one worth resuming, and `outputs/`
+is gitignored, so nothing durable is lost.
 
 **Never spawn a successor session.** Decided 2026-08-13 (ROADMAP § Frente 9.1): `claude --bg`
 can start a fresh-context agent but cannot move the terminal Lucas types into, so a spawned

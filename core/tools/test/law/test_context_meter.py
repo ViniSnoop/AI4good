@@ -90,18 +90,20 @@ def test_the_loud_message_names_the_way_out(tmp_path):
     text = context_meter.message(300_000, limits['CTX_LOUD'], limits['CTX_LOUD'])
     assert '/roundup' in text and '300k' in text
     # Prepare, don't spawn: the way out is an artifact plus one line Lucas types.
-    assert '/handoff' in text
     assert context_meter.HANDOFF_ARTIFACT in text
 
 
-def test_the_loud_message_does_not_read_as_two_hand_offs():
-    """/roundup Phase 6 *is* /handoff. Naming both without saying so reads as duplicated work
-    — Lucas caught exactly that. The message must state the relationship, not stack commands."""
+def test_the_loud_message_asks_for_exactly_one_ritual():
+    """/roundup Phase 6 *is* /handoff, so naming both makes the session run it twice — and
+    'run /handoff now, then finish the current thread' contradicts itself about what to do
+    first. One command. Crash insurance is the post-commit auto-push, not a stale snapshot."""
     limits = context_meter.load_limits()
     text = context_meter.message(300_000, limits['CTX_LOUD'], limits['CTX_LOUD'])
-    assert 'refresh' in text.lower(), (
-        'loud message names /handoff and /roundup without saying the second refreshes the '
-        'first — it reads as running the same ritual twice')
+    # The artifact path contains the skill name, so drop it before looking for the command.
+    commands = text.replace(context_meter.HANDOFF_ARTIFACT, '')
+    assert '/handoff' not in commands, (
+        'loud message names both /roundup and /handoff — /roundup already runs /handoff, so '
+        'this asks for the same ritual twice')
 
 
 def test_the_warn_message_does_not_demand_action(tmp_path):
@@ -117,7 +119,19 @@ def test_the_warn_message_hands_over_the_judgement():
     fires ~211 turns before the median session ends, so it must name the test, not the size."""
     limits = context_meter.load_limits()
     text = context_meter.message(limits['CTX_WARN'] + 4_000, limits['CTX_WARN'], limits['CTX_LOUD'])
-    assert 'seam' in text and 'ignore this' in text
+    assert 'stopping point' in text and 'ignore this' in text
+
+
+def test_both_messages_stay_short_and_jargon_free():
+    """These are read by an agent mid-thread, so they are two lines of plain words or they get
+    skimmed. 'band' and 'turns' are cost-table vocabulary and mean nothing at the prompt."""
+    limits = context_meter.load_limits()
+    for ctx, crossed in ((limits['CTX_WARN'] + 4_000, limits['CTX_WARN']),
+                         (limits['CTX_LOUD'] + 13_000, limits['CTX_LOUD'])):
+        text = context_meter.message(ctx, crossed, limits['CTX_LOUD'])
+        assert len(text) <= 240, f'{len(text)} chars — trim it, this interrupts a live thread'
+        assert 'band' not in text
+        assert text.startswith('CONTEXT WINDOW:'), 'say which window, and that it is *used*'
 
 
 def test_the_thresholds_bracket_the_measured_climb():

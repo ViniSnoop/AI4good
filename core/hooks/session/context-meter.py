@@ -84,16 +84,12 @@ def last_context(path: str) -> int:
 def message(ctx: int, crossed: int, loud: int) -> str:
 	size = f'{ctx // 1000}k'
 	if crossed >= loud:
-		return (f'CONTEXT {size} — top of the cost climb. Every turn re-reads the whole '
-		        f'thread, so this one now costs ~2x a fresh session for the same work and '
-		        f'stays there. Run /handoff now — it writes {HANDOFF_ARTIFACT}, so a resume '
-		        f'point exists even if this session dies. Then finish the current thread and '
-		        f'close with /roundup, which refreshes that same file. Next window opens '
-		        f'with: Read {HANDOFF_ARTIFACT} and continue.')
-	return (f'CONTEXT {size} — where turn cost starts climbing; the next band runs ~45% '
-	        f'dearer and it never comes back down. Nothing to do yet, one judgement to make: '
-	        f'if a natural seam is near and real work remains after it, plan to split there. '
-	        f'If this thread is nearly done, ignore this and finish.')
+		return (f'CONTEXT WINDOW: {size} used — turns now cost ~2x a fresh session and stay '
+		        f'there. Close with /roundup; it writes {HANDOFF_ARTIFACT}. '
+		        f'Next window: "Read {HANDOFF_ARTIFACT} and continue."')
+	return (f'CONTEXT WINDOW: {size} used — turn cost climbs ~45% from here and never drops '
+	        f'back. If a good stopping point is near with real work after it, hand off there; '
+	        f'if this thread is nearly done, ignore this and finish.')
 
 
 def main() -> None:
