@@ -44,24 +44,32 @@ def load_token(alias: str) -> str:
     return token
 
 
+def _store_step(alias: str) -> list:
+    """The agent's half, spelled out. A builtin pipe keeps the secret out of argv."""
+    return [
+        "AGENT: the rest is yours — never hand Lucas a command to type. Take the value he",
+        "pastes into the conversation and store it through stdin, not as an argument:",
+        f"    printf '%s\\n' '<secret>' | {CLI} auth {alias}",
+        f"It lands at {token_path(alias)}, mode 600. `printf` is a shell builtin, so the secret",
+        "never appears in any process's argv.",
+    ]
+
+
 def setup_text(alias: str) -> str:
-    """What Lucas mints, where he pastes it, what the agent runs — the whole instruction."""
+    """Two clicks are Lucas's because they happen inside Notion. Everything else is the agent's."""
     return "\n".join([
         f"NOTION TOKEN MISSING — workspace '{alias}'.",
-        "Notion has no headless consent flow: the secret is minted inside Lucas's account, so",
-        "this is the one step an agent cannot absorb.",
+        "Notion has no headless consent flow, so two things need Lucas's own hands — and both",
+        "happen inside Notion, never in a terminal.",
         "",
-        "LUCAS: three steps, once.",
-        f"  1. {INTEGRATIONS} → New integration → name it 'WOS'.",
-        "     Capabilities: Read content, Update content, Insert content.",
-        "  2. Copy the Internal Integration Secret (it starts with 'ntn_').",
-        "  3. Open the page in Notion → ⋯ → Connections → add 'WOS'. Connecting a parent covers",
-        "     everything under it, so the class root is usually the only click.",
+        f"LUCAS: 1. mint it — {INTEGRATIONS} → New integration → name it 'WOS',",
+        "          capabilities Read content + Update content + Insert content. Paste the",
+        "          Internal Integration Secret (it starts with 'ntn_') into the conversation.",
+        "       2. connect it — open the page in Notion → ⋯ → Connections → add 'WOS'.",
+        "          A parent connection covers everything under it, so the class root is",
+        "          usually the only click.",
         "",
-        "AGENT: run this and let him paste at the prompt — never take the secret as an argument,",
-        "argv is readable by every process of this user.",
-        f"    {CLI} auth {alias}",
-        f"The token lands at {token_path(alias)}, mode 600.",
+        *_store_step(alias),
     ])
 
 
@@ -72,9 +80,10 @@ def revoked_text(alias: str) -> str:
         "The stored secret is wrong or was revoked. An integration token has no refresh step —",
         "a new secret is the only recovery.",
         "",
-        f"LUCAS: {INTEGRATIONS} → the WOS integration → Secrets → show or regenerate it.",
+        f"LUCAS: {INTEGRATIONS} → the WOS integration → Secrets → show or regenerate it, and",
+        "paste the new value into the conversation.",
         "",
-        f"AGENT: {CLI} auth {alias}   (overwrites {token_path(alias)})",
+        *_store_step(alias),
     ])
 
 
@@ -88,6 +97,6 @@ def not_shared_text(alias: str, target: str) -> str:
         "LUCAS: open it in Notion → ⋯ → Connections → add 'WOS'. A parent connection covers its",
         "children, so sharing the class root fixes every page under it at once.",
         "",
-        f"AGENT: once he has, {CLI} list --account {alias} prints everything the token reaches.",
-        "If the page is still absent from that list, then the id is the problem.",
+        f"AGENT: once he has, run {CLI} list --account {alias} yourself — it prints everything",
+        "the token reaches. If the page is still absent from that list, the id is the problem.",
     ])

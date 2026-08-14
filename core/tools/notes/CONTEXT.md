@@ -25,8 +25,14 @@ Notion has no headless consent flow: an internal integration secret is minted in
 at [my-integrations](https://www.notion.so/my-integrations), and pages are then connected to that
 integration one parent at a time. Both failure modes print the whole instruction —
 **relay it unchanged**, the same rule as [`../CONTEXT.md`](../CONTEXT.md) § *An auth failure names
-its own fix*. Unlike Google's, the agent **cannot** run the recovery itself; only the paste is
-automated, and the secret arrives on stdin so it never lands in argv or shell history.
+its own fix*.
+
+**His half is the two clicks inside Notion; every command is the agent's.** Google's flow differs
+only in which half is which — there the agent runs the consent command and Lucas picks an account
+on the screen it opens. Here he mints the secret, pastes it into the conversation, and connects
+the page; the agent stores it through a builtin pipe (`printf … | notion auth <alias>`) so the
+value never reaches argv. Handing him the storing command to type is the chore this note exists
+to prevent, and a test enforces it: no CLI path may appear above the `AGENT:` line.
 
 **A 404 is a sharing failure until proven otherwise.** Notion returns the same code for "not
 connected to this integration" and "no such id", and the first is far more common — content is

@@ -107,6 +107,26 @@ def test_the_recovery_text_names_a_tool_that_exists(monkeypatch, tmp_path):
             assert (WORKSPACE_ROOT / path).is_file(), f"recovery points at a missing tool: {path}"
 
 
+def test_lucas_is_only_ever_asked_for_what_happens_inside_notion(monkeypatch, tmp_path):
+    """His correction, 2026-08-14: a command the agent could run is not a chore to hand over.
+
+    Minting a secret and connecting a page are Notion-side clicks nobody else can make. Storing
+    the result is not — so no CLI path may appear above the AGENT line.
+    """
+    monkeypatch.setenv("HOME", str(tmp_path))
+    for text in (notion_auth.setup_text("personal"), notion_auth.revoked_text("personal")):
+        his_half, _, agents_half = text.partition("AGENT:")
+        assert "core/tools/" not in his_half, f"handed Lucas a command to type:\n{his_half}"
+        assert "core/tools/notes/notion auth personal" in agents_half
+
+
+def test_the_secret_is_never_stored_through_a_command_argument(monkeypatch, tmp_path):
+    """argv is readable by any process of this user, and survives in shell history."""
+    monkeypatch.setenv("HOME", str(tmp_path))
+    text = notion_auth.setup_text("personal")
+    assert "printf" in text and "| core/tools/notes/notion auth" in text
+
+
 def test_a_404_blames_the_connection_before_it_blames_the_id():
     """The usual cause by far — a message that starts at 'wrong id' sends Lucas the wrong way."""
     text = notion_auth.not_shared_text("personal", "the class page")

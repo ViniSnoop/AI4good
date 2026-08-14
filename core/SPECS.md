@@ -141,11 +141,16 @@ segunda família precisar de token do Notion, não antes.
 
 Duas consequências que a CLI carrega e nenhum tool Google tem:
 
-1. **O agente não consegue rodar a recuperação.** No Google o consentimento abre browser na máquina
-   do Lucas e o agente dispara isso sozinho; aqui o segredo é cunhado dentro da conta dele. Então a
-   mensagem de falha é uma instrução para **ele**, com os três cliques, e o agente só automatiza a
-   colagem — que entra por **stdin**, nunca por argumento (argv é legível por qualquer processo do
-   usuário e sobrevive no histórico do shell).
+1. **A divisão é a mesma do Google; o que muda é qual metade é de quem.** A regra vale para
+   qualquer provedor (está no [`tools/CONTEXT.md`](tools/CONTEXT.md), não aqui): **o Lucas só faz
+   o que não tem forma de comando** — clique dentro da UI do provedor, tela de consentimento,
+   segredo cunhado dentro da conta dele. No Google o agente dispara o consentimento e ele escolhe
+   a conta; no Notion ele cunha o segredo e conecta a página, cola o valor na conversa, e o agente
+   guarda. Entregar a ele o comando de guardar é a tarefa que o agente podia ter absorvido
+   (correção dele, 2026-08-14: *"run it for me and ask me to do only what only I myself can do"*).
+   O segredo entra por **stdin** via pipe de builtin, nunca por argumento — argv é legível por
+   qualquer processo do usuário e sobrevive no histórico do shell. Um teste guarda a divisão:
+   nenhum caminho de CLI pode aparecer acima da linha `AGENT:`.
 2. **404 é falha de compartilhamento até prova em contrário.** O Notion responde o mesmo código para
    "não conectado a esta integração" e "id não existe", e o primeiro é muito mais comum: conteúdo é
    *invisível* para a integração, não proibido. A mensagem diz isso nessa ordem — começar por "id

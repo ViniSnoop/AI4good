@@ -39,7 +39,15 @@ is read at runtime from `accounts.json`, so it cannot go stale here.
 **Run the re-auth command yourself** — backgrounded, since it blocks until consent lands. It
 opens a browser on Lucas's machine, so the only part that is his is picking the account on the
 consent screen. Handing him the command to type is a chore the agent could have absorbed
-(his correction, 2026-08-14). Tokens are per `(service, alias)` at
+(his correction, 2026-08-14).
+
+**That rule is provider-agnostic, and every new tool inherits it without asking again.** Lucas
+does *only* what cannot be done from here — a click inside the provider's own UI, a consent
+screen, a secret minted inside his account. Everything with a command form is the agent's, and a
+secret he pastes into the conversation is stored through a builtin pipe so it never reaches argv:
+`printf '%s\n' '<secret>' | core/tools/<family>/<tool> auth <alias>`. `notes/notion` is the
+non-OAuth shape of the same split (his correction again, same day: *"run it for me and ask me to
+do only what only I myself can do"*). Tokens are per `(service, alias)` at
 `~/.config/workspace-<service>/<alias>.token.json`; Drive writes (`mkdir`, `put`) use a separate
 `drive-write` token from the read one.
 
