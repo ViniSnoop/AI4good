@@ -354,6 +354,14 @@ feeling lost twice. **Mass is the disease and only deletion cures it.**
    `core/hooks/brain/brain_attention.py` owns the counting —
    [`brain_dashboard.py`](core/hooks/brain/brain_dashboard.py) is at **194 lines against
    `BLOCK_LINES=200`** and must shrink by handing counting away, not grow.
+
+   **Committed 2026-08-14 as work in progress, and the shrink did not happen.** The session doing
+   this was halted mid-flight; its tree was coherent (module imports, `brain_stats.py` consumes it,
+   dashboard runs, `verify-fast` green) so it was committed rather than lost. But
+   `brain_dashboard.py` went **194 → 196** and `brain_stats.py` is at **177**: counting moved out
+   and something else moved in. Both are warns now, four and twenty-three lines from a hard block
+   respectively — so the next session on this frente starts by paying that down, before adding
+   anything.
    → **model: sonnet**. Plan: `~/.claude/plans/plan-a-fix-on-scalable-star.md`.
 
 ---
@@ -398,137 +406,32 @@ median session still has **~211 turns** ahead, so a hand-off has time to repay i
 cost. Warning early does not cost precision work; that fear priced a session about to end, and at
 these thresholds the session is not about to end.
 
-**Shipped 2026-08-13 — the session-size monitor.**
-[`core/hooks/session/context-meter.py`](core/hooks/session/context-meter.py) on `UserPromptSubmit`
-reads the size the API already reported on the last assistant turn and announces each threshold
-**once**. Thresholds are `CTX_WARN`/`CTX_LOUD` in [`limits.env`](core/hooks/limits.env) beside every
-other number; the checker carries no copy, guarded by `test_thresholds_come_from_limits_env`. Costs
-zero tokens until a threshold is crossed and never blocks a prompt. The session cannot see its own
-size, which is why the hand-off decision was always made late — a hook is the only thing that can
-see it *and* speak at the moment it applies.
+**Shipped 2026-08-13/14 — both halves of the session transition.** The size signal is
+[`core/hooks/session/context-meter.py`](core/hooks/session/context-meter.py) on `UserPromptSubmit`:
+it reads the size the API already reported and announces `CTX_WARN` / `CTX_LOUD` once each, costing
+zero tokens until crossed and never blocking. The session cannot see its own size, which is why the
+hand-off decision was always made late — a hook is the only thing that can see it *and* speak at the
+moment it applies. The close itself is [`core/tools/wos/roundup`](core/tools/wos/roundup) plus the
+two skills; every decision behind that split, and why no session spawns its own successor, is
+[`core/SPECS.md`](core/SPECS.md) § AD-09, guarded by 20 tests in
+[`core/tools/test/wos/`](core/tools/test/wos/CONTEXT.md).
 
-**Re-tuned 2026-08-13 to 100k / 200k** — the two ends of the climb, replacing 150k / 250k, which
-fired *halfway up* it (45% of the rise already paid) and *after* the plateau began. Lucas raised
-both corrections; the data agreed with him. Two claims died with the retune: the loud message said
-a long thread costs **~3x** a fresh one, but 3x is only reached above 300k — at the threshold where
-it fires it is **~2x**; and this section twice contradicted itself on the same measurement (73%/43%
-in the table above against 72%/40% in the prose). Frente 9 was steered for weeks by numbers nobody
-re-ran, so a number here that cannot be reproduced by
-[`core/tools/wos/usage`](core/tools/wos/usage) should be deleted, not softened.
+**The lesson this frente cost the most to learn: a number nobody can re-run steers the work anyway.**
+It was aimed for weeks by a single 24 h window that turned out wrong in every claim — "59% from
+subagent-heavy sessions" was retired outright (zero sidechain messages across 328 transcripts), and
+the thresholds first shipped at 150k/250k, which fired *halfway up* the climb and *after* the
+plateau began. So: a number in this file that
+[`core/tools/wos/usage`](core/tools/wos/usage) cannot reproduce should be **deleted, not softened**.
 
-The first message is deliberately ignorable (see [brain/SPECS.md](brain/SPECS.md) § Rationale) and
-now hands over the *judgement* rather than reporting size — at 100k the live question is "is there a
-seam worth splitting at?", not "you are large". Only the second names `/roundup`.
-
-1. ✅ **CLOSED 2026-08-13 — automatic session transition: the *work* hands off by itself, the
-   *attention* cannot.** An agent can open its own session — verified against the local CLI
-   (2.1.218), not from memory:
-
-   | Mechanism | What it gives |
-   |---|---|
-   | `claude --bg "<prompt>"` | starts a **background agent session and returns immediately** — fresh context, spawned from a Bash call inside the current session |
-   | `claude agents --json [--cwd <path>]` | lists active sessions (interactive **and** background), so a spawned successor is observable and manageable, not fire-and-forget |
-   | `claude -p "<prompt>"` | headless one-shot in a fresh session — right for delegated sub-work, wrong for continuing a thread |
-   | `--session-id <uuid>` · `--fork-session` · `-r/--resume` | explicit session identity; `--fork-session` branches a resumed conversation into a new id |
-
-   **The limit that shapes the design: none of these move the terminal Lucas is typing into.** An
-   agent can hand the *work* to a fresh-context successor today, unattended, with no user action.
-   It cannot swap the session his keyboard is attached to. So the transition splits in two, and
-   only the first half is automatable:
-   - **the work** → `claude --bg` carrying the `/handoff` prompt. Buildable now; the meter already
-     names the moment to fire it.
-   - **Lucas's attention** → needs the terminal: he types (`/clear` + paste), or `--tmux`, or
-     **`aiwbot` becomes the front door** — which is what it already is when he is away from the PC.
-
-   **Decided 2026-08-13 — prepare, don't spawn.** Lucas's call, and it follows from the limit
-   above: since a spawned successor cannot take the terminal, auto-spawning would not end the
-   expensive session — it would add a *second* agent working the same branch unattended while the
-   live one keeps going. That is divergence bought at the price of a `/handoff` run, not a saving.
-   So `claude --bg` stays available for delegated unattended work and is **not** wired into the
-   meter. What ships instead is an artifact and a single instruction:
-   - **both messages name `/roundup` and nothing else.** They print once, never block, and stay
-     under 240 characters (198 and 146 today).
-   - `/handoff` **writes** `outputs/handoff.md` before printing the block — a path survives a
-     `/clear`, a pasted block does not. `/roundup` Phase 6 already calls it, so the artifact is a
-     by-product of closing properly rather than a second thing to remember.
-   - the next window starts with one typed line: `Read outputs/handoff.md and continue.`
-
-   **The meter names exactly one command, and the reason is worth keeping** — three drafts were
-   rejected to get there, each teaching the same lesson. First it said "run `/handoff` now, then
-   close with `/roundup`", as insurance against a session dying mid-thread: but `/roundup`
-   Phase 6 *is* `/handoff`, so that ran the ritual twice, and "run `/handoff` now" contradicted
-   "finish the current thread" in the same breath. The insurance was never needed either —
-   `core/hooks/post-commit` auto-pushes `feature/*`, so **work already survives a dead session
-   through commits**; a resume prompt written 50 turns early is a stale snapshot, not a safety
-   net. Then it still named `outputs/handoff.md` and offered "hand off there" — **an instruction
-   the session can improvise against.** A message read mid-thread is not documentation: every
-   extra noun is a decision the agent might make differently from the flow we built. So the path
-   lives only in the skill that writes it, and the meter says one thing.
-
-   Guarded by five tests: both messages name `/roundup` and contain exactly one `/`; the warn
-   stays ignorable ("ignore this and finish" in as many words); the written path stays lowercase
-   (a resume prompt is an instance — `HANDOFF.md` is off the `core/SCHEMA.md` allowlist, which is
-   why it never existed; its dead `.gitignore` line is now gone); the meter holds no spawn
-   primitive; and both messages stay short, jargon-free, and open with `CONTEXT WINDOW:` — they
-   interrupt a live thread, so they are two lines of plain words or they get skimmed. Successor
-   works the **same branch** — safe precisely because nothing runs until Lucas moves.
-
-   **Context-drift detection stays parked** — the "canary call-me-Lucas" trick is a confounded proxy
-   (caveman suppresses it, self-reported); keep it as a free passive tell, build nothing on it.
-   → **shipped**. Nothing remains here. The attention half — moving Lucas, not the work — is
-   `code/aiwbot`'s, on its own ledger: it is already the front door when he is away from the PC.
-2. ✅ **CLOSED 2026-08-14 — `/roundup` split into judgment and script.** Two defects, one job: it
-   ran **six phases at the session's maximum context**, and its **output did not scale with what
-   happened**. The deterministic half is [`core/tools/wos/roundup`](core/tools/wos/roundup) —
-   verification gate, entropy regen, branch promotion, one call, three lines (`verify:` /
-   `entropy:` / `sync:`). The skill keeps only judgment (162 → 133 lines), under a hard rule that
-   **a phase with nothing to say contributes no line**. Guarded by 20 tests in
-   [`core/tools/test/wos/`](core/tools/test/wos/CONTEXT.md), which build throwaway workspaces so
-   the gitflow and entropy paths are reachable at all. Six decisions worth keeping:
-   - **the tool carries the skill's name.** One ritual, two layers; a second vocabulary word for
-     the same thing is the drift. `close` was drafted and rejected — it reads terminal, and
-     "roundup" means closure *and* continuity.
-   - **the script commits `entropy.md` itself** (`chore(entropy)`), so no session writes that
-     message by hand. Precedent: 3 of the last 8 touches to that file already are exactly it.
-   - **it refuses to promote and says why** — verify red, or a target branch behind origin —
-     rather than merging around either. The case a script cannot see, an incoherent branch, is
-     passed in: `--no-promote "<reason>"`.
-   - **dirt has two possible owners and the script cannot tell them apart.** Found by running the
-     tool for real: a parallel session was mid-compass in `brain/`, and the 13 files it had staged
-     read as work this session forgot to commit — the stop asked for a commit that would have
-     swept another session's half-finished goal merge into `main`. The guard was right; its
-     message asserted an owner it had not established. It now prints the paths and *asks whose*,
-     naming both exits. `--leave-dirty` answers "not mine" and is the one message here that names
-     two actions, because the question is irreducibly binary.
-   - **promotion fast-forwards without a checkout** (`git fetch . <src>:<dst>`), so it never
-     touches the working tree — which is what makes promoting past another session's dirt safe,
-     rather than a claim about merges in general. Only a real merge needs HEAD to move, and under
-     `--leave-dirty` a diverged target is reported, never merged.
-   - **the hand-off is optional, and skipping deletes `outputs/handoff.md`.** Lucas 2026-08-13:
-     with the work finished and no next action, emitting a resume prompt *manufactures* one at the
-     last turn before `/clear` — the output rule applied to the hand-off itself. Deleting is what
-     makes the path a signal: **the file's existence means a thread is open.** A stale block was
-     rejected as hazardous, a "nothing open" stub as costing a read to learn there is nothing to
-     read. The template caps followed the same rule — `Worked on` ≤3 bullets and only what no
-     ledger already holds, `Open threads` omitted rather than answered "none.", `State` = the
-     script's three lines verbatim, ≤2 pointers. Last session's block was 48 lines and 3 of its 5
-     open threads were already written in this file.
-   → **shipped**. One hazard remains and it is wider than promotion — **observed 2026-08-14, in
-   this session.** A parallel session switched the shared checkout from `feature/wos-typeset` to
-   `feature/brain-attention` mid-flight, and this session's commit landed on *their* branch, was
-   auto-pushed there by `core/hooks/post-commit`, and was only noticed because that hook prints
-   the branch it pushed. Recovery was clean (`git branch -f` the sha onto the right branch, then
-   push — never reset theirs), but nothing warned, and the branch read correct at session start.
-   Two sessions share one working tree, so **HEAD is shared mutable state and the branch checked
-   out at session start is not the branch you commit to.** Promotion is only the loudest case:
-   `--leave-dirty` now refuses a diverged target rather than moving HEAD, but ordinary commits are
-   unguarded. The real fix is one worktree per session, which belongs with the branch cleanup in
-   **Frente 11.2**; the cheap partial fix is a pre-commit warning when HEAD moved since session
-   start. Until then the working rule is `git branch --show-current` immediately before committing,
-   not once at the top.
-3. 🟢 **safe — cheaper models where the work is mechanical.** Measured split: opus 68%, fable 24%,
+1. 🟢 **safe — cheaper models where the work is mechanical.** Measured split: opus 68%, fable 24%,
    sonnet 7.8%, haiku ~0%. Worth doing, but note the ceiling — routing cannot beat a 3x context
-   multiplier, so sequence it after 1.
+   multiplier, and the transition above already took the larger win.
+   → **model: sonnet**.
+2. 🟡 **the ~8% spend gap is still unexplained**, four sessions running. A one-off script and
+   [`core/tools/wos/usage`](core/tools/wos/usage) agree on every share and per-turn cost but differ
+   on absolute total, almost all of it in the `claude-fable-5` line. Quote percentages and $/turn;
+   treat any absolute total as ±10% until this closes. By the rule above, if it cannot be resolved
+   the absolute numbers should be dropped from the tool's output rather than footnoted.
    → **model: sonnet**.
 
 ---
@@ -638,6 +541,26 @@ interface is current, so ignoring them breaks the read-gate on every fresh clone
    unmerged branch, so the sweep cannot silently drop work — which is what makes it safe to run
    from a session that does not own those repos, as long as it skips the ones another session is
    holding.
+   → **model: sonnet**.
+3. 🔴 **decide-first — HEAD is shared mutable state, and nothing warns.** Observed 2026-08-14: a
+   session began on `feature/wos-typeset`, a parallel session switched the shared checkout to
+   `feature/brain-attention` mid-flight, and the first session's commit landed on *their* branch and
+   was auto-pushed there by [`core/hooks/post-commit`](core/hooks/post-commit). It was caught only
+   because that hook happens to print the branch it pushed. **The branch read correct at session
+   start** — which is exactly why a start-of-session check cannot catch this.
+
+   Recovery is non-destructive and worth keeping: `git merge-base --is-ancestor <your-branch> <sha>`
+   to confirm a fast-forward, then `git branch -f <your-branch> <sha>` and push **yours**. Never
+   reset or force-push theirs, and never `git checkout` your branch back — that just yanks HEAD out
+   from under them, which is the same defect pointed the other way.
+
+   Two candidate fixes, and they are not equivalent. **One worktree per session** removes the shared
+   HEAD entirely and is the real answer; it also interacts with the sweep above, since a worktree
+   holds a branch checked out and `git branch -d` will refuse it. **A pre-commit warning when HEAD
+   moved since session start** is cheap, catches the case at the moment it matters, and needs
+   somewhere to record the start-of-session branch. `core/tools/wos/roundup --leave-dirty` already
+   refuses to move HEAD for a diverged promotion, so the promotion path is covered; **ordinary
+   commits are not.** Decide which before building either.
    → **model: sonnet**.
 
 ---

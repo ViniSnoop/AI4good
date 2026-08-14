@@ -56,6 +56,54 @@ Extensão de AD-07 para a camada de **flows**. Contrato completo em [`SCHEMA.md`
 
 6. **Motivação:** o gatilho foi a assimetria `deepresearch` (flow) vs `/research scout` (sub-flow) — que se revelou apenas lexical, mas expôs a falta de regra de posse e de um modelo de composição.
 
+### AD-09 — Fechamento de sessão: julgamento na skill, determinismo no script (2026-08-14)
+Fecha as frentes 9.1 e 9.2 do [`ROADMAP.md`](../ROADMAP.md) raiz. Duas camadas, um ritual.
+
+1. **A ferramenta leva o nome da skill.** [`core/tools/wos/roundup`](tools/wos/roundup) e
+   `core/skills/roundup.md` são o mesmo ritual, um nível abaixo. Uma segunda palavra para a mesma
+   coisa *é* a deriva — `close` foi escrito e rejeitado: soa terminal, e "roundup" significa
+   fechamento **e** continuidade. Julgamento (o que apagar, para onde vai o conhecimento, o que a
+   INBOX significa) fica na skill; tudo que tem uma resposta certa só fica no script, onde custa uma
+   chamada em vez de prosa raciocinada nos turnos mais caros da sessão.
+
+2. **Uma fase sem nada a dizer não contribui linha nenhuma.** Sem cabeçalho, sem "nada a fazer",
+   sem próximo passo inventado para preencher a forma. Vale mais aqui que em qualquer lugar: é o
+   turno mais caro da sessão *e* a última coisa lida antes de um `/clear`.
+
+3. **A regra acima se aplica ao próprio hand-off.** Com o trabalho terminado e sem próxima ação,
+   emitir um resume prompt **fabrica** uma. Então `/handoff` pode recusar — e recusar **apaga**
+   `outputs/handoff.md`. É isso que transforma o caminho em sinal: **a existência do arquivo
+   significa exatamente uma coisa, que há uma linha de trabalho aberta.** Deixar o bloco velho foi
+   rejeitado como perigoso (a próxima janela retoma um fio fechado há sessões) e um stub "nada
+   aberto" foi rejeitado por custar uma leitura para descobrir que não há o que ler.
+
+4. **Sujeira no working tree tem dois donos possíveis e o script não distingue.** Ele imprime os
+   caminhos e **pergunta de quem são**, em vez de afirmar. Afirmar foi o defeito: os arquivos que
+   uma sessão paralela tinha staged leram como trabalho que *esta* sessão esqueceu de commitar, e a
+   mensagem pediu um commit que teria varrido o merge de goals inacabado da outra para `main`.
+   `--leave-dirty` responde "não é minha". É a única mensagem do script que nomeia duas ações,
+   porque a pergunta é irredutivelmente binária.
+
+5. **A promoção faz fast-forward sem checkout** (`git fetch . <src>:<dst>`), então nunca toca o
+   working tree — é *isso*, e não uma afirmação geral sobre merges, que torna seguro promover por
+   cima da sujeira alheia. Só um merge de verdade precisa mover o HEAD, e sob `--leave-dirty` um
+   alvo divergente é reportado, nunca mesclado.
+
+6. **O script recusa e diz por quê** (verify vermelho, alvo atrás do origin) em vez de contornar. O
+   caso que ele não enxerga — um branch incoerente sozinho — entra por `--no-promote "<motivo>"`.
+   *"O milestone não acabou"* **não** é motivo: trabalho verde, coerente e parcial pertence a
+   `develop`.
+
+7. **Nenhuma sessão gera sua sucessora.** Um agente abre sessão nova (`claude --bg` em background,
+   `claude -p` headless one-shot, `claude agents --json` lista as ativas, `--session-id` /
+   `--fork-session` / `-r` dão identidade explícita — verificado contra a CLI local 2.1.218), mas
+   **nada disso move o terminal em que o Lucas digita**. Uma sucessora spawnada trabalharia o mesmo
+   branch, sozinha, em paralelo com a sessão viva: divergência comprada ao preço de um `/handoff`.
+   Prepara-se o artefato; a atenção o Lucas move sozinho.
+
+Guardas: 20 testes em [`core/tools/test/wos/`](tools/test/wos/CONTEXT.md) — a ferramenta contra
+workspaces descartáveis, as skills contra reinlinar o trabalho que o script assumiu.
+
 ---
 
 ## Conventions
