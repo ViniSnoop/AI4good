@@ -492,6 +492,15 @@ seam worth splitting at?", not "you are large". Only the second names `/roundup`
    - **no tests yet.** The tool is smoke-tested on five paths (clean promote, dirty tree, red
      verify, `--no-promote`, behind-origin) in throwaway repos, but nothing guards it in
      `verify-fast`, and nothing guards the skill against re-inlining `make entropy` or the merges.
+   - **the dirty-tree stop cannot tell whose dirt it is** — found by running the tool for real at
+     this session's close: a **parallel session** was mid-compass in `brain/`, so 13 files it had
+     staged looked, to the script, like work this session forgot to commit. It stopped and asked
+     for a commit that would have swept another session's half-finished goal merge into `main`.
+     The guard was right to stop; its message names the wrong cause. Options: print the paths and
+     let the agent judge (it did, which is why nothing broke), or `--leave-dirty` for the case the
+     dirt is not ours — a merge does not carry the working tree, so promoting past foreign dirt is
+     safe when the branches agree. Decide before writing the tests, because it changes what
+     "dirty" asserts.
    → **model: sonnet**.
 3. 🟢 **safe — cheaper models where the work is mechanical.** Measured split: opus 68%, fable 24%,
    sonnet 7.8%, haiku ~0%. Worth doing, but note the ceiling — routing cannot beat a 3x context
