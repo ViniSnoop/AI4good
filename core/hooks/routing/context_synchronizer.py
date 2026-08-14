@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # Sync the Routing block in CONTEXT.md (or AGENTS.md at workspace root).
+import re
 import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
@@ -83,6 +84,26 @@ def migrate_legacy(text: str) -> tuple[str, bool]:
     return text[:section_start] + new_block + '\n' + text[end:], True
 
 
+_ROUTING_HEAD = re.compile(r'^##\s+Routing\s*$', re.MULTILINE)
+_NEXT_HEAD    = re.compile(r'^#{1,2}\s+\S', re.MULTILINE)
+
+
+def _drop_unsentineled_routing(text: str) -> str:
+    """Remove a hand-written `## Routing` section so the generated block replaces it.
+
+    Without this the generator appended its block anyway and the file ended up with two
+    Routing sections — one hand-maintained and going stale, one generated — with nothing
+    saying which the reader should believe. The generator owns inventory (core/AGENTS.md),
+    so the hand-written one loses; everything after it is kept untouched.
+    """
+    m = _ROUTING_HEAD.search(text)
+    if not m:
+        return text
+    nxt = _NEXT_HEAD.search(text, m.end())
+    end = nxt.start() if nxt else len(text)
+    return (text[:m.start()].rstrip('\n') + '\n\n' + text[end:].lstrip('\n')).rstrip('\n')
+
+
 def sync(target: Path):
     directory = target if target.is_dir() else target.parent
 
@@ -136,6 +157,8 @@ def sync(target: Path):
         after  = text[ei + len(RE):].lstrip('\n')
         parts  = [p for p in (before, after) if p]
         text   = '\n\n'.join(parts)
+    else:
+        text = _drop_unsentineled_routing(text)
     text = text.rstrip('\n') + '\n\n' + new_block
 
     ctx.write_text(text, encoding='utf-8')

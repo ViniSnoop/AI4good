@@ -5,7 +5,16 @@
 # ── 4. Sync CONTEXT.md Routing block — leaf dirs only ─────────────────────────
 # Parent CONTEXT.md files list subdirectory entries (links), not individual files.
 # They only need re-sync when a subdir is created/deleted, not on every file edit.
-if [ -n "$CODE_FILES" ]; then
+#
+# $STAGED is --diff-filter=ACM, so a DELETED file is invisible to $CODE_FILES — and a
+# directory that LOSES a file is exactly the one whose routing table now names something
+# that is gone. The stale row then survived forever, because nothing else re-syncs that
+# CONTEXT.md. $STAGED_DELETED is collected by the dispatcher for this one consumer.
+# `--filter-code` classifies by name, so it does not need the file to still exist.
+DELETED_CODE=$(echo "$STAGED_DELETED" | python3 "$HOOKS_DIR/file_law.py" --filter-code || true)
+CTX_DIRTY=$(printf '%s\n%s\n' "$CODE_FILES" "$DELETED_CODE" | grep -v '^$' || true)
+
+if [ -n "$CTX_DIRTY" ]; then
   declare -A _ctx_synced
   while IFS= read -r leaf_dir; do
     if [ -z "${_ctx_synced[$leaf_dir]+x}" ]; then
@@ -15,7 +24,7 @@ if [ -n "$CODE_FILES" ]; then
           && git add "$leaf_dir/CONTEXT.md" 2>/dev/null || true
       fi
     fi
-  done < <(echo "$CODE_FILES" | xargs -I{} dirname {} | sort -u)
+  done < <(echo "$CTX_DIRTY" | xargs -I{} dirname {} | sort -u)
   unset _ctx_synced
 fi
 

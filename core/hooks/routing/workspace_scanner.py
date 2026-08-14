@@ -85,6 +85,39 @@ def parse_preserved_subs(inner: str) -> dict:
             if desc not in ('Description', '—', '', '← add description'): rows[name] = desc
     return rows
 
+_LINK_RE = re.compile(r'\[([^\]]*)\]\(([^)]+)\)')
+DESC_LIMIT = 80
+
+
+def _rebase_links(text: str, prefix: str) -> str:
+    """Rewrite relative link targets so they resolve from the PARENT directory.
+
+    A child's line-2 description is hoisted verbatim into the parent's routing row, where
+    `[REFS.md](REFS.md)` silently names the *parent's* REFS.md — a different file, or none
+    at all. Absolute paths, URLs and bare anchors already mean the same from either
+    directory, so they are left alone.
+    """
+    def fix(m):
+        target = m.group(2)
+        if target.startswith(('/', '#')) or '://' in target or target.startswith('mailto:'):
+            return m.group(0)
+        return f'[{m.group(1)}]({prefix}{target})'
+    return _LINK_RE.sub(fix, text)
+
+
+def _truncate_outside_links(text: str, limit: int) -> str:
+    """Cut to `limit`, never mid-link — a half-copied `[REFS.md](RE` is a broken pointer,
+    and the pointer-integrity check would be right to fail on it."""
+    if len(text) <= limit:
+        return text
+    cut = limit
+    for m in _LINK_RE.finditer(text):
+        if m.start() < cut < m.end():
+            cut = m.start()
+            break
+    return text[:cut].rstrip()
+
+
 def build_sub_rows(link_list: list, preserved_subs: dict) -> str:
     rows = ['| Subdirectory | Description |', '|--------------|-------------|']
     for sub in link_list:
@@ -95,7 +128,8 @@ def build_sub_rows(link_list: list, preserved_subs: dict) -> str:
             if len(lines) > 1:
                 m = re.match(r'^>\s*(.+)', lines[1].strip())
                 if m:
-                    candidate = m.group(1).strip()[:80]
+                    candidate = _truncate_outside_links(
+                        _rebase_links(m.group(1).strip(), f'{sub.name}/'), DESC_LIMIT)
                     if candidate != '← add description':
                         desc = candidate
         link = f'{sub.name}/CONTEXT.md' if ctx_sub.exists() else f'{sub.name}/'
@@ -105,6 +139,20 @@ def build_sub_rows(link_list: list, preserved_subs: dict) -> str:
 HEADERS   = ('File', 'Interface', 'API', 'Description')
 ALWAYS    = (0, 3)          # File and Description are the table; the rest earn their place
 EMPTY_CELL = {'—', '-', ''}
+FACADE_PREFIX = '**facade** — '
+
+
+def _strip_facade(desc: str) -> str:
+    """Drop every facade prefix already on a preserved description.
+
+    The prefix is *decoration re-derived each run*, but it was being prepended to a
+    description that had been read back out of the table with last run's prefix still on
+    it. A facade whose own first-line comment is missing therefore grew one copy per sync —
+    `core/skills/caveman/scripts/CONTEXT.md` reached 22 before this was noticed.
+    """
+    while desc.startswith(FACADE_PREFIX):
+        desc = desc[len(FACADE_PREFIX):]
+    return desc
 
 def build_file_rows(files_with_rel: list, preserved: dict, ctx_dir: Path) -> str:
     """The routing table, minus any generated column that is empty on every row.
@@ -115,8 +163,9 @@ def build_file_rows(files_with_rel: list, preserved: dict, ctx_dir: Path) -> str
     """
     rows = []
     for f, rel in sorted(files_with_rel, key=lambda x: (x[0].name not in FACADE_NAMES, x[1])):
-        pre  = '**facade** — ' if f.name in FACADE_NAMES else ''
-        desc = pre + (file_description(f) or preserved.get(rel, preserved.get(f.name, PLACEHOLDER)))
+        pre  = FACADE_PREFIX if f.name in FACADE_NAMES else ''
+        kept = _strip_facade(preserved.get(rel, preserved.get(f.name, PLACEHOLDER)))
+        desc = pre + (file_description(f) or kept)
         rows.append((f'[`{rel}`]({rel})', interface_for(f, ctx_dir), extract_api(f), desc))
     if not rows:
         return ''

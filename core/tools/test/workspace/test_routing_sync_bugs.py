@@ -1,0 +1,127 @@
+# T0 routing-generator invariants (ROADMAP Batch B item 1): four ways the CONTEXT.md routing
+# table used to corrupt itself. Each bug here was found by eye in a live file, never by a check.
+import subprocess
+import sys
+from pathlib import Path
+
+import pytest
+
+from conftest import WORKSPACE_ROOT
+
+ROUTING = WORKSPACE_ROOT / "core/hooks/routing"
+sys.path.insert(0, str(ROUTING))
+
+from context_synchronizer import RE, RS, sync  # noqa: E402
+from workspace_scanner import (  # noqa: E402
+    _rebase_links, _strip_facade, _truncate_outside_links, build_sub_rows,
+)
+
+
+# ── (a) a child's description is hoisted into the parent, links and all ────────────────
+
+def test_relative_links_are_rebased_onto_the_child_directory() -> None:
+    assert _rebase_links("see [REFS.md](REFS.md)", "refs/") == "see [REFS.md](refs/REFS.md)"
+
+
+@pytest.mark.parametrize("target", ["/abs/x.md", "#anchor", "https://x.dev", "mailto:a@b.c"])
+def test_non_relative_targets_are_left_alone(target: str) -> None:
+    text = f"see [x]({target})"
+    assert _rebase_links(text, "sub/") == text
+
+
+def test_truncation_never_cuts_a_link_in_half() -> None:
+    # A limit landing inside the link must drop the whole link, not leave `](RE`.
+    text = "aaaa [REFS.md](REFS.md) bbbb"
+    assert _truncate_outside_links(text, 12) == "aaaa"
+    assert "](" not in _truncate_outside_links(text, 12)
+
+
+def test_hoisted_row_points_into_the_child(tmp_path: Path) -> None:
+    sub = tmp_path / "refs"
+    sub.mkdir()
+    (sub / "CONTEXT.md").write_text(
+        "# refs\n> Captured references — tier-1 links in [REFS.md](REFS.md).\n", encoding="utf-8"
+    )
+    (sub / "REFS.md").write_text("# refs\n", encoding="utf-8")
+    row = build_sub_rows([sub], {})
+    assert "(refs/REFS.md)" in row
+    assert "](REFS.md)" not in row
+
+
+# ── (b) a directory that LOSES a file must re-sync ────────────────────────────────────
+
+def test_delete_only_commit_still_runs_the_hook() -> None:
+    """The dispatcher used to `exit 0` on an empty $STAGED, and a delete-only commit has
+    exactly that — so nothing re-synced the table that just went stale."""
+    body = (WORKSPACE_ROOT / "core/hooks/pre-commit").read_text(encoding="utf-8")
+    assert "STAGED_DELETED=" in body, "deletions are not collected by the dispatcher"
+    assert '[ -z "$STAGED" ] && exit 0' not in body, (
+        "the early exit ignores deletions again — a delete-only commit skips every stage"
+    )
+
+
+def test_routing_generator_consumes_the_deleted_list() -> None:
+    body = (WORKSPACE_ROOT / "core/hooks/generators/routing.sh").read_text(encoding="utf-8")
+    code = "\n".join(l for l in body.splitlines() if not l.lstrip().startswith("#"))
+    assert "$STAGED_DELETED" in code
+
+
+def test_stale_row_is_dropped_when_the_file_is_gone(tmp_path: Path) -> None:
+    (tmp_path / "kept.py").write_text("# kept\n", encoding="utf-8")
+    (tmp_path / "CONTEXT.md").write_text(
+        f"# d\n> d\n\n{RS}\n## Routing\n\n| File | Description |\n|------|-------------|\n"
+        f"| [`gone.py`](gone.py) | a file that was deleted |\n"
+        f"| [`kept.py`](kept.py) | kept |\n{RE}\n",
+        encoding="utf-8",
+    )
+    sync(tmp_path)
+    out = (tmp_path / "CONTEXT.md").read_text(encoding="utf-8")
+    assert "gone.py" not in out
+    assert "kept.py" in out
+
+
+# ── (c) a hand-written `## Routing` must be replaced, not doubled ─────────────────────
+
+def test_unsentineled_routing_section_is_replaced_not_appended(tmp_path: Path) -> None:
+    (tmp_path / "mod.py").write_text("# mod\n", encoding="utf-8")
+    (tmp_path / "CONTEXT.md").write_text(
+        "# d\n> d\n\n## Routing\n\n| File | Description |\n|------|-------------|\n"
+        "| `hand.py` | hand-maintained, going stale |\n\n## Notes\n\nkeep me\n",
+        encoding="utf-8",
+    )
+    sync(tmp_path)
+    out = (tmp_path / "CONTEXT.md").read_text(encoding="utf-8")
+    assert out.count("## Routing") == 1, "two Routing sections — which one is true?"
+    assert "hand.py" not in out
+    assert "keep me" in out, "content after the hand-written section was eaten"
+    assert "mod.py" in out
+
+
+# ── (d) the facade prefix is decoration, re-derived every run ─────────────────────────
+
+def test_facade_prefix_never_accumulates() -> None:
+    assert _strip_facade("**facade** — " * 22 + "x") == "x"
+    assert _strip_facade("x") == "x"
+
+
+def test_repeated_sync_is_idempotent_for_a_commentless_facade(tmp_path: Path) -> None:
+    """`__init__.py` with no first-line comment: file_description() is empty, so the row
+    falls back to the previous table cell — which already carried the prefix."""
+    (tmp_path / "__init__.py").write_text("from x import y\n", encoding="utf-8")
+    (tmp_path / "CONTEXT.md").write_text(f"# d\n> d\n\n{RS}\n## Routing\n\n{RE}\n", encoding="utf-8")
+    for _ in range(5):
+        sync(tmp_path)
+    out = (tmp_path / "CONTEXT.md").read_text(encoding="utf-8")
+    assert out.count("**facade** —") == 1, f"prefix accumulated:\n{out}"
+
+
+def test_no_tracked_context_has_a_doubled_facade_prefix() -> None:
+    files = subprocess.run(
+        ["git", "ls-files", "-z", "*CONTEXT.md"],
+        cwd=WORKSPACE_ROOT, capture_output=True, text=True, check=True,
+    ).stdout
+    offenders = [
+        p for p in files.split("\0")
+        if p and "**facade** — **facade** —" in (WORKSPACE_ROOT / p).read_text(encoding="utf-8")
+    ]
+    assert not offenders, f"facade prefix accumulated in: {offenders}"

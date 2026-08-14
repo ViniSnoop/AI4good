@@ -24,7 +24,7 @@ they are upstream re-diff noise, and `stubgen` mangles them into a nested `scrip
 
 | File | API | Description |
 |------|-----|-------------|
-| [`__init__.py`](__init__.py) | — | **facade** — **facade** — **facade** — **facade** — **facade** — **facade** — **facade** — **facade** — **facade** — **facade** — **facade** — **facade** — **facade** — **facade** — **facade** — **facade** — **facade** — **facade** — **facade** — **facade** — **facade** — **facade** — ← add first-line comment |
+| [`__init__.py`](__init__.py) | — | **facade** — ← add first-line comment |
 | [`__main__.py`](__main__.py) | — | ← add first-line comment |
 | [`benchmark.py`](benchmark.py) | `count_tokens`, `benchmark_pair`, `print_table`, `main` | ← add first-line comment |
 | [`cli.py`](cli.py) | `print_usage`, `main` | ← add first-line comment |

@@ -14,7 +14,14 @@
 HOOKS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 STAGED=$(git diff --cached --name-only --diff-filter=ACM 2>/dev/null)
-[ -z "$STAGED" ] && exit 0
+
+# Deletions are tracked separately and $STAGED stays ACM on purpose: every gate below reads
+# a file's CONTENT, which a deleted path does not have. But a delete-only commit had an
+# empty $STAGED and exited here before any stage ran — and losing a file is exactly when a
+# routing table starts naming something that is gone. Only generators/routing.sh consumes
+# this; the other fragments all guard on `[ -n ... ]` and no-op on an empty $STAGED.
+STAGED_DELETED=$(git diff --cached --name-only --diff-filter=D 2>/dev/null)
+[ -z "$STAGED" ] && [ -z "$STAGED_DELETED" ] && exit 0
 
 for part in \
   generators/prepare \
