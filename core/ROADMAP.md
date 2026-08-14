@@ -36,18 +36,54 @@ validator's oracle" status of `deepresearch` was retired 2026-07-23; see [SCHEMA
       add `engineering` to the enum, give `craft`/`route`/`architect` real frontmatter (`type`,
       `confirm`, `agents`), delete the path exemption in `sync-skills`. The `uses:` DAG check already
       covers the cluster, so only the type layer is unguarded.
-- [ ] **Skill name `loops` vs flow name `craft` — the rename stopped at the skill boundary.**
-      `/loops` still dispatches to `flows/craft/craft.md`. One concept, two words at two layers; the
-      location rule (`flows/<skill>/` ⟺ dispatcher skill name) would otherwise make it `flows/loops/`.
-      Decide: rename the skill to `craft`, or keep `loops` and record why.
-- [ ] **Google-services CLI surface isn't standardized — two axes, one pass.** Token storage is already
-      unified per `(service, alias)` (see [tools/CONTEXT.md](tools/CONTEXT.md)). What isn't:
-      (a) **flags** — the command/flag surface of `core/tools/google/drive|gmail|calendar` diverges; audit
-      each tool's `auth` subcommand + flags and converge on one shape (INBOX 2026-07-26);
-      (b) **names** — Lucas wants `gmail`/`gdrive`/`gslides`/`gsheets` read as one family, but today it is
-      `google/{drive,gmail,calendar}` plus a separate `slides/slides`, and no sheets tool exists at all.
-      Decide the convention before a fifth tool lands: the `g` prefix is redundant *inside* `google/` and
-      load-bearing *outside* it, so this is a directory-vs-name question, not a rename. (INBOX 2026-08-13)
+- [ ] **Rename the skill `loops` → `craft` — ruled 2026-08-14 (Lucas).** `/loops` dispatches to
+      `flows/craft/craft.md`: one concept, two words at two layers. Renaming the skill restores the
+      location rule (`flows/<skill>/` ⟺ dispatcher skill name) instead of dragging the flow pool
+      backwards to `flows/loops/`. **Ship it inside the Frente 4.2 sweep in
+      [/ROADMAP.md](../ROADMAP.md), not separately** — that sweep already renames `.loop/` → `.craft/`
+      and `.loop-skills/` → `.craft-skills/` across 14 live state dirs and 74 doc mentions, and this
+      skill is the generator-side half that made the rename keep coming back. Keep **"Loop 0..6"** as
+      step names: an iterative step really is a loop, and that word is correct English, not the
+      retired label. Add `loops` to `core/SCHEMA.md` § Retired tokens the moment it lands, so the
+      check proves the rename complete.
+- [ ] **`core/tools/` is organized by capability — except one folder, which is organized by vendor.**
+      Ruled 2026-08-14 by Lucas, and the ruling reframes the problem: the earlier "directory vs name"
+      framing was wrong. Every family under `core/tools/` is named for **what it does** — `video`,
+      `web`, `paper`, `slides`, `verify`, `wos`. `google/` is the single folder named for **who makes
+      it**. That is not a naming nit, it is *one folder classifying on a different axis than all its
+      siblings*, which is why no rename ever felt right. Target shape:
+
+      | Layer | Rule | Example |
+      |---|---|---|
+      | family dir | the **capability** | `mail/` · `calendar/` · `slides/` · `sheets/` · `docs/` |
+      | tool inside | the **provider** | `mail/gmail` · `calendar/gcalendar` · `slides/gslides` |
+      | auth | its own family, provider-agnostic, one tool per provider | `auth/gauth` |
+
+      This is the library's provider-agnostic rule ([CONTEXT.md](CONTEXT.md) line 4) applied one
+      level up: **function in the path, provider as a leaf**. It also delays the evidence of
+      provider dependence — swapping Gmail for something
+      else changes a leaf, not a family. And `auth/` is not invented for symmetry: `google_auth.py`
+      already sits at the `core/tools/` root precisely *because* it is shared across families, so the
+      folder names a fact that already exists.
+
+      **Two refinements, so this does not become a fanout own-goal.** (1) **Create a family dir only
+      when a tool lands in it** — no empty `sheets/`, `docs/`, `maps/`. (2) **No `CONTEXT.md` until a
+      family holds more than one file**; the routing generator folds a sub-`WARN_FILES` directory
+      into its parent unless it declares itself, so a one-tool family costs a path hop and *zero*
+      table rows. That is the cheap direction, and it is the opposite of the mistake the 2026-07-31
+      split had to learn (a split that leaves the parent table the same size is the check being
+      gamed).
+
+      **Cost, stated plainly: this is the second time every `core/tools/` google path changes**
+      (the first was the 2026-07-31 fanout split). Do it as one sweep — `grep -rn 'core/tools/google'`
+      across skills, `CONTEXT.md` files, both ledgers, and the `.claude`/`.opencode` mirrors — not
+      tool by tool.
+
+      Still open underneath and unaffected by the layout: **the flag surface diverges.** `auth`
+      subcommands and flags differ across `drive|gmail|calendar`; converge them on one shape in the
+      same pass (INBOX 2026-07-26). Related live defect: the Drive token is dead (`invalid_grant`),
+      which is a re-consent Lucas must run, tracked in
+      [`brain/goals/teaching-materials.md`](../brain/goals/teaching-materials.md) `[gdrive-reauth]`.
 - [ ] **Slides motion animation — is it scriptable at all?** Lucas wants movement authored from the CLI in
       Google Slides: lines and shapes moving, with start/end positions and controlled velocity and
       acceleration. First act is a capability check, not code — the Slides API exposes slide *transitions*

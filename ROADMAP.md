@@ -48,7 +48,7 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
 
 ## Frente 3 — Memory and always-loaded context
 
-1. 🔴 **decide-first — what is always-loaded about Lucas, and where does memory live?**
+1. 🟡 **measure-first — what is always-loaded about Lucas, and where does memory live?**
    `brain/USER.md` enters via the brain CONTEXT chain; `MEMORY.md` index enters every session.
    Lucas's suspicion: the auto-memory overlaps what `USER.md` + `goals/` + the CONTEXT chain +
    `refs/` already do. Decide the role of each (always-loaded vs durable vs on-demand) and whether
@@ -63,7 +63,17 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
    `USER.md` says *how he fails*), and it has global scope, so splitting it into CONTEXT.md files
    would duplicate it into every subtree. Trim its two non-profile intrusions: the dead pointer to
    `branches/writing/mantras.md` (does not exist) and the embedded wos TODO on line 40.
-   → **model: opus**.
+
+   **Confirmed 2026-08-14 (Lucas): measure before deciding — this is no longer a judgment call
+   waiting on him, it is instrumentation waiting on someone.** The disposition of the memory store
+   (fold it / keep it with a narrowed charter) is downstream of the measurement, and deciding it
+   first would repeat exactly the mistake Frente 9 paid for: steering for weeks by a number nobody
+   could re-run. Two things the instrument must report, because both are load-bearing and neither is
+   currently observable: (a) what genuinely enters the context at session start, split by source, so
+   the memory store's marginal cost is separable from the CONTEXT chain's; (b) whether a *subagent*
+   re-pays the full chain on every subtree touch instead of once per session — if it does, narrow
+   workers are quietly the most expensive thing we run.
+   → **model: sonnet** to build the instrument, **opus** for the disposition it feeds.
 2. 🟡 **the always-loaded corpus — measured 2026-07-30, disposition before compression.** Trigger
    was Lucas hitting Claude Code limits and suspecting `AGENTS.md`. The measurement says otherwise:
    `AGENTS.md` is 33 lines / **~1.3k tok**, while a *single* `context-gate` cascade in one session
@@ -326,13 +336,28 @@ Collapsed 2026-07-29 (four ledgers → one) and cut 2026-07-30 (52 open steps �
 the ledger honest but not smaller — items went 158 → 123 while mass stayed flat, and Lucas reported
 feeling lost twice. **Mass is the disease and only deletion cures it.**
 
-1. 🔴 **decide-first — TODO layer redesign.** Reported twice, unprompted: *"sinto que o TODO.md
-   simplesmente não tá sendo usado"*, and the evidence is that Lucas writes tasks into the INBOX
-   instead. Two questions, one design: (a) **what would make it actually get checked daily** —
-   accountability without the anxious tone the workspace exists to avoid (see
-   [brain/SPECS.md](brain/SPECS.md) § Rationale); (b) **TODO × goals boundary**. Wanted: mutable,
-   self-archiving, per-task recommended tier + creation date so stalled tasks flag themselves.
-   → **model: opus** (design) · then sonnet to build.
+1. 🟢 **`TODO.md` dies as a type — fold its content into goals, then delete the file.** Ruled
+   2026-08-14. Lucas reported twice, unprompted, *"sinto que o TODO.md simplesmente não tá sendo
+   usado"*, and the evidence was always that he writes tasks into the INBOX instead. He chose
+   **both** the delete and the fold, and they are not alternatives — they are the two halves of one
+   move, in order:
+
+   1. **Fold** — every live line in `brain/TODO.md` becomes a backlog item in the goal it actually
+      serves (`[short-id] description`, per [brain/SPECS.md](brain/SPECS.md) § Backlog Ordering).
+      A task with no goal is the interesting case and there are only two honest outcomes: it belongs
+      to a goal that does not exist yet (write the seed — a goal file's minimum is two lines), or it
+      is capture, not commitment, and belongs in the INBOX.
+   2. **Delete** — remove the file, then the type: the row in `core/SCHEMA.md`'s type table, the
+      mention in [brain/CONTEXT.md](brain/CONTEXT.md), and the "four ledgers" phrasing in this
+      file's own header, which becomes three. Deleting the file while leaving the type declared
+      would regenerate it — that is the lesson job A of Frente 12.1 already paid for.
+
+   **Why this beats redesigning it.** The redesign question was *"what would make it get checked
+   daily"*, and the honest answer is nothing: `/compass` is already the review ritual and it reads
+   goals, so a second surface competes with a ritual that works. Capture goes to INBOX, commitment
+   goes to a goal backlog — no third place, no boundary to police. This is the *delete weak features*
+   rule applied to our own scaffold instead of to code.
+   → **model: sonnet**. The fold needs a judgment call per line, so read them, do not batch.
 2. 🟢 **safe — `/inbox` refreshes the goals dashboard.** Run `brain_stats.py` as `/inbox`'s last
    step, not only on commit, so the dashboard never goes stale between commits.
    → **model: haiku**.
