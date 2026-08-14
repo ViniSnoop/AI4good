@@ -4,7 +4,7 @@
 import re
 from datetime import datetime
 
-from brain_common import AREAS, GOALS_FILE, replace_block, touch_count
+from brain_common import AREAS, GOALS_FILE, replace_block
 
 
 def bar(count, max_val, width=10):
@@ -132,19 +132,21 @@ def update_goals_table(goal_files):
         print("[Brain] GOALS.md active goals updated")
 
 
-def update_goals_md(goal_files):
+def update_goals_md(goal_files, attention):
     if not GOALS_FILE.exists():
         return
 
-    area_touches = {a: 0 for a in AREAS}
-    goal_touches = {}
+    goal_touches = {slug: attention.count(slug, 14) for slug in goal_files}
 
+    # Areas union their goals' commit sets instead of summing their counts: one commit can
+    # advance two goals (workspace-os owns core/, craft-flows owns core/flows/craft/), and
+    # summing would count it twice for the area while both goal bars rightly show it.
+    by_area = {a: [] for a in AREAS}
     for slug, path in goal_files.items():
-        c    = touch_count(path, 14)
-        goal_touches[slug] = c
         area = area_from_file(path)
-        if area and area in area_touches:
-            area_touches[area] += c
+        if area in by_area:
+            by_area[area].append(slug)
+    area_touches = {a: attention.area_count(slugs, 14) for a, slugs in by_area.items()}
 
     area_max = max(area_touches.values()) or 1
     goal_max = max(goal_touches.values()) or 1

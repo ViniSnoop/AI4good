@@ -5,6 +5,9 @@ Construir o projeto das casinhas. Pasta existe em branches/casinhas/. Move from 
 >**signals**  
 transformative · essential · motivated
 
+>**owns**  
+`branches/casinhas`
+
 >**dynamics**  
 engaged mode · advancing motion · external source  
 2026-07-11 compass: DAM 8027360726 PAGO ✅ (Licença Ambiental destravada). Novo gargalo = averbação do terreno no 7º Cartório RGI — anotar a construção/demarcação na matrícula. É ação de cartório com painho, não é boleto: precisa reunir docs (memorial/planta aprovada, ART, comprovantes) e ir ao cartório. Ainda é o goal de maior alavancagem por destravar tudo a jusante.
@@ -42,14 +45,14 @@ fallback · even a partial map beats starting from zero again*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-22  ·  trend: advancing
+last-touch: 2026-07-31  ·  trend: steady
 
 | period      | touches |
 |-------------|----------|
-| month       |       7 |
-| trimester   |       8 |
-| semester    |       8 |
-| year        |       8 |
-| 2-year      |       8 |
-| 4-year      |       8 |
+| month       |       4 |
+| trimester   |      16 |
+| semester    |      16 |
+| year        |      16 |
+| 2-year      |      16 |
+| 4-year      |      16 |
 <!-- stats:end -->

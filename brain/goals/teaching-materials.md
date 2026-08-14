@@ -5,6 +5,9 @@ Mudar o paradigma do material de aulas. Slides como arquivos abertos, com anima�
 >**signals**  
 meaningful · optional · motivated
 
+>**owns**  
+`core/tools/slides`
+
 ## selected next achievement
     [research-tools] research best current teaching tools — interactive slides, animations, open formats
 
@@ -26,14 +29,14 @@ Write what bothers you about your current slides, and what an ideal alternative 
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-23  ·  trend: advancing
+last-touch: 2026-07-31  ·  trend: steady
 
 | period      | touches |
 |-------------|----------|
-| month       |       8 |
-| trimester   |       9 |
-| semester    |       9 |
-| year        |       9 |
-| 2-year      |       9 |
-| 4-year      |       9 |
+| month       |       5 |
+| trimester   |      15 |
+| semester    |      15 |
+| year        |      15 |
+| 2-year      |      15 |
+| 4-year      |      15 |
 <!-- stats:end -->

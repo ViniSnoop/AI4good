@@ -1,5 +1,8 @@
 # [ career | admin | year ] burocracia acadêmica
 
+>**owns**  
+`academy/administration`
+
 Base inicial e extensível para lidar com toda a burocracia da vida acadêmica — não só para o Lucas, mas como guia extensível para todo o departamento. Reúne, mapeia e mantém navegável: resoluções, instruções normativas, páginas e links oficiais, a estrutura organizacional, os fluxos de processos e cada passo-a-passo relevante — transparente e facilmente editável. Objetivo: transformar burocracia (ponto fraco declarado do Lucas) de labirinto em algo consultável e reusável. Semente (INBOX 2026-07-24).
 
 >**signals**
@@ -27,14 +30,14 @@ Pegar UM processo real recente (ex. a progressão CTA 23082.018263/2026-55) e es
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-25  ·  trend: advancing
+last-touch: 2026-07-31  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       1 |
-| trimester   |       1 |
-| semester    |       1 |
-| year        |       1 |
-| 2-year      |       1 |
-| 4-year      |       1 |
+| month       |       7 |
+| trimester   |       7 |
+| semester    |       7 |
+| year        |       7 |
+| 2-year      |       7 |
+| 4-year      |       7 |
 <!-- stats:end -->

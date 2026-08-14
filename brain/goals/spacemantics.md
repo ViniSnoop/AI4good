@@ -7,6 +7,9 @@ Casas: `code/spacemantics/` (engine: dsl + checker + perception + tasks + bench,
 >**signals**  
 transformative · essential · thrilled
 
+>**owns**  
+`code/spacemantics` · `academy/papers/spacemantics`
+
 >**dynamics**  
 immersed mode · emerging motion · intrinsic source  
 2026-07-12 compass: promovido de semente `[visual-semantics]` (craft-flows:22) pra projeto de 4 casas após sessão de scoping. Landscape confirmado (VLMs quase-aleatórios em perspectiva/rotação; gap de benchmark de *construção* geométrica — GeoGramBench; direção DSL+checker validada mas single-domain — SpatialGrammar/HDSL/SceneCraft). Diferencial: cross-dimensional (inclui 4D-tempo) + cross-model + ablado + checker opcionalmente CV-grounded.
@@ -34,14 +37,14 @@ Abrir `academy/papers/spacemantics/outputs/texpace-foundations.md` §6 (princíp
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-22  ·  trend: advancing
+last-touch: 2026-07-31  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       6 |
-| trimester   |       6 |
-| semester    |       6 |
-| year        |       6 |
-| 2-year      |       6 |
-| 4-year      |       6 |
+| month       |      23 |
+| trimester   |      24 |
+| semester    |      24 |
+| year        |      24 |
+| 2-year      |      24 |
+| 4-year      |      24 |
 <!-- stats:end -->

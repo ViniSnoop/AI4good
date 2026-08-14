@@ -3,34 +3,34 @@
 <!-- stats:start -->
 <!-- data:start -->
 ## attention dashboard  _(auto-updated on every commit)_
-last-updated: 2026-08-13 23:33
+last-updated: 2026-08-14 12:05
 
 >**areas** — last 14 days  
 ```
-health       ███░░░░░░░   1 touches
-career       ██████████   3 touches
-finances     ░░░░░░░░░░   0 touches
-fun          ░░░░░░░░░░   0 touches
+health       ██████████   29 touches
+career       ███░░░░░░░   11 touches
+finances     ░░░░░░░░░░   2 touches
+fun          ████░░░░░░   13 touches
 spiritual    ░░░░░░░░░░   0 touches
 ```
 
 >**goals** — last 14 days  
 ```
-CONTEXT                  ░░░░░░░░░░   0 touches
-burocracia-academica     ░░░░░░░░░░   0 touches
+CONTEXT                  ░░░░░░░░░░   1 touches
+burocracia-academica     ░░░░░░░░░░   1 touches
 career-ufrpe             ░░░░░░░░░░   0 touches
 corporal-expressiveness  ░░░░░░░░░░   0 touches
-craft-flows              ██████████   3 touches
-cria                     ░░░░░░░░░░   0 touches
-dance                    ░░░░░░░░░░   0 touches
-ecovila                  ░░░░░░░░░░   0 touches
+craft-flows              ███░░░░░░░   11 touches
+cria                     █░░░░░░░░░   4 touches
+dance                    ░░░░░░░░░░   1 touches
+ecovila                  ░░░░░░░░░░   1 touches
 exercise                 ░░░░░░░░░░   0 touches
 finances                 ░░░░░░░░░░   0 touches
 guitar                   ░░░░░░░░░░   0 touches
-home-casinhas            ░░░░░░░░░░   0 touches
-instituto                ░░░░░░░░░░   0 touches
-lih-dd                   ███░░░░░░░   1 touches
-local-ai                 ░░░░░░░░░░   0 touches
+home-casinhas            ░░░░░░░░░░   1 touches
+instituto                ░░░░░░░░░░   1 touches
+lih-dd                   ░░░░░░░░░░   2 touches
+local-ai                 ██░░░░░░░░   7 touches
 magic-places             ░░░░░░░░░░   0 touches
 make-in-time             ░░░░░░░░░░   0 touches
 pandeiro                 ░░░░░░░░░░   0 touches
@@ -39,19 +39,19 @@ paper-megatruth          ░░░░░░░░░░   0 touches
 paper-scattercode        ░░░░░░░░░░   0 touches
 prompt-opt-automation    ░░░░░░░░░░   0 touches
 reading                  ░░░░░░░░░░   0 touches
-rpg-isoroll              ░░░░░░░░░░   0 touches
+rpg-isoroll              ████░░░░░░   12 touches
 sleep-regularity         ░░░░░░░░░░   0 touches
 smartphone-addiction     ░░░░░░░░░░   0 touches
-spacemantics             ░░░░░░░░░░   0 touches
-spec-driven-development  ███░░░░░░░   1 touches
-startapps-apptime        ░░░░░░░░░░   0 touches
+spacemantics             ░░░░░░░░░░   2 touches
+spec-driven-development  ░░░░░░░░░░   2 touches
+startapps-apptime        ░░░░░░░░░░   1 touches
 startapps-arede          ░░░░░░░░░░   0 touches
 startapps-batituque      ░░░░░░░░░░   0 touches
 startapps-come-bem       ░░░░░░░░░░   0 touches
 startapps-cuida          ░░░░░░░░░░   0 touches
 startapps-da-feirinha    ░░░░░░░░░░   0 touches
-startapps-gira           ░░░░░░░░░░   0 touches
-startapps-laplata        ░░░░░░░░░░   0 touches
+startapps-gira           ░░░░░░░░░░   2 touches
+startapps-laplata        ░░░░░░░░░░   1 touches
 startapps-marcapramim    ░░░░░░░░░░   0 touches
 startapps-permuta        ░░░░░░░░░░   0 touches
 startapps-polilinhas     ░░░░░░░░░░   0 touches
@@ -59,13 +59,13 @@ startapps-realgorithm    ░░░░░░░░░░   0 touches
 startapps-todolado       ░░░░░░░░░░   0 touches
 startapps-ux-guidelines-ai ░░░░░░░░░░   0 touches
 startapps-virada         ░░░░░░░░░░   0 touches
-startapps-voti           ░░░░░░░░░░   0 touches
+startapps-voti           ░░░░░░░░░░   1 touches
 startapps-xacomigo       ░░░░░░░░░░   0 touches
 surf                     ░░░░░░░░░░   0 touches
-teaching-materials       ███░░░░░░░   1 touches
+teaching-materials       ░░░░░░░░░░   1 touches
 vipassana                ░░░░░░░░░░   0 touches
 voice                    ░░░░░░░░░░   0 touches
-workspace-os             ███░░░░░░░   1 touches
+workspace-os             ██████████   29 touches
 yoga                     ░░░░░░░░░░   0 touches
 ```
 <!-- data:end -->

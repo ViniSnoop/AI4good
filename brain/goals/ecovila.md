@@ -1,5 +1,8 @@
 # [ finances | home | dream ] ecovila santuário dos jatobás
 
+>**owns**  
+`branches/ecovila`
+
 Terreno de 200 m² (com vista) comprado **com o pai**, dentro de uma área grande que amigos do pai e outras pessoas compraram e lotearam para construir casas ecologicamente amigáveis. A ideia da ecovila: um lugar longe da cidade (Recife), que preserva o verde e usa técnicas agroecológicas. O lote será mais tarde um ponto de construção. Interesse técnico do Lucas: testar alguma solução de **mapeamento 3D do terreno** (amarra em [[spacemantics]] e no [[project_casinhas|home-casinhas]] no lado obra). Cockpit de vida em `branches/ecovila/`. Semente (INBOX 2026-07-24).
 
 >**signals**
@@ -25,14 +28,14 @@ Abrir `branches/ecovila/burocracia/` e olhar o Regimento Interno da Associação
 
 ## stats
 <!-- stats:start -->
-last-touch: —  ·  trend: new
+last-touch: 2026-08-13  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       0 |
-| trimester   |       0 |
-| semester    |       0 |
-| year        |       0 |
-| 2-year      |       0 |
-| 4-year      |       0 |
+| month       |       3 |
+| trimester   |       3 |
+| semester    |       3 |
+| year        |       3 |
+| 2-year      |       3 |
+| 4-year      |       3 |
 <!-- stats:end -->

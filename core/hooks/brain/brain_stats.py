@@ -4,9 +4,10 @@
 import re
 from datetime import date
 
+from brain_attention import Attention
 from brain_common import (
     DONE_KEEP, GOALS_DIR, GOALS_FILE, LOG_DIR, PERIODS,
-    git, last_touch_date, replace_block, touch_count,
+    git, replace_block,
 )
 from brain_dashboard import update_goals_md, update_goals_table
 
@@ -31,9 +32,9 @@ def trend_label(counts):
 
 # ── Per-file stats block ───────────────────────────────────────────────────────
 
-def build_stats_block(path):
-    counts = {name: touch_count(path, days) for name, days in PERIODS}
-    lt     = last_touch_date(path)
+def build_stats_block(slug, attention):
+    counts = {name: attention.count(slug, days) for name, days in PERIODS}
+    lt     = attention.last_touch(slug)
     trend  = trend_label(counts)
 
     rows = "\n".join(
@@ -113,6 +114,12 @@ def pre_commit():
     if not goal_files:
         return
 
+    # One harvest per declared repo, reused for every goal and every period below. The
+    # previous shape ran a `git log` per goal per period — ~52 subprocesses each commit.
+    attention = Attention(goal_files)
+    for slug, rel in attention.missing:
+        print(f"[Brain] ⚠ {slug}: owns '{rel}', which resolves to no repo — not counted")
+
     targets  = staged_goal_files(goal_files)
     modified = []
 
@@ -121,7 +128,7 @@ def pre_commit():
         content  = original
 
         updated = replace_block(content, "<!-- stats:start -->", "<!-- stats:end -->",
-                                 build_stats_block(path))
+                                 build_stats_block(slug, attention))
         if updated:
             content = updated
 
@@ -136,7 +143,7 @@ def pre_commit():
 
     # Dashboard aggregates live git history for ALL goals — always fresh. GOALS.md
     # churn is not itself a measured signal, so refreshing it every commit is safe.
-    update_goals_md(goal_files)
+    update_goals_md(goal_files, attention)
     update_goals_table(goal_files)
 
     to_stage = modified[:]

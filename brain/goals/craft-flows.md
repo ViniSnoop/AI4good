@@ -5,6 +5,9 @@ Levar a sério e aplicar craft flows: desenvolvimento em loops explícitos (clar
 >**signals**  
 transformative · essential · thrilled
 
+>**owns**  
+`core/flows/craft` · `core/skills/loops.md` · `code/flows`
+
 > **Vocabulário: o termo canônico é *flow*, não *loop*.** Racional e modelo de composição
 > (flows compõem flows via `uses:`, grafo **acíclico**, ciclo só em execução com teto de
 > iterações) em [`core/SCHEMA.md`](../../core/SCHEMA.md) § *Composition and cycles*; as grafias
@@ -68,14 +71,14 @@ Abrir `core/flows/craft/craft.md` `## Field Practice` (7 runs auditados, A1 DONE
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-31  ·  trend: advancing
+last-touch: 2026-08-13  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       6 |
-| trimester   |       6 |
-| semester    |       6 |
-| year        |       6 |
-| 2-year      |       6 |
-| 4-year      |       6 |
+| month       |      27 |
+| trimester   |      33 |
+| semester    |      69 |
+| year        |      69 |
+| 2-year      |      69 |
+| 4-year      |      69 |
 <!-- stats:end -->

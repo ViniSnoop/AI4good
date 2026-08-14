@@ -5,10 +5,21 @@ import re
 import subprocess
 from pathlib import Path
 
+# Paths stay workspace-relative: the hooks run with cwd at the workspace root and git
+# reports --name-only against the same origin, so a relative path compares directly to
+# what git prints. WORKSPACE is the one absolute, needed to resolve an owned path to the
+# nested repo that actually holds its history.
+WORKSPACE  = Path(__file__).resolve().parents[3]
 BRAIN      = Path("brain")
 GOALS_FILE = BRAIN / "GOALS.md"
 LOG_DIR    = BRAIN / ".log"        # runtime state only (compass-last.txt), never an archive
 GOALS_DIR  = BRAIN / "goals"
+
+
+def workspace_rel(path):
+    """`path` as a workspace-relative string, whether it arrived absolute or relative."""
+    p = Path(path)
+    return str(p.relative_to(WORKSPACE)) if p.is_absolute() else str(p)
 
 PERIODS = [
     ("month",     30),
@@ -29,14 +40,9 @@ def git(*args):
     return r.stdout.strip() if r.returncode == 0 else ""
 
 
-def touch_count(path, days):
-    out = git("log", "--oneline", f"--since={days} days ago", "--", str(path))
-    return len([l for l in out.splitlines() if l.strip()])
-
-
-def last_touch_date(path):
-    out = git("log", "-1", "--format=%ci", "--", str(path))
-    return out[:10] if out else None
+# touch_count / last_touch_date lived here and counted commits against a goal's own .md
+# file. That is the defect brain_attention.py exists to fix, and leaving them would leave a
+# second, wrong definition of "a touch" for the next caller to reach for. Deleted 2026-08-13.
 
 
 def replace_block(content, start, end, new_block):

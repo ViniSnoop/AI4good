@@ -5,6 +5,9 @@ Foundry extension for isometric perspective with automated content generation. L
 >**signals**  
 transformative · expected · thrilled
 
+>**owns**  
+`code/isoroll-content` · `code/isoroll-module` · `core/skills/iso-visual.md`
+
 >**dynamics**  
 pragmatic mode · stalled motion · intrinsic source
 
@@ -46,14 +49,14 @@ Nothing to set up on your side. The seam freeze + cabin fixture run in `code/iso
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-23  ·  trend: advancing
+last-touch: 2026-08-01  ·  trend: decelerating
 
 | period      | touches |
 |-------------|----------|
-| month       |       9 |
-| trimester   |      10 |
-| semester    |      10 |
-| year        |      10 |
-| 2-year      |      10 |
-| 4-year      |      10 |
+| month       |      63 |
+| trimester   |     589 |
+| semester    |     592 |
+| year        |     592 |
+| 2-year      |     592 |
+| 4-year      |     592 |
 <!-- stats:end -->

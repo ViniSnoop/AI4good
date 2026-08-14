@@ -13,6 +13,9 @@ This lab stays in the university. Synergy with the instituto (outside university
 >**signals**  
 transformative · expected · motivated
 
+>**owns**  
+`academy/papers/mechanism-search` · `academy/lab`
+
 >**timing**  
 *target · first publication and first undergrad recruit within 2026  
 anchor · DC/UFRPE postgrad program entry — when is the next admission window?  
@@ -45,14 +48,14 @@ Write 3 sentences: what LIH.DD is, why it matters, what it produces. No referenc
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-30  ·  trend: advancing
+last-touch: 2026-08-13  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
 | month       |       7 |
-| trimester   |      11 |
-| semester    |      11 |
-| year        |      11 |
-| 2-year      |      11 |
-| 4-year      |      11 |
+| trimester   |      13 |
+| semester    |      13 |
+| year        |      13 |
+| 2-year      |      13 |
+| 4-year      |      13 |
 <!-- stats:end -->

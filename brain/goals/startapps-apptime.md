@@ -5,6 +5,9 @@ Show app usage time and how many times each app was opened. Personal usage analy
 >**signals**  
 meaningful · expected · motivated
 
+>**owns**  
+`code/apptime`
+
 ## selected next achievement
     [pre-launch-list] open the current design and list the 3 changes needed before App Store submission
 
@@ -34,14 +37,14 @@ fallback · TestFlight release first if App Store delays*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-22  ·  trend: advancing
+last-touch: 2026-07-31  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       6 |
-| trimester   |       7 |
-| semester    |       7 |
-| year        |       7 |
-| 2-year      |       7 |
-| 4-year      |       7 |
+| month       |       7 |
+| trimester   |      14 |
+| semester    |      31 |
+| year        |      31 |
+| 2-year      |      31 |
+| 4-year      |      31 |
 <!-- stats:end -->

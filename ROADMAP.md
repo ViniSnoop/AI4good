@@ -328,11 +328,33 @@ feeling lost twice. **Mass is the disease and only deletion cures it.**
    rendered `workspace-os ░░░░░░░░░░ 1 touch` in the same fortnight that **29 of 29** workspace
    commits were wos (hooks, tools, verify, session, entropy). Any goal whose work lands in `code/`
    or `core/` reads as dead, and the compass's Pareto has to be hand-corrected every cycle — the
-   exact manual correction the workspace exists to kill. Fix in
-   [`core/hooks/brain/brain_dashboard.py`](core/hooks/brain/brain_dashboard.py): each goal declares
-   the paths it **owns** (frontmatter, or a `>**owns**` block), and the counter sums commits
-   touching those paths instead of touches to the file.
-   → **model: sonnet**.
+   exact manual correction the workspace exists to kill. Each goal declares the paths it **owns**
+   in a `>**owns**` block, and the counter counts commits touching those paths.
+
+   **Scoped 2026-08-13, and the scoping moved it off `brain_dashboard.py` alone — three findings
+   the one-line framing above missed:**
+   - **The work is in other repos.** `code/*`, `academy/papers/*` and `branches/*` are gitignored
+     by the workspace repo and are **24 independent git repos**, so `git log -- code/spacemantics`
+     from root returns nothing, forever. Ownership buys nothing without resolving each path to its
+     governing repo (walk up to nearest `.git`) and running git *there*. This is the load-bearing
+     half of the fix.
+   - **The instrument measures its own observer.** `/compass` writes back to every goal file it
+     reviews; next cycle those goals read as active *because they were reviewed*. Drop commits whose
+     changed paths lie **entirely** within `brain/goals/*.md` + `brain/GOALS.md` — a rule that reads
+     what changed, not how it was described, so commit style cannot game it.
+   - **Area bars must union, not sum.** `area_touches[area] += c` double-counts the moment one
+     commit advances two goals (workspace-os owns `core/`, craft-flows owns `core/flows/craft/`).
+     Count distinct `(repo, sha)` pairs. Overlap *between goals* stays intentional — that commit
+     really did advance both.
+
+   Measured set is `declared owns ∪ {the goal file}`, so a goal with no block behaves exactly as
+   today: **life goals (dance, sleep, yoga) have no repo and their file genuinely is the artifact.**
+   An empty `>**owns**` is not a gap to fill. Harvest one `git log --name-only` per *declared repo*
+   (~12), not one per goal (~52 subprocesses today). New module
+   `core/hooks/brain/brain_attention.py` owns the counting —
+   [`brain_dashboard.py`](core/hooks/brain/brain_dashboard.py) is at **194 lines against
+   `BLOCK_LINES=200`** and must shrink by handing counting away, not grow.
+   → **model: sonnet**. Plan: `~/.claude/plans/plan-a-fix-on-scalable-star.md`.
 
 ---
 
@@ -601,13 +623,21 @@ interface is current, so ignoring them breaks the read-gate on every fresh clone
      this task exists to reduce. Add it beside the other Tier 0 checks, warn-only, one line per
      repo whose branch is ahead of `main`.
 
-   **Surveyed 2026-08-13, and the shape is better than it looks: 12 of 16 repos sit on a
-   `feature/*` branch, but 10 of those are ahead of `main` by zero commits.** Their work is already
-   promoted; the branch is a stale label, and the only cost is that the next session in that repo
-   starts on it. Deleting those ten is mechanical and safe. **Exactly two carry real unmerged
-   work** — `isoroll-content` and `isoroll-module`, 5 commits ahead each and both dirty — and both
-   belong to the parallel isoroll session, so they are *reason 3*: do not promote them from
-   another session. `branches/instituto` is on `master`, not `main`, which is why it reads `?`.
+   **State after the 2026-08-13 sweep: exactly two repos carry unmerged work**, `isoroll-content`
+   and `isoroll-module` (5 commits ahead each, both dirty). They belong to the parallel isoroll
+   session, so they are *reason 3*: do not promote them from another session. Every other nested
+   repo sits on its base branch — 11 fully-merged `feature/*` labels were deleted locally after
+   checking, per repo, that the branch was ahead of base by **zero** commits and that local `main`
+   was fully pushed. `branches/instituto` is on `master`, not `main`, which is why it reads `?`.
+
+   **The same 11 branches still exist on `origin`** — deleting a remote branch is an outward-facing
+   act and was left for Lucas: `git -C <repo> push origin --delete <branch>`, safe because every
+   commit on them is already in `origin/main`.
+
+   **The lesson: ahead-by-zero is the whole test, and it is cheap.** `git branch -d` refuses an
+   unmerged branch, so the sweep cannot silently drop work — which is what makes it safe to run
+   from a session that does not own those repos, as long as it skips the ones another session is
+   holding.
    → **model: sonnet**.
 
 ---

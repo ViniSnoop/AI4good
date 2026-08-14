@@ -7,6 +7,9 @@ Map the logic of money. Visualize flows. Heavy data visualization. Understand so
 >**signals**  
 useful · optional · motivated
 
+>**owns**  
+`code/laplata`
+
 ## selected next achievement
     [data-hunt] find one public dataset of financial flows — IBGE, Banco Central open data
 
@@ -28,14 +31,14 @@ Search "dados abertos Banco Central" and "IBGE consumo das famílias." Find one 
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-22  ·  trend: advancing
+last-touch: 2026-07-31  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       7 |
-| trimester   |       8 |
-| semester    |       8 |
-| year        |       8 |
-| 2-year      |       8 |
-| 4-year      |       8 |
+| month       |       5 |
+| trimester   |      10 |
+| semester    |      10 |
+| year        |      10 |
+| 2-year      |      10 |
+| 4-year      |      10 |
 <!-- stats:end -->

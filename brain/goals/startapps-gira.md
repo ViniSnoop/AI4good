@@ -7,6 +7,9 @@ Fomentar uma economia paralela. How to have a community and local circuit routin
 >**signals**  
 transformative · optional · motivated
 
+>**owns**  
+`code/gira` · `academy/papers/mutual-credit-ai`
+
 ## selected next achievement
     [timebanking-research] read about existing time-banking systems — what's worked in Brazil?
 
@@ -28,14 +31,14 @@ Search "banco de tempo Brasil" — find one existing example. Read how it works.
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-22  ·  trend: advancing
+last-touch: 2026-07-31  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
 | month       |       7 |
-| trimester   |       8 |
-| semester    |       8 |
-| year        |       8 |
-| 2-year      |       8 |
-| 4-year      |       8 |
+| trimester   |      13 |
+| semester    |      13 |
+| year        |      13 |
+| 2-year      |      13 |
+| 4-year      |      13 |
 <!-- stats:end -->

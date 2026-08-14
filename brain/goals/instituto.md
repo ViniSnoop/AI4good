@@ -12,6 +12,9 @@ This is outside the university. Has synergy with LIH.DD but different operationa
 >**signals**  
 meaningful · essential · motivated
 
+>**owns**  
+`branches/instituto`
+
 >**fears**  
 *what · being at the front of something large, having people depend on me, and failing them by losing discipline or consistency midway  
 when · when imagining concrete first steps — naming it publicly, inviting others, committing to a timeline  
@@ -53,14 +56,14 @@ fallback · if full institute is too much, a simpler form (collective, project, 
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-22  ·  trend: advancing
+last-touch: 2026-07-31  ·  trend: steady
 
 | period      | touches |
 |-------------|----------|
-| month       |       7 |
-| trimester   |       8 |
-| semester    |       8 |
-| year        |       8 |
-| 2-year      |       8 |
-| 4-year      |       8 |
+| month       |       4 |
+| trimester   |       9 |
+| semester    |       9 |
+| year        |       9 |
+| 2-year      |       9 |
+| 4-year      |       9 |
 <!-- stats:end -->

@@ -10,6 +10,9 @@ Transicionar o workspace inteiro pra SPEC-DRIVE DEVELOPMENT — todo módulo tem
 >**signals**  
 transformative · essential · thrilled
 
+>**owns**  
+`core/tools/wos/spec-scan` · `core/tools/wos/spec-contract-check` · `code/spacemantics/dsl`
+
 ## selected next achievement
     [lock-isoroll-content] travar o 2º módulo — `code/isoroll-content` já tem "Current Workflow Contract" + SCENE-CREATION.md; destilar num SPEC.md v0 (`status: locked`, `verify: <runner>`) + `> spec:` no CONTEXT.md. Faz a catraca sair de 1→2 e valida o read-gate num módulo com código real (dsl/ é só docs).
 
@@ -34,14 +37,14 @@ Rodar `core/tools/wos/spec-scan` (vê a catraca: 1/88 locked hoje). Abrir `code/
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-23  ·  trend: advancing
+last-touch: 2026-07-31  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       6 |
-| trimester   |       6 |
-| semester    |       6 |
-| year        |       6 |
-| 2-year      |       6 |
-| 4-year      |       6 |
+| month       |       9 |
+| trimester   |       9 |
+| semester    |       9 |
+| year        |       9 |
+| 2-year      |       9 |
+| 4-year      |       9 |
 <!-- stats:end -->

@@ -5,6 +5,9 @@ Conversational interface for political transparency. Based on real politician ac
 >**signals**  
 meaningful · expected · motivated
 
+>**owns**  
+`code/voti`
+
 ## selected next achievement
     [data-research] research available open data: Câmara dos Deputados API, TSE, other sources
 
@@ -26,14 +29,14 @@ Check what's actually available: dados.camara.leg.br and dados.tse.jus.br. What 
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-22  ·  trend: advancing
+last-touch: 2026-07-31  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       6 |
-| trimester   |       7 |
-| semester    |       7 |
-| year        |       7 |
-| 2-year      |       7 |
-| 4-year      |       7 |
+| month       |       8 |
+| trimester   |      14 |
+| semester    |      17 |
+| year        |      17 |
+| 2-year      |      23 |
+| 4-year      |      23 |
 <!-- stats:end -->

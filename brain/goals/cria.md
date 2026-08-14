@@ -5,6 +5,9 @@ Workflow (e futura ferramenta) de geração de ideias colaborativa humano-IA: mo
 >**signals**  
 transformative · essential · thrilled
 
+>**owns**  
+`code/cria` · `academy/papers/2027-CHI-cria` · `academy/papers/ai4good`
+
 >**dynamics**  
 relaxed mode · stalled motion · intrinsic source  
 2026-07-11 compass: best wind in Brain. Fable foundation session (07/07) shipped SOTA research, paper v1 compiling, dossiês v0, experiment design, 2 Overleaf repos. Feeds three goals at once (lih-dd first-paper, instituto motor, AI4Good 2026.2). Gargalo is CEP: 2026.2 starts ~August and CEP approval takes weeks, so submitting the protocol is the calendar-critical move — effectively a <3-week clock even without a hard date.  
@@ -43,14 +46,14 @@ Não é hora de começar isto: o goal está parqueado por escolha e a energia es
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-22  ·  trend: advancing
+last-touch: 2026-08-13  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       5 |
-| trimester   |       8 |
-| semester    |       8 |
-| year        |       8 |
-| 2-year      |       8 |
-| 4-year      |       8 |
+| month       |      13 |
+| trimester   |      25 |
+| semester    |      25 |
+| year        |      25 |
+| 2-year      |      25 |
+| 4-year      |      25 |
 <!-- stats:end -->

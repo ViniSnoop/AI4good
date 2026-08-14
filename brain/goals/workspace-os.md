@@ -5,6 +5,9 @@ A centralized personal operating system: all thoughts, projects, demands, full-l
 >**signals**  
 transformative · essential · thrilled
 
+>**owns**  
+`core` · `ROADMAP.md` · `SETUP.md` · `AGENTS.md` · `Makefile` · `entropy.md`
+
 >**dynamics**  
 immersed mode · advancing motion · intrinsic source  
 2026-07-22 compass: highest wind + in-flow this session — mvp-gaps localized then closed, gitflow enforced, gitlinks killed, `/compass` shipped. Lucas ordered it #1: make v1 strong (gaps 1&2 cleanup) + finish aiwbot.  
@@ -85,14 +88,14 @@ fallback · iterate — MVP can always be extended*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-31  ·  trend: advancing
+last-touch: 2026-08-14  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |      15 |
-| trimester   |      20 |
-| semester    |      20 |
-| year        |      20 |
-| 2-year      |      20 |
-| 4-year      |      20 |
+| month       |     116 |
+| trimester   |     165 |
+| semester    |     175 |
+| year        |     175 |
+| 2-year      |     175 |
+| 4-year      |     175 |
 <!-- stats:end -->

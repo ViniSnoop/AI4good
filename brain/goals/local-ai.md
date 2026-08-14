@@ -15,6 +15,9 @@ Build a local AI setup compatible with Claude Code. Optimize agents to run fast 
 >**signals**  
 transformative · expected · motivated
 
+>**owns**  
+`code/dobra` · `code/aiwbot` · `academy/papers/2027-ICLR-dobra`
+
 ## selected next achievement
     [read-weft] read the weft implementation paper and repo — most concrete starting point
 
@@ -42,14 +45,14 @@ Open the weft repo (github.com/WeaveMindAI/weft). Read the README. Understand wh
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-25  ·  trend: advancing
+last-touch: 2026-08-13  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       9 |
-| trimester   |      10 |
-| semester    |      10 |
-| year        |      10 |
-| 2-year      |      10 |
-| 4-year      |      10 |
+| month       |     110 |
+| trimester   |     122 |
+| semester    |     122 |
+| year        |     122 |
+| 2-year      |     122 |
+| 4-year      |     122 |
 <!-- stats:end -->
