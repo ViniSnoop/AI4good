@@ -109,6 +109,28 @@ Fecha as frentes 9.1 e 9.2 do [`ROADMAP.md`](../ROADMAP.md) raiz. Duas camadas, 
 Guardas: 20 testes em [`core/tools/test/wos/`](tools/test/wos/CONTEXT.md) — a ferramenta contra
 workspaces descartáveis, as skills contra reinlinar o trabalho que o script assumiu.
 
+### AD-10 — `core/tools/` classifica por capacidade; o provedor é a folha (2026-08-14)
+Regra: **diretório = o que a ferramenta faz, arquivo = quem a fornece** (`mail/gmail`,
+`calendar/gcalendar`, `files/gdrive`, `slides/gslides`, `auth/gauth.py`). É a regra
+provider-agnostic da biblioteca ([`CONTEXT.md`](CONTEXT.md) linha 4) aplicada um nível acima: trocar
+de provedor muda uma folha, nunca uma família. `google/` era a única pasta classificando por
+fabricante, e era por isso que nenhum rename dela parecia certo — o problema não era o nome, era o
+eixo. Duas refinações que impedem isso de virar um gol contra de fanout: **criar a família só quando
+a ferramenta chega nela** (sem `sheets/` vazio esperando), e **`CONTEXT.md` só a partir do segundo
+arquivo** — o gerador de routing dobra um diretório sub-`WARN_FILES` no pai a menos que ele se
+declare, então uma família de uma ferramenta custa um hop e *zero* linhas de tabela.
+Custo declarado: foi a **segunda** vez que todo caminho de `core/tools/` mudou (a primeira foi o
+split de 2026-07-31). Uma terceira não é de graça — está escrito no
+[`tools/CONTEXT.md`](tools/CONTEXT.md).
+
+### AD-11 — Uma leitura usa o consentimento mais forte que a conta já deu (2026-08-14)
+Quando um alias tem token de escrita, o caminho de leitura usa **ele**, não pede um segundo. O
+consentimento de edição já contém o de leitura, então exigir outra ida ao browser não compra
+segurança nenhuma — só cria dois tokens que morrem de forma independente (foi exatamente o que
+aconteceu: o token `slides` estava morto enquanto o `slides-write` recém-consentido estava vivo).
+Contas que só receberam a concessão de leitura seguem intactas. Vale para qualquer serviço novo com
+split read/write — `notes/notion` deve nascer assim.
+
 ---
 
 ## Conventions
@@ -118,7 +140,7 @@ workspaces descartáveis, as skills contra reinlinar o trabalho que o script ass
 - Nova skill (flat): copiar `core/skills/_template.md`, preencher frontmatter.
 - Nova skill (suite): criar `core/skills/<suite>/SKILL.md` + sub-arquivos `<slug>.md`.
 - Sub-skills relacionadas em pasta são sempre preferidas a skills flat com prefixo longo quando > 2 sub-skills.
-- Novos serviços Google: importar `google_auth.py`, definir `SCOPES` e `CONFIG_DIR`, seguir padrão de `drive_fetch.py`.
+- Novos serviços Google: importar `auth/gauth.py`, definir `SCOPES` e o nome do serviço, seguir o padrão de `files/drive_core.py` (seam read+write, account-agnostic) — e registrar o comando de recuperação em `gauth._REAUTH_CMD` no mesmo commit em que a CLI ganha `--reauth`; um teste verifica que todo comando dessa tabela aponta para uma ferramenta que existe.
 - Tokens OAuth nunca commitados — ficam em `~/.config/workspace-*/`.
 - **Pasta `refs/` em skills**: quando uma skill acumular referências externas, criar `core/skills/<name>/refs/` (ou `core/skills/<suite>/refs/`) e manter todos os arquivos de referência lá. Não criar `refs/` dentro de `.opencode/skills/` ou `.claude/skills/` — esses são mirrors gerados automaticamente.
 - **Formato de arquivos em `refs/`**: notas de leitura, links rápidos e sumários informais vão em `*.md`. Referências estruturadas (papers com metadados, datasets com schema, configurações de ferramentas) vão em `*.yaml` com frontmatter ou schema claro. Preferir YAML para anything que uma skill vai parsear ou que precisa de schema.

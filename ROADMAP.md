@@ -769,7 +769,7 @@ months anyway. Cheaper than a list nobody reads.
 - **English-learning mode** — was disabled once already; weak signal.
 - **aiwbot as away-from-PC front door** — a pointer to another ROADMAP is a duplicate by definition.
 - **Extract the "10 GitHub repos that replace paid tools" list** — a listicle.
-- **Evaluate Surfsense** — our `core/tools/{search,papers,fetch,parse}` + research flow already cover it.
+- **Evaluate Surfsense** — our `core/tools/web/{search,fetch}` + `core/tools/paper/{papers,parse}` + research flow already cover it.
 - **Research-flow hallucination audit** — real but unforced; no observed fabrication.
 - **`pre-edit.py` vs `check-line-counts.sh` scope disagreement** — policy nit, no live symptom.
 - **`core/tools/paper/papers --ss` live smoke** — it will smoke itself on the next real use.

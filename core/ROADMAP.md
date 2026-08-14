@@ -65,7 +65,7 @@ validator's oracle" status of `deepresearch` was retired 2026-07-23; see [SCHEMA
       `updateSlidesPosition` is in the same batch. Both are in
       [`../core/tools/slides/SPECS.md`](tools/slides/SPECS.md). (INBOX 2026-08-13)
 - [ ] **Notion access without MCP — now has a named consumer and a semester behind it.** Lucas: *"será
-      que dá pra acessar o meu notion? sem MCP? gostaria"* — a `core/tools/notion/notion` CLI on the
+      que dá pra acessar o meu notion? sem MCP? gostaria"* — a `core/tools/notes/notion` CLI on the
       official REST API with an internal integration token, shaped like the Google tools (per-alias
       token under `~/.config/workspace-notion/`). The MCP connector needs an interactive OAuth flow this
       workspace cannot run headless, which is precisely the argument for owning the CLI. Scope:
@@ -75,13 +75,10 @@ validator's oracle" status of `deepresearch` was retired 2026-07-23; see [SCHEMA
       with it, to be aware of it and capable of editing it"* — the semester has started. The intent and
       ordering live in [`brain/goals/teaching-materials.md`](../brain/goals/teaching-materials.md)
       (`[notion-read]` → `[notion-write]`); **this line owns only the build**, so neither file restates
-      the other. Same session found the Google half is *also* down: the Drive token is dead
-      (`invalid_grant`), which takes out every `core/tools/google/drive` call, not just teaching — and
-      the recovery needs an interactive browser, so it is Lucas's to run.
-      **Update 2026-08-14: the Google half is back up** — all three Drive tokens re-consented and
-      verified to authenticate as the right account each (`personal`/`cin`/`ufrpe`). Notion is now
-      the only half missing. The Notion CLI lands as `core/tools/notes/notion` under the capability
-      axis, not `core/tools/notion/`.
+      the other. **Notion is now the only half missing**: the Google side went live 2026-08-14 — all
+      three Drive tokens authenticate as the right account, and `core/tools/slides/gslides` both reads
+      and edits the class decks. The family name is `notes/`, the capability, with `notion` as the
+      provider leaf.
 - [ ] **Audit our own skills — effective, or verbose and making work?** Lucas (INBOX 2026-08-13): check
       every `core/skills/*.md` for verbosity, redundancy, ambiguity, and steps that cost more than they
       save. Distinct from the survey bullet below — that one imports from outside, this one prunes what we
