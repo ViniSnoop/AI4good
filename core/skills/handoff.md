@@ -31,6 +31,18 @@ Promotion is `/roundup` Phase 5 — point there if anything is behind.
 
 ## Output
 
+**Write the block to `outputs/handoff.md`, then print it.** The file is the deliverable; the
+print is a convenience. Writing it means a resume point survives a session that dies, gets
+compacted, or is abandoned mid-thread — which is the whole reason
+[`core/hooks/session/context-meter.py`](../hooks/session/context-meter.py) names this path at
+`CTX_LOUD`. Overwrite it: the newest hand-off is the only one worth resuming, and `outputs/` is
+gitignored, so nothing durable is lost.
+
+**Never spawn a successor session.** Decided 2026-08-13 (ROADMAP § Frente 9.1): `claude --bg`
+can start a fresh-context agent but cannot move the terminal Lucas types into, so a spawned
+successor would work the same branch *unattended, in parallel with the live session*. Prepare
+the artifact; let Lucas move his own attention.
+
 Print the block between the `---` markers:
 
 ---
@@ -57,4 +69,6 @@ sync: all pushed / [branch ahead N unpushed] / develop N ahead of main
 
 After printing:
 
-> Resume prompt ready. Copy the block, paste as the first message in a new session (`/clear` or a fresh Claude Code window).
+> Resume prompt ready — written to `outputs/handoff.md`. Open a new session (`/clear` or a fresh
+> window) and start it with: `Read outputs/handoff.md and continue.` Pasting the block itself
+> works too, but the file is what survives if this session dies first.

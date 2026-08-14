@@ -363,8 +363,9 @@ Set at 150k / 250k because that is where the measured curve bends, not where the
 first message is deliberately ignorable (see [brain/SPECS.md](brain/SPECS.md) § Rationale); only the
 second one names `/roundup`.
 
-1. 🟡 **automatic session transition — answered 2026-08-13: yes, an agent can open its own
-   session.** Verified against the local CLI (2.1.218), not from memory:
+1. ✅ **CLOSED 2026-08-13 — automatic session transition: the *work* hands off by itself, the
+   *attention* cannot.** An agent can open its own session — verified against the local CLI
+   (2.1.218), not from memory:
 
    | Mechanism | What it gives |
    |---|---|
@@ -382,11 +383,28 @@ second one names `/roundup`.
    - **Lucas's attention** → needs the terminal: he types (`/clear` + paste), or `--tmux`, or
      **`aiwbot` becomes the front door** — which is what it already is when he is away from the PC.
 
-   Next decision is Lucas's and it is a product question, not a technical one: should a session at
-   `CTX_LOUD` spawn its successor *by itself* and tell him where it went, or only offer to?
+   **Decided 2026-08-13 — prepare, don't spawn.** Lucas's call, and it follows from the limit
+   above: since a spawned successor cannot take the terminal, auto-spawning would not end the
+   expensive session — it would add a *second* agent working the same branch unattended while the
+   live one keeps going. That is divergence bought at the price of a `/handoff` run, not a saving.
+   So `claude --bg` stays available for delegated unattended work and is **not** wired into the
+   meter. What ships instead is an artifact:
+   - `CTX_LOUD` message names `/handoff` and `outputs/handoff.md`, still printing once, still
+     never blocking.
+   - `/handoff` **writes** that file before printing the block, so a resume point survives a
+     session that dies, compacts, or is abandoned mid-thread.
+   - the next window starts with one typed line: `Read outputs/handoff.md and continue.`
+
+   Guarded by three tests: the meter and the skill must name the same path, that path must stay
+   lowercase (a resume prompt is an instance — `HANDOFF.md` is off the `core/SCHEMA.md` allowlist,
+   which is why it never existed; its dead `.gitignore` line is now gone), and the meter must
+   contain no spawn primitive at all. Successor works the **same branch** — safe precisely because
+   nothing runs until Lucas moves.
+
    **Context-drift detection stays parked** — the "canary call-me-Lucas" trick is a confounded proxy
    (caveman suppresses it, self-reported); keep it as a free passive tell, build nothing on it.
-   → **model: opus** for that one call · sonnet to build.
+   → **shipped**. Nothing remains here. The attention half — moving Lucas, not the work — is
+   `code/aiwbot`'s, on its own ledger: it is already the front door when he is away from the PC.
 2. 🟡 **`/roundup` redesign — smaller than it looked, and mis-aimed.** At 10.4% it is not the main
    lever, but it has a specific defect the measurement exposes: **it runs at the session's maximum
    context**, so its six phases are executed at the most expensive turns that session will ever

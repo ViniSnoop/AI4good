@@ -24,7 +24,6 @@ Downloads/
 # paper-level outputs live inside each project's own repo.
 outputs/
 **/iq-fix-roadmap.md
-HANDOFF.md
 ROADMAP.md
 # Exception: the root workspace-os ROADMAP is the durable v1-strong plan (NOT session-local) —
 # it holds decided policy that must sync across machines, tracked like core/ROADMAP.md. The

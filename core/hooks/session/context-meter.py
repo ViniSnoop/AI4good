@@ -17,6 +17,12 @@ from hook_input import parse_stdin  # noqa: E402
 
 TAIL_BYTES = 512 * 1024
 
+# Where /handoff leaves the resume prompt. The meter only names it; core/skills/handoff.md
+# writes it, and test_meter_and_skill_name_the_same_artifact keeps the two from drifting.
+# Under outputs/ because it is session-local and gitignored — never an UPPERCASE type
+# (`HANDOFF.md` is off the core/SCHEMA.md allowlist, which is why it never existed).
+HANDOFF_ARTIFACT = 'outputs/handoff.md'
+
 
 def state_file(session_id: str) -> str:
 	return f'/tmp/claude_ctx_meter_{session_id}.txt'
@@ -79,8 +85,10 @@ def message(ctx: int, crossed: int, loud: int) -> str:
 	size = f'{ctx // 1000}k'
 	if crossed >= loud:
 		return (f'CONTEXT {size} — past the hand-off mark. Every further turn re-reads all '
-		        f'of it, so this thread now costs ~3x a fresh one for the same work. Close '
-		        f'out: finish the current thread, run /roundup, continue in a new session.')
+		        f'of it, so this thread now costs ~3x a fresh one for the same work. Run '
+		        f'/handoff now: it writes {HANDOFF_ARTIFACT}, so a resume point exists even '
+		        f'if this session dies. Then finish the current thread, run /roundup, and '
+		        f'open the next window with: Read {HANDOFF_ARTIFACT} and continue.')
 	return (f'CONTEXT {size} — past the point where turn cost starts climbing. Nothing is '
 	        f'wrong; just pick a hand-off point while the work is still divisible, rather '
 	        f'than mid-thread later.')

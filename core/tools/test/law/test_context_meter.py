@@ -89,6 +89,9 @@ def test_the_loud_message_names_the_way_out(tmp_path):
     limits = context_meter.load_limits()
     text = context_meter.message(300_000, limits['CTX_LOUD'], limits['CTX_LOUD'])
     assert '/roundup' in text and '300k' in text
+    # Prepare, don't spawn: the way out is an artifact plus one line Lucas types.
+    assert '/handoff' in text
+    assert context_meter.HANDOFF_ARTIFACT in text
 
 
 def test_the_warn_message_does_not_demand_action(tmp_path):
@@ -97,3 +100,25 @@ def test_the_warn_message_does_not_demand_action(tmp_path):
     text = context_meter.message(160_000, limits['CTX_WARN'], limits['CTX_LOUD'])
     assert '160k' in text
     assert '/roundup' not in text
+    assert '/handoff' not in text
+
+
+def test_meter_and_skill_name_the_same_artifact():
+    """The meter only names the path; /handoff writes it. Drift breaks the hand-off silently."""
+    skill = (WORKSPACE_ROOT / 'core/skills/handoff.md').read_text(encoding='utf-8')
+    assert context_meter.HANDOFF_ARTIFACT in skill, (
+        f'context-meter.py points at {context_meter.HANDOFF_ARTIFACT}, '
+        f'but core/skills/handoff.md never writes it')
+
+
+def test_the_handoff_artifact_is_not_an_uppercase_type():
+    """core/SCHEMA.md § types is a closed allowlist; a resume prompt is an instance."""
+    name = context_meter.HANDOFF_ARTIFACT.rsplit('/', 1)[-1]
+    assert name == name.lower(), f'{name} reads as a type — types are allowlisted in SCHEMA.md'
+
+
+def test_the_meter_never_spawns_a_session():
+    """Decided 2026-08-13 (Frente 9.1): a successor cannot take the terminal, so none is spawned."""
+    source = (WORKSPACE_ROOT / 'core/hooks/session/context-meter.py').read_text(encoding='utf-8')
+    for forbidden in ('--bg', 'subprocess', 'claude -p', 'os.system'):
+        assert forbidden not in source, f'{forbidden} in a hook that must only ever print'
