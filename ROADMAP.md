@@ -340,15 +340,31 @@ number nobody can reproduce. Over **118 sessions · 18,122 turns · 2026-07-25 �
 | Claim | Verdict |
 |---|---|
 | "59% of usage from subagent-heavy sessions" | **False, and retired.** **Zero** sidechain messages and **zero** `Task` calls across all **328** transcripts. No subagent has run in five weeks. |
-| "55% from >150k-context sessions" | **Understated.** **73%** of spend is paid above 150k of context; **43%** above 250k. |
+| "55% from >150k-context sessions" | **Understated.** **72%** of spend is paid above 150k of context; **41%** above 250k. |
 | "25% from `/roundup`" (step 1 said ~7%) | **~7% was right; 25% was not.** 24 of 119 sessions invoked it; the tail after invocation is **~10%**. |
 
-**The real driver is context size, and it is a cost curve, not a cliff.** Cost of one turn by the
-context it carried: **$0.088** below 50k · **$0.102** at 50-100k · **$0.193** at 150-200k ·
-**$0.269** at 300-400k · **$0.376** above 400k — *4x for the same work*. **72% of spend is paid
-above 150k of context, 40% above 250k** — which is exactly where `CTX_WARN`/`CTX_LOUD` sit. The mechanism is that every turn re-reads the whole thread: **3.4 Gtok**
-of cache reads over the window. Long sessions therefore cost super-linearly in their own length, and
-the **top decile of sessions is ~44% of total spend.**
+**The real driver is context size — and the curve is a staircase, not a ramp.** Cost of one turn by
+the context it carried, and what each band adds over the one below it:
+
+| band | $/turn | vs. band below | | band | $/turn | vs. band below |
+|---|---|---|---|---|---|---|
+| <50k | 0.087 | — | | 200-250k | 0.202 | **+5%** ← plateau |
+| 50-100k | 0.102 | +17% | | 250-300k | 0.218 | +8% |
+| 100-150k | 0.147 | **+45%** ← bend | | 300-400k | 0.269 | +24% |
+| 150-200k | 0.193 | +31% | | >400k | 0.373 | +39% |
+
+Flat below 100k, a hard climb to 200k, then a **plateau at ~2x the cheap rate that never comes back
+down**, and a second climb past 300k. **86% of spend is paid above 100k, 55% above 200k.** The
+mechanism is that every turn re-reads the whole thread: **3.4 Gtok** of cache reads over the window.
+Long sessions therefore cost super-linearly in their own length, and the **top decile of sessions is
+~44% of total spend.**
+
+Two facts that decide where a threshold can usefully sit. **Sessions are bimodal** — median peak
+context **59k**, p75 **271k**, almost nothing between — so firing earlier costs far less noise than
+it looks (100k fires in 48% of sessions, 150k in 44%). And **there is runway to act**: at 100k the
+median session still has **~211 turns** ahead, so a hand-off has time to repay its re-grounding
+cost. Warning early does not cost precision work; that fear priced a session about to end, and at
+these thresholds the session is not about to end.
 
 **Shipped 2026-08-13 — the session-size monitor.**
 [`core/hooks/session/context-meter.py`](core/hooks/session/context-meter.py) on `UserPromptSubmit`
@@ -359,9 +375,18 @@ zero tokens until a threshold is crossed and never blocks a prompt. The session 
 size, which is why the hand-off decision was always made late — a hook is the only thing that can
 see it *and* speak at the moment it applies.
 
-Set at 150k / 250k because that is where the measured curve bends, not where the window ends. The
-first message is deliberately ignorable (see [brain/SPECS.md](brain/SPECS.md) § Rationale); only the
-second one names `/roundup`.
+**Re-tuned 2026-08-13 to 100k / 200k** — the two ends of the climb, replacing 150k / 250k, which
+fired *halfway up* it (45% of the rise already paid) and *after* the plateau began. Lucas raised
+both corrections; the data agreed with him. Two claims died with the retune: the loud message said
+a long thread costs **~3x** a fresh one, but 3x is only reached above 300k — at the threshold where
+it fires it is **~2x**; and this section twice contradicted itself on the same measurement (73%/43%
+in the table above against 72%/40% in the prose). Frente 9 was steered for weeks by numbers nobody
+re-ran, so a number here that cannot be reproduced by
+[`core/tools/wos/usage`](core/tools/wos/usage) should be deleted, not softened.
+
+The first message is deliberately ignorable (see [brain/SPECS.md](brain/SPECS.md) § Rationale) and
+now hands over the *judgement* rather than reporting size — at 100k the live question is "is there a
+seam worth splitting at?", not "you are large". Only the second names `/roundup`.
 
 1. ✅ **CLOSED 2026-08-13 — automatic session transition: the *work* hands off by itself, the
    *attention* cannot.** An agent can open its own session — verified against the local CLI

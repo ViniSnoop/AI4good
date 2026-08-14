@@ -94,13 +94,40 @@ def test_the_loud_message_names_the_way_out(tmp_path):
     assert context_meter.HANDOFF_ARTIFACT in text
 
 
+def test_the_loud_message_does_not_read_as_two_hand_offs():
+    """/roundup Phase 6 *is* /handoff. Naming both without saying so reads as duplicated work
+    — Lucas caught exactly that. The message must state the relationship, not stack commands."""
+    limits = context_meter.load_limits()
+    text = context_meter.message(300_000, limits['CTX_LOUD'], limits['CTX_LOUD'])
+    assert 'refresh' in text.lower(), (
+        'loud message names /handoff and /roundup without saying the second refreshes the '
+        'first — it reads as running the same ritual twice')
+
+
 def test_the_warn_message_does_not_demand_action(tmp_path):
     """The first nudge exists to be ignorable — see brain/SPECS.md § Rationale."""
     limits = context_meter.load_limits()
-    text = context_meter.message(160_000, limits['CTX_WARN'], limits['CTX_LOUD'])
-    assert '160k' in text
+    text = context_meter.message(limits['CTX_WARN'] + 4_000, limits['CTX_WARN'], limits['CTX_LOUD'])
     assert '/roundup' not in text
     assert '/handoff' not in text
+
+
+def test_the_warn_message_hands_over_the_judgement():
+    """At CTX_WARN the question is 'is this worth splitting?', not 'you are big'. The warn
+    fires ~211 turns before the median session ends, so it must name the test, not the size."""
+    limits = context_meter.load_limits()
+    text = context_meter.message(limits['CTX_WARN'] + 4_000, limits['CTX_WARN'], limits['CTX_LOUD'])
+    assert 'seam' in text and 'ignore this' in text
+
+
+def test_the_thresholds_bracket_the_measured_climb():
+    """WARN marks where cost starts bending, LOUD where it plateaus — both from the curve in
+    limits.env, not taste. Guards against re-tuning one and leaving the other stranded."""
+    limits = context_meter.load_limits()
+    assert limits['CTX_WARN'] < limits['CTX_LOUD']
+    text = LIMITS.read_text(encoding='utf-8')
+    assert '/turn' in text, 'limits.env must keep the measured curve that justifies the numbers'
+    assert 'core/tools/wos/usage' in text, 'the curve must name the command that reproduces it'
 
 
 def test_meter_and_skill_name_the_same_artifact():

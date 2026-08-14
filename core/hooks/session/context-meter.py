@@ -84,14 +84,16 @@ def last_context(path: str) -> int:
 def message(ctx: int, crossed: int, loud: int) -> str:
 	size = f'{ctx // 1000}k'
 	if crossed >= loud:
-		return (f'CONTEXT {size} — past the hand-off mark. Every further turn re-reads all '
-		        f'of it, so this thread now costs ~3x a fresh one for the same work. Run '
-		        f'/handoff now: it writes {HANDOFF_ARTIFACT}, so a resume point exists even '
-		        f'if this session dies. Then finish the current thread, run /roundup, and '
-		        f'open the next window with: Read {HANDOFF_ARTIFACT} and continue.')
-	return (f'CONTEXT {size} — past the point where turn cost starts climbing. Nothing is '
-	        f'wrong; just pick a hand-off point while the work is still divisible, rather '
-	        f'than mid-thread later.')
+		return (f'CONTEXT {size} — top of the cost climb. Every turn re-reads the whole '
+		        f'thread, so this one now costs ~2x a fresh session for the same work and '
+		        f'stays there. Run /handoff now — it writes {HANDOFF_ARTIFACT}, so a resume '
+		        f'point exists even if this session dies. Then finish the current thread and '
+		        f'close with /roundup, which refreshes that same file. Next window opens '
+		        f'with: Read {HANDOFF_ARTIFACT} and continue.')
+	return (f'CONTEXT {size} — where turn cost starts climbing; the next band runs ~45% '
+	        f'dearer and it never comes back down. Nothing to do yet, one judgement to make: '
+	        f'if a natural seam is near and real work remains after it, plan to split there. '
+	        f'If this thread is nearly done, ignore this and finish.')
 
 
 def main() -> None:
