@@ -34,8 +34,12 @@ reduced mental load. That is the real test and it can only run after v1.
 Per-step `model` = the tier that is *enough* (a floor, not a ceiling).
 🔴 needs Lucas · 🟡 pilot on one subtree first · 🟢 mechanical.
 
-**Only four open steps need Lucas's own judgment: 3.1, 8.1, 9.1, 10.3.** Everything else is Sonnet
-or Haiku. Stating that number is part of the cure for feeling lost.
+**One open step needs Lucas's own judgment: 10.3** — and even that is now mostly downstream of
+10.4, because a feature-toggle registry *is* the Lucas-specific/general split made executable.
+Everything else is Sonnet or Haiku. Stating that number is part of the cure for feeling lost, so
+keep it true: the 2026-08-14 sprint took it from four to one by ruling 8.1, 11.1, 11.3, 12.3, the
+transient-doc type, the `loops`→`craft` rename and the `core/tools` axis in a single sitting, and by
+turning 3.1 from a decision into a measurement.
 
 **Load-bearing principle: automatic + zero-token beats agent-checked, and free checks are never
 coupled to paid ones.** Deterministic scripts per-commit; human judgment on demand.
