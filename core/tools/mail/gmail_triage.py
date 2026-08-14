@@ -1,5 +1,5 @@
 #!/mnt/workspace/.venv/bin/python3
-# gmail_triage.py — Claude API email classification for Core/tools/google/gmail
+# gmail_triage.py — Claude API email classification for Core/tools/mail/gmail
 import json, anthropic
 
 _SYSTEM = """You are triaging emails for Lucas, a CS professor in Brazil. Classify each email.

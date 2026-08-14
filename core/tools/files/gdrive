@@ -1,13 +1,12 @@
 #!/mnt/workspace/.venv/bin/python3
-# drive — Google Drive read+write CLI for workspace OS — commands: auth, recent, list, search, download, mkdir, put
+# gdrive — Google Drive read+write CLI for workspace OS — commands: auth, recent, list, search, download, mkdir, put
 import sys, pathlib, argparse
 
 _HERE = pathlib.Path(__file__).resolve().parent
-# The service seams live in api/; google_auth is shared with slides, so it stays
-# at the core/tools root.
-sys.path.insert(0, str(_HERE / 'api'))
-sys.path.insert(0, str(_HERE.parents[1]))
-import drive_core, google_auth
+# Seams sit beside the CLI; gauth is its own family, shared by every provider tool.
+sys.path.insert(0, str(_HERE))
+sys.path.insert(0, str(_HERE.parent / 'auth'))
+import drive_core, gauth
 
 DOWNLOAD_DIR = pathlib.Path("/mnt/workspace/Downloads/workspace-drive")
 
@@ -26,9 +25,9 @@ def _print_files(files: list, alias: str) -> None:
 
 
 def cmd_auth(alias: str, write: bool, reauth: bool) -> None:
-    primary = google_auth.resolve_alias(alias)
+    primary = gauth.resolve_alias(alias)
     kind = "drive-write" if write else "drive"
-    token = google_auth.config_dir(kind) / f"{primary}.token.json"
+    token = gauth.config_dir(kind) / f"{primary}.token.json"
     if reauth and token.exists():
         # drop the stale token so a revoked/expired one can't dead-end on refresh
         token.unlink()
@@ -39,42 +38,42 @@ def cmd_auth(alias: str, write: bool, reauth: bool) -> None:
 
 
 def cmd_recent(account: str, limit: int) -> None:
-    aliases = google_auth.primary_aliases() if account == "all" else [google_auth.resolve_alias(account)]
+    aliases = gauth.primary_aliases() if account == "all" else [gauth.resolve_alias(account)]
     for alias in aliases:
         print(f"\n── Recent files ({alias}) ──")
         _print_files(drive_core.recent_files(alias, limit), alias)
 
 
 def cmd_list(account: str, folder_id: str) -> None:
-    aliases = google_auth.primary_aliases() if account == "all" else [google_auth.resolve_alias(account)]
+    aliases = gauth.primary_aliases() if account == "all" else [gauth.resolve_alias(account)]
     for alias in aliases:
         print(f"\n── {folder_id} ({alias}) ──")
         _print_files(drive_core.list_files(alias, folder_id), alias)
 
 
 def cmd_search(account: str, query: str) -> None:
-    aliases = google_auth.primary_aliases() if account == "all" else [google_auth.resolve_alias(account)]
+    aliases = gauth.primary_aliases() if account == "all" else [gauth.resolve_alias(account)]
     for alias in aliases:
         print(f"\n── Search: '{query}' ({alias}) ──")
         _print_files(drive_core.search_files(alias, query), alias)
 
 
 def cmd_download(account: str, file_id: str, export_as: str) -> None:
-    alias = google_auth.resolve_alias(account)
+    alias = gauth.resolve_alias(account)
     print(f"Downloading {file_id} from {alias}...")
     path = drive_core.download_file(alias, file_id, DOWNLOAD_DIR, export_as=export_as)
     print(f"Saved: {path}")
 
 
 def cmd_mkdir(account: str, name: str, parent_id: str) -> None:
-    alias = google_auth.resolve_alias(account)
+    alias = gauth.resolve_alias(account)
     svc = drive_core.get_service(alias, write=True)
     fid = drive_core.find_or_create_folder(svc, name, parent_id)
     print(f"Folder '{name}' ({alias})  id:{fid}")
 
 
 def cmd_put(account: str, path: str, parent_id: str, as_gdoc: bool, name: str) -> None:
-    alias = google_auth.resolve_alias(account)
+    alias = gauth.resolve_alias(account)
     svc = drive_core.get_service(alias, write=True)
     res = drive_core.upload_local(svc, path, parent_id, as_gdoc=as_gdoc, name=name)
     kind = "Google Doc" if as_gdoc else "file"
@@ -83,7 +82,7 @@ def cmd_put(account: str, path: str, parent_id: str, as_gdoc: bool, name: str) -
 
 
 def main():
-    p = argparse.ArgumentParser(prog="drive")
+    p = argparse.ArgumentParser(prog="gdrive")
     sub = p.add_subparsers(dest="cmd")
 
     pa = sub.add_parser("auth")
@@ -132,4 +131,4 @@ def main():
 
 
 if __name__ == "__main__":
-    google_auth.run(main)
+    gauth.run(main)

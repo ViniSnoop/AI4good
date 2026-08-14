@@ -2,17 +2,18 @@
 # Usage: Core/tools/slides/slides <cmd> [args] — Slidev presentation CLI: auth, new, serve, build, port
 import sys, pathlib, argparse, subprocess, re
 
-sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
-# google_auth is shared with the google tools and stays at the core/tools root.
-sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
-import slides_fetch, slides_port, google_auth
+_HERE = pathlib.Path(__file__).resolve().parent
+# Seams sit beside the CLI; gauth is its own family, shared by every provider tool.
+sys.path.insert(0, str(_HERE))
+sys.path.insert(0, str(_HERE.parent / 'auth'))
+import slides_fetch, slides_port, gauth
 
 
 def cmd_auth(alias: str) -> None:
-    primary = google_auth.resolve_alias(alias)
+    primary = gauth.resolve_alias(alias)
     print(f"Opening browser for OAuth — Slides ({primary})...")
     slides_fetch.get_service(primary)
-    print(f"Done. Token saved: {google_auth.config_dir('slides')}/{primary}.token.json")
+    print(f"Done. Token saved: {gauth.config_dir('slides')}/{primary}.token.json")
 
 
 def cmd_new(name: str, dest: pathlib.Path) -> None:
@@ -54,7 +55,7 @@ def _make_style_css(md: str) -> str:
 
 
 def cmd_port(alias: str, presentation_id: str, out: pathlib.Path) -> None:
-    primary = google_auth.resolve_alias(alias)
+    primary = gauth.resolve_alias(alias)
     print(f"Fetching {presentation_id} from {primary}...")
     pres = slides_fetch.get_presentation(primary, presentation_id)
     assets_dir = out.parent / "assets"
@@ -69,7 +70,7 @@ def cmd_port(alias: str, presentation_id: str, out: pathlib.Path) -> None:
 
 
 def cmd_list(alias: str, name: str = "") -> None:
-    aliases = google_auth.primary_aliases() if alias == "all" else [google_auth.resolve_alias(alias)]
+    aliases = gauth.primary_aliases() if alias == "all" else [gauth.resolve_alias(alias)]
     for a in aliases:
         print(f"\n── Presentations ({a}) ──")
         for f in slides_fetch.list_presentations(a, name=name):
@@ -116,4 +117,4 @@ def main():
 
 
 if __name__ == "__main__":
-    google_auth.run(main)
+    gauth.run(main)

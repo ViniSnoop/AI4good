@@ -46,48 +46,11 @@ validator's oracle" status of `deepresearch` was retired 2026-07-23; see [SCHEMA
       step names: an iterative step really is a loop, and that word is correct English, not the
       retired label. Add `loops` to `core/SCHEMA.md` § Retired tokens the moment it lands, so the
       check proves the rename complete.
-- [ ] **`core/tools/` is organized by capability — except one folder, which is organized by vendor.**
-      Ruled 2026-08-14 by Lucas, and the ruling reframes the problem: the earlier "directory vs name"
-      framing was wrong. Every family under `core/tools/` is named for **what it does** — `video`,
-      `web`, `paper`, `slides`, `verify`, `wos`. `google/` is the single folder named for **who makes
-      it**. That is not a naming nit, it is *one folder classifying on a different axis than all its
-      siblings*, which is why no rename ever felt right. Target shape:
-
-      | Layer | Rule | Example |
-      |---|---|---|
-      | family dir | the **capability** | `mail/` · `calendar/` · `slides/` · `sheets/` · `docs/` |
-      | tool inside | the **provider** | `mail/gmail` · `calendar/gcalendar` · `slides/gslides` |
-      | auth | its own family, provider-agnostic, one tool per provider | `auth/gauth` |
-
-      This is the library's provider-agnostic rule ([CONTEXT.md](CONTEXT.md) line 4) applied one
-      level up: **function in the path, provider as a leaf**. It also delays the evidence of
-      provider dependence — swapping Gmail for something
-      else changes a leaf, not a family. And `auth/` is not invented for symmetry: `google_auth.py`
-      already sits at the `core/tools/` root precisely *because* it is shared across families, so the
-      folder names a fact that already exists.
-
-      **Two refinements, so this does not become a fanout own-goal.** (1) **Create a family dir only
-      when a tool lands in it** — no empty `sheets/`, `docs/`, `maps/`. (2) **No `CONTEXT.md` until a
-      family holds more than one file**; the routing generator folds a sub-`WARN_FILES` directory
-      into its parent unless it declares itself, so a one-tool family costs a path hop and *zero*
-      table rows. That is the cheap direction, and it is the opposite of the mistake the 2026-07-31
-      split had to learn (a split that leaves the parent table the same size is the check being
-      gamed).
-
-      **Cost, stated plainly: this is the second time every `core/tools/` google path changes**
-      (the first was the 2026-07-31 fanout split). Do it as one sweep — `grep -rn 'core/tools/google'`
-      across skills, `CONTEXT.md` files, both ledgers, and the `.claude`/`.opencode` mirrors — not
-      tool by tool.
-
-      Still open underneath and unaffected by the layout: **the flag surface diverges** (INBOX
-      2026-07-26), and 2026-08-14 measured the sharpest case — **only `drive` has `auth --reauth`.**
-      `gmail`, `calendar` and `slides` have no recovery flag at all, so their instruction has to
-      fall back to naming the token file to delete. `google_auth.recovery_text` already emits that
-      fallback and its `_REAUTH_CMD` table is the exact list of what is missing: **when a CLI gains
-      `--reauth`, add it there and the message upgrades itself.** Converge the three in the same
-      pass as the layout move. Related live defect: the Drive token is dead (`invalid_grant`), a
-      re-consent only Lucas can run, tracked in
-      [`brain/goals/teaching-materials.md`](../brain/goals/teaching-materials.md) `[gdrive-reauth]`.
+- [ ] **`slides/` still has no `--reauth`, and it is the last one.** `gmail`, `gcalendar` and
+      `gdrive` all carry the flag now and are listed in `gauth._REAUTH_CMD`; the slides CLI is the
+      only Google-backed tool whose dead token still falls back to "delete this file by hand".
+      A test now proves every command in that table points at a tool that exists, so the entry
+      cannot be added before the flag is real. Ships with the gslides rebuild below.
 - [ ] **Slides motion animation — is it scriptable at all?** Lucas wants movement authored from the CLI in
       Google Slides: lines and shapes moving, with start/end positions and controlled velocity and
       acceleration. First act is a capability check, not code — the Slides API exposes slide *transitions*
@@ -100,7 +63,7 @@ validator's oracle" status of `deepresearch` was retired 2026-07-23; see [SCHEMA
       answer. (INBOX 2026-08-13)
 - [ ] **Notion access without MCP — now has a named consumer and a semester behind it.** Lucas: *"será
       que dá pra acessar o meu notion? sem MCP? gostaria"* — a `core/tools/notion/notion` CLI on the
-      official REST API with an internal integration token, shaped like `core/tools/google/` (per-alias
+      official REST API with an internal integration token, shaped like the Google tools (per-alias
       token under `~/.config/workspace-notion/`). The MCP connector needs an interactive OAuth flow this
       workspace cannot run headless, which is precisely the argument for owning the CLI. Scope:
       list/search/read pages first; writing later. (INBOX 2026-08-13)
@@ -112,6 +75,10 @@ validator's oracle" status of `deepresearch` was retired 2026-07-23; see [SCHEMA
       the other. Same session found the Google half is *also* down: the Drive token is dead
       (`invalid_grant`), which takes out every `core/tools/google/drive` call, not just teaching — and
       the recovery needs an interactive browser, so it is Lucas's to run.
+      **Update 2026-08-14: the Google half is back up** — all three Drive tokens re-consented and
+      verified to authenticate as the right account each (`personal`/`cin`/`ufrpe`). Notion is now
+      the only half missing. The Notion CLI lands as `core/tools/notes/notion` under the capability
+      axis, not `core/tools/notion/`.
 - [ ] **Audit our own skills — effective, or verbose and making work?** Lucas (INBOX 2026-08-13): check
       every `core/skills/*.md` for verbosity, redundancy, ambiguity, and steps that cost more than they
       save. Distinct from the survey bullet below — that one imports from outside, this one prunes what we

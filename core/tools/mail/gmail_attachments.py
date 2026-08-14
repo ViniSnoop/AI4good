@@ -1,5 +1,5 @@
 #!/mnt/workspace/.venv/bin/python3
-# gmail_attachments.py — download and summarize Gmail attachments for Core/tools/google/gmail
+# gmail_attachments.py — download and summarize Gmail attachments for Core/tools/mail/gmail
 import base64, pathlib, subprocess
 import anthropic
 import sys as _sys, pathlib as _pathlib

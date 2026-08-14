@@ -11,8 +11,8 @@
 ### AD-02 — Frontmatter `description:` obrigatório em skills (2026-06-18)
 Todas skills em `core/skills/*.md` devem ter frontmatter YAML com `name:` e `description:`. O `context_synchronizer.py` lê o campo `description:` (incluindo block scalars YAML `>` e `|`) para popular o routing table automaticamente. Template em `core/skills/_template.md`.
 
-### AD-03 — google_auth.py como módulo auth compartilhado (2026-06-18)
-Auth OAuth2 Google centralizado em `core/tools/google_auth.py`. Todos serviços Google (gmail, drive, calendar, slides futuro) importam deste módulo. Tokens separados por serviço em `~/.config/workspace-{service}/{alias}.token.json`. Credentials em `~/.config/workspace-gmail/credentials.json` (projeto GCP 1048141740528) servem todos os serviços.
+### AD-03 — auth/gauth.py como módulo auth compartilhado (2026-06-18, movido 2026-08-14)
+Auth OAuth2 Google centralizado em `core/tools/auth/gauth.py`. Todos serviços Google (gmail, drive, calendar, slides futuro) importam deste módulo. Tokens separados por serviço em `~/.config/workspace-{service}/{alias}.token.json`. Credentials em `~/.config/workspace-gmail/credentials.json` (projeto GCP 1048141740528) servem todos os serviços.
 
 ### AD-04 — Slides: Slidev + Vue (2026-06-18)
 Decisão de stack para apresentações profissionais: **Slidev** (Markdown + Vue). Razões: (1) source file texto puro editável por agente, git-versionável; (2) animações Vue nativas (`v-click`, `@vueuse/motion`, springs); (3) vídeo nativo via `<SlidevVideo>`; (4) interatividade (componentes Vue, Monaco live coding). Google Slides mantido para colaboração/aulas cotidianas. Quarto descartado para slides (melhor para papers com código executável). Remotion = vídeo, não slides.

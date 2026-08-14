@@ -13,16 +13,16 @@ Arguments: $ARGUMENTS
 
 ## Overview
 
-Access Google Drive (read-only) across 3 accounts via `core/tools/google/drive`.
+Access Google Drive (read-only) across 3 accounts via `core/tools/files/gdrive`.
 
 ## Commands
 
 ```bash
-core/tools/google/drive recent [--account all|personal|cin|ufrpe] [--limit 20]
-core/tools/google/drive list   [--account ...] [--folder <id>]
-core/tools/google/drive search [--account ...] <query>
-core/tools/google/drive download --account <alias> <file_id>
-core/tools/google/drive auth <alias>   # first-time per account
+core/tools/files/gdrive recent [--account all|personal|cin|ufrpe] [--limit 20]
+core/tools/files/gdrive list   [--account ...] [--folder <id>]
+core/tools/files/gdrive search [--account ...] <query>
+core/tools/files/gdrive download --account <alias> <file_id>
+core/tools/files/gdrive auth <alias>   # first-time per account
 ```
 
 ## Auth (first-time setup)
@@ -30,9 +30,9 @@ core/tools/google/drive auth <alias>   # first-time per account
 Tokens stored at `~/.config/workspace-drive/{alias}.token.json`. Run once per account:
 
 ```bash
-core/tools/google/drive auth personal
-core/tools/google/drive auth cin
-core/tools/google/drive auth ufrpe
+core/tools/files/gdrive auth personal
+core/tools/files/gdrive auth cin
+core/tools/files/gdrive auth ufrpe
 ```
 
 ## Workflow

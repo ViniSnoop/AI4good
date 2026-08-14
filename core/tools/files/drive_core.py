@@ -1,11 +1,11 @@
 #!/mnt/workspace/.venv/bin/python3
-# drive_core.py — Google Drive read+write seam (account-agnostic) for Core/tools/google/drive
+# drive_core.py — Google Drive read+write seam (account-agnostic) for Core/tools/files/gdrive
 import pathlib
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaIoBaseDownload, MediaFileUpload
 import sys as _sys, pathlib as _pathlib
 _sys.path.insert(0, str(_pathlib.Path(__file__).resolve().parents[2]))
-import google_auth
+import gauth
 
 SCOPES_READ  = ["https://www.googleapis.com/auth/drive.readonly"]
 SCOPES_WRITE = ["https://www.googleapis.com/auth/drive"]
@@ -38,7 +38,7 @@ def get_service(alias: str, write: bool = False):
     write uses a separate `drive-write` token (full scope) so it never clobbers
     the readonly one."""
     service, scopes = ("drive-write", SCOPES_WRITE) if write else ("drive", SCOPES_READ)
-    return build("drive", "v3", credentials=google_auth.auth(alias, service, scopes))
+    return build("drive", "v3", credentials=gauth.auth(alias, service, scopes))
 
 
 # ── Reads (per-alias; build their own readonly service) ────────────────────────

@@ -5,13 +5,13 @@ sys.path.insert(0, str(pathlib.Path(__file__).parent))
 from googleapiclient.discovery import build
 import sys as _sys, pathlib as _pathlib
 _sys.path.insert(0, str(_pathlib.Path(__file__).resolve().parents[1]))
-import google_auth
+import gauth
 
 SCOPES = ["https://www.googleapis.com/auth/presentations.readonly"]
 
 
 def get_service(alias: str):
-    return build("slides", "v1", credentials=google_auth.auth(alias, "slides", SCOPES))
+    return build("slides", "v1", credentials=gauth.auth(alias, "slides", SCOPES))
 
 
 def get_presentation(alias: str, presentation_id: str) -> dict:
@@ -24,7 +24,7 @@ def get_presentation(alias: str, presentation_id: str) -> dict:
 def list_presentations(alias: str, name: str = "") -> list:
     """List presentations from Drive. Optionally filter by name substring."""
     from googleapiclient.discovery import build as _build
-    drive_creds = google_auth.auth(alias, "drive",
+    drive_creds = gauth.auth(alias, "drive",
                                    ["https://www.googleapis.com/auth/drive.readonly"])
     svc = _build("drive", "v3", credentials=drive_creds)
     q = "mimeType='application/vnd.google-apps.presentation' and trashed=false"

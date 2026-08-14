@@ -1,14 +1,13 @@
 #!/mnt/workspace/.venv/bin/python3
-# calendar — Google Calendar read-only CLI for workspace OS — commands: auth, upcoming, range, calendars
+# gcalendar — Google Calendar read-only CLI for workspace OS — commands: auth, upcoming, range, calendars
 import sys, pathlib, argparse
 from datetime import datetime, timezone, timedelta
 
 _HERE = pathlib.Path(__file__).resolve().parent
-# The service seams live in api/; google_auth is shared with slides, so it stays
-# at the core/tools root.
-sys.path.insert(0, str(_HERE / 'api'))
-sys.path.insert(0, str(_HERE.parents[1]))
-import calendar_fetch, google_auth
+# Seams sit beside the CLI; gauth is its own family, shared by every provider tool.
+sys.path.insert(0, str(_HERE))
+sys.path.insert(0, str(_HERE.parent / 'auth'))
+import calendar_fetch, gauth
 
 
 def _print_events(events: list, alias: str) -> None:
@@ -23,15 +22,20 @@ def _print_events(events: list, alias: str) -> None:
             print(f"    {e['description'][:100]}")
 
 
-def cmd_auth(alias: str) -> None:
-    primary = google_auth.resolve_alias(alias)
+def cmd_auth(alias: str, reauth: bool) -> None:
+    primary = gauth.resolve_alias(alias)
+    token = gauth.config_dir("calendar") / f"{primary}.token.json"
+    if reauth and token.exists():
+        # drop the stale token so a revoked/expired one can't dead-end on refresh
+        token.unlink()
+        print(f"Removed stale token: {token}")
     print(f"Opening browser for OAuth — Calendar ({primary})...")
     calendar_fetch.get_service(primary)
-    print(f"Done. Token saved: {google_auth.config_dir('calendar')}/{primary}.token.json")
+    print(f"Done. Token saved: {token}")
 
 
 def cmd_calendars(account: str) -> None:
-    aliases = google_auth.primary_aliases() if account == "all" else [google_auth.resolve_alias(account)]
+    aliases = gauth.primary_aliases() if account == "all" else [gauth.resolve_alias(account)]
     for alias in aliases:
         print(f"\n── Calendars ({alias}) ──")
         for cal in calendar_fetch.list_calendars(alias):
@@ -40,24 +44,26 @@ def cmd_calendars(account: str) -> None:
 
 
 def cmd_upcoming(account: str, days: int) -> None:
-    aliases = google_auth.primary_aliases() if account == "all" else [google_auth.resolve_alias(account)]
+    aliases = gauth.primary_aliases() if account == "all" else [gauth.resolve_alias(account)]
     for alias in aliases:
         print(f"\n── Próximos {days}d ({alias}) ──")
         _print_events(calendar_fetch.upcoming_events(alias, days), alias)
 
 
 def cmd_range(account: str, date_from: str, date_to: str) -> None:
-    aliases = google_auth.primary_aliases() if account == "all" else [google_auth.resolve_alias(account)]
+    aliases = gauth.primary_aliases() if account == "all" else [gauth.resolve_alias(account)]
     for alias in aliases:
         print(f"\n── {date_from} → {date_to} ({alias}) ──")
         _print_events(calendar_fetch.events_in_range(alias, date_from + "T00:00:00Z", date_to + "T23:59:59Z"), alias)
 
 
 def main():
-    p = argparse.ArgumentParser(prog="calendar")
+    p = argparse.ArgumentParser(prog="gcalendar")
     sub = p.add_subparsers(dest="cmd")
 
-    pa = sub.add_parser("auth"); pa.add_argument("alias")
+    pa = sub.add_parser("auth")
+    pa.add_argument("alias")
+    pa.add_argument("--reauth", action="store_true", help="drop the existing token and re-consent (fixes revoked/expired)")
 
     pc = sub.add_parser("calendars")
     pc.add_argument("--account", default="all")
@@ -72,7 +78,7 @@ def main():
     pr.add_argument("to_date")
 
     args = p.parse_args()
-    if   args.cmd == "auth":      cmd_auth(args.alias)
+    if   args.cmd == "auth":      cmd_auth(args.alias, args.reauth)
     elif args.cmd == "calendars": cmd_calendars(args.account)
     elif args.cmd == "upcoming":  cmd_upcoming(args.account, args.days)
     elif args.cmd == "range":     cmd_range(args.account, args.from_date, args.to_date)
@@ -80,4 +86,4 @@ def main():
 
 
 if __name__ == "__main__":
-    google_auth.run(main)
+    gauth.run(main)

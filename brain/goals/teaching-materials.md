@@ -9,7 +9,7 @@ discussão de formato é teórica: não há como um agente migrar, versionar ou 
 que ele não alcança. Então a ordem é: **alcançar → organizar → só depois trocar o formato.**
 
 Divisão de responsabilidade, para o item não viver em dois lugares: **este goal é a intenção e a
-ordem**; a construção das ferramentas (CLI do Notion, superfície `core/tools/google`) é item de
+ordem**; a construção das ferramentas (CLI do Notion, superfície Google em `core/tools/`) é item de
 [`core/ROADMAP.md`](../../core/ROADMAP.md). Uma cópia seria bug.
 
 >**signals**  
@@ -22,7 +22,7 @@ material fora do alcance do workspace.
 
 >**owns**  
 `core/tools/slides`  
-`core/tools/google`  
+`core/tools/files` · `core/tools/mail` · `core/tools/calendar`  
 `academy/teaching`
 
 ## selected next achievement
@@ -35,7 +35,6 @@ cada uma mora. Sem organizar nada ainda — só o inventário.
 ## backlog
 
 > [ ] [inventory-material] mapear o que existe e onde — pastas do Drive por disciplina, páginas do Notion, o que é fonte e o que é cópia; sem isso não dá pra saber o que "conectar" significa  
-> [ ] [gdrive-reauth] reautenticar o Drive — o token morreu (`invalid_grant`, verificado 2026-08-14) e derruba *toda* leitura de Drive, não só a de aula; precisa de sessão interativa: `core/tools/google/drive auth <alias> --reauth`  
 > [ ] [notion-read] WOS lê a página da turma no Notion — depende do CLI rastreado em `core/ROADMAP.md` (REST oficial + token de integração interna, sem MCP)  
 > [ ] [notion-write] WOS edita a página da turma — escrita só depois que a leitura estiver confiável  
 > [ ] [roundtrip-one] editar **uma** aula real pelo CLI e devolver ao lugar onde os alunos veem; é o teste honesto de que a conexão existe  
@@ -55,10 +54,10 @@ last-touch: 2026-08-14  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |      12 |
-| trimester   |      22 |
-| semester    |      22 |
-| year        |      22 |
-| 2-year      |      22 |
-| 4-year      |      22 |
+| month       |      14 |
+| trimester   |      24 |
+| semester    |      24 |
+| year        |      24 |
+| 2-year      |      24 |
+| 4-year      |      24 |
 <!-- stats:end -->

@@ -1,5 +1,5 @@
 #!/mnt/workspace/.venv/bin/python3
-# google_auth.py — Shared OAuth2 auth for workspace Google services (drive, calendar, gmail)
+# gauth.py — Google's leaf of the auth family: shared OAuth2 for every Google-backed tool
 import json, pathlib, sys
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -10,9 +10,12 @@ _GMAIL_CONFIG = pathlib.Path.home() / ".config" / "workspace-gmail"
 
 # Services whose CLI already exposes `auth <alias> --reauth`. Anything absent here has no
 # recovery flag yet, so its instruction is the manual equivalent: drop the token, re-run.
+# When a CLI gains the flag, add it here and its message upgrades itself.
 _REAUTH_CMD = {
-    "drive": "core/tools/google/drive auth {alias} --reauth",
-    "drive-write": "core/tools/google/drive auth {alias} --write --reauth",
+    "drive": "core/tools/files/gdrive auth {alias} --reauth",
+    "drive-write": "core/tools/files/gdrive auth {alias} --write --reauth",
+    "gmail": "core/tools/mail/gmail auth {alias} --reauth",
+    "calendar": "core/tools/calendar/gcalendar auth {alias} --reauth",
 }
 
 

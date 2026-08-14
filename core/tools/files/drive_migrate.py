@@ -5,9 +5,9 @@ Migrate CIn Drive Disciplinas → personal Drive Academy/Teaching/
 Prerequisite: CIn Disciplinas folder shared with lsf.cin@gmail.com (viewer).
 
 Usage:
-  python3 core/tools/google/api/drive_migrate.py --dry-run   # preview what will be copied
-  python3 core/tools/google/api/drive_migrate.py             # execute migration
-  python3 core/tools/google/api/drive_migrate.py             # re-run skips already-copied files (idempotent)
+  python3 core/tools/files/drive_migrate.py --dry-run   # preview what will be copied
+  python3 core/tools/files/drive_migrate.py             # execute migration
+  python3 core/tools/files/drive_migrate.py             # re-run skips already-copied files (idempotent)
 
 Output:
   academy_migration_map.json  — cin_id → personal_id + URL for each file

@@ -69,7 +69,7 @@ Convenções: checkbox `( X )` marcado; defaults `NÃO TEM`; código `NOVA` para
 
 ## Caminho de escrita em Google Docs (decisão do Lucas = "Docs direto", automatizado)
 
-**Escrita EXISTE no workspace** — não é só read-only. O `core/tools/google/drive` é read-only (scope `drive.readonly`), MAS `core/tools/google/api/drive_migrate_core.py` usa **`SCOPES_WRITE = ["https://www.googleapis.com/auth/drive"]`** (escrita total) com token separado `drive-write`, e já criou pastas/copiou arquivos antes (`find_or_create_folder`, `copy_file`).
+**Escrita EXISTE no workspace** — não é só read-only. O `core/tools/files/gdrive` é read-only (scope `drive.readonly`), MAS `core/tools/files/drive_migrate_core.py` usa **`SCOPES_WRITE = ["https://www.googleapis.com/auth/drive"]`** (escrita total) com token separado `drive-write`, e já criou pastas/copiou arquivos antes (`find_or_create_folder`, `copy_file`).
 
 Estado dos tokens de escrita (`~/.config/workspace-drive-write/`):
 - ✅ `personal.token.json` e `cin.token.json` existem (Lucas já autorizou escrita antes).
@@ -78,7 +78,7 @@ Estado dos tokens de escrita (`~/.config/workspace-drive-write/`):
 **Método (validado): geração local OK; upload precisa de 1 re-auth.**
 1. `python-docx` copia o MODELO (tabela em `sdt`) e preenche as células → `.docx` individual `[MODELO-SIGAA] <disciplina>.docx`. **Validado** com Álgebra Vetorial (dedupe de células mescladas necessário — ver `scratchpad/filler.py`).
 2. Para upload+conversão automáticos que o Lucas pediu, falta:
-   - (i) **Lucas re-autorizar escrita na conta ufrpe** (uma vez, browser): rodar em sessão interativa algo como `python3 -c "import google_auth; google_auth.auth('ufrpe','drive-write',['https://www.googleapis.com/auth/drive'])"` a partir de `core/tools/` → consentir no navegador. (Mesmo p/ personal, o token venceu.)
+   - (i) **re-autorizar escrita na conta ufrpe** (uma vez, browser): `core/tools/files/gdrive auth ufrpe --write --reauth` — **o agente roda o comando**, o browser abre na máquina do Lucas e a única parte dele é escolher a conta na tela de consentimento.
    - (ii) adicionar método **upload-local-`.docx` + converter p/ Google Doc** (`files().create` com `mimeType=application/vnd.google-apps.document` + media) — hoje só existe `copy_file` (copia arquivo já no Drive), não upload de arquivo local.
 3. Com (i)+(ii): Claude cria pastas, sobe cada ementa, converte p/ Google Doc e organiza — 100% automatizado, sem trabalho manual do Lucas.
 
@@ -87,8 +87,8 @@ Estado dos tokens de escrita (`~/.config/workspace-drive-write/`):
 Objetivo: tirar a escrita de `drive_migrate` (script específico cin→personal) e criar um seam de Drive read+write, account-agnostic. Seguir `core/SCHEMA.md` + gerar `.pyi` (interface enforçada).
 
 **Estado atual (verificado nesta sessão):**
-- `core/tools/google/drive` (CLI) + `drive_fetch.py`: só leitura, scope `drive.readonly`. `DOWNLOAD_DIR = ~/Downloads/workspace-drive` (**bug**: deve cair sob `/mnt/workspace/Downloads` — item do Lucas no INBOX).
-- `drive_migrate_core.py`: `SCOPES_WRITE=["…/auth/drive"]`, `get_cin_service`/`get_personal_service` (contas hardcoded), `find_or_create_folder`, `copy_file`. Auth via `google_auth.auth(alias,'drive-write',SCOPES_WRITE)` → token em `~/.config/workspace-drive-write/<alias>.token.json`.
+- `core/tools/files/gdrive` (CLI) + `drive_fetch.py`: só leitura, scope `drive.readonly`. `DOWNLOAD_DIR = ~/Downloads/workspace-drive` (**bug**: deve cair sob `/mnt/workspace/Downloads` — item do Lucas no INBOX).
+- `drive_migrate_core.py`: `SCOPES_WRITE=["…/auth/drive"]`, `get_cin_service`/`get_personal_service` (contas hardcoded), `find_or_create_folder`, `copy_file`. Auth via `gauth.auth(alias,'drive-write',SCOPES_WRITE)` → token em `~/.config/workspace-drive-write/<alias>.token.json`.
 - Token `drive-write` da **ufrpe** recém-criado pelo Lucas (validar liveness antes de usar).
 
 **Alvo:**
@@ -182,10 +182,10 @@ Períodos (OBRIGATORIAS): `1 Periodo=1TvICk8Hxq4x4YwINRwb45NYdXvIHHOH6`; demais:
 2. Extrair campos **VERBATIM** das tabelas nested-sdt (`ementas/port.py`, adaptado).
 3. OBJETIVOS: gerar só se vazio, mapeado 1:1 ao CONTEÚDO, **sem AISlop/alucinação** (datas/anos/páginas/títulos = nunca inventar; verbatim only).
 4. Preencher MODELO fresco (`ementas/filler.py`: dedupe células mescladas + **Times New Roman em todos os runs** — senão Cambria no Docs).
-5. Upload: `core/tools/google/drive put --account ufrpe --parent <id_subpasta> --gdoc --name "[MODELO-SIGAA] <nome>" <arquivo.docx>` → converte p/ Google Doc na mesma subpasta.
+5. Upload: `core/tools/files/gdrive put --account ufrpe --parent <id_subpasta> --gdoc --name "[MODELO-SIGAA] <nome>" <arquivo.docx>` → converte p/ Google Doc na mesma subpasta.
 
 ## Ferramentas prontas (desta run)
-- **Write path**: `core/tools/google/drive` (branch `feature/drive-core-write`, commit `5726518`, pushed) — `mkdir`, `put`, `put --gdoc`, `auth --write/--reauth`. `drive_core.py` = seam read+write. **Token `drive-write` da ufrpe já vivo.**
+- **Write path**: `core/tools/files/gdrive` (branch `feature/drive-core-write`, commit `5726518`, pushed) — `mkdir`, `put`, `put --gdoc`, `auth --write/--reauth`. `drive_core.py` = seam read+write. **Token `drive-write` da ufrpe já vivo.**
 - **Scripts**: `ementas/port.py` + `ementas/filler.py` (persistidos; port.py precisa da adaptação nested-sdt + gdoc export).
 - Se auth falhar (`invalid_grant`): `drive auth ufrpe --write --reauth` (sessão interativa).
 

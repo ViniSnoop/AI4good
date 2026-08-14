@@ -1,14 +1,15 @@
 #!/mnt/workspace/.venv/bin/python3
-# Usage: Core/tools/google/gmail <command> [options] — read-only Gmail integration for workspace OS
-# Commands: auth <alias>, fetch [--since N] [--account A], triage, sync, attachments [--id ID]
+# Usage: Core/tools/mail/gmail <command> [options] — read-only Gmail integration for workspace OS
+# Commands: auth <alias> [--reauth], fetch [--since N] [--account A], triage, sync, attachments [--id ID]
 import sys, json, pathlib, argparse
 
 _HERE = pathlib.Path(__file__).resolve().parent
-# The service seams live in api/; google_auth is shared with slides, so it stays
-# at the core/tools root.
-sys.path.insert(0, str(_HERE / 'api'))
-sys.path.insert(0, str(_HERE.parents[1]))
-import gmail_fetch, gmail_triage, gmail_attachments, google_auth
+# Seams sit beside the CLI. Two shared modules hang off the tools root: auth/gauth.py
+# (every provider tool) and attachments_util.py (shared with video/).
+sys.path.insert(0, str(_HERE))
+sys.path.insert(0, str(_HERE.parent))
+sys.path.insert(0, str(_HERE.parent / 'auth'))
+import gmail_fetch, gmail_triage, gmail_attachments, gauth
 
 CONFIG_DIR = pathlib.Path.home() / ".config" / "workspace-gmail"
 CACHE_FILE = CONFIG_DIR / "fetch_cache.json"
@@ -40,14 +41,19 @@ def _cache_read() -> list:
     return json.loads(CACHE_FILE.read_text()) if CACHE_FILE.exists() else []
 
 
-def cmd_auth(alias: str) -> None:
+def cmd_auth(alias: str, reauth: bool) -> None:
     if not (CONFIG_DIR / "credentials.json").exists():
         print(f"ERROR: Download credentials.json from Google Cloud Console → {CONFIG_DIR}/")
         sys.exit(1)
     primary = _resolve(alias)
+    token = CONFIG_DIR / f"{primary}.token.json"
+    if reauth and token.exists():
+        # drop the stale token so a revoked/expired one can't dead-end on refresh
+        token.unlink()
+        print(f"Removed stale token: {token}")
     print(f"Opening browser for OAuth ({primary})...")
     gmail_fetch.auth(primary)
-    print(f"Done. Token saved: {CONFIG_DIR}/{primary}.token.json")
+    print(f"Done. Token saved: {token}")
 
 
 def cmd_fetch(account: str, since_days: int) -> list:
@@ -114,6 +120,7 @@ def main():
 
     pa = sub.add_parser("auth")
     pa.add_argument("alias")
+    pa.add_argument("--reauth", action="store_true", help="drop the existing token and re-consent (fixes revoked/expired)")
 
     pf = sub.add_parser("fetch")
     pf.add_argument("--since", type=int, default=7, metavar="N")
@@ -129,7 +136,7 @@ def main():
     patt.add_argument("--id", dest="email_id", default=None)
 
     args = p.parse_args()
-    if   args.cmd == "auth":        cmd_auth(args.alias)
+    if   args.cmd == "auth":        cmd_auth(args.alias, args.reauth)
     elif args.cmd == "fetch":       cmd_fetch(args.account, args.since)
     elif args.cmd == "triage":      cmd_triage()
     elif args.cmd == "sync":        cmd_sync(args.account, args.since)
@@ -138,4 +145,4 @@ def main():
 
 
 if __name__ == "__main__":
-    google_auth.run(main)
+    gauth.run(main)

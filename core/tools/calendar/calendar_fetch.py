@@ -1,10 +1,10 @@
 #!/mnt/workspace/.venv/bin/python3
-# calendar_fetch.py — Google Calendar API auth and event fetch for Core/tools/google/calendar
+# calendar_fetch.py — Google Calendar API auth and event fetch for Core/tools/calendar/gcalendar
 from datetime import datetime, timezone, timedelta
 from googleapiclient.discovery import build
 import sys as _sys, pathlib as _pathlib
 _sys.path.insert(0, str(_pathlib.Path(__file__).resolve().parents[2]))
-import google_auth
+import gauth
 
 SCOPES = ["https://www.googleapis.com/auth/calendar.readonly"]
 
@@ -12,7 +12,7 @@ EVENT_FIELDS = "items(id,summary,description,start,end,location,status,htmlLink)
 
 
 def get_service(alias: str):
-    return build("calendar", "v3", credentials=google_auth.auth(alias, "calendar", SCOPES))
+    return build("calendar", "v3", credentials=gauth.auth(alias, "calendar", SCOPES))
 
 
 def list_calendars(alias: str) -> list:
