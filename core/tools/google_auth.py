@@ -75,12 +75,13 @@ def recovery_text(alias: str, service: str, token_path: pathlib.Path) -> str:
     lines = [
         f"GOOGLE AUTH EXPIRED — service '{service}', account '{alias}'.",
         "The stored token was revoked or expired. A refresh cannot recover it; only a new",
-        "consent can, and consent needs a browser — so an agent cannot do this step.",
+        "consent can.",
         "",
-        "Lucas, to fix it:",
-        f"  1. run:  {step}",
-        f"  2. a browser opens — sign in as:  {account_email(alias)}",
+        "AGENT: run this yourself, do not hand it to Lucas as a chore. It opens a browser",
+        "on his machine, so run it in the background and tell him the address below.",
+        f"    {step}",
         "",
+        f"LUCAS: a browser tab opens — sign in as:  {account_email(alias)}",
         "Signing in as a different Google account succeeds and then reads the wrong",
         "mailbox/drive, which is worse than failing. Check the address on the consent screen.",
     ]

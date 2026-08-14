@@ -27,9 +27,12 @@ Why the address is in the message and not in this file: Lucas has four Google ac
 than a failure — it authenticates fine and then reads the wrong mailbox or drive. The address
 is read at runtime from `accounts.json`, so it cannot go stale here.
 
-Re-consent opens a browser, so it is **always Lucas's step, never an agent's**. Tokens are per
-`(service, alias)` at `~/.config/workspace-<service>/<alias>.token.json`; Drive writes
-(`mkdir`, `put`) use a separate `drive-write` token from the read one.
+**Run the re-auth command yourself** — backgrounded, since it blocks until consent lands. It
+opens a browser on Lucas's machine, so the only part that is his is picking the account on the
+consent screen. Handing him the command to type is a chore the agent could have absorbed
+(his correction, 2026-08-14). Tokens are per `(service, alias)` at
+`~/.config/workspace-<service>/<alias>.token.json`; Drive writes (`mkdir`, `put`) use a separate
+`drive-write` token from the read one.
 
 ## Subagent tool
 
