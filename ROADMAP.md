@@ -323,6 +323,16 @@ feeling lost twice. **Mass is the disease and only deletion cures it.**
 2. 🟢 **safe — `/inbox` refreshes the goals dashboard.** Run `brain_stats.py` as `/inbox`'s last
    step, not only on commit, so the dashboard never goes stale between commits.
    → **model: haiku**.
+3. 🟡 **the attention dashboard measures the wrong thing** (Lucas, INBOX 2026-08-13). It counts
+   edits to the goal's **own `.md` file**, not work **on** the goal — so the 2026-08-13 compass
+   rendered `workspace-os ░░░░░░░░░░ 1 touch` in the same fortnight that **29 of 29** workspace
+   commits were wos (hooks, tools, verify, session, entropy). Any goal whose work lands in `code/`
+   or `core/` reads as dead, and the compass's Pareto has to be hand-corrected every cycle — the
+   exact manual correction the workspace exists to kill. Fix in
+   [`core/hooks/brain/brain_dashboard.py`](core/hooks/brain/brain_dashboard.py): each goal declares
+   the paths it **owns** (frontmatter, or a `>**owns**` block), and the counter sums commits
+   touching those paths instead of touches to the file.
+   → **model: sonnet**.
 
 ---
 
@@ -445,25 +455,43 @@ seam worth splitting at?", not "you are large". Only the second names `/roundup`
    (caveman suppresses it, self-reported); keep it as a free passive tell, build nothing on it.
    → **shipped**. Nothing remains here. The attention half — moving Lucas, not the work — is
    `code/aiwbot`'s, on its own ledger: it is already the front door when he is away from the PC.
-2. 🟡 **`/roundup` redesign — smaller than it looked, and mis-aimed.** At 10.4% it is not the main
-   lever, but it has a specific defect the measurement exposes: **it runs at the session's maximum
-   context**, so its six phases are executed at the most expensive turns that session will ever
-   have. The fix is not to shorten the prose — it is to move the deterministic phases (entropy
-   regen, branch sync, the verification gate) into one script the agent calls once, leaving only
-   the two judgment phases (ledger cleanup, routing knowledge) as instructions.
+2. 🟡 **`/roundup` redesign — the split shipped, the collapse is half done.** Two defects, one job:
+   `/roundup` ran **six phases at the session's maximum context**, and its **output did not scale
+   with what happened** (a clean session still got a wall of invented next steps, at the most
+   expensive turn *and* as the last thing read before a `/clear`).
 
-   **Second defect, named by Lucas 2026-08-13: the output does not scale with what happened.**
-   `/roundup` reports every phase at full length even when a phase found nothing — a session
-   that concluded cleanly still gets a wall of next steps, open threads, and routing notes
-   invented to fill the shape. That is worse than noise at the exact moment it fires: this is
-   the most expensive turn of the session, and it is the last thing read before a `/clear`,
-   so padding is what the *next* session inherits. **A phase with nothing to say should say
-   nothing** — one line, or no line. The template is the bug: it prescribes sections, so the
-   model fills sections. Same lesson the meter messages just learned three times over — every
-   extra noun in a closing instruction is something the next session acts on.
+   **Shipped 2026-08-13.** The deterministic half is [`core/tools/wos/roundup`](core/tools/wos/roundup)
+   — verification gate, entropy regen, branch promotion, one call, three lines of output
+   (`verify:` / `entropy:` / `sync:`). The skill keeps only judgment: clear the ledgers, route
+   knowledge, drain the INBOX (162 → 130 lines, six phases → three + the script + hand-off), under
+   a hard rule that **a phase with nothing to say contributes no line** — no header, no "nothing to
+   do", no invented next step. Three decisions worth keeping:
+   - **the tool carries the skill's name.** One ritual, two layers; a second vocabulary word for
+     the same thing is the drift. `close` was drafted and rejected — it reads terminal, and
+     "roundup" means closure *and* continuity.
+   - **the script commits `entropy.md` itself** (`chore(entropy)`). It must run on a clean tree
+     (a commit message is judgment, so it stops rather than invent one), which leaves regenerated
+     entropy homeless otherwise. Precedent: 3 of the last 8 touches to that file already are
+     exactly that commit.
+   - **it refuses to promote and says why** — verify red, or a target branch behind origin (a
+     parallel session mid-flight) — rather than merging around either. The one case a script
+     cannot see, an incoherent branch, is passed in: `--no-promote "<reason>"`.
 
-   Together these make one job, not two: the deterministic half becomes a script (silent when
-   clean, by construction), and what stays prose gets a hard rule that empty phases collapse.
+   **Open, and the reason this is still 🟡:**
+   - **the hand-off must become optional.** Lucas 2026-08-13: if the work is finished and there is
+     no next action, emitting a resume prompt *manufactures* one at the last turn before `/clear`
+     — the output rule applied to the hand-off itself. Blocked on one sub-decision: a skipped
+     hand-off leaves the **previous** session's `outputs/handoff.md` in place, and the next window
+     opens by reading that path. Recommended: skipping **deletes** it, so the file's existence
+     means "a thread is open". Alternatives are leaving it stale (hazardous) or writing a two-line
+     "nothing open" stub.
+   - **`core/skills/handoff.md`'s template still prescribes its four sections** — agreed shape:
+     `Worked on` ≤3 bullets and only what is *not* already in a ledger, `Open threads` omitted
+     rather than "none.", `State` = the script's three lines verbatim, ≤2 file pointers. Last
+     session's block was 48 lines and 3 of its 5 open threads were already written in this file.
+   - **no tests yet.** The tool is smoke-tested on five paths (clean promote, dirty tree, red
+     verify, `--no-promote`, behind-origin) in throwaway repos, but nothing guards it in
+     `verify-fast`, and nothing guards the skill against re-inlining `make entropy` or the merges.
    → **model: sonnet**.
 3. 🟢 **safe — cheaper models where the work is mechanical.** Measured split: opus 68%, fable 24%,
    sonnet 7.8%, haiku ~0%. Worth doing, but note the ceiling — routing cannot beat a 3x context

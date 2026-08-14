@@ -119,7 +119,11 @@ Rules:
 
 ## Protocol
 
-Read `brain/INBOX.md`. If empty, say so and stop.
+Read `brain/INBOX.md` **from the `<!-- add entries below, newest first -->` marker down** — the
+block above it is capture instructions for Lucas and route signals already restated in this skill,
+re-read on every triage for nothing (Lucas, INBOX 2026-08-13). Skip to the marker, not to a fixed
+line number: the header gains lines and a hard-coded offset would start eating entries silently.
+If there is nothing below it, say so and stop.
 
 For each entry:
 0. Entry contains a video/image link → extract it first (above). Route on the text, not the URL.

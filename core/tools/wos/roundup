@@ -1,0 +1,137 @@
+#!/usr/bin/env bash
+# Usage: core/tools/wos/roundup [--no-promote <reason>] — the deterministic half of the /roundup
+# ritual: verification gate, entropy regen, branch promotion. Prints the three state facts /handoff
+# needs and anything that needs a decision; nothing else.
+#
+# Same name as core/skills/roundup.md on purpose: one ritual, two layers. The skill is the judgment
+# (what to delete, where knowledge goes, what the INBOX means); this is everything with one right
+# answer. Lucas types /roundup; the skill calls this.
+#
+# Exists because these three phases used to be prose in core/skills/roundup.md, executed by the
+# model at the most expensive turns a session ever has (ROADMAP Frente 9.2). Judgment — clearing
+# ledgers, routing knowledge, draining the INBOX — stays in the skill. Everything with one right
+# answer lives here, where it costs one tool call.
+set -uo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+WORKSPACE="$(cd "$SCRIPT_DIR/../../.." && pwd)"
+
+NO_PROMOTE=""
+case "${1:-}" in
+  "") : ;;
+  --no-promote) NO_PROMOTE="${2:?--no-promote needs a reason}" ;;
+  *) echo "Usage: $0 [--no-promote <reason>]" >&2; exit 64 ;;
+esac
+
+ROOT="$(git rev-parse --show-toplevel 2>/dev/null)" || { echo "not a git repo: $PWD" >&2; exit 64; }
+cd "$ROOT" || exit 64
+BRANCH="$(git rev-parse --abbrev-ref HEAD)"
+
+# ── Uncommitted work is the agent's call (a commit message is judgment), so stop before touching
+#    anything: entropy regen and the merges below both assume a clean tree.
+DIRTY="$(git status --porcelain | wc -l)"
+if [ "$DIRTY" -gt 0 ]; then
+  printf '%s uncommitted on %s — commit, then rerun.\n' "$DIRTY" "$BRANCH"
+  git status --short | head -20
+  exit 2
+fi
+
+# ── Verification gate. Contract discovery is the convention from
+#    core/hooks/gates/project-contract.sh § 1a, one tier up: full if declared, else fast.
+VERIFY_CMD=""
+if   [ -f package.json ] && grep -q '"verify:full"' package.json; then VERIFY_CMD="npm run --silent verify:full"
+elif [ -f Makefile ]     && grep -qE '^verify-full:' Makefile;     then VERIFY_CMD="make verify-full"
+elif [ -f package.json ] && grep -q '"verify:fast"' package.json; then VERIFY_CMD="npm run --silent verify:fast"
+elif [ -f Makefile ]     && grep -qE '^verify-fast:' Makefile;     then VERIFY_CMD="make verify-fast"
+fi
+
+LOG="$(mktemp)"
+trap 'rm -f "$LOG"' EXIT
+if [ -z "$VERIFY_CMD" ]; then
+  VERIFY="no contract"
+elif $VERIFY_CMD >"$LOG" 2>&1; then
+  COUNT="$(grep -oE '[0-9]+ passed' "$LOG" | tail -1)"
+  VERIFY="green${COUNT:+ ($COUNT)}"
+else
+  VERIFY="red"
+fi
+
+# ── Entropy dashboard. Workspace repo only — it scans the whole tree, including the nested repos.
+findings() { grep -oE '\*\*[0-9]+ findings\*\*' entropy.md 2>/dev/null | grep -oE '[0-9]+' | head -1; }
+ENTROPY=""
+if [ "$ROOT" = "$WORKSPACE" ]; then
+  BEFORE="$(findings)"
+  if make entropy >/dev/null 2>&1; then
+    AFTER="$(findings)"
+    if [ "$AFTER" = "$BEFORE" ]; then ENTROPY="$AFTER findings (flat)"; else ENTROPY="$AFTER findings (was ${BEFORE:-?})"; fi
+    if ! git diff --quiet entropy.md 2>/dev/null; then
+      git add entropy.md && git commit -q -m "chore(entropy): regenerate at session close" \
+        || ENTROPY="$ENTROPY · commit failed, entropy.md left dirty"
+    fi
+  else
+    ENTROPY="regen failed"
+  fi
+fi
+
+# ── Branch promotion. Same scope as core/hooks/git/gitflow-gate.sh: the workspace repo and
+#    code/* project repos promote; every other nested repo just pushes its current branch.
+case "$ROOT" in
+  "$WORKSPACE"|"$WORKSPACE"/code/*) GITFLOW=1 ;;
+  *) GITFLOW=0 ;;
+esac
+git fetch --quiet 2>/dev/null || true
+
+behind_remote() { [ "$(git rev-list --count "$1..origin/$1" 2>/dev/null || echo 0)" -gt 0 ]; }
+
+promote() {  # feature → develop → main, each pushed; abort the whole thing on the first conflict
+  local target source
+  for pair in "develop $BRANCH" "main develop"; do
+    set -- $pair; target="$1"; source="$2"
+    git rev-parse --verify -q "$target" >/dev/null || continue
+    [ "$target" = "$source" ] && continue
+    if behind_remote "$target"; then
+      SYNC="$target is behind origin — a parallel session is mid-flight; not promoted"
+      return 1
+    fi
+    git checkout -q "$target" || { SYNC="checkout of $target failed; not promoted"; return 1; }
+    if ! git merge --no-edit -q "$source" >/dev/null 2>&1; then
+      git merge --abort 2>/dev/null
+      git checkout -q "$BRANCH"
+      SYNC="conflict merging $source → $target — aborted, branches untouched"
+      return 1
+    fi
+    git push -q origin "$target" 2>/dev/null || { SYNC="$target merged but push failed"; git checkout -q "$BRANCH"; return 1; }
+  done
+  git checkout -q "$BRANCH"
+  return 0
+}
+
+SYNC=""
+RC=0
+git push -q origin "$BRANCH" 2>/dev/null || true   # post-commit already does this for feature/*
+if [ "$VERIFY" = "red" ]; then
+  SYNC="not promoted — verify red. $BRANCH pushed only"
+  RC=1
+elif [ -n "$NO_PROMOTE" ]; then
+  SYNC="not promoted — $NO_PROMOTE. $BRANCH pushed only"
+elif [ "$GITFLOW" = "0" ]; then
+  SYNC="$BRANCH pushed (repo outside gitflow scope — no merges)"
+elif ! promote; then
+  RC=1
+fi
+
+if [ -z "$SYNC" ]; then
+  SHAS=""
+  for b in main develop "$BRANCH"; do
+    git rev-parse --verify -q "$b" >/dev/null || continue
+    SHAS="$SHAS $b@$(git rev-parse --short "$b")"
+  done
+  UNPUSHED="$(git for-each-ref --format='%(refname:short)%(upstream:track)' refs/heads | grep -c 'ahead' || true)"
+  SYNC="promoted ·${SHAS} ·$([ "$UNPUSHED" = "0" ] && echo " all pushed" || echo " $UNPUSHED branch(es) unpushed")"
+fi
+
+printf 'verify: %s\n' "$VERIFY"
+[ -n "$ENTROPY" ] && printf 'entropy: %s\n' "$ENTROPY"
+printf 'sync: %s\n' "$SYNC"
+[ "$VERIFY" = "red" ] && { echo "--- verify tail ---"; tail -20 "$LOG"; }
+exit $RC
