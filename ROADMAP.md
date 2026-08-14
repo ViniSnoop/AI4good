@@ -329,20 +329,26 @@ feeling lost twice. **Mass is the disease and only deletion cures it.**
 ## Frente 9 — Cost & model routing
 
 **Why — re-measured 2026-08-13, and the old numbers were wrong.** The previous framing came from a
-single 24 h window. Measured properly over **119 sessions · 18,508 turns · 2026-07-25 → 08-13 ·
-$3,606** (parser + cost model in this session's scratchpad; rates from the `claude-api` skill):
+single 24 h window. Re-run it yourself — that is the point of
+[`core/tools/wos/usage`](core/tools/wos/usage), built this session so no claim here rests on a
+number nobody can reproduce. Over **118 sessions · 18,122 turns · 2026-07-25 → 08-13**:
+
+> **Trust the ratios, not the dollar total.** A one-off script and the tool agreed on every share
+> and per-turn cost but differed ~8% on absolute spend (mostly the `fable` line), and that is not
+> yet explained. Quote percentages and $/turn from the tool; treat any absolute total as ±10%.
 
 | Claim | Verdict |
 |---|---|
 | "59% of usage from subagent-heavy sessions" | **False, and retired.** **Zero** sidechain messages and **zero** `Task` calls across all **328** transcripts. No subagent has run in five weeks. |
 | "55% from >150k-context sessions" | **Understated.** **73%** of spend is paid above 150k of context; **43%** above 250k. |
-| "25% from `/roundup`" (step 1 said ~7%) | **~7% was right; 25% was not.** 24 of 119 sessions invoked it; the tail after invocation is **10.4%** ($374). |
+| "25% from `/roundup`" (step 1 said ~7%) | **~7% was right; 25% was not.** 24 of 119 sessions invoked it; the tail after invocation is **~10%**. |
 
-**The real driver is context size, and it is a cost curve, not a cliff.** Median cost of one turn:
-**$0.07** at 50-100k of context, **$0.107** at 100-200k, **$0.21** at 300-400k, **$0.27** above 400k
-— *3-4x for the same work*. The mechanism is that every turn re-reads the whole context: **3.39 Gtok**
-of cache reads over the window, roughly half of all spend. Long sessions therefore cost
-super-linearly in their own length, and the **top decile of sessions is 47% of total spend.**
+**The real driver is context size, and it is a cost curve, not a cliff.** Cost of one turn by the
+context it carried: **$0.088** below 50k · **$0.102** at 50-100k · **$0.193** at 150-200k ·
+**$0.269** at 300-400k · **$0.376** above 400k — *4x for the same work*. **72% of spend is paid
+above 150k of context, 40% above 250k** — which is exactly where `CTX_WARN`/`CTX_LOUD` sit. The mechanism is that every turn re-reads the whole thread: **3.4 Gtok**
+of cache reads over the window. Long sessions therefore cost super-linearly in their own length, and
+the **top decile of sessions is ~44% of total spend.**
 
 **Shipped 2026-08-13 — the session-size monitor.**
 [`core/hooks/session/context-meter.py`](core/hooks/session/context-meter.py) on `UserPromptSubmit`
@@ -484,6 +490,14 @@ interface is current, so ignoring them breaks the read-gate on every fresh clone
      no signal for *repos sitting on an unmerged feature branch* — so nobody can see the number
      this task exists to reduce. Add it beside the other Tier 0 checks, warn-only, one line per
      repo whose branch is ahead of `main`.
+
+   **Surveyed 2026-08-13, and the shape is better than it looks: 12 of 16 repos sit on a
+   `feature/*` branch, but 10 of those are ahead of `main` by zero commits.** Their work is already
+   promoted; the branch is a stale label, and the only cost is that the next session in that repo
+   starts on it. Deleting those ten is mechanical and safe. **Exactly two carry real unmerged
+   work** — `isoroll-content` and `isoroll-module`, 5 commits ahead each and both dirty — and both
+   belong to the parallel isoroll session, so they are *reason 3*: do not promote them from
+   another session. `branches/instituto` is on `master`, not `main`, which is why it reads `?`.
    → **model: sonnet**.
 
 ---

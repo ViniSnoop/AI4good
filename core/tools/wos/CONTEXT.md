@@ -12,4 +12,5 @@
 | [`spec-scan`](spec-scan) | ledger of module SPEC.md status (locked|draft|optout|none) |
 | [`sync-global-skills`](sync-global-skills) | link workspace-vendored global skills into $HOME |
 | [`sync-skills`](sync-skills) | regenerate skill mirrors from core/skills/*.md |
+| [`usage`](usage) | where session spend goes: by model, |
 <!-- routing:end -->
