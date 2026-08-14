@@ -530,7 +530,26 @@ plateau began. So: a number in this file that
    (`core/SCHEMA.md`) — so the registry's job is mostly to name which hooks/skills/tools are wired,
    not to re-implement their rules. **Anything that cannot be switched off is a finding**: it means
    the capability is entangled with the scaffold rather than sitting on it.
+
+   **One more question in the set, named by Lucas 2026-08-14 (INBOX):** *"deveríamos oferecer a
+   opção de idioma principal para a interação com o usuário"* — thinking of third parties. It is a
+   profile field like any other, but it lands somewhere the others do not: **agent-facing text**,
+   not source docs. This workspace's own prose is deliberately mixed (rationale in Portuguese,
+   contracts in English) and stays that way; what the setting governs is the language the agent
+   *answers* in. Cheapest shape that does not fork the corpus.
    → **model: sonnet** to build, **opus** for the question set and the registry shape.
+
+5. 🔴 **decide-first — a public scaffold repo, synced from here.** Lucas (INBOX 2026-08-14):
+   *"poderíamos ter uma branch separada no git/github"*, resolved the same day to a **separate
+   public repository holding only the scaffold** (`core/` + hooks + templates), synced from `main`
+   by a script — not a branch. A branch was the first shape considered and lost on one property:
+   personal history never leaves this repo, where a branch carries every commit that ever touched
+   `brain/`. That makes it strictly stronger than step 3's split — the general/Lucas-specific line
+   stops being documentation and becomes *what the sync script is allowed to copy*, checkable on
+   every run. Open questions before building: what the sync does about a stranger's PR coming back,
+   and whether the toggle registry in step 4 ships as scaffold (it should — it is the thing that
+   makes a subset installable).
+   → **model: opus** for the boundary and the sync direction, **sonnet** to build the script.
 
 ---
 
