@@ -6,7 +6,9 @@
 case "$file" in
 	*.py)
 		STUBGEN="/mnt/workspace/.venv/bin/stubgen"
-		[ -x "$STUBGEN" ] && "$STUBGEN" "$file" -o "$dir" --quiet 2>/dev/null \
+		# shellcheck source=/dev/null
+		source /mnt/workspace/core/hooks/stubgen/stub_paths.sh
+		[ -x "$STUBGEN" ] && "$STUBGEN" "$file" -o "$(stub_out_dir "$file")" --quiet 2>/dev/null \
 			&& printf "✓ .pyi: ${file%.py}.pyi\n"
 		;;
 	*.js)

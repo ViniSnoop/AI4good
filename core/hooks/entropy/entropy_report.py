@@ -19,6 +19,8 @@ SECTIONS = (
     ('retired', 'Retired tokens still alive', 'a rename is unfinished until these are zero'),
     ('duplicates', 'Items claimed by two ledgers', 'v1 criterion 2 — an item lives in one place'),
     ('size', 'Size signals', 'a signal for review, never a cap — do not summarize to fit'),
+    ('stubs', 'Source files with no interface stub',
+     'the read gate only fires when a stub exists — a missing one turns it off silently'),
     ('fanout', 'Directories holding too many files',
      'splitting costs one hop — pay it only when it removes more table than it adds'),
 )

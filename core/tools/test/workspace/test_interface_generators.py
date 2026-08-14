@@ -86,6 +86,42 @@ def test_js_declarations_are_generated_per_file_not_per_project() -> None:
     assert "--declarationDir" in js_section
 
 
+def _stub_out_dir(path: str, cwd: Path) -> str:
+    return subprocess.run(
+        ["bash", "-c",
+         f'source "{WORKSPACE_ROOT}/core/hooks/stubgen/stub_paths.sh"; stub_out_dir "{path}"'],
+        cwd=cwd, capture_output=True, text=True, check=True,
+    ).stdout.strip()
+
+
+def test_stub_output_root_climbs_out_of_the_package(tmp_path: Path) -> None:
+    """stubgen mirrors package structure under -o, so passing the file's OWN directory
+    wrote `pkg/pkg/*.pyi`. The output root must be the directory above the package root."""
+    pkg = tmp_path / "outer" / "pkg" / "sub"
+    pkg.mkdir(parents=True)
+    for d in (tmp_path / "outer" / "pkg", pkg):
+        (d / "__init__.py").write_text("", encoding="utf-8")
+    (pkg / "mod.py").write_text("# mod\n", encoding="utf-8")
+    assert _stub_out_dir("outer/pkg/sub/mod.py", tmp_path) == "outer"
+
+
+def test_stub_output_root_is_unchanged_outside_a_package(tmp_path: Path) -> None:
+    plain = tmp_path / "plain"
+    plain.mkdir()
+    (plain / "mod.py").write_text("# mod\n", encoding="utf-8")
+    assert _stub_out_dir("plain/mod.py", tmp_path) == "plain"
+
+
+def test_both_hooks_use_the_shared_output_root_helper() -> None:
+    for script in (POSTEDIT, PRECOMMIT):
+        body = script.read_text(encoding="utf-8")
+        assert "stub_out_dir" in body, f"{script.name} computes the stubgen -o path itself"
+        assert '-o "$dir"' not in body, (
+            f"{script.name} passes the file's own directory to stubgen again — that is "
+            "what wrote a mirror of the path inside itself"
+        )
+
+
 def _repeated_run(parts: tuple[str, ...]) -> str | None:
     """Detect a path that mirrors part of itself: `a/a` or `a/b/a/b` — the signature of a
     generator resolving its output root against the wrong anchor."""

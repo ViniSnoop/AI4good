@@ -91,6 +91,7 @@ def collect(files: list) -> dict:
     findings['duplicates'] = [f'`[{slug}]` claimed by {", ".join(sorted(claims))}'
                               for slug, claims in duplicate_slugs(LEDGERS).items()]
     findings['size'] = size_signals(files)
+    findings['stubs'] = stub_signals(files)
     findings['fanout'] = fanout_signals(files, WORKSPACE_ROOT)
     # One directory-level finding is reported by every file under it; dedupe so a count
     # means "things to fix", not "files touched by a thing to fix".
@@ -114,6 +115,29 @@ def size_signals(files: list) -> list:
         elif code and lines > block:
             signals.append(f'{_rel(path)} — {lines} lines, over the {block} cap; '
                            f'introduced by {_added_by(path)}')
+    return signals
+
+
+_STUB_FOR = {'.py': '.pyi', '.ts': '.d.ts', '.tsx': '.d.ts', '.js': '.d.ts'}
+
+
+def stub_signals(files: list) -> list:
+    """Source files with no interface stub beside them.
+
+    The read gate only fires when a stub EXISTS, so a missing one does not break —
+    it silently switches the interface-first discipline off for that file, and nothing
+    said so. The commit hook stubs what a commit stages; a file that arrived any other
+    way was never stubbed and was never counted. This is the counting.
+    """
+    signals = []
+    for path in files:
+        stub = _STUB_FOR.get(path.suffix)
+        if not stub or is_vendored(path, WORKSPACE_ROOT):
+            continue
+        if path.name.endswith('.d.ts') or '__pycache__' in path.parts:
+            continue
+        if not path.with_name(path.stem + stub).exists():
+            signals.append(f'{_rel(path)} — no {stub}')
     return signals
 
 

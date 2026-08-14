@@ -6,7 +6,7 @@
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
-| [`entropy-dashboard.py`](entropy-dashboard.py) | [`entropy-dashboard.pyi`](entropy-dashboard.pyi) | `collect`, `size_signals`, `main` | The entropy dashboard (ROADMAP.md Frente 4.3). Runs every Tier 0 check over the whole |
+| [`entropy-dashboard.py`](entropy-dashboard.py) | [`entropy-dashboard.pyi`](entropy-dashboard.pyi) | `collect`, `size_signals`, `stub_signals`, `main` | The entropy dashboard (ROADMAP.md Frente 4.3). Runs every Tier 0 check over the whole |
 | [`entropy_context.py`](entropy_context.py) | [`entropy_context.pyi`](entropy_context.pyi) | `check_inventory`, `is_project`, `check_goal_link` | Tier 0 CONTEXT.md rules (ROADMAP.md Frente 4.1). Zero-token, deterministic. |
 | [`entropy_corpus.py`](entropy_corpus.py) | [`entropy_corpus.pyi`](entropy_corpus.pyi) | `tracked_files`, `nested_repos`, `enforcement_paths`, `walk` | Which files the Tier 0 checks look at, and which of them are allowed to name what the |
 | [`entropy_fanout.py`](entropy_fanout.py) | [`entropy_fanout.pyi`](entropy_fanout.pyi) | `fanout_counts`, `fanout_signals` | Directory fanout: how many files one directory asks a reader to hold at once. |

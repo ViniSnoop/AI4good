@@ -3,21 +3,37 @@
 # it shares $STAGED and may `exit` to reject the commit. Order is fixed by the dispatcher.
 
 # ── 6. Python → .pyi stubs (mypy stubgen) ─────────────────────────────────────
+# Staged files, PLUS any stubless sibling in the same directories. A .py that entered the
+# repo outside Edit/Write — a bash heredoc, a bulk vendoring, a --no-verify commit — was
+# never stubbed by anything, and nothing ever looked back: 182 files workspace-wide had no
+# interface. Sweeping the touched directories catches the common shape (a directory that
+# gained files in one go) without paying a whole-tree scan on every commit. The rest is
+# counted in entropy.md so the number is visible instead of merely absent.
 PY_FILES=$(echo "$STAGED" | grep '\.py$' | grep -v '__pycache__' || true)
 if [ -n "$PY_FILES" ]; then
   if ! command -v stubgen &>/dev/null; then
     printf "⚠  stubgen not found — .pyi stubs skipped. Install: pip install mypy\n\n"
   else
+    PY_SWEEP=$(
+      { echo "$PY_FILES"
+        echo "$PY_FILES" | xargs -I{} dirname {} | sort -u | while IFS= read -r d; do
+          for sib in "$d"/*.py; do
+            [ -f "$sib" ] && [ ! -f "${sib%.py}.pyi" ] && echo "$sib"
+          done
+        done
+      } | grep -v '^$' | sort -u
+    )
+    # shellcheck source=/dev/null
+    source /mnt/workspace/core/hooks/stubgen/stub_paths.sh
     while IFS= read -r f; do
       [ -f "$f" ] || continue
-      dir=$(dirname "$f")
-      if stubgen "$f" -o "$dir" --quiet 2>/dev/null; then
+      if stubgen "$f" -o "$(stub_out_dir "$f")" --quiet 2>/dev/null; then
         pyi="${f%.py}.pyi"
         [ -f "$pyi" ] && git add "$pyi"
       else
         printf "⚠  stubgen failed for $f — .pyi not staged\n\n"
       fi
-    done <<< "$PY_FILES"
+    done <<< "$PY_SWEEP"
   fi
 fi
 
