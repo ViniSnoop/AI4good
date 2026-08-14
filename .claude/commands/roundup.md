@@ -128,12 +128,22 @@ git log --oneline origin/develop..develop 2>/dev/null | wc -l   # develop unpush
 git log --oneline main..develop 2>/dev/null | wc -l             # main behind develop
 ```
 
+**Promoting is the default; leaving a branch open is the exception that needs a reason.** An open
+feature branch is not free — it is state the other machine cannot see, and across repos they
+accumulate silently until nobody knows how many there are. Take the decision explicitly every time,
+and if you do not promote, name which of the three reasons below applies.
+
 1. **Uncommitted work** → commit it on the feature branch first (auto-push carries it out).
-2. **Verification gate red or not-run** (Phase 1) → **stop here**. Do not merge. Report that the
-   feature branch is pushed but unpromoted, and why. A red merge into `main` breaks the other machine.
-3. **Feature complete** (its milestone shipped this session) → merge `feature/*` → `develop`, push
-   `develop`. Feature still in progress → leave it; auto-push already preserved it.
-4. **`develop` ahead of `main`** → merge `develop` → `main`, push `main`.
+2. **Verification gate red or not-run** (Phase 1) → **stop here** — *reason 1 not to promote*. Do not
+   merge. Report that the feature branch is pushed but unpromoted, and why. A red merge into `main`
+   breaks the other machine.
+3. **Merge `feature/*` → `develop`, push `develop`** — unless *reason 2*: the branch holds work that
+   is incoherent on its own (a half-applied refactor, a test deleted before its replacement lands).
+   "The milestone is not finished" is **not** a reason by itself: green, coherent, partial work
+   belongs on `develop`, where the other machine can see it.
+4. **`develop` ahead of `main`** → merge `develop` → `main`, push `main` — unless *reason 3*: a
+   parallel session is mid-flight on the same branch and the merge would land under it. Check
+   `git log --oneline origin/<branch>..<branch>` and recent commit authorship before merging.
 5. **Merge conflict** → abort (`git merge --abort`), leave branches untouched, report it as an open
    thread for the handoff. Never resolve conflicts unattended at session close.
 

@@ -328,19 +328,69 @@ feeling lost twice. **Mass is the disease and only deletion cures it.**
 
 ## Frente 9 — Cost & model routing
 
-**Why.** Measured over 24 h: 59% of usage from subagent-heavy sessions, 55% from >150k-context
-sessions, 25% from `/roundup`. Context management is currently Lucas's job, which it should not be.
+**Why — re-measured 2026-08-13, and the old numbers were wrong.** The previous framing came from a
+single 24 h window. Measured properly over **119 sessions · 18,508 turns · 2026-07-25 → 08-13 ·
+$3,606** (parser + cost model in this session's scratchpad; rates from the `claude-api` skill):
 
-1. 🔴 **decide-first — `/roundup` redesign + automatic session transition.** `/roundup` costs ~7% of
-   usage. With it: induce session switching by context size (frequent checkpoints, effective
-   transition points), and investigate whether an agent can open a new session itself. Includes the
-   session-size monitor (warn at ~40%/50% to evaluate handoff — 80% is too late and risks discarding
-   work) and **context-drift detection** (plant a verifiable fact early, re-check periodically).
-   Note the weak version: the "canary call-me-Lucas" trick is a confounded proxy (caveman suppresses
-   it, self-reported) — keep it as a free passive tell, build no infrastructure on it.
-   → **model: opus** (design) · sonnet to build.
-2. 🟢 **safe — cheaper models where the work is mechanical.** Set model frontmatter on `/roundup` and
-   craft-flow subagents for mechanical steps; re-measure after.
+| Claim | Verdict |
+|---|---|
+| "59% of usage from subagent-heavy sessions" | **False, and retired.** **Zero** sidechain messages and **zero** `Task` calls across all **328** transcripts. No subagent has run in five weeks. |
+| "55% from >150k-context sessions" | **Understated.** **73%** of spend is paid above 150k of context; **43%** above 250k. |
+| "25% from `/roundup`" (step 1 said ~7%) | **~7% was right; 25% was not.** 24 of 119 sessions invoked it; the tail after invocation is **10.4%** ($374). |
+
+**The real driver is context size, and it is a cost curve, not a cliff.** Median cost of one turn:
+**$0.07** at 50-100k of context, **$0.107** at 100-200k, **$0.21** at 300-400k, **$0.27** above 400k
+— *3-4x for the same work*. The mechanism is that every turn re-reads the whole context: **3.39 Gtok**
+of cache reads over the window, roughly half of all spend. Long sessions therefore cost
+super-linearly in their own length, and the **top decile of sessions is 47% of total spend.**
+
+**Shipped 2026-08-13 — the session-size monitor.**
+[`core/hooks/session/context-meter.py`](core/hooks/session/context-meter.py) on `UserPromptSubmit`
+reads the size the API already reported on the last assistant turn and announces each threshold
+**once**. Thresholds are `CTX_WARN`/`CTX_LOUD` in [`limits.env`](core/hooks/limits.env) beside every
+other number; the checker carries no copy, guarded by `test_thresholds_come_from_limits_env`. Costs
+zero tokens until a threshold is crossed and never blocks a prompt. The session cannot see its own
+size, which is why the hand-off decision was always made late — a hook is the only thing that can
+see it *and* speak at the moment it applies.
+
+Set at 150k / 250k because that is where the measured curve bends, not where the window ends. The
+first message is deliberately ignorable (see [brain/SPECS.md](brain/SPECS.md) § Rationale); only the
+second one names `/roundup`.
+
+1. 🟡 **automatic session transition — answered 2026-08-13: yes, an agent can open its own
+   session.** Verified against the local CLI (2.1.218), not from memory:
+
+   | Mechanism | What it gives |
+   |---|---|
+   | `claude --bg "<prompt>"` | starts a **background agent session and returns immediately** — fresh context, spawned from a Bash call inside the current session |
+   | `claude agents --json [--cwd <path>]` | lists active sessions (interactive **and** background), so a spawned successor is observable and manageable, not fire-and-forget |
+   | `claude -p "<prompt>"` | headless one-shot in a fresh session — right for delegated sub-work, wrong for continuing a thread |
+   | `--session-id <uuid>` · `--fork-session` · `-r/--resume` | explicit session identity; `--fork-session` branches a resumed conversation into a new id |
+
+   **The limit that shapes the design: none of these move the terminal Lucas is typing into.** An
+   agent can hand the *work* to a fresh-context successor today, unattended, with no user action.
+   It cannot swap the session his keyboard is attached to. So the transition splits in two, and
+   only the first half is automatable:
+   - **the work** → `claude --bg` carrying the `/handoff` prompt. Buildable now; the meter already
+     names the moment to fire it.
+   - **Lucas's attention** → needs the terminal: he types (`/clear` + paste), or `--tmux`, or
+     **`aiwbot` becomes the front door** — which is what it already is when he is away from the PC.
+
+   Next decision is Lucas's and it is a product question, not a technical one: should a session at
+   `CTX_LOUD` spawn its successor *by itself* and tell him where it went, or only offer to?
+   **Context-drift detection stays parked** — the "canary call-me-Lucas" trick is a confounded proxy
+   (caveman suppresses it, self-reported); keep it as a free passive tell, build nothing on it.
+   → **model: opus** for that one call · sonnet to build.
+2. 🟡 **`/roundup` redesign — smaller than it looked, and mis-aimed.** At 10.4% it is not the main
+   lever, but it has a specific defect the measurement exposes: **it runs at the session's maximum
+   context**, so its six phases are executed at the most expensive turns that session will ever
+   have. The fix is not to shorten the prose — it is to move the deterministic phases (entropy
+   regen, branch sync, the verification gate) into one script the agent calls once, leaving only
+   the two judgment phases (ledger cleanup, routing knowledge) as instructions.
+   → **model: sonnet**.
+3. 🟢 **safe — cheaper models where the work is mechanical.** Measured split: opus 68%, fable 24%,
+   sonnet 7.8%, haiku ~0%. Worth doing, but note the ceiling — routing cannot beat a 3x context
+   multiplier, so sequence it after 1.
    → **model: sonnet**.
 
 ---
@@ -421,6 +471,20 @@ interface is current, so ignoring them breaks the read-gate on every fresh clone
      `engine/tests/unit/test_ui_m10_client.py::TestHandleClient`) and `voti` (8
      `react/no-unescaped-entities` errors). Pushed anyway: the red predates the unpushed commits.
    → **Lucas decides** each · sonnet to execute.
+2. 🟢 **promotion is a decision the session must actually take, not one it may skip.** Lucas,
+   2026-08-13: *"this 'merging up to main' maneuver should be a decision taken by agents as part of
+   the roundup/handoff so we minimize the number of repos on open feature branches."* The skill
+   already has the mechanism — `/roundup` Phase 5 merges `feature/*` → `develop` → `main` — but it
+   fires only when the milestone "shipped this session", so the default outcome is a branch left
+   open, and open branches accumulate silently across repos. Two parts:
+   - **the ruling** (done, in `core/skills/roundup.md` Phase 5): promote whenever the work is green
+     and coherent, and when *not* promoting, say which of the three reasons applies. Silence is no
+     longer an option, because silence is what let branches idle.
+   - **the measurement** (open): the entropy dashboard counts files, lines and directories but has
+     no signal for *repos sitting on an unmerged feature branch* — so nobody can see the number
+     this task exists to reduce. Add it beside the other Tier 0 checks, warn-only, one line per
+     repo whose branch is ahead of `main`.
+   → **model: sonnet**.
 
 ---
 
