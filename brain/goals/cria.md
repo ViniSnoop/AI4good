@@ -6,18 +6,27 @@ Workflow (e futura ferramenta) de geração de ideias colaborativa humano-IA: mo
 transformative · essential · thrilled
 
 >**dynamics**  
-immersed mode · advancing motion · intrinsic source  
-2026-07-11 compass: best wind in Brain. Fable foundation session (07/07) shipped SOTA research, paper v1 compiling, dossiês v0, experiment design, 2 Overleaf repos. Feeds three goals at once (lih-dd first-paper, instituto motor, AI4Good 2026.2). Gargalo is CEP: 2026.2 starts ~August and CEP approval takes weeks, so submitting the protocol is the calendar-critical move — effectively a <3-week clock even without a hard date.
+relaxed mode · stalled motion · intrinsic source  
+2026-07-11 compass: best wind in Brain. Fable foundation session (07/07) shipped SOTA research, paper v1 compiling, dossiês v0, experiment design, 2 Overleaf repos. Feeds three goals at once (lih-dd first-paper, instituto motor, AI4Good 2026.2). Gargalo is CEP: 2026.2 starts ~August and CEP approval takes weeks, so submitting the protocol is the calendar-critical move — effectively a <3-week clock even without a hard date.  
+**2026-08-13 compass: PARKED por escolha do Lucas — parque deliberado, não travamento.** O relógio do CEP correu: 2026.2 começou e a aprovação leva semanas, então o experimento medido não cabe mais neste semestre de qualquer forma. Diante do fork (piloto observacional 2026.2 · submeter mirando 2027.1 · forçar 2026.2 · parquear), a escolha foi parquear o ciclo inteiro e terminar o wos v1 primeiro. Nada aqui apodrece: paper v1, dossiês e desenho do experimento já estão staged e esperam. **Motion `stalled` é descrição honesta do movimento, não julgamento** — o próximo compass deve ler isto como decisão, e a pergunta a refazer é a de timing (qual semestre), não a de motivação.
+
+>**timing**  
+*target · retomar a decisão de shape quando o wos v1 fechar (gate de 4 critérios, 2 abertos); janela realista de experimento = 2027.1  
+anchor · calendário letivo (2026.2 já correu) + prazo de aprovação do CEP, semanas  
+closure · ciclo A rodado em turma, com métricas RQ1-RQ3 sobre embedding congelado  
+tolerance · alta agora — parque explícito, sem custo de decaimento: o material está escrito  
+fallback · piloto observacional sem gate de CEP, se 2027.1 também apertar*
 
 ## selected next achievement
-    [cep] submeter protocolo ao CEP — é o gargalo de calendário do experimento 2026.2
+    [unpark] retomar a decisão de shape — piloto observacional vs. experimento medido 2027.1 — quando o wos v1 fechar
 
 **ease-start**  
-Abrir a Plataforma Brasil e só olhar o formulário de novo protocolo — 10 minutos, sem preencher nada. O resto (TCLE, desenho) já está esboçado em `academy/papers/2027-CHI-cria/outputs/experiment-design.md`.
+Não é hora de começar isto: o goal está parqueado por escolha e a energia está no wos v1. Quando o gate fechar, o start é reler UMA página — `academy/papers/2027-CHI-cria/outputs/experiment-design.md` — e responder uma pergunta: o desenho ainda serve pra 2027.1, ou o semestre extra muda o que vale medir? 10 minutos, e só então o `[cep]` volta a ser o próximo passo.
 
 ## backlog
 
-> [ ] [cep] submeter protocolo CEP (🔴 burocracia — prazo decide se 2026.2 é experimento ou piloto observacional)  
+> [ ] [unpark] retomar a decisão de shape quando o wos v1 fechar — piloto observacional vs. experimento medido 2027.1  
+> [ ] [cep] submeter protocolo CEP (🔴 burocracia — o prazo já decidiu 2026.2; agora define 2027.1)  
 > [ ] [prereg] pré-registro OSF: métricas RQ1-RQ3, embedding congelado  
 > [ ] [dossie-1] preencher TODOs de impacto do dossiê feiras agroeco com fontes  
 > [ ] [dry-run] rodar 1 ciclo cria com agentes + Lucas como único humano (valida score/formato)  
@@ -38,10 +47,10 @@ last-touch: 2026-07-22  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       7 |
-| trimester   |       7 |
-| semester    |       7 |
-| year        |       7 |
-| 2-year      |       7 |
-| 4-year      |       7 |
+| month       |       5 |
+| trimester   |       8 |
+| semester    |       8 |
+| year        |       8 |
+| 2-year      |       8 |
+| 4-year      |       8 |
 <!-- stats:end -->

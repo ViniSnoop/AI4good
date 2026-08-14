@@ -8,7 +8,8 @@ transformative · essential · thrilled
 >**dynamics**  
 immersed mode · advancing motion · intrinsic source  
 2026-07-22 compass: highest wind + in-flow this session — mvp-gaps localized then closed, gitflow enforced, gitlinks killed, `/compass` shipped. Lucas ordered it #1: make v1 strong (gaps 1&2 cleanup) + finish aiwbot.  
-2026-07-29: the work is no longer *discovering* what to fix — it is draining a known list. Ledgers collapsed to one entrypoint, v1 given an explicit 4-criterion gate. Momentum now depends on the gate staying honest, not on new insight.
+2026-07-29: the work is no longer *discovering* what to fix — it is draining a known list. Ledgers collapsed to one entrypoint, v1 given an explicit 4-criterion gate. Momentum now depends on the gate staying honest, not on new insight.  
+2026-08-13 compass: **confirmed #1 for a second cycle, and the numbers back it — 29 of 29 workspace commits in 14 days landed here.** Hooks became a root of law plus families, 37 tools became eight, the verify suite split by what it asserts, the session got a size meter, the INBOX drained to zero. The gate held honest under all of it: criterion 3 went *backwards* on purpose when a re-audit across 25 repos found three remotes missing, rather than staying a green tick that was false. What is left is not build — it is **one decision and one mechanical frente**. This is a finish.
 
 ## selected next achievement
     [v1] pass the four-criterion v1 gate — Tier 0 anti-entropy live · one ledger, no duplicates · everything pushed and gitflow-shaped · clonable by a student
@@ -18,9 +19,18 @@ ready-to-execute batches, each step tagged with model tier and impact flag). Thi
 signals, dynamics, and timing. Plans do not live in goal files (AGENTS.md).
 
 **ease-start**  
-Open [/ROADMAP.md](../../ROADMAP.md) and read just the v1 gate table — four rows. Then pick the one
-sequencing item at the top: the push sweep (Frente 11.2). It is the only item where waiting can *lose*
-work, and the first step is pure inspection: `git -C code/<repo> status` on the eight repos listed.
+The gate is two rows from done and **one of them is a decision, not work — yours, and nobody else can
+make it.** Open [/ROADMAP.md](../../ROADMAP.md) § Frente 11 and read the one paragraph about
+`branches/casinhas`: `modelo/sketchup-referencia/volume-lucas-v04.skp` is **199 MB**, over GitHub's
+hard 100 MB limit, so the push is rejected outright. Three ways out, and you only have to point at one:
+
+1. **Git LFS** for `*.skp` — keeps the file in the repo, needs `git lfs migrate import`, rewrites history.
+2. **Drop the binary from history**, keep it local via `.gitignore` — also rewrites history.
+3. **Leave the repo local** and carve criterion 3 to exclude it deliberately — no rewrite, and the
+   criterion stays honest because the exclusion is written down rather than assumed.
+
+Read the paragraph, say a number. **5 minutes, zero typing.** Criterion 3 goes green mechanically
+after that, and criterion 4 (Frente 10 — SETUP split + declared deps) is sonnet-tier from there.
 
 **findings — the 3 original gaps, all localized (2026-07-21 sweep), all resolved or absorbed:**
 1. **overengineering → the `core/hooks/` layer.** ~40 files, 3068 LOC, apparent near-duplicate families.
@@ -75,14 +85,14 @@ fallback · iterate — MVP can always be extended*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-30  ·  trend: advancing
+last-touch: 2026-07-31  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |      18 |
-| trimester   |      19 |
-| semester    |      19 |
-| year        |      19 |
-| 2-year      |      19 |
-| 4-year      |      19 |
+| month       |      15 |
+| trimester   |      20 |
+| semester    |      20 |
+| year        |      20 |
+| 2-year      |      20 |
+| 4-year      |      20 |
 <!-- stats:end -->

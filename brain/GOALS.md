@@ -3,12 +3,12 @@
 <!-- stats:start -->
 <!-- data:start -->
 ## attention dashboard  _(auto-updated on every commit)_
-last-updated: 2026-08-13 16:08
+last-updated: 2026-08-13 23:33
 
 >**areas** — last 14 days  
 ```
-health       ██░░░░░░░░   1 touches
-career       ██████████   4 touches
+health       ███░░░░░░░   1 touches
+career       ██████████   3 touches
 finances     ░░░░░░░░░░   0 touches
 fun          ░░░░░░░░░░   0 touches
 spiritual    ░░░░░░░░░░   0 touches
@@ -16,25 +16,20 @@ spiritual    ░░░░░░░░░░   0 touches
 
 >**goals** — last 14 days  
 ```
-CONTEXT                  ███░░░░░░░   1 touches
-burocracia-academica     ███░░░░░░░   1 touches
+CONTEXT                  ░░░░░░░░░░   0 touches
+burocracia-academica     ░░░░░░░░░░   0 touches
 career-ufrpe             ░░░░░░░░░░   0 touches
 corporal-expressiveness  ░░░░░░░░░░   0 touches
 craft-flows              ██████████   3 touches
 cria                     ░░░░░░░░░░   0 touches
-dance-bachata            ░░░░░░░░░░   0 touches
-dance-cavalo-marinho     ░░░░░░░░░░   0 touches
-dance-forro              ░░░░░░░░░░   0 touches
-dance-frevo              ░░░░░░░░░░   0 touches
-dance-salsa              ░░░░░░░░░░   0 touches
-dance-samba              ░░░░░░░░░░   0 touches
+dance                    ░░░░░░░░░░   0 touches
 ecovila                  ░░░░░░░░░░   0 touches
 exercise                 ░░░░░░░░░░   0 touches
 finances                 ░░░░░░░░░░   0 touches
 guitar                   ░░░░░░░░░░   0 touches
 home-casinhas            ░░░░░░░░░░   0 touches
 instituto                ░░░░░░░░░░   0 touches
-lih-dd                   ░░░░░░░░░░   0 touches
+lih-dd                   ███░░░░░░░   1 touches
 local-ai                 ░░░░░░░░░░   0 touches
 magic-places             ░░░░░░░░░░   0 touches
 make-in-time             ░░░░░░░░░░   0 touches
@@ -42,7 +37,6 @@ pandeiro                 ░░░░░░░░░░   0 touches
 paper-jarbinhas          ░░░░░░░░░░   0 touches
 paper-megatruth          ░░░░░░░░░░   0 touches
 paper-scattercode        ░░░░░░░░░░   0 touches
-paper-sibgrapi-2026      ░░░░░░░░░░   0 touches
 prompt-opt-automation    ░░░░░░░░░░   0 touches
 reading                  ░░░░░░░░░░   0 touches
 rpg-isoroll              ░░░░░░░░░░   0 touches
@@ -76,15 +70,17 @@ yoga                     ░░░░░░░░░░   0 touches
 ```
 <!-- data:end -->
 
->**pareto** _(2026-07-22 compass — order by Lucas's live motivation)_  
-**workspace-os** _(#1, his call)_ — thrilled × transformative × immersed/advancing; in-flow this session (mvp-gaps closed, gitflow + gitlink gates, `/compass` shipped). Next = make v1 strong: reclaim 14 GB cruft (gap 2), de-overengineer hooks (gap 1), finish aiwbot as the away-from-PC front door.  
-**cria** _(#2)_ — best wind in Brain: thrilled × transformative × essential; paper v1 + dossiês + experiment design all staged. Feeds lih-dd first-paper, instituto motor, AI4Good 2026.2. The one gentle clock: CEP submission is calendar-critical for a 2026.2 experiment.  
-**home-casinhas** _(#3)_ — transformative × essential. DAM pago ✅; blocker is averbação do terreno (7º Cartório RGI, com painho). Highest leverage — one phone call to advance.
+>**pareto** _(2026-08-13 compass — order by Lucas's live motivation)_  
+**workspace-os** _(#1, his call, second cycle running)_ — thrilled × transformative × immersed/advancing, and the wind is not close: **29 of 29 workspace commits in the last 14 days were wos infrastructure** (hooks → root of law + families, 37 tools → eight families, verify suite split, session meter, entropy, INBOX drained to zero). Nothing else moved, and that is the correct allocation, not a leak. Now a *finish*, not an exploration: the v1 gate is 4 rows and 2 are open — criterion 3 blocked on one decision (the 199 MB `.skp` in `branches/casinhas`), criterion 4 is Frente 10, both mechanical after the call is made.  
+**spec-driven-development** _(#2)_ — rides the same wind for 10 minutes: `[lock-isoroll-content]` moves the lock ratchet 1→2 on material that is already spec-shaped. Cheapest visible progress on the board.  
+**home-casinhas** _(#3)_ — transformative × essential, leverage unchanged since 2026-07: still one phone call to the 7º Cartório RGI. Not competing for this cycle's energy by choice — kept here because its cost/benefit ratio is the best in Brain and it now also gates wos criterion 3 (the `.skp` lives in that repo).
 
->**gap** _(2026-07-22 compass)_  
-**paper-megatruth** — avoidant × stalled × external; team morale dropping, advisor absence compounds — gap type: fear/avoidance (identity threat around research leadership). Still 0 touches.  
-**body/movement cluster** — all dance goals + exercise + yoga + surf + pandeiro at 0 touches; pandeiro (old pareto pick) never got its Saturday. Gap type: whole embodiment area parked while research/infra absorbs energy.  
-**instituto** — coffee-1 (the fear-gated first text to one board member) still not sent, despite full cockpit build-out in branches/instituto. Gap type: fear/avoidance — build the structure instead of making the one relational move.
+>**gap** _(2026-08-13 compass)_  
+**cria** — **deliberately parked 2026-08-13 (Lucas's call)**, not stalled. The CEP window for a measured 2026.2 experiment closed while the semester started; rather than force a bad shape, the goal waits for wos v1 to free the energy. Gap type: **deliberate-park** — next compass must not read this as drift.  
+**instituto** — `[coffee-1]` unsent for a **third cycle**, while `branches/instituto` grew a full cockpit (5 núcleos + MOTOR.md + funding). Gap type: fear/avoidance, and the shape is now legible — *building the structure is the avoidance*. The one relational move stays one text message.  
+**paper-megatruth** — **third cycle at 0 touches**; avoidant × stalled × external. João and Mari are waiting on a meeting, not a paper. Gap type: fear/avoidance (identity threat around research leadership). The longer the silence, the more the morale problem it fears becomes the one it causes.  
+**body/movement cluster** — still 0 touches across exercise, yoga, surf, pandeiro and dance. Structural response taken this cycle: six near-identical dance goals collapsed into one [`dance.md`](goals/dance.md), turning six standing reproaches into one 2-minute choice. Gap type: deliberate-park.  
+**⚠ the dashboard is measuring the wrong thing** — it renders `workspace-os ░░░░░░░░░░ 1 touch` in the same fortnight that goal absorbed 29 of 29 commits, because it counts edits to the *goal file*, not work on the *goal*. Every goal whose work lands in `code/` or `core/` reads as dead here. Fix belongs in `core/hooks/brain/brain_dashboard.py`; filed to INBOX.
 <!-- stats:end -->
 
 ---
@@ -98,13 +94,8 @@ yoga                     ░░░░░░░░░░   0 touches
 | carreira UFRPE — progressão e renda | career | near | — | [progressao-map] mapear regras e calendário de progress… | [→](goals/career-ufrpe.md) |
 | corporal expressiveness | spiritual | dream | — | [body-awareness] read or watch something about body lan… | [→](goals/corporal-expressiveness.md) |
 | craft flows | career | now | — | [opencode-reliability] (A2) executar UM chain completo … | [→](goals/craft-flows.md) |
-| cria — ideação híbrida como mechanism design | craft | now | — | [cep] submeter protocolo ao CEP — é o gargalo de calend… | [→](goals/cria.md) |
-| bachata | fun | year | — | [find-class] find a bachata class in Recife | [→](goals/dance-bachata.md) |
-| cavalo marinho | fun | dream | — | [understand-it] watch a cavalo marinho performance — un… | [→](goals/dance-cavalo-marinho.md) |
-| forró | fun | year | — | [find-class] find a forró school or weekly event in Rec… | [→](goals/dance-forro.md) |
-| frevo | fun | year | — | [learn-step] learn one basic frevo step — just the foot… | [→](goals/dance-frevo.md) |
-| salsa | fun | year | — | [find-class] find a salsa class in Recife | [→](goals/dance-salsa.md) |
-| samba | fun | year | — | [find-class] find a samba class or rodinha in Recife | [→](goals/dance-samba.md) |
+| cria — ideação híbrida como mechanism design | craft | now | aprova | [unpark] retomar a decisão de shape — piloto observacio… | [→](goals/cria.md) |
+| dance | fun | year | — | [pick-one] escolher UM ritmo pra este ciclo — não seis,… | [→](goals/dance.md) |
 | ecovila santuário dos jatobás | finances | dream | — | [org-docs] organizar a papelada da associação em `branc… | [→](goals/ecovila.md) |
 | exercise | health | year | — | [map-recife] research climbing gyms and alternative spo… | [→](goals/exercise.md) |
 | finances | finances | near | none external | [map-numbers] map current monthly income and fixed expe… | [→](goals/finances.md) |
@@ -119,7 +110,6 @@ yoga                     ░░░░░░░░░░   0 touches
 | paper jarbinhas | craft | near | DC graduate progra… | [jarb-01] map Jarbas' PhD material — identify 2-3 publi… | [→](goals/paper-jarbinhas.md) |
 | paper megatruth | craft | near | — | [mega-01] schedule team meeting — show up with a clear … | [→](goals/paper-megatruth.md) |
 | paper scattercode | craft | near | — | [design-experiment] write one-page experiment design: h… | [→](goals/paper-scattercode.md) |
-| paper sibgrapi 2026 | craft | now | 2026 submission | [sib-01] download updated dataset from Artur | [→](goals/paper-sibgrapi-2026.md) |
 | prompt optimization automation | career | now | — | — | [→](goals/prompt-opt-automation.md) |
 | reading | fun | near | none external | [pick-book] pick one book and read one page today | [→](goals/reading.md) |
 | isoroll | fun | near | — | [playable] paint a room in live Foundry, walk a token, … | [→](goals/rpg-isoroll.md) |
@@ -152,10 +142,18 @@ yoga                     ░░░░░░░░░░   0 touches
 | yoga | spiritual | year | none external | [mat-today] practice once this week with no goal — just… | [→](goals/yoga.md) |
 <!-- goals:end -->
 
+## Done
+
+> One line per goal that reached its closure, with what shipped and when. The goal file itself is
+> deleted — done work is deleted, git is the history (`AGENTS.md`). Git recovers the file; it does
+> not recover the fact that this one *landed*, so that is what the line is for.
+
+- **paper-sibgrapi-2026** — 2026-07-11: submitted to SIBGRAPI 2026 with Artur, full chain `sib-01→sib-06`. The point was never the venue: this is the paper that broke the "I can't publish interesting work" block, in practice, against a fear the goal file had predicted in writing. Retired 2026-08-13.
+
 ## Ditched
 
 > One line per goal deliberately dropped, with the reason. The goal file itself is deleted —
 > git holds the file, but not *why* we let it go, and that is the only part worth keeping.
 > Dropping a goal is a strategic move, never a failure (`brain/SPECS.md` § Rationale).
 
-_(none yet)_
+- **dance-bachata · dance-cavalo-marinho · dance-forro · dance-frevo · dance-salsa · dance-samba** — 2026-08-13: not dropped, *collapsed*. Six files, zero touches each, all carrying the same sentence ("find a class in Recife"). One intention was wearing six names and charging six times the guilt. Merged into [`dance.md`](goals/dance.md), which asks one question instead — pick a rhythm — and keeps every ritmo in a table.

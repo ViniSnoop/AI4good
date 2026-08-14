@@ -12,12 +12,7 @@
 | [`corporal-expressiveness.md`](corporal-expressiveness.md) | [ spiritual | body | dream ] corporal expressiveness |
 | [`craft-flows.md`](craft-flows.md) | [ career | ai | now ] craft flows |
 | [`cria.md`](cria.md) | [ craft | research | now ] cria — ideação híbrida como mechanism design |
-| [`dance-bachata.md`](dance-bachata.md) | [ fun | dance | year ] bachata |
-| [`dance-cavalo-marinho.md`](dance-cavalo-marinho.md) | [ fun | dance | dream ] cavalo marinho |
-| [`dance-forro.md`](dance-forro.md) | [ fun | dance | year ] forró |
-| [`dance-frevo.md`](dance-frevo.md) | [ fun | dance | year ] frevo |
-| [`dance-salsa.md`](dance-salsa.md) | [ fun | dance | year ] salsa |
-| [`dance-samba.md`](dance-samba.md) | [ fun | dance | year ] samba |
+| [`dance.md`](dance.md) | [ fun | dance | year ] dance |
 | [`ecovila.md`](ecovila.md) | [ finances | home | dream ] ecovila santuário dos jatobás |
 | [`exercise.md`](exercise.md) | [ health | body | year ] exercise |
 | [`finances.md`](finances.md) | [ finances | management | near ] finances |
@@ -32,7 +27,6 @@
 | [`paper-jarbinhas.md`](paper-jarbinhas.md) | [ craft | research | near ] paper jarbinhas |
 | [`paper-megatruth.md`](paper-megatruth.md) | [ craft | research | near ] paper megatruth |
 | [`paper-scattercode.md`](paper-scattercode.md) | [ craft | research | near ] paper scattercode |
-| [`paper-sibgrapi-2026.md`](paper-sibgrapi-2026.md) | [ craft | research | now ] paper sibgrapi 2026 |
 | [`prompt-opt-automation.md`](prompt-opt-automation.md) | [ career | now ] prompt optimization automation |
 | [`reading.md`](reading.md) | [ fun | learning | near ] reading |
 | [`rpg-isoroll.md`](rpg-isoroll.md) | [ fun | rpg | near ] isoroll |
