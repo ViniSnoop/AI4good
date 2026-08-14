@@ -491,11 +491,19 @@ seam worth splitting at?", not "you are large". Only the second names `/roundup`
      ledger already holds, `Open threads` omitted rather than answered "none.", `State` = the
      script's three lines verbatim, ≤2 pointers. Last session's block was 48 lines and 3 of its 5
      open threads were already written in this file.
-   → **shipped**. One hazard remains, and it is not this frente's: promoting a **diverged** branch
-   still checks out `develop`/`main`, so a parallel session committing in that window lands on the
-   wrong branch. `--leave-dirty` refuses exactly this case, but a *clean* tree with a live parallel
-   session is unguarded — the script cannot see the other session. Fixing it means promoting from
-   a worktree, which belongs with the branch cleanup in Frente 11.2.
+   → **shipped**. One hazard remains and it is wider than promotion — **observed 2026-08-14, in
+   this session.** A parallel session switched the shared checkout from `feature/wos-typeset` to
+   `feature/brain-attention` mid-flight, and this session's commit landed on *their* branch, was
+   auto-pushed there by `core/hooks/post-commit`, and was only noticed because that hook prints
+   the branch it pushed. Recovery was clean (`git branch -f` the sha onto the right branch, then
+   push — never reset theirs), but nothing warned, and the branch read correct at session start.
+   Two sessions share one working tree, so **HEAD is shared mutable state and the branch checked
+   out at session start is not the branch you commit to.** Promotion is only the loudest case:
+   `--leave-dirty` now refuses a diverged target rather than moving HEAD, but ordinary commits are
+   unguarded. The real fix is one worktree per session, which belongs with the branch cleanup in
+   **Frente 11.2**; the cheap partial fix is a pre-commit warning when HEAD moved since session
+   start. Until then the working rule is `git branch --show-current` immediately before committing,
+   not once at the top.
 3. 🟢 **safe — cheaper models where the work is mechanical.** Measured split: opus 68%, fable 24%,
    sonnet 7.8%, haiku ~0%. Worth doing, but note the ceiling — routing cannot beat a 3x context
    multiplier, so sequence it after 1.
