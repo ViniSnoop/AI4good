@@ -15,4 +15,5 @@
 |------|-----------|-----|-------------|
 | [`conftest.py`](conftest.py) | [`conftest.pyi`](conftest.pyi) | `pytest_configure` | conftest.py — the one place the suite learns where things are: workspace root, core/tools, |
 | [`test_gauth.py`](test_gauth.py) | [`test_gauth.pyi`](test_gauth.pyi) | `accounts`, `boom` | T1 auth recovery: a dead Google token must hand Lucas a runnable fix, not a traceback. |
+| [`test_slides.py`](test_slides.py) | [`test_slides.pyi`](test_slides.pyi) | — | T1 slides: the geometry a deck reports must be the geometry the write path accepts. |
 <!-- routing:end -->

@@ -90,7 +90,7 @@ one belongs beside its tool. That rule is why one file is left here.
 | [`files/`](files/CONTEXT.md) | Remote file storage: list, search, download, upload. Provider leaf: `gdrive`. |
 | [`mail/`](mail/CONTEXT.md) | Read a mailbox and triage it. Provider leaf: `gmail`. Auth: [`../auth/gauth.py`] |
 | [`paper/`](paper/CONTEXT.md) | Academic sources and text: search papers, extract text, annotate, check terminol |
-| [`slides/`](slides/CONTEXT.md) | Slidev presentations: auth, scaffold, serve, build, and port from Google Slides. |
+| [`slides/`](slides/CONTEXT.md) | Presentations, read and edited in place. Provider leaf: `gslides` (Google Slides |
 | [`test/`](test/CONTEXT.md) | The verify-fast suite: every Tier 0 check plus the tool unit tests. Zero-token,  |
 | [`verify/`](verify/CONTEXT.md) | Verification contract + patterns for all code projects: tiers T0-T3, script name |
 | [`video/`](video/CONTEXT.md) | Link to navigable text — metadata, captions, transcript, OCR, VLM caption. |
@@ -99,7 +99,7 @@ one belongs beside its tool. That rule is why one file is left here.
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
-| [`SPECS.md`](SPECS.md) | — | — | Slides Pipeline — Specs & Architecture Decisions |
+| [`SPECS.md`](SPECS.md) | — | — | Google Slides API — facts worth not rediscovering |
 | [`attachments_util.py`](attachments_util.py) | [`attachments_util.pyi`](attachments_util.pyi) | `safe_name`, `month_dir`, `unique_path` | attachments_util.py — shared filename/dir helpers for Core/tools attachment downloaders (gmail, telegram) |
 | [`auth/gauth.py`](auth/gauth.py) | [`auth/gauth.pyi`](auth/gauth.pyi) | `config_dir`, `get_accounts`, `primary_aliases`, `resolve_alias`, `AuthExpired` | gauth.py — Google's leaf of the auth family: shared OAuth2 for every Google-backed tool |
 <!-- routing:end -->

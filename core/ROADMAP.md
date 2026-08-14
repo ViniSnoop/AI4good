@@ -46,21 +46,24 @@ validator's oracle" status of `deepresearch` was retired 2026-07-23; see [SCHEMA
       step names: an iterative step really is a loop, and that word is correct English, not the
       retired label. Add `loops` to `core/SCHEMA.md` § Retired tokens the moment it lands, so the
       check proves the rename complete.
-- [ ] **`slides/` still has no `--reauth`, and it is the last one.** `gmail`, `gcalendar` and
-      `gdrive` all carry the flag now and are listed in `gauth._REAUTH_CMD`; the slides CLI is the
-      only Google-backed tool whose dead token still falls back to "delete this file by hand".
-      A test now proves every command in that table points at a tool that exists, so the entry
-      cannot be added before the flag is real. Ships with the gslides rebuild below.
-- [ ] **Slides motion animation — is it scriptable at all?** Lucas wants movement authored from the CLI in
-      Google Slides: lines and shapes moving, with start/end positions and controlled velocity and
-      acceleration. First act is a capability check, not code — the Slides API exposes slide *transitions*
-      and static shape geometry, so per-object motion tweens may simply not be in the API surface.
-      **Lucas already named the fallback and it is the better-scoped problem:** if real motion is not
-      scriptable, work out how far *slide-to-slide transition* can simulate it — the constraint being that
-      it must survive export to **PDF**, i.e. the motion is carried by a generated sequence of slides
-      (position/velocity/acceleration sampled into frames), not by a player feature. That version is
-      squarely in reach of the existing `core/tools/slides/` surface and does not depend on the API
-      answer. (INBOX 2026-08-13)
+- [ ] **The other three accounts have no `slides-write` grant.** `personal` was consented on
+      2026-08-14 to prove remote editing works; `cin` and `ufrpe` still hold read-only slides
+      tokens (and `personal`'s read token is dead, which no longer matters — a read now uses the
+      write grant when the alias has one). Run `core/tools/slides/gslides auth <alias> --write`
+      for the other two **when a deck on that account actually needs editing**, not before: each
+      one costs Lucas a consent screen, and the account it must be is in the message.
+- [ ] **Slides motion — the capability question is answered; what is left is a `frames` command.**
+      Measured 2026-08-14: per-object motion tweens are **not** in the API surface, but the fallback
+      Lucas named *is* — `duplicateObject` (with an `objectIds` map) plus
+      `updatePageElementTransform` in one `batchUpdate` authors a frame sequence, proven live with a
+      constant-acceleration run. It is PDF-safe by construction, since the motion is carried by the
+      slides themselves and not by a player feature.
+      What remains is ergonomics, not discovery: a `gslides frames` command taking an element, a
+      start and end position, a frame count and an easing (constant velocity / constant
+      acceleration), emitting the batch. Two knowns to build against — object ids must be ≥5 chars,
+      and duplicates land right after their source so the run comes out reversed unless
+      `updateSlidesPosition` is in the same batch. Both are in
+      [`../core/tools/slides/SPECS.md`](tools/slides/SPECS.md). (INBOX 2026-08-13)
 - [ ] **Notion access without MCP — now has a named consumer and a semester behind it.** Lucas: *"será
       que dá pra acessar o meu notion? sem MCP? gostaria"* — a `core/tools/notion/notion` CLI on the
       official REST API with an internal integration token, shaped like the Google tools (per-alias

@@ -5,6 +5,7 @@ from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 from google.auth.exceptions import RefreshError
+from googleapiclient.errors import HttpError
 
 _GMAIL_CONFIG = pathlib.Path.home() / ".config" / "workspace-gmail"
 
@@ -16,6 +17,8 @@ _REAUTH_CMD = {
     "drive-write": "core/tools/files/gdrive auth {alias} --write --reauth",
     "gmail": "core/tools/mail/gmail auth {alias} --reauth",
     "calendar": "core/tools/calendar/gcalendar auth {alias} --reauth",
+    "slides": "core/tools/slides/gslides auth {alias} --reauth",
+    "slides-write": "core/tools/slides/gslides auth {alias} --write --reauth",
 }
 
 
@@ -97,6 +100,10 @@ def run(main_fn) -> None:
         main_fn()
     except AuthExpired as exc:
         sys.exit(str(exc))
+    except HttpError as exc:
+        # A rejected request is the API answering, not the tool crashing. The reason is in
+        # the response and it is usually actionable ("object ID length should not be < 5").
+        sys.exit(f"GOOGLE API REFUSED THE REQUEST ({exc.status_code}):\n    {exc.reason}")
 
 
 def auth(alias: str, service: str, scopes: list) -> Credentials:

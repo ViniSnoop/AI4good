@@ -1,0 +1,135 @@
+#!/mnt/workspace/.venv/bin/python3
+# Usage: core/tools/slides/gslides <cmd> [args] — Google Slides CLI: auth, list, read, new, add, text, apply
+import sys, json, pathlib, argparse
+
+_HERE = pathlib.Path(__file__).resolve().parent
+# Seams sit beside the CLI; gauth is its own family, shared by every provider tool.
+sys.path.insert(0, str(_HERE))
+sys.path.insert(0, str(_HERE.parent / 'auth'))
+import slides_core, slides_outline, gauth
+
+
+def cmd_auth(alias: str, write: bool, reauth: bool) -> None:
+    primary = gauth.resolve_alias(alias)
+    kind = "slides-write" if write else "slides"
+    token = gauth.config_dir(kind) / f"{primary}.token.json"
+    if reauth and token.exists():
+        # drop the stale token so a revoked/expired one can't dead-end on refresh
+        token.unlink()
+        print(f"Removed stale token: {token}")
+    print(f"Opening browser for OAuth — {kind} ({primary})...")
+    slides_core.get_service(primary, write=write)
+    print(f"Done. Token saved: {token}")
+
+
+def cmd_list(account: str, name: str) -> None:
+    aliases = gauth.primary_aliases() if account == "all" else [gauth.resolve_alias(account)]
+    for alias in aliases:
+        print(f"\n── Presentations ({alias}) ──")
+        found = slides_core.list_presentations(alias, name)
+        if not found:
+            print("  (nenhuma apresentação)")
+        for f in found:
+            print(f"  [{alias}] {f['name']}  ({f.get('modifiedTime', '')[:10]})  id:{f['id']}")
+
+
+def cmd_read(account: str, presentation_id: str, as_json: bool, verbose: bool) -> None:
+    alias = gauth.resolve_alias(account)
+    pres = slides_core.get_presentation(alias, presentation_id)
+    print(json.dumps(pres, ensure_ascii=False, indent=2) if as_json
+          else slides_outline.outline(pres, verbose=verbose))
+
+
+def cmd_new(account: str, title: str) -> None:
+    alias = gauth.resolve_alias(account)
+    pres = slides_core.create(alias, title)
+    print(f"Created '{pres['title']}' ({alias})  id:{pres['presentationId']}")
+    print(f"  {slides_core.url(pres['presentationId'])}")
+
+
+def cmd_add(account: str, presentation_id: str, layout: str) -> None:
+    alias = gauth.resolve_alias(account)
+    res = slides_core.apply(alias, presentation_id, [
+        {"createSlide": {"slideLayoutReference": {"predefinedLayout": layout}}}
+    ])
+    new_id = res["replies"][0]["createSlide"]["objectId"]
+    print(f"Added slide [{new_id}] ({layout})")
+    print(f"  {slides_core.url(presentation_id)}")
+
+
+def cmd_text(account: str, presentation_id: str, slide_id: str, text: str,
+             x: float, y: float, w: float, h: float) -> None:
+    alias = gauth.resolve_alias(account)
+    object_id = f"wos_{abs(hash((slide_id, text))) % 10**10}"
+    slides_core.apply(alias, presentation_id,
+                      slides_core.textbox(object_id, slide_id, text, x, y, w, h))
+    print(f"Wrote text box [{object_id}] on slide {slide_id}")
+    print(f"  {slides_core.url(presentation_id)}")
+
+
+def cmd_apply(account: str, presentation_id: str, path: str) -> None:
+    """The general seam: a JSON array of Slides API requests, applied atomically."""
+    alias = gauth.resolve_alias(account)
+    requests = json.loads(pathlib.Path(path).read_text())
+    res = slides_core.apply(alias, presentation_id, requests)
+    print(f"Applied {len(requests)} request(s); {len(res.get('replies', []))} replies")
+    print(f"  {slides_core.url(presentation_id)}")
+
+
+def main():
+    p = argparse.ArgumentParser(prog="gslides")
+    sub = p.add_subparsers(dest="cmd")
+
+    pa = sub.add_parser("auth")
+    pa.add_argument("alias")
+    pa.add_argument("--write", action="store_true", help="request edit scope (slides-write token)")
+    pa.add_argument("--reauth", action="store_true", help="drop the existing token and re-consent (fixes revoked/expired)")
+
+    pl = sub.add_parser("list")
+    pl.add_argument("--account", default="all")
+    pl.add_argument("--name", default="", help="filter by name substring")
+
+    pr = sub.add_parser("read")
+    pr.add_argument("--account", required=True)
+    pr.add_argument("--json", dest="as_json", action="store_true", help="raw API JSON instead of the outline")
+    pr.add_argument("--verbose", action="store_true", help="include elements that carry no text")
+    pr.add_argument("presentation_id")
+
+    pn = sub.add_parser("new")
+    pn.add_argument("--account", required=True)
+    pn.add_argument("title")
+
+    pad = sub.add_parser("add")
+    pad.add_argument("--account", required=True)
+    pad.add_argument("--layout", default="BLANK")
+    pad.add_argument("presentation_id")
+
+    pt = sub.add_parser("text")
+    pt.add_argument("--account", required=True)
+    pt.add_argument("--slide", required=True, dest="slide_id")
+    pt.add_argument("--x", type=float, default=0.1)
+    pt.add_argument("--y", type=float, default=0.1)
+    pt.add_argument("--w", type=float, default=0.8)
+    pt.add_argument("--h", type=float, default=0.15)
+    pt.add_argument("presentation_id")
+    pt.add_argument("text")
+
+    pap = sub.add_parser("apply")
+    pap.add_argument("--account", required=True)
+    pap.add_argument("presentation_id")
+    pap.add_argument("requests_json", help="file holding a JSON array of Slides API requests")
+
+    args = p.parse_args()
+    if   args.cmd == "auth":  cmd_auth(args.alias, args.write, args.reauth)
+    elif args.cmd == "list":  cmd_list(args.account, args.name)
+    elif args.cmd == "read":  cmd_read(args.account, args.presentation_id, args.as_json, args.verbose)
+    elif args.cmd == "new":   cmd_new(args.account, args.title)
+    elif args.cmd == "add":   cmd_add(args.account, args.presentation_id, args.layout)
+    elif args.cmd == "text":  cmd_text(args.account, args.presentation_id, args.slide_id,
+                                       args.text, args.x, args.y, args.w, args.h)
+    elif args.cmd == "apply": cmd_apply(args.account, args.presentation_id, args.requests_json)
+    else:                     p.print_help()
+
+
+if __name__ == "__main__":
+    gauth.run(main)

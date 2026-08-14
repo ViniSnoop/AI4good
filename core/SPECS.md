@@ -14,11 +14,16 @@ Todas skills em `core/skills/*.md` devem ter frontmatter YAML com `name:` e `des
 ### AD-03 — auth/gauth.py como módulo auth compartilhado (2026-06-18, movido 2026-08-14)
 Auth OAuth2 Google centralizado em `core/tools/auth/gauth.py`. Todos serviços Google (gmail, drive, calendar, slides futuro) importam deste módulo. Tokens separados por serviço em `~/.config/workspace-{service}/{alias}.token.json`. Credentials em `~/.config/workspace-gmail/credentials.json` (projeto GCP 1048141740528) servem todos os serviços.
 
-### AD-04 — Slides: Slidev + Vue (2026-06-18)
-Decisão de stack para apresentações profissionais: **Slidev** (Markdown + Vue). Razões: (1) source file texto puro editável por agente, git-versionável; (2) animações Vue nativas (`v-click`, `@vueuse/motion`, springs); (3) vídeo nativo via `<SlidevVideo>`; (4) interatividade (componentes Vue, Monaco live coding). Google Slides mantido para colaboração/aulas cotidianas. Quarto descartado para slides (melhor para papers com código executável). Remotion = vídeo, não slides.
-
-### AD-05 — Porte Google Slides → Slidev via API JSON (2026-06-18)
-Formato intermediário para conversão: Google Slides API JSON (não PPTX, não HTML). A API retorna estrutura completa (texto, posições, imagens, notas) em JSON limpo. PPTX é XML verboso com perda de layout; HTML do Google é minificado/ilegível. Requer habilitar Google Slides API no GCP project 1048141740528.
+### AD-04 — Slides: editar Google Slides direto, sem formato local (2026-08-14, revoga Slidev)
+**Revoga a decisão de 2026-06-18 por Slidev (Markdown + Vue) e o porte Google Slides → Slidev.**
+O argumento original era que a fonte de verdade não era editável por agente, então valia exportar
+para um formato de texto versionável. Verificado nesta data que **é editável**: `presentations.create`
++ `batchUpdate` criam, escrevem e reposicionam elementos remotamente, e movimento se autora como
+sequência de slides gerada (`duplicateObject` + `updatePageElementTransform`) — que sobrevive ao
+export para PDF, o requisito que o Lucas nomeou. Com isso, o porte só produzia uma segunda cópia
+para manter em sincronia. Slidev e o pipeline de porte foram **deletados**, não rebaixados.
+Consequência: o material de aula continua onde os alunos veem, e o WOS o edita lá.
+Ferramenta: `core/tools/slides/gslides`. Fatos da API: `core/tools/slides/SPECS.md`.
 
 ### AD-06 — Convenção de pastas `refs/` em skills (2026-07-05)
 Qualquer skill que acumule referências externas (papers, links, pesquisas, notas de leitura) deve manter uma pasta `refs/` no **mesmo nível do arquivo da skill**. Exemplo: `core/skills/prepare/refs/`. A pasta `refs/` é **excluída do sync** (o `sync-skills` copia apenas o `<name>.md` e gera o symlink; não toca em subpastas). Isso evita poluir os mirrors com arquivos auxiliares e mantém o source of truth limpo. Future agents must follow this convention when creating or updating skill-related reference folders.

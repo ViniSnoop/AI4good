@@ -1,3 +1,0 @@
-import pathlib
-
-def convert(presentation: dict, assets_dir: pathlib.Path | None = None) -> str: ...

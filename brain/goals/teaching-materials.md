@@ -38,7 +38,7 @@ cada uma mora. Sem organizar nada ainda — só o inventário.
 > [ ] [notion-read] WOS lê a página da turma no Notion — depende do CLI rastreado em `core/ROADMAP.md` (REST oficial + token de integração interna, sem MCP)  
 > [ ] [notion-write] WOS edita a página da turma — escrita só depois que a leitura estiver confiável  
 > [ ] [roundtrip-one] editar **uma** aula real pelo CLI e devolver ao lugar onde os alunos veem; é o teste honesto de que a conexão existe  
-> [ ] [research-tools] research best current teaching tools — interactive slides, animations, open formats — start from the animation entries in `core/WATCHLIST.md` (claude-code+remotion, Claude Code UI-animation skills); the workspace already has `core/tools/slides/slides` (Slidev) shipped, so the open question is animation, not slides  
+> [ ] [research-tools] research best current teaching tools — interactive slides, animations, open formats — start from the animation entries in `core/WATCHLIST.md` (claude-code+remotion, Claude Code UI-animation skills). **Reescopado 2026-08-14:** o WOS agora lê e edita os decks direto no Google Slides (`core/tools/slides/gslides`), e Slidev foi deletado — a pergunta aberta não é mais qual formato local adotar, é quanto de animação dá pra autorar como sequência de slides gerada  
 > [ ] [pick-format] pick a target format or tool — one concrete candidate to prototype with  
 > [ ] [migrate-one] convert one existing lecture to the new format as a test  
 > [ ] [full-migration] define migration plan for remaining course materials  
@@ -54,10 +54,10 @@ last-touch: 2026-08-14  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |      14 |
-| trimester   |      24 |
-| semester    |      24 |
-| year        |      24 |
-| 2-year      |      24 |
-| 4-year      |      24 |
+| month       |      15 |
+| trimester   |      25 |
+| semester    |      25 |
+| year        |      25 |
+| 2-year      |      25 |
+| 4-year      |      25 |
 <!-- stats:end -->
