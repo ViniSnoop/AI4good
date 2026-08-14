@@ -21,9 +21,9 @@ Four criteria. Nothing else gates v1.
 
 | # | Criterion | Owner | State |
 |---|-----------|-------|-------|
-| 1 | **verify-fast green + Tier 0 live** — naming, placement, pointer integrity, size-as-signal deterministic; entropy dashboard reads clean | Frente 4 | checks live · **read [`entropy.md`](entropy.md) for the count, never a copy of it** |
+| 1 | **verify-fast green + Tier 0 live** — naming, placement, pointer integrity, size-as-signal deterministic; **this repo** clean, every nested repo on a shrinking baseline | Frente 4 | checks live · **read [`entropy.md`](entropy.md) for the count, never a copy of it** |
 | 2 | **One ledger, no duplicates** — this file is the sole wos ledger, verified by scan not eyeball | Frente 8 | ✅ **MET 2026-07-30** — `test_no_item_lives_in_two_ledgers` |
-| 3 | **Everything pushed, gitflow-shaped** — every `code/` repo on `main`/`feature/*`, zero unpushed, no repo without a remote | Frente 11 | 🟡 **one repo short** — audited 2026-07-31, see below |
+| 3 | **Everything pushed, gitflow-shaped** — every `code/` repo on `main`/`feature/*`, zero unpushed, no repo without a remote | Frente 11 | ✅ **MET 2026-08-14** — re-audited across every repo |
 | 4 | **Clonable by a student** — fresh clone gets every capability; deps declared, no undocumented hand-installs | Frente 10 | open |
 
 Post-v1 validation is `[mvp-validate]`: use the system daily for 30 days, then assess whether it
@@ -213,6 +213,19 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
    **The reusable lesson: an incomplete rename is indistinguishable from entropy at the leaves, and
    is only fixable at the generator.**
    → **model: sonnet**.
+0. ✅ **criterion 1 rescoped 2026-08-14 (Lucas) — the DoD now says what the tests always said.**
+   Measured: of the **90** distinct paths the dashboard reports, **81 live in nested repos and 9 in
+   this one** — and those 9 carry **zero** BLOCK-level violations (5 are doc size *signals*:
+   `ROADMAP.md` 735, `SETUP.md` 624, `core/SCHEMA.md` 363, `core/flows/craft/craft.md` 382, a prog-1
+   slide deck 635; 3 are fanout at exactly 10 files, which `limits.env` calls a warn on purpose;
+   1 is `code/_templates/module.SPEC.md`, blocked behind job B's single reviewed SPEC migration).
+   So "dashboard reads clean" held v1 hostage to 24 repos this one cannot fix — including
+   `isoroll-*`, owned by a parallel session. **Criterion 1 is now: this repo clean, plus a
+   per-repo baseline that may only shrink.** The ratchet already exists (`BASELINE` in
+   `test_entropy_naming.py` and `test_entropy_fanout.py`); nothing new is built for this. The
+   workspace-wide drain does not disappear — it becomes per-repo work, gating `[mvp-validate]`
+   rather than v1. **The lesson: a criterion whose scope is wider than its test's scope is a
+   criterion nobody can close.**
 3. 🟢 **the entropy dashboard — live.** `make entropy` → [`entropy.md`](entropy.md), 1904 tracked
    files across the workspace **and its 24 nested repos**, ~1.3 s. Read the report; never re-scan
    the tree. **Never copy its counts into this file** — a copied number is the drift these checks
@@ -469,50 +482,54 @@ plateau began. So: a number in this file that
    with what it is for and what it buys you** — nobody accepts an enforcement layer they cannot see
    the value of, and writing that sentence per hook is itself an audit of whether the hook earns its
    place. Sequence it after 1 and 2; running it on a clean machine is the honest test of criterion 4.
-   → **model: sonnet** to build, **opus** for the question set.
+
+   **The mechanism, named by Lucas 2026-08-14 (INBOX):** *"the ability to toggle on and off the WOS
+   features — LOC limit, file-per-folder limit, caveman, even context-tree, … also gdrive, latex,
+   gmail, which skills and tools"*. An installer that asks questions needs something to *do* with the
+   answers, and that something is a **feature registry with an on/off switch per capability** — the
+   installer then writes a profile, not a patch. Two payoffs, and the second is the larger one:
+   - **install** — a stranger enables the subset they want, which is the whole of step 3's
+     Lucas-specific/general split made executable rather than documented.
+   - **ablation** — Lucas: *"it also would ease ablation tests so we can indeed see the impacts of
+     each option."* This is the missing half of the pilot in
+     [`core/ROADMAP.md`](core/ROADMAP.md) § ablation-bench, whose first run produced no signal
+     precisely because there was no clean way to turn one feature off. **No feature in this workspace
+     has ever been measured**; a toggle is the cheapest instrument that would let one be.
+
+   Design constraint that falls out of it: a toggle must reach the *enforcement* layer, not just the
+   docs. The numbers already centralise (`core/hooks/limits.env`), the types already centralise
+   (`core/SCHEMA.md`) — so the registry's job is mostly to name which hooks/skills/tools are wired,
+   not to re-implement their rules. **Anything that cannot be switched off is a finding**: it means
+   the capability is entangled with the scaffold rather than sitting on it.
+   → **model: sonnet** to build, **opus** for the question set and the registry shape.
 
 ---
 
-## Frente 11 — Git & sync integrity — **v1 criterion 3 — one repo short**
+## Frente 11 — Git & sync integrity — **v1 criterion 3 — ✅ MET 2026-08-14**
 
-**Re-audited 2026-07-31 across all 25 repos** (the 2026-07-29 sweep covered 16 and the count has
-grown). Result: zero unpushed anywhere, every branch `main`/`master`/`feature/*` — but **three repos
-had no remote at all**, which the criterion forbids and the earlier sweep did not catch.
+**The criterion holds as of 2026-08-14**, re-audited across every repo in the tree: each has a
+remote, each sits on `main`/`master`/`feature/*`, and the only unpushed commits are one apiece in
+`isoroll-content` and `isoroll-module` — the parallel isoroll session's in-flight work, which
+`core/hooks/post-commit` pushes on its own. Re-run the audit rather than trusting this line; it is
+one loop over `find . -name .git` and it is how the two stale claims below were caught.
 
-Two are now private GitHub remotes (`instituto`, `mechanism-search`), matching the convention
-already used by the non-Overleaf papers. **`branches/casinhas` cannot be pushed as-is:**
-`modelo/sketchup-referencia/volume-lucas-v04.skp` is **199 MB**, over GitHub's hard 100 MB limit, so
-the push is rejected by a pre-receive hook. Three ways out, all Lucas's call because two rewrite
-history: (a) **Git LFS** for `*.skp` — keeps the file, needs `git lfs migrate import`, still a
-rewrite; (b) drop the binary from history and keep it local-only via `.gitignore`; (c) leave the
-repo local and carve the criterion to exclude it deliberately. Until one is chosen, criterion 3 is
-**not** met — recorded here rather than left as a green tick that is false.
+**What closed it: `branches/casinhas`.** `modelo/sketchup-referencia/volume-lucas-v04.skp` was
+208 MB, over GitHub's hard 100 MB object limit, and was the single reason the repo had no remote.
+Lucas ruled the study obsolete (2026-08-14), so it was dropped from history with `filter-branch`
+rather than moved to LFS — `.git` went **193 M → 128 K** and the repo pushed clean. `*.skp` now sits
+in that repo's `.gitignore` beside the other heavy binaries, so the next SketchUp export cannot
+recreate the block.
 
-*Original sweep, 2026-07-29:* 16/16 repos: zero unpushed, every branch `main`/`feature/*`, every
-repo had a remote. 41 commits pushed across 8 repos; `cria` published (public, secret-scanned first); `loop/*`
-renamed to `feature/*`, 5 stale ones deleted (ancestors of live branches, zero unique commits).
-Dirty 215 → 93.
+**The lesson, and it is the same one Frente 9 paid for: an audit's findings rot faster than the
+ledger holding them.** Every item of the old step 1 was re-checked on 2026-08-14 and **three of
+four had resolved themselves** in a fortnight — the `Makefile` was untracked in **zero** repos (the
+three named repos that still showed it had been moved to `.Trash-1000`), `shortvid`'s duplicated
+source tree went with them, and of the two repos said to verify RED, `flows` now passes **225
+tests** and `voti` was archived to a spec with its implementation deleted. The fourth,
+`programacao1`, Lucas deleted during the same session. **A finding older than a week is a
+hypothesis; re-run it before spending a decision on it.**
 
-The "294 dirty files" was wrong twice: 215 real, and **122 of those were unstaged generated stubs,
-not Lucas's work**. Near-miss worth keeping: the first read was that stubs are gitignorable debris.
-Opposite — `SETUP.md:41` stages them and `SETUP.md:536` hard-blocks reading source while its
-interface is current, so ignoring them breaks the read-gate on every fresh clone.
-
-1. 🔴 **decide-first — four findings the sweep exposed.** Explanations pending Lucas's direction:
-   - **`Makefile` untracked in 7 repos** (`apptime`, `shortvid`, `ppc`, `corpora`, `futebots`,
-     `isometric-perspective`, `flows`). The verify entrypoint itself is not in the repo, so a fresh
-     clone has no `make verify-fast` — a direct criterion-4 hole.
-   - **`shortvid/shortvid/`** holds a *duplicated source tree* (`_crop_overlay.py`, `_effects.py`,
-     `CONTEXT.md` — a whole second copy of the package one level deep) alongside the same filenames
-     untracked at `shortvid/ui/`. Not stub debris. Untouched on purpose.
-   - **`programacao1` has no repo of its own** — tracked inside the workspace structural repo,
-     inverting the rule that internal projects use own repos. `brain/TODO.md:18-19` already holds the
-     task to fix it. (`prog1`, its class-based predecessor, was deleted 2026-07-30.)
-   - **Two repos verify RED on already-committed code**: `flows` (3 failures in
-     `engine/tests/unit/test_ui_m10_client.py::TestHandleClient`) and `voti` (8
-     `react/no-unescaped-entities` errors). Pushed anyway: the red predates the unpushed commits.
-   → **Lucas decides** each · sonnet to execute.
-2. 🟢 **promotion is a decision the session must actually take, not one it may skip.** Lucas,
+1. 🟢 **promotion is a decision the session must actually take, not one it may skip.** Lucas,
    2026-08-13: *"this 'merging up to main' maneuver should be a decision taken by agents as part of
    the roundup/handoff so we minimize the number of repos on open feature branches."* The skill
    already has the mechanism — `/roundup` Phase 5 merges `feature/*` → `develop` → `main` — but it
@@ -542,7 +559,7 @@ interface is current, so ignoring them breaks the read-gate on every fresh clone
    from a session that does not own those repos, as long as it skips the ones another session is
    holding.
    → **model: sonnet**.
-3. 🔴 **decide-first — HEAD is shared mutable state, and nothing warns.** Observed 2026-08-14: a
+2. 🟢 **HEAD is shared mutable state, and nothing warns — decided 2026-08-14, build it.** Observed 2026-08-14: a
    session began on `feature/wos-typeset`, a parallel session switched the shared checkout to
    `feature/brain-attention` mid-flight, and the first session's commit landed on *their* branch and
    was auto-pushed there by [`core/hooks/post-commit`](core/hooks/post-commit). It was caught only
@@ -554,13 +571,18 @@ interface is current, so ignoring them breaks the read-gate on every fresh clone
    reset or force-push theirs, and never `git checkout` your branch back — that just yanks HEAD out
    from under them, which is the same defect pointed the other way.
 
-   Two candidate fixes, and they are not equivalent. **One worktree per session** removes the shared
-   HEAD entirely and is the real answer; it also interacts with the sweep above, since a worktree
-   holds a branch checked out and `git branch -d` will refuse it. **A pre-commit warning when HEAD
-   moved since session start** is cheap, catches the case at the moment it matters, and needs
-   somewhere to record the start-of-session branch. `core/tools/wos/roundup --leave-dirty` already
-   refuses to move HEAD for a diverged promotion, so the promotion path is covered; **ordinary
-   commits are not.** Decide which before building either.
+   **Ruled 2026-08-14 (Lucas): the pre-commit warning, not worktrees.** Record the branch at session
+   start; `pre-commit` warns when HEAD no longer matches it. It is ~30 lines, costs nothing to adopt,
+   and fires at the exact moment damage would land. One worktree per session removes the shared HEAD
+   entirely and is the better end state, but every session has to adopt it before it protects
+   anything, and a checked-out worktree makes `git branch -d` refuse — which fights the branch sweep
+   in step 1. Keep worktrees as a later opt-in, piloted on one parallel pair, not as the fix for this.
+
+   Build notes: the start-of-session branch needs somewhere to live — `core/hooks/session/` already
+   owns session lifecycle state and is where a `SessionStart` hook can write it. Warn, never block: a
+   deliberate mid-session branch switch is legitimate and common. `core/tools/wos/roundup
+   --leave-dirty` already refuses to move HEAD for a diverged promotion, so the promotion path is
+   covered; **ordinary commits are the gap.**
    → **model: sonnet**.
 
 ---
@@ -618,15 +640,28 @@ is no conceptual intersection."* Each type answers exactly one question.
    Requested by Lucas 2026-07-30, after the type system lands so the passes are not wasted on files
    about to be deleted.
    → **model: sonnet**.
-> **A fourth type exists and must not be folded: the transient initiative doc.** `code/VERIFY.md`
-> self-declares this lifecycle and names `REFACTOR.md` as its species; siblings are
-> `code/SPEC-DRIVE.md`, `code/isoroll-module/REFACTOR.md`, `core/MIGRATION-STATUS.md`,
-> `code/dobra/DECISIONS.md`. Folding `VERIFY.md` into a ROADMAP was **investigated 2026-07-30 and
-> rejected as unsafe**: it has 24 inbound references, 7 of them in `core/hooks/*` source comments citing
-> stable anchor IDs (`VERIFY.md W1/W2/I2/G1/G3/G7/A1`). It is a cross-project rollout with cited
-> anchors and a defined death date — genuinely not a per-project ROADMAP. Open question for Lucas:
-> the type is legitimate, but does it need a **name convention** (all five are named differently) and
-> a rule that it must be deleted when its rollout completes?
+3. 🟢 **the transient initiative doc is `ROADMAP-<slug>.md` — ruled 2026-08-14, three renames left.**
+   The "fourth type" turned out not to be a type. Lucas's ruling was to unify by semantic symmetry
+   with zero conceptual intersection, and *"make sure as well that we do not create a new .md file
+   for each specific minor thing"* — and once asked that way the answer falls out of the type table:
+   a rollout is *intent, plan, and what we rejected*, scoped to one initiative, which is the ROADMAP
+   question exactly. It never needed a name, it needed a **scope suffix**, and `AGENTS.md` already
+   sanctions `ROADMAP-<slug>.md`. **Five differently-named files were the symptom of a missing
+   suffix, not of a missing type.** The law is rewritten in
+   [`core/SCHEMA.md`](core/SCHEMA.md) § *The one exception*, membership is closed at four, and
+   `test_type_gate.py` now asserts the exempt set by equality so a fifth name cannot appear quietly.
+
+   **Done:** the skill-suite migration report under `core/` is deleted — it opened with *"What was
+   done (2026-07-05)"*, an annotated corpse of a finished migration. Lucas called it *"very shady…
+   do we really need that one?"* and he was right. Its one durable paragraph (the convention for
+   skill `refs/` folders, plus the suite-folder rule) moved to `core/SCHEMA.md` § Layer: skill.
+
+   **Left, one reviewed commit each:** `code/VERIFY.md` → `ROADMAP-verify.md` (24 inbound refs, 7 in
+   `core/hooks/*` comments — but they cite **anchor ids**, which a rename preserves; only paths
+   move), `code/SPEC-DRIVE.md` → `ROADMAP-spec-drive.md`, `code/isoroll-module/REFACTOR.md` →
+   `ROADMAP-refactor.md`. And `code/dobra/DECISIONS.md` is not a roadmap at all — decisions are
+   *what must be true and why*, so it folds into that project's `SPECS.md`.
+   → **model: sonnet**, one file per commit.
 
 ---
 

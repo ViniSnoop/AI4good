@@ -3,34 +3,34 @@
 <!-- stats:start -->
 <!-- data:start -->
 ## attention dashboard  _(auto-updated on every commit)_
-last-updated: 2026-08-14 12:05
+last-updated: 2026-08-14 13:10
 
 >**areas** — last 14 days  
 ```
-health       ██████████   29 touches
+health       ██████████   32 touches
 career       ███░░░░░░░   11 touches
-finances     ░░░░░░░░░░   2 touches
-fun          ████░░░░░░   13 touches
+finances     █░░░░░░░░░   5 touches
+fun          ███░░░░░░░   10 touches
 spiritual    ░░░░░░░░░░   0 touches
 ```
 
 >**goals** — last 14 days  
 ```
 CONTEXT                  ░░░░░░░░░░   1 touches
-burocracia-academica     ░░░░░░░░░░   1 touches
+burocracia-academica     ░░░░░░░░░░   2 touches
 career-ufrpe             ░░░░░░░░░░   0 touches
 corporal-expressiveness  ░░░░░░░░░░   0 touches
 craft-flows              ███░░░░░░░   11 touches
-cria                     █░░░░░░░░░   4 touches
+cria                     ░░░░░░░░░░   2 touches
 dance                    ░░░░░░░░░░   1 touches
-ecovila                  ░░░░░░░░░░   1 touches
+ecovila                  ░░░░░░░░░░   2 touches
 exercise                 ░░░░░░░░░░   0 touches
 finances                 ░░░░░░░░░░   0 touches
 guitar                   ░░░░░░░░░░   0 touches
-home-casinhas            ░░░░░░░░░░   1 touches
+home-casinhas            █░░░░░░░░░   4 touches
 instituto                ░░░░░░░░░░   1 touches
 lih-dd                   ░░░░░░░░░░   2 touches
-local-ai                 ██░░░░░░░░   7 touches
+local-ai                 █░░░░░░░░░   5 touches
 magic-places             ░░░░░░░░░░   0 touches
 make-in-time             ░░░░░░░░░░   0 touches
 pandeiro                 ░░░░░░░░░░   0 touches
@@ -39,10 +39,10 @@ paper-megatruth          ░░░░░░░░░░   0 touches
 paper-scattercode        ░░░░░░░░░░   0 touches
 prompt-opt-automation    ░░░░░░░░░░   0 touches
 reading                  ░░░░░░░░░░   0 touches
-rpg-isoroll              ████░░░░░░   12 touches
+rpg-isoroll              ██░░░░░░░░   9 touches
 sleep-regularity         ░░░░░░░░░░   0 touches
 smartphone-addiction     ░░░░░░░░░░   0 touches
-spacemantics             ░░░░░░░░░░   2 touches
+spacemantics             ░░░░░░░░░░   1 touches
 spec-driven-development  ░░░░░░░░░░   2 touches
 startapps-apptime        ░░░░░░░░░░   1 touches
 startapps-arede          ░░░░░░░░░░   0 touches
@@ -50,7 +50,7 @@ startapps-batituque      ░░░░░░░░░░   0 touches
 startapps-come-bem       ░░░░░░░░░░   0 touches
 startapps-cuida          ░░░░░░░░░░   0 touches
 startapps-da-feirinha    ░░░░░░░░░░   0 touches
-startapps-gira           ░░░░░░░░░░   2 touches
+startapps-gira           ░░░░░░░░░░   1 touches
 startapps-laplata        ░░░░░░░░░░   1 touches
 startapps-marcapramim    ░░░░░░░░░░   0 touches
 startapps-permuta        ░░░░░░░░░░   0 touches
@@ -62,10 +62,10 @@ startapps-virada         ░░░░░░░░░░   0 touches
 startapps-voti           ░░░░░░░░░░   1 touches
 startapps-xacomigo       ░░░░░░░░░░   0 touches
 surf                     ░░░░░░░░░░   0 touches
-teaching-materials       ░░░░░░░░░░   1 touches
+teaching-materials       ░░░░░░░░░░   3 touches
 vipassana                ░░░░░░░░░░   0 touches
 voice                    ░░░░░░░░░░   0 touches
-workspace-os             ██████████   29 touches
+workspace-os             ██████████   32 touches
 yoga                     ░░░░░░░░░░   0 touches
 ```
 <!-- data:end -->
@@ -135,7 +135,7 @@ yoga                     ░░░░░░░░░░   0 touches
 | voti | craft | year | — | [data-research] research available open data: Câmara do… | [→](goals/startapps-voti.md) |
 | xacomigo | craft | year | — | [value-prop] write the core value proposition in 2 sent… | [→](goals/startapps-xacomigo.md) |
 | surf | fun | year | — | [find-school] find a surf school in Recife — Boa Viagem… | [→](goals/surf.md) |
-| teaching materials paradigm | craft | near | — | [research-tools] research best current teaching tools —… | [→](goals/teaching-materials.md) |
+| teaching materials paradigm | craft | near | — | [inventory-material] mapear o que existe e onde — pasta… | [→](goals/teaching-materials.md) |
 | vipassana | spiritual | year | none external | [sit-5] sit in silence for 5 minutes — no guidance, no … | [→](goals/vipassana.md) |
 | voice | spiritual | near | — | [voice-map] identify one scenario where not being heard… | [→](goals/voice.md) |
 | workspace OS | health | year | none external | [v1] pass the four-criterion v1 gate — Tier 0 anti-entr… | [→](goals/workspace-os.md) |
