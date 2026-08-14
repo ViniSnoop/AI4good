@@ -66,6 +66,19 @@ def test_routing_generator_consumes_the_deleted_list() -> None:
     assert "$STAGED_DELETED" in code
 
 
+def test_subdir_rows_are_not_reported_as_removed_files(capsys, tmp_path: Path) -> None:
+    """A healthy sync printed one "removed stale entry" per subdirectory — subdir rows are
+    backticked, so they parsed as files. Noise on that line hides a real removal."""
+    sub = tmp_path / "child"
+    sub.mkdir()
+    (sub / "CONTEXT.md").write_text("# child\n> a child\n", encoding="utf-8")
+    (tmp_path / "CONTEXT.md").write_text(f"# d\n> d\n\n{RS}\n## Routing\n\n{RE}\n", encoding="utf-8")
+    sync(tmp_path)
+    capsys.readouterr()
+    sync(tmp_path)
+    assert "removed stale entry" not in capsys.readouterr().out
+
+
 def test_stale_row_is_dropped_when_the_file_is_gone(tmp_path: Path) -> None:
     (tmp_path / "kept.py").write_text("# kept\n", encoding="utf-8")
     (tmp_path / "CONTEXT.md").write_text(

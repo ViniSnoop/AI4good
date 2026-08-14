@@ -73,6 +73,11 @@ def parse_preserved_files(inner: str) -> dict:
         m = re.match(r'\[?`([^`]+)`\]?', cells[0])
         if not m: continue
         fname, desc = m.group(1), cells[-1]
+        # Subdirectory rows are backticked too, so they matched here and were then
+        # reported as "removed stale entry" on every healthy sync — 13 alarming lines
+        # for core/hooks alone, which is how a real removal notice gets missed. Their
+        # descriptions come from parse_preserved_subs; here they are noise.
+        if fname.endswith('/'): continue
         if desc not in ('Description', '—', '', PLACEHOLDER): rows[fname] = desc
     return rows
 
