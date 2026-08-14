@@ -70,10 +70,12 @@ validator's oracle" status of `deepresearch` was retired 2026-07-23; see [SCHEMA
       workspace cannot run headless). Verified 2026-08-14 against the live API with a deliberately
       bogus secret: endpoint, pinned `Notion-Version` header and the 401 → instruction mapping all
       answer correctly, so **a valid secret is the only untested link.**
-      1. **Lucas mints it once** — the step no agent can absorb, and the CLI prints the three clicks
-         when it runs without a token (`my-integrations` → capabilities → connect the class page).
-         Until then `[notion-read]` in
-         [`brain/goals/teaching-materials.md`](../brain/goals/teaching-materials.md) cannot close, and
+      1. **The secret is minted and stored** (2026-08-14): integration `WOS` on workspace *Lucas
+         Silva Figueiredo's Notion*, token at `~/.config/workspace-notion/personal.token.json`.
+         `whoami` answers. **`list` returns nothing** — content is invisible to an integration until
+         it is connected, so the one open step is Lucas opening the class page → ⋯ → Connections →
+         add `WOS` (a parent connection covers everything under it). Until then `[notion-read]` in
+         [`brain/goals/teaching-materials.md`](../brain/goals/teaching-materials.md) cannot close and
          nothing here can be smoke-tested against real content.
       2. **Then `[notion-write]`** — append/update blocks. The read path already returns block ids
          because that is what the write path addresses; the missing piece is a request seam shaped
