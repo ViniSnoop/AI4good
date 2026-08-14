@@ -7,6 +7,9 @@ WARN_LINES: Incomplete
 BLOCK_LINES: Incomplete
 FIRST_LINE_COMMENT: Incomplete
 EXAMPLE_COMMENT: Incomplete
+
+def block(*lines) -> None: ...
+
 _: Incomplete
 tool: Incomplete
 data: Incomplete

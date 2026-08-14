@@ -31,6 +31,20 @@ EXAMPLE_COMMENT = {
 	'.md': '# Title of this document',
 }
 
+def block(*lines):
+	"""Reject the edit, on stderr, which is the only stream the model is handed.
+
+	Claude Code feeds a PreToolUse exit-2's STDERR back as the blocking reason; stdout is
+	dropped. This gate was the only one of six printing to stdout, so every rejection here
+	arrived as "No stderr output" — an edit blocked with no reason attached, costing a round
+	of investigation each time. It read as intermittent because it is provider-shaped, not
+	path-shaped: the opencode and copilot shims concatenate both streams and were fine, and
+	running the hook by hand shows stdout in the terminal. Only Claude Code went mute.
+	"""
+	print(*lines, sep='\n', file=sys.stderr)
+	sys.exit(2)
+
+
 _, tool, data, _, _ = parse_stdin()
 file_path = data.get('file_path', '')
 basename  = os.path.basename(file_path)
@@ -40,9 +54,8 @@ if basename == 'CONTEXT.md' and tool == 'Write' and not os.path.exists(file_path
 	lines = data.get('content', '').splitlines()
 	line2 = lines[1].strip() if len(lines) > 1 else ''
 	if not re.match(r'^>\s*\S', line2):
-		print(f"⛔ CONTEXT.md DESCRIPTION MISSING — {file_path}")
-		print(f"   Line 2 must be: > Short description of this directory")
-		sys.exit(2)
+		block(f"⛔ CONTEXT.md DESCRIPTION MISSING — {file_path}",
+		      f"   Line 2 must be: > Short description of this directory")
 
 _, ext = os.path.splitext(file_path)
 _path      = Path(file_path)
@@ -59,10 +72,9 @@ if tool == 'Write':
 		pattern = FIRST_LINE_COMMENT.get(ext)
 		first   = content.splitlines()[0] if content.strip() else ''
 		if pattern and not re.match(pattern, first):
-			print(f"⛔ FIRST-LINE MISSING — {file_path}")
-			print(f"   New files must start with a description.")
-			print(f"   Example: {EXAMPLE_COMMENT.get(ext, '# Description')}")
-			sys.exit(2)
+			block(f"⛔ FIRST-LINE MISSING — {file_path}",
+			      f"   New files must start with a description.",
+			      f"   Example: {EXAMPLE_COMMENT.get(ext, '# Description')}")
 
 elif tool == 'Edit':
 	if not os.path.exists(file_path):
@@ -75,9 +87,8 @@ else:
 	sys.exit(0)
 
 if is_code and new_lines >= BLOCK_LINES:
-	print(f"⛔ SIZE GATE — {file_path} would reach {new_lines} lines (limit: {BLOCK_LINES}).")
-	print(f"   Extract shared logic into a new module and import it from existing callers.")
-	print(f"   Do NOT copy existing functions into a new file — copies are blocked at commit.")
-	sys.exit(2)
+	block(f"⛔ SIZE GATE — {file_path} would reach {new_lines} lines (limit: {BLOCK_LINES}).",
+	      f"   Extract shared logic into a new module and import it from existing callers.",
+	      f"   Do NOT copy existing functions into a new file — copies are blocked at commit.")
 
 sys.exit(0)

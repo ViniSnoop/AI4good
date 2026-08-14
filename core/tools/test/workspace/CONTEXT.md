@@ -6,6 +6,7 @@
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
+| [`test_gate_messages.py`](test_gate_messages.py) | [`test_gate_messages.pyi`](test_gate_messages.pyi) | — | T0: a blocking gate must say WHY on stderr. Claude Code feeds a PreToolUse exit-2's |
 | [`test_gitignore_self_heal.py`](test_gitignore_self_heal.py) | [`test_gitignore_self_heal.pyi`](test_gitignore_self_heal.pyi) | — | T0 self-healing .gitignore allowlist check (Frente 6 item 2): a new domain subdir with a |
 | [`test_import_paths.py`](test_import_paths.py) | [`test_import_paths.pyi`](test_import_paths.pyi) | — | T0 harness invariant: the suite's sys.path cannot silently shadow a module. |
 | [`test_interface_generators.py`](test_interface_generators.py) | [`test_interface_generators.pyi`](test_interface_generators.pyi) | — | T0 interface-generator invariants: a generated stub must land beside its source, and a |
