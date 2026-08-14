@@ -18,12 +18,12 @@ validator's oracle" status of `deepresearch` was retired 2026-07-23; see [SCHEMA
       per new directory, all untracked. Same shape as the older `engine/tests/benchmarks/benchmarks/`
       debris. It resolves the output root relative to the wrong anchor. Deleted by hand both times;
       the next directory split will recreate it. (Found 2026-08-02 during the flows fanout drain.)
-- [ ] **The generated `jsconfig.json` excludes the directory it is meant to include.** Every
-      stubgen run over a JS folder printed `error TS18003: No inputs were found in config file
-      '.../jsconfig.json'. Specified 'include' paths were '["*.js"]' and 'exclude' paths were
-      '["<that same directory>"]'` — so no `.d.ts` is generated for any JS module and the failure is
-      only a warning nobody reads. Sibling of the long-known broken `exclude` in
-      `.opencode/plugins/jsconfig.json`; likely the same generator line. (Found 2026-08-02.)
+      The **same anchor defect** was found on the JS side 2026-08-14 and its debris deleted
+      (`.opencode/plugins/plugins/workspace-policy.d.ts`, plus two `.d.ts` written a level below
+      their sources), so this is a family, not one tool.
+      `core/tools/test/workspace/test_interface_generators.py::test_no_generated_stub_sits_in_a_doubled_path`
+      now fails on any stub inside a mirror of its own path — **the next recurrence is caught by
+      the suite instead of by eye**, which is what makes fixing the anchor safe to schedule.
 - [ ] **2b — craft-agent tier source + generator.** Create `core/agents/craft-{low,medium,high}.md`
       carrying `tier:`; extract the craft flow's tier→model map to `core/tier-map.json`; add a
       generator that emits `.claude/agents/craft-*.md` with `model:` resolved. Removes the last

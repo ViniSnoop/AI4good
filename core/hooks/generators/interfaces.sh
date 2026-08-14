@@ -21,35 +21,30 @@ if [ -n "$PY_FILES" ]; then
   fi
 fi
 
-# ── 7. JavaScript → .d.ts (tsc --allowJs via jsconfig.json) ───────────────────
+# ── 7. JavaScript → .d.ts (tsc --allowJs, one file at a time) ─────────────────
+# Per file, NOT `tsc -p <jsconfig>`. The project path was silently emitting nothing
+# for years and two independent defects had to be fixed for it to emit even once:
+# jsconfig.json implies noEmit:true (it is an editor aid — see postedit/interfaces.sh),
+# and "outDir": "." lands in tsc's default exclude list, excluding the config's own
+# directory. Worse, once both were forced the project path hit TS5055 on every module
+# with a sibling .d.ts — our declarations sit beside their sources, so a project build
+# reads its own previous output as an input and refuses to overwrite it. The per-file
+# call has none of that, is idempotent, and is already what post-edit runs.
 JS_FILES=$(echo "$STAGED" | grep '\.js$' | grep -v '\.min\.js$' | grep -v '\.config\.js$' || true)
 if [ -n "$JS_FILES" ]; then
   if ! command -v tsc &>/dev/null; then
     printf "⚠  tsc not found — .d.ts not generated for JS files.\n"
     printf "   Install: npm install -g typescript\n\n"
   else
-    SEEN_DIRS=""
     while IFS= read -r f; do
       [ -f "$f" ] || continue
-      cfg=""
       d=$(dirname "$f")
-      while [ "$d" != "." ] && [ "$d" != "/" ]; do
-        [ -f "$d/jsconfig.json" ] && cfg="$d/jsconfig.json" && break
-        [ -f "$d/tsconfig.json" ] && cfg="$d/tsconfig.json" && break
-        d=$(dirname "$d")
-      done
-      if [ -z "$cfg" ]; then
-        printf "⚠  No jsconfig.json for $f — .d.ts not generated.\n"
-        printf "   Create jsconfig.json with allowJs + declaration settings.\n\n"
-        continue
-      fi
-      proj_dir=$(dirname "$cfg")
-      echo "$SEEN_DIRS" | grep -qF "$proj_dir" && continue
-      SEEN_DIRS="$SEEN_DIRS $proj_dir"
-      if tsc -p "$cfg" --emitDeclarationOnly 2>/dev/null; then
-        git add "$proj_dir"/**/*.d.ts 2>/dev/null || true
+      if tsc --allowJs --checkJs false --declaration --emitDeclarationOnly \
+             --declarationDir "$d" --target ES2020 "$f" 2>/dev/null; then
+        dts="${f%.js}.d.ts"
+        [ -f "$dts" ] && git add "$dts"
       else
-        printf "⚠  tsc failed in $proj_dir — .d.ts not generated\n\n"
+        printf "⚠  tsc failed for $f — .d.ts not staged\n\n"
       fi
     done <<< "$JS_FILES"
   fi

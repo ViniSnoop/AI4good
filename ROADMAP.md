@@ -740,12 +740,11 @@ One test each. Nothing here needs a decision.
    staged. Blast radius measured 2026-07-29: **122 unstaged stubs across 7 repos**, and since the
    read-gate blocks reading source when the interface is current, a missing stub breaks a fresh
    clone. Needs a pre-commit sweep, not an edit-time hook.
-5. `core/hooks/brain/brain_stats.py` `compress_done()` writes `new_inner` without a trailing newline, so the
-   surviving last entry is glued to the `<!-- done:end -->` marker. Same function leaves
-   `brain/.log/done.md` unstaged after appending — the archive lands but the commit does not carry it.
-6. `.opencode/plugins/jsconfig.json` is self-defeating: `include: ["*.js"]` with
-   `exclude: ["/mnt/workspace/.opencode/plugins"]` excludes its own directory, so every commit prints
-   `error TS18003: No inputs were found` and no `.d.ts` is generated. Found 2026-07-30.
+5. **`stubgen` resolves its output root against the wrong anchor** — the live half of the
+   doubled-path family. The debris is gone and
+   `core/tools/test/workspace/test_interface_generators.py` now fails on any stub sitting inside a
+   mirror of its own path, so the *symptom* is guarded; the generator that produced it is not
+   fixed. Repro and blast radius: [`core/ROADMAP.md`](core/ROADMAP.md) § Open, first bullet.
 
 ## Parked — explicitly out of v1
 

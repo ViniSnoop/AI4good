@@ -15,13 +15,18 @@ case "$file" in
 						 --declarationDir "$dir" --target ES2020 "$file" 2>/dev/null \
 				&& printf "✓ .d.ts: ${file%.js}.d.ts\n"
 		fi
+		# jsconfig.json is an EDITOR AID, never a build config — the same role
+		# core/tools/wos/sync-global-skills already assigns it. It carried
+		# declaration/emitDeclarationOnly/outDir for years and could not honour any
+		# of them: a file named jsconfig.json implies noEmit:true, and "outDir": "."
+		# lands in tsc's default exclude list, so the config excluded its own
+		# directory (TS18003, zero inputs). Declarations are emitted per file by the
+		# tsc call above and by core/hooks/generators/interfaces.sh — one path, not two.
 		if [ ! -f "$dir/jsconfig.json" ]; then
 			cat > "$dir/jsconfig.json" << 'EOF'
 {
 	"compilerOptions": {
-		"allowJs": true, "checkJs": false,
-		"declaration": true, "emitDeclarationOnly": true,
-		"outDir": ".", "target": "ES2020"
+		"allowJs": true, "checkJs": false, "target": "ES2020"
 	},
 	"include": ["*.js"]
 }
@@ -52,12 +57,15 @@ EOF
 							 --declarationDir "$dir" --target ES2020 --skipLibCheck \
 							 "$file" 2>/dev/null \
 					&& printf "✓ .d.ts: ${file%.ts}.d.ts\n"
+				# Same outDir-lands-in-exclude defect as the jsconfig template above.
+				# noEmit is not implied here — that half is jsconfig's name, not tsc's default.
 				cat > "$dir/tsconfig.json" << 'EOF'
 {
 	"compilerOptions": {
 		"declaration": true, "emitDeclarationOnly": true,
 		"outDir": ".", "target": "ES2020", "strict": true
-	}
+	},
+	"exclude": []
 }
 EOF
 				printf "✓ tsconfig.json scaffolded: %s\n" "$dir"
