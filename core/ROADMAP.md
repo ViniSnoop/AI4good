@@ -79,10 +79,14 @@ validator's oracle" status of `deepresearch` was retired 2026-07-23; see [SCHEMA
       across skills, `CONTEXT.md` files, both ledgers, and the `.claude`/`.opencode` mirrors — not
       tool by tool.
 
-      Still open underneath and unaffected by the layout: **the flag surface diverges.** `auth`
-      subcommands and flags differ across `drive|gmail|calendar`; converge them on one shape in the
-      same pass (INBOX 2026-07-26). Related live defect: the Drive token is dead (`invalid_grant`),
-      which is a re-consent Lucas must run, tracked in
+      Still open underneath and unaffected by the layout: **the flag surface diverges** (INBOX
+      2026-07-26), and 2026-08-14 measured the sharpest case — **only `drive` has `auth --reauth`.**
+      `gmail`, `calendar` and `slides` have no recovery flag at all, so their instruction has to
+      fall back to naming the token file to delete. `google_auth.recovery_text` already emits that
+      fallback and its `_REAUTH_CMD` table is the exact list of what is missing: **when a CLI gains
+      `--reauth`, add it there and the message upgrades itself.** Converge the three in the same
+      pass as the layout move. Related live defect: the Drive token is dead (`invalid_grant`), a
+      re-consent only Lucas can run, tracked in
       [`brain/goals/teaching-materials.md`](../brain/goals/teaching-materials.md) `[gdrive-reauth]`.
 - [ ] **Slides motion animation — is it scriptable at all?** Lucas wants movement authored from the CLI in
       Google Slides: lines and shapes moving, with start/end positions and controlled velocity and
