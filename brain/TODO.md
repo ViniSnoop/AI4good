@@ -21,7 +21,7 @@
 - [ ] [casinhas] catalogar as últimas finanças da obra — cockpit em `branches/casinhas/` (INBOX 2026-07-22)
 - [ ] [community] responder o desafio público do Jake Van Clief com nossas ideias/visão — ele julga os 3 comentários mais curtidos, então tem janela curta ([reel](https://www.instagram.com/reel/DbWA6VOxVq-/), INBOX 2026-07-28)
 - [ ] [ai4good] investigar o caso por trás do reel "this feels like a book burning" e decidir se entra nas aulas de ai4good — ref em `academy/refs/REFS.md` (INBOX 2026-07-28)
-- [ ] [wos] checkup de rotina do workspace (INBOX 2026-07-30) — está funcionando como planejado? Rodar `core/tools/test/verify-fast`, ler `entropy.md` (contagem, nunca uma cópia dela), e auditar os 4 critérios de v1 no `/ROADMAP.md` contra o que é verdade hoje. Sessão de leitura + medição; o que virar trabalho vira item de lá, não daqui
+- [ ] [wos] checkup de rotina do workspace (INBOX 2026-07-30) — está funcionando como planejado? Rodar `core/tools/test/verify-fast`, ler `entropy.md` (contagem, nunca uma cópia dela), e auditar os 4 critérios de v1 no `/ROADMAP.md` contra o que é verdade hoje. Sessão de leitura + medição; o que virar trabalho vira item de lá, não daqui. **E o checkup precisa de um método** (INBOX 2026-08-13: *"tô com bastante vontade de testar as nossas features do wos. tem que ver uma forma válida de fazer isso"*) — usar as features de verdade, não só verificar que passam; a forma de exercitá-las é parte do que essa sessão tem que descobrir
 - [ ] [pandeiro / show-up] confirm Pandeirada time, show up Saturday
 - [ ] [sleep / streak-3] 3 consecutive nights in bed by 00:30
 - [ ] [ic-ufrpe] bolsa IC — NÃO submetido. Bloqueado por 2 pré-requisitos: (1) projeto de pesquisa aprovado no CTA, (2) nomes dos alunos candidatos. Só faz sentido mexer depois disso (2026-07-23)
@@ -87,6 +87,11 @@
       track spending, propose amendments) as a mechanism-design case worth citing/comparing against
       current research angle (cria/instituto) — ref in `academy/refs/REFS.md` (INBOX 2026-07-26)
 - [ ] [code] novo projeto: gerador de animações (claude-code + remotion)
+- [ ] [code / security] decidir quais dos 20 itens da checklist pré-lançamento viram gate de verdade
+      para os projetos que vão pro ar (gira, voti, ppc) — vários já estão cobertos (secret-scan no
+      pre-commit, skill `security-review`); o que sobra é auth server-side, RLS, rate-limit e
+      headers, que nenhum gate nosso vê. Ref em `core/refs/REFS.md` § Shipping an agent-written app
+      (INBOX 2026-08-13)
 - [ ] [flows] avaliar a orquestração graph-native de agentes do Claude Code contra o que `code/flows` já faz — e checar se o tal "Graph Engineering" (Microsoft/Stanford/Anthropic) existe de fato; o próprio post diz que só um dos dois é real (ref em `core/refs/REFS.md`, INBOX 2026-07-29)
 - [ ] [wos / core] averiguar o JCode — reimplementação em Rust do harness do Claude Code, com multi-agente
       no mesmo projeto. Duas perguntas separadas, e a segunda vale mais que a primeira: (1) a ferramenta

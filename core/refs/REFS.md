@@ -169,6 +169,9 @@ with a tier marker; kill the rest by deleting the line. Folded in from `core/WAT
 ### Agents / tools
 - claude council · ECC · odysseus (pewdiepie) · hermes agent · higgsfield mcp
 
+### Shipping an agent-written app
+- `[C]` [20 things to have Claude do before launching your app](https://www.instagram.com/reel/Db9aX8rhfhU/) — Michael Ly's pre-launch security checklist for vibe-coded apps, quoted from the reel: hide API keys, purge git secrets, public DB key only, enable RLS, encrypt sensitive data, enforce server-side auth, block record access + field tampering, secure session cookies, hash passwords, rate-limit login, bot protection, parameterize queries, validate all input, escape user content, restrict file uploads, trim API responses, security headers, force HTTPS, scan dependencies — assessment task tracked in `brain/TODO.md` backlog (INBOX 2026-08-13)
+
 ### Offline resilience (parked, see /ROADMAP.md)
 - [Reticulum](https://github.com/markqvist/Reticulum) — E2E-encrypted network stack that keeps working with no internet or infrastructure
 - **Kiwix** — all of Wikipedia offline; almost certainly the "NOMAD project" Lucas half-remembered
