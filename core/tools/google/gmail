@@ -8,7 +8,7 @@ _HERE = pathlib.Path(__file__).resolve().parent
 # at the core/tools root.
 sys.path.insert(0, str(_HERE / 'api'))
 sys.path.insert(0, str(_HERE.parents[1]))
-import gmail_fetch, gmail_triage, gmail_attachments
+import gmail_fetch, gmail_triage, gmail_attachments, google_auth
 
 CONFIG_DIR = pathlib.Path.home() / ".config" / "workspace-gmail"
 CACHE_FILE = CONFIG_DIR / "fetch_cache.json"
@@ -138,4 +138,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    google_auth.run(main)

@@ -14,4 +14,5 @@
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
 | [`conftest.py`](conftest.py) | [`conftest.pyi`](conftest.pyi) | `pytest_configure` | conftest.py — the one place the suite learns where things are: workspace root, core/tools, |
+| [`test_google_auth.py`](test_google_auth.py) | [`test_google_auth.pyi`](test_google_auth.pyi) | `accounts`, `boom` | T1 auth recovery: a dead Google token must hand Lucas a runnable fix, not a traceback. |
 <!-- routing:end -->

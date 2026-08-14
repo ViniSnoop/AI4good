@@ -1,11 +1,19 @@
 #!/mnt/workspace/.venv/bin/python3
 # google_auth.py — Shared OAuth2 auth for workspace Google services (drive, calendar, gmail)
-import json, pathlib
+import json, pathlib, sys
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
+from google.auth.exceptions import RefreshError
 
 _GMAIL_CONFIG = pathlib.Path.home() / ".config" / "workspace-gmail"
+
+# Services whose CLI already exposes `auth <alias> --reauth`. Anything absent here has no
+# recovery flag yet, so its instruction is the manual equivalent: drop the token, re-run.
+_REAUTH_CMD = {
+    "drive": "core/tools/google/drive auth {alias} --reauth",
+    "drive-write": "core/tools/google/drive auth {alias} --write --reauth",
+}
 
 
 def config_dir(service: str) -> pathlib.Path:
@@ -43,6 +51,50 @@ def resolve_alias(alias: str) -> str:
     return alias
 
 
+class AuthExpired(RuntimeError):
+    """A token past recovery. Carries recovery text meant to be shown to Lucas verbatim."""
+
+
+def account_email(alias: str) -> str:
+    """The Google address an alias signs in as — the one thing the consent screen asks for."""
+    primary = resolve_alias(alias)
+    email = "unknown (check ~/.config/workspace-gmail/accounts.json)"
+    for acct in get_accounts():
+        if primary in acct.get("aliases", []):
+            email = acct.get("email", email)
+    return email
+
+
+def recovery_text(alias: str, service: str, token_path: pathlib.Path) -> str:
+    """The whole instruction: one command, and which account to sign in as."""
+    template = _REAUTH_CMD.get(service)
+    if template:
+        step = template.format(alias=alias)
+    else:
+        step = f"rm {token_path}   # then re-run the command that just failed"
+    lines = [
+        f"GOOGLE AUTH EXPIRED — service '{service}', account '{alias}'.",
+        "The stored token was revoked or expired. A refresh cannot recover it; only a new",
+        "consent can, and consent needs a browser — so an agent cannot do this step.",
+        "",
+        "Lucas, to fix it:",
+        f"  1. run:  {step}",
+        f"  2. a browser opens — sign in as:  {account_email(alias)}",
+        "",
+        "Signing in as a different Google account succeeds and then reads the wrong",
+        "mailbox/drive, which is worse than failing. Check the address on the consent screen.",
+    ]
+    return "\n".join(lines)
+
+
+def run(main_fn) -> None:
+    """Entrypoint wrapper: a dead token prints its own fix instead of a traceback."""
+    try:
+        main_fn()
+    except AuthExpired as exc:
+        sys.exit(str(exc))
+
+
 def auth(alias: str, service: str, scopes: list) -> Credentials:
     """OAuth2 flow for alias+service. Tokens stored per-service per-alias."""
     d = config_dir(service)
@@ -54,9 +106,12 @@ def auth(alias: str, service: str, scopes: list) -> Credentials:
 
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
-            # A revoked token raises RefreshError (invalid_grant) here and does NOT
-            # fall through to consent. Recover: `drive auth <alias> [--write] --reauth`.
-            creds.refresh(Request())
+            # A revoked token raises RefreshError (invalid_grant) here and does NOT fall
+            # through to consent, so this is the one place that can name the fix.
+            try:
+                creds.refresh(Request())
+            except RefreshError as exc:
+                raise AuthExpired(recovery_text(alias, service, token_path)) from exc
         else:
             flow = InstalledAppFlow.from_client_secrets_file(
                 str(_credentials_file(service)), scopes

@@ -15,20 +15,21 @@ core/tools/paper/parse paper.pdf --pages 1-5
 core/tools/web/hf dataset allenai/c4
 ```
 
-## Google services auth (Drive / Gmail / Calendar)
+## An auth failure names its own fix — relay it verbatim
 
-Tokens são por `(service, alias)` em `~/.config/workspace-<service>/<alias>.token.json`.
-Se um `core/tools/google/drive|gmail|calendar` falhar com **`RefreshError` / `invalid_grant`
-(Token has been expired or revoked)**, o token está morto e o refresh não se recupera
-sozinho. Recupere re-consentindo (abre o navegador — precisa de sessão interativa):
+A dead token makes `google_auth.auth()` raise `AuthExpired`, and every CLI entrypoint prints
+it through `google_auth.run()` instead of a traceback. That message is written **for Lucas**
+and already carries the exact command *and* the address to sign in as. **Show it to him
+unchanged — do not paraphrase it, and never say "you need to re-auth" on its own.**
 
-```bash
-core/tools/google/drive auth <alias> --reauth            # token de leitura
-core/tools/google/drive auth <alias> --write --reauth    # token de escrita (drive-write)
-```
+Why the address is in the message and not in this file: Lucas has four Google accounts, so
+"re-authenticate" without one is an instruction he cannot act on, and a wrong account is worse
+than a failure — it authenticates fine and then reads the wrong mailbox or drive. The address
+is read at runtime from `accounts.json`, so it cannot go stale here.
 
-`--reauth` apaga o token stale antes do consentimento. Escrita em Drive (`mkdir`, `put`,
-`put --gdoc`) usa o token `drive-write` separado; leitura usa `drive`.
+Re-consent opens a browser, so it is **always Lucas's step, never an agent's**. Tokens are per
+`(service, alias)` at `~/.config/workspace-<service>/<alias>.token.json`; Drive writes
+(`mkdir`, `put`) use a separate `drive-write` token from the read one.
 
 ## Subagent tool
 
@@ -81,5 +82,5 @@ one belongs beside it. That rule is why only two files are left here.
 |------|-----------|-----|-------------|
 | [`SPECS.md`](SPECS.md) | — | — | Slides Pipeline — Specs & Architecture Decisions |
 | [`attachments_util.py`](attachments_util.py) | [`attachments_util.pyi`](attachments_util.pyi) | `safe_name`, `month_dir`, `unique_path` | attachments_util.py — shared filename/dir helpers for Core/tools attachment downloaders (gmail, telegram) |
-| [`google_auth.py`](google_auth.py) | [`google_auth.pyi`](google_auth.pyi) | `config_dir`, `get_accounts`, `primary_aliases`, `resolve_alias`, `auth` | google_auth.py — Shared OAuth2 auth for workspace Google services (drive, calendar, gmail) |
+| [`google_auth.py`](google_auth.py) | [`google_auth.pyi`](google_auth.pyi) | `config_dir`, `get_accounts`, `primary_aliases`, `resolve_alias`, `AuthExpired` | google_auth.py — Shared OAuth2 auth for workspace Google services (drive, calendar, gmail) |
 <!-- routing:end -->
