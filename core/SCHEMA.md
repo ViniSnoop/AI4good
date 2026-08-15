@@ -43,8 +43,7 @@ the sweep is complete — a row that fails on the day it is written trains peopl
 
 **`UPPERCASE.md` is a type. `lowercase.md` is an instance.** A type means the same thing in every
 subtree; an instance is content, named freely. Uppercase names are therefore a **closed set** —
-inventing a type must be a deliberate act (one line added below), never an accident. Before this
-rule there were 25 distinct uppercase names, 15 appearing exactly once.
+inventing a type must be a deliberate act (one line added below), never an accident.
 
 Each type answers exactly one question. If you cannot say which question a file answers, it does not
 get a new type.
@@ -69,29 +68,29 @@ get a new type.
 
 Anything else is rejected: *"add it to the allowlist if you mean it."*
 
-`MEMORY.md` earns its row on symmetry, added 2026-08-15 when the store moved into the workspace
-(`~/.claude/projects/<slug>/memory` is now a symlink to `brain/memory/`). It stands to
-[`brain/memory/`](../brain/memory/CONTEXT.md) exactly as `GOALS.md` stands to `brain/goals/`: an
-index and router over a directory of instances, one line each, loaded every session. The instances
-themselves are lowercase and need no type. **It is the one type written by the agent rather than
-authored**, which is why its content is checked like any other file — the merge immediately caught
-four memories still naming files renamed a month earlier.
+`MEMORY.md` earns its row on symmetry: `~/.claude/projects/<slug>/memory` is a symlink to
+`brain/memory/`, so it stands to [`brain/memory/`](../brain/memory/CONTEXT.md) exactly as `GOALS.md`
+stands to `brain/goals/` — an index and router over a directory of instances, one line each, loaded
+every session. The instances themselves are lowercase and need no type. **It is the one type written
+by the agent rather than authored**, which is why its content is checked like any other file.
 
-`SETUP.md` earns its row on the evidence (added 2026-07-30, 8 instances): `README.md` is **repo-root
-only**, and 4 of the 8 sit in directories that are not repos — the workspace root, `academy/`,
-`code/`, `code/_templates/`. "How do I make this work" is not "what is this and how do I run it".
+`SETUP.md` earns its row on the evidence: `README.md` is **repo-root only**, and several instances
+sit in directories that are not repos — the workspace root, `academy/`, `code/`, `code/_templates/`.
+"How do I make this work" is not "what is this and how do I run it". Whether the type survives at all
+is an open question — [ROADMAP.md](../ROADMAP.md) Frente 10.1b, downstream of whether the install
+path stays prose.
 
 ### The four disposal routes
 
 An off-allowlist `UPPERCASE.md` is not automatically wrong — it is *unclassified*. Route it, so a new
 name resolves without a decision meeting (decided 2026-07-30):
 
-| Route | When | Cases resolved 2026-07-30 |
-|-------|------|---------------------------|
-| lowercase instance | **generated** by a tool | the old `LABELS` name → `labels.md` (×6 papers; emitted by `core/hooks/stubgen/tex-interface-gen.py`, header says "do not edit") |
-| lowercase instance | hand-authored **content** | `DRAFT.md`→`draft.md` (×3 embryo papers), `TREE.md`→`tree.md` (the craft-tree map: curated rationale, not generated — the first read of it corrected the route) |
-| → `SPECS.md` | hand-authored **constraint** | `BRIDGE.md`→`SPECS.md` § Twin (×3, the section carries the same name on both sides — "Paper Twin" reads wrong inside the paper): *"every measured number files a P-task"* is an invariant |
-| new type | answers a question **no type answers** | `SETUP.md` only |
+| Route | When |
+|-------|------|
+| lowercase instance | **generated** by a tool |
+| lowercase instance | hand-authored **content** |
+| → `SPECS.md` | hand-authored **constraint** |
+| new type | answers a question **no type answers** — `SETUP.md` is the only one that ever qualified |
 
 `SPEC.md` is **not** a type: it collapses into `SPECS.md` (decided 2026-07-30, Lucas). The
 singular/plural pair was the sharpest asymmetry in the corpus — two spellings, one meaning — and it
@@ -108,6 +107,50 @@ The three real conflicts, with the resolving rule:
 | `CONTEXT.md` vs its own routing block | CONTEXT **never hand-lists files**; the generated routing block owns inventory. A hand-written File Map is a bug. |
 | `CONTEXT.md` vs `SPECS.md` | Rules that *constrain code* → SPECS. What the directory *is* → CONTEXT. |
 | `ROADMAP.md` vs `BUGS.md` | BUGS owns the bug text; ROADMAP references it by id and never restates it. Intent vs. state: a roadmap item leaves the list when deprioritised, a bug does not stop being true. |
+
+### Placement: tier × read-frequency
+
+§ Boundaries answers *which of two types*. This answers the prior question: **does this content earn
+its place, and where does it belong?** Deleting is one of four outcomes, not the default one.
+
+**Tier — ask what happens to an agent that never reads this.** Applied per *section*, never per file:
+
+| Tier | Test | What it costs to carry |
+|------|------|------------------------|
+| **ESSENTIAL** | work comes out **wrong** — a rule broken, the wrong file edited, work lost | must be paid; put it where it is read without asking |
+| **IMPORTANT** | work comes out **slower** — re-derived, re-asked, rediscovered | one hop away, never preloaded |
+| **DESIRABLE** | **nothing changes** — rationale, provenance, the story of a change | git already holds it |
+
+That question runs second. The first is **is it still true?** — checked against code, tests and
+`git log`, not memory. An untrue ESSENTIAL is the most expensive object in the workspace.
+
+**Read-frequency is a property of the enforcement layer, not a guess.**
+
+| | Types | Why |
+|---|---|---|
+| **HOT** | `CONTEXT.md` | the only **enforced-read** type: `hooks/read/context-gate.py` demands the whole chain before any file access in a subtree |
+| | `AGENTS.md`, `MEMORY.md` | folded into the system prompt every session |
+| | `GOALS.md`, `ROADMAP.md` | induced-hot — the root `README.md` sends every reader to them first |
+| **COLD** | `SPECS.md`, `REFS.md`, `BUGS.md`, `SETUP.md`, `USER.md`, `TODO.md` | on demand only |
+| **MACHINE-READ** | `SCHEMA.md` | cold to humans, parsed on every check — so its *tables* are load-bearing where its prose is not |
+
+**Where the two axes meet:**
+
+| | HOT | COLD |
+|---|---|---|
+| **ESSENTIAL** | **KEEP** | **PROMOTE** — it is arriving too late to prevent the error |
+| **IMPORTANT** | **REDIRECT** down, leave one pointer line | **KEEP** |
+| **DESIRABLE** | **CUT** | cut on sight; cheap either way |
+
+REDIRECT needs no new mechanism: `CONTEXT.md` (hot) already pairs with a sibling `SPECS.md` (cold),
+which is the thin-front/leaf-detail split, and `ROADMAP.md` pairs with `ROADMAP-<slug>.md`. **A
+constraint sitting in a `CONTEXT.md` head is the standard defect** — it is a SPECS answer trapped in
+the one file the gate forces everyone to read. Measurement and its dashboard section:
+[`entropy.md`](../entropy.md).
+
+Compression is the **last** step and only on what survives, because it is measured to be nearly
+worthless on this corpus — a pilot moved the worst offender 0.22% for a full model call. Placement
+beats phrasing.
 
 ### No archive types
 
@@ -142,10 +185,7 @@ intersection with ROADMAP disappears (there was one: both answer *what do we int
 type count does not grow. **Five differently-named files were the symptom of a missing suffix, not
 of a missing type.**
 
-Membership is **closed at four** and each has a route. The fifth, a skill-suite migration report
-under core/, was deleted 2026-08-14: it opened with *"What was done (2026-07-05)"*, making it an
-annotated corpse of a finished migration — the thing § No archive types forbids. Its one durable
-paragraph, the convention for skill `refs/` folders, was moved to § Layer: skill.
+Membership is **closed at four** and each has a route.
 
 | File | Route | Why |
 |---|---|---|
@@ -154,11 +194,10 @@ paragraph, the convention for skill `refs/` folders, was moved to § Layer: skil
 | `code/isoroll-module/REFACTOR.md` | → ROADMAP-refactor.md | project-local, cheapest of the four |
 | `code/dobra/DECISIONS.md` | → that project's SPECS.md | **not a roadmap at all** — decisions are *what must be true and why*, which is the SPECS question. It sat in this list by naming accident |
 
-Folding `VERIFY.md` into a ROADMAP was investigated 2026-07-30 and rejected *as a fold* — it has 24
-inbound references, 7 of them in `core/hooks/*` source comments citing stable anchors (`VERIFY.md W1`,
-`W2`, `I2`, `G1`, `G3`, `G7`, `A1`). That objection survives and prices the work, but it does not
-survive as an argument for a separate type: **a rename preserves every anchor id**, and only the 24
-paths move. Do it as one reviewed commit, never piecemeal.
+`VERIFY.md` is the expensive one: ~24 inbound references, 7 of them `core/hooks/*` source comments
+citing stable anchors (`VERIFY.md W1`, `W2`, `I2`, `G1`, `G3`, `G7`, `A1`). **A rename preserves every
+anchor id** — only the paths move — so this prices the work without changing the route. Do it as one
+reviewed commit, never piecemeal.
 
 Until each rename lands, these four stay exempt from the allowlist **and** carry an obligation: each
 must state its own death condition on line 3, and be deleted when its rollout completes. They are the
@@ -173,9 +212,9 @@ tracked under the [[spec-driven-development]] goal): that governs `code/` module
 `core/` agent library.
 
 **No flow is privileged.** The exemplar is [`flows/_template.md`](flows/_template.md) — a template,
-nothing more. There is no "reference implementation" whose behaviour defines correctness (that dual
-role coupled one flow's evolution to the schema; retired 2026-07-23). Realism is guaranteed by
-`validate_flows` running over *every* flow, including the template, not by anointing one.
+nothing more. There is no "reference implementation" whose behaviour defines correctness: that dual
+role couples one flow's evolution to the schema. Realism is guaranteed by `validate_flows` running
+over *every* flow, including the template, not by anointing one.
 
 ## The one rule
 
@@ -206,8 +245,7 @@ A skill is THIN (dispatches to a flow) or FAT (self-contained protocol); both ar
 `core/skills/*.md` that is not a skill (status doc, ADR) does **not** belong here — the validator
 rejects a file with no `name`/`description` frontmatter.
 
-**A skill's `refs/` folder** (salvaged 2026-08-14 from the deleted skill-suite migration report,
-which was the only place these rules were written down):
+**A skill's `refs/` folder:**
 
 1. The folder sits **beside the skill file**, at `core/skills/<name>/refs/`.
 2. `.yaml` for structured references — papers, datasets, configs with a schema.
@@ -238,10 +276,9 @@ are read from source, and drop the parent's prefix from their filenames (`foundr
   are N/A — the orchestrator inherits the full toolset and owns no single artifact.
 
 `tier` is the source of truth. A runtime that needs a concrete model sets it by hand per mirror file
-— e.g. Claude Code's `.claude/agents/craft-high.md` carries `model: opus` for `tier: high`. There is
-no generator and no `tier-map.json`; that was the planned mechanism, never built. Until it exists,
-keep each mirror's `model:` in sync with its source `tier:` by hand.
-**No `thinking:` and no `model:` in `core/agents/` source** — that was the old two-convention drift.
+— e.g. Claude Code's `.claude/agents/craft-high.md` carries `model: opus` for `tier: high`. **There is
+no generator**, so keep each mirror's `model:` in sync with its source `tier:` by hand.
+**No `thinking:` and no `model:` in `core/agents/` source.**
 
 ## Layer: flow — `core/flows/[<skill>/]<name>.md`
 
@@ -338,12 +375,11 @@ Do **not** consolidate local CONTEXT.md to "reduce clutter" — granularity is t
 it helps some tasks, hurts others. So cap **chain depth**, not **file count**. When in doubt about
 adding a routing level, **measure** (a real task on the tier you care about), do not decree.
 
-**Fanout — signal it.** *Refines the line below, measured 2026-07-30 (Frente 3.2).* "File count is
-not the metric" was written about **CONTEXT.md granularity** and still holds there. It was read for
-two years as though it also licensed a directory holding 51 source files, which is a different
-axis and one this workspace already legislated: `workspace_scanner.SPLIT_THRESHOLD` = 7 code files,
-warned by `context_synchronizer.sync` since long before this note. That warning printed to stdout
-during a sync nobody reads, so the tail grew unopposed to 35 directories.
+**Fanout — signal it.** "File count is not the metric" governs **CONTEXT.md granularity** and nothing
+else. Source files in one directory are a different axis: `workspace_scanner.SPLIT_THRESHOLD` reads
+`WARN_FILES` from [`limits.env`](hooks/limits.env) — never its own copy of the number — and
+`entropy_fanout.py` reports it to the dashboard rather than to a stdout nobody reads, which is what
+let the tail grow unopposed before.
 
 The three axes, kept separate on purpose:
 
@@ -354,10 +390,12 @@ The three axes, kept separate on purpose:
 | **fanout** | `WARN_FILES=7` asks for a look, `BLOCK_FILES=10` is the cap | `entropy_fanout.py`, dashboard |
 
 **Where they meet:** splitting an over-full directory *adds a hop*, so fanout and depth trade against
-each other directly. Pay the hop only when the split removes more table than it adds. Worked example:
-`code/aiwbot/tests/` is 51 flat files costing 4954 tok of routing table in a 6068 tok chain; splitting
-it three ways (`bugs/` `features/` `unit/`) takes depth 3 → 4 and the chain to ~3000. It pays. A
-directory at 9 files usually does not — the hop costs more than the two rows it saves.
+each other directly. Pay the hop only when the split removes more table than it adds. A directory in
+the dozens pays — the routing table it sheds dwarfs the one hop it costs. A directory at 8-9 files
+does not: the hop costs more than the two rows it saves, which is why `WARN_FILES` asks for a look
+instead of blocking. Current offenders are listed in [`entropy.md`](../entropy.md) § Directories
+holding too many files; read that rather than a worked example, which goes stale the moment the
+split lands.
 
 **Net rule:** many small local CONTEXT.md files = good; deep CONTEXT.md → CONTEXT.md → CONTEXT.md
 chains = the thing to bound. For *routing levels*, hop count is the metric, not file count. For
@@ -367,11 +405,11 @@ them is deliberate and is where "a split that saves two rows does not pay for it
 
 ### What the routing table may spend tokens on
 
-Measured 2026-07-30 across 159 `CONTEXT.md` / 1242 rows: the generated **File** table is 55k tok of
-a 102k corpus — but no session reads the corpus. A real gate cascade is **2126 tok median, of which
-457 (22%) is the File table**, about one `AGENTS.md`. The size is a tail, not a tax, and the tail is
-row *count* (median 7 rows, worst 51), i.e. the fanout signal above. So the table stays; two rules
-trim what it says:
+**No session reads the corpus; it reads a chain.** A corpus-wide sum is therefore the wrong number to
+optimise, and the cost that is real is row *count* per chain — i.e. the fanout signal above, not the
+table's existence. So the table stays; two rules trim what it says. Re-run
+[`core/tools/wos/session/context`](tools/wos/session/CONTEXT.md) for the live figures rather than
+quoting any printed here.
 
 1. **A generated column empty on every row is not emitted.** 773 of 1242 rows carried an em-dash
    `Interface`, paying width to say "nothing here". `File` and `Description` always survive.
@@ -388,8 +426,8 @@ curated content, which is the side of the evidence split that helps — see [ref
 **Evidence + caveat.** Controlled study on haiku-4.5 + qwen3.6-27b ([P] 2607.17598): the flat skill
 pack reaches ~2× accuracy at ½ the tokens vs. raw at corpus scale, and *"the weaker the agent's
 native navigation, the earlier the skill pack earns its keep."* **Preprint = provisional** (see
-[refs/CONTEXT.md](refs/CONTEXT.md)); this policy is a default, not a hard gate, until our own
-depth-audit (Frente 3.2) or a published source confirms it.
+[refs/CONTEXT.md](refs/CONTEXT.md)); this policy is a default, not a hard gate. Nothing here has been
+measured on our own corpus — [ROADMAP.md](../ROADMAP.md) Frente 14 is where that would happen.
 
 ## Enforcement
 
@@ -397,7 +435,8 @@ depth-audit (Frente 3.2) or a published source confirms it.
 `core/hooks/pre-commit`. All three layers are live:
 - **skill:** frontmatter present, `name:` + `description:`, non-skills rejected.
 - **flow:** `description:` + `args:` present, `type ∈ {research-brief, utility, domain}`,
-  `confirm ∈ {plan, none}`. Exempt: `CONTEXT.md`, `tree.md`, `loop-*` (engineering cluster).
+  `confirm ∈ {plan, none}`. Exempt: `CONTEXT.md` and everything under `flows/craft/` — the
+  engineering cluster is exempted **by path**, which is why `tree.md` needs no separate mention.
   Validation is **recursive** — it walks `flows/<skill>/` subfolders, not just the flat root.
 - **composition:** every `uses:` target resolves to a real flow, and the `uses:` graph is a **DAG**
   (three-colour DFS; a path returning to its own start fails the check). The exemption list does

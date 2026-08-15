@@ -41,6 +41,23 @@ def test_law_comes_from_schema():
     )
 
 
+def test_scopes_come_from_schema():
+    """The third parse of the law, and the only one whose loss is silent.
+
+    A heading rename is already caught: it empties `load_retired` (KeyError in
+    test_retired_tokens_come_from_schema) or `exempt` (the closed-list assert above).
+    `load_scopes` has no such tripwire — it reads the type table's second column, so
+    reformatting that table empties it, `check_placement` stops flagging anything, and
+    the naming suite still passes because it only asserts findings stay within a baseline.
+    Fewer findings is exactly what a broken parse looks like.
+    """
+    scopes = type_gate.load_scopes(SCHEMA)
+    assert scopes == {'AGENTS.md': 'root', 'README.md': 'repo-root'}, (
+        'the scope column of the type table stopped parsing — check_placement is now '
+        'silently checking nothing'
+    )
+
+
 def test_allowlisted_name_passes(tmp_path):
     allowed, exempt = type_gate.load_law(SCHEMA)
     target = tmp_path / 'ROADMAP.md'
