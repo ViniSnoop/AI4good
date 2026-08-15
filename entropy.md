@@ -104,7 +104,7 @@ Clean.
 
 *a signal for review, never a cap — do not summarize to fit*
 
-- ROADMAP.md — 812 lines (doc signal, review the delta)
+- ROADMAP.md — 804 lines (doc signal, review the delta)
 - SETUP.md — 624 lines (doc signal, review the delta)
 - academy/papers/2026-JBCS-relativistic_raytracer/outputs/iq-fix-roadmap.md — 372 lines (doc signal, review the delta)
 - code/aiwbot/SPECS.md — 710 lines (doc signal, review the delta)
