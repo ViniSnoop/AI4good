@@ -7,7 +7,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from hook_input import load_seen, parse_stdin
+from hook_input import is_subagent, load_seen, parse_stdin
 
 WORKSPACE = Path('/mnt/workspace')
 EXEMPT_NAMES = {'CONTEXT.md', 'AGENTS.md', 'CLAUDE.md', 'MEMORY.md'}
@@ -50,8 +50,10 @@ def context_chain(target: Path) -> list[Path]:
 
 
 def main() -> int:
-	_, tool, tool_input, session_id, cwd = parse_stdin()
+	raw, tool, tool_input, session_id, cwd = parse_stdin()
 	if tool and tool != 'Bash':
+		return 0
+	if is_subagent(raw):
 		return 0
 	command = str(tool_input.get('command', ''))
 	if not command:

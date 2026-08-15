@@ -1,16 +1,24 @@
 # workspace
-> Tier 0 workspace-wide invariants — pointers resolve, routing regenerates, .gitignore self-heals.
+> Tier 0 workspace-wide invariants: pointers resolve, .gitignore self-heals, imports do not shadow.
+
+Split 2026-08-15 at 8 files. What stayed is what holds for the **whole tree** rather than for one
+piece of machinery: every relative link resolves, a new domain subdirectory does not fall out of the
+`.gitignore` allowlist, and the suite's `sys.path` cannot silently shadow a module. The two
+machineries moved into subdirectories named for the code they cover, so a surface and its coverage
+are one word apart: [`gates/`](gates/CONTEXT.md) and [`generators/`](generators/CONTEXT.md), mirroring
+`core/hooks/gates/` and `core/hooks/generators/`.
 
 <!-- routing:start -->
 ## Routing
 
+| Subdirectory | Description |
+|--------------|-------------|
+| [`gates/`](gates/CONTEXT.md) | What a blocking gate must say, and who it must fire for. Mirrors `core/hooks/gat |
+| [`generators/`](generators/CONTEXT.md) | What the generators must produce, and what they must never produce. Mirrors `cor |
+
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
-| [`test_gate_messages.py`](test_gate_messages.py) | [`test_gate_messages.pyi`](test_gate_messages.pyi) | — | T0: a blocking gate must say WHY on stderr. Claude Code feeds a PreToolUse exit-2's |
 | [`test_gitignore_self_heal.py`](test_gitignore_self_heal.py) | [`test_gitignore_self_heal.pyi`](test_gitignore_self_heal.pyi) | — | T0 self-healing .gitignore allowlist check (Frente 6 item 2): a new domain subdir with a |
 | [`test_import_paths.py`](test_import_paths.py) | [`test_import_paths.pyi`](test_import_paths.pyi) | — | T0 harness invariant: the suite's sys.path cannot silently shadow a module. |
-| [`test_interface_generators.py`](test_interface_generators.py) | [`test_interface_generators.pyi`](test_interface_generators.pyi) | — | T0 interface-generator invariants: a generated stub must land beside its source, and a |
 | [`test_pointer_integrity.py`](test_pointer_integrity.py) | [`test_pointer_integrity.pyi`](test_pointer_integrity.pyi) | `check_pointers` | T0 pointer-integrity check (Frente 4 Tier 0, subsumes Frente 2): every relative |
-| [`test_routing_sync_bugs.py`](test_routing_sync_bugs.py) | [`test_routing_sync_bugs.pyi`](test_routing_sync_bugs.pyi) | — | T0 routing-generator invariants (ROADMAP Batch B item 1): four ways the CONTEXT.md routing |
-| [`test_routing_table.py`](test_routing_table.py) | [`test_routing_table.pyi`](test_routing_table.pyi) | — | The routing table's generated columns (Frente 3.2). Zero-token, runs in verify-fast. |
 <!-- routing:end -->

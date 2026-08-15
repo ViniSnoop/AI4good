@@ -72,7 +72,7 @@ toolchain they depend on: [`SETUP.md`](../../SETUP.md).
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
 | [`file_law.py`](file_law.py) | [`file_law.pyi`](file_law.pyi) | `is_code_file`, `load_limits`, `allowed_extensionless`, `is_vendored`, `main` | What a file IS, and which rules apply to it. The numeric-law sibling of schema_law.py: |
-| [`hook_input.py`](hook_input.py) | [`hook_input.pyi`](hook_input.pyi) | `parse_stdin`, `seen_file`, `load_seen`, `mark_seen` | Shared parser for Claude Code hook stdin JSON — nested (current) and flat (legacy shim) schemas. |
+| [`hook_input.py`](hook_input.py) | [`hook_input.pyi`](hook_input.pyi) | `parse_stdin`, `is_subagent`, `seen_file`, `load_seen`, `mark_seen` | Shared parser for Claude Code hook stdin JSON — nested (current) and flat (legacy shim) schemas. |
 | [`post-commit`](post-commit) | — | — | auto-push feature/* so work survives a dead session |
 | [`post-edit.sh`](post-edit.sh) | — | — | ← add first-line comment |
 | [`pre-commit`](pre-commit) | — | — | the dispatcher. |

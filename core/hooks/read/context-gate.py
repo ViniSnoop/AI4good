@@ -6,7 +6,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from hook_input import load_seen, parse_stdin
+from hook_input import is_subagent, load_seen, parse_stdin
 
 WORKSPACE = Path('/mnt/workspace')
 GATED_TOOLS = {'Read', 'Edit', 'Write', 'Grep', 'NotebookEdit'}
@@ -37,8 +37,10 @@ def context_chain(target: Path) -> list[Path]:
 
 
 def main() -> int:
-	_, tool, tool_input, session_id, _ = parse_stdin()
+	raw, tool, tool_input, session_id, _ = parse_stdin()
 	if tool not in GATED_TOOLS:
+		return 0
+	if is_subagent(raw):
 		return 0
 	raw = target_path(tool, tool_input)
 	if not raw:

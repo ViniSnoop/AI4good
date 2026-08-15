@@ -42,6 +42,21 @@ def parse_stdin() -> tuple[dict[str, Any], str, dict[str, Any], str, str]:
 	return data, tool, tool_input, session_id, cwd
 
 
+def is_subagent(raw: dict[str, Any]) -> bool:
+	"""True when this hook fired inside a worker rather than the main thread.
+
+	`agent_id` is present only within a subagent — that is the harness's own documented way to tell
+	the two apart, and `agent_type` is NOT (it is set for the main thread too in --agent sessions).
+
+	The rule lives here because two gates need it and a second copy is the drift the law modules
+	exist to catch. Why the gates use it: CONTEXT.md carries *routing*, and a worker handed one
+	explicit path does not need to know where else it could have gone. Correctness constraints live
+	in SPECS.md and `spec-read-gate.py` still fires for everyone. Ruled 2026-08-15 (Lucas); measured
+	in core/experiments/subagent-context-chain.md.
+	"""
+	return bool(raw.get('agent_id'))
+
+
 def seen_file(session_id: str) -> str:
 	return f'/tmp/claude_ctx_seen_{session_id}.txt'
 
