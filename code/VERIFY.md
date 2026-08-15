@@ -9,8 +9,9 @@ completes, surviving durable rules stay in `core/tools/verify/CONTEXT.md` (alrea
 and this file is deleted (git keeps it).
 
 **Scope note:** this doc originally tracked workspace-wide hook infra too (context-gate,
-bash-gate — see Phase W1 below). That part is done and lives canonically in root `SETUP.md`'s
-hook table now; W1 is kept here only as a compressed historical pointer. This doc's live scope
+bash-gate — see Phase W1 below). That part is done and lives canonically in
+[`core/hooks/SPECS.md`](../core/hooks/SPECS.md)'s gate tables now; W1 is kept here only as a
+compressed historical pointer. This doc's live scope
 from W2 onward is `code/` testing-pyramid rollout specifically — brain/academy don't have a
 `verify:fast` concept.
 
@@ -66,7 +67,7 @@ Contract script names (all code projects): **`verify:fast`** = T0+T1 (runs per c
 
 Workspace-wide hooks (`context-gate.py`, `context-tracker.py`, `bash-context-gate.py` +
 PreCompact/SessionStart lifecycle) — not `code/`-specific, so their canonical documentation
-lives in root [`SETUP.md`](../SETUP.md#claude-code-hooks-claudesettingsjson)'s hook table, not
+lives in [`core/hooks/SPECS.md`](../core/hooks/SPECS.md) § Agent lifecycle gates, not
 here. Kept as a one-line record: shipped 2026-07-02, forces the CONTEXT.md chain to be Read
 before any file access anywhere in the workspace.
 
@@ -147,7 +148,8 @@ candidates, agent reviews) — deferred to W3+.
   `approve`/`update` CLI, dump-oracle pattern doc (the contract any project's adapter implements).
 - `code/_templates/` update: vitest scaffold, `test/` layout, jscpd config, `verify:fast`/`verify:full`
   stubs, BUGS.md template carrying the regression rule. New projects born compliant.
-- SETUP.md: add all new rows as **ENFORCED**; audit existing INDUCED rows — promote or delete.
+- `core/hooks/SPECS.md`: add all new rows as **ENFORCED**; audit existing INDUCED rows — promote
+  or delete.
 - `/roundup` skill: runs `verify:full`, result recorded in the resume prompt.
 - `/dedup` semantic audit skill (see W2 note).
 
@@ -230,7 +232,7 @@ W3 makes it portable.
 - Human verification pass: Lucas confirms B32 visually in Foundry once, closing the loop
   between oracle and eyes.
 - code/SETUP.md + code/SPECS.md: fold verification contract mention (only _templates and
-  root SETUP.md updated so far).
+  `core/hooks/SPECS.md` carry it so far).
 - 200-LOC file-size hook: scope the .frag/.txt exemption by PATH, not extension — exempt
   design/** prototype/artifact dirs, gate everything under src/ regardless of extension.
   Rationale (2026-07-14 isoroll session, Lucas-raised): rig.frag exemption is correct

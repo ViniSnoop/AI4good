@@ -1,191 +1,56 @@
 # Workspace Setup
+> How to make this environment work on a new machine: toolchain install and per-machine config.
 
-Code quality enforcement + AI-assisted dev infrastructure.
-Design principle: **the file system is the source of truth**. No config lives only in machine state or memory — everything versioned here.
+What the workspace *is* and what each capability buys you: [`README.md`](README.md). What the gates
+enforce and what a new agent's shim must satisfy: [`core/hooks/SPECS.md`](core/hooks/SPECS.md).
+This file is only the install.
 
-## Parity And Enforcement Model
+**Sections are named, never numbered** — a number is a pointer that goes stale the first time a
+step is added, and two of them already had.
 
-Canonical behavior lives in neutral files under `core/hooks/` and `AGENTS.md`. Company-specific files act as shims, discovery points, or startup wiring for Claude, Copilot, VS Code.
+Everything below is per-machine state that git cannot carry. Everything else is versioned, and the
+design principle behind that is the workspace's own: the file system is the source of truth, so no
+config lives only in machine state.
 
-Hook can block read/edit/commit → **ENFORCED**. File only injects guidance → **INDUCED**. Present only for compatibility, no enforcement effect → **SKIPPED**.
-
-### Modularization / Interface Tasks
-
-| Task | Canonical files | Claude files | Copilot / VS Code files | Behavior |
-|------|-----------------|--------------|--------------------------|----------|
-| Add workspace parity config and wrapper scripts | `AGENTS.md`, `core/hooks/read/pre-read.sh`, `core/hooks/checks/pre-edit.py`, `core/hooks/post-edit.sh`, `core/hooks/session/start-session.sh`, `core/hooks/session/start-session.ps1` | `CLAUDE.md`, `.claude/settings.json` | `.agentrc.json`, `core/hooks/copilot/copilot-agent.sh`, `.github/copilot-instructions.md` | **ENFORCED** |
-| Wire Copilot wrapper to call pre-read / pre-edit / post-edit hooks | `core/hooks/read/pre-read.sh`, `core/hooks/checks/pre-edit.py`, `core/hooks/post-edit.sh`, `core/hooks/copilot/copilot-session-start.py`, `core/hooks/copilot/copilot-pre-tool.py`, `core/hooks/copilot/copilot-post-tool.py` | `.claude/settings.json` | `.github/hooks/workspace-policy.json`, `.vscode/settings.json` | **ENFORCED** |
-| Integrate `context_synchronizer.py` and interface generation into wrapper | `core/hooks/post-edit.sh`, `core/hooks/read/pre-read.sh`, `core/hooks/checks/pre-edit.py`, `core/hooks/routing/context_synchronizer.py` | `.claude/settings.json` | `.github/hooks/workspace-policy.json` | **ENFORCED** |
-| Add VS Code tasks / settings to run session-start checks | `core/hooks/session/start-session.sh`, `core/hooks/session/start-session.ps1`, `core/hooks/copilot/copilot-session-start.py` | `CLAUDE.md` | `.vscode/tasks.json`, `.vscode/settings.json`, `.github/copilot-instructions.md` | **INDUCED** |
-| Test workflow: simulate read / edit / commit and fix issues | `core/hooks/read/pre-read.sh`, `core/hooks/checks/pre-edit.py`, `core/hooks/post-edit.sh`, `core/hooks/copilot/copilot-pre-tool.py`, `core/hooks/copilot/copilot-post-tool.py`, `core/hooks/pre-commit` | `.claude/settings.json` | `.vscode/tasks.json` | **INDUCED** |
-
-### Additional Files Not Tied To One Task
-
-| File | Why it exists | Behavior |
-|------|---------------|----------|
-| `AGENTS.md` | Canonical workspace policy + startup anchor for every agent | **INDUCED** |
-| `.github/copilot-instructions.md` | One-line Copilot shim pointing to `AGENTS.md` | **INDUCED** |
-| `.github/hooks/workspace-policy.json` | VS Code hook registration for Copilot lifecycle events | **ENFORCED** |
-| `.vscode/settings.json` | Limits hook-file discovery so Copilot loads workspace hook path, not user-level `.claude` hooks | **INDUCED** |
+If the workspace is not at `/mnt/workspace`, substitute the real path everywhere in this file.
 
 ---
 
-## What Is Configured
+## Already wired — nothing to do
 
-### Git Pre-Commit Hook (`core/hooks/pre-commit`)
-Applied globally via `core.hooksPath`. Fires on every `git commit` across all repos under this workspace.
-- Warns on code files ≥ 150 lines; blocks commits on code files ≥ 200 lines (`.js .ts .tsx .py .dart .html .css .scss .tex` — not data files). Shared thresholds in [`core/hooks/limits.env`](core/hooks/limits.env)
-- Warns when newly staged code file lacks first-line description comment
-- **Hard-blocks cross-module imports bypassing facade** (`index` / `__init__`) via `check-facade-imports.py`
-- **Auto-syncs CONTEXT.md Routing block** via `context_synchronizer.py` for every dir with staged files, stages result
-- Auto-generates `.pyi` stubs for Python files (via `stubgen`), stages them
-- Auto-generates `.d.ts` declarations for JS/TS files (via `tsc`) and `.dart.api` stubs for Dart files (via `dart-api-extract.py`), stages them
-- Shares staged-file line-count enforcement with `core/hooks/checks/check-line-counts.sh`, which can also run manually for workspace-wide audit
-- **No exemptions for vendored third-party code.** Anything brought into the workspace complies with the same gates as our own code — size limits, first-line comments, generated interfaces. A `.vendor` marker that switched the gates off was tried and **rejected** (2026-07-23, Lucas: *"even thirdparty solutions, once brought to our w-os should comply with our rules. opening exceptions is quite dangerous"*). Vendoring means adopting and adapting, not parking a copy: split what is too big, and record the deviations so a future re-sync knows what it is merging against — see `core/skills/caveman/CONTEXT.md` § Local adaptations.
+These are versioned and activate on their own after a clone. They are listed so a newcomer knows
+not to go looking for an install step.
 
-### Claude Code Hooks (`.claude/settings.json`)
-Fires on every `Edit`, `Write`, `Read` tool call during Claude Code sessions.
+| Capability | Why nothing is needed |
+|---|---|
+| Claude Code hooks | `.claude/settings.json` is in the repo; Claude Code reads it when the workspace is opened, and `core/hooks/` activates immediately |
+| opencode policy plugin | `.opencode/plugins/workspace-policy.js` is a project-level plugin, auto-loaded on startup from `/mnt/workspace`. Helpers live in `.opencode/wp-helpers.js`, outside `plugins/` so opencode does not load them as a second plugin |
+| Copilot hook registration | `.github/hooks/workspace-policy.json` and `.github/hooks/rtk-rewrite.json` are inert config files until Copilot itself is installed |
+| rtk for Claude Code in this repo | the `Bash` matcher in `.claude/settings.json` already runs `rtk hook claude`; only the binary itself is per-machine (see § RTK) |
 
-| Script | Trigger | Behavior |
-|--------|---------|----------|
-| `core/hooks/checks/pre-edit.py` | PreToolUse: Edit, Write | **Hard-blocks** edits pushing code file past 200 lines; **hard-blocks Write of new files missing first-line description comment** |
-| `core/hooks/facade/facade-scan.py` | PreToolUse: Write (new files in `code/`) | **Informs** — prints exports already declared in the target module's facade before a new file is created. Warns if exports list is empty (facade needs updating). Not a block. |
-| `core/hooks/post-edit.sh` | PostToolUse: Edit, Write | Regenerates `.pyi` / `.d.ts` / `.dart.api`; auto-scaffolds `jsconfig.json`/`tsconfig.json` if missing; reminds about missing first-line comment; runs `context_synchronizer.py` |
-| `core/hooks/read/pre-read.sh` | PreToolUse: Read | **Hard-blocks** reading source file when interface is current (timestamp check); warns when interface is stale. Reading the interface unlocks the source for the session |
-| `core/hooks/facade/facade-gate.py` | PreToolUse: Edit, Write (`code/` files) | **Hard-blocks** edits to any `code/` module file until the nearest facade has been Read this session |
-| `core/hooks/facade/facade-tracker.py` | PostToolUse: Read | Records facade reads to `/tmp/claude_facades_<session_id>.txt`; consumed by `facade-gate.py` |
-| `core/hooks/read/context-gate.py` | PreToolUse: Read, Edit, Write, Grep, NotebookEdit | **Hard-blocks** file access until the target subtree's CONTEXT.md chain was Read this session (whole workspace; session-deduped; CONTEXT.md/AGENTS.md targets exempt) |
-| `core/hooks/read/bash-context-gate.py` | PreToolUse: Bash | **Hard-blocks** Bash commands naming workspace files in subtrees whose CONTEXT.md chain is unread (closes the cat/grep bypass) |
-| `core/hooks/read/context-tracker.py` | PostToolUse: Read | Records CONTEXT.md reads (context-gate state) and interface reads (pre-read source unlock) |
-| `core/hooks/checks/bugs-gate.py` | PreToolUse: Edit, Write (`BUGS.md`) | **Hard-blocks** flipping a bug to FIXED unless a matching `test/**/b<N>-*` regression spec exists |
-| `core/hooks/read/spec-read-gate.py` | PreToolUse: Edit, Write (`code/` files) | **Hard-blocks** editing a spec-locked module's files (CONTEXT.md `> spec:` + SPEC.md `status: locked`) until its `SPEC.md` was Read this session; nudges on new files in spec-less `code/` modules (SDD — [code/SPEC-DRIVE.md](code/SPEC-DRIVE.md)) |
-| `core/hooks/session/precompact-wipe.sh` | PreCompact | Wipes context seen-markers — CONTEXT chain is re-read after compaction |
-| `core/hooks/session/session-prune.sh` | SessionStart | Prunes stale session marker files (>2 days) |
-
-### Git Pre-Commit additions (see [code/VERIFY.md](code/VERIFY.md))
-
-| Gate | Behavior |
-|------|----------|
-| `verify:fast` contract (1a) | Projects whose package.json declares `verify:fast` must be green — **hard-blocks** commit |
-| `core/hooks/checks/check-duplication.py` (1b) | jscpd over the committing repo — **hard-blocks** clones involving staged files (75 tokens / 10 lines) |
-| Spec-driven module gate (1d) | New module `CONTEXT.md` under `code/` must declare `> spec: <file>` (existing) or `> spec: none` — **hard-blocks** commit otherwise (ratchet; existing modules grandfathered) |
-
-For codegraph setup and bash tool reference, see [`code/SETUP.md`](code/SETUP.md#codegraph).
-
-### Agent Hook Coverage
-
-All canonical enforcement lives in `core/hooks/`. Each agent needs a shim that calls them.
-
-| Hook | Git | Claude Code | Copilot | opencode |
-|------|-----|-------------|---------|----------|
-| Pre-read (interface redirect) | — | `.claude/settings.json` | `copilot-pre-tool.py` ✅ | `.opencode/plugins/workspace-policy.js` ✅ |
-| Pre-edit (size / description) | — | `.claude/settings.json` | `copilot-pre-tool.py` ✅ | `.opencode/plugins/workspace-policy.js` ✅ |
-| Pre-edit facade-scan (new files) | — | `.claude/settings.json` | `copilot-pre-tool.py` ✅ | `.opencode/plugins/workspace-policy.js` ✅ |
-| Pre-edit facade-gate (code/ edits) | — | `.claude/settings.json` | `copilot-pre-tool.py` ✅ | `.opencode/plugins/workspace-policy.js` ✅ |
-| Post-edit (stubs / context sync / codegraph) | — | `.claude/settings.json` | `copilot-post-tool.py` ✅ | `.opencode/plugins/workspace-policy.js` ✅ |
-| Post-read facade-tracker | — | `.claude/settings.json` | `copilot-post-tool.py` ✅ | `.opencode/plugins/workspace-policy.js` ✅ |
-| Size / facade import / stub gen / context sync | `pre-commit` ✅ | — | — | automatic (git) |
-| ESLint R1-R6 (TS projects under `code/`) | `pre-commit` ✅ hard-block | `post-edit.sh` ✅ warn | ❌ gap | ❌ gap |
-| Prettier auto-format (TS projects under `code/`) | — | `post-edit.sh` ✅ | ❌ gap | ❌ gap |
-| Context-gate (CONTEXT.md chain) | — | `.claude/settings.json` ✅ | `copilot-pre-tool.py` ✅ | `workspace-policy.js` ✅ |
-| Bash context-gate (cat/grep bypass) | — | `.claude/settings.json` ✅ | `copilot-pre-tool.py` ✅ (terminal hints) | `workspace-policy.js` ✅ (bash tool) |
-| Context/interface read tracker | — | `.claude/settings.json` ✅ | `copilot-post-tool.py` ✅ | `workspace-policy.js` ✅ |
-| BUGS gate (FIXED needs spec) | — | `.claude/settings.json` ✅ | `copilot-pre-tool.py` ✅ | `workspace-policy.js` ✅ |
-| Spec-read-gate (spec-locked module edits) | — | `.claude/settings.json` ✅ | `copilot-pre-tool.py` ✅ | `workspace-policy.js` ✅ |
-| Spec-driven new-module gate (1d) | `pre-commit` ✅ hard-block | — | — | automatic (git) |
-| Duplication gate (jscpd) | `pre-commit` ✅ hard-block | — | — | automatic (git) |
-| verify:fast contract gate | `pre-commit` ✅ hard-block | — | — | automatic (git) |
-
-**Session id note:** Claude Code hooks get `session_id` from stdin JSON; the Copilot shims derive a stable `copilot<host-pid>` id. Any new shim must pass a session-stable id in the payload or markers will never dedupe.
-
-**Existing shims:**
-- **Claude Code** — `.claude/settings.json` (PreToolUse/PostToolUse matchers).
-- **Copilot** — `core/hooks/copilot/copilot-pre-tool.py` + `core/hooks/copilot/copilot-post-tool.py` (translate Copilot's tool events to the Claude stdin-JSON + `CLAUDE_TOOL_NAME` env schema).
-- **opencode** — `.opencode/plugins/workspace-policy.js` (translates opencode's `tool.execute.before`/`after` events to the same schema; maps Claude exit-2 → opencode `throw`). Helpers in `.opencode/wp-helpers.js`, re-exported through `.opencode/index.js` facade. See [`.opencode/CONTEXT.md`](.opencode/CONTEXT.md) for the full event → script mapping.
-
-**Wiring a new agent — three hook points:**
-
+Verify the opencode plugin parses:
+```bash
+node --input-type=module -e "import('/mnt/workspace/.opencode/plugins/workspace-policy.js').then(m=>console.log(typeof m.WorkspacePolicy))"
+# Expected: function
 ```
-PreTool (Read)  → bash /mnt/workspace/core/hooks/read/pre-read.sh
-PreTool (Edit)  → python3 /mnt/workspace/core/hooks/checks/pre-edit.py
-                  python3 /mnt/workspace/core/hooks/facade/facade-scan.py  (write/create only)
-                  python3 /mnt/workspace/core/hooks/facade/facade-gate.py
-PostTool (Edit) → bash /mnt/workspace/core/hooks/post-edit.sh
-PostTool (Read) → python3 /mnt/workspace/core/hooks/facade/facade-tracker.py
-```
-
-Each canonical hook expects:
-- `file_path` — absolute path to the file being read/edited
-- `CLAUDE_TOOL_NAME` env var — `"Read"`, `"Edit"`, or `"Write"`
-- Pre-hooks: JSON payload on **stdin**
-- Post-hooks: JSON payload in **`CLAUDE_TOOL_INPUT`** env var
-
-Return code `2` = hard block; stdout = message shown to agent. See `copilot-pre-tool.py` and `copilot-post-tool.py` for a complete Python shim implementation, or `.opencode/plugins/workspace-policy.js` for a JS/opencode-plugin shim that maps exit-2 to opencode's `throw`-from-`tool.execute.before` block convention.
-
-**Session isolation caveat**: `facade-gate` and `facade-tracker` use Claude Code's process PID to isolate parallel sessions. Other agents must adapt `get_session_id()` in those scripts to use their own session identifier.
-
-### CONTEXT.md Auto-Sync (`core/hooks/routing/context_synchronizer.py`)
-Runs on every Claude edit (via `post-edit.sh` — also re-syncs parent dir) and every git commit (via `pre-commit`). Keeps each project's `## Routing` block accurate without manual maintenance:
-
-- **Adds** new files with description from: first-line comment (code files), `description:` YAML frontmatter (`.md` files), usage comment after ` — ` (extensionless executable scripts)
-- **Removes** stale entries for deleted files
-- **Links** interface files (`.pyi` / `.d.ts` / `.dart.api`) automatically
-- **Folds** small subdirs (< 7 files, leaf dirs) into parent Routing block with relative paths
-- **Links** large subdirs (≥ 7 files, or has own CONTEXT.md, or has deeper nesting) in Routing block; auto-creates scaffold CONTEXT.md for intermediate dirs with no CONTEXT.md but with sub-hierarchy
-- **Warns** when dir exceeds 7 direct files
-
-**Do not edit the sentinel block manually** (`<!-- routing:start/end -->`). Changes overwritten on next sync run.
-
-**Renames not tracked automatically.** Old entry disappears, new file appears with placeholder description. Update description in CONTEXT.md manually after rename.
-
-Manual run: `python3 /mnt/workspace/core/hooks/routing/context_synchronizer.py <directory>`
-
-### First-Line Description Convention
-Every code file must begin with one-line description comment. `context_synchronizer.py` reads this as canonical description and writes it into CONTEXT.md automatically.
-
-Enforcement model:
-- **New file (Write)** → hard block: `pre-edit.py` rejects Write if content doesn't start with description comment
-- **Existing file (Edit)** → in-session reminder: `post-edit.sh` checks line 1 after every edit, prints reminder if missing
-- **git commit** → warning: `pre-commit` warns when newly staged file lacks comment
-
-### Interface File Generation
-Every save of supported source file unconditionally produces interface file. Generation universal — no per-project config required.
-
-| Language | Output | Tool | Notes |
-|----------|--------|------|-------|
-| Python | `.pyi` | `stubgen` | Auto on every Claude edit and git commit |
-| JavaScript | `.d.ts` | `tsc --allowJs --emitDeclarationOnly` | Auto on every Claude edit; `jsconfig.json` auto-scaffolded if missing (IDE use only) |
-| TypeScript | `.d.ts` | `tsc --emitDeclarationOnly` | Auto on every Claude edit; `tsconfig.json` auto-scaffolded if no ancestor config found |
-| Dart/Flutter | `.dart.api` | `dart-api-extract.py` | Auto on every Claude edit; extracts public class/mixin/method signatures |
-| LaTeX | `.texif` | `tex-interface-gen.py` + `tex_interface_parser.py` | Auto on every Claude edit; extracts structure, equations (full), figures/tables/listings, citations, TODO comments, section/subsection opening sentences. Also regenerates `labels.md` (cross-file label registry + dangling ref check) in paper root. `.bib` edits warn about missing `reviews/<key>.yaml` files. |
-
-**Enforcement**: `pre-read.sh` hard-blocks reading source file when interface file is current (interface timestamp ≥ source timestamp). Reading interface first is not optional when interface is trustworthy.
-
-**To bypass size gate temporarily**: edit `BLOCK_LINES` in `core/hooks/limits.env`, perform operation, revert. Both `pre-edit.py` and `check-line-counts.sh` pick up new value immediately.
-
-### Engineering Policies
-See [code/CONTEXT.md](code/CONTEXT.md) for full file size policy, modularization strategy, and interface conventions Claude follows during coding sessions.
 
 ---
 
-## First-Time Setup (New Machine)
+## Git hook
 
-Run once after cloning or moving workspace.
-
-### 1. Wire the Git Hook
 ```bash
 git config --global core.hooksPath /mnt/workspace/core/hooks
 ```
-Applies `core/hooks/pre-commit` to every git repo on machine.
-If workspace is at different path, replace `/mnt/workspace` with actual path everywhere in this file.
 
-Verify:
+Applies `core/hooks/pre-commit` to **every** git repo on the machine — that global reach is the
+point, since projects under `code/` are their own repos.
+
 ```bash
-git config --global core.hooksPath
-# Expected: /mnt/workspace/core/hooks
+git config --global core.hooksPath     # Expected: /mnt/workspace/core/hooks
 ```
 
-### 2. Make Hook Scripts Executable
+## Executable bits
+
 ```bash
 chmod +x /mnt/workspace/core/hooks/post-edit.sh
 chmod +x /mnt/workspace/core/hooks/read/pre-read.sh
@@ -194,81 +59,80 @@ chmod +x /mnt/workspace/core/hooks/checks/check-line-counts.sh
 chmod +x /mnt/workspace/core/hooks/copilot/copilot-agent.sh
 chmod +x /mnt/workspace/core/hooks/session/start-session.sh
 ```
-(`pre-edit.py`, `copilot-pre-tool.py`, `copilot-post-tool.py`, `copilot-session-start.py`, `dart-api-extract.py` invoked via `python3` — no execute permission needed.)
 
-### 3. Python Interface Generation (stubgen)
-```bash
-pip install mypy
-```
-Or using workspace venv:
-```bash
-/mnt/workspace/.venv/bin/pip install mypy
-```
-Verify: `stubgen --version` or `/mnt/workspace/.venv/bin/stubgen --version`
+The `.py` hooks are invoked through `python3` and need no execute bit.
 
-### 4. JavaScript/TypeScript Interface Generation (tsc)
+## Python interfaces — stubgen
+
 ```bash
-# Via nvm (recommended):
+pip install mypy                          # or: /mnt/workspace/.venv/bin/pip install mypy
+stubgen --version                         # or: /mnt/workspace/.venv/bin/stubgen --version
+```
+
+## JavaScript / TypeScript interfaces — tsc
+
+```bash
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 source ~/.bashrc
 nvm install --lts
 npm install -g typescript
 ```
-Or if Node installed but global install requires sudo:
+
+If Node is already present but a global install would need sudo:
 ```bash
 npm install -g typescript --prefix ~/.local
 ```
-Hook checks `tsc` on PATH first, then falls back to `~/.local/bin/tsc`.
 
-Verify: `tsc --version` or `~/.local/bin/tsc --version`
+The hook checks `tsc` on `PATH` first, then `~/.local/bin/tsc`. Verify with `tsc --version`.
 
-### 5. Claude Code Hooks
-No action needed. `.claude/settings.json` versioned in this repo; Claude Code reads it automatically when workspace opened. Hooks in `core/hooks/` activate immediately.
+## ESLint + Prettier for TypeScript projects
 
-### 6. opencode Workspace Policy Plugin
-No action needed. `.opencode/plugins/workspace-policy.js` is a project-level plugin; opencode auto-loads it on startup when run from `/mnt/workspace`. It mirrors the Claude Code hooks in `.claude/settings.json` — same `core/hooks/*` scripts, same policies (first-line comment, line-count limits, facade-first reads, interface-first source reads, interface regeneration). Translation helpers in `.opencode/wp-helpers.js` (outside `plugins/` so opencode does not auto-load them as a plugin), re-exported through `.opencode/index.js` facade. See [`.opencode/CONTEXT.md`](.opencode/CONTEXT.md) for the event → script mapping and the warning-surfacing limitation (opencode has no inline-tool-warning API on `tool.execute.before`; pre-hook warnings go to `client.app.log` + `client.tui.showToast`, post-hook output is appended to `output.output`).
+Project-local, in every TS project carrying an `eslint.config.js`. Each imports the shared rules
+from `code/eslint.shared.js`, and ESLint runs from the project root via `node_modules/.bin/eslint`
+— no global install.
 
-Verify: `node --input-type=module -e "import('/mnt/workspace/.opencode/plugins/workspace-policy.js').then(m=>console.log(typeof m.WorkspacePolicy))"` → `function`.
+```bash
+cd /mnt/workspace/code/isoroll-module && npm install
+cd /mnt/workspace/code/voti && npm install
+```
 
-### 7. Codeburn
-Run `codeburn optimize` periodically to audit token waste.
+Verify:
+```bash
+ls /mnt/workspace/code/isoroll-module/node_modules/.bin/eslint
+cd /mnt/workspace/code/isoroll-module && npm run lint
+```
 
-### 8. Caveman (Claude Code output compression)
+## Caveman
 
-Caveman (~65% output token savings) is **vendored into this workspace** as of 2026-07-23 —
-source of truth is [`core/skills/caveman/`](core/skills/caveman/CONTEXT.md), upstream credit is
-[JuliusBrussee/caveman](https://github.com/JuliusBrussee/caveman). Do **not** run the upstream
-installer any more; it would overwrite the links with copies and re-fork the two installs.
+Output compression (~65% saving on the agent's own output). **Vendored** into this workspace since
+2026-07-23 — the source of truth is [`core/skills/caveman/`](core/skills/caveman/CONTEXT.md),
+upstream credit [JuliusBrussee/caveman](https://github.com/JuliusBrussee/caveman). **Do not run the
+upstream installer**: it overwrites the links with copies and re-forks the two installs.
 
-Requires Node ≥18. On a fresh clone (new machine), one command wires the whole suite:
+Requires Node ≥ 18. One command wires the suite:
 
 ```bash
 core/tools/wos/sync-global-skills            # links ~/.agents/skills/caveman + ~/.claude/hooks/caveman-*
 core/tools/wos/sync-global-skills --check    # verify
 ```
 
-Then add the hook entries to `~/.claude/settings.json` (`SessionStart` → `caveman-activate.js`,
-`UserPromptSubmit` → `caveman-mode-tracker.js`, `statusLine` → `caveman-statusline.sh`) if that
-file is not already carried over.
+Then, if `~/.claude/settings.json` did not come across from the old machine, add its three entries:
+`SessionStart` → `caveman-activate.js`, `UserPromptSubmit` → `caveman-mode-tracker.js`,
+`statusLine` → `caveman-statusline.sh`.
 
-**Set default mode** via caveman's config:
+**Default mode** — optional (caveman's own default is `full`), but a config file makes it explicit
+and reproducible. Values: `lite`, `full`, `ultra`, `off`.
 
-Linux / macOS:
 ```bash
 mkdir -p ~/.config/caveman && echo '{"defaultMode": "full"}' > ~/.config/caveman/config.json
 ```
-
-Windows (PowerShell):
 ```powershell
 New-Item -ItemType Directory -Force "$env:USERPROFILE\.config\caveman" | Out-Null
 '{"defaultMode": "full"}' | Set-Content "$env:USERPROFILE\.config\caveman\config.json"
 ```
 
-Change `"full"` to `"lite"`, `"ultra"`, or `"off"` to adjust. `"full"` is caveman's built-in default — config file optional but makes setting explicit and reproducible.
+**The `caveman-compress` shell function**, appended to `~/.bashrc` (or `~/.zshrc`):
 
-**Add the `caveman-compress` shell function:**
-
-Linux / macOS — append to `~/.bashrc` (or `~/.zshrc`):
 ```bash
 cat >> ~/.bashrc << 'EOF'
 
@@ -281,8 +145,6 @@ caveman-compress() {
 EOF
 source ~/.bashrc
 ```
-
-Windows — append to PowerShell profile (`$PROFILE`):
 ```powershell
 Add-Content $PROFILE @'
 
@@ -298,83 +160,63 @@ function caveman-compress {
 '@
 ```
 
-Run `/caveman compress <file>` on CONTEXT.md files periodically to cut input tokens (the old `/caveman-compress` spelling still resolves).
+**Verify:** open a Claude Code session — the `[CAVEMAN] ⛏` badge appears in the statusline.
 
-**Verify:** open Claude Code session — `[CAVEMAN] ⛏` badge should appear in statusline.
+**Wiring a new agent.** Two mechanisms, and every agent uses one: **installed**, where session-start
+hooks call `caveman-activate.js` (Claude Code), or **induced**, where a session-start shim reads
+`~/.config/caveman/config.json` and injects the rules as context (Copilot, via
+`core/hooks/copilot/copilot-session-start.py`). Both read the same config file, so one toggle
+controls every agent. Follow the induced pattern by hand — upstream's
+[INSTALL.md](https://github.com/JuliusBrussee/caveman/blob/main/INSTALL.md) is still the reference
+for what a given agent needs, but never let its generator write into this workspace.
 
-**Agent integration pattern — installed vs induced:**
-Every agent in this workspace should activate caveman via one of two mechanisms:
+## RTK
 
-| Mechanism | Agent | How |
-|-----------|-------|-----|
-| **Installed** | Claude Code | `SessionStart` + `UserPromptSubmit` hooks in `~/.claude/settings.json` call `caveman-activate.js` (a link into `core/skills/caveman/hooks/`). Auto-activates every session. |
-| **Induced** | Copilot | `copilot-session-start.py` reads `~/.config/caveman/config.json` and injects rules as `additionalContext` at session start. |
+[rtk-ai/rtk](https://github.com/rtk-ai/rtk) — a Rust CLI proxy that filters and compresses dev-command
+output (git, test runners, docker) before it reaches an agent's context: 60-90% token savings.
+Complementary to caveman, which compresses the agent's *own* output, not tool output. Apache 2.0,
+single static binary, no deps.
 
-When adding new agent: if it supports session-start hooks or context injection, add caveman injection there following induced pattern in `core/hooks/copilot/copilot-session-start.py`. Both mechanisms read same config file — one toggle controls all agents.
-
-> **New agent checklist:** the suite is vendored, so wire a new agent by hand rather than re-running an upstream installer — follow the induced pattern in `core/hooks/copilot/copilot-session-start.py` and point it at `core/skills/caveman/`. Upstream's [INSTALL.md](https://github.com/JuliusBrussee/caveman/blob/main/INSTALL.md) is still the reference for what a given agent needs, but do not let its generator write into this workspace.
-
-Responses use caveman compression by default. Deactivate for a session: say "stop caveman" or "normal mode". To change the default, see `SETUP.md §6`.
-
-### 10. ESLint + Prettier for TypeScript Projects under `code/`
-
-Install project-local ESLint and Prettier in every TS project that has an `eslint.config.js`:
-
-```bash
-cd /mnt/workspace/code/isoroll-module && npm install
-cd /mnt/workspace/code/voti && npm install
-```
-
-Each project imports rules from the shared config at `code/eslint.shared.js`. ESLint is run from the project root using `node_modules/.bin/eslint` — no global install needed.
-
-Verify:
-```bash
-# Confirm ESLint binary present
-ls /mnt/workspace/code/isoroll-module/node_modules/.bin/eslint
-ls /mnt/workspace/code/voti/node_modules/.bin/eslint
-
-# Run lint manually
-cd /mnt/workspace/code/isoroll-module && npm run lint
-```
-
-### 9. Local LaTeX Toolchain (for `academy/papers/`)
-
-See [academy/SETUP.md](academy/SETUP.md).
-
-### 11. RTK (token-optimized CLI proxy, all agents)
-
-[rtk-ai/rtk](https://github.com/rtk-ai/rtk) — Rust CLI proxy that filters/compresses dev-command output (git, test runners, docker, etc.) before it reaches an agent's context: 60-90% token savings, complementary to caveman (which compresses the agent's own output, not tool output). Apache 2.0, single static binary, no deps.
-**Install the binary** (per machine, not versioned):
 ```bash
 curl -fsSL https://raw.githubusercontent.com/rtk-ai/rtk/master/install.sh | sh
+rtk --version                     # installs to ~/.local/bin/rtk
 ```
-Installs to `~/.local/bin/rtk`. Verify: `rtk --version`.
 
-**Claude Code** — dual-wired:
-- Project-scoped hook already versioned in `/mnt/workspace/.claude/settings.json` (`"Bash"` matcher runs `rtk hook claude` alongside `bash-context-gate.py`) — works immediately after clone, no action needed.
-- Global patch, for Claude Code sessions outside this workspace:
-  ```bash
-  rtk init --global --auto-patch
-  ```
-  Additive — only inserts a `PreToolUse`/`Bash` block into `~/.claude/settings.json`; does not touch existing `SessionStart`/`UserPromptSubmit`/`statusLine` keys (e.g. caveman hooks). Takes an automatic `.bak` backup. Verify: `rtk init --show`.
+⚠ **Name collision.** If `rtk gain` reports an unknown subcommand, the installed binary is
+reachingforthejack/rtk (Rust Type Kit), a different tool with the same name. Check `which rtk`.
 
-**OpenCode** (global plugin — no project-scoped variant exists for rtk):
+**Claude Code** is dual-wired: the project-scoped hook is already versioned here (see § Already
+wired). For sessions *outside* this workspace, patch the global config:
 ```bash
-rtk init --global --opencode
+rtk init --global --auto-patch      # additive; takes a .bak; verify with: rtk init --show
 ```
-Writes `~/.config/opencode/plugins/rtk.ts` (`tool.execute.before` hook). Coexists with this workspace's own project-local `.opencode/plugins/workspace-policy.js` — separate files, both auto-load.
+It only inserts a `PreToolUse`/`Bash` block into `~/.claude/settings.json` and leaves existing
+`SessionStart`/`UserPromptSubmit`/`statusLine` keys (caveman's) untouched.
 
-**Pi** (global extension) — **requires a manual peer-dependency fix**, rtk's generated extension doesn't work out of the box:
+**opencode** — global plugin only, no project-scoped variant exists:
+```bash
+rtk init --global --opencode        # writes ~/.config/opencode/plugins/rtk.ts
+```
+Coexists with this workspace's own `.opencode/plugins/workspace-policy.js` — separate files, both
+auto-load.
+
+**Pi** needs a manual peer-dependency fix; the generated extension does not work out of the box:
 ```bash
 rtk init --agent pi --global
-mkdir -p ~/.pi/agent/extensions   # if rtk didn't already create it
+mkdir -p ~/.pi/agent/extensions
 cd ~/.pi/agent/extensions
 echo '{"name":"pi-extensions-peer-deps","private":true}' > package.json
 npm install @earendil-works/pi-coding-agent
 ```
-Why: the generated `~/.pi/agent/extensions/rtk.ts` does `import type { ExtensionAPI } from "@earendil-works/pi-coding-agent"`, but Pi's extension loader resolves it as a real `require()` (type-erasure doesn't happen), and Node resolves `node_modules` relative to the extension file's own directory — not from wherever `pi` itself is installed. Without the local `node_modules`, loading fails with `Cannot find module '@earendil-works/pi-coding-agent'`, even if that package is installed globally. Verify: `pi -e ~/.pi/agent/extensions/rtk.ts --no-session` — no output/exit 0 = loaded; an `Error: Failed to load extension` line means the peer-dep step above is missing.
+Why: the generated `rtk.ts` does `import type { ExtensionAPI } from "@earendil-works/pi-coding-agent"`,
+but Pi's loader resolves it as a real `require()` — type erasure does not happen — and Node resolves
+`node_modules` relative to the extension file's own directory, not to wherever `pi` is installed.
+Without the local `node_modules` it fails with `Cannot find module`, even with the package installed
+globally. Verify: `pi -e ~/.pi/agent/extensions/rtk.ts --no-session` — silence and exit 0 means loaded.
 
-**Feynman** (research agent, [feynman.is](https://www.feynman.is/) / [companion-inc/feynman](https://github.com/companion-inc/feynman)) — not in rtk's official supported-agent list, but Feynman is built directly on Pi (same `ExtensionAPI`/`tool_call` event model, ships its own `PI_CODING_AGENT_DIR` env override pointing Pi's loader at `~/.feynman/agent` instead of `~/.pi/agent`). Wired by parity, same peer-dep gotcha applies:
+**Feynman** ([feynman.is](https://www.feynman.is/)) is not on rtk's supported list but is built
+directly on Pi, with its own `PI_CODING_AGENT_DIR` pointing the loader at `~/.feynman/agent`. Wired
+by parity, same peer-dep gotcha:
 ```bash
 mkdir -p ~/.feynman/agent/extensions
 cp ~/.pi/agent/extensions/rtk.ts ~/.feynman/agent/extensions/rtk.ts
@@ -382,263 +224,126 @@ cd ~/.feynman/agent/extensions
 echo '{"name":"feynman-extensions-peer-deps","private":true}' > package.json
 npm install @earendil-works/pi-coding-agent
 ```
-**Unverified**: Feynman has no `-e`/dry-run flag to confirm extension load non-interactively (unlike raw `pi`). First real Feynman session should be checked for a `[rtk] rtk binary not found` or `Failed to load extension` warning on startup; absence of either is the confirmation signal.
+**Unverified** — Feynman has no `-e`/dry-run flag, so the confirmation signal is the *absence* of
+`[rtk] rtk binary not found` or `Failed to load extension` on the first real session's startup.
 
-### Using it — the four commands the hook cannot run for you
-
-Everything else is rewritten by the hook transparently, at zero token cost: `git status` becomes
-`rtk git status` without anyone asking. These four have to be typed:
+**Using it.** Everything is rewritten transparently at zero token cost — `git status` becomes
+`rtk git status` without anyone asking. Four commands have to be typed:
 
 ```bash
 rtk gain              # token savings analytics
 rtk gain --history    # command usage history with savings
 rtk discover          # analyse session history for missed opportunities
-rtk proxy <cmd>       # run a command raw, unfiltered — for debugging the proxy itself
+rtk proxy <cmd>       # run a command raw — for debugging the proxy itself
 ```
-
-⚠ **Name collision.** If `rtk gain` reports an unknown subcommand, the installed binary is
-reachingforthejack/rtk (Rust Type Kit), a different tool with the same name. Check with
-`which rtk` and `rtk --version`.
-
-*Moved here 2026-08-15 from `~/.claude/RTK.md`, which the global `CLAUDE.md` pulled into every
-session on this machine — including projects that are not this workspace. It is toolchain prose,
-so it belongs with the rest of the toolchain: on demand, in one place, inside the repo.*
-
-**GitHub Copilot** — already versioned, dormant until Copilot itself is installed on a machine:
-- `.github/hooks/rtk-rewrite.json` (hook config, `rtk hook copilot`)
-- `<!-- rtk-instructions -->` block appended to `.github/copilot-instructions.md`
-
-No action needed after clone; both are inert config files until Copilot (VS Code extension or CLI) is present. Not independently verified end-to-end on this machine — Copilot isn't installed here.
 
 **Uninstall** (any target): `rtk init --uninstall [--global] [--copilot|--opencode|--agent pi]`.
 
----
+## Web search
 
-### 12. Unified web-search CLI (all agents)
+[`core/tools/web/search`](core/tools/web/search) is the single entrypoint for every agent — no MCP,
+no per-agent wiring. It resolves its own backend, which is the whole point: picking a search CLI is
+a maintenance burden that belongs inside one script, not in every agent's prompt.
 
-[`core/tools/web/search`](core/tools/web/search) is the single entrypoint for web search — callable from any agent's bash, no MCP, no per-agent wiring. Backend resolution is internal:
+| Backend | When | Setup |
+|---|---|---|
+| **Exa** | `~/.feynman/web-search.json` holds `exaApiKey` | key from the [Exa dashboard](https://exa.ai), saved as `{"exaApiKey": "..."}` — no system install |
+| **ddgr** | Exa key missing, or Exa errors (bad key, quota, network); also on `--backend ddgr` | `sudo apt install -y ddgr` (or `pipx install ddgr`) |
 
-| Backend | When used | Setup |
-|---------|-----------|-------|
-| **Exa** (default when configured) | `~/.feynman/web-search.json` contains `exaApiKey` | key from your [Exa dashboard](https://exa.ai) saved as `{"exaApiKey": "..."}` (Feynman already does this on install) |
-| **ddgr** (zero-key fallback) | Exa key missing, OR Exa errors out (bad key, quota, network) | `sudo apt install -y ddgr` (or `pipx install ddgr` on non-Debian) |
-| ddgr also engages on `--backend ddgr` (forced) | when you explicitly want DDG | — |
+Both return the same normalized JSON: `[{title, url, abstract, score?}]`.
 
-Both backends return the same normalized JSON shape: `[{title, url, abstract, score?}]`.
-
-**Why one tool:** the agent never picks the backend — the script does, by key presence + error fallback. Picking "which search CLI" is a maintenance burden that belongs inside one script, not in every agent's prompt.
-
-**Install** (per machine, not versioned):
 ```bash
-sudo apt install -y ddgr          # required for the fallback path; harmless if Exa is configured
+ddgr --version                                     # expected: 2.2 or later
+core/tools/web/search "test query" --n 3           # auto-picks Exa if the key is present
+core/tools/web/search "test query" --backend ddgr  # force DDG
 ```
 
-(Exa needs no system install — just the key file at `~/.feynman/web-search.json`.)
+**Quirk — DDG HTTP 202.** DuckDuckGo intermittently answers 202 with an empty body for piped
+requests, especially after a burst from one IP. The fallback retries with exponential backoff
+(`WEB_RETRIES`, default 5); if both backends fail the script exits non-zero with
+`{"error": "all backends failed", ...}` on stderr, which callers can branch on.
 
-**Verify:**
-```bash
-ddgr --version                          # expected: 2.2 or later
-core/tools/web/search "test query" --n 3    # expected: JSON array; auto-picks Exa if key present, else ddgr
-core/tools/web/search "test query" --backend ddgr    # force DDG path
-core/tools/web/search "test query" --backend exa     # force Exa (errors propagate, no fallback)
-```
+Per-agent wiring: none. Every agent's bash already reaches the system shell.
 
-**Usage from any agent (bash):**
-```bash
-core/tools/web/search "<query>"                                # auto backend, 10 results
-core/tools/web/search "<query>" --n 5                          # fewer results
-core/tools/web/search "<query>" --type keyword                 # Exa only: keyword (vs neural default)
-core/tools/web/search "<query>" --since 2026-01-01             # Exa only: date floor
-core/tools/web/search "<query>" --domains arxiv.org,github.com # Exa only: domain whitelist
-core/tools/web/search "<query>" --content                      # Exa only: include full page text in `abstract`
-core/tools/web/search "<query>" --region de-de                # ddgr only: DDG region (default us-en)
-WEB_RETRIES=8 WEB_REGION=uk-en core/tools/web/search "<query>" # tuning via env
-```
+## Telegram bot — `code/aiwbot`
 
-Exa-only flags are silently ignored when the ddgr backend is in use (fallback or forced).
-
-**Quirk — DDG HTTP 202:** DuckDuckGo intermittently returns HTTP 202 (Accepted, empty body) for non-interactive / piped requests, especially after a burst of calls from the same IP. The ddgr fallback retries with exponential backoff (`WEB_RETRIES`, default 5). If both backends ultimately fail, the script exits non-zero with `{"error": "all backends failed", ...}` on stderr — callers can branch on that.
-
-**Per-agent wiring:** none. Every agent's existing bash hook (Claude Code, opencode, Copilot, Feynman) already passes bash commands through to the system shell — `core/tools/web/search` works the moment `ddgr` is installed (and even earlier if only the Exa path is used). New agents just need their system prompt to point at [`AGENTS.md`](AGENTS.md) for the discovery rule.
-
----
-
-### 13. Telegram bot (INBOX capture + remote agent control) — now `code/aiwbot`
-
-The workspace Telegram bridge lives in [`code/aiwbot`](code/aiwbot/CONTEXT.md), running as the
-systemd `--user` service `aiwbot`. It captures text/photo/voice/document into `brain/INBOX.md` and
+The workspace Telegram bridge lives in [`code/aiwbot`](code/aiwbot/CONTEXT.md) as the systemd
+`--user` service `aiwbot`. It captures text, photo, voice and document into `brain/INBOX.md` and
 drives coding agents remotely over the provider-agnostic `AgentBackend` seam.
 
-**Retired 2026-07-23:** the original `core/tools/telegram` CLI + `telegram_daemon.py` (814 LOC,
-service `workspace-telegram-bot`) were deleted. aiwbot reached parity — capture, sessions, resume,
-plan/build — decomposed into modules under the 200-line gate, with its own bot token and config dir.
-Both services had been running side by side for days with only aiwbot actually in use. History is in
-git (last state at `468ad0e`); the disabled unit file is still at
-`~/.config/systemd/user/workspace-telegram-bot.service` if it ever needs reviving.
-
-Conventions the old bot established, still in force in aiwbot:
-
-- **Security:** every incoming update is checked against a single `allowed_chat_id` captured during pairing — bot tokens are guessable/searchable by username, so this allowlist is the only thing standing between a stranger and writes into `brain/INBOX.md`.
-- **Secrets:** `~/.config/workspace-<service>/config.json` (`bot_token`, `allowed_chat_id`), dir chmod 700 / file chmod 600 — same convention gmail/calendar/drive use.
-- **Media:** attachments saved to `brain/attachments/YYYY-MM/` via the shared [`core/tools/attachments_util.py`](core/tools/attachments_util.py) helpers (also used by `gmail_attachments.py`).
-
-**Daemon lifecycle** — the pattern for any long-running workspace process:
 ```bash
-# unit lives outside the repo, at ~/.config/systemd/user/aiwbot.service
+# the unit lives outside the repo, at ~/.config/systemd/user/aiwbot.service
 systemctl --user daemon-reload
 systemctl --user enable --now aiwbot
 systemctl --user status aiwbot --no-pager
-journalctl --user -u aiwbot --no-pager -n 50   # logs
+journalctl --user -u aiwbot --no-pager -n 50
 ```
-`Restart=on-failure` in the unit means transient crashes (e.g. a network timeout on boot) self-heal.
 
-**Verify:** send a text/photo/voice/document to the bot from the paired chat → confirm a matching
-entry lands in `brain/INBOX.md`.
+`Restart=on-failure` means a transient crash (a network timeout on boot) self-heals. This is the
+pattern for any long-running workspace process.
 
----
+Three conventions it carries, which any new service inherits:
 
-## Per-Project: Interface Generation Notes
+- **Security** — every incoming update is checked against one `allowed_chat_id` captured at pairing.
+  Bot tokens are guessable by username, so this allowlist is the only thing between a stranger and
+  writes into `brain/INBOX.md`.
+- **Secrets** — `~/.config/workspace-<service>/config.json`, dir `700` / file `600`, the same
+  convention gmail, calendar and drive use.
+- **Media** — attachments to `brain/attachments/YYYY-MM/` via the shared
+  [`core/tools/attachments_util.py`](core/tools/attachments_util.py).
 
-**JavaScript / TypeScript**: no manual setup. Hook auto-scaffolds `jsconfig.json` (JS) or `tsconfig.json` (TS, walks up to git root first) on first file write. Config files for IDE tooling only — hook generates declarations via direct CLI regardless.
+**Verify:** send a message from the paired chat, confirm the entry lands in `brain/INBOX.md`.
 
-**Dart**: no setup. `dart-api-extract.py` runs on every `.dart` save, requires only Python 3 (no Dart SDK).
+## Codeburn
 
-**Python**: requires `stubgen` (mypy). See Step 3.
+Run `codeburn optimize` periodically to audit token waste.
+
+## LaTeX toolchain
+
+For `academy/papers/` — see [`academy/SETUP.md`](academy/SETUP.md).
 
 ---
 
 ## Verification
 
+Does the install work?
+
 ```bash
-# 1. Git hook is wired
-git config --global core.hooksPath
-# Expected: /mnt/workspace/core/hooks
+# git hook is wired
+git config --global core.hooksPath                    # Expected: /mnt/workspace/core/hooks
 
-# 2. stubgen is available
+# interface generators are reachable
 stubgen --version || /mnt/workspace/.venv/bin/stubgen --version
-
-# 3. tsc is available
 tsc --version
 
-# 4. Claude Code hooks are configured
-grep -c "hooks" /mnt/workspace/.claude/settings.json
-# Expected: > 0
-
-# 4b. opencode workspace-policy plugin parses
+# agent hooks are configured
+grep -c "hooks" /mnt/workspace/.claude/settings.json  # Expected: > 0
 node --input-type=module -e "import('/mnt/workspace/.opencode/plugins/workspace-policy.js').then(m=>console.log(typeof m.WorkspacePolicy))"
-# Expected: function
 
-# 5. Hook scripts are executable
-ls -la /mnt/workspace/core/hooks/post-edit.sh /mnt/workspace/core/hooks/read/pre-read.sh /mnt/workspace/core/hooks/pre-commit /mnt/workspace/core/hooks/checks/check-line-counts.sh
+# hook scripts are executable
+ls -la /mnt/workspace/core/hooks/post-edit.sh /mnt/workspace/core/hooks/read/pre-read.sh \
+       /mnt/workspace/core/hooks/pre-commit /mnt/workspace/core/hooks/checks/check-line-counts.sh
+
+# the workspace's own suite
+python3 -m pytest core/tools/test/ -q
 ```
 
-ESLint / Prettier verification:
+An end-to-end check that the lint gate actually bites:
 ```bash
-# ESLint binary present
-ls /mnt/workspace/code/isoroll-module/node_modules/.bin/eslint
-
-# Full lint pass on isoroll-module
-cd /mnt/workspace/code/isoroll-module && npm run lint
-
-# Write a bad TS file and confirm violation detected
-echo '// test\nconst x = foo(bar());' > /tmp/test-lint.ts
+printf '// test\nconst x = foo(bar());\n' > /tmp/test-lint.ts
 cd /mnt/workspace/code/isoroll-module && node_modules/.bin/eslint /tmp/test-lint.ts
-# Expected: "2 calls in one statement" error
-
-# Attempt commit with violation — should be blocked by pre-commit §10
+# Expected: "2 calls in one statement"
 ```
 
-Behavioral verification (inside Claude Code session):
-- Edit `.py` file → `.pyi` regenerates immediately (visible in shell output)
-- Edit `.js` file → `.d.ts` regenerates; `jsconfig.json` auto-created if missing
-- Edit `.ts` file → `.d.ts` regenerates; `tsconfig.json` auto-created if no ancestor config found
-- Edit `.dart` file → `.dart.api` regenerates immediately
-- Read `.py`/`.js`/`.ts`/`.dart`/`.tex` source when interface (`.pyi`/`.d.ts`/`.dart.api`/`.texif`) is current → hard-blocked; must read interface first
-- Edit `.tex` file → `.texif` regenerated + `labels.md` regenerated immediately
-- Edit `.bib` file → warning printed for bib keys missing `reviews/<key>.yaml`
-- Attempt to grow code file past 200 lines (`.js .ts .tsx .py .dart .html .css .scss .tex`) → Claude Code blocks edit
-- Attempt to create new file without first-line description comment → Claude Code blocks Write
-- Edit file missing first-line comment → reminder printed immediately after edit
-- Run `git commit` on 200+ line code file → commit rejected
-- Run `git commit` with staged code file → CONTEXT.md Routing block auto-updated and staged
+Whether each *gate* then behaves as promised is a different question, answered by
+[`core/hooks/SPECS.md`](core/hooks/SPECS.md) § What a working install looks like.
 
 ---
 
-## Versioned Files
+## Per-project setup
 
-All infrastructure lives in workspace git repo:
+Each project under `code/` is its own git repo and owns its environment. A project whose setup
+cannot be inferred from its code carries its own `SETUP.md`.
 
-```
-core/hooks/
-  pre-commit              ← git hook: size enforcement + stub/declaration generation + routing-sync
-  pre-edit.py             ← canonical pre-edit policy: 200-line size gate + first-line check
-  post-edit.sh            ← canonical post-edit: interface regen + routing-sync + first-line reminder
-  pre-read.sh             ← canonical pre-read: hard-blocks source reads when interface is current
-  check-line-counts.sh    ← standalone audit tool (also called by pre-commit); reads line-limits.env
-  line-limits.env         ← single source of truth for WARN_LINES and BLOCK_LINES thresholds
-  context_synchronizer.py             ← CONTEXT.md Routing block synchronizer: add/remove/link files, extract API
-  check-facade-imports.py ← Facade boundary enforcer: blocks cross-module imports bypassing index/__init__
-  dart-api-extract.py     ← Dart public API extractor: produces .dart.api stubs from .dart sources
-  tex-interface-gen.py    ← LaTeX interface extractor: produces .texif (structure/equations/floats/citations) + labels.md; bib-check mode warns about missing reviews/*.yaml
-  tex_interface_parser.py ← LaTeX parser module imported by tex-interface-gen.py (parse_tex, find_paper_root, helpers)
-  paper-scaffold.py       ← paper directory initializer: `new <name>` creates full layout; `adapt <path>` fills missing files
-  copilot-pre-tool.py     ← Copilot PreToolUse shim: dispatches to pre-read.sh / pre-edit.py
-  copilot-post-tool.py    ← Copilot PostToolUse shim: dispatches to post-edit.sh
-  copilot-session-start.py← Copilot SessionStart shim: injects AGENTS.md excerpt as context
-  copilot-agent.sh        ← Copilot agent launcher: reads .agentrc.json and runs start-session.sh
-  start-session.sh        ← neutral session-start: prints AGENTS.md header (Linux/macOS)
-  start-session.ps1       ← neutral session-start: prints AGENTS.md header (Windows/PowerShell)
-.claude/
-  settings.json           ← Claude Code hook wiring (calls neutral pre-edit/post-edit/pre-read) + permissions; Bash matcher also runs `rtk hook claude` (see SETUP.md §11)
-.opencode/
-  CONTEXT.md              ← opencode config docs: event → script mapping, stdin-vs-env schema, warning surfacing
-  index.js                ← opencode config facade — re-exports wp-helpers.js (consumed by plugins/workspace-policy.js)
-  wp-helpers.js           ← opencode workspace-policy translation layer: spawn, schema mapping, warning surfacing
-  plugins/
-    workspace-policy.js   ← opencode workspace policy plugin: tool.execute.before/after → core/hooks/* scripts
-  package.json            ← "type": "module" + @opencode-ai/plugin dependency (gitignored — opencode Bun-managed)
-.github/
-  copilot-instructions.md ← Copilot shim: one line pointing to AGENTS.md + rtk usage block (SETUP.md §11)
-  hooks/workspace-policy.json ← Copilot hook registration: SessionStart, PreToolUse, PostToolUse
-  hooks/rtk-rewrite.json ← rtk Copilot hook registration: PreToolUse → `rtk hook copilot` (SETUP.md §11)
-.agentrc.json             ← Copilot agent config: start_session path + declarative capability flags
-SETUP.md                  ← this file: replication instructions
-CLAUDE.md                 ← workspace behavioral instructions for Claude
-AGENTS.md                 ← canonical workspace entrypoint read by all agents at session start
-code/CONTEXT.md           ← engineering principles: file size, modularization, interface conventions
-code/SPECS.md             ← style rules R1-R6, hook enforcement reference, file size policy
-code/eslint.shared.js     ← shared ESLint config: 3 custom rules (single-return, one-call-per-statement, max-chain-depth) + built-in R1-R6 rules; imported by all TS projects
-core/                     ← provider-agnostic research system (agents, flows, tools)
-  core/agents/            ← agent role definitions (lead, researcher, reviewer, verifier, writer)
-  core/flows/             ← workflow protocols; flows owned by a dispatcher skill nest under it
-  core/flows/research/    ← the `research` skill's flows (literature, deep, scout, explore, …)
-  core/tools/             ← executable CLI research tools (search, papers, fetch, parse, …)
-.claude/commands/         ← Claude Code slash commands (e.g. /research dispatcher)
-```
-
-Only steps that can't be versioned: global git config command + external tool installs (stubgen, tsc, nvm). Everything else in file system.
-
----
-
-## Policy Decisions
-
-### Per-project SETUP.md (pattern)
-
-Projects under `code/` — and any other workspace subdirectory with non-trivial environment requirements — may include their own `SETUP.md`. This file covers what the workspace-level `SETUP.md` cannot: third-party tool installs, model downloads, platform-specific paths, extension dependencies. The workspace-level file delegates per-project setup to these files; the quick-start table above links to them. When adding a project with environment setup that can't be inferred from the code, create `<project>/SETUP.md` and add a row to the table.
-
-### Line-limit rule (canonicalized)
-
-- Warning threshold: 150 lines (`WARN_LINES` in `core/hooks/limits.env`)
-- Hard block: 200 lines (`BLOCK_LINES` in `core/hooks/limits.env`)
-- Pre-commit hook **incremental only** — checks staged files per commit, not full tree.
-- Intent: force graph-like design — small single-responsibility nodes with explicit edges (imports).
-- To change thresholds: edit only `core/hooks/limits.env`. Both `pre-edit.py` and `check-line-counts.sh` read from it; no other file needs updating.
-- Project-specific overrides: add note in project's `CONTEXT.md`, document exemption reason. Exempt categories so far: vendored ML model architecture files, generated string-table files, Dart `part of` split fragments.
-
----
-
-## Per-Project Quick Start
-
-See [code/SETUP.md](code/SETUP.md) for Code project quick-start commands and per-project setup.
-
-See [academy/SETUP.md](academy/SETUP.md) for LaTeX toolchain and papers compilation.
+- [`code/SETUP.md`](code/SETUP.md) — per-language quick start, facade templates, codegraph
+- [`academy/SETUP.md`](academy/SETUP.md) — LaTeX toolchain, paper compilation

@@ -3,19 +3,15 @@
 
 ## Hook Enforcement Reference
 
-What hooks block vs what you must self-enforce:
+Which hook fires when, and what it blocks: [`core/hooks/SPECS.md`](../core/hooks/SPECS.md). That
+file is the enforcement layer's own contract and holds the table once; repeating a row here would
+be a second copy to keep true.
 
-| Hook | Trigger | What it does |
-|------|---------|-------------|
-| `pre-edit.py` | Any Edit/Write | Hard-blocks: file exceeds 200 LOC; new file missing first-line description |
-| `facade-scan.py` | Write (new files only) | Prints existing exports from target module's facade — verify no duplication before proceeding |
-| `post-edit.sh` | Any Edit/Write | Regenerates `.d.ts`/`.pyi`/`.dart.api`; syncs `CONTEXT.md` routing block |
-| `pre-read.sh` | Any Read | Redirects source reads to interface file (`.d.ts`/`.pyi`) when interface is current |
-| `pre-commit` | git commit | LOC check, facade boundary check, first-line comment, stub generation, CONTEXT.md sync |
-| `pre-commit` (§10) | git commit | **Hard-blocks** commit if staged `.ts`/`.tsx` under `code/` has ESLint R1-R6 violations |
-| `post-edit.sh` (ESLint) | Any Edit/Write to `code/**/*.ts` | Prettier auto-formats in-place; ESLint R1-R6 violations printed as warnings (non-blocking) |
+Two rules are `code/`-specific and live only there: a staged `.ts`/`.tsx` under `code/` with ESLint
+R1-R6 violations **hard-blocks** the commit, and `post-edit.sh` Prettier-formats in place while
+printing R1-R6 violations as non-blocking warnings.
 
-Full wiring details: [`/SETUP.md`](/SETUP.md#claude-code-hooks-claudesettingsjson)
+What the hooks catch is the floor, not the standard — everything below is yours to enforce.
 
 ## Engineering Constraints
 

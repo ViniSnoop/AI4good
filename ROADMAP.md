@@ -66,15 +66,6 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
    taught. Record the result in [`core/experiments/context-window.md`](core/experiments/context-window.md).
    → **model: sonnet**.
 
-0b. 🔴 **decide — the 20 spent plan files in `~/.claude/plans/`.** Harness-owned state holding
-   Lucas-authored planning for work that has shipped. `AGENTS.md` says plans live in ROADMAPs and
-   `core/SCHEMA.md` says done work is deleted, so by our own law these should go — importing them was
-   tried on 2026-08-15 and the Tier 0 checks rejected them outright (dangling wiki-links, retired
-   tokens), which is the system correctly calling them annotated corpses. **But they were never in
-   git, so deletion is irreversible and is Lucas's call, not an agent's.** The three live ones are
-   already handled: two had inbound pointers, now rewritten, and the third is the current plan.
-   → **model: opus** — one decision, then a `rm`.
-
 1. 🟡 **the always-loaded corpus — measured 2026-07-30, disposition before compression.** Trigger
    was Lucas hitting Claude Code limits and suspecting `AGENTS.md`. The measurement says otherwise:
    `AGENTS.md` is 33 lines / **~1.3k tok**, while a *single* `context-gate` cascade in one session
@@ -473,14 +464,35 @@ plateau began. So: a number in this file that
 
 ## Frente 10 — Portability & clonability — **v1 criterion 4**
 
-1. 🟢 **safe — SETUP audit + split.** Two axes: **coverage** (features / skills / hooks / flows /
-   brain all present) and **accuracy** (a newcomer gets plug-and-play on every capability).
-   **Decided 2026-07-30: `SETUP.md` dies as a type.** It is two things wearing one name — install
-   steps, which should be an *executable installer* (criterion 4 is clonability, and a script is
-   testable where prose is not), and capability prose, which is `README.md`. Split by access
-   pattern, the technique proven in the `craft.md` decomposition. Retires the third naming shape
-   `core/tools/video/SETUP.md`.
-   → **model: sonnet**.
+1. 🔴 **decide-first — what shape does the install path take?** The root `SETUP.md` split landed
+   2026-08-15 and needed no judgement: `core/SCHEMA.md` § The `.md` type system already assigns one
+   question per type, so each section had exactly one destination. 643 lines → `core/hooks/SPECS.md`
+   (the enforcement contract, new), `README.md` (what the workspace is and what each capability buys
+   you — the sentences Frente 10.4 requires), and ~250 lines of install steps left in `SETUP.md`.
+   Three sections were deleted rather than moved: a build log of shipped tasks, a hand-listed file
+   tree that § Boundaries calls a bug and that had been stale since the 2026-07-31 hooks split, and
+   a line-limit policy `code/SPECS.md` already owned. **Section numbers are gone** — `§6`/`§11`
+   pointers had already gone stale twice, so sections are named.
+
+   **What is still open is the part that was decided too early.** The 2026-07-30 ruling said install
+   steps "should be an *executable installer*". Lucas, 2026-08-15: not certain. Before inventing a
+   shape, follow an established one — **rtk** is the pattern this workspace already consumes
+   (`curl -fsSL … | sh` for the binary, `rtk init --global --auto-patch` to wire one agent
+   additively with a `.bak`, `--uninstall` to reverse it, `rtk init --show` to verify); also worth
+   reading are caveman's node installer, opencode's project-level plugin auto-load, mise/asdf, and
+   devcontainer. The question is not "script or prose" but **which install idiom an agent-workspace
+   should present to a stranger**. Gates steps 2 and 4.
+   → **model: opus**.
+
+1b. 🔴 **decide-first — does `SETUP.md` die as a type?** The ledger and the law contradict each
+   other and **both are dated 2026-07-30**: this frente said "`SETUP.md` dies as a type", while
+   [`core/SCHEMA.md`](core/SCHEMA.md) § The `.md` type system keeps it on the allowlist with a
+   justification paragraph ("earns its row on the evidence, 8 instances"). There are now **9**
+   instances and ~50 inbound references, and `core/hooks/checks/type-gate.py` enforces the
+   allowlist — so striking the row makes nine files illegal in one commit. Downstream of step 1: the
+   type only dies if the install path stops being prose. `core/tools/video/SETUP.md`, the third
+   naming shape, is retired by *this* decision and not before it.
+   → **model: opus**.
 2. 🟢 **safe — declare the ad-hoc venv deps.** Four known cases, each installed straight into `.venv`
    to unblock a tool, so a fresh clone silently loses the capability: `pypandoc-binary`
    (`core/tools/paper/parse` on `.docx`), `secretstorage` (`core/tools/video/video` reading Brave cookies —

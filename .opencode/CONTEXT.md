@@ -1,9 +1,10 @@
 # opencode
 > opencode configuration, plugins, and skills for this workspace.
 
-See [SETUP.md §6](../SETUP.md#6-opencode-workspace-policy-plugin) for setup
-verification and the agent hook coverage table. This file documents the
-plugin internals; SETUP.md documents how it fits the workspace parity model.
+This file documents the plugin internals. What it must satisfy — the canonical
+gates, the shim contract, the coverage table — is
+[`core/hooks/SPECS.md`](../core/hooks/SPECS.md); the install check is
+[`SETUP.md`](../SETUP.md) § Already wired.
 
 ## Workspace policy plugin
 
@@ -120,12 +121,12 @@ block), edit a `.py` past `BLOCK_LINES` (expect block), edit a `.py` (expect
 |--------------|-------------|
 | [`skills/`](skills/CONTEXT.md) | OpenCode skills for this workspace. |
 
-| File | API | Description |
-|------|-----|-------------|
-| [`index.js`](index.js) | — | **facade** — opencode config facade — public surface consumed by plugins/workspace-policy.js. |
-| [`agents/craft-high.md`](agents/craft-high.md) | — | Craft-flow executor, high tier — planning, plan review, architecture, escalated coding. Spawned by the craft flow with a single loop file as input. |
-| [`agents/craft-low.md`](agents/craft-low.md) | — | Craft-flow executor, low tier — mechanical steps (grounding, branch, ship). Spawned by the craft flow with a single loop file as input. |
-| [`agents/craft-medium.md`](agents/craft-medium.md) | — | Craft-flow executor, medium tier — tests-first, code-until-green, user test. Spawned by the craft flow with a single loop file as input. |
-| [`plugins/workspace-policy.js`](plugins/workspace-policy.js) | `WorkspacePolicy`, `blockMsg` | Workspace policy plugin for opencode. |
-| [`wp-helpers.js`](wp-helpers.js) | `buildPayloads`, `run`, `warn`, `WORKSPACE`, `HOOKS` | Helpers for the workspace-policy opencode plugin. |
+| File | Interface | API | Description |
+|------|-----------|-----|-------------|
+| [`index.js`](index.js) | [`index.d.ts`](index.d.ts) | — | **facade** — opencode config facade — public surface consumed by plugins/workspace-policy.js. |
+| [`agents/craft-high.md`](agents/craft-high.md) | — | — | Craft-flow executor, high tier — planning, plan review, architecture, escalated coding. Spawned by the craft flow with a single loop file as input. |
+| [`agents/craft-low.md`](agents/craft-low.md) | — | — | Craft-flow executor, low tier — mechanical steps (grounding, branch, ship). Spawned by the craft flow with a single loop file as input. |
+| [`agents/craft-medium.md`](agents/craft-medium.md) | — | — | Craft-flow executor, medium tier — tests-first, code-until-green, user test. Spawned by the craft flow with a single loop file as input. |
+| [`plugins/workspace-policy.js`](plugins/workspace-policy.js) | [`plugins/workspace-policy.d.ts`](plugins/workspace-policy.d.ts) | `WorkspacePolicy`, `blockMsg` | Workspace policy plugin for opencode. |
+| [`wp-helpers.js`](wp-helpers.js) | [`wp-helpers.d.ts`](wp-helpers.d.ts) | `buildPayloads`, `run`, `warn`, `WORKSPACE`, `HOOKS` | Helpers for the workspace-policy opencode plugin. |
 <!-- routing:end -->

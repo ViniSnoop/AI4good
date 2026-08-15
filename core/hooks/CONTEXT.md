@@ -47,8 +47,9 @@ Python modules in a subdirectory reach the root law with
 `sys.path.insert(0, str(Path(__file__).resolve().parents[1]))`. The test suite gets the same
 path set once, from `core/tools/test/conftest.py`, derived by scanning this directory.
 
-Reasoning behind each gate: [`code/VERIFY.md`](../../code/VERIFY.md). Setup and the
-toolchain they depend on: [`SETUP.md`](../../SETUP.md).
+What each gate blocks, and the contract a new agent's shim must satisfy:
+[`SPECS.md`](SPECS.md). Why the `code/` gates exist: [`code/VERIFY.md`](../../code/VERIFY.md).
+Installing the toolchain they depend on: [`SETUP.md`](../../SETUP.md).
 
 <!-- routing:start -->
 ## Routing
@@ -64,13 +65,14 @@ toolchain they depend on: [`SETUP.md`](../../SETUP.md).
 | [`generators/`](generators/CONTEXT.md) | Sourced pre-commit stages that write artifacts and stage them. |
 | [`git/`](git/CONTEXT.md) | Gates and self-heals about git state itself: branch shape, gitlinks, .gitignore. |
 | [`postedit/`](postedit/CONTEXT.md) | Sourced post-edit stages: regenerate interfaces, remind, sync, lint. |
-| [`read/`](read/CONTEXT.md) | Force-a-read gates: the CONTEXT.md chain, the interface stub, the module spec. |
+| [`read/`](read/CONTEXT.md) | Who must read what before touching a subtree — and who gets handed it instead. |
 | [`routing/`](routing/CONTEXT.md) | The CONTEXT.md routing-table generator. |
 | [`session/`](session/CONTEXT.md) | Session lifecycle: start, prune, precompact wipe, and the SessionStart nudges. |
 | [`stubgen/`](stubgen/CONTEXT.md) | Interface stubs and paper scaffolding, generated on save and on commit. |
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
+| [`SPECS.md`](SPECS.md) | — | — | Hooks — Specs |
 | [`file_law.py`](file_law.py) | [`file_law.pyi`](file_law.pyi) | `is_code_file`, `load_limits`, `allowed_extensionless`, `is_vendored`, `main` | What a file IS, and which rules apply to it. The numeric-law sibling of schema_law.py: |
 | [`hook_input.py`](hook_input.py) | [`hook_input.pyi`](hook_input.pyi) | `parse_stdin`, `is_subagent`, `seen_file`, `load_seen`, `mark_seen` | Shared parser for Claude Code hook stdin JSON — nested (current) and flat (legacy shim) schemas. |
 | [`post-commit`](post-commit) | — | — | auto-push feature/* so work survives a dead session |
