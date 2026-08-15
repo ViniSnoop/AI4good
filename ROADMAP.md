@@ -86,24 +86,34 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
    Replay and attribution live in `session_log.py`; 9 tests in
    [`core/tools/test/wos/test_context.py`](core/tools/test/wos/test_context.py).
 
-   **Turn 1 measures ~27.6k tok, and 56% of it is not ours to cut.** The residual — system prompt
-   plus tool schemas — is 15.4k and unreachable from here. Of what *is* ours: the **skill listing is
-   4.5k (16%)**, by far the largest, then the `SessionStart` hook at 2.3k, the memory index at 1.9k,
-   the `CLAUDE.md` chain at 1.3k, the agent listing at 1.3k. **This settles the disposition question
-   3.1 was written to feed: the memory store costs ~1.9k tok, less than half the skill listing, so
-   folding it saves little and the honest target is the listing.** `CLAUDE.md`/`AGENTS.md`/`MEMORY.md`
-   never appear in the transcript (the harness folds them into the system prompt), so the tool
-   measures them on disk and subtracts them from the residual rather than guessing.
+   **Turn 1 measures ~27.6k tok, and 77% of it is not ours to cut.** The residual — system prompt
+   plus tool schemas — is 21.2k and unreachable from here. Of what *is* ours: the **skill listing is
+   2,530 tok (9.2%)**, of which only **36% is workspace-owned** — three harness plugins (`dataviz`,
+   `code-review`, `update-config`) outweigh every workspace skill combined. Then the memory index at
+   1,198, the `CLAUDE.md` chain at 855, the agent listing at 754 (18% ours), the `SessionStart` hook
+   at 654 (100% caveman; the three workspace session hooks emit **zero** bytes today). A session in an
+   empty directory with no workspace skills still costs 32k, so **the whole workspace adds 4-9k and
+   the realistic ceiling for cuts is ~1,600 tok, 5.8%.** `CLAUDE.md`/`AGENTS.md`/`MEMORY.md` never
+   appear in the transcript (the harness folds them into the system prompt), so the tool measures them
+   on disk. **This settles the disposition question 3.1 was written to feed: the memory store is
+   ~1,198 tok and folding it saves nothing worth the move.**
+
+   **The first release of these numbers was inflated 1.6-3.5x and the correction is the finding.**
+   `session_log.py` sized each block with `len(json.dumps(att))` — the JSON envelope — and
+   `hook_success` stores its payload **twice**, in `content` and `stdout`. Guarded now by
+   `test_a_hook_payload_stored_twice_is_counted_once`. **Any share quoted before 2026-08-15 is wrong.**
 
    **Growth after turn 1 is dominated by our own output, not by the CONTEXT chain.** Assistant output
-   33%, the `UserPromptSubmit` hook 16%, user prompts 10%, `Read` 8.9%, `Bash` 7.6% — and CONTEXT.md
-   reads **4.6%**. The chain is 846 reads over 98 sessions (6 median, 54 worst). **The cascade fear
-   from 3.2 is measured and it is small**; the `UserPromptSubmit` hook costing three times more than
-   the whole chain is the surprise, and is the first thing to look at.
+   38%, user prompts 12%, `Read` 8.6%, `Bash` 7.6% — and CONTEXT.md reads **4.6%** (851 reads over 98
+   sessions, 6 median, 54 worst). **The cascade fear from 3.2 is measured and small.** The
+   `UserPromptSubmit` hook reads 10.8% but is **121 characters**: attribution splits each turn's delta
+   by *logged* char share, so anything riding along with unlogged material claims tokens it never
+   brought. The tool now flags such rows `†`. **A flagged row is an upper bound, never a finding.**
 
-   **Read the shares as shares of *logged* material.** At a measured 2.4 chars/token against a prose
-   rate of ~3.8, roughly a third of growth is material the transcript never logs, spread across those
-   rows in proportion. The tool prints this line itself; do not quote a share without it.
+   **Read the shares as shares of *logged* material.** At a measured 2.23 chars/token against a prose
+   rate of 3.8, ~41% of growth is material the transcript never logs. The tool prints this itself; do
+   not quote a share without it. Raw chars are reported beside tokens because "what fraction of the
+   window is this" and "what do I save by deleting it" are different questions.
 
    **(b) is answered, and it is a correctness bug rather than the cost bug it was filed as
    (probe, 2026-08-15).** A subagent **inherits the parent's `session_id`**, so it inherits
@@ -460,7 +470,7 @@ number nobody can reproduce. Over **118 sessions · 18,122 turns · 2026-07-25 �
 
 | Claim | Verdict |
 |---|---|
-| "59% of usage from subagent-heavy sessions" | **False, and retired.** **Zero** sidechain messages and **zero** `Task` calls across all **328** transcripts. No subagent has run in five weeks. |
+| "59% of usage from subagent-heavy sessions" | **Unmeasured, and the retirement was wrong too.** The audit searched for `Task`; the tool is named **`Agent`**, and it ran **56 times across 12 sessions**. Subagent turns are also absent from the parent transcript by design — they live in `<session>/subagents/*.jsonl`, 48 files this audit never opened. Re-measure with `context` before any claim here. |
 | "55% from >150k-context sessions" | **Understated.** **72%** of spend is paid above 150k of context; **41%** above 250k. |
 | "25% from `/roundup`" (step 1 said ~7%) | **~7% was right; 25% was not.** 24 of 119 sessions invoked it; the tail after invocation is **~10%**. |
 

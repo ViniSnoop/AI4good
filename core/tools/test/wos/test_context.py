@@ -12,8 +12,11 @@ from session_log import attribute, walk
 
 def turn(context: int, content=None, request: str = 'r1') -> dict:
 	usage = {'input_tokens': 0, 'cache_read_input_tokens': context, 'cache_creation_input_tokens': 0}
-	return {'type': 'assistant', 'requestId': request,
-	        'message': {'usage': usage, 'content': content or []}}
+	# A real assistant turn always says something, and its output is what enters the next turn's
+	# context. An empty content list leaves nothing to calibrate on, which no transcript does.
+	return {'type': 'assistant', 'requestId': request, 'model': 'claude-opus-5',
+	        'message': {'usage': usage, 'model': 'claude-opus-5',
+	                    'content': content or [{'type': 'text', 'text': 'ok'}]}}
 
 
 def result(tool_use_id: str, body: str, is_error=None) -> dict:
@@ -96,7 +99,7 @@ def test_attribution_is_exact_in_aggregate(transcript):
 		turn(6000, [], 'r3'),
 	])
 	_start, growth, _first, _ratio = attribute(walk(path))
-	assert round(sum(growth.values())) == (1800 - 1000) + (6000 - 1800)
+	assert round(sum(tokens for tokens, _chars in growth.values())) == (1800 - 1000) + (6000 - 1800)
 
 
 def test_each_turn_calibrates_on_its_own_density(transcript):
@@ -114,7 +117,9 @@ def test_each_turn_calibrates_on_its_own_density(transcript):
 	])
 	_start, growth, _first, _ratio = attribute(walk(path))
 	# Both turns carried ~the same characters; the second cost 50x the tokens and must show it.
-	assert growth['tool Bash'] > 4000
+	assert growth['tool Bash'][0] > 4000
+	# ...and the raw char column stays honest about how little text that actually was.
+	assert growth['tool Bash'][1] == 2000
 
 
 def test_turn_one_is_the_session_start_payload_not_growth(transcript):
@@ -136,3 +141,53 @@ def test_a_session_with_nothing_to_calibrate_on_reports_no_ratio(transcript):
 	_start, _growth, first, ratio = attribute(walk(path))
 	assert first == 20000
 	assert ratio == 0.0
+
+
+def test_a_hook_payload_stored_twice_is_counted_once(transcript):
+	"""`hook_success` holds the same bytes in `content` AND `stdout`.
+
+	Sizing the JSON envelope counted both, plus every escape character — which is how the first
+	release overstated the caveman activation 3.5x and the skill listing 1.8x.
+	"""
+	body = 'x' * 1000
+	path = transcript([
+		{'type': 'attachment', 'attachment': {
+			'type': 'hook_success', 'hookName': 'SessionStart:startup',
+			'content': body, 'stdout': body, 'command': 'node activate.js', 'exitCode': 0}},
+		turn(20000, [], 'r1'),
+		turn(21000, [], 'r2'),
+	])
+	start, _growth, _first, _ratio = attribute(walk(path))
+	assert start['hook SessionStart:startup'][1] == 1000
+
+
+def test_a_subagent_transcript_is_read_not_skipped(transcript):
+	"""A worker's own transcript marks EVERY record isSidechain, so the main-chain skip empties it.
+
+	This cost the subagent report its entire population of 47 once. The parent's transcript needs
+	the opposite rule, guarded by test_a_sidechain_turn_never_enters_the_main_chain.
+	"""
+	records = [{**turn(9000, [], 'r1'), 'isSidechain': True},
+	           {**turn(12000, [], 'r2'), 'isSidechain': True}]
+	path = transcript(records)
+	assert walk(path)['turns'] == []
+	worker = walk(path, sidechain=True)
+	assert [delta for delta, _parts in worker['turns']] == [9000, 3000]
+
+
+def test_spend_is_measured_per_turn_from_the_shared_rate_model(transcript):
+	"""Token share and spend share are different rankings; the rates have exactly one home."""
+	path = transcript([turn(1000, [], 'r1'), turn(2000, [], 'r2')])
+	assert walk(path)['spend'] > 0
+
+
+def test_a_source_is_counted_once_per_turn_it_appears_in(transcript):
+	"""Appearance frequency is what exposes a block riding along with unlogged material."""
+	path = transcript([
+		turn(1000, [use('t1', 'Bash', '')], 'r1'),
+		result('t1', 'a' * 100),
+		turn(2000, [use('t2', 'Bash', '')], 'r2'),
+		result('t2', 'b' * 100),
+		turn(3000, [], 'r3'),
+	])
+	assert walk(path)['appears']['tool Bash'] == 2

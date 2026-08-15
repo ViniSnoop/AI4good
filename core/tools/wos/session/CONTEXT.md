@@ -38,7 +38,8 @@ the memory store's cost stays separable from everything else's.
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
-| [`context`](context) | — | — | what fills the context window: what |
-| [`session_log.py`](session_log.py) | [`session_log.pyi`](session_log.pyi) | `label`, `blocks`, `walk`, `attribute`, `median` | session_log.py — replay a Claude Code transcript and attribute each turn's context growth. |
+| [`context`](context) | — | — | what fills the context |
+| [`session_cost.py`](session_cost.py) | [`session_cost.pyi`](session_cost.pyi) | `turn_cost` | session_cost.py — the price of a turn. The one place rates live. |
+| [`session_log.py`](session_log.py) | [`session_log.pyi`](session_log.pyi) | `label`, `att_chars`, `blocks`, `walk`, `attribute` | session_log.py — replay a Claude Code transcript and attribute each turn's context growth. |
 | [`usage`](usage) | — | — | where session spend goes: by model, |
 <!-- routing:end -->
