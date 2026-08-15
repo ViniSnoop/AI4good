@@ -247,6 +247,25 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
    was measured before the generator could describe a shell script.
    → **model: opus** for the gate, **sonnet** for the sweep behind it.
 
+7. 🔴 **the routing block reads worse than the files it describes — two causes, both found.**
+   Lucas (INBOX 2026-08-15): *"brain/CONTEXT.md tem repetições, routing duas vezes… no routing
+   automático as descrições estão horríveis… diagnosticar e corrigir esse problema na raiz. e
+   corrigir esses problemas não somente para esse CONTEXT.md mas para todos."* Both halves are
+   real, and neither is a content problem:
+
+   - **"descrições horríveis"** — a `.md` row shows only the file's `#` H1, never its line-2 `>`
+     blurb, because `COMMENT_RE['.md']` captures the heading and the blurb-hoist is special-cased
+     for `CONTEXT.md` → *parent* table only. So `tree.md` advertises "Craft — Provider Routing"
+     while the sentence that says what it is sits one line below, unread. Same class as the `.sh`
+     gap in item 6: the generator has the text and does not reach for it.
+   - **"routing duas vezes"** — one generated block, plus a hand-written `| File / Folder | Role |`
+     table above it saying the same thing. `entropy_context.check_inventory` exists to catch
+     exactly this and returns `None` here: it matches inventory *headings* and *bullets*, never a
+     **table**. The workspace's most-read file carries the defect its own check was written for.
+
+   Fix both at the generator/check, then regenerate — the corpus follows for free.
+   → **model: opus** for the blurb-hoist and the table criterion, **sonnet** for the regeneration.
+
 ---
 
 ## Frente 8 — The ledger discipline — **v1 criterion 2**
@@ -820,9 +839,13 @@ on the next save. The marker is § Unanswered scaffold placeholders now, and dra
 4 item 6**, not this frente. The lesson generalises: a queue that counts two defects can have one
 of them grow while its number falls.
 
-1. 🟢 **the wos half of both queues is drained.** Corpses 35 → 19, trapped heads 28 → 17; every
-   remaining finding in both is nested-repo work, which is item 2. `FINISHED_CEILING` and
-   `MISPLACED_CEILING` in `core/tools/test/workspace/test_corpus_ratchet.py` hold the new ground.
+1. 🟡 **drain the nested repos — the whole of what is left.** Two thirds of the corpus (~187 of 261
+   `CONTEXT.md`) lives in nested `code/` and `academy/papers/` repos with their own branches and
+   gates, so it cannot ride a wos commit. Same classification as the `.d.ts` stub gap: counted in
+   [`entropy.md`](entropy.md), drained where the files are. Live: **19 corpses, 17 trapped heads.**
+   The wos half is done; `FINISHED_CEILING` and `MISPLACED_CEILING` in
+   `core/tools/test/workspace/test_corpus_ratchet.py` hold that ground, and the nested repos cannot
+   move them — each runs its own verify.
 
    **The REDIRECT recipe, in order, and it survives contact:** (1) delete what a hook enforces — it
    names the fix when it fires, except numbers that change how you write *before* the hook can
@@ -854,16 +877,9 @@ of them grow while its number falls.
    staged `core/skills/*.md`. Both fixed with tests. **A doc pass is a cheap fuzzer for the
    generators that read those docs** — it writes file shapes nobody had written before.
 
-   Still open, found and not chased: a `.md` file's routing row shows only its `#` title, never its
-   line-2 `>` blurb, so sibling rows read thinner than the file is (`core/hooks/routing/`).
    `brain/goals/workspace-os.md` and `test_gitignore_self_heal.py` both cite a **Frente 6** that no
    longer exists — retired ledger numbering still has live references.
-
-2. 🟡 **the nested-repo half is per-repo drain work, not a wos item.** Two thirds of the corpus
-   (~187 of 261 `CONTEXT.md`) lives in nested `code/` repos with their own branches and gates, so it
-   cannot ride a wos commit. Same classification as the `.d.ts` stub gap: counted in
-   [`entropy.md`](entropy.md), drained where the files are.
-   → **model: sonnet**.
+   → **model: sonnet**, one repo at a time.
 
 ## Frente 14 — ablation: nothing in this workspace has ever been measured
 

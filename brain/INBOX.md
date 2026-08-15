@@ -9,3 +9,37 @@
 
 <!-- add entries below, newest first -->
 
+vi um comentário sobre o OPUS ter MUITA SEGURANÇA sobre pontos que na verdade ele estava errado. será que temos como corrigir isso. de fato eu gostaria que todas as opiniões técnicas da IA fossem tomadas com base em pesquisas. fiquei pensando se podemos desenvolver uma base do conhecimento (KNOWLEDGE BASE), um grafo ou algum outro tipo de estrutura muito fácil de acessar (tipo por hash), que sempre teria a informação curada, com base em estudo, leituras, pesquisas e dicernimento crítico. outra coisa que pensei é instruir o modelo / os agentes dizendo que "YOU DON'T KNOW THINGS, don't feel too certain, search before giving precise technical opinions". e aí induzir ele a olhar a KNOWLEDGE BASE, inclusive se tiver lá mas for algo antigo que pode ter sido atualizado então continuar a pesquisa e atualizar, e se não tiver na base então fazer uma pesquisa mais profunda e inserir. sempre fui fã da ideia de knowledge graph, talvez isso aqui passe por esse ponto.
+
+o AGENTS.md voltou a parecer meio grande pra mim... avaliar ele com bastante carinho
+
+de forma geral output tokens são bem mais caros que input tokens. estudar formas de reduzirmos os output tokens. vi no instagram uma medida que não gosto mas que me fez pensar, de pedir para o opus "SHUT UP SHUT UP, JUST DO THE WORK AND SHUT UP".
+
+o WOS pode, e acho que seria uma boa, virar um artigo. o estudo de ablação, se bem feito, me parece bem publicável.
+
+definitivamente, quero zerar o roadmap do WOS o quanto antes. já usamos demasiado tempo e esforço na infraestrutura.
+
+claude code report, we may have to look to this from time to time
+What’s contributing to your limits usage?
+Day
+Week
+Approximate, based on local sessions on this machine — does not include other devices or claude.ai
+Last 24h · these are independent characteristics of your usage, not a breakdown
+73% of your usage was at >150k context
+Longer sessions are more expensive even when cached. /compact mid-task, /clear when switching to new tasks.
+44% of your usage came from subagent-heavy sessions
+Each subagent runs its own requests. Be deliberate about spawning them — and consider configuring a cheaper model for simpler subagents.
+14% of your usage came from /roundup
+Heavy skills can be scoped down or run with a cheaper model via skill frontmatter.
+Skills
+% of usage
+/roundup
+14%
+/handoff
+2%
+Subagents
+% of usage
+Explore
+3%
+general-purpose
+1%
