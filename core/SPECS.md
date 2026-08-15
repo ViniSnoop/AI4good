@@ -162,6 +162,30 @@ Update + Insert* já é a concessão inteira.
 
 ---
 
+### AD-13 — Subagente não passa pelo context gate; quem o invoca é que entrega o contexto (2026-08-15)
+
+`CONTEXT.md` carrega **roteamento**; restrição mora em `SPECS.md` (Frente 12), e o gate que protege
+contrato — `spec-read-gate.py` — continua disparando para todo mundo. Então um worker que recebeu
+**um caminho explícito** nunca precisou da cadeia: obrigá-lo a lê-la cobra ~2k tok sobre um início de
+17,8k, relidos a cada turno. Regra em `hook_input.is_subagent`, chaveada em `agent_id` — o único
+campo que distingue worker de thread principal (`agent_type` também vem no principal em sessões
+`--agent`).
+
+A isenção **já existia por acidente e era arbitrária**: o worker herdava o `session_id` do pai e com
+ele o seen-set, logo ficava sem gate só nas subárvores que o pai por acaso visitou, e pagava a cadeia
+inteira em todas as outras.
+
+O dever migrou para o orquestrador, e um hook o cumpre em vez de virar disciplina:
+`read/agent-context.py` lê os caminhos citados no prompt do `Agent` e entrega ao worker a linha `>`
+de cada subárvore. **Induz, nunca bloqueia.** A divisão em dois eventos é medida, não suposta —
+`PreToolUse:Agent` vê o prompt mas não tem `agent_id` e seu `additionalContext` volta para o *pai*;
+`SubagentStart` injeta no worker mas não vê o prompt. `prompt_id` é idêntico nos dois e é a chave de
+junção, o que torna o briefing **por turno**: vários workers de um mesmo turno recebem a união dos
+caminhos citados. Amplo demais, nunca trocado, e insolúvel de outro jeito — o único id do worker
+nasce depois que o prompt já passou.
+
+Medição e sonda: [`core/experiments/subagent-context-chain.md`](experiments/subagent-context-chain.md).
+
 ## Conventions
 
 - **Um comando cujo status é um gate nunca vai para dentro de um pipe** (achado 2026-08-13, custou um falso "main pushed"). Em `a | tail && b`, o status é o do `tail`, não o do `a` — então `git merge --ff-only x 2>&1 | tail -1 && git push` executa o push mesmo com o merge abortado, e a sessão reporta sucesso de algo que não aconteceu. Para sequências onde cada passo autoriza o próximo: `set -e` e sem pipes, ou capturar o status explicitamente. Filtrar saída é para inspeção, não para decisão.

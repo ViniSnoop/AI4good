@@ -40,8 +40,10 @@ Per-step `model` = the tier that is *enough* (a floor, not a ceiling).
 10.4, because a feature-toggle registry *is* the Lucas-specific/general split made executable.
 Everything else is Sonnet or Haiku. Stating that number is part of the cure for feeling lost, so
 keep it true: the 2026-08-14 sprint took it from four to one by ruling 8.1, 11.1, 11.3, 12.3, the
-transient-doc type, the `loops`→`craft` rename and the `core/tools` axis in a single sitting, and by
-turning 3.1 from a decision into a measurement.
+transient-doc type, the `loops`→`craft` rename and the `core/tools` axis in a single sitting. The
+2026-08-15 session then closed the whole of the old Frente 3.1 by measuring it — the instrument is
+[`core/tools/wos/session/context`](core/tools/wos/session/context) and the results live in
+[`core/experiments/`](core/experiments/CONTEXT.md), not here.
 
 **Load-bearing principle: automatic + zero-token beats agent-checked, and free checks are never
 coupled to paid ones.** Deterministic scripts per-commit; human judgment on demand.
@@ -54,105 +56,36 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
 
 ## Frente 3 — Memory and always-loaded context
 
-1. 🟡 **measure-first — what is always-loaded about Lucas, and where does memory live?**
-   `brain/USER.md` enters via the brain CONTEXT chain; `MEMORY.md` index enters every session.
-   Lucas's suspicion: the auto-memory overlaps what `USER.md` + `goals/` + the CONTEXT chain +
-   `refs/` already do. Decide the role of each (always-loaded vs durable vs on-demand) and whether
-   the separate memory store justifies itself or should fold. **First act of this step is the
-   measurement** — instrument what actually loads at session start and the real hop count to a leaf
-   (this absorbs the old depth-audit step; it is one afternoon, not a project). Sub-question: do
-   `context-gate.py` / `bash-context-gate.py` make a *subagent* reread the full CONTEXT.md chain on
-   every subtree touch instead of once per session? If so a narrow subagent pays the full chain
-   repeatedly.
-   **Decided 2026-07-30:** `USER.md` survives as a type — it is the only file whose content is not
-   derivable from anything else (goals say what Lucas wants, CONTEXT says what a subtree is,
-   `USER.md` says *how he fails*), and it has global scope, so splitting it into CONTEXT.md files
-   would duplicate it into every subtree. Trim its two non-profile intrusions: the dead pointer to
-   `branches/writing/mantras.md` (does not exist) and the embedded wos TODO on line 40.
+0. 🟢 **measure `.claude/commands/`, then decide — the only unmeasured thing left at session start.**
+   `mirror.sh` copies all 13 skills a *second* time as slash commands (52 KB on disk). That copy is
+   folded into the system prompt, so it lands inside the **77% residual** that
+   [`session/context`](core/tools/wos/session/context) cannot decompose — it is invisible to every
+   number we have. It may be a real chunk of the residual or nothing at all, and the honest order is
+   measure first: the cheapest probe is a session with the directory emptied, comparing turn-1
+   context. **Do not cut it on suspicion** — that is the mistake the 1.6-3.5x inflation already
+   taught. Record the result in [`core/experiments/context-window.md`](core/experiments/context-window.md).
+   → **model: sonnet**.
 
-   **Confirmed 2026-08-14 (Lucas): measure before deciding — this is no longer a judgment call
-   waiting on him, it is instrumentation waiting on someone.** The disposition of the memory store
-   (fold it / keep it with a narrowed charter) is downstream of the measurement, and deciding it
-   first would repeat exactly the mistake Frente 9 paid for: steering for weeks by a number nobody
-   could re-run. Two things the instrument must report, because both are load-bearing and neither is
-   currently observable: (a) what genuinely enters the context at session start, split by source, so
-   the memory store's marginal cost is separable from the CONTEXT chain's; (b) whether a *subagent*
-   re-pays the full chain on every subtree touch instead of once per session — if it does, narrow
-   workers are quietly the most expensive thing we run.
+0b. 🔴 **decide — the 20 spent plan files in `~/.claude/plans/`.** Harness-owned state holding
+   Lucas-authored planning for work that has shipped. `AGENTS.md` says plans live in ROADMAPs and
+   `core/SCHEMA.md` says done work is deleted, so by our own law these should go — importing them was
+   tried on 2026-08-15 and the Tier 0 checks rejected them outright (dangling wiki-links, retired
+   tokens), which is the system correctly calling them annotated corpses. **But they were never in
+   git, so deletion is irreversible and is Lucas's call, not an agent's.** The three live ones are
+   already handled: two had inbound pointers, now rewritten, and the third is the current plan.
+   → **model: opus** — one decision, then a `rm`.
 
-   **The instrument is [`core/tools/wos/session/context`](core/tools/wos/session/context) (2026-08-15), the sibling
-   of `usage` and held to the same rule: re-run it rather than quoting this paragraph.** It works
-   because the transcript labels its own injected blocks — every one is an `attachment` record
-   carrying a `type` (`skill_listing`, `agent_listing_delta`, `hook_success` with its `hookName`,
-   `todo_reminder`, …) — so "split by source" is a measurement, over 98 sessions rather than one.
-   Replay and attribution live in `session_log.py`; 9 tests in
-   [`core/tools/test/wos/test_context.py`](core/tools/test/wos/test_context.py).
-
-   **Turn 1 measures ~27.6k tok, and 77% of it is not ours to cut.** The residual — system prompt
-   plus tool schemas — is 21.2k and unreachable from here. Of what *is* ours: the **skill listing is
-   2,530 tok (9.2%)**, of which only **36% is workspace-owned** — three harness plugins (`dataviz`,
-   `code-review`, `update-config`) outweigh every workspace skill combined. Then the memory index at
-   1,198, the `CLAUDE.md` chain at 855, the agent listing at 754 (18% ours), the `SessionStart` hook
-   at 654 (100% caveman; the three workspace session hooks emit **zero** bytes today). A session in an
-   empty directory with no workspace skills still costs 32k, so **the whole workspace adds 4-9k and
-   the realistic ceiling for cuts is ~1,600 tok, 5.8%.** `CLAUDE.md`/`AGENTS.md`/`MEMORY.md` never
-   appear in the transcript (the harness folds them into the system prompt), so the tool measures them
-   on disk. **This settles the disposition question 3.1 was written to feed: the memory store is
-   ~1,198 tok and folding it saves nothing worth the move.**
-
-   **The first release of these numbers was inflated 1.6-3.5x and the correction is the finding.**
-   `session_log.py` sized each block with `len(json.dumps(att))` — the JSON envelope — and
-   `hook_success` stores its payload **twice**, in `content` and `stdout`. Guarded now by
-   `test_a_hook_payload_stored_twice_is_counted_once`. **Any share quoted before 2026-08-15 is wrong.**
-
-   **Growth after turn 1 is dominated by our own output, not by the CONTEXT chain.** Assistant output
-   38%, user prompts 12%, `Read` 8.6%, `Bash` 7.6% — and CONTEXT.md reads **4.6%** (851 reads over 98
-   sessions, 6 median, 54 worst). **The cascade fear from 3.2 is measured and small.** The
-   `UserPromptSubmit` hook reads 10.8% but is **121 characters**: attribution splits each turn's delta
-   by *logged* char share, so anything riding along with unlogged material claims tokens it never
-   brought. The tool now flags such rows `†`. **A flagged row is an upper bound, never a finding.**
-
-   **Read the shares as shares of *logged* material.** At a measured 2.23 chars/token against a prose
-   rate of 3.8, ~41% of growth is material the transcript never logs. The tool prints this itself; do
-   not quote a share without it. Raw chars are reported beside tokens because "what fraction of the
-   window is this" and "what do I save by deleting it" are different questions.
-
-   **(b) is answered, and it is a correctness bug rather than the cost bug it was filed as
-   (probe, 2026-08-15).** A subagent **inherits the parent's `session_id`**, so it inherits
-   `/tmp/claude_ctx_seen_<id>.txt`: the probe read a gated file in a subtree the parent had fully
-   loaded and **no gate fired**, with zero of that chain in its own window. So narrow workers are not
-   quietly expensive — they are quietly *unprotected*, which is the more serious answer. The gate is
-   session-scoped where it means to be agent-scoped, in
-   [`core/hooks/read/context-gate.py`](core/hooks/read/context-gate.py) via
-   `hook_input.seen_file`.
-
-   **Ruled and shipped 2026-08-15 (Lucas): subagents are not context-gated, and the orchestrator owns
-   their context instead.** The trade the item feared — fix correctness and every worker re-pays its
-   chain — was a false choice, because the gate was guarding the wrong thing. Frente 12 rules that
-   constraints live in `SPECS.md` and `CONTEXT.md` carries **routing**, so a worker handed one
-   explicit path never needed the chain; `spec-read-gate.py`, which does guard contracts, still fires
-   for everyone. `hook_input.is_subagent` keys on `agent_id`, present only inside a worker
-   (`agent_type` is not usable — the main thread carries it too in `--agent` sessions).
-
-   **The duty moved, so a hook keeps it**: [`core/hooks/read/agent-context.py`](core/hooks/read/agent-context.py)
-   reads the paths named in an outgoing `Agent` prompt and briefs the worker with each subtree's
-   one-line `>` summary. Induce, never block. The two-event split is measured, not assumed —
-   `PreToolUse:Agent` sees the prompt but has no `agent_id` and its `additionalContext` returns to the
-   *parent*; `SubagentStart` can inject into the worker but never sees the prompt. `prompt_id` is
-   identical across both and is the join key, which makes the briefing per-turn: several workers
-   spawned in one turn share the union of paths named across all of them. Over-broad, never
-   mismatched, and unfixable otherwise since the only worker id arrives after the prompt is gone.
-
-   **The lesson, and it is a cheap one to forget: the unit tests passed while the feature did
-   nothing.** Every test wrote `foo.py and then…`, so the path was followed by a space. Real prompts
-   end sentences — `foo.py.` — and the trailing period made every sentence-final path invisible. A
-   live probe caught it; the suite could not, because the suite was written by the same hand that
-   wrote the bug. `test_a_path_ending_a_sentence_is_still_found` now holds four prose shapes.
-2. 🟡 **the always-loaded corpus — measured 2026-07-30, disposition before compression.** Trigger
+1. 🟡 **the always-loaded corpus — measured 2026-07-30, disposition before compression.** Trigger
    was Lucas hitting Claude Code limits and suspecting `AGENTS.md`. The measurement says otherwise:
    `AGENTS.md` is 33 lines / **~1.3k tok**, while a *single* `context-gate` cascade in one session
    cost **~5k tok** (six CONTEXT.md to run two `head` commands). Cutting `AGENTS.md` optimises the
-   wrong thing. Across all **171** `CONTEXT.md`:
+   wrong thing.
+
+   **The cascade half is now measured across 98 sessions and it is small: CONTEXT.md reads are 4.6%
+   of all growth** (851 reads, 6 median per session) — re-run
+   [`core/tools/wos/session/context`](core/tools/wos/session/context) rather than quoting that. The
+   one-session ~5k figure was real but unrepresentative, so **the buckets below are now a tidiness
+   argument, not a cost one.** Weigh them accordingly. Across all **171** `CONTEXT.md`:
 
    | Block | Total | Verdict |
    |---|---|---|
@@ -223,19 +156,7 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
    caveman-dense; there is no lexical fat. Reverted.
    → **model: sonnet** for the sweeps.
 
-3. ✅ **CLOSED 2026-07-31 — the trim shipped and the nested repos are resynced.** All 24 nested
-   repos regenerated and pushed to their default branch. The corpus barely moved (54.9k → 53.9k)
-   because this same session *added* 7 CONTEXT.md by splitting `pre-commit` and `sync-skills` — but
-   the tail, which was the actual problem, collapsed: `code/aiwbot/tests` **4604 → 2048 tok
-   (−56%)**, `code/isoroll-content/test` **2507 → 1189 (−53%)**, `code/spacemantics/tests`
-   829 → 498. Median chain 2126 → 2075 tok, File-table share still 22%.
-
-   **What this cost, recorded because the estimate was wrong.** The plan called it a mechanical
-   resync. It surfaced the root defect below (Frente 4.4) and three live bugs: the gitignore
-   allowlist silently dropped new files in a moved directory, `pre-edit.py` counted lines one
-   higher than every other counter, and `entropy_corpus.ENFORCEMENT` spelled out a sibling path
-   that stopped exempting the retired-token checker the moment the hooks moved.
-4. 🟡 **test the six "inverted practices" against our own instructions.** Claim, from a practitioner post
+2. 🟡 **test the six "inverted practices" against our own instructions.** Claim, from a practitioner post
    (`[C]`, ref in [core/refs/REFS.md](core/refs/REFS.md), captured INBOX 2026-07-31, Lucas: *"ver se é
    verdade e se for estudar como aproveitar no wos"*): Anthropic cut **>80%** of Claude Code's system
    prompt for its newest models and replaced hardcoded rules with judgement over rules, interfaces over
