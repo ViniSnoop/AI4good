@@ -376,6 +376,75 @@ plateau began. So: a number in this file that
    treat any absolute total as ±10% until this closes. By the rule above, if it cannot be resolved
    the absolute numbers should be dropped from the tool's output rather than footnoted.
    → **model: sonnet**.
+3. 🔴 **make delegation happen, instead of hoping for it.** Lucas, INBOX 2026-08-15: *"só tenho
+   confiado no opus. mas gostaria que ele delegasse mais ao sonnet pra economizar quando fosse
+   pertinente. não sei como fazer isso, seria ótimo se tivesse uma forma mais garantida de fazer
+   isso acontecer."* Item 1 says routing is *worth doing* and measures the split at opus 68% /
+   sonnet 7.8%; this item is why that split has not moved. **A per-item `→ model:` line in this
+   file is advice an agent may skip, and mostly does** — same class of defect as Frente 4.6's
+   first-line comment, where a rule existed and the number still grew.
+
+   His proposed trigger is the concrete part: *"talvez se toda vez que o modo plan fosse utilizado
+   ou toda vez que o prompt pedisse para montar um plano para cada tarefa do plano o modelo
+   definisse qual modelo/agente deveria executar aquela tarefa… seria bom ter a delegação como
+   parte de uma política natural mas o plano poderia ser um gatilho mais evidente."* Planning is
+   already the moment the work is cut into tasks, so it is the one point where per-task routing is
+   free to decide and cheap to record. Make the plan *carry* the assignment rather than leaving it
+   to recall at execution time.
+   → **model: opus** for the mechanism, sonnet to wire it.
+4. 🔴 **report opus vs sonnet spend per session, in the roundup.** Lucas, same capture: *"gostaria
+   de saber em cada sessão o quanto de opus e o quanto de sonnet foi utilizado. talvez seja uma boa
+   anexar esse report à skill de roundup. monitorar esse tipo de economia."*
+   [`core/tools/wos/session/usage`](core/tools/wos/session/usage) already computes the split — this
+   is a wiring job, not a new instrument. It is also **item 3's feedback loop**: a delegation policy
+   nobody measures per session is the same unenforced advice one more time. Respect item 2 —
+   quote shares and $/turn, not absolute totals, until the ~8% gap closes.
+   → **model: sonnet**.
+5. 🔴 **discuss — should this workspace have agents, or are skills enough?** Lucas, same capture,
+   and flagged by him as a discussion rather than a task: *"um aluno comentou que existem formas
+   diretas de o claudecode delegar pra subagentes, ele falou acho que com @. é fato que não temos
+   agentes no workspace, me pergunto se deveríamos. temos skills e isso me parece suficiente, mas
+   talvez não seja. esse é um ponto que merece discussão ao meu ver."*
+
+   Two facts to put on the table before opinions. `core/agents/` **does** exist — lead, researcher,
+   writer, verifier, reviewer, ported from Feynman — so the claim "não temos agentes" is about them
+   being unused, not absent; find out which is true before designing anything. And the measured
+   fact from this frente: *zero* sidechain messages across 328 transcripts, which is why the
+   "59% from subagent-heavy sessions" claim was retired. **Nothing has ever been delegated here**,
+   so this is a question about a capability with no usage data at all, not a tuning question.
+   Same treatment as Frente 10.1: bring options and trade-offs, decide with Lucas, do not arrive
+   with one answer.
+   → **model: opus**, with Lucas in the loop — not a solo pass.
+6. 🔴 **measure whether our own gates make a session re-read the same file.** Lucas, INBOX
+   2026-08-15: *"does a session, due to our hooks/gates, re-read the same context file more than
+   once? can we have a report at the end of each session (maybe on the /roundup) that automatically
+   prints (zero-token) all the read and all the written files, and for each file how much of that
+   file was read and how many times as well."*
+
+   **This is the sharpest question anyone has asked about the enforcement layer, because it points
+   at a cost we impose rather than one we inherit.** `context-gate.py` demands a whole `CONTEXT.md`
+   chain before any file access in a subtree, and `pre-read.sh` redirects source reads to stubs —
+   both are designed to *save* context, and neither has ever been measured doing it. A chain
+   re-read once per subtree per session is the mechanism paying for itself; re-read per *file* is
+   the mechanism billing for the same page repeatedly, and the frente's own rule applies: a number
+   nobody can re-run steers the work anyway.
+
+   The transcript already holds every `Read` with its offset and limit, and
+   [`core/tools/wos/session/usage`](core/tools/wos/session/usage) already replays transcripts — so
+   this is a second lens on data we have, zero-token, no new capture. Report per file: bytes read,
+   read count, and whether a stub or the source was served. Ships in the same roundup block as
+   item 4, and **feeds Frente 14** — read amplification is exactly the kind of cost an ablation
+   needs an instrument for.
+   → **model: sonnet**.
+7. 🟡 **show context growth continuously, not just at two thresholds.** Lucas, same capture:
+   *"gostaria de ver o crescimento da janela de contexto em tempo real, o claude code no vs code
+   não mostra. tem alguma forma barata de me mostrar isso?"*
+   [`core/hooks/session/context-meter.py`](core/hooks/session/context-meter.py) already reads the
+   size the API reports and speaks at `CTX_WARN` / `CTX_LOUD` — the ask is the *trend* between
+   them, and the cheapest honest answer is probably a statusline rather than more hook output,
+   since the hook's whole design point is costing zero tokens until crossed. **Do not make it
+   chatty every turn**; that trades the thing being measured for the measurement.
+   → **model: sonnet**.
 
 ---
 
@@ -406,23 +475,36 @@ plateau began. So: a number in this file that
    `README.md` § What the enforcement layer buys you on **navigation / restraint / drift control /
    cost**, one sentence of value each.
 
-   **Answered 2026-08-15 — and the README grouping is not the answer.** Lucas: *"what I was
-   thinking is that we have some 'types' of features. we have hooks, and each hook may be toggled,
-   LOC limit, file fan-out limit, gitflow, etc. we have the agents.md|context.md tree + the
-   automated routing. we have the whole brain thing, inbox + goals. we have capabilities per area,
-   slides, email, papers/latex, skills for research and other tasks… I meant we may organize the
-   whole thing somehow so our features fit a simple organization that is semantically correct and
-   symmetric."*
+   **Clarified 2026-08-15, and explicitly NOT decided — this is a discussion, not a ruling.** Lucas:
+   *"what I was thinking is that we have some 'types' of features. we have hooks, and each hook may
+   be toggled, LOC limit, file fan-out limit, gitflow, etc. we have the agents.md|context.md tree +
+   the automated routing. we have the whole brain thing, inbox + goals. we have capabilities per
+   area, slides, email, papers/latex, skills for research and other tasks… I meant we may organize
+   the whole thing somehow so our features fit a simple organization that is semantically correct
+   and symmetric."* Asked whether that settles it, he was explicit: *"I am not decided on that, this
+   is a discussion point."*
 
-   So the axis is **what kind of thing a feature is**, not what it buys the reader. The named kinds,
-   in his words: *toggleable hooks* (LOC limit, fanout limit, gitflow), *the `AGENTS.md`/`CONTEXT.md`
-   tree + generated routing*, *brain* (inbox + goals), *per-area capabilities* (slides, email,
-   papers/LaTeX), *skills* (research and other tasks). The test the taxonomy must pass is the one he
-   states: **semantically correct and symmetric** — every feature lands in exactly one kind, no kind
-   overlaps another, and the kinds are peers. `README.md` § What the enforcement layer buys you
-   keeps its value sentences but stops being the organizing cut; the by-kind table is what step 2's
-   install idiom and step 4's toggle registry both index into, which is why this gates them.
-   → **model: opus**.
+   So what is fixed is the **test**, not the taxonomy: whatever organization we land on must be
+   *semantically correct and symmetric* — every feature lands in exactly one group, no group
+   overlaps another, and the groups are peers. What is open is **which axis to cut on**, and the
+   session that takes this **opens with the options and their trade-offs, and decides with Lucas.**
+   Do not arrive with one table and call it done.
+
+   The candidate axes, each with what it costs:
+
+   | Axis | Groups it produces | Buys | Costs |
+   |---|---|---|---|
+   | **by kind of thing** (Lucas's sketch above) | hooks · the `AGENTS.md`/`CONTEXT.md` tree + routing · brain · per-area capabilities · skills | matches how the tree is already laid out, so a feature's group is findable | says nothing about whether a feature is optional, which is what an installer must ask |
+   | **by what it buys the reader** (`README.md` today) | navigation · restraint · drift control · cost | sells the workspace to a stranger | one feature serves two values, so the groups are not disjoint — fails the symmetry test |
+   | **by installability** | free vs needs a binary · scaffold vs Lucas-specific · toggleable vs structural | exactly what steps 2, 3 and 4 need | a pure install view; useless as a way to explain the workspace |
+   | **by enforcement strength** | blocks · warns · generates · advises only | honest about what actually holds, and the ablation instrument (Frente 14) wants it | cuts across every other axis, so it reads as an attribute more than a grouping |
+
+   The real question is likely **whether one axis has to carry all of it**, or whether one is the
+   grouping and the rest are columns on its rows — worth putting on the table, since "levels of
+   features" may describe a *column* (how optional is it) rather than a set of boxes. Whatever
+   lands, step 2's install idiom and step 4's toggle registry both index into it, which is why this
+   gates them.
+   → **model: opus**, with Lucas in the loop — not a solo pass.
 
 1b. 🔴 **decide-first — does `SETUP.md` die as a type?** The ledger and the law contradict each
    other and **both are dated 2026-07-30**: this frente said "`SETUP.md` dies as a type", while
@@ -710,30 +792,18 @@ read, or read by everyone; COMPRESS only what survives. The law is
 [`core/SCHEMA.md`](core/SCHEMA.md) § Placement — tier (ESSENTIAL / IMPORTANT / DESIRABLE) crossed
 with read-frequency, giving KEEP / PROMOTE / REDIRECT / CUT.
 
-**The two mechanical halves are now checked, so do not hand-count anything.**
-[`entropy.md`](entropy.md) § Prose describing finished work and § Constraints trapped in a
-CONTEXT.md head are the live queues; both ratchet in `core/tools/test/workspace/test_corpus_ratchet.py`
-and the ceilings must be lowered as the drain proceeds. What the checks cannot answer — *does
-anyone need this* — stays judgement, and stays unmeasured until Frente 14 gives it an instrument.
+**The mechanical halves are checked, so do not hand-count anything.** [`entropy.md`](entropy.md)
+§ Prose describing finished work and § Constraints trapped in a CONTEXT.md head are this frente's
+live queues; each ratchets in `core/tools/test/workspace/test_corpus_ratchet.py` and its ceiling
+must be lowered as the drain proceeds. What the checks cannot answer — *does anyone need this* —
+stays judgement, and stays unmeasured until Frente 14 gives it an instrument.
 
-0. 🔴 **split the corpse check — it is counting two defects as one, and misinstructing on 70 of
-   them.** `finished_work_hits` ([`entropy_ledger.py`](core/hooks/entropy/entropy_ledger.py))
-   matches the routing generator's `← add` marker inside any `CONTEXT.md` and files it under *prose
-   describing finished work*. It is not history: the marker means **a source file is missing its
-   first-line comment**. The remediation the finding prints — *"Cut it; git is the history"* — is
-   wrong for that half, and acting on it is worse than ignoring it, because the generator re-emits
-   the marker on the next save.
-
-   Measured 2026-08-15, and the ratio is the point: of 105 findings, **70 are markers and 35 are
-   real corpses** (23 dated reports, 7 strikethrough, 5 ticks). Two thirds of the workspace's
-   largest queue is a different defect wearing the wrong label. Give the marker its own section,
-   its own remediation and its own ratchet; `FINISHED_CEILING` then drops 105 → 35 and starts
-   measuring the thing it is named after. Sections and ratchets both, so the two ceilings cannot
-   mask each other's regressions.
-
-   Splitting the *report* is this frente's job; draining the marker queue is not. The sweep, and
-   the gate hole that keeps refilling it, are **Frente 4 item 6**.
-   → **model: opus**.
+**One ratchet per named defect, never a shared one.** Until 2026-08-15 the corpse check also
+matched the routing generator's unfilled-description marker, so 70 markers sat inside a queue of
+105 wearing the wrong label and carrying a remedy — *cut it* — that made the generator rewrite them
+on the next save. The marker is § Unanswered scaffold placeholders now, and draining it is **Frente
+4 item 6**, not this frente. The lesson generalises: a queue that counts two defects can have one
+of them grow while its number falls.
 
 1. 🔴 **drain the two queues, hot files first.** Read-frequency decides the order: `CONTEXT.md` is
    the only enforced-read type, so its heads are the most expensive prose in the workspace, and
