@@ -6,13 +6,10 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from chain import EXEMPT_NAMES, SKIP_PARTS, WORKSPACE, context_chain
 from hook_input import is_subagent, load_seen, parse_stdin
 
-WORKSPACE = Path('/mnt/workspace')
 GATED_TOOLS = {'Read', 'Edit', 'Write', 'Grep', 'NotebookEdit'}
-# Always freely readable — deadlock guard + docs that ARE the context.
-EXEMPT_NAMES = {'CONTEXT.md', 'AGENTS.md', 'CLAUDE.md', 'MEMORY.md'}
-SKIP_PARTS = {'.git', 'node_modules', 'dist', '.codegraph', '__pycache__', '.vscode'}
 
 
 def target_path(tool: str, tool_input: dict) -> str:
@@ -21,19 +18,6 @@ def target_path(tool: str, tool_input: dict) -> str:
 	if tool == 'Grep':
 		return str(tool_input.get('path', ''))
 	return str(tool_input.get('file_path', ''))
-
-
-def context_chain(target: Path) -> list[Path]:
-	"""CONTEXT.md files from the target's directory up to (excluding) workspace root."""
-	start = target if target.is_dir() else target.parent
-	chain: list[Path] = []
-	current = start
-	while current != WORKSPACE and current != current.parent:
-		ctx = current / 'CONTEXT.md'
-		if ctx.is_file():
-			chain.append(ctx)
-		current = current.parent
-	return chain
 
 
 def main() -> int:

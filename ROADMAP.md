@@ -124,11 +124,30 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
    quietly expensive — they are quietly *unprotected*, which is the more serious answer. The gate is
    session-scoped where it means to be agent-scoped, in
    [`core/hooks/read/context-gate.py`](core/hooks/read/context-gate.py) via
-   `hook_input.seen_file`. Open, and needing a ruling before a fix: keying the marker per agent makes
-   every subagent re-pay its chain, which is the cost this item originally feared — so the two halves
-   trade against each other and cannot both be had. Cheapest shape to consider first is keying on the
-   agent's own id where the harness exposes one, falling back to the session id.
-   → **model: sonnet** for the gate fix once the keying is ruled; **opus** for that ruling.
+   `hook_input.seen_file`.
+
+   **Ruled and shipped 2026-08-15 (Lucas): subagents are not context-gated, and the orchestrator owns
+   their context instead.** The trade the item feared — fix correctness and every worker re-pays its
+   chain — was a false choice, because the gate was guarding the wrong thing. Frente 12 rules that
+   constraints live in `SPECS.md` and `CONTEXT.md` carries **routing**, so a worker handed one
+   explicit path never needed the chain; `spec-read-gate.py`, which does guard contracts, still fires
+   for everyone. `hook_input.is_subagent` keys on `agent_id`, present only inside a worker
+   (`agent_type` is not usable — the main thread carries it too in `--agent` sessions).
+
+   **The duty moved, so a hook keeps it**: [`core/hooks/read/agent-context.py`](core/hooks/read/agent-context.py)
+   reads the paths named in an outgoing `Agent` prompt and briefs the worker with each subtree's
+   one-line `>` summary. Induce, never block. The two-event split is measured, not assumed —
+   `PreToolUse:Agent` sees the prompt but has no `agent_id` and its `additionalContext` returns to the
+   *parent*; `SubagentStart` can inject into the worker but never sees the prompt. `prompt_id` is
+   identical across both and is the join key, which makes the briefing per-turn: several workers
+   spawned in one turn share the union of paths named across all of them. Over-broad, never
+   mismatched, and unfixable otherwise since the only worker id arrives after the prompt is gone.
+
+   **The lesson, and it is a cheap one to forget: the unit tests passed while the feature did
+   nothing.** Every test wrote `foo.py and then…`, so the path was followed by a space. Real prompts
+   end sentences — `foo.py.` — and the trailing period made every sentence-final path invisible. A
+   live probe caught it; the suite could not, because the suite was written by the same hand that
+   wrote the bug. `test_a_path_ending_a_sentence_is_still_found` now holds four prose shapes.
 2. 🟡 **the always-loaded corpus — measured 2026-07-30, disposition before compression.** Trigger
    was Lucas hitting Claude Code limits and suspecting `AGENTS.md`. The measurement says otherwise:
    `AGENTS.md` is 33 lines / **~1.3k tok**, while a *single* `context-gate` cascade in one session

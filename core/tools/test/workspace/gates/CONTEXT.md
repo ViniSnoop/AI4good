@@ -26,8 +26,9 @@ the parent happened to visit. Ruled deliberate 2026-08-15; measured in
 <!-- routing:start -->
 ## Routing
 
-| File | Interface | Description |
-|------|-----------|-------------|
-| [`test_gate_messages.py`](test_gate_messages.py) | [`test_gate_messages.pyi`](test_gate_messages.pyi) | T0: a blocking gate must say WHY on stderr. Claude Code feeds a PreToolUse exit-2's |
-| [`test_subagent_gate.py`](test_subagent_gate.py) | [`test_subagent_gate.pyi`](test_subagent_gate.pyi) | T0 the subagent exemption (ROADMAP Frente 3.1): a worker is not made to read the routing chain. |
+| File | Interface | API | Description |
+|------|-----------|-----|-------------|
+| [`test_agent_context.py`](test_agent_context.py) | [`test_agent_context.pyi`](test_agent_context.pyi) | `prompt_id` | T0 the agent-context briefing (ROADMAP Frente 3.1): the orchestrator's duty, done by a hook. |
+| [`test_gate_messages.py`](test_gate_messages.py) | [`test_gate_messages.pyi`](test_gate_messages.pyi) | — | T0: a blocking gate must say WHY on stderr. Claude Code feeds a PreToolUse exit-2's |
+| [`test_subagent_gate.py`](test_subagent_gate.py) | [`test_subagent_gate.pyi`](test_subagent_gate.pyi) | — | T0 the subagent exemption (ROADMAP Frente 3.1): a worker is not made to read the routing chain. |
 <!-- routing:end -->

@@ -71,6 +71,15 @@
             "command": "bash /mnt/workspace/core/hooks/read/pre-read.sh"
           }
         ]
+      },
+      {
+        "matcher": "Agent",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 /mnt/workspace/core/hooks/read/agent-context.py"
+          }
+        ]
       }
     ],
     "PostToolUse": [
@@ -131,6 +140,17 @@
           {
             "type": "command",
             "command": "python3 /mnt/workspace/core/hooks/session/compass-nudge.py"
+          }
+        ]
+      }
+    ],
+    "SubagentStart": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 /mnt/workspace/core/hooks/read/agent-context.py"
           }
         ]
       }
