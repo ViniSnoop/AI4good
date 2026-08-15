@@ -36,14 +36,17 @@ reduced mental load. That is the real test and it can only run after v1.
 Per-step `model` = the tier that is *enough* (a floor, not a ceiling).
 🔴 needs Lucas · 🟡 pilot on one subtree first · 🟢 mechanical.
 
-**One open step needs Lucas's own judgment: 10.3** — and even that is now mostly downstream of
-10.4, because a feature-toggle registry *is* the Lucas-specific/general split made executable.
-Everything else is Sonnet or Haiku. Stating that number is part of the cure for feeling lost, so
-keep it true: the 2026-08-14 sprint took it from four to one by ruling 8.1, 11.1, 11.3, 12.3, the
-transient-doc type, the `loops`→`craft` rename and the `core/tools` axis in a single sitting. The
-2026-08-15 session then closed the whole of the old Frente 3.1 by measuring it — the instrument is
-[`core/tools/wos/session/context`](core/tools/wos/session/context) and the results live in
-[`core/experiments/`](core/experiments/CONTEXT.md), not here.
+**Six open steps need Lucas's own judgment: 10.1, 10.1b, 10.3, 10.5, 13.1, 14.1.** Everything else
+is Sonnet or Haiku. Stating that number is part of the cure for feeling lost, so **keep it true** —
+it was wrong for a fortnight, claiming one while five were live. Four of the six are one decision
+wearing four numbers: the feature-toggle registry (10.4) is what makes the Lucas-specific/general
+split executable, what an installer writes a profile into, what a public scaffold repo is allowed to
+copy, and the switch Frente 14 needs before it can measure anything.
+
+Measurements never live here. The instrument is
+[`core/tools/wos/session/context`](core/tools/wos/session/context); results live in
+[`core/experiments/`](core/experiments/CONTEXT.md); drift counts live in [`entropy.md`](entropy.md).
+Re-run them rather than quoting a number from this file.
 
 **Load-bearing principle: automatic + zero-token beats agent-checked, and free checks are never
 coupled to paid ones.** Deterministic scripts per-commit; human judgment on demand.
@@ -66,88 +69,7 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
    taught. Record the result in [`core/experiments/context-window.md`](core/experiments/context-window.md).
    → **model: sonnet**.
 
-1. 🟡 **the always-loaded corpus — measured 2026-07-30, disposition before compression.** Trigger
-   was Lucas hitting Claude Code limits and suspecting `AGENTS.md`. The measurement says otherwise:
-   `AGENTS.md` is 33 lines / **~1.3k tok**, while a *single* `context-gate` cascade in one session
-   cost **~5k tok** (six CONTEXT.md to run two `head` commands). Cutting `AGENTS.md` optimises the
-   wrong thing.
-
-   **The cascade half is now measured across 98 sessions and it is small: CONTEXT.md reads are 4.6%
-   of all growth** (851 reads, 6 median per session) — re-run
-   [`core/tools/wos/session/context`](core/tools/wos/session/context) rather than quoting that. The
-   one-session ~5k figure was real but unrepresentative, so **the buckets below are now a tidiness
-   argument, not a cost one.** Weigh them accordingly. Across all **171** `CONTEXT.md`:
-
-   | Block | Total | Verdict |
-   |---|---|---|
-   | curated head (rules, cues) | 44.3k tok | the content — keep, but see MOVE OUT |
-   | generated **Subdirectory** table (navigation) | **5.7k tok** (avg 34/file) | keep — cheap, and it *is* the useful routing |
-   | generated **File** table (per-file symbol dump) | **55.8k tok** | ~~the whole problem~~ — see below |
-
-   ✅ **SETTLED 2026-07-30 with Lucas. The corpus framing above was wrong and is retired.** 55.8k is
-   a sum nobody pays: no session reads the corpus, it reads a *chain*. Measured over all 159 chains:
-   **2126 tok median, of which the File table is 457 (22%)** — about one `AGENTS.md`, cached. Not a
-   tax; a tail. Only 10 chains exceed 5k.
-
-   And the tail is row **count**, not row width (median 7 rows, worst 51 — width is a flat 40 tok/row).
-   Which makes it a *code organisation* problem wearing a context-cost disguise: `code/aiwbot/tests/`
-   is 51 flat test files. **The rule already existed** — `workspace_scanner.SPLIT_THRESHOLD = 7`,
-   warned by `context_synchronizer.sync` — but it printed to stdout during a sync nobody reads.
-
-   Landed, in order of evidence: **(a)** the fanout signal promoted to Tier 0 (`entropy_fanout.py`,
-   dashboard section, 8 tests incl. a ratchet) — surfaces **35 pre-existing** over-full directories,
-   which is why the dashboard total rose to 108 rather than a regression; **(b)** a generated column
-   empty on every row is no longer emitted (773 of 1242 rows carried an em-dash `Interface`);
-   **(c)** `test_*` symbols dropped from the `API` column, keyed on the **symbol not the path** so
-   there is no `tests/`-shaped door for production code to dodge the facade gate through — guarded by
-   `test_a_production_symbol_in_a_test_directory_still_appears`. Rules + the depth/fanout
-   reconciliation are in `core/SCHEMA.md` § Routing depth and locality; the research verdict table is
-   in `core/refs/REFS.md` § What this evidence actually settles for us.
-
-   **Read-gate change: dropped, correctly.** Lucas rejected stopping the gate at `| File |` and he was
-   right — the table is cheap per chain and its `Description` column is curated at source (6% noise).
-   New `[P]` evidence cuts both ways and is now filed: Gloaguen et al. (ETH) found repository overviews
-   unhelpful and >20% costlier, but the harm concentrates in *LLM-generated* files while *curated* ones
-   help. Nobody has A/B'd our tables on our tasks; probe-and-refine is the method if it ever matters.
-
-   Still open from the original framing: `context-gate` forces the full CONTEXT.md chain before any
-   file access while `SPECS.md` is on-demand, so **every constraint written into a CONTEXT.md head is
-   paid by every session in that subtree** — that is the MOVE OUT bucket below, and it is about the
-   41.9k tok *head*, which the evidence says is the half that actually earns its keep.
-
-   Four buckets, in payoff order. **Compression is the LAST step** (Lucas, 2026-07-30) — assess
-   what to remove, move, and transform first.
-   - **REMOVE** — ~~stop the gate at `| File |`~~ **rejected, see above.** Still live here:
-     **43** CONTEXT.md carry `← add` placeholders — Frente 12.2 matched only
-     `← add description` and missed the `← add first-line comment` class entirely, so the real count
-     was never 23. Also `code/CONTEXT.md:28` says *"See SPECS.md for the full table"* and inlines
-     all of R1–R6 anyway.
-   - **MOVE OUT** — constraints from CONTEXT.md → SPECS.md. **40** heads exceed 400 tok; **33 of
-     those have no sibling SPECS.md.** Two done as the pilot, and they establish the recipe:
-     `academy/papers` **1702→456 tok** (−73%, 1259 tok of constraint moved to a new `SPECS.md`) and
-     `code` **658→482** (the R1–R6 table was inlined directly under a pointer that said "see
-     SPECS.md for the full table"). **The recipe, in order:** (1) delete what a hook enforces — it
-     names the fix when it fires, except numbers that change how you write *before* the hook can
-     speak (the 150/200 line caps stay); (2) move constraints to `SPECS.md`, creating it if absent;
-     (3) move data out (alias lists, schemas); (4) delete stale claims; (5) keep identity +
-     navigation. Every pass so far has also surfaced a dead pointer or a false claim in the file it
-     touched, so budget for that. Next by size: `.opencode` (1650),
-     `code/apptime` (1635, and 4 placeholders), `code/isoroll-module/src/transform` (1353, 5
-     placeholders), `core/skills/caveman` (1328), `code/flows/libraries/tools` (1184).
-   - **TRANSFORM** — the 14 retypings under Frente 12 (four disposal routes), plus the **15**
-     CONTEXT.md whose *head* hand-lists files (`TREE`/`PATHS`/`TBL` signals), duplicating the
-     generated block they sit above: `code/isoroll-content` (ASCII tree *and* File Map),
-     `academy/papers` (`## Project Layout` tree), `brain/CONTEXT.md:9-14`.
-   - **KEEP** — curated cues and the Subdirectory table. Untouched.
-
-   Rejected here, with evidence: **`/caveman compress` on workspace docs.** Piloted on the worst
-   offender — 8571→8552 chars = **19 chars, 0.22%**, in 43s and one model call (no
-   `ANTHROPIC_API_KEY`, so it falls back to `claude --print` and spends *the same quota*). Six
-   trivial word swaps. Extrapolated: ~2h and 171 quota calls for ~0.3%. The docs are already
-   caveman-dense; there is no lexical fat. Reverted.
-   → **model: sonnet** for the sweeps.
-
-2. 🟡 **test the six "inverted practices" against our own instructions.** Claim, from a practitioner post
+1. 🟡 **test the six "inverted practices" against our own instructions.** Claim, from a practitioner post
    (`[C]`, ref in [core/refs/REFS.md](core/refs/REFS.md), captured INBOX 2026-07-31, Lucas: *"ver se é
    verdade e se for estudar como aproveitar no wos"*): Anthropic cut **>80%** of Claude Code's system
    prompt for its newest models and replaced hardcoded rules with judgement over rules, interfaces over
@@ -209,42 +131,16 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
    **The reusable lesson: an incomplete rename is indistinguishable from entropy at the leaves, and
    is only fixable at the generator.**
    → **model: sonnet**.
-0. ✅ **criterion 1 rescoped 2026-08-14 (Lucas) — the DoD now says what the tests always said.**
-   Measured: of the **90** distinct paths the dashboard reports, **81 live in nested repos and 9 in
-   this one** — and those 9 carry **zero** BLOCK-level violations (5 are doc size *signals*:
-   `ROADMAP.md` 735, `SETUP.md` 624, `core/SCHEMA.md` 363, `core/flows/craft/craft.md` 382, a prog-1
-   slide deck 635; 3 are fanout at exactly 10 files, which `limits.env` calls a warn on purpose;
-   1 is `code/_templates/module.SPEC.md`, blocked behind job B's single reviewed SPEC migration).
-   So "dashboard reads clean" held v1 hostage to 24 repos this one cannot fix — including
-   `isoroll-*`, owned by a parallel session. **Criterion 1 is now: this repo clean, plus a
-   per-repo baseline that may only shrink.** The ratchet already exists (`BASELINE` in
-   `test_entropy_naming.py` and `test_entropy_fanout.py`); nothing new is built for this. The
-   workspace-wide drain does not disappear — it becomes per-repo work, gating `[mvp-validate]`
-   rather than v1. **The lesson: a criterion whose scope is wider than its test's scope is a
-   criterion nobody can close.**
-3. 🟢 **the entropy dashboard — live.** `make entropy` → [`entropy.md`](entropy.md), 1904 tracked
-   files across the workspace **and its 24 nested repos**, ~1.3 s. Read the report; never re-scan
-   the tree. **Never copy its counts into this file** — a copied number is the drift these checks
-   exist to catch; the summary table at the top of the report is the interface. Criterion 1 wants
-   it reading clean; the remaining work is draining it.
+3. 🟢 **drain the entropy dashboard.** `make entropy` → [`entropy.md`](entropy.md), the whole
+   workspace and its nested repos in seconds. Read the report; never re-scan the tree. **Never copy
+   its counts into this file** — a copied number is the drift these checks exist to catch, and the
+   summary table at the top of the report is the interface. Criterion 1 wants it reading clean.
 
    The dashboard scans nested repos, the **tests do not** — an assertion in this repo about
    another repo's content fails for reasons this repo cannot fix, and each nested repo runs its
    own verify. Where a check is green workspace-wide it is asserted at zero in `verify-fast`
    (retired tokens, duplicate slugs); where it is not, `test_entropy_naming.py` holds a named
    **baseline** so a new violation fails the build and a fixed one must leave the list.
-
-4. ✅ **the file law — one definition of "a code file", shipped 2026-07-31.** It was defined **five**
-   times (`check-line-counts.sh`, `entropy-dashboard.py`, `workspace_meta.py`, `pre-edit.py`,
-   `facade-gate.py`) and no two agreed. `.sh` and extensionless executables were invisible to the
-   **blocking** gate, which is how `pre-commit` reached 385 lines and `sync-skills` 341 unopposed —
-   *not* a `--no-verify` bypass, as this file previously claimed. Now
-   [`core/hooks/file_law.py`](core/hooks/file_law.py), the numeric-law sibling of `schema_law.py`,
-   with `limits.env` holding all four numbers and `vendored.txt` / `extensionless.txt` as named
-   exception lists. Guarded by `test_no_checker_carries_its_own_extension_list`.
-
-   Hooks moved `.hooks/` → [`core/hooks/`](core/hooks/CONTEXT.md) the same day: nothing about the
-   location was Claude-specific, and hidden meant unmonitored by its own checks.
 
 5. 🟡 **drain to zero, then flip fanout to a hard block** (Lucas 2026-07-31: hard block, no
    grandfathering). The flip is coherent only at zero — the pre-commit hook is global
@@ -432,15 +328,14 @@ median session still has **~211 turns** ahead, so a hand-off has time to repay i
 cost. Warning early does not cost precision work; that fear priced a session about to end, and at
 these thresholds the session is not about to end.
 
-**Shipped 2026-08-13/14 — both halves of the session transition.** The size signal is
+Both halves of the session transition are live. The size signal is
 [`core/hooks/session/context-meter.py`](core/hooks/session/context-meter.py) on `UserPromptSubmit`:
 it reads the size the API already reported and announces `CTX_WARN` / `CTX_LOUD` once each, costing
-zero tokens until crossed and never blocking. The session cannot see its own size, which is why the
-hand-off decision was always made late — a hook is the only thing that can see it *and* speak at the
-moment it applies. The close itself is [`core/tools/wos/roundup`](core/tools/wos/roundup) plus the
-two skills; every decision behind that split, and why no session spawns its own successor, is
-[`core/SPECS.md`](core/SPECS.md) § AD-09, guarded by 20 tests in
-[`core/tools/test/wos/`](core/tools/test/wos/CONTEXT.md).
+zero tokens until crossed and never blocking. **The session cannot see its own size**, which is why
+the hand-off decision is made late without it — a hook is the only thing that can see it *and* speak
+at the moment it applies. The close itself is [`core/tools/wos/roundup`](core/tools/wos/roundup) plus
+the two skills; every decision behind that split, and why no session spawns its own successor, is
+[`core/SPECS.md`](core/SPECS.md) § AD-09.
 
 **The lesson this frente cost the most to learn: a number nobody can re-run steers the work anyway.**
 It was aimed for weeks by a single 24 h window that turned out wrong in every claim — "59% from
@@ -714,8 +609,9 @@ is no conceptual intersection."* Each type answers exactly one question.
    `ROADMAP.md § Rejected` before the file could go.
 
    Still on the floor from A: `flows` M12/M13 and `aiwbot`'s finish-line diagram are completed
-   milestones kept as `Status: complete` bodies and `~~strikethrough~~` — annotated corpses that
-   the same rule says to cut. Left for job D's pass over those repos, not smuggled into A.
+   milestones kept as `Status: complete` bodies and struck-through text — annotated corpses that
+   the same rule says to cut, and that `entropy.md` § Prose describing finished work now lists by
+   file and line. Left for job D's pass over those repos, not smuggled into A.
 2. 🟡 **does `entropy.md` sit in the right place, and should its name be uppercase?** Lucas, INBOX
    2026-08-15. It is the one always-present report at the workspace root that is not on the type
    allowlist, so the question is real rather than cosmetic. The evidence points at *lowercase, stays
@@ -769,44 +665,69 @@ is no conceptual intersection."* Each type answers exactly one question.
 
 ---
 
-## Frente 13 — the `.md` corpus audit: cut, do not compress
+## Frente 13 — the `.md` corpus audit: ASSESS, CUT, REDIRECT, then compress
 
-1. 🔴 **decide-first — audit every `.md` for whether it still earns its place, and CUT.** Lucas,
-   INBOX 2026-08-15, four separate captures that are one job: *"we have a lot of huge .md files…
-   I am just warning that we may have to do that again"*, *"audit our .md files to see if they all
-   bring relevant things"*, *"maybe we deserve a full audit to CUT / REDUCE whatever isn't
-   relevant / important"*, and *"CONTEXT.md files should be really thin. some are not."*
+**The four verbs, and the order** (Lucas, 2026-08-15). CUT alone was the wrong single verb, because
+content in the wrong *place* is a different defect from content that is wrong, and some content is
+*under*-placed rather than over-placed. ASSESS whether a section is still true and who needs it;
+CUT what nothing changes without; REDIRECT what is true and needed but sitting where it is not
+read, or read by everyone; COMPRESS only what survives. The law is
+[`core/SCHEMA.md`](core/SCHEMA.md) § Placement — tier (ESSENTIAL / IMPORTANT / DESIRABLE) crossed
+with read-frequency, giving KEEP / PROMOTE / REDIRECT / CUT.
 
-   **The operative verb is CUT, and that is what separates this from every pass before it.**
-   Compression was already tried and rejected with evidence (Frente 3.1: `/caveman compress` moved
-   the worst offender 8571 → 8552 chars, 0.22%, for one quota call — the docs have no lexical fat).
-   Splitting was tried too, and produces more files rather than less to read. What has never been
-   done is asking, per section, *is this still true and does anyone need it* — and deleting the
-   answer that is no.
+**The two mechanical halves are now checked, so do not hand-count anything.**
+[`entropy.md`](entropy.md) § Prose describing finished work and § Constraints trapped in a
+CONTEXT.md head are the live queues; both ratchet in `core/tools/test/workspace/test_corpus_ratchet.py`
+and the ceilings must be lowered as the drain proceeds. What the checks cannot answer — *does
+anyone need this* — stays judgement, and stays unmeasured until Frente 14 gives it an instrument.
 
-   **The worked example Lucas named is `core/SCHEMA.md`**: it *"still talks about a transition step
-   of some old names as if we were not transitioned/fixed those yet"*. That is the § No archive
-   types rule violated by the file that defines it — a finished migration described in the present
-   tense. Two more found the same day while splitting `SETUP.md`: a build-log table of shipped
-   tasks, and a hand-maintained file tree stale since the 2026-07-31 hooks split. **The pattern is
-   prose written during a change and never revisited after it landed**, which no check catches
-   because every link in it still resolves.
+1. 🔴 **drain the two queues, hot files first.** Read-frequency decides the order: `CONTEXT.md` is
+   the only enforced-read type, so its heads are the most expensive prose in the workspace, and
+   `AGENTS.md` / `ROADMAP.md` are read before anything else by convention.
 
-   **The measured backlog already exists, do not re-measure it.** Frente 3.1 counted **40**
-   `CONTEXT.md` heads over 400 tok, **33 of them with no sibling `SPECS.md`**, and **43** carrying
-   `← add` placeholders; the MOVE OUT recipe there is the method (delete what a hook enforces →
-   move constraints to `SPECS.md` → move data out → delete stale claims → keep identity and
-   navigation), and `SETUP.md` 643 → 349 on 2026-08-15 is the largest instance of it working.
-   Thinness of `CONTEXT.md` is not a style preference: § Routing depth makes locality the feature,
-   so a fat head is paid by every session in that subtree while a `SPECS.md` beside it is paid only
-   on demand.
+   **The REDIRECT recipe, in order:** (1) delete what a hook enforces — it names the fix when it
+   fires, except numbers that change how you write *before* the hook can speak, so the 150/200 line
+   caps stay; (2) move constraints to a sibling `SPECS.md`, creating it if absent; (3) move data out
+   (alias lists, schemas); (4) delete stale claims; (5) keep identity and navigation only. Measured
+   instances: `academy/papers` 1702 → 456 tok, `core/tools` 1238 → 247 tok. **Every pass so far has
+   also surfaced a dead pointer or a false claim in the file it touched** — budget for that, and
+   record each rather than fixing it silently.
 
-   Open before starting: whether the audit is one sweep or a ratchet (a per-file signal that must
-   shrink, like the entropy baseline), and whether "does anyone need it" can be made checkable at
-   all or stays a judgement call per file.
+   Largest remaining heads: `core/skills/caveman`, `core/hooks`, `core/tools/notes`,
+   `core/experiments`, `core/skills`, `core/flows/craft`. `.opencode/CONTEXT.md` is the biggest of
+   all and is a **generated mirror** — fix it at the generator or leave it.
    → **model: opus** for the judgement pass, sonnet for the sweeps.
 
----
+2. 🟡 **the nested-repo half is per-repo drain work, not a wos item.** Two thirds of the corpus
+   (~187 of 261 `CONTEXT.md`) lives in nested `code/` repos with their own branches and gates, so it
+   cannot ride a wos commit. Same classification as the `.d.ts` stub gap: counted in
+   [`entropy.md`](entropy.md), drained where the files are.
+   → **model: sonnet**.
+
+## Frente 14 — ablation: nothing in this workspace has ever been measured
+
+1. 🔴 **build the instrument, then run the ablation.** Lucas, INBOX 2026-08-15: *"um engenheiro
+   líder da Anthropic sugeriu de tempos em tempos a gente 'deletar' o CLAUDE.md e ver como modelos
+   top (como o Opus) performam, dizendo que poderíamos nos surpreender. ou seja, diminuir a carga de
+   instruções. esta recomendação é bem forte pro nosso caso. tudo que o WOS faz (ou pelo menos boa
+   parte) é contornar ingenuidades do modelo. realmente precisamos fazer um benchmark com estudos de
+   ablação em breve."*
+
+   **The premise is falsifiable and nobody has tried to falsify it.** This workspace exists to
+   compensate for model failures; a stronger model may not need the compensation, and every rule
+   that outlives its failure is pure cost. The claim cuts at the whole scaffold, not just the docs.
+
+   **Precondition, and it is the reason the last attempt produced nothing.**
+   [`core/ROADMAP.md`](core/ROADMAP.md) § ablation-bench ran once and yielded no signal for exactly
+   one reason: there was no clean way to turn a single feature off. So the toggle registry in
+   Frente 10.4 is not a sibling of this item, it is its instrument — *"it also would ease ablation
+   tests so we can indeed see the impacts of each option"* (Lucas, 2026-08-14). Building the bench
+   before the switch repeats the failure.
+
+   Scope is the whole enforcement layer, not the `.md` corpus: hooks, skills, tools, `AGENTS.md`
+   itself. Frente 13 is downstream — its verdicts are judgement calls today precisely because this
+   instrument does not exist, and it says so rather than implying they are measured.
+   → **model: opus** for the design, sonnet to run it.
 
 ## Silent failure is the failure mode this workspace actually has
 
@@ -875,21 +796,22 @@ months anyway. Cheaper than a list nobody reads.
 - **`pre-edit.py` vs `check-line-counts.sh` scope disagreement** — policy nit, no live symptom.
 - **`core/tools/paper/papers --ss` live smoke** — it will smoke itself on the next real use.
 - **Commit the `.claude/commands/{drive,calendar}.md` symlinks** — done inline rather than tracked.
+- **`/caveman compress` on workspace docs** — piloted on the worst offender: 8571 → 8552 chars, **0.22%**, for one full quota call. The docs have no lexical fat, so placement beats phrasing and compression stays the last step on an already-reduced surface (Frente 13).
 
 ## Sequencing
 
-1. **Frente 12.1** — apply the type system + write it into `core/SCHEMA.md`. Do it before 4.1 so
-   Tier 0 enforces a vocabulary that is already true, and before 12.2 so the refinement passes are
-   not spent on files about to be deleted.
-2. **Drain `entropy.md`** — the keystone is built; criterion 1 is now a drain, not a design. Biggest
-   families first: 41 off-allowlist types (this *is* Frente 12.1) and 29 size signals.
-3. **Frente 4.2** — the `loops`→`flows` generator rename. Its retired tokens are now declared in
-   `core/SCHEMA.md` § Retired tokens, so the sweep has an assertion waiting for it: add
-   `.loop`/`loops` to that table the moment the rename lands and the check proves it complete.
-4. **Frente 10** (1, 2) — SETUP split + declared deps.
-5. **Frente 12.2** — the refinement/compression passes.
+1. **Frente 12.1** — apply the type system. Do it before 4.1 so Tier 0 enforces a vocabulary that is
+   already true, and before 12.2 so refinement passes are not spent on files about to be deleted.
+2. **Drain [`entropy.md`](entropy.md)** — the keystone is built; criterion 1 is a drain, not a
+   design. Biggest families first; the report's summary table says which those are today.
+3. **Frente 4.2** — the `loops`→`flows` generator rename. Its retired tokens are declared in
+   `core/SCHEMA.md` § Retired tokens, so the sweep has an assertion waiting: add the old spellings
+   to that table the moment the rename lands, and the check proves it complete.
+4. **Frente 10** (1, 2) — the install idiom + declared deps.
+5. **Frente 13.1** — the corpus drain, hot files first.
 6. **Frente 11.1** — the four sweep rulings, whenever Lucas has direction.
-7. **Frente 3.1, 8.1, 9.1, 10.3** — the four judgment calls, in whatever order has wind.
+7. **The judgment calls: 8.1, 9.1, then 10.1 → 10.3 → 10.4 → 14.1**, which is one chain rather than
+   four independents — the toggle registry is the instrument the ablation needs.
 
 ## Model-switching guide
 

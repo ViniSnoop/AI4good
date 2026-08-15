@@ -9,5 +9,10 @@
 
 <!-- add entries below, newest first -->
 
-um engenheiro lídero da antrhopic sugeriu de tempos em tempos a gente "deletar" o CLAUDE.md e ver como modelos top (como o Opus) performam, dizendo que poderíamos nos surpreender. ou seja, diminuir a carga de instruções. esta recomendação é bem forte pro nosso caso. tudo que o 
+check if we didn't brake RTK by changing/removing its .md
 
+Eu tô com medo, percebi isso, tô com medo de no IA Workspace Bot, né? No bot do telegram, de dar um resume nas sessões pra ver o que tá acontecendo em uma das sessões da IA que está rodando no computador. Eu tô com medo de eu fazer isso, de alguma forma quebrar a sessão que tá rodando, ou caso eu continue o trabalho naquela sessão aqui, no AI Bot, no bot do telegram, ao continuar por aqui, que seja avançado aqui no bot, não apareça lá no cloud code do meu computador, tanto na extensão do VS Code, quanto no terminal. Eu tô com medo de fazer isso, então eu acho que eu queria checar se existe alguma trabalha, incompatibilidade, alguma oportunidade que tem alternar. Porque o ideal pra mim seria começar um trabalho. Eu acho que esse é o fluxo mais comum. Começar um trabalho e depois dar andamento no bot. E depois voltar no computador. Então o ideal pra mim seria alguma coisa assim. E aí, queria enxergar se tá funcionando.
+— via aiwbot · 2026-08-15
+
+adicionar no agents.md que workspace é provider agnostic. É agnóstico ao provedor, à empresa, ao harness. Por isso, nada deve ser armazenado em arquivos específicos. Provedor. Por exemplo, se eu estou usando um cloudcode, nada vai ser armazenado em arquivos da cloud e do Anthropx. Deve ser armazenado em arquivos do Workspace.
+— via aiwbot · 2026-08-15

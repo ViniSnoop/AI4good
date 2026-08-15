@@ -16,8 +16,8 @@ from file_law import load_limits
 HEAD_WARN = load_limits()['CONTEXT_HEAD_WARN']
 
 # Inherited backlog, drained by ROADMAP.md Frente 13.
-FINISHED_CEILING = 109
-MISPLACED_CEILING = 29
+FINISHED_CEILING = 105
+MISPLACED_CEILING = 28
 
 # The margin lets one cut land without forcing a test edit; a real drain pass trips it.
 FINISHED_SLACK = 10
