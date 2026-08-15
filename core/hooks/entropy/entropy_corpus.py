@@ -69,3 +69,18 @@ def enforcement_paths(root: Path) -> set:
     return ({(root / name).resolve() for name in ENFORCEMENT}
             | {here / name for name in _CHECKER}
             | {p.resolve() for p in root.glob(_CHECKER_TESTS)})
+
+
+# brain/memory holds cross-session agent memory, and its `[[slug]]` names ANOTHER MEMORY rather
+# than a goal. A slug with no file yet is allowed there on purpose — it marks a memory worth
+# writing later. Different vocabulary, different strictness, so the goal check cannot apply.
+#
+# Only the wiki-link check is relaxed. Retired tokens are still enforced there, and that is not
+# hypothetical: the day the store moved into the workspace (2026-08-15) that check caught four
+# memories still naming files and flows renamed in July — instructions a future session would have
+# followed. Memory rots exactly like documentation, and nothing was watching it before.
+MEMORY_DIR = 'brain/memory'
+
+
+def wiki_exempt_paths(root: Path) -> set:
+    return enforcement_paths(root) | {p.resolve() for p in (root / MEMORY_DIR).rglob('*.md')}

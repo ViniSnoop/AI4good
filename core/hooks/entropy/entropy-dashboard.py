@@ -19,7 +19,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from entropy_context import check_goal_link  # noqa: E402
-from entropy_corpus import enforcement_paths, tracked_files  # noqa: E402
+from entropy_corpus import enforcement_paths, tracked_files, wiki_exempt_paths  # noqa: E402
 from entropy_fanout import fanout_signals  # noqa: E402
 from entropy_ledger import (duplicate_slugs, goal_vocabulary,  # noqa: E402
                             retired_hits, wiki_link_hits)
@@ -87,7 +87,8 @@ def collect(files: list) -> dict:
     exempt = enforcement_paths(WORKSPACE_ROOT)
     findings['retired'] = retired_hits(files, load_retired(SCHEMA), exempt)
     findings['wiki'] = wiki_link_hits(
-        files, goal_vocabulary(WORKSPACE_ROOT / 'brain/goals'), exempt)
+        files, goal_vocabulary(WORKSPACE_ROOT / 'brain/goals'),
+        wiki_exempt_paths(WORKSPACE_ROOT))
     findings['duplicates'] = [f'`[{slug}]` claimed by {", ".join(sorted(claims))}'
                               for slug, claims in duplicate_slugs(LEDGERS).items()]
     findings['size'] = size_signals(files)

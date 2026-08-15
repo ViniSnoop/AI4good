@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from entropy_corpus import enforcement_paths as enforcement_paths
 from pathlib import Path
 
 HARNESS_MANDATED: Incomplete

@@ -11,7 +11,13 @@ import re
 from pathlib import Path
 
 from conftest import WORKSPACE_ROOT  # the depth lives in one file, not nine
-MEMORY_DIR = Path.home() / ".claude/projects/-mnt-workspace/memory"
+
+# The auto-memory store lives IN the workspace as of 2026-08-15; the harness path
+# ~/.claude/projects/<slug>/memory is a symlink to this directory, so every memory the
+# harness writes lands in git and can be trimmed like any other file. This used to reach
+# into $HOME and hardcode the project slug — a Tier 0 gate that read a path outside the
+# repo it guards, and that no clone of this workspace could satisfy.
+MEMORY_DIR = WORKSPACE_ROOT / "brain/memory"
 
 # Deleted content still on disk is not workspace structure. A file manager moves a
 # deleted project into .Trash-<uid>/, whose stale relative links then fail the check

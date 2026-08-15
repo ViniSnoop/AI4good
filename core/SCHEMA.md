@@ -63,10 +63,19 @@ get a new type.
 | `TODO.md` | What must I do in life this week? |
 | `INBOX.md` | Raw capture, zero taxonomy, drained to empty |
 | `USER.md` | Who is Lucas, and how does he fail? |
+| `MEMORY.md` | Which memories exist, and what is each about? (index + router, `brain/memory/` only) |
 | `SETUP.md` | How do I make this environment work? (toolchain install + config) |
 | `SCHEMA.md` | This file: the law about types. |
 
 Anything else is rejected: *"add it to the allowlist if you mean it."*
+
+`MEMORY.md` earns its row on symmetry, added 2026-08-15 when the store moved into the workspace
+(`~/.claude/projects/<slug>/memory` is now a symlink to `brain/memory/`). It stands to
+[`brain/memory/`](../brain/memory/CONTEXT.md) exactly as `GOALS.md` stands to `brain/goals/`: an
+index and router over a directory of instances, one line each, loaded every session. The instances
+themselves are lowercase and need no type. **It is the one type written by the agent rather than
+authored**, which is why its content is checked like any other file — the merge immediately caught
+four memories still naming files renamed a month earlier.
 
 `SETUP.md` earns its row on the evidence (added 2026-07-30, 8 instances): `README.md` is **repo-root
 only**, and 4 of the 8 sit in directories that are not repos — the workspace root, `academy/`,

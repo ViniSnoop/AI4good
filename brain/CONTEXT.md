@@ -12,6 +12,7 @@ Agent is first-class collaborator, not just reader.
 | [goals/](goals/) | One file per goal — organic growth from seed to full |
 | [USER.md](USER.md) | User profile — identity, language, patterns, what helps |
 | [INBOX.md](INBOX.md) | Zero-friction capture, no taxonomy |
+| [memory/](memory/CONTEXT.md) | Cross-session agent memory. The harness path symlinks in here, so what it writes lands in git |
 
 ## Area Taxonomy
 
@@ -37,7 +38,8 @@ Design rationale → [SPECS.md](SPECS.md) § Rationale.
 | Subdirectory | Description |
 |--------------|-------------|
 | [`attachments/`](attachments/CONTEXT.md) | — |
-| [`goals/`](goals/CONTEXT.md) | One file per goal — organic growth from seed to full. Dashboard + router: [GOALS |
+| [`goals/`](goals/CONTEXT.md) | One file per goal — organic growth from seed to full. Dashboard + router: |
+| [`memory/`](memory/CONTEXT.md) | What the agent learned across sessions and nothing else records. Harness-written |
 
 | File | Description |
 |------|-------------|

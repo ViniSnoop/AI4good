@@ -23,7 +23,8 @@ PROSE_RATE = 3.8  # chars/token for ordinary prose and code — the yardstick, n
 ALWAYS_LOADED = {
 	'CLAUDE.md chain': [Path.home() / '.claude/CLAUDE.md', Path.home() / '.claude/RTK.md',
 	                    WORKSPACE / 'CLAUDE.md', WORKSPACE / 'AGENTS.md'],
-	'memory index': [Path.home() / '.claude/projects/-mnt-workspace/memory/MEMORY.md'],
+	# The store moved into the workspace 2026-08-15; the harness path is now a symlink to it.
+	'memory index': [WORKSPACE / 'brain/memory/MEMORY.md'],
 }
 
 

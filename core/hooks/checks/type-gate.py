@@ -23,7 +23,7 @@ sys.path.insert(0, str(_HOOKS))
 sys.path.insert(0, str(_HOOKS / 'entropy'))
 
 from entropy_context import check_goal_link, check_inventory  # noqa: E402
-from entropy_corpus import enforcement_paths  # noqa: E402
+from entropy_corpus import enforcement_paths, wiki_exempt_paths  # noqa: E402
 from entropy_ledger import goal_vocabulary, wiki_link_hits  # noqa: E402
 from entropy_naming import check_dirs, check_placement, check_shape  # noqa: E402
 from schema_law import SCHEMA, WORKSPACE_ROOT, load_law, load_scopes  # noqa: E402
@@ -61,7 +61,7 @@ def failures_for(path: Path, allowed: set, exempt: set, scopes: dict,
                          check_shape(path, allowed),
                          check_dirs(path, WORKSPACE_ROOT),
                          check_placement(path, scopes, WORKSPACE_ROOT)) if f]
-    return found + wiki_link_hits([path], vocabulary, enforcement_paths(WORKSPACE_ROOT))
+    return found + wiki_link_hits([path], vocabulary, wiki_exempt_paths(WORKSPACE_ROOT))
 
 
 def main() -> int:
