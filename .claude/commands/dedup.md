@@ -1,9 +1,6 @@
 ---
 name: dedup
-description: >
-  Semantic duplication audit for a code project: finds regenerated near-duplicate logic that
-  the jscpd pre-commit gate (verbatim clones) misses, using codegraph + targeted reading.
-  Invoke with /dedup [project path, defaults to cwd project].
+description: Semantic duplication audit for a code project: near-duplicate logic that the verbatim-clone gate misses. Invoke with /dedup [project path, defaults to cwd project].
 ---
 
 # Dedup skill

@@ -1,7 +1,6 @@
 ---
 name: handoff
-description: >
-  Emit a copy-pasteable resume prompt for the next session — the narrow last step only. For the full session-close ritual (archive done work + route knowledge + drain INBOX + verify, then hand off), use /roundup, which calls this. Invoke with /handoff [focus].
+description: Emit a copy-pasteable resume prompt for the next session. For the full session-close ritual use /roundup, which calls this. Invoke with /handoff [focus].
 ---
 
 # Handoff skill

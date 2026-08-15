@@ -1,7 +1,6 @@
 ---
 name: roundup
-description: >
-  Full session-close ritual: clear completed work out of the ledgers, route session knowledge to durable files, drain the INBOX, then run core/tools/wos/roundup (verification gate, entropy, branch promotion) and hand off. Use at session end. Invoke with /roundup [focus for next session].
+description: Full session-close ritual: drain the ledgers, route session knowledge to durable files, then verify and hand off. Use at session end. Invoke with /roundup [focus for next session].
 ---
 
 # Roundup skill

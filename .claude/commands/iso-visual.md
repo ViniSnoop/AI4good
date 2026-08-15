@@ -1,10 +1,6 @@
 ---
 name: iso-visual
-description: >
-  Isoroll visual-semantics reference: conventions that map isometric imagery to text,
-  known model failure modes, and the hard rule for verifying visual/geometric output.
-  Load before any session/loop that touches isoroll guides, kits, sprites, or scene assembly.
-  Invoke with /iso-visual
+description: Isoroll visual-semantics reference: image-to-text conventions, known model failure modes, and how to verify visual output. Load before touching isoroll guides, kits, sprites or scenes. Invoke with /iso-visual
 ---
 
 # /iso-visual

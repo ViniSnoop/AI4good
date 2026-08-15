@@ -1,10 +1,6 @@
 ---
 name: prepare
-description: >
-  Prepare a raw prompt for an agent: interview, contextualize, plan, and recommend model/effort.
-  The skill first interviews the user to clarify intent, then classifies the task,
-  outputs the optimized prompt ready for copy-paste.
-  Invoke with /prepare [your raw task]
+description: Turn a raw task into an optimized agent prompt: interviews for intent, classifies the task, recommends model and effort. Invoke with /prepare [your raw task]
 ---
 
 # /prepare
