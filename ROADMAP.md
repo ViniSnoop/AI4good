@@ -482,6 +482,16 @@ plateau began. So: a number in this file that
    reading are caveman's node installer, opencode's project-level plugin auto-load, mise/asdf, and
    devcontainer. The question is not "script or prose" but **which install idiom an agent-workspace
    should present to a stranger**. Gates steps 2 and 4.
+
+   **Lucas's precondition, INBOX 2026-08-15:** *"BEFORE creating an installer for the workspace…
+   systematically list what the workspace is, what are the features. we have different levels of
+   features, I would like to see this organized first."* First pass done the same day — `README.md`
+   § What the enforcement layer buys you groups the capabilities as **navigation / restraint / drift
+   control / cost**, one sentence of value each. **The "different levels" part is unanswered**: that
+   grouping is by *what a feature is for*, and an installer needs the orthogonal cut — what is
+   scaffold vs. Lucas-specific (step 3), what is free vs. needs a binary (step 2), what can be
+   switched off at all (step 4). Confirm the README grouping is the one wanted before treating this
+   as settled.
    → **model: opus**.
 
 1b. 🔴 **decide-first — does `SETUP.md` die as a type?** The ledger and the law contradict each
@@ -638,6 +648,24 @@ hypothesis; re-run it before spending a decision on it.**
    covered; **ordinary commits are the gap.**
    → **model: sonnet**.
 
+3. 🟡 **`code/SPEC-DRIVE.md` is gitignored, and the discipline it tracks was forgotten.** Two
+   captures from 2026-08-15 that are the same finding from both ends. The mechanical half: the
+   `code/*` rule at `.gitignore:37` excludes it while its first-level siblings `code/VERIFY.md` and
+   `code/SPECS.md` are tracked, so every edit to it has stayed on one machine — found while
+   repointing `SETUP.md` references, when a two-line fix showed up in neither `git status` nor
+   `git diff`. The human half, Lucas: *"sobre SDD (SPEC DRIVEN DEVELOPMENT), sinto que começamos
+   isso mas esquecemos completamente."*
+
+   **Treat them as one.** A rollout ledger that cannot be pushed cannot be picked up by the next
+   session, on this machine or any other — invisibility is a sufficient explanation for being
+   forgotten, and it is the half that is cheap to fix. Do that first, then read the file's own Open
+   items with fresh eyes and decide whether SDD is resumed, rescoped, or killed outright (its gates
+   are live either way: `pre-commit` §1d and `read/spec-read-gate.py` are still firing on every
+   session, which makes an abandoned rollout more expensive than a dead one). Frente 12 already
+   queues its rename to `ROADMAP-spec-drive.md` — land tracking and that rename in the same commit,
+   since both are about the file being a real ledger.
+   → **model: opus** for the resume/kill call, sonnet for the `.gitignore` fix.
+
 ---
 
 ## Frente 12 — The `.md` type system (decided 2026-07-30)
@@ -688,11 +716,34 @@ is no conceptual intersection."* Each type answers exactly one question.
    Still on the floor from A: `flows` M12/M13 and `aiwbot`'s finish-line diagram are completed
    milestones kept as `Status: complete` bodies and `~~strikethrough~~` — annotated corpses that
    the same rule says to cut. Left for job D's pass over those repos, not smuggled into A.
-2. 🟢 **safe — one or two refinement passes over the surviving docs.** Crop dead parts, collapse
-   overlaps, compress the prose (caveman-compress the writing style, keep every technical fact).
-   Requested by Lucas 2026-07-30, after the type system lands so the passes are not wasted on files
-   about to be deleted.
-   → **model: sonnet**.
+2. 🟡 **does `entropy.md` sit in the right place, and should its name be uppercase?** Lucas, INBOX
+   2026-08-15. It is the one always-present report at the workspace root that is not on the type
+   allowlist, so the question is real rather than cosmetic. The evidence points at *lowercase, stays
+   put*: § The four disposal routes sends a **generated** file to a lowercase instance name (the
+   `LABELS` → `labels.md` precedent), and this file is written by
+   `core/hooks/entropy/entropy-dashboard.py` and committed by `core/tools/wos/roundup`, never
+   authored. What is genuinely open is whether the root is its place — every other generated
+   artifact lives beside its generator or under `outputs/`, and `outputs/` is untracked while this
+   one must be tracked to serve as the criterion-1 ratchet. Decide once and write the answer into
+   `core/SCHEMA.md` so it stops looking like an oversight.
+   → **model: opus** — one ruling, then at most a `git mv`.
+2b. 🟡 **"Frente" is Portuguese in an English contract vocabulary — decide, then sweep or keep.**
+   Lucas, INBOX 2026-08-15: *"por que chamamos de FRENTE as etapas do roadmap? … FRENTE até onde sei
+   é só em português. em inglês seria FRONT não é n?"* He is right on the facts. The literal English
+   is *front*, but an English roadmap would idiomatically say **workstream** or **track** — *front*
+   reads as military or meteorological, so a straight translation is the worst of the three.
+
+   Why it is a real item and not pedantry: this workspace's prose is deliberately mixed — rationale
+   in Portuguese, **contracts in English** — and a roadmap heading is a contract, cited by
+   **29 occurrences in this file and 27 other files**, including source comments in
+   `core/hooks/entropy/*.py` and test docstrings. Those citations are anchor ids in practice, which
+   is exactly the cost that priced the `VERIFY.md` rename in item 3.
+
+   If it moves, it is a **retired token**: add it to `core/SCHEMA.md` § Retired tokens in the same
+   commit, so the check proves the sweep complete instead of a grep claiming it. Keeping it is also
+   a legitimate answer — but then say so in § Vocabulary, so the next reader stops wondering.
+   → **model: opus** for the ruling, sonnet for the sweep.
+
 3. 🟢 **the transient initiative doc is `ROADMAP-<slug>.md` — ruled 2026-08-14, three renames left.**
    The "fourth type" turned out not to be a type. Lucas's ruling was to unify by semantic symmetry
    with zero conceptual intersection, and *"make sure as well that we do not create a new .md file
@@ -715,6 +766,45 @@ is no conceptual intersection."* Each type answers exactly one question.
    `ROADMAP-refactor.md`. And `code/dobra/DECISIONS.md` is not a roadmap at all — decisions are
    *what must be true and why*, so it folds into that project's `SPECS.md`.
    → **model: sonnet**, one file per commit.
+
+---
+
+## Frente 13 — the `.md` corpus audit: cut, do not compress
+
+1. 🔴 **decide-first — audit every `.md` for whether it still earns its place, and CUT.** Lucas,
+   INBOX 2026-08-15, four separate captures that are one job: *"we have a lot of huge .md files…
+   I am just warning that we may have to do that again"*, *"audit our .md files to see if they all
+   bring relevant things"*, *"maybe we deserve a full audit to CUT / REDUCE whatever isn't
+   relevant / important"*, and *"CONTEXT.md files should be really thin. some are not."*
+
+   **The operative verb is CUT, and that is what separates this from every pass before it.**
+   Compression was already tried and rejected with evidence (Frente 3.1: `/caveman compress` moved
+   the worst offender 8571 → 8552 chars, 0.22%, for one quota call — the docs have no lexical fat).
+   Splitting was tried too, and produces more files rather than less to read. What has never been
+   done is asking, per section, *is this still true and does anyone need it* — and deleting the
+   answer that is no.
+
+   **The worked example Lucas named is `core/SCHEMA.md`**: it *"still talks about a transition step
+   of some old names as if we were not transitioned/fixed those yet"*. That is the § No archive
+   types rule violated by the file that defines it — a finished migration described in the present
+   tense. Two more found the same day while splitting `SETUP.md`: a build-log table of shipped
+   tasks, and a hand-maintained file tree stale since the 2026-07-31 hooks split. **The pattern is
+   prose written during a change and never revisited after it landed**, which no check catches
+   because every link in it still resolves.
+
+   **The measured backlog already exists, do not re-measure it.** Frente 3.1 counted **40**
+   `CONTEXT.md` heads over 400 tok, **33 of them with no sibling `SPECS.md`**, and **43** carrying
+   `← add` placeholders; the MOVE OUT recipe there is the method (delete what a hook enforces →
+   move constraints to `SPECS.md` → move data out → delete stale claims → keep identity and
+   navigation), and `SETUP.md` 643 → 349 on 2026-08-15 is the largest instance of it working.
+   Thinness of `CONTEXT.md` is not a style preference: § Routing depth makes locality the feature,
+   so a fat head is paid by every session in that subtree while a `SPECS.md` beside it is paid only
+   on demand.
+
+   Open before starting: whether the audit is one sweep or a ratchet (a per-file signal that must
+   shrink, like the entropy baseline), and whether "does anyone need it" can be made checkable at
+   all or stays a judgement call per file.
+   → **model: opus** for the judgement pass, sonnet for the sweeps.
 
 ---
 
