@@ -474,7 +474,9 @@ feeling lost twice. **Mass is the disease and only deletion cures it.**
    and something else moved in. Both are warns now, four and twenty-three lines from a hard block
    respectively — so the next session on this frente starts by paying that down, before adding
    anything.
-   → **model: sonnet**. Plan: `~/.claude/plans/plan-a-fix-on-scalable-star.md`.
+   → **model: sonnet**. The plan is the three findings above; it used to point at a file in
+   `~/.claude/plans/`, which `AGENTS.md` forbids — a plan lives in the ROADMAP of the thing it
+   changes, not in harness-owned state no clone of this workspace would ever get.
 
 ---
 

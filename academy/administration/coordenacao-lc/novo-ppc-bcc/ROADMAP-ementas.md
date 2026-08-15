@@ -12,7 +12,9 @@ Próximo passo: Lucas revisa `saida-docx/` + `gaps.md`; após OK, `drive put --a
 
 # EMENTAS-ROADMAP — Reformatação das ementas do novo PPC
 
-> Resultado da run de investigação (Sonnet, 2026-07-21). Fonte do plano: `~/.claude/plans/vamo-resolver-o-que-merry-nygaard.md`.
+> Resultado da run de investigação (Sonnet, 2026-07-21). Este arquivo **é** o plano — o ponteiro que
+> ficava aqui apontava para `~/.claude/plans/`, estado do harness que nenhum clone deste workspace
+> receberia, e que `AGENTS.md` proíbe: plano mora no ROADMAP daquilo que ele muda.
 
 ## TL;DR — a reformatação em massa JÁ ESTÁ (quase toda) FEITA
 

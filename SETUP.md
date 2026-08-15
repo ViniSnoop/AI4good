@@ -384,6 +384,26 @@ npm install @earendil-works/pi-coding-agent
 ```
 **Unverified**: Feynman has no `-e`/dry-run flag to confirm extension load non-interactively (unlike raw `pi`). First real Feynman session should be checked for a `[rtk] rtk binary not found` or `Failed to load extension` warning on startup; absence of either is the confirmation signal.
 
+### Using it — the four commands the hook cannot run for you
+
+Everything else is rewritten by the hook transparently, at zero token cost: `git status` becomes
+`rtk git status` without anyone asking. These four have to be typed:
+
+```bash
+rtk gain              # token savings analytics
+rtk gain --history    # command usage history with savings
+rtk discover          # analyse session history for missed opportunities
+rtk proxy <cmd>       # run a command raw, unfiltered — for debugging the proxy itself
+```
+
+⚠ **Name collision.** If `rtk gain` reports an unknown subcommand, the installed binary is
+reachingforthejack/rtk (Rust Type Kit), a different tool with the same name. Check with
+`which rtk` and `rtk --version`.
+
+*Moved here 2026-08-15 from `~/.claude/RTK.md`, which the global `CLAUDE.md` pulled into every
+session on this machine — including projects that are not this workspace. It is toolchain prose,
+so it belongs with the rest of the toolchain: on demand, in one place, inside the repo.*
+
 **GitHub Copilot** — already versioned, dormant until Copilot itself is installed on a machine:
 - `.github/hooks/rtk-rewrite.json` (hook config, `rtk hook copilot`)
 - `<!-- rtk-instructions -->` block appended to `.github/copilot-instructions.md`

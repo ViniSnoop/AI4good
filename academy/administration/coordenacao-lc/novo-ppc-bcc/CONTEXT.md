@@ -6,7 +6,7 @@
 
 | Subdirectory | Description |
 |--------------|-------------|
-| [`ementas/`](ementas/CONTEXT.md) | — |
+| [`ementas/`](ementas/CONTEXT.md) | Ementa pipeline for the new BCC PPC: download the sources, classify them, build |
 
 | File | Description |
 |------|-------------|
