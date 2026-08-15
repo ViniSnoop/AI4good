@@ -230,6 +230,21 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
    staged files**, where a generator's output and a stranger's file both have to pass, rather than
    an edit-time check that only the harness path reaches. Ratchet it like the type gate — only
    what a commit *adds* — so the 204 do not have to be paid before it turns on.
+
+   **Re-scope before building: a slice of this queue was never a discipline problem.** Found
+   2026-08-15 while draining 13.1. `ALL_EXTS` and `COMMENT_RE` in
+   [`core/hooks/routing/workspace_meta.py`](core/hooks/routing/workspace_meta.py) are two lists that
+   have to agree, and nothing checked that they did: `.sh` (30 files) and `.jsx` (29) were scanned
+   with no comment pattern, so `file_description()` returned `''` and the generator wrote the
+   marker **no matter how well the file was commented**. `core/hooks/post-edit.sh` carrying one
+   *inside the enforcement directory* was read above as proof the hole is structural — it is, but
+   the structure was a missing dict key, not a lapse of discipline. Fixed, guarded by
+   `test_every_scanned_extension_can_be_described`.
+
+   So the **cheapest first move is a re-sync, not a sweep**: ten wos `CONTEXT.md` under
+   `core/hooks/` now have their `.sh` rows answerable from the files' own first-line comments, with
+   zero judgement. Re-sync those, re-count, and size the real sweep against what is left — the 204
+   was measured before the generator could describe a shell script.
    → **model: opus** for the gate, **sonnet** for the sweep behind it.
 
 ---
@@ -805,35 +820,44 @@ on the next save. The marker is § Unanswered scaffold placeholders now, and dra
 4 item 6**, not this frente. The lesson generalises: a queue that counts two defects can have one
 of them grow while its number falls.
 
-1. 🔴 **drain the two queues, hot files first.** Read-frequency decides the order: `CONTEXT.md` is
-   the only enforced-read type, so its heads are the most expensive prose in the workspace, and
-   `AGENTS.md` / `ROADMAP.md` are read before anything else by convention.
+1. 🟢 **the wos half of both queues is drained.** Corpses 35 → 19, trapped heads 28 → 17; every
+   remaining finding in both is nested-repo work, which is item 2. `FINISHED_CEILING` and
+   `MISPLACED_CEILING` in `core/tools/test/workspace/test_corpus_ratchet.py` hold the new ground.
 
-   **What is actually drainable from a wos commit is 27 items, not 133.** Item 2 rules nested repos
-   out, and step 0 rules the markers out; crossing both against the queues (2026-08-15):
+   **The REDIRECT recipe, in order, and it survives contact:** (1) delete what a hook enforces — it
+   names the fix when it fires, except numbers that change how you write *before* the hook can
+   speak, so the 150/200 line caps stay; (2) move constraints to a sibling `SPECS.md`, creating it
+   if absent; (3) move data out (alias lists, schemas); (4) delete stale claims; (5) keep identity
+   and navigation only.
 
-   | Queue | Total | wos-scoped | nested (item 2) |
-   |---|---|---|---|
-   | real corpses | 35 | **16** | 19 |
-   | trapped constraints | 28 | **11** | 17 |
-   | `← add` markers | 70 | 19 files | 51 files |
+   **Delete-first is what makes it cheap: six new `SPECS.md`, not eleven.** Running step 1 before
+   step 2 found that most of what looked movable was already written better somewhere else —
+   caveman's path table duplicated its own generated routing block, its `hooks/` layering table
+   duplicated the child `CONTEXT.md`, and craft's vocabulary section restated `core/SCHEMA.md`
+   verbatim. **Open the child `CONTEXT.md` and the file's own routing block before relocating
+   anything.** Heads: `core/skills/caveman` 1332 → 211, `core/experiments` 708 → 212,
+   `core/skills` 656 → 108, `core/flows/craft` 620 → 91, `academy/papers` 462 → 186,
+   `core/refs` 441 → 120.
 
-   The 11 wos heads, largest first: `core/skills/caveman` 1332 tok, `core/hooks` 796,
-   `core/tools/notes` 775, `core/experiments` 708, `core/skills` 656, `core/flows/craft` 620,
-   `core/tools/slides` 604, `core/tools/verify` 552, `core/tools/wos/session` 509,
-   `academy/papers` 462, `core/refs` 441.
-
-   **The REDIRECT recipe, in order:** (1) delete what a hook enforces — it names the fix when it
-   fires, except numbers that change how you write *before* the hook can speak, so the 150/200 line
-   caps stay; (2) move constraints to a sibling `SPECS.md`, creating it if absent; (3) move data out
-   (alias lists, schemas); (4) delete stale claims; (5) keep identity and navigation only. Measured
-   instances: `academy/papers` 1702 → 456 tok, `core/tools` 1238 → 247 tok. **Every pass so far has
-   also surfaced a dead pointer or a false claim in the file it touched** — budget for that, and
-   record each rather than fixing it silently.
+   **The check needs an over-size head *and* a modal, so a thin pointer line is the whole trick** —
+   `Gate behavior and the agent-shim contract: SPECS.md`, never "you must read SPECS.md". Two heads
+   (`core/tools/notes` 444, `core/tools/verify` 448) sit above the token warn with zero modals and
+   are correct as they are; the warn is a signal, not a cap.
 
    `.opencode/CONTEXT.md` is the biggest head of all and is a **generated mirror** — fix it at the
    generator or leave it.
-   → **model: opus** for the judgement pass, sonnet for the sweeps.
+
+   **The prediction that every pass surfaces a defect held, and both were in generators, not prose:**
+   `.sh`/`.jsx` missing from `COMMENT_RE` (see 4.6) and `is_skill()` in
+   `core/tools/wos/skills/mirror.sh` excluding only `CONTEXT`, so the first `SPECS.md` written
+   inside `core/skills/` read as a skill with no frontmatter and failed the commit for *every*
+   staged `core/skills/*.md`. Both fixed with tests. **A doc pass is a cheap fuzzer for the
+   generators that read those docs** — it writes file shapes nobody had written before.
+
+   Still open, found and not chased: a `.md` file's routing row shows only its `#` title, never its
+   line-2 `>` blurb, so sibling rows read thinner than the file is (`core/hooks/routing/`).
+   `brain/goals/workspace-os.md` and `test_gitignore_self_heal.py` both cite a **Frente 6** that no
+   longer exists — retired ledger numbering still has live references.
 
 2. 🟡 **the nested-repo half is per-repo drain work, not a wos item.** Two thirds of the corpus
    (~187 of 261 `CONTEXT.md`) lives in nested `code/` repos with their own branches and gates, so it
