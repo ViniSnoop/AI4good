@@ -131,7 +131,7 @@ def test_the_thresholds_bracket_the_measured_climb():
     assert limits['CTX_WARN'] < limits['CTX_LOUD']
     text = LIMITS.read_text(encoding='utf-8')
     assert '/turn' in text, 'limits.env must keep the measured curve that justifies the numbers'
-    assert 'core/tools/wos/usage' in text, 'the curve must name the command that reproduces it'
+    assert 'core/tools/wos/session/usage' in text, 'the curve must name the command that reproduces it'
 
 
 def test_the_handoff_artifact_is_not_an_uppercase_type():

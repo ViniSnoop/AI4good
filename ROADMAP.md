@@ -77,7 +77,46 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
    the memory store's marginal cost is separable from the CONTEXT chain's; (b) whether a *subagent*
    re-pays the full chain on every subtree touch instead of once per session — if it does, narrow
    workers are quietly the most expensive thing we run.
-   → **model: sonnet** to build the instrument, **opus** for the disposition it feeds.
+
+   **The instrument is [`core/tools/wos/session/context`](core/tools/wos/session/context) (2026-08-15), the sibling
+   of `usage` and held to the same rule: re-run it rather than quoting this paragraph.** It works
+   because the transcript labels its own injected blocks — every one is an `attachment` record
+   carrying a `type` (`skill_listing`, `agent_listing_delta`, `hook_success` with its `hookName`,
+   `todo_reminder`, …) — so "split by source" is a measurement, over 98 sessions rather than one.
+   Replay and attribution live in `session_log.py`; 9 tests in
+   [`core/tools/test/wos/test_context.py`](core/tools/test/wos/test_context.py).
+
+   **Turn 1 measures ~27.6k tok, and 56% of it is not ours to cut.** The residual — system prompt
+   plus tool schemas — is 15.4k and unreachable from here. Of what *is* ours: the **skill listing is
+   4.5k (16%)**, by far the largest, then the `SessionStart` hook at 2.3k, the memory index at 1.9k,
+   the `CLAUDE.md` chain at 1.3k, the agent listing at 1.3k. **This settles the disposition question
+   3.1 was written to feed: the memory store costs ~1.9k tok, less than half the skill listing, so
+   folding it saves little and the honest target is the listing.** `CLAUDE.md`/`AGENTS.md`/`MEMORY.md`
+   never appear in the transcript (the harness folds them into the system prompt), so the tool
+   measures them on disk and subtracts them from the residual rather than guessing.
+
+   **Growth after turn 1 is dominated by our own output, not by the CONTEXT chain.** Assistant output
+   33%, the `UserPromptSubmit` hook 16%, user prompts 10%, `Read` 8.9%, `Bash` 7.6% — and CONTEXT.md
+   reads **4.6%**. The chain is 846 reads over 98 sessions (6 median, 54 worst). **The cascade fear
+   from 3.2 is measured and it is small**; the `UserPromptSubmit` hook costing three times more than
+   the whole chain is the surprise, and is the first thing to look at.
+
+   **Read the shares as shares of *logged* material.** At a measured 2.4 chars/token against a prose
+   rate of ~3.8, roughly a third of growth is material the transcript never logs, spread across those
+   rows in proportion. The tool prints this line itself; do not quote a share without it.
+
+   **(b) is answered, and it is a correctness bug rather than the cost bug it was filed as
+   (probe, 2026-08-15).** A subagent **inherits the parent's `session_id`**, so it inherits
+   `/tmp/claude_ctx_seen_<id>.txt`: the probe read a gated file in a subtree the parent had fully
+   loaded and **no gate fired**, with zero of that chain in its own window. So narrow workers are not
+   quietly expensive — they are quietly *unprotected*, which is the more serious answer. The gate is
+   session-scoped where it means to be agent-scoped, in
+   [`core/hooks/read/context-gate.py`](core/hooks/read/context-gate.py) via
+   `hook_input.seen_file`. Open, and needing a ruling before a fix: keying the marker per agent makes
+   every subagent re-pay its chain, which is the cost this item originally feared — so the two halves
+   trade against each other and cannot both be had. Cheapest shape to consider first is keying on the
+   agent's own id where the harness exposes one, falling back to the session id.
+   → **model: sonnet** for the gate fix once the keying is ruled; **opus** for that ruling.
 2. 🟡 **the always-loaded corpus — measured 2026-07-30, disposition before compression.** Trigger
    was Lucas hitting Claude Code limits and suspecting `AGENTS.md`. The measurement says otherwise:
    `AGENTS.md` is 33 lines / **~1.3k tok**, while a *single* `context-gate` cascade in one session
@@ -412,7 +451,7 @@ feeling lost twice. **Mass is the disease and only deletion cures it.**
 
 **Why — re-measured 2026-08-13, and the old numbers were wrong.** The previous framing came from a
 single 24 h window. Re-run it yourself — that is the point of
-[`core/tools/wos/usage`](core/tools/wos/usage), built this session so no claim here rests on a
+[`core/tools/wos/session/usage`](core/tools/wos/session/usage), built this session so no claim here rests on a
 number nobody can reproduce. Over **118 sessions · 18,122 turns · 2026-07-25 → 08-13**:
 
 > **Trust the ratios, not the dollar total.** A one-off script and the tool agreed on every share
@@ -463,14 +502,14 @@ It was aimed for weeks by a single 24 h window that turned out wrong in every cl
 subagent-heavy sessions" was retired outright (zero sidechain messages across 328 transcripts), and
 the thresholds first shipped at 150k/250k, which fired *halfway up* the climb and *after* the
 plateau began. So: a number in this file that
-[`core/tools/wos/usage`](core/tools/wos/usage) cannot reproduce should be **deleted, not softened**.
+[`core/tools/wos/session/usage`](core/tools/wos/session/usage) cannot reproduce should be **deleted, not softened**.
 
 1. 🟢 **safe — cheaper models where the work is mechanical.** Measured split: opus 68%, fable 24%,
    sonnet 7.8%, haiku ~0%. Worth doing, but note the ceiling — routing cannot beat a 3x context
    multiplier, and the transition above already took the larger win.
    → **model: sonnet**.
 2. 🟡 **the ~8% spend gap is still unexplained**, four sessions running. A one-off script and
-   [`core/tools/wos/usage`](core/tools/wos/usage) agree on every share and per-turn cost but differ
+   [`core/tools/wos/session/usage`](core/tools/wos/session/usage) agree on every share and per-turn cost but differ
    on absolute total, almost all of it in the `claude-fable-5` line. Quote percentages and $/turn;
    treat any absolute total as ±10% until this closes. By the rule above, if it cannot be resolved
    the absolute numbers should be dropped from the tool's output rather than footnoted.

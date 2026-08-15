@@ -1,0 +1,118 @@
+#!/usr/bin/env python3
+# Usage: core/tools/wos/session/context [--project <slug>] [--top N] — what fills the context window: what
+# is already in it at turn 1, what the CONTEXT.md chain costs across a session, and what grows it
+# turn over turn. Reads the local transcripts; no network, no model.
+#
+# Exists because ROADMAP Frente 3.1 asks a question no session can answer about itself: the window
+# is invisible from inside, so every claim about what fills it was an estimate. The transcript
+# labels its own injected blocks, so this attributes what is labelled and reports the rest as a
+# named remainder rather than burying it in a total. Replay and attribution: session_log.py.
+import sys
+from collections import defaultdict
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from session_log import attribute, median, walk
+
+ROOT = Path.home() / '.claude' / 'projects'
+WORKSPACE = Path('/mnt/workspace')
+
+# Injected into the system prompt, invisible to the transcript, paid by every session in the tree.
+# Measured on disk so the memory store's cost is separable from everything else's — 3.1's question.
+ALWAYS_LOADED = {
+	'CLAUDE.md chain': [Path.home() / '.claude/CLAUDE.md', Path.home() / '.claude/RTK.md',
+	                    WORKSPACE / 'CLAUDE.md', WORKSPACE / 'AGENTS.md'],
+	'memory index': [Path.home() / '.claude/projects/-mnt-workspace/memory/MEMORY.md'],
+}
+
+
+def on_disk(per_token: float) -> dict:
+	sized = {}
+	for name, paths in ALWAYS_LOADED.items():
+		sized[name] = sum(p.stat().st_size for p in paths if p.is_file()) / per_token
+	return sized
+
+
+def report_start(starts: list, firsts: list, per_token: float) -> None:
+	print('1. SESSION START — what the window already holds before the first tool call\n')
+	pooled: dict = defaultdict(list)
+	for start in starts:
+		for name, tokens in start.items():
+			pooled[name].append(tokens)
+	labelled = {n: median(v) for n, v in pooled.items()}
+	disk = on_disk(per_token)
+	first = median(firsts) or 1.0
+	residual = first - sum(labelled.values()) - sum(disk.values())
+
+	print(f"   {'source':<34} {'median tok':>11} {'share':>7}")
+	for name, tokens in sorted(labelled.items(), key=lambda kv: -kv[1]):
+		print(f'   {name:<34} {tokens:>11,.0f} {tokens / first:>6.1%}')
+	print('   ── on disk, folded into the system prompt — never visible in the transcript')
+	for name, tokens in sorted(disk.items(), key=lambda kv: -kv[1]):
+		print(f'   {name:<34} {tokens:>11,.0f} {tokens / first:>6.1%}')
+	print('   ── harness residual: system prompt + tool schemas, not attributable from here')
+	print(f"   {'residual':<34} {residual:>11,.0f} {residual / first:>6.1%}")
+	print(f"   {'':<34} {'—' * 11:>11}")
+	print(f"   {'turn-1 context (measured)':<34} {first:>11,.0f}\n")
+
+
+def report_cascade(sessions: list) -> None:
+	reads = [s['reads'] for s in sessions]
+	gated = [s for s in sessions if s['gates']]
+	print('2. THE CONTEXT.md CASCADE — what the chain costs once the session is running\n')
+	print(f'   sessions where the gate fired      {len(gated):>6} of {len(sessions)}')
+	print(f'   CONTEXT.md reads per session       {median(reads):>6,.0f} median · '
+	      f'{max(reads or [0]):,} worst · {sum(reads):,} total')
+	print(f'   gate firings, when it fires        {median([s["gates"] for s in gated]):>6,.0f} median · '
+	      f'{sum(s["gates"] for s in sessions):,} total\n')
+
+
+def report_growth(growth: dict, peaks: list, top: int) -> None:
+	total = sum(growth.values()) or 1.0
+	print('3. GROWTH — where the window fills after turn 1, by what entered\n')
+	print(f"   {'source':<34} {'Mtok':>11} {'share':>7}")
+	for name, tokens in sorted(growth.items(), key=lambda kv: -kv[1])[:top]:
+		print(f'   {name:<34} {tokens / 1e6:>11.2f} {tokens / total:>6.1%}')
+	print(f'\n   peak context: {median(peaks):,.0f} median · {max(peaks or [0]):,} worst')
+
+
+def main() -> None:
+	args = sys.argv[1:]
+	project = args[args.index('--project') + 1] if '--project' in args else '-mnt-workspace'
+	top = int(args[args.index('--top') + 1]) if '--top' in args else 14
+	directory = ROOT / project
+	if not directory.is_dir():
+		sys.exit(f'no such project: {directory}')
+
+	sessions, starts, firsts, ratios = [], [], [], []
+	growth: dict = defaultdict(float)
+	for path in sorted(directory.glob('*.jsonl')):
+		session = walk(path)
+		start, grown, first, per_token = attribute(session)
+		if not per_token:
+			continue
+		sessions.append(session)
+		starts.append(start)
+		firsts.append(first)
+		ratios.append(per_token)
+		for name, tokens in grown.items():
+			growth[name] += tokens
+	if not sessions:
+		sys.exit(f'{project}: no sessions with usage')
+
+	per_token = median(ratios)
+	turns = sum(len(s['turns']) for s in sessions)
+	print(f'{project} · {len(sessions)} sessions · {turns:,} turns\n')
+	report_start(starts, firsts, per_token)
+	report_cascade(sessions)
+	report_growth(growth, [s['peak'] for s in sessions], top)
+	# Ordinary prose and code run ~3.5-4 chars/token, so a measured ratio well below that is not a
+	# rounding artefact: it means tokens enter that the transcript never logs (system reminders the
+	# harness injects, prompt scaffolding). Those tokens are real and are spread across the rows
+	# above in proportion, so read the shares as shares *of logged material*, not of the window.
+	print(f'\nmeasured {per_token:.2f} chars/token — at a prose rate of ~3.8, roughly '
+	      f'{max(0.0, 1 - per_token / 3.8):.0%} of growth is material the transcript does not log.')
+
+
+if __name__ == '__main__':
+	main()

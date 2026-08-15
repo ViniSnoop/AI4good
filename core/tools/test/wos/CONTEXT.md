@@ -14,8 +14,9 @@ workspace.
 <!-- routing:start -->
 ## Routing
 
-| File | Interface | Description |
-|------|-----------|-------------|
-| [`test_roundup.py`](test_roundup.py) | [`test_roundup.pyi`](test_roundup.pyi) | T1 roundup tool (Frente 9.2): the deterministic half of the session-close ritual. |
-| [`test_roundup_skills.py`](test_roundup_skills.py) | [`test_roundup_skills.pyi`](test_roundup_skills.pyi) | T0 the session-close skills (Frente 9.2): what bash cannot assert about the other layer. |
+| File | Interface | API | Description |
+|------|-----------|-----|-------------|
+| [`test_context.py`](test_context.py) | [`test_context.pyi`](test_context.pyi) | `turn`, `result`, `use`, `transcript`, `build` | T1 the context instrument (Frente 3.1): what fills the window, attributed from the transcript. |
+| [`test_roundup.py`](test_roundup.py) | [`test_roundup.pyi`](test_roundup.pyi) | — | T1 roundup tool (Frente 9.2): the deterministic half of the session-close ritual. |
+| [`test_roundup_skills.py`](test_roundup_skills.py) | [`test_roundup_skills.pyi`](test_roundup_skills.pyi) | — | T0 the session-close skills (Frente 9.2): what bash cannot assert about the other layer. |
 <!-- routing:end -->

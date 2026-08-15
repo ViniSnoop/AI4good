@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Usage: core/tools/wos/usage [--project <slug>] [--top N] — where session spend goes: by model,
+# Usage: core/tools/wos/session/usage [--project <slug>] [--top N] — where session spend goes: by model,
 # by context size, and what one more turn costs. Reads the local transcripts; no network, no model.
 #
 # Exists because ROADMAP Frente 9 was steered for weeks by numbers from a single 24h window, two
