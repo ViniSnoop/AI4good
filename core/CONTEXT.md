@@ -18,6 +18,7 @@ Ported from Feynman (https://github.com/companion-inc/feynman), adapted for prov
 | Subdirectory | Description |
 |--------------|-------------|
 | [`agents/`](agents/CONTEXT.md) | Agent definitions; load as system prompt to spawn a specialist worker. |
+| [`experiments/`](experiments/CONTEXT.md) | What we measured about this workspace, when, and what changed because of it. One |
 | [`flows/`](flows/CONTEXT.md) | Workflow protocols; each names the agents and steps to execute. |
 | [`hooks/`](hooks/CONTEXT.md) | The enforcement layer: git hooks, agent lifecycle hooks, and the Tier 0 checks t |
 | [`prompts/`](prompts/CONTEXT.md) | Prepared session prompts — copy-paste into parallel agent sessions. Each file no |

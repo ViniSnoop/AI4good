@@ -95,17 +95,15 @@ validator's oracle" status of `deepresearch` was retired 2026-07-23; see [SCHEMA
 
 ## ablation-bench
 
-- [ ] **Promote the ablation-bench pilot out of `tmp/` and run the follow-up.** First pilot lives in
-      `tmp/ablation-bench/` (1 trial per arm, with/without the CONTEXT.md chain gate, race-bug toy
-      project; opencode+glm-5.2 operated end-to-end). Result in its `REPORT.md`: the original
-      hypothesis was **not supported** — both arms read CONTEXT.md voluntarily because the prompt asked
-      for it, so the gate added no safety *against that prompt*. Real finding: glm-5.2 completed the
-      reduced `/loops` flow with a working `executor:` self-report + commit when budget ≤ 10 min.
-      Move the durable REPORT + design somewhere real **before** `tmp/` gets cleaned (it will — see
-      [/ROADMAP.md](../ROADMAP.md) Frente 6.1). Follow-up changes (from REPORT § "What a follow-up run
-      would change"): a prompt that does *not* mention a "documented contract", no marker flag in the
-      seeder, n ≥ 4, equal wall-clock budget per arm, and a **third arm** (gate-off + prompt-off) to
-      isolate the effect.
+**Rescued 2026-08-15 — the pilot's durable half now lives in
+[`core/experiments/subagent-context-chain.md`](experiments/subagent-context-chain.md)**, beside the
+2026-08-15 subagent probe that reframes it, with the follow-up design (n ≥ 4, equal budgets, a third
+gate-off *and* prompt-off arm) preserved verbatim. The metrics schema and honest-reporting rules the
+pilot froze became the ledger's format, in
+[`core/experiments/CONTEXT.md`](experiments/CONTEXT.md).
+
+Still in `tmp/ablation-bench/`, gitignored and never in git: the raw run data (`arms/`, `runners/`,
+`toy-project/`, `metrics-all.json`). Delete it with `tmp/` — the durable content is out.
 
 ## Notes
 

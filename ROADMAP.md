@@ -4,7 +4,9 @@
 > [brain/goals/workspace-os.md](brain/goals/workspace-os.md) holds *why*; this file holds *what*.
 > [brain/TODO.md](brain/TODO.md) holds life tasks only; [core/ROADMAP.md](core/ROADMAP.md) holds
 > agent-library internals only. An item lives in exactly one of the four — a copy is a bug.
-> Evidence: [core/refs/REFS.md](core/refs/REFS.md).
+> Evidence: [core/refs/REFS.md](core/refs/REFS.md) for external material,
+> [core/experiments/](core/experiments/CONTEXT.md) for what we measured about ourselves — an
+> intent item belongs here, a measurement over time belongs there, and neither restates the other.
 >
 > **Deletion policy: hard delete. Git is the history.** No strikethrough, no annotated corpses. A
 > killed item gets one line under *Rejected* so it does not resurface looking new.
