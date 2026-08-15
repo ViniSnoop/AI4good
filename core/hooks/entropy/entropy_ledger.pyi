@@ -16,6 +16,7 @@ LEDGER_FILES: Incomplete
 PLACEHOLDER: str
 
 def finished_work_hits(files: list, exempt: set) -> list: ...
+def unanswered_placeholders(files: list, exempt: set) -> list: ...
 
 WIKI_LINK: Incomplete
 

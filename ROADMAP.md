@@ -210,6 +210,28 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
    → **model: sonnet**, one repo at a time. `apptime` is Dart/Flutter — the routing generator
    and the facade gate both know `index.dart`, but no gate has been exercised on that repo yet.
 
+6. 🔴 **close the first-line-comment hole, then sweep — in that order, because sweeping first
+   just refills.** 204 `← add` markers sit in 77 `CONTEXT.md` files (2026-08-15): 175 asking for a
+   source file's first-line comment, 25 for a description, 4 for paper domain tags. Each marker is
+   a routing-table row that describes nothing, in the workspace's only enforced-read type.
+
+   **The frequency is the finding, and Lucas named it as such** (2026-08-15: *"this is an issue
+   that should not be so frequent so it is a warning for us that we may find out a more
+   enforced/guaranteed solution"*). A gate for this already exists and is why the number should
+   have been near zero: [`pre-edit.py`](core/hooks/checks/pre-edit.py) checks the first line
+   against a per-type pattern — **but only under `if not os.path.exists(file_path)`, so it fires
+   on creation through `Edit`/`Write` and never again.** Everything else is uncovered: files that
+   predate the gate, files written by a generator, by a shell heredoc, by `git checkout`, or by
+   any agent not running our hooks. `core/hooks/checks/check-line-counts.sh` carries a marker
+   **inside the enforcement directory itself**, which is the tell that the hole is structural and
+   not a lapse of discipline.
+
+   The guaranteed shape is the one the rest of Tier 0 already uses: a **commit-time check over
+   staged files**, where a generator's output and a stranger's file both have to pass, rather than
+   an edit-time check that only the harness path reaches. Ratchet it like the type gate — only
+   what a commit *adds* — so the 204 do not have to be paid before it turns on.
+   → **model: opus** for the gate, **sonnet** for the sweep behind it.
+
 ---
 
 ## Frente 8 — The ledger discipline — **v1 criterion 2**
@@ -380,13 +402,26 @@ plateau began. So: a number in this file that
 
    **Lucas's precondition, INBOX 2026-08-15:** *"BEFORE creating an installer for the workspace…
    systematically list what the workspace is, what are the features. we have different levels of
-   features, I would like to see this organized first."* First pass done the same day — `README.md`
-   § What the enforcement layer buys you groups the capabilities as **navigation / restraint / drift
-   control / cost**, one sentence of value each. **The "different levels" part is unanswered**: that
-   grouping is by *what a feature is for*, and an installer needs the orthogonal cut — what is
-   scaffold vs. Lucas-specific (step 3), what is free vs. needs a binary (step 2), what can be
-   switched off at all (step 4). Confirm the README grouping is the one wanted before treating this
-   as settled.
+   features, I would like to see this organized first."* First pass the same day put
+   `README.md` § What the enforcement layer buys you on **navigation / restraint / drift control /
+   cost**, one sentence of value each.
+
+   **Answered 2026-08-15 — and the README grouping is not the answer.** Lucas: *"what I was
+   thinking is that we have some 'types' of features. we have hooks, and each hook may be toggled,
+   LOC limit, file fan-out limit, gitflow, etc. we have the agents.md|context.md tree + the
+   automated routing. we have the whole brain thing, inbox + goals. we have capabilities per area,
+   slides, email, papers/latex, skills for research and other tasks… I meant we may organize the
+   whole thing somehow so our features fit a simple organization that is semantically correct and
+   symmetric."*
+
+   So the axis is **what kind of thing a feature is**, not what it buys the reader. The named kinds,
+   in his words: *toggleable hooks* (LOC limit, fanout limit, gitflow), *the `AGENTS.md`/`CONTEXT.md`
+   tree + generated routing*, *brain* (inbox + goals), *per-area capabilities* (slides, email,
+   papers/LaTeX), *skills* (research and other tasks). The test the taxonomy must pass is the one he
+   states: **semantically correct and symmetric** — every feature lands in exactly one kind, no kind
+   overlaps another, and the kinds are peers. `README.md` § What the enforcement layer buys you
+   keeps its value sentences but stops being the organizing cut; the by-kind table is what step 2's
+   install idiom and step 4's toggle registry both index into, which is why this gates them.
    → **model: opus**.
 
 1b. 🔴 **decide-first — does `SETUP.md` die as a type?** The ledger and the law contradict each
@@ -681,9 +716,42 @@ CONTEXT.md head are the live queues; both ratchet in `core/tools/test/workspace/
 and the ceilings must be lowered as the drain proceeds. What the checks cannot answer — *does
 anyone need this* — stays judgement, and stays unmeasured until Frente 14 gives it an instrument.
 
+0. 🔴 **split the corpse check — it is counting two defects as one, and misinstructing on 70 of
+   them.** `finished_work_hits` ([`entropy_ledger.py`](core/hooks/entropy/entropy_ledger.py))
+   matches the routing generator's `← add` marker inside any `CONTEXT.md` and files it under *prose
+   describing finished work*. It is not history: the marker means **a source file is missing its
+   first-line comment**. The remediation the finding prints — *"Cut it; git is the history"* — is
+   wrong for that half, and acting on it is worse than ignoring it, because the generator re-emits
+   the marker on the next save.
+
+   Measured 2026-08-15, and the ratio is the point: of 105 findings, **70 are markers and 35 are
+   real corpses** (23 dated reports, 7 strikethrough, 5 ticks). Two thirds of the workspace's
+   largest queue is a different defect wearing the wrong label. Give the marker its own section,
+   its own remediation and its own ratchet; `FINISHED_CEILING` then drops 105 → 35 and starts
+   measuring the thing it is named after. Sections and ratchets both, so the two ceilings cannot
+   mask each other's regressions.
+
+   Splitting the *report* is this frente's job; draining the marker queue is not. The sweep, and
+   the gate hole that keeps refilling it, are **Frente 4 item 6**.
+   → **model: opus**.
+
 1. 🔴 **drain the two queues, hot files first.** Read-frequency decides the order: `CONTEXT.md` is
    the only enforced-read type, so its heads are the most expensive prose in the workspace, and
    `AGENTS.md` / `ROADMAP.md` are read before anything else by convention.
+
+   **What is actually drainable from a wos commit is 27 items, not 133.** Item 2 rules nested repos
+   out, and step 0 rules the markers out; crossing both against the queues (2026-08-15):
+
+   | Queue | Total | wos-scoped | nested (item 2) |
+   |---|---|---|---|
+   | real corpses | 35 | **16** | 19 |
+   | trapped constraints | 28 | **11** | 17 |
+   | `← add` markers | 70 | 19 files | 51 files |
+
+   The 11 wos heads, largest first: `core/skills/caveman` 1332 tok, `core/hooks` 796,
+   `core/tools/notes` 775, `core/experiments` 708, `core/skills` 656, `core/flows/craft` 620,
+   `core/tools/slides` 604, `core/tools/verify` 552, `core/tools/wos/session` 509,
+   `academy/papers` 462, `core/refs` 441.
 
    **The REDIRECT recipe, in order:** (1) delete what a hook enforces — it names the fix when it
    fires, except numbers that change how you write *before* the hook can speak, so the 150/200 line
@@ -693,9 +761,8 @@ anyone need this* — stays judgement, and stays unmeasured until Frente 14 give
    also surfaced a dead pointer or a false claim in the file it touched** — budget for that, and
    record each rather than fixing it silently.
 
-   Largest remaining heads: `core/skills/caveman`, `core/hooks`, `core/tools/notes`,
-   `core/experiments`, `core/skills`, `core/flows/craft`. `.opencode/CONTEXT.md` is the biggest of
-   all and is a **generated mirror** — fix it at the generator or leave it.
+   `.opencode/CONTEXT.md` is the biggest head of all and is a **generated mirror** — fix it at the
+   generator or leave it.
    → **model: opus** for the judgement pass, sonnet for the sweeps.
 
 2. 🟡 **the nested-repo half is per-repo drain work, not a wos item.** Two thirds of the corpus

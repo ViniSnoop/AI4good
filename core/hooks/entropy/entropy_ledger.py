@@ -110,8 +110,6 @@ def finished_work_hits(files: list, exempt: set) -> list:
             # A tick is a corpse only in a ledger; elsewhere the glyph is a legend marker,
             # which is how core/SCHEMA.md flags a required frontmatter field.
             ('a ticked item', TICKED_ITEM.search(text) if path.name in LEDGER_FILES else None),
-            ('an unfilled placeholder',
-             re.search(re.escape(PLACEHOLDER), text) if path.name == 'CONTEXT.md' else None),
         ):
             if not match:
                 continue
@@ -120,6 +118,42 @@ def finished_work_hits(files: list, exempt: set) -> list:
                         f'   Cut it; git is the history (core/SCHEMA.md § No archive types).\n'
                         f'   Keep a line only if the next session needs it to *extend* the\n'
                         f'   work, and write that line as present-tense state.')
+    return hits
+
+
+def unanswered_placeholders(files: list, exempt: set) -> list:
+    """A generator or a template asked a question, and nobody answered it.
+
+    Split out of finished_work_hits 2026-08-15, where it was 70 of the 105 findings and
+    carried that check's remediation — "cut it; git is the history". That advice is wrong
+    here and acting on it is worse than ignoring it: the marker is not a record of
+    finished work, it is a live request, and the generator writes it again on the next
+    save. Three scaffolds emit the same glyph — the routing generator for a source file
+    with no first-line comment and for a CONTEXT.md with no blurb, the refs template for
+    its own unfilled field — and all three are answered at the source, never by deleting
+    the marker.
+
+    Counted per file rather than per row, so the number means "files that lie to a reader"
+    and matches the enforced-read unit: whoever opens this CONTEXT.md pays for all of them.
+    """
+    exempt = {path.resolve() for path in exempt}
+    hits = []
+    for path in files:
+        if path.name != 'CONTEXT.md' or path.resolve() in exempt:
+            continue
+        if is_generated_mirror(path):
+            continue
+        try:
+            text = path.read_text(encoding='utf-8')
+        except (OSError, UnicodeDecodeError):
+            continue
+        if (rows := text.count(PLACEHOLDER)) == 0:
+            continue
+        line = text[:text.index(PLACEHOLDER)].count(chr(10)) + 1
+        hits.append(f'{path}:{line}: {rows} unanswered placeholder(s).\n'
+                    f'   Answer at the source — the described file\'s first-line comment,\n'
+                    f'   this file\'s own blurb, or the template field. Deleting the marker\n'
+                    f'   only makes the generator write it again on the next save.')
     return hits
 
 

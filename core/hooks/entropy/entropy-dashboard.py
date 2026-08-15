@@ -22,7 +22,8 @@ from entropy_context import check_goal_link, check_misplaced_answer  # noqa: E40
 from entropy_corpus import enforcement_paths, tracked_files, wiki_exempt_paths  # noqa: E402
 from entropy_fanout import fanout_signals  # noqa: E402
 from entropy_ledger import (duplicate_slugs, finished_work_hits,  # noqa: E402
-                            goal_vocabulary, retired_hits, wiki_link_hits)
+                            goal_vocabulary, retired_hits,
+                            unanswered_placeholders, wiki_link_hits)
 from entropy_naming import check_dirs, check_placement, check_shape  # noqa: E402
 from entropy_report import SECTIONS, render  # noqa: E402
 from file_law import is_code_file, is_vendored, load_limits  # noqa: E402
@@ -99,6 +100,7 @@ def collect(files: list) -> dict:
     findings['stubs'] = stub_signals(files)
     findings['fanout'] = fanout_signals(files, WORKSPACE_ROOT)
     findings['finished'] = finished_work_hits(files, exempt)
+    findings['undescribed'] = unanswered_placeholders(files, exempt)
     # One directory-level finding is reported by every file under it; dedupe so a count
     # means "things to fix", not "files touched by a thing to fix".
     findings['naming'] = sorted(set(findings['naming']))

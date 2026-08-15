@@ -1,4 +1,4 @@
-# T0 corpus ratchets (Frente 13): the .md corpus may not accumulate more of the two
+# T0 corpus ratchets (Frente 13): the .md corpus may not accumulate more of the three
 # defects no link-checker can see. Zero-token, runs in verify-fast.
 #
 # These sit here rather than beside the checks they call because they assert something
@@ -6,8 +6,12 @@
 # test_entropy_context.py own whether each check fires correctly, this owns whether the
 # backlog is shrinking. Same split as test_pointer_integrity.py beside it.
 #
-# Both ceilings only ever go down. Each is paired with a staleness test, because a ratchet
+# Every ceiling only ever goes down. Each is paired with a staleness test, because a ratchet
 # nobody lowers is just a baseline, and a baseline is where drift hides.
+#
+# A ceiling per defect, never one shared ceiling: until 2026-08-15 the placeholder marker was
+# counted as finished-work prose, and 70 markers could have masked 70 new corpses without the
+# number moving. One ratchet per thing the report names.
 import entropy_context
 import entropy_ledger
 from conftest import WORKSPACE_ROOT
@@ -15,12 +19,14 @@ from file_law import load_limits
 
 HEAD_WARN = load_limits()['CONTEXT_HEAD_WARN']
 
-# Inherited backlog, drained by ROADMAP.md Frente 13.
-FINISHED_CEILING = 105
+# Inherited backlog, drained by ROADMAP.md Frente 13 (corpses, heads) and Frente 4.6 (markers).
+FINISHED_CEILING = 35
+UNDESCRIBED_CEILING = 70
 MISPLACED_CEILING = 28
 
 # The margin lets one cut land without forcing a test edit; a real drain pass trips it.
 FINISHED_SLACK = 10
+UNDESCRIBED_SLACK = 10
 MISPLACED_SLACK = 5
 
 
@@ -30,6 +36,11 @@ def _files() -> list:
 
 def _finished() -> int:
     return len(entropy_ledger.finished_work_hits(
+        _files(), entropy_ledger.enforcement_paths(WORKSPACE_ROOT)))
+
+
+def _undescribed() -> int:
+    return len(entropy_ledger.unanswered_placeholders(
         _files(), entropy_ledger.enforcement_paths(WORKSPACE_ROOT)))
 
 
@@ -46,6 +57,14 @@ def test_prose_describing_finished_work_does_not_grow():
         f'finished work')
 
 
+def test_unanswered_placeholders_do_not_grow():
+    live = _undescribed()
+    assert live <= UNDESCRIBED_CEILING, (
+        f'{live} CONTEXT.md carrying an unanswered placeholder, up from '
+        f'{UNDESCRIBED_CEILING}. Answer it at the source — the described file\'s '
+        f'first-line comment — never by deleting the marker (ROADMAP.md Frente 4.6)')
+
+
 def test_constraints_in_context_heads_do_not_grow():
     live = _misplaced()
     assert live <= MISPLACED_CEILING, (
@@ -55,9 +74,11 @@ def test_constraints_in_context_heads_do_not_grow():
 
 
 def test_the_ceilings_are_not_stale():
-    finished, misplaced = _finished(), _misplaced()
+    finished, undescribed, misplaced = _finished(), _undescribed(), _misplaced()
     assert FINISHED_CEILING - finished <= FINISHED_SLACK, (
         f'finished-work is down to {finished} — lower FINISHED_CEILING to match, so the '
         f'ratchet keeps holding the new ground')
+    assert UNDESCRIBED_CEILING - undescribed <= UNDESCRIBED_SLACK, (
+        f'placeholders are down to {undescribed} — lower UNDESCRIBED_CEILING to match')
     assert MISPLACED_CEILING - misplaced <= MISPLACED_SLACK, (
         f'misplaced is down to {misplaced} — lower MISPLACED_CEILING to match')
