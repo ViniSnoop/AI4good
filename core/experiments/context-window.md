@@ -25,6 +25,7 @@ measured **per turn** rather than an assumed constant. Sources the transcript do
 |---|---|---|---|---|---|---|---|---|---|
 | 2026-08-15 | 27,585 | 15,388 (56%) | 4,454 | 1,874 | 1,337 | 1,314 | 2,261 | 2.43 | **Wrong — see below.** First release. |
 | 2026-08-15 | 27,585 | 21,162 (77%) | 2,530 | 1,198 | 855 | 754 | 654 | 2.23 | Corrected: sizes the text, not the JSON envelope. |
+| 2026-08-15 | 27,585 | 21,419 (78%) | 2,530 | 1,196 | **599** | 754 | 654 | 2.23 | After the cuts. See the two caveats below. |
 
 **Row 1 was inflated 1.6–3.5x, and it is kept because deleting it would hide the failure mode.**
 `session_log.py` sized each injected block with `len(json.dumps(att))` — counting JSON escaping — and
@@ -38,10 +39,21 @@ hook was worst hit at 3.5x. Guarded now by `test_a_hook_payload_stored_twice_is_
 (p25 10,856 · p75 24,133), peak 71,326 median / 315,142 worst, $79 total. They live in
 `<session>/subagents/*.jsonl` and were invisible to every earlier report.
 
+**Two caveats on row 3, and the second is a property of the instrument itself.** The `CLAUDE.md`
+chain fell 855 → 599 tok because `~/.claude/RTK.md` moved into `SETUP.md`; that source is measured on
+disk, so it moves immediately. **The skill listing still reads 2,530 even though six descriptions
+were shortened by 525 chars the same day** — everything the transcript labels is a *median over 98
+past sessions*, so a change made today only appears as future sessions accumulate. Read the labelled
+rows as "what sessions have been paying", never as "what the next session will pay". The residual
+rising to 21,419 is the same artefact, not a regression: it is the arithmetic remainder.
+
 ## What changed
 
 - **The memory-store question is answered: do not fold it.** At ~1,198 tok it is not where the cost
   is. Frente 3.1 updated.
+- **The cuts were made and are worth ~394 tok** (~256 from `RTK.md` leaving the always-loaded chain,
+  ~138 from six skill descriptions), against a scoped ceiling of ~1,600. The rest of the ceiling is
+  caveman, which Lucas kept — see [`caveman-cost.md`](caveman-cost.md).
 - **The cascade fear from Frente 3.2 is retired.** The CONTEXT.md chain is 4.6% of growth.
 - **Cuts were scoped and found small.** Ceiling ~1,600 tok (5.8%). A session in an empty directory
   with no workspace skills still costs 32k, so the workspace adds 4–9k. Only 36% of the skill listing
