@@ -713,34 +713,26 @@ is no conceptual intersection."* Each type answers exactly one question.
 
 ---
 
-## Batch B — drained 2026-08-14
+## Silent failure is the failure mode this workspace actually has
 
-All six items closed. Two were stale (`brain_stats` was already fixed; the `video` image-post
-crash is guarded twice in current code and could not be reproduced), and the four real ones each
-turned out to be a *class* rather than the single defect reported:
+Batch B is drained (2026-08-14). The recap is git's; this is the part that changes how the next
+bug hunt starts.
 
-- **the JS declaration path had never emitted anything** — `jsconfig.json` implies `noEmit`, and
-  `"outDir": "."` lands in tsc's own default exclude list. Forcing both open exposed a third
-  (TS5055: a project build reads its own previous output as an input, because our stubs sit
-  beside their sources), which is why declarations are now emitted per file.
-- **stubgen** missed every file that entered outside a staged commit — 213 workspace-wide, not
-  the 122 recorded in July — *and* wrote what it did generate into a mirror of its own path,
-  because it follows package structure under `-o`.
-- **`pre-edit.py`** blocked edits on stdout, which Claude Code drops on a PreToolUse exit 2. It
-  was the only one of six gates not on stderr, so every rejection arrived with no reason.
-- **the routing generator** corrupted its own table four ways, plus a fifth found on the way out
-  (a healthy sync reported every subdirectory as a removed file).
+**All six were silent.** Not one failed loudly — they exited 0, blocked with no message, or wrote
+a file nobody re-read. The JS declaration path had emitted nothing *for years*; `pre-edit.py`
+refused edits without a reason attached; stubgen wrote into a mirror of its own path. A bug that
+announces itself gets fixed the day it lands, so what survives here is selected for muteness, and
+the only detector was Lucas's eye. Two of the six were already fixed and the ledger did not know.
 
-**The pattern worth keeping: every one of these was silent.** Not one failed loudly — they
-exited 0, or blocked with no message, or wrote a file nobody re-read. A bug that announces
-itself gets fixed the day it lands; these survived months because the only detector was Lucas's
-eye. Each now has a test, and three of them are cross-cutting invariants rather than one-file
-guards: no stub inside a doubled path, no blocking gate off stderr, no jsconfig carrying emit
-keys.
+So a check that a thing *happened* beats a check that it did not error, and three of the tests
+added are cross-cutting rather than one-file: no generated stub inside a doubled path, no
+blocking gate off stderr, no `jsconfig.json` carrying emit keys. **When hunting the next one,
+prefer asking "what does this produce, and is it there?" over reading the code for a raised
+exception.**
 
-Still open, in [`core/ROADMAP.md`](core/ROADMAP.md) § Open: the `.d.ts` half of the stub gap
-(203 files, all in nested repos, now counted in [`entropy.md`](entropy.md)) is per-repo drain
-work under the criterion-1 baseline rule, not a wos item.
+Open, and per-repo drain work rather than a wos item: the `.d.ts` half of the stub gap — 203
+files, all in nested repos, now counted in [`entropy.md`](entropy.md) under the criterion-1
+baseline rule.
 
 ## Parked — explicitly out of v1
 

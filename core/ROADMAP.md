@@ -93,16 +93,6 @@ validator's oracle" status of `deepresearch` was retired 2026-07-23; see [SCHEMA
       identity), `genjutsu` (UI system). Same DM-bait shape, names only, no links — ref in
       [refs/REFS.md](refs/REFS.md). Worth a look for `code/isoroll-*` and `code/apptime` if any is real.
 
-## craft-flows — DONE 2026-07-23/25
-
-All 8 steps shipped: `loop-*` vocabulary retired for **flow** (`craft`/`route`/`architect`, `tree.md`),
-the goal renamed `craft-flows`, `deep` redefined as `sota` (tiered `REFS.md` + per-paper yaml + a
-≤200-line decision-support summary), `scout` composes `sota` via a declared `uses:` edge (the first
-real DAG edge), the template consolidated with the oracle retired, the cycle guard built as two
-separate mechanisms (static DAG check in `validate_flows` forbids cycles; a runtime iteration cap
-*permits* bounded retry loops), `craft.md` decomposed by access pattern, and multi-mode skills folded
-into router folders. Reasoning recorded in [SCHEMA.md](SCHEMA.md) § *Composition and cycles*.
-
 ## ablation-bench
 
 - [ ] **Promote the ablation-bench pilot out of `tmp/` and run the follow-up.** First pilot lives in
