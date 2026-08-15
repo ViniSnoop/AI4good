@@ -143,3 +143,57 @@ def test_memory_links_are_exempt_but_its_retired_tokens_are_not():
     memory = {p.resolve() for p in (WORKSPACE_ROOT / 'brain/memory').rglob('*.md')}
     assert memory and memory <= exempt
     assert not memory & entropy_corpus.enforcement_paths(WORKSPACE_ROOT)
+
+
+# --- finished work: the corpse no link-checker can see ----------------------------
+# Completion is deletion (core/SCHEMA.md § No archive types): a ledger's length should
+# measure remaining work. Corpus-wide ratchet: test/workspace/. These cover the boundaries,
+# where the design is — a tick is a corpse only in a ledger, a date alone is not a report.
+
+
+def _doc(tmp_path, name, body):
+    doc = tmp_path / name
+    doc.write_text(body, encoding='utf-8')
+    return doc
+
+
+def test_strikethrough_is_a_corpse(tmp_path):
+    doc = _doc(tmp_path, 'NOTES.md', 'the plan ~~ship it Friday~~ is replaced\n')
+    hits = entropy_ledger.finished_work_hits([doc], set())
+    assert len(hits) == 1 and 'strikethrough' in hits[0]
+
+
+def test_a_dated_completion_report_is_a_corpse(tmp_path):
+    doc = _doc(tmp_path, 'NOTES.md', 'The file law shipped 2026-07-31 after five tries.\n')
+    assert 'dated completion report' in entropy_ledger.finished_work_hits([doc], set())[0]
+
+
+def test_a_date_without_a_completion_verb_is_not_a_corpse(tmp_path):
+    """This workspace cites decisions by date. Only a *report* is history."""
+    doc = _doc(tmp_path, 'NOTES.md', 'Decided 2026-07-30 by Lucas: types are closed.\n')
+    assert entropy_ledger.finished_work_hits([doc], set()) == []
+
+
+def test_a_tick_is_a_corpse_only_in_a_ledger(tmp_path):
+    ledger = _doc(tmp_path, 'ROADMAP.md', 'intro\n\nbody\n- [x] done\n')
+    hit = entropy_ledger.finished_work_hits([ledger], set())[0]
+    assert 'ticked item' in hit
+    assert hit.startswith(f'{ledger}:4:'), 'file:line, so the finding can be opened'
+    # The same glyph in a spec is a legend marker — core/SCHEMA.md flags required
+    # frontmatter fields this way and must not report itself.
+    spec = _doc(tmp_path, 'SPECS.md', '- [x] done\n')
+    assert entropy_ledger.finished_work_hits([spec], set()) == []
+
+
+def test_a_generated_mirror_is_not_reported(tmp_path):
+    """sync-skills rewrites mirrors, so the fix belongs at the generator."""
+    mirror = tmp_path / '.claude' / 'skills'
+    mirror.mkdir(parents=True)
+    assert entropy_ledger.finished_work_hits([_doc(mirror, 'SKILL.md', '~~x~~\n')], set()) == []
+
+
+def test_the_law_may_state_the_rules_it_enforces():
+    """core/SCHEMA.md defines these rules and has to be able to quote them."""
+    exempt = entropy_ledger.enforcement_paths(WORKSPACE_ROOT)
+    assert entropy_ledger.finished_work_hits(
+        [WORKSPACE_ROOT / 'core/SCHEMA.md'], exempt) == []

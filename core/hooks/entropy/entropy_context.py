@@ -7,6 +7,8 @@
 import re
 from pathlib import Path
 
+from entropy_corpus import is_generated_mirror
+
 # core/SCHEMA.md § Boundaries where types nearly touch: CONTEXT never hand-lists files.
 ROUTING_START = '<!-- routing:start -->'
 TREE_GLYPH = re.compile(r'[├└│]──')
@@ -42,6 +44,43 @@ def check_inventory(path: Path) -> str | None:
     return (f"{path}: hand-written file inventory ({', '.join(reasons)}).\n"
             f"   The generated routing block owns inventory (core/SCHEMA.md § Boundaries\n"
             f"   where types nearly touch). Describe the directory; do not list it.")
+
+
+# A constraint reads as an obligation, which is the SPECS question. Answering it in a
+# CONTEXT.md head charges every session in the subtree, because this is the only
+# enforced-read type — core/SCHEMA.md § Placement, the REDIRECT cell.
+CONSTRAINT = re.compile(
+    r'\b(?:must|never|always|required|forbidden|blocked|do not|don\'t)\b', re.I)
+
+
+def context_head(path: Path) -> str:
+    """The curated prose above the generated routing block — the part a human wrote."""
+    try:
+        return path.read_text(encoding='utf-8').split(ROUTING_START, 1)[0]
+    except (OSError, UnicodeDecodeError):
+        return ''
+
+
+def check_misplaced_answer(path: Path, head_warn: int) -> str | None:
+    """A contract trapped in an over-size CONTEXT.md head.
+
+    core/SCHEMA.md says each type answers exactly one question, but nothing verified that a
+    file answers only *its own*. Size alone is a weak signal — a long head may be honest
+    navigation — so this fires only where an over-size head is also *shaped* like a
+    contract. The sibling's existence decides whether the fix is a move or a create.
+    """
+    if path.name != 'CONTEXT.md' or is_generated_mirror(path):
+        return None
+    head = context_head(path)
+    tokens, modals = len(head) // 4, len(CONSTRAINT.findall(head))
+    if tokens <= head_warn or not modals:
+        return None
+    sibling = path.parent / 'SPECS.md'
+    verb = 'move them to the' if sibling.exists() else 'create a'
+    return (f'{path}: head is {tokens} tok carrying {modals} constraint(s).\n'
+            f'   CONTEXT.md is the only enforced-read type, so this is charged to every\n'
+            f'   session in the subtree. {verb} sibling SPECS.md and leave one pointer\n'
+            f'   (core/SCHEMA.md § Placement, REDIRECT).')
 
 
 def is_project(path: Path) -> bool:

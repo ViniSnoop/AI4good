@@ -65,3 +65,63 @@ def test_a_non_project_context_is_not_asked(tmp_path):
     target = other / 'CONTEXT.md'
     target.write_text('# goals\n> one file per goal\n', encoding='utf-8')
     assert entropy_context.check_goal_link(target) is None
+
+
+# --- misplaced answers: a contract trapped in a CONTEXT.md head -------------------
+# SCHEMA says each type answers exactly one question; this is the first check that a file
+# answers only its OWN. The corpus-wide ratchet lives in test/workspace/. Size alone is a
+# weak signal — a long head may be honest navigation — so the boundary is what matters.
+from file_law import load_limits  # noqa: E402
+
+HEAD_WARN = load_limits()['CONTEXT_HEAD_WARN']
+
+
+def _head(tmp_path, tokens, constrained, name='CONTEXT.md'):
+    rule = 'A module must never import around its facade. ' if constrained else ''
+    doc = tmp_path / name
+    doc.write_text(rule + 'x' * (tokens * 4) + '\n<!-- routing:start -->\n| f |\n',
+                   encoding='utf-8')
+    return doc
+
+
+def test_an_over_size_head_carrying_a_constraint_is_flagged(tmp_path):
+    hit = entropy_context.check_misplaced_answer(
+        _head(tmp_path, HEAD_WARN + 50, True), HEAD_WARN)
+    assert hit and 'create a' in hit, 'no sibling SPECS.md, so the advice is: create'
+
+
+def test_a_long_head_that_only_navigates_is_clean(tmp_path):
+    assert entropy_context.check_misplaced_answer(
+        _head(tmp_path, HEAD_WARN + 50, False), HEAD_WARN) is None
+
+
+def test_a_thin_head_may_carry_a_constraint(tmp_path):
+    """A thin head is the goal; a rule inside one is cheap and stays put."""
+    assert entropy_context.check_misplaced_answer(
+        _head(tmp_path, 10, True), HEAD_WARN) is None
+
+
+def test_an_existing_sibling_spec_changes_the_advice(tmp_path):
+    doc = _head(tmp_path, HEAD_WARN + 50, True)
+    (tmp_path / 'SPECS.md').write_text('# specs\n', encoding='utf-8')
+    assert 'move them to the' in entropy_context.check_misplaced_answer(doc, HEAD_WARN)
+
+
+def test_only_context_files_are_checked(tmp_path):
+    assert entropy_context.check_misplaced_answer(
+        _head(tmp_path, HEAD_WARN + 50, True, name='SPECS.md'), HEAD_WARN) is None
+
+
+def test_the_generated_block_is_not_part_of_the_head(tmp_path):
+    """The routing table's size is the fanout signal's business, not this check's."""
+    doc = tmp_path / 'CONTEXT.md'
+    doc.write_text('# t\n<!-- routing:start -->\n' + 'x' * (HEAD_WARN * 8), encoding='utf-8')
+    assert entropy_context.context_head(doc).strip() == '# t'
+
+
+def test_a_generated_mirror_is_not_flagged(tmp_path):
+    """sync-skills rewrites mirrors, so the fix belongs at the generator."""
+    mirror = tmp_path / '.opencode'
+    mirror.mkdir()
+    assert entropy_context.check_misplaced_answer(
+        _head(mirror, HEAD_WARN + 50, True), HEAD_WARN) is None

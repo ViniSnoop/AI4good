@@ -23,6 +23,10 @@ SECTIONS = (
      'the read gate only fires when a stub exists — a missing one turns it off silently'),
     ('fanout', 'Directories holding too many files',
      'splitting costs one hop — pay it only when it removes more table than it adds'),
+    ('finished', 'Prose describing finished work',
+     'git is the history — cut it, or rewrite it as present-tense state'),
+    ('misplaced', 'Constraints trapped in a CONTEXT.md head',
+     'the only enforced-read type — move the contract to a sibling SPECS.md'),
 )
 
 

@@ -10,7 +10,8 @@
 import re
 from pathlib import Path
 
-from entropy_corpus import enforcement_paths, tracked_files  # noqa: F401
+from entropy_corpus import (enforcement_paths, is_generated_mirror,  # noqa: F401
+                            tracked_files)
 
 # A bracketed slug is an item ID only in item position: after the bullet and the optional
 # checkbox, decoration allowed. Elsewhere in prose it is a reference to an item that lives
@@ -70,6 +71,56 @@ def duplicate_slugs(namespaces: dict) -> dict:
             for slug in item_slugs(ledger):
                 owners.setdefault(slug, {})[namespace] = ledger
     return {slug: claims for slug, claims in owners.items() if len(claims) > 1}
+
+
+STRIKETHROUGH = re.compile(r'~~[^~\n]+~~')
+DATED_REPORT = re.compile(
+    r'\b(?:shipped|landed|deleted|removed|fixed|closed|merged|completed|resolved|retired)\b'
+    r'[^.\n]{0,40}?\b20\d\d-\d\d-\d\d\b', re.I)
+SETTLED = re.compile(r'\bSETTLED\b')
+# Horizontal whitespace only: `\s` would swallow the preceding blank lines and report the
+# finding against the top of the file instead of the line the reader has to go fix.
+TICKED_ITEM = re.compile(
+    r'^[ \t]*(?:[-*>]+[ \t]*)*(?:\d+[a-z]?\.[ \t]*)?(?:\[[xX]\]|✅)', re.M)
+LEDGER_FILES = {'ROADMAP.md', 'GOALS.md', 'TODO.md', 'BUGS.md'}
+PLACEHOLDER = '← add'
+
+
+def finished_work_hits(files: list, exempt: set) -> list:
+    """Prose describing work that already landed — the corpse no link-checker can see.
+
+    Completion is deletion (core/SCHEMA.md § No archive types), so this is the same rule
+    as duplicate_slugs by another route: a ledger's length should measure remaining work.
+    AGENTS.md already bans strikethrough and SCHEMA already bans the ticked item; both
+    were law with nothing enforcing them. The dated report is the general case.
+    """
+    exempt = {path.resolve() for path in exempt}
+    hits = []
+    for path in files:
+        if path.suffix != '.md' or path.resolve() in exempt or is_generated_mirror(path):
+            continue
+        try:
+            text = path.read_text(encoding='utf-8')
+        except (OSError, UnicodeDecodeError):
+            continue
+        for label, match in (
+            ('strikethrough', STRIKETHROUGH.search(text)),
+            ('a dated completion report', DATED_REPORT.search(text)),
+            ('a SETTLED marker', SETTLED.search(text)),
+            # A tick is a corpse only in a ledger; elsewhere the glyph is a legend marker,
+            # which is how core/SCHEMA.md flags a required frontmatter field.
+            ('a ticked item', TICKED_ITEM.search(text) if path.name in LEDGER_FILES else None),
+            ('an unfilled placeholder',
+             re.search(re.escape(PLACEHOLDER), text) if path.name == 'CONTEXT.md' else None),
+        ):
+            if not match:
+                continue
+            hits.append(f'{path}:{text[:match.start()].count(chr(10)) + 1}: {label} — '
+                        f'prose describing finished work.\n'
+                        f'   Cut it; git is the history (core/SCHEMA.md § No archive types).\n'
+                        f'   Keep a line only if the next session needs it to *extend* the\n'
+                        f'   work, and write that line as present-tense state.')
+    return hits
 
 
 WIKI_LINK = re.compile(r'\[\[([a-z0-9][a-z0-9-]*)\]\]')

@@ -49,6 +49,16 @@ def nested_repos(root: Path, depth: int = 3) -> list:
     return found
 
 
+# Generated mirrors: sync-skills rewrites these from core/skills on every run, so a prose
+# finding inside one is unfixable in place and is already reported against the source it was
+# copied from. Fixing the mirror is fixing the generator.
+MIRRORS = ('.claude/', '.opencode/', '.github/')
+
+
+def is_generated_mirror(path: Path) -> bool:
+    return any(part in str(path) for part in MIRRORS)
+
+
 # The law, the check that enforces it, that check's tests, and the report that quotes the
 # findings all have to be able to NAME a retired token. Nothing else may.
 ENFORCEMENT = ('core/SCHEMA.md', 'entropy.md')

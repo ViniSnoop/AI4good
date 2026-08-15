@@ -18,11 +18,11 @@ from pathlib import Path
 # the checks below are siblings here in entropy/.
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from entropy_context import check_goal_link  # noqa: E402
+from entropy_context import check_goal_link, check_misplaced_answer  # noqa: E402
 from entropy_corpus import enforcement_paths, tracked_files, wiki_exempt_paths  # noqa: E402
 from entropy_fanout import fanout_signals  # noqa: E402
-from entropy_ledger import (duplicate_slugs, goal_vocabulary,  # noqa: E402
-                            retired_hits, wiki_link_hits)
+from entropy_ledger import (duplicate_slugs, finished_work_hits,  # noqa: E402
+                            goal_vocabulary, retired_hits, wiki_link_hits)
 from entropy_naming import check_dirs, check_placement, check_shape  # noqa: E402
 from entropy_report import SECTIONS, render  # noqa: E402
 from file_law import is_code_file, is_vendored, load_limits  # noqa: E402
@@ -72,12 +72,16 @@ def collect(files: list) -> dict:
     gate = _type_gate()
     allowed, exempt = load_law(SCHEMA)
     scopes = load_scopes(SCHEMA)
-    findings = {'types': [], 'inventories': [], 'naming': [], 'goals': []}
+    head_warn = load_limits()['CONTEXT_HEAD_WARN']
+    findings = {'types': [], 'inventories': [], 'naming': [], 'goals': [],
+                'misplaced': []}
     for path in files:
         if failure := gate.check_name(path, allowed, exempt):
             findings['types'].append(failure)
         if path.name == 'CONTEXT.md' and (failure := gate.check_inventory(path)):
             findings['inventories'].append(failure)
+        if failure := check_misplaced_answer(path, head_warn):
+            findings['misplaced'].append(failure)
         if failure := check_goal_link(path):
             findings['goals'].append(failure)
         for failure in (check_shape(path, allowed), check_dirs(path, WORKSPACE_ROOT),
@@ -94,6 +98,7 @@ def collect(files: list) -> dict:
     findings['size'] = size_signals(files)
     findings['stubs'] = stub_signals(files)
     findings['fanout'] = fanout_signals(files, WORKSPACE_ROOT)
+    findings['finished'] = finished_work_hits(files, exempt)
     # One directory-level finding is reported by every file under it; dedupe so a count
     # means "things to fix", not "files touched by a thing to fix".
     findings['naming'] = sorted(set(findings['naming']))
