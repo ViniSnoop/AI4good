@@ -10,7 +10,7 @@ uses:
 Flow template — and the canonical wording of the five disciplines.
 
 This file is a template, nothing more: it holds no special status and is not a validator
-oracle (retired 2026-07-23, see core/SCHEMA.md). Its one privilege is being the place the
+oracle (see core/SCHEMA.md). Its one privilege is being the place the
 discipline wording is *kept*, so flows copy from one source instead of drifting apart.
 
 To write a flow: copy this file, fill the frontmatter per core/SCHEMA.md, then keep the

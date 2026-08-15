@@ -20,9 +20,11 @@ from file_law import load_limits
 HEAD_WARN = load_limits()['CONTEXT_HEAD_WARN']
 
 # Inherited backlog, drained by ROADMAP.md Frente 13 (corpses, heads) and Frente 4.6 (markers).
-FINISHED_CEILING = 35
-UNDESCRIBED_CEILING = 70
-MISPLACED_CEILING = 28
+# The wos half of the corpse and head queues is drained; what remains in both is nested-repo
+# work, which cannot ride a wos commit (Frente 13.2) — so these two stop falling here.
+FINISHED_CEILING = 19
+UNDESCRIBED_CEILING = 69
+MISPLACED_CEILING = 17
 
 # The margin lets one cut land without forcing a test edit; a real drain pass trips it.
 FINISHED_SLACK = 10

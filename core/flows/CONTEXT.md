@@ -28,8 +28,8 @@ flow:
 
 | Subdirectory | Description |
 |--------------|-------------|
-| [`craft/`](craft/CONTEXT.md) | The engineering cluster owned by the `loops` skill — build work in file-relayed  |
-| [`research/`](research/CONTEXT.md) | Research-workflow protocols owned by the `research` skill. Invoked as `research  |
+| [`craft/`](craft/CONTEXT.md) | The engineering cluster owned by the `loops` skill — build work in file-relayed |
+| [`research/`](research/CONTEXT.md) | Research-workflow protocols owned by the `research` skill. Invoked as `research |
 
 | File | Description |
 |------|-------------|

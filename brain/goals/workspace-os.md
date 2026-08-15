@@ -35,32 +35,13 @@ hard 100 MB limit, so the push is rejected outright. Three ways out, and you onl
 Read the paragraph, say a number. **5 minutes, zero typing.** Criterion 3 goes green mechanically
 after that, and criterion 4 (Frente 10 — SETUP split + declared deps) is sonnet-tier from there.
 
-**findings — the 3 original gaps, all localized (2026-07-21 sweep), all resolved or absorbed:**
-1. **overengineering → the `core/hooks/` layer.** ~40 files, 3068 LOC, apparent near-duplicate families.
-   Investigation reversed most of the diagnosis: `copilot-*` is LIVE (wired to the craft flow) and the
-   `.pyi` mirrors are LIVE (the interface-first read-gate requires them) — not dead weight. Genuine
-   cruft was one FUSE orphan. `brain_stats.py` 393 LOC was split into three files under 200, which also
-   surfaced a **real bug**: the attention dashboard was measuring noise, because the hook force-`git
-   add`ed all 54 goal files every commit. `telegram_daemon.py` (814 LOC) is gone entirely, replaced by
-   `code/aiwbot`. **Closed 2026-07-25.**
-2. **messy → uncollected garbage, not doc sprawl.** The "mess" was `.Trash-1000` (6.6 GB) and root
-   `.venv` (7.6 GB) inflating every find/grep — real curated docs number **736** (measured 2026-07-29;
-   earlier counts of 617 and 2266 were both wrong, one under-scoped and one counting `.venv`). 6.6 GB
-   reclaimed 2026-07-22; `.venv` is live and stays. **A landmine surfaced during the purge:**
-   5.8 GB of that trash was `datasets/relativistic_raytracer` — the **sole surviving copy**, since
-   Zenodo record 20240662 is deleted (HTTP 410, "personal-data", 2026-05-24). Convention gap it exposed:
-   `datasets/*/CONTEXT.md` promises "re-download from the Zenodo link", but a link can 410, and a
-   dataset with no live copy plus a dead link is unrecoverable. **Closed 2026-07-22**; the remaining
-   floor-sweeping is Frente 6.1.
-3. **the gentle-resurfacing rhythm was missing.** Strong at *capture* (inbox/gmail/telegram/goals),
-   but nothing gently resurfaced the *inspiring work waiting*. Explicitly **not** an accountability
-   gap — that anxious tone is the opposite of this workspace's purpose ([SPECS.md](../SPECS.md) § Rationale).
-   Fixed by folding motivation-ordering, timing negotiation, and guilt-free ditching into `/compass`,
-   plus a soft nudge. **Closed 2026-07-22** — first dogfood of the new skill.
+**Known risk — dataset with no live backup:** `datasets/relativistic_raytracer` (5.8 GB) is the sole
+surviving copy of its data — Zenodo record 20240662 returns HTTP 410 ("personal-data"), gone since
+2026-05-24. The `datasets/*/CONTEXT.md` convention of "re-download from the Zenodo link" breaks
+whenever the link goes dead with no live copy behind it.
 
-**Root read**: gaps 1&2 were "too much" (machinery, cruft); gap 3 was "too little", and the answer was
-never to *chase* — it was to let the gentle partner resurface good wind on a soft rhythm. Ordering by
-motivation wins over deadline pressure.
+**Root read**: ordering by motivation wins over deadline pressure — the gentle-resurfacing rhythm
+that capture alone couldn't provide now lives in `/compass`.
 
 >**timing**  
 *target · first validated version in ~6 months (around November 2026)  
@@ -88,14 +69,14 @@ fallback · iterate — MVP can always be extended*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-14  ·  trend: advancing
+last-touch: 2026-08-15  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |     116 |
-| trimester   |     165 |
-| semester    |     175 |
-| year        |     175 |
-| 2-year      |     175 |
-| 4-year      |     175 |
+| month       |     168 |
+| trimester   |     212 |
+| semester    |     227 |
+| year        |     227 |
+| 2-year      |     227 |
+| 4-year      |     227 |
 <!-- stats:end -->

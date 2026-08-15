@@ -5,6 +5,17 @@ Companion to [`CONTEXT.md`](CONTEXT.md), which says what this directory *is* and
 This file holds the constraints. Installing the toolchain these gates depend on is a third
 question, answered by [`SETUP.md`](../../SETUP.md).
 
+## The law lives in file_law.py / schema_law.py / limits.env, never in a checker
+
+A checker that restates any of these is the drift the checkers exist to catch. This has bitten
+twice: five separate definitions of "a code file" existed across different checkers before they
+were unified behind `file_law.is_code_file`, guarded now by
+`core/tools/test/law/test_file_law.py::test_no_checker_carries_its_own_extension_list`. And
+`entropy_corpus.py`'s `_CHECKER` / `_CHECKER_TESTS` constants once spelled out a sibling path by
+hand — a hard-coded path stops exempting the retired-token checker (and its own test file) from
+itself the moment `core/hooks` moves. The fix derives both from `Path(__file__)` instead, so a
+future move cannot break it the same way.
+
 ## Canonical behaviour, provider shims
 
 Canonical behaviour lives in neutral files under `core/hooks/` and [`AGENTS.md`](../../AGENTS.md).

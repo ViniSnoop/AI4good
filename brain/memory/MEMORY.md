@@ -6,7 +6,7 @@
 - [Core library schema](project_core_schema.md) — core/ agent library soundness: enforced per-layer frontmatter (core/SCHEMA.md), tier unified, sweep in core/ROADMAP.md
 - [Feedback: visual eyeball gate](feedback_visual_eyeball_gate.md) — image-producing steps need Lucas's visual OK (artifact board) before advancing; shortest path to visible content
 - [Verify Roadmap](project_verify_roadmap.md) — workspace verification/enforcement plan at code/VERIFY.md; read its status log before .hooks/tests/verification work
-- [Fable Quota Strategy](fable_quota_strategy.md) — "Fable decides, Opus writes, Sonnet executes"; multiview CONSUMED+deleted (F1 spine merged to develop 2026-07-08), instituto FIRING 2026-07-08 (final window)
+- [Fable Quota Strategy](fable_quota_strategy.md) — "Fable decides, Opus writes, Sonnet executes"; multiview is consumed, its F1 spine lives on develop; instituto prompt is in its final window
 - [Feedback: provider-agnostic naming](feedback_provider_agnostic_naming.md) — nunca nome de provider/modelo em arquivos/verbos/dirs; função no nome, provider como dado
 - [Project Dobra](project_dobra.md) — context folding + SLM runner (code/dobra) + paper twin (academy/papers/2027-ICLR-dobra); read code/dobra/CONTEXT.md before any dobra session
 - [Project cria](project_hybrid_ideation.md) — ideação híbrida como mechanism design; casas code/cria (workflow+M1) e academy/papers/2027-CHI-cria (ler CONTEXT+ROADMAP antes); manifesto em papers/ai4good; = estágios 2-4 do motor do instituto; gargalo = CEP

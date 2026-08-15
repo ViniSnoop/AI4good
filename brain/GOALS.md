@@ -3,14 +3,14 @@
 <!-- stats:start -->
 <!-- data:start -->
 ## attention dashboard  _(auto-updated on every commit)_
-last-updated: 2026-08-14 16:36
+last-updated: 2026-08-15 20:33
 
 >**areas** — last 14 days  
 ```
-health       ██████████   42 touches
-career       ██░░░░░░░░   11 touches
-finances     █░░░░░░░░░   6 touches
-fun          ██░░░░░░░░   10 touches
+health       ██████████   72 touches
+career       █░░░░░░░░░   11 touches
+finances     ░░░░░░░░░░   7 touches
+fun          ░░░░░░░░░░   3 touches
 spiritual    ░░░░░░░░░░   0 touches
 ```
 
@@ -20,17 +20,17 @@ CONTEXT                  ░░░░░░░░░░   1 touches
 burocracia-academica     ░░░░░░░░░░   3 touches
 career-ufrpe             ░░░░░░░░░░   0 touches
 corporal-expressiveness  ░░░░░░░░░░   0 touches
-craft-flows              ██░░░░░░░░   10 touches
-cria                     ░░░░░░░░░░   2 touches
+craft-flows              █░░░░░░░░░   9 touches
+cria                     ░░░░░░░░░░   3 touches
 dance                    ░░░░░░░░░░   1 touches
 ecovila                  ░░░░░░░░░░   2 touches
 exercise                 ░░░░░░░░░░   0 touches
 finances                 ░░░░░░░░░░   0 touches
 guitar                   ░░░░░░░░░░   0 touches
-home-casinhas            █░░░░░░░░░   5 touches
+home-casinhas            ░░░░░░░░░░   6 touches
 instituto                ░░░░░░░░░░   1 touches
 lih-dd                   ░░░░░░░░░░   2 touches
-local-ai                 █░░░░░░░░░   5 touches
+local-ai                 ░░░░░░░░░░   4 touches
 magic-places             ░░░░░░░░░░   0 touches
 make-in-time             ░░░░░░░░░░   0 touches
 pandeiro                 ░░░░░░░░░░   0 touches
@@ -39,12 +39,12 @@ paper-megatruth          ░░░░░░░░░░   0 touches
 paper-scattercode        ░░░░░░░░░░   0 touches
 prompt-opt-automation    ░░░░░░░░░░   0 touches
 reading                  ░░░░░░░░░░   0 touches
-rpg-isoroll              ██░░░░░░░░   9 touches
+rpg-isoroll              ░░░░░░░░░░   2 touches
 sleep-regularity         ░░░░░░░░░░   0 touches
 smartphone-addiction     ░░░░░░░░░░   0 touches
 spacemantics             ░░░░░░░░░░   4 touches
-spec-driven-development  ░░░░░░░░░░   3 touches
-startapps-apptime        ░░░░░░░░░░   1 touches
+spec-driven-development  ░░░░░░░░░░   2 touches
+startapps-apptime        ░░░░░░░░░░   2 touches
 startapps-arede          ░░░░░░░░░░   0 touches
 startapps-batituque      ░░░░░░░░░░   0 touches
 startapps-come-bem       ░░░░░░░░░░   0 touches
@@ -62,10 +62,10 @@ startapps-virada         ░░░░░░░░░░   0 touches
 startapps-voti           ░░░░░░░░░░   1 touches
 startapps-xacomigo       ░░░░░░░░░░   0 touches
 surf                     ░░░░░░░░░░   0 touches
-teaching-materials       █░░░░░░░░░   7 touches
+teaching-materials       ░░░░░░░░░░   7 touches
 vipassana                ░░░░░░░░░░   0 touches
 voice                    ░░░░░░░░░░   0 touches
-workspace-os             ██████████   42 touches
+workspace-os             ██████████   72 touches
 yoga                     ░░░░░░░░░░   0 touches
 ```
 <!-- data:end -->
@@ -148,7 +148,7 @@ yoga                     ░░░░░░░░░░   0 touches
 > deleted — done work is deleted, git is the history (`AGENTS.md`). Git recovers the file; it does
 > not recover the fact that this one *landed*, so that is what the line is for.
 
-- **paper-sibgrapi-2026** — 2026-07-11: submitted to SIBGRAPI 2026 with Artur, full chain `sib-01→sib-06`. The point was never the venue: this is the paper that broke the "I can't publish interesting work" block, in practice, against a fear the goal file had predicted in writing. Retired 2026-08-13.
+- **paper-sibgrapi-2026** — 2026-07-11: submitted to SIBGRAPI 2026 with Artur, full chain `sib-01→sib-06`. The point was never the venue: this is the paper that broke the "I can't publish interesting work" block, in practice, against a fear the goal file had predicted in writing.
 
 ## Ditched
 

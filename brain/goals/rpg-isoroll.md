@@ -36,11 +36,6 @@ Nothing to set up on your side. The seam freeze + cabin fixture run in `code/iso
 > [ ] [8dir-sprites] 8-direction views per character — after tiles ship (NB cardinal weakness returns for tokens)  
 > [ ] [anim-pipeline] animate characters: idle, attack, defend, hurt, cast, crouch  
 > [ ] [sprite-atlas] atlas packing for Foundry export  
-> ~~[setup-rebuild]~~ superseded 2026-07: ComfyUI = utility rail only, symlinks fixed (env-utility-repair); NB is primary  
-> ~~[face-detailer] [hand-detailer]~~ superseded: local SD generation dead (kill-log) — revisit only if a character lane needs local refinement  
-> ~~[tile-generation]~~ absorbed into S0/SCENE-CREATION (kit batches)  
-> ~~[foundry-review] [iso-prototype]~~ done long since: isoroll-module is mature (slicing, depth sort, walls, fog, gizmos)  
-> ~~[content-gen-reconnect]~~ ~~[scene-seam]~~ = absorbed into [playable] above (manifest export + walls import shipped)  
 
 ## done
 
@@ -49,14 +44,14 @@ Nothing to set up on your side. The seam freeze + cabin fixture run in `code/iso
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-01  ·  trend: decelerating
+last-touch: 2026-08-15  ·  trend: decelerating
 
 | period      | touches |
 |-------------|----------|
-| month       |      63 |
-| trimester   |     589 |
-| semester    |     592 |
-| year        |     592 |
-| 2-year      |     592 |
-| 4-year      |     592 |
+| month       |      48 |
+| trimester   |     591 |
+| semester    |     594 |
+| year        |     594 |
+| 2-year      |     594 |
+| 4-year      |     594 |
 <!-- stats:end -->

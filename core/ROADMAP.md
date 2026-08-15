@@ -7,8 +7,7 @@
 > [/ROADMAP.md](../ROADMAP.md). An item belongs to exactly one of the two.
 
 Goal: [[spec-driven-development]] — SPEC-v0 pilot on the `core/` agent library.
-No flow is privileged — the exemplar is `flows/_template.md`. (The old "reference implementation /
-validator's oracle" status of `deepresearch` was retired 2026-07-23; see [SCHEMA.md](SCHEMA.md).)
+No flow is privileged — the exemplar is `flows/_template.md` (see [SCHEMA.md](SCHEMA.md)).
 
 ## Open
 

@@ -85,13 +85,12 @@ core/tools/video/video "https://www.instagram.com/p/<id>/"              # descri
 core/tools/video/video "https://www.instagram.com/p/<id>/" --level ocr  # + slide text per image
 ```
 
-Verified 2026-07-23 on `DbBDnp6DcKV`, the post that sat blocked in INBOX since 07-20: full caption
-at `auto`, and seven slides transcribed at `--level ocr`.
+A carousel post returns its full caption at `auto` and one OCR block per slide at `--level ocr`.
 
-## Rejected — automatic goal relevance (built, measured, deleted 2026-07-23)
+## Rejected — automatic goal relevance
 An embedding ranker (`video_relevance.py`, `--goals` flag, multilingual e5) scored the extracted
-text against every `brain/goals/*.md` to suggest a route. **Built, dogfooded over ten real INBOX
-links, then deleted the same day.** Recorded here only so nobody rebuilds it.
+text against every `brain/goals/*.md` to suggest a route. It was built, dogfooded over ten real
+INBOX links, and does not exist any more. Recorded here only so nobody rebuilds it.
 
 Why it failed: two goals acted as false attractors — `rpg-isoroll` took #1 for nearly any
 technical clip (PDF parsing, compiler tuning) because its file is long and vocabulary-diverse,

@@ -4,6 +4,36 @@
 > access, so a constraint written there was a tax on every session in the subtree — opening one
 > `.tex` cost 2.4k tokens. SPECS is loaded on demand.
 
+## Starting a new paper
+
+```bash
+python3 /mnt/workspace/core/hooks/stubgen/paper-scaffold.py new <paper-name>
+```
+
+Creates the full standard layout: `main.tex`, `.latexmkrc`, `.gitignore`, `labels.md`, and a
+`CONTEXT.md` for the root and for `sections/`, `refs/`, `lib/`, `images/`, `tables/`, `outputs/` —
+with `refs/CONTEXT.md` pre-filled with the tag schema and workflow.
+
+Add missing scaffold files to an **existing** paper without overwriting:
+
+```bash
+python3 /mnt/workspace/core/hooks/stubgen/paper-scaffold.py adapt <path-to-paper>
+```
+
+The `post-edit` hook warns with the `adapt` command if `refs/CONTEXT.md` is missing when a `.tex`
+file is saved.
+
+## Building
+
+```bash
+cd /mnt/workspace/academy/papers/<paper-folder>
+latexmk -xelatex -halt-on-error -interaction=nonstopmode main.tex
+latexmk -C && latexmk -xelatex -halt-on-error -interaction=nonstopmode main.tex  # clean rebuild
+```
+
+Use XeLaTeX for document classes that require `fontspec` (e.g. SBC/JBCS). Artifacts go to `build/`;
+the PDF lands at the paper root.
+
 ## Folder and file naming
 
 - Paper folders: `YEAR-VENUE-paper_name` (e.g. `2026-JBCS-relativistic_raytracer`). Applies to

@@ -18,7 +18,8 @@ module and it stays internal; add an entrypoint and it must be listed there **an
 | `config.js` | default-mode resolution + the flag API every hook imports |
 | `flagfile.js` · `safepath.js` | flag/history I/O and the symlink-safe path handling under it |
 
-Read [`../CONTEXT.md`](../CONTEXT.md) for attribution and the list of local adaptations.
+Attribution: [`../CONTEXT.md`](../CONTEXT.md). Wiring, and the local adaptations a re-sync has to
+reconcile: [`../SPECS.md`](../SPECS.md).
 
 <!-- routing:start -->
 ## Routing
@@ -34,4 +35,5 @@ Read [`../CONTEXT.md`](../CONTEXT.md) for attribution and the list of local adap
 | [`stats-format.js`](stats-format.js) | [`stats-format.d.ts`](stats-format.d.ts) | `formatHistory`, `formatShare`, `savingsBlock`, `formatStats` | caveman — rendering: turn collected numbers into the three printed views. |
 | [`stats-pricing.js`](stats-pricing.js) | [`stats-pricing.d.ts`](stats-pricing.d.ts) | `priceForModel`, `formatUsd`, `deriveSavings`, `parseDuration`, `humanizeTokens` | caveman — savings math: compression ratios, model pricing, derived estimates |
 | [`stats.js`](stats.js) | [`stats.d.ts`](stats.d.ts) | `reportLifetime`, `recordSnapshot`, `main` | caveman stats — read the active Claude Code session log, print real token usage |
+| [`statusline.sh`](statusline.sh) | — | — | caveman — statusline badge script for Claude Code |
 <!-- routing:end -->

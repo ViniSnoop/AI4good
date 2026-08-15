@@ -63,13 +63,13 @@ Contract script names (all code projects): **`verify:fast`** = T0+T1 (runs per c
 
 ---
 
-## Phase W1 — Context Gate + Bypass Hardening ✅ 2026-07-02 (workspace-wide, moved out)
+## Phase W1 — Context Gate + Bypass Hardening (workspace-wide, documented elsewhere)
 
 Workspace-wide hooks (`context-gate.py`, `context-tracker.py`, `bash-context-gate.py` +
 PreCompact/SessionStart lifecycle) — not `code/`-specific, so their canonical documentation
 lives in [`core/hooks/SPECS.md`](../core/hooks/SPECS.md) § Agent lifecycle gates, not
-here. Kept as a one-line record: shipped 2026-07-02, forces the CONTEXT.md chain to be Read
-before any file access anywhere in the workspace.
+here. Kept as a one-line pointer: these hooks force the CONTEXT.md chain to be Read before any
+file access anywhere in the workspace.
 
 ---
 
@@ -208,10 +208,6 @@ W3 makes it portable.
 
 - Test subagent marker inheritance in practice (same `session_id` assumption).
 - Decide permission-deny belt for `cat|head|tail` after field testing.
-- ~~opencode shim gaps~~ DONE (G6): context-gate/bash-gate/trackers/bugs-gate wired
-  into `.opencode/plugins/workspace-policy.js`, verified via synthetic-client smoke test
-  (block-then-allow on CONTEXT chain for Read and Bash, bugs-gate blocks a FIXED
-  flip with no spec). Coverage table in root SETUP.md updated.
 - tsc --noEmit as T0 gate (G7) — **bigger than scoped, not landed yet.** Root cause of the
   `Tile`/`TileDocument`/`canvas`/`Token`/`Hooks`/`PIXI`/`JQuery`/`game` "cannot find name"
   errors (606 of 645 lines) was `tsconfig.json`'s `typeRoots` pointing at

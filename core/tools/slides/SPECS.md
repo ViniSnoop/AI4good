@@ -1,8 +1,20 @@
 # Google Slides API — facts worth not rediscovering
+> What the API actually returns, learned the expensive way — read alongside `CONTEXT.md`.
 
-What the API actually returns, learned the expensive way. Read alongside
-[`CONTEXT.md`](CONTEXT.md). The Slidev rendering conventions that used to fill this file died
-with the port pipeline on 2026-08-14 — they described a target that no longer exists.
+## Slidev is gone (2026-08-14)
+
+This family used to be a Slidev CLI plus a Google-Slides→Slidev port pipeline (`slides_port`,
+`slides_shapes`, `slides_style`, `slides_text`). Lucas retired it once remote editing into the
+live deck was confirmed working: the reason to port decks out was that the source of truth could
+not be edited from here, and it can. **Resurrecting a local presentation format needs that reason
+to come back first** — what survived is `slides_geom.py`, the transform algebra below.
+
+## Auth
+
+Two grants: `slides` (`presentations.readonly`) and `slides-write` (`presentations`), the same
+split as [`../files/`](../files/CONTEXT.md). A read prefers the write token when the alias has
+one — the edit consent already contains the read consent, so demanding a second browser trip
+would buy no safety and just create two tokens that can die independently.
 
 ## Geometry
 
@@ -45,3 +57,6 @@ is worse than showing a hidden one.
   of generated ones — this is what makes a generated frame sequence addressable.
 - **Duplicates are inserted directly after their source**, so duplicating one slide N times
   leaves the copies in reverse order. `updateSlidesPosition` in the same batch fixes it.
+- **Per-frame motion is the two facts above, chained**: `duplicateObject` +
+  `updatePageElementTransform` in one `batchUpdate` authors position/velocity/acceleration
+  sampled into frames, and it survives PDF export (confirmed 2026-08-14).

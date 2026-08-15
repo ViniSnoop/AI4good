@@ -37,7 +37,7 @@ git log --oneline -10
 Read what the session touched. Then:
 
 **Done work is deleted. Git is the history.** There is no `HISTORY.md`, no `ARCHIVE.md`, no done-log
-— those types were removed 2026-07-30 (see [`core/SCHEMA.md`](../SCHEMA.md) § No archive types). A
+— see [`core/SCHEMA.md`](../SCHEMA.md) § No archive types. A
 completed item's record is its commit; re-writing it into an archive file only grows a doc nobody
 opens. So: delete completed `ROADMAP.md` items (`- [x]`, "done", "shipped", "merged", "✅") and
 resolved `BUGS.md` items (`- [x]`, "fixed", "resolved", "closed"). For a bug, the regression spec

@@ -16,7 +16,7 @@ from conftest import WORKSPACE_ROOT  # the depth lives in one file, not nine
 # sys.path for the enforcement layer is set once, by conftest.py — a second copy
 # here would go stale the next time core/hooks is split.
 
-from workspace_meta import extract_api  # noqa: E402
+from workspace_meta import ALL_EXTS, COMMENT_RE, extract_api, file_description  # noqa: E402
 from workspace_scanner import build_file_rows, parse_preserved_files  # noqa: E402
 
 
@@ -74,6 +74,29 @@ def test_a_production_symbol_in_a_test_directory_still_appears(tmp_path) -> None
     p = d / 'helpers.py'
     p.write_text('def build_payload():\n    pass\n', encoding='utf-8')
     assert '`build_payload`' in extract_api(p)
+
+
+def test_every_scanned_extension_can_be_described() -> None:
+    """The scanner's extension list and the comment-pattern table must agree.
+
+    Two lists that have to match, with nothing checking that they did: `.sh` and `.jsx`
+    were in ALL_EXTS and absent from COMMENT_RE, so 59 tracked files were undescribable by
+    construction. Each got `← add first-line comment` in its routing row no matter how well
+    it was commented — including `core/hooks/post-edit.sh`, inside the enforcement
+    directory, which ROADMAP.md Frente 4.6 read as evidence of a discipline hole.
+    """
+    missing = sorted(ALL_EXTS - set(COMMENT_RE))
+    assert not missing, (
+        f'{missing} are scanned but have no comment pattern, so file_description() returns '
+        f"'' for every one of them and the generator asks for a comment the file may "
+        f'already carry. Add a pattern to COMMENT_RE in core/hooks/routing/workspace_meta.py')
+
+
+def test_a_shell_script_is_described_below_its_shebang(tmp_path) -> None:
+    """The concrete case: a shebang is not the description, the comment under it is."""
+    p = tmp_path / 'thing.sh'
+    p.write_text('#!/usr/bin/env bash\n# does the thing\n', encoding='utf-8')
+    assert file_description(p) == 'does the thing'
 
 
 def test_preserved_descriptions_survive_a_narrower_table() -> None:

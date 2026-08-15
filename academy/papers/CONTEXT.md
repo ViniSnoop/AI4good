@@ -4,40 +4,9 @@
 Each paper is its own subdirectory with its own git repo (Overleaf as remote). Local compilation is
 primary; Overleaf is the sync/checkpoint for final validation.
 
-**Every rule that constrains a paper — naming, file size, first-line comments, the `.texif`
-interface, the `refs/` schema and tag vocabulary, writing quality, evidence discipline, git —
-lives in [SPECS.md](SPECS.md).** That file is loaded on demand, which is the whole point: this one
-sits on the always-loaded path and SPECS does not.
-
-## Starting a new paper
-
-```bash
-python3 /mnt/workspace/core/hooks/stubgen/paper-scaffold.py new <paper-name>
-```
-
-Creates the full standard layout: `main.tex`, `.latexmkrc`, `.gitignore`, `labels.md`, and a
-`CONTEXT.md` for the root and for `sections/`, `refs/`, `lib/`, `images/`, `tables/`, `outputs/` —
-with `refs/CONTEXT.md` pre-filled with the tag schema and workflow.
-
-Add missing scaffold files to an **existing** paper without overwriting:
-
-```bash
-python3 /mnt/workspace/core/hooks/stubgen/paper-scaffold.py adapt <path-to-paper>
-```
-
-The `post-edit` hook warns with the `adapt` command if `refs/CONTEXT.md` is missing when a `.tex`
-file is saved.
-
-## Building
-
-```bash
-cd /mnt/workspace/academy/papers/<paper-folder>
-latexmk -xelatex -halt-on-error -interaction=nonstopmode main.tex
-latexmk -C && latexmk -xelatex -halt-on-error -interaction=nonstopmode main.tex  # clean rebuild
-```
-
-Use XeLaTeX for document classes that require `fontspec` (e.g. SBC/JBCS). Artifacts go to `build/`;
-the PDF lands at the paper root.
+Every rule that constrains a paper — naming, file size, first-line comments, the `.texif` interface,
+the `refs/` schema and tag vocabulary, writing quality, evidence discipline, git — plus how to
+scaffold a new paper and how to build one: [SPECS.md](SPECS.md).
 
 ## Research
 
@@ -58,7 +27,7 @@ protocols: [core/flows/](../../core/flows/CONTEXT.md).
 | [`mechanism-search/`](mechanism-search/CONTEXT.md) | Paper embrião: busca de mecanismos sociais com LLMs ancorada em dados de fluxo f |
 | [`megatruth/`](megatruth/CONTEXT.md) | Hybrid intelligence paper — crowd truth aggregation via mechanism design |
 | [`mutual-credit-ai/`](mutual-credit-ai/CONTEXT.md) | Paper embrião: agentes de IA resolvendo a iliquidez de moedas complementares — c |
-| [`pls-pix/`](pls-pix/CONTEXT.md) | Paper embrião: prize-linked savings via Pix contra o dreno das bets no Brasil —  |
+| [`pls-pix/`](pls-pix/CONTEXT.md) | Paper embrião: prize-linked savings via Pix contra o dreno das bets no Brasil — |
 | [`spacemantics/`](spacemantics/CONTEXT.md) | Benchmark+method paper: a verifiable spatial DSL lifts LLM spatial capability ac |
 
 | File | Description |

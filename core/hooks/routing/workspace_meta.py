@@ -10,13 +10,20 @@ CONTENT_EXTS = {'.md', '.yaml', '.yml', '.toml'}
 ALL_EXTS     = CODE_EXTS | CONTENT_EXTS
 PLACEHOLDER  = '← add first-line comment'
 
+# One entry per extension in ALL_EXTS, asserted by test_every_scanned_extension_can_be
+# _described. An extension the scanner picks up but this table has no pattern for is
+# undescribable BY CONSTRUCTION: file_description falls through to '' and the generator
+# writes the placeholder, so the row asks for a comment the file already has. `.sh` (30
+# files) and `.jsx` (29) sat in that gap, which is why `core/hooks/post-edit.sh` carried a
+# marker inside the enforcement directory itself — not a lapse of discipline, a missing key.
 COMMENT_RE = {
     '.py':  [r'^#\s*(.+)', r'^"""(.+?)"""', r"^'''(.+?)'''"],
     '.js':  [r'^//\s*(.+)'], '.ts':   [r'^//\s*(.+)'], '.tsx':  [r'^//\s*(.+)'],
+    '.jsx': [r'^//\s*(.+)'],
     '.css': [r'^/\*\s*(.+?)\s*\*/'],  '.scss': [r'^/\*\s*(.+?)\s*\*/'],
     '.html':[r'^<!--\s*(.+?)\s*-->'], '.dart': [r'^//\s*(.+)'],
     '.md':  [r'^#\s*(.+)'], '.yaml': [r'^#\s*(.+)'], '.yml':  [r'^#\s*(.+)'],
-    '.tex': [r'^%\s*(.+)'], '.toml': [r'^#\s*(.+)'],
+    '.tex': [r'^%\s*(.+)'], '.toml': [r'^#\s*(.+)'], '.sh': [r'^#\s*(.+)'],
 }
 
 def _exec_description(path: Path) -> str:

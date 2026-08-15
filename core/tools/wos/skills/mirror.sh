@@ -5,10 +5,15 @@
 # Skill name is the basename without .md, excluding non-skill files.
 is_skill() {
   local name="$1"
+  # AGENTS.md: UPPERCASE.md is a TYPE, lowercase.md is an instance. A skill is an
+  # instance, so no type is ever one — this used to name CONTEXT alone, and the first
+  # SPECS.md written inside core/skills/ was read as a skill with no frontmatter and
+  # failed the commit for every staged core/skills/*.md, not just its own.
   case "$name" in
-    _template|CONTEXT) return 1 ;;
-    *.original)        return 1 ;;
-    *)                 return 0 ;;
+    _template)  return 1 ;;
+    [A-Z]*)     return 1 ;;
+    *.original) return 1 ;;
+    *)          return 0 ;;
   esac
 }
 

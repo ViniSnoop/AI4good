@@ -12,6 +12,6 @@ Making the `core/` agent library structurally sound = SPEC-v0 pilot of [[spec-dr
 
 **Canonical docs (read before continuing):** `core/SCHEMA.md` (the enforced per-layer frontmatter contract + flow-type/discipline matrix; `deepresearch` is the oracle) and `core/ROADMAP.md` (status + the deferred sweep).
 
-**Shipped 2026-07-18** (commit `refactor(core): enforce per-layer frontmatter contract`): SCHEMA.md, flows/+agents/ templates, tier unified (`thinking:`/`model:`→`tier:` on core/agents), reviewer/lead/MIGRATION-STATUS bugs fixed, `compare` flow normalized, `sync-skills` validates frontmatter + prunes orphan mirrors (wired into pre-commit §10a).
+**In place** (commit `refactor(core): enforce per-layer frontmatter contract`): SCHEMA.md, flows/+agents/ templates, tier unified (`thinking:`/`model:`→`tier:` on core/agents), reviewer/lead/MIGRATION-STATUS bugs fixed, `compare` flow normalized, `sync-skills` validates frontmatter + prunes orphan mirrors (wired into pre-commit §10a).
 
 **Deferred sweep (in ROADMAP):** 2b loop-agent `tier:` source + `tier-map.json` + generator for `.claude/agents/loop-*` (kills last `model: haiku` in source) — but loop-* files are often contended by a parallel session, see [[feedback-parallel-sessions]]; the flow sweep (disciplines on the other flows); mechanism-search normalize; flow/agent field validation.

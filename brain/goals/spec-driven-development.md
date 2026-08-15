@@ -2,7 +2,7 @@
 
 Transicionar o workspace inteiro pra SPEC-DRIVE DEVELOPMENT — todo módulo tem entradas/saídas bem definidas e verificáveis, e a spec é o contrato. Specs viram a fonte da verdade; código sem spec é dívida. Aplica a `code/`, a `core/flows`, e à árvore de loops (ver [[craft-flows]] e [[prompt-dsl]]). Precede o código, não documenta depois.
 
-> **linked work** — the `core/` agent-library pilot of this idea shipped 2026-07-18: an enforced
+> **linked work** — the `core/` agent-library pilot of this idea lives in an enforced
 > per-layer frontmatter contract ([core/SCHEMA.md](../../core/SCHEMA.md)), tier unified, pilot flow
 > `compare` normalized, validation in `sync-skills` + pre-commit. Sweep tracked in
 > [core/ROADMAP.md](../../core/ROADMAP.md). Sibling track to the `code/` module-spec gate (pre-commit §1d).
@@ -37,14 +37,14 @@ Rodar `core/tools/wos/spec-scan` (vê a catraca: 1/88 locked hoje). Abrir `code/
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-31  ·  trend: advancing
+last-touch: 2026-08-14  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       9 |
-| trimester   |       9 |
-| semester    |       9 |
-| year        |       9 |
-| 2-year      |       9 |
-| 4-year      |       9 |
+| month       |      11 |
+| trimester   |      11 |
+| semester    |      11 |
+| year        |      11 |
+| 2-year      |      11 |
+| 4-year      |      11 |
 <!-- stats:end -->

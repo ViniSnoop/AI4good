@@ -14,7 +14,7 @@ As of 2026-07-06 Lucas is in the FINAL window of Fable 5 access, little quota le
 **How to apply:** Doctrine: **Fable decides, Opus writes, Sonnet executes.** The craft flow (`core/flows/craft/craft.md` + `/loops` + craft-low/medium/high agents) is the routing backbone — after the window closes, route all planning through `/loops` autorouting on Opus/Sonnet. If a Fable session drifts into grunt work, hand off to a cheaper model.
 
 Status of prepared Fable prompts in `core/prompts/`:
-- `fable-multiview.md` — **CONSUMED 2026-07-07**, prompt file DELETED 2026-07-08. Session delivered F1 procedural + multiview spine in `code/isoroll-content` (branch `feature/f1-procedural-spine`, now merged to `develop` with postproc-tests + env-utility-repair; canonical plan `ROADMAP-content-gen.md`).
+- `fable-multiview.md` — consumed; the prompt file no longer exists. The session's F1 procedural + multiview spine lives in `code/isoroll-content` (branch `feature/f1-procedural-spine`, on `develop` with postproc-tests + env-utility-repair; canonical plan `ROADMAP-content-gen.md`).
 - `fable-instituto.md` — **FIRING 2026-07-08** (final Fable window); deliverable `brain/attachments/instituto-estrategias.md`. Delete the prompt file once delivered.
 
 Naming rule from that session: provider-agnostic file names ([[feedback-provider-agnostic-naming]]). Related: [[project-casinhas]].

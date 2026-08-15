@@ -3,10 +3,9 @@
 
 Wired globally via `git config --global core.hooksPath /mnt/workspace/core/hooks`, so
 `pre-commit` fires in **every** repo under this workspace, and by absolute path from
-`.claude/settings.json` for the agent-side gates. Moved here from `.hooks/` on 2026-07-31 —
-nothing about it was Claude-specific, and hidden meant unmonitored by its own checks.
+`.claude/settings.json` for the agent-side gates.
 
-## The law lives in two files, never in a checker
+## The law lives in these files, not in any checker
 
 | File | Owns |
 |------|------|
@@ -16,23 +15,15 @@ nothing about it was Claude-specific, and hidden meant unmonitored by its own ch
 | [`vendored.txt`](vendored.txt) | third-party trees exempt from our authoring rules |
 | [`extensionless.txt`](extensionless.txt) | names an external tool dictates (git hooks, `Makefile`) |
 
-**A checker that restates any of these is the drift the checkers exist to catch.** It has
-happened twice: five separate definitions of "a code file" (fixed 2026-07-31, guarded by
-`test_no_checker_carries_its_own_extension_list`) and a hard-coded sibling path that stopped
-exempting the retired-token checker the moment this directory moved.
+**A checker that restates any of these is the drift the checkers exist to catch.** Two
+incidents that shape this rule, and the test that guards the first: [`SPECS.md`](SPECS.md).
 
 ## Shape — the root holds the law, every subdirectory holds one responsibility
 
-Split 2026-07-31 at 50 files in one flat directory. Only four things stay at the root: the
-two law modules, the shared hook-stdin parser, and the three entrypoints whose names are
-dictated (`pre-commit` and `post-commit` by git, `post-edit.sh` by `.claude/settings.json`).
-Everything else routes through the table below.
-
-The split is real, not cosmetic: a subdirectory under `WARN_FILES` folds back into this
-table unless it carries its own `CONTEXT.md`, so each one declares itself and the parent
-table went 50 rows → 19. **Moving files without paying that cost would satisfy the fanout
-count while leaving the reader exactly as much to hold** — the check would have been gamed
-rather than answered.
+Only the two law modules, the shared hook-stdin parser, and the three entrypoints whose
+names are dictated by git/`.claude/settings.json` (`pre-commit`, `post-commit`,
+`post-edit.sh`) stay at the root. Everything else lives in a subdirectory with its own
+responsibility, routed through the table below.
 
 Two axes worth knowing before you route:
 
@@ -41,15 +32,15 @@ Two axes worth knowing before you route:
   directory holds standalone programs, run by path.
 - **Reject vs write.** A gate exits non-zero and stops the commit or the edit; a generator
   writes an artifact and stages it. `entropy/` does neither — it reports, into
-  [`entropy.md`](../../entropy.md). Read that report; never re-scan the tree.
+  [`entropy.md`](../../entropy.md); read that report instead of re-scanning the tree.
 
 Python modules in a subdirectory reach the root law with
 `sys.path.insert(0, str(Path(__file__).resolve().parents[1]))`. The test suite gets the same
 path set once, from `core/tools/test/conftest.py`, derived by scanning this directory.
 
-What each gate blocks, and the contract a new agent's shim must satisfy:
-[`SPECS.md`](SPECS.md). Why the `code/` gates exist: [`code/VERIFY.md`](../../code/VERIFY.md).
-Installing the toolchain they depend on: [`SETUP.md`](../../SETUP.md).
+Gate behavior and the agent-shim contract: [`SPECS.md`](SPECS.md). Why the `code/` gates
+exist: [`code/VERIFY.md`](../../code/VERIFY.md). Installing the toolchain they depend on:
+[`SETUP.md`](../../SETUP.md).
 
 <!-- routing:start -->
 ## Routing
@@ -76,7 +67,7 @@ Installing the toolchain they depend on: [`SETUP.md`](../../SETUP.md).
 | [`file_law.py`](file_law.py) | [`file_law.pyi`](file_law.pyi) | `is_code_file`, `load_limits`, `allowed_extensionless`, `is_vendored`, `main` | What a file IS, and which rules apply to it. The numeric-law sibling of schema_law.py: |
 | [`hook_input.py`](hook_input.py) | [`hook_input.pyi`](hook_input.pyi) | `parse_stdin`, `is_subagent`, `seen_file`, `load_seen`, `mark_seen` | Shared parser for Claude Code hook stdin JSON — nested (current) and flat (legacy shim) schemas. |
 | [`post-commit`](post-commit) | — | — | auto-push feature/* so work survives a dead session |
-| [`post-edit.sh`](post-edit.sh) | — | — | ← add first-line comment |
+| [`post-edit.sh`](post-edit.sh) | — | — | PostToolUse: Edit, Write — regenerates interfaces, checks first-line comment, syncs CONTEXT.md |
 | [`pre-commit`](pre-commit) | — | — | the dispatcher. |
 | [`schema_law.py`](schema_law.py) | [`schema_law.pyi`](schema_law.pyi) | `load_law`, `load_scopes`, `load_retired` | The law parser. Every Tier 0 check reads core/SCHEMA.md through this module, and none |
 <!-- routing:end -->
