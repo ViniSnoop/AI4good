@@ -2,6 +2,7 @@
 > Canonical workspace entrypoint. Read before any task.
 
 - FILESYSTEM = source of truth. No memory, no assumptions.
+- **PROVIDER-AGNOSTIC STORAGE: the workspace owns its state, never a harness.** Agnostic to provider, company and harness — so nothing that matters is written to a vendor's private directory. If a harness insists on its own path, symlink that path into the repo. Live case: `~/.claude/projects/<slug>/memory` → `brain/memory/`, so what the agent writes lands in git.
 - IMPROVE WORKSPACE at any opportunity. WRITE ISSUES DOWN at the end of INBOX.md
 - DON'T ASSUME, interview user if in doubt about his idea or intent.
 - EXPAND ACRONYMS on first use. Aliases: [`core/SCHEMA.md`](core/SCHEMA.md) § Vocabulary.

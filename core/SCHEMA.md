@@ -142,6 +142,12 @@ That question runs second. The first is **is it still true?** — checked agains
 | **IMPORTANT** | **REDIRECT** down, leave one pointer line | **KEEP** |
 | **DESIRABLE** | **CUT** | cut on sight; cheap either way |
 
+**A provider's own directory is not a placement, it is an escape.** `AGENTS.md` § provider-agnostic
+storage: state written to a harness's private path is outside the type system entirely — no type
+owns it, no check reads it, and it does not survive a change of harness. Symlink the path the
+harness insists on into the tree and the file becomes an ordinary instance again, checked like any
+other. `brain/memory/` is the live case.
+
 REDIRECT needs no new mechanism: `CONTEXT.md` (hot) already pairs with a sibling `SPECS.md` (cold),
 which is the thin-front/leaf-detail split, and `ROADMAP.md` pairs with `ROADMAP-<slug>.md`. **A
 constraint sitting in a `CONTEXT.md` head is the standard defect** — it is a SPECS answer trapped in
