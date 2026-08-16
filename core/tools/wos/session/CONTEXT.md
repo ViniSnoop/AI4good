@@ -31,6 +31,7 @@ the memory store's cost stays separable from everything else's.
 |------|-----------|-----|-------------|
 | [`context`](context) | — | — | what fills the context |
 | [`session_cost.py`](session_cost.py) | [`session_cost.pyi`](session_cost.pyi) | `turn_components`, `turn_cost` | session_cost.py — the price of a turn. The one place rates live. |
-| [`session_log.py`](session_log.py) | [`session_log.pyi`](session_log.pyi) | `label`, `att_chars`, `blocks`, `walk`, `attribute` | session_log.py — replay a Claude Code transcript and attribute each turn's context growth. |
+| [`session_log.py`](session_log.py) | [`session_log.pyi`](session_log.pyi) | `label`, `att_chars`, `blocks`, `output_chars`, `walk` | session_log.py — replay a Claude Code transcript and attribute each turn's context growth. |
+| [`session_turns.py`](session_turns.py) | [`session_turns.pyi`](session_turns.pyi) | `paths_for`, `turns` | session_turns.py — what counts as ONE assistant turn, and how much of it lands in the thread. |
 | [`usage`](usage) | — | — | where session spend goes: |
 <!-- routing:end -->

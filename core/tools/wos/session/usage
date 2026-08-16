@@ -5,51 +5,18 @@
 #
 # Exists because ROADMAP Frente 9 was steered for weeks by numbers from a single 24h window, two
 # of which were false. Any claim about where usage goes should be re-runnable in one command.
-import json
 import sys
 from collections import defaultdict
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from session_cost import COMPONENTS, turn_components
+from session_cost import COMPONENTS
+from session_turns import turns
 
-ROOT = Path.home() / '.claude' / 'projects'
 BUCKETS = [50, 100, 150, 200, 250, 300, 400, 10 ** 6]
 # What each component is called on screen, and the multiple of a fresh input token it is billed at.
 LABELS = {'input': 'fresh input', 'write_1h': 'cache write 1h', 'write_5m': 'cache write 5m',
           'cache_read': 'cache read', 'output': 'output'}
-
-
-def turns(project: str, session: str = ''):
-	"""Every main-chain assistant turn: (context, cost, model, session, output tokens)."""
-	directory = ROOT / project
-	if not directory.is_dir():
-		sys.exit(f'no such project: {directory}')
-	paths = sorted(directory.glob('*.jsonl'))
-	if session:
-		paths = [p for p in paths if p.stem == session]
-		if not paths:
-			sys.exit(f'no such session: {session}')
-	for path in paths:
-		with path.open(errors='replace') as handle:
-			for line in handle:
-				if '"usage"' not in line:
-					continue
-				try:
-					event = json.loads(line)
-				except json.JSONDecodeError:
-					continue
-				if event.get('type') != 'assistant' or event.get('isSidechain'):
-					continue
-				usage = (event.get('message') or {}).get('usage') or {}
-				model = (event.get('message') or {}).get('model') or ''
-				if not usage or model.startswith('<'):
-					continue
-				context = (usage.get('input_tokens', 0)
-				           + usage.get('cache_read_input_tokens', 0)
-				           + usage.get('cache_creation_input_tokens', 0))
-				yield (context, turn_components(model, usage), model, path.stem,
-				       usage.get('output_tokens', 0))
 
 
 def bucket_of(context: int) -> int:
@@ -58,13 +25,15 @@ def bucket_of(context: int) -> int:
 
 def self_authored(rows) -> tuple:
 	"""How much of a turn's context the agent itself wrote, and what that does to an output token.
-	An output token is not paid once: it lands in the thread and every later turn re-reads it.
+	A *logged* output token is not paid once: it lands in the thread and every later turn re-reads
+	it. Only logged output accumulates — thinking is billed inside `output_tokens` but never enters
+	a later turn's context, so charging it the re-read multiplier is what inflated this to 75%.
 	Capped at 1.0 per turn — cumulative output ignores compaction, so past the cap the ratio would
 	measure the cap rather than the thread. That makes the mean an upper estimate."""
-	cum: dict = defaultdict(int)
+	cum: dict = defaultdict(float)
 	shares = []
 	attributable = total = out = 0.0
-	for context, comp, _model, session, out_tokens in rows:
+	for context, comp, _model, session, _out_tokens, logged in rows:
 		share = min(cum[session] / context, 1.0) if context else 0.0
 		shares.append(share)
 		cost = sum(comp.values())
@@ -73,7 +42,7 @@ def self_authored(rows) -> tuple:
 		attributable += (cost - comp['output']) * share + comp['output']
 		total += cost
 		out += comp['output']
-		cum[session] += out_tokens
+		cum[session] += logged
 	mean = sum(shares) / len(shares) if shares else 0.0
 	attr_share = attributable / total if total else 0.0
 	out_share = out / total if total else 0.0
@@ -85,7 +54,7 @@ def brief(rows) -> None:
 	absolute total while the ~8% gap between this tool and the one-off script is open."""
 	by_model: dict = defaultdict(float)
 	total = out = 0.0
-	for _context, comp, model, _session, _out_tokens in rows:
+	for _context, comp, model, _session, _out_tokens, _logged in rows:
 		cost = sum(comp.values())
 		by_model[model] += cost
 		total += cost
@@ -109,15 +78,17 @@ def main() -> None:
 		brief(rows)
 		return
 
-	total = sum(sum(comp.values()) for _c, comp, _m, _s, _o in rows)
+	total = sum(sum(comp.values()) for _c, comp, _m, _s, _o, _l in rows)
 	by_model: dict = defaultdict(float)
 	by_model_out: dict = defaultdict(float)
 	by_bucket: dict = defaultdict(lambda: [0, 0.0])
 	by_session: dict = defaultdict(float)
 	by_component: dict = defaultdict(float)
-	reread = 0
-	for context, comp, model, session_id, _out_tokens in rows:
+	reread = billed_out = logged_out = 0.0
+	for context, comp, model, session_id, out_tokens, logged in rows:
 		cost = sum(comp.values())
+		billed_out += out_tokens
+		logged_out += logged
 		by_model[model] += cost
 		by_model_out[model] += comp['output']
 		slot = by_bucket[bucket_of(context)]
@@ -140,6 +111,15 @@ def main() -> None:
 		cost = by_component[name]
 		if cost:
 			print(f'  {LABELS[name]:<28} ${cost:9,.2f}  {cost / total:5.1%}')
+	# Splitting the output line matters because only one half is re-read. `unlogged` is a residual,
+	# not a measurement: thinking is billed here but its text is never written to the transcript,
+	# and anything else the transcript drops lands in this number too.
+	# Capped at 1.0: logged tokens are an estimate off a declared chars/token, so a turn that is
+	# almost all tool-call JSON can estimate above what was billed. Never print a negative residual.
+	share = min(1.0, logged_out / billed_out) if billed_out else 0.0
+	print(f'    of which logged    {share:5.1%} — text and tool-call arguments, re-read every turn')
+	print(f'    of which unlogged  {1 - share:5.1%} — thinking and whatever else is not '
+	      f'transcribed; paid once')
 
 	print('\nby the context the turn carried — the cost of one more turn, and what it adds up to')
 	# The last column is the share of spend at or above this row's *lower* edge — read the <200k

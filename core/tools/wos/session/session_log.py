@@ -50,6 +50,23 @@ def blocks(message: dict) -> list:
 	return content if isinstance(content, list) else [{'type': 'text', 'text': content or ''}]
 
 
+def output_chars(message: dict) -> int:
+	"""What a response actually put INTO the thread: its text and its tool-call arguments.
+
+	Not the same as `output_tokens`. Thinking is billed there but never persisted — the block
+	arrives as `{'type': 'thinking', 'thinking': '', 'signature': …}` — and it does not re-enter
+	later turns, so it is paid once. Counting it as thread content is what made `usage` report a
+	75% self-authored share; on the logged content alone it is 12%.
+	"""
+	total = 0
+	for block in blocks(message):
+		if block.get('type') == 'text':
+			total += len(block.get('text') or '')
+		elif block.get('type') == 'tool_use':
+			total += len(json.dumps(block.get('input') or {}))
+	return total
+
+
 def _result_chars(block: dict) -> int:
 	body = block.get('content')
 	if isinstance(body, str):
