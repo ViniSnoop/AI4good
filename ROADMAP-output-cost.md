@@ -136,7 +136,48 @@ about the system.** Vary the probe's shape before believing what it reports.
 Deliberately **not** proposed: a global terseness rule (ACL 2025: wrong budgets degrade work), and
 lowering `effort` to shorten output (Anthropic: it does not reliably move visible length).
 
+## Instruments before prose — the reorder Lucas asked for
+
+*"É difícil perceber que estamos avançando... a ausência de benchmark, medições e testes visíveis me
+faz duvidar se nossas edições estão boas ou confundindo as coisas."* (2026-08-15)
+
+That is a gap in the workspace, not a mood. This repo has an instrument for **tidiness**
+([`entropy.md`](entropy.md)) and one for **correctness** (`verify-fast`, 293 tests). It has **none for
+value**. Nothing on disk answers *are sessions getting cheaper* or *is the agent getting better*, so
+every session's worth is argued in prose — and prose is exactly what cannot be audited. The RTK bug is
+the proof: it was invisible for weeks precisely because no standing number tracked it, and when a
+number finally moved it was still misread.
+
+**So steps 2 and 3 run before step 1.** The plan built the writeup first and the instruments last;
+that ordering is what produced a session whose output Lucas cannot check. Inverted, every `/roundup`
+from the next one onward prints its own cost, and the writeup gets numbers that regenerate.
+
+Two additions the reorder needs:
+
+- **A compaction-adoption number** in the same block: share of Bash calls the shim actually rewrote.
+  This exact bug would have shown as a flat zero on day one. A lever with no standing metric is a
+  lever nobody can tell is broken.
+- **The benchmark already has a home.** `brain/INBOX.md` carries *"o WOS pode virar um artigo. o estudo
+  de ablação, se bem feito, me parece bem publicável."* The ablation study and the benchmark Lucas is
+  asking for are the same artifact — a before/after over a fixed task set, with the gates and skills
+  switched off one at a time. Route that entry to a paper house and it stops being two wishes.
+
+**Until one of these lands, prefer changes whose effect is visible in a number**, and say plainly in
+the hand-off which number moved. A session that cannot name one is a session Lucas has to take on faith.
+
 ## Steps
+
+0. 🔴 **RTK is wired twice, and precedence between them is undefined.**
+   `~/.claude/settings.json` registers `PreToolUse: Bash → rtk hook claude` globally, and
+   `/mnt/workspace/.claude/settings.json` registers the shim. Both fire on every Bash call here. Where
+   only the shim answers the shim wins (verified), but for a payload both rewrite — `git status` ⏎
+   `ls -la` — two competing `updatedInput` values are returned and the harness documents no rule for
+   picking one. Observed behaviour today is the shim, which is the correct outcome by luck rather than
+   by contract. Decide one: drop the Bash matcher from the global file (compaction outside this
+   workspace then needs `rtk init -g --hook-only` re-run against the shim), or point the global entry
+   at the shim by absolute path and accept the workspace-path dependency. **Verify by the delta method,
+   with a payload both hooks would rewrite** — that is the only shape that discriminates.
+   → **model: opus**, because the wrong choice degrades every repo on the machine.
 
 1. 🟢 **Record the measurement — `core/experiments/output-cost.md`.** One file per question, per
    [`core/experiments/SPECS.md`](core/experiments/SPECS.md): *"output tokens are more expensive than

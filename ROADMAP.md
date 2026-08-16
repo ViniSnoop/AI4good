@@ -357,8 +357,9 @@ feeling lost twice. **Mass is the disease and only deletion cures it.**
 
 > **The output-cost plan is [`ROADMAP-output-cost.md`](ROADMAP-output-cost.md)** (2026-08-15): output is
 > 14.9% of spend at sticker but **86.9% once re-reads are counted** — a mean turn is 75.7% self-authored.
-> It closes 9.4, measures Frente 4.6's shell-heredoc hole, and opens with a tested finding: **the RTK
-> hook is configured and does not fire**, leaving ~919k tok/30 days unfiltered.
+> It closes 9.4 and measures Frente 4.6's shell-heredoc hole. It now leads with **instruments before
+> prose** — steps 2 and 3 run first, so every `/roundup` prints its own cost and a session's worth
+> stops being argued in text.
 
 **Why — re-measured 2026-08-13, and the old numbers were wrong.** The previous framing came from a
 single 24 h window. Re-run it yourself — that is the point of
