@@ -9,6 +9,22 @@
 
 <!-- add entries below, newest first -->
 
+https://www.instagram.com/reel/Dbk11QVtZB8/?utm_source=ig_web_copy_link&igsh=NTc4MTIwNjQ2YQ==
+— via aiwbot · 2026-08-16
+
+maybe we should keep looking for options on how to minimize output tokens
+
+I think it is best to change the final output of the /roundup 
+from
+Read outputs/handoff.md and continue.
+to
+Read outputs/handoff.md and plan what you'll do in this session.
+my argument is that there are advantages on planing a session, but I want to discuss this in detail with Opus
+
+
+https://www.instagram.com/reel/DcEBQNPNPzs/?utm_source=ig_web_copy_link&igsh=NTc4MTIwNjQ2YQ==
+— via aiwbot · 2026-08-16
+
 estudar uma forma de ativar um "auto-continue" do claude code quando o limite das sessões é atingido
 
 https://www.instagram.com/p/Db9DJojGKfS/?utm_source=ig_web_copy_link&igsh=NTc4MTIwNjQ2YQ==
@@ -49,4 +65,22 @@ Explore
 3%
 general-purpose
 1%
+
+---
+issues found 2026-08-16, agent-written:
+
+`core/hooks/checks/pre-edit.py:11` sets `WORKSPACE_ROOT = parents[2]`, which is
+`/mnt/workspace/core`, not the workspace root — so `is_vendored()` always returns False there and
+the vendored exemption never applies at edit time. `vendored.txt` patterns are workspace-relative
+(`academy/papers/*/sigconf*.tex`, `code/corpora/depth_anything_v2/*`), so editing a vendored .py
+past 200 lines is blocked by the size gate that vendored.txt exists to waive. Latent, not observed.
+
+`core/hooks/facade/facade-scan.py` is documented as **Informs** but prints to stdout on exit 0,
+which Claude Code shows in transcript mode only — the model never sees it. The channel that does
+reach the model is `hookSpecificOutput.additionalContext`, now verified working on PreToolUse
+(`core/hooks/SPECS.md`). So one of our hooks has been talking to nobody.
+
+Dead item-number pointers in code: `Frente 9.2` is cited in `core/tools/wos/roundup` (x2),
+`test_roundup.py`, `test_roundup_skills.py` (x2) — and that item is deleted. ROADMAP.md § How to
+read this already bans citing item numbers from code; nothing enforces it. A Tier 0 check could.
 
