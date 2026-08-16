@@ -45,11 +45,24 @@ opus-tier agent can rule on alone is 🟡. Re-derive the count from the marks be
 The whole Front 10 chain came off this list on 2026-08-16 — six 🔴 items closed in one sitting,
 because they were one decision wearing six numbers and none of them could be taken alone.
 
-**Never cite an item number from code or from a test.** A closed item is *deleted* — that is the
-workspace rule — so every `Front N.M` in a comment becomes a dead pointer the day the work lands.
-Cutting 4.7 broke six of them at once (2026-08-15). Point at the `SPECS.md` or `SCHEMA.md` section
-that owns the rule instead; those are durable, and writing the rule there is what closing an item
-is *for*. Citing a number is fine **inside this file**, and in a commit message, which git keeps.
+**Never cite an item number from code or from a test — now ENFORCED**, by
+[`core/hooks/checks/citation-gate.py`](core/hooks/checks/citation-gate.py) on every commit. A closed
+item is *deleted*, so every `Front N.M` in a comment becomes a dead pointer the day the work lands.
+Point at the `SPECS.md` or `SCHEMA.md` section that owns the rule instead; those are durable, and
+writing the rule there is what closing an item is *for*. Numbering is legal inside `ROADMAP.md` and
+`ROADMAP-<slug>.md`, and in a commit message, which git keeps.
+
+**What the sweep found, and it is the argument for gating rather than asking** (2026-08-16). This
+rule was prose for a fortnight and the corpus reached **91 numbered citations across ~50 files** —
+including pointers to *Fronts 2 and 6, which have never existed*, cited from the `.gitignore`
+self-heal and the pointer-integrity test. Two of the checks whose job is catching dead pointers were
+themselves carrying them. **A rule that only a careful reader applies is a rule the corpus grows
+past.**
+
+**Sequence a ban before a rename, never after.** Renaming `Frente`→`Front` looked like it shared a
+sweep with this ban. It did not: 91 of the 160 mentions were citations the ban deletes outright, so
+doing the ban first cut the rename from a 50-file sweep to three files. The reverse order would have
+carefully moved 91 pointers and then deleted them.
 
 Measurements never live here. The instrument is
 [`core/tools/wos/session/context`](core/tools/wos/session/context); results live in
@@ -276,7 +289,7 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
    bodies rather than `ast.walk`, and it will move API columns across the corpus, so measure
    the churn before taking it.
    → **model: sonnet**.
-9. 🟢 **three defects in the enforcement layer itself**, found 2026-08-16 while building the
+9. 🟢 **two defects in the enforcement layer itself**, found 2026-08-16 while building the
    heredoc gate. Each is small; together they are the same shape — a gate that looks installed and
    is not doing its job, which is this repo's named failure mode.
    - **`checks/pre-edit.py:11` sets `WORKSPACE_ROOT` one directory too shallow** —
@@ -288,10 +301,6 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
      to stdout on exit 0, which Claude Code shows in transcript mode only. The channel that reaches
      the model is `hookSpecificOutput.additionalContext`, now verified on `PreToolUse`
      ([`core/hooks/SPECS.md`](core/hooks/SPECS.md)). Port it, or reclassify it honestly.
-   - **Dead item-number pointers in code.** `Front 9.2` is cited from `core/tools/wos/roundup`
-     (×2), `test_roundup.py` and `test_roundup_skills.py` (×2); that item is deleted. § How to read
-     this already bans citing item numbers from code and nothing enforces it — a Tier 0 check over
-     `Front \d+\.\d+` outside this file is the enforcement, and it would have caught these.
    → **model: sonnet**.
 
 ---
@@ -799,23 +808,6 @@ is no conceptual intersection."* Each type answers exactly one question.
    one must be tracked to serve as the criterion-1 ratchet. Decide once and write the answer into
    `core/SCHEMA.md` so it stops looking like an oversight.
    → **model: opus** — one ruling, then at most a `git mv`.
-2b. 🟡 **"Front" is Portuguese in an English contract vocabulary — decide, then sweep or keep.**
-   Lucas, INBOX 2026-08-15: *"por que chamamos de FRENTE as etapas do roadmap? … FRENTE até onde sei
-   é só em português. em inglês seria FRONT não é n?"* He is right on the facts. The literal English
-   is *front*, but an English roadmap would idiomatically say **workstream** or **track** — *front*
-   reads as military or meteorological, so a straight translation is the worst of the three.
-
-   Why it is a real item and not pedantry: this workspace's prose is deliberately mixed — rationale
-   in Portuguese, **contracts in English** — and a roadmap heading is a contract, cited by
-   **29 occurrences in this file and 27 other files**, including source comments in
-   `core/hooks/entropy/*.py` and test docstrings. Those citations are anchor ids in practice, which
-   is exactly the cost that priced the `VERIFY.md` rename in item 3.
-
-   If it moves, it is a **retired token**: add it to `core/SCHEMA.md` § Retired tokens in the same
-   commit, so the check proves the sweep complete instead of a grep claiming it. Keeping it is also
-   a legitimate answer — but then say so in § Vocabulary, so the next reader stops wondering.
-   → **model: opus** for the ruling, sonnet for the sweep.
-
 3. 🟢 **the transient initiative doc is `ROADMAP-<slug>.md` — ruled 2026-08-14, three renames left.**
    The "fourth type" turned out not to be a type. Lucas's ruling was to unify by semantic symmetry
    with zero conceptual intersection, and *"make sure as well that we do not create a new .md file
