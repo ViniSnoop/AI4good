@@ -183,6 +183,36 @@ Compression is the **last** step and only on what survives, because it is measur
 worthless on this corpus — a pilot moved the worst offender 0.22% for a full model call. Placement
 beats phrasing.
 
+**The REDIRECT recipe, in order.** It survived contact with the whole `core/` corpus, and the order
+is the part that pays:
+
+1. **Delete what a hook already enforces.** A gate names its own fix when it fires, so restating it
+   is pure cost. The exception is a number that changes how you write *before* the hook can speak —
+   the 150/200 line caps stay.
+2. **Move constraints to a sibling `SPECS.md`**, creating it if absent.
+3. **Move data out** — alias lists, schemas, key tables.
+4. **Delete stale claims.**
+5. **Keep identity and navigation only.**
+
+**Running step 1 first is what makes it cheap: six new `SPECS.md` instead of eleven.** Most of what
+looked movable was already written better somewhere else — a path table duplicating the file's own
+generated routing block, a layering table duplicating the child `CONTEXT.md`, a vocabulary section
+restating this file verbatim. **Open the child `CONTEXT.md` and the file's own routing block before
+relocating anything.**
+
+**What replaces a moved section is one thin pointer line, never an instruction.** Write
+`Gate behavior and the agent-shim contract: SPECS.md`; never "you must read SPECS.md". The check
+fires on an over-size head *and* a modal, so the modal is the half that makes prose a trapped
+constraint. A large head with no modals is identity and navigation, and is correct as it is — the
+token warn is a signal, not a cap.
+
+**A doc pass is a cheap fuzzer for the generators that read those docs.** Every pass over this
+corpus has surfaced a generator bug rather than a prose problem, because relocating sections writes
+file shapes nobody had written before — a `SPECS.md` inside `core/skills/` read as a skill and
+failed the commit for every staged sibling; two extensions were scanned with no comment pattern and
+so were reported as undescribed no matter how well they were commented. Expect one, and fix it at
+the generator.
+
 ### No archive types
 
 `ARCHIVE.md`, `HISTORY.md` and `.log/done.md` are **deleted, not renamed**. A file that is "never

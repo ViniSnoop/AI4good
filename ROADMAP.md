@@ -166,70 +166,24 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
 5. 🟡 **drain to zero, then flip fanout to a hard block** (Lucas 2026-07-31: hard block, no
    grandfathering). The flip is coherent only at zero — the pre-commit hook is global
    (`core.hooksPath`), so switching it on while nested repos are over the cap fails every commit in
-   those repos, including the commits that would fix it. Live lists in `entropy.md`; when both read
-   Clean, add fanout to `core/hooks/checks/` beside the type gate and delete `BASELINE` from
-   `test_entropy_fanout.py` in the same commit.
+   those repos, including the commits that would fix it. Live lists in [`entropy.md`](entropy.md);
+   when they read Clean, add fanout to `core/hooks/checks/` beside the type gate and delete
+   `BASELINE` from `test_entropy_fanout.py` in the same commit.
 
-   **This repo is done (2026-07-31).** `core/hooks` 50 → a root of 6 and 13 responsibilities;
-   `core/tools` 37 → 8 families, every CLI path changed (Lucas's call over a named exception);
-   `core/tools/test` 12 → `law/ workspace/ video/`. No directory in the wos repo is over
-   `BLOCK_FILES`; the five that remain are 8-10 files, which `limits.env` calls a warning on
-   purpose. The `BASELINE` in `test_entropy_fanout.py` is down to three entries, none in `core/`
-   except the two caveman directories.
+   **This repo, `code/aiwbot` and `code/flows` are drained.** What the draining taught is written
+   into [`code/SPECS.md`](code/SPECS.md) § Splitting an over-full directory — five rules, each of
+   which cost a session to find, and that is where a future repo will look for them rather than in
+   a ledger item that closes.
 
-   **The lesson worth keeping.** Moving files satisfies the fanout count without helping the
-   reader: the routing generator folds any directory under `WARN_FILES` back into its parent, so a
-   split only pays off once each new directory declares itself with a `CONTEXT.md`. Both splits
-   here did that — `core/hooks/CONTEXT.md` went 50 rows → 19, `core/tools/CONTEXT.md` 37 → 12.
-   A split that leaves the parent table the same size is the check being gamed, not answered.
-
-   **`code/aiwbot` is done (2026-08-01)**, on `feature/fanout-drain`: `tests` 51 → nine subjects,
-   `frontend` 38 → a root of 5 and seven surfaces, `backend` 12 → a provider-agnostic root and
-   `providers/`. Nothing in the repo is over `BLOCK_FILES` now; two directories sit at 8. Tests
-   and source carry the same directory names, so a surface and its coverage are one word apart.
-
-   **Two hazards that only show up in a package, both worth expecting in the next repo.** A
-   directory turns a flat import into a boundary, so the facade gate starts firing on imports
-   that were legal the day before — five of them here, fixed by re-exporting from the new
-   package `__init__.py` rather than by importing past it. And `spec-read-gate.py` stops at the
-   *nearest* ancestor declaring `> spec:`, so a new subdirectory written with `spec: none`
-   silently unlocks a spec-locked module; every subdirectory of a locked module must re-declare
-   `> spec: ../SPEC.md`.
-
-   **`code/flows` is done (2026-08-02).** `engine/ui` 20 → 6 by **deleting** the pre-React
-   Cytoscape canvas rather than splitting it; `libraries/tools` 24 → five families; `engine/tests/
-   unit` 23 → seven subjects plus two shared kits; `components` 19 → four groups; `App.jsx`
-   844 → 187 and the two node cards 515/428 → 126/63. The bundle came out **smaller than before
-   the work started** (74.05 → 70.51 kB) because the node cards were near-copies of each other.
-
-   **The lesson from flows: check whether the directory is a split or a delete.** The biggest
-   one was neither tangled nor needed — 14 dead modules whose own headers still said
-   "Cytoscape". **A file nothing imports is the first thing to look for in an over-full
-   directory.**
-
-   **But "nothing imports it" is not proof it is dead, and I got this wrong once today.** Five
-   orphan React components read as debris on imports plus `git log`; the repo's own `ROADMAP.md`
-   said otherwise — one milestone had *deliberately unwired* two of them, and the next milestone
-   planned to reuse them. They were drafts for open work. Deleting them stayed right (drafts,
-   over the line cap, git holds them) but only once each milestone was made to name the commit
-   they live at. **Grep the repo's ROADMAP for the filename before calling it dead**; that is
-   the step the import graph cannot give you.
-
-   Two more hazards, on top of the two above: barrel `index.js` facades **defeat tree-shaking**
-   (the dead components started being bundled the moment a facade re-exported them), and a
-   `parts/` directory may not import its own parent's constants — that needs a third leaf
-   (`nodes/shared/`) or the facade gate and a module cycle fight each other.
-
-   **What is left, all of it in nested repos:**
-   - **files over `BLOCK_LINES`** — one: `isoroll-content/src/pipeline/s3_batch.sh` (209),
-     owned by the parallel isoroll session.
-   - **directories over `BLOCK_FILES`** — the isoroll set, owned by that session:
-     `isoroll-content/src/pipeline` (58), `/test` (31), `/src/cli` (18);
-     `isoroll-module/src/render` (31), `/transform` (20), `/walls` (16), `test/unit` (21).
-     Free to take: `apptime/lib/screens/analytics` (18), `/screens` (15), `/data` (14);
-     `spacemantics/checker` (15).
-   → **model: sonnet**, one repo at a time. `apptime` is Dart/Flutter — the routing generator
-   and the facade gate both know `index.dart`, but no gate has been exercised on that repo yet.
+   **Everything remaining lives in nested repos and is refiled there (2026-08-16)**, because a
+   workspace commit cannot touch those files and a pointer to another ROADMAP is a duplicate by
+   definition. `apptime` and `spacemantics` carry their own items now, on
+   `feature/workspace-drift-refile`. The isoroll pair — `isoroll-content/src/pipeline` and its
+   siblings, `isoroll-module/src/render` and its siblings, plus the one file over `BLOCK_LINES` —
+   were **not** refiled: both checkouts are held by the parallel isoroll session and writing into
+   them from here is the mid-flight collision Front 11 exists to prevent. **That session refiles
+   them**, and until it does, this repo cannot flip the gate.
+   → **model: sonnet**, one repo at a time.
 
 6. 🟡 **close the first-line-comment hole, then sweep — in that order, because sweeping first
    just refills.** Each marker is a routing-table row that describes nothing, in the workspace's
@@ -261,7 +215,7 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
    what a commit *adds* — so the 204 do not have to be paid before it turns on.
 
    **Re-scope before building: a slice of this queue was never a discipline problem.** Found
-   2026-08-15 while draining 13.1. `ALL_EXTS` and `COMMENT_RE` in
+   2026-08-15 while draining the corpus. `ALL_EXTS` and `COMMENT_RE` in
    [`core/hooks/routing/workspace_meta.py`](core/hooks/routing/workspace_meta.py) are two lists that
    have to agree, and nothing checked that they did: `.sh` (30 files) and `.jsx` (29) were scanned
    with no comment pattern, so `file_description()` returned `''` and the generator wrote the
@@ -359,9 +313,17 @@ feeling lost twice. **Mass is the disease and only deletion cures it.**
    dashboard runs, `verify-fast` green) so it was committed rather than lost. But
    `brain_dashboard.py` went **194 → 196** and `brain_stats.py` is at **177**: counting moved out
    and something else moved in. Both are warns now, four and twenty-three lines from a hard block
-   respectively — so the next session on this frente starts by paying that down, before adding
+   respectively — so the next session on this front starts by paying that down, before adding
    anything.
-   → **model: sonnet**. The plan is the three findings above; it used to point at a file in
+   **A fourth finding, and it is loud on every commit (2026-08-16): the `>**owns**` parser reads
+   ordinary prose as ownership entries.** Nine warnings print per commit, each quoting a whole
+   paragraph — `ecovila: owns 'Terreno de 200 m² (com vista) comprado com o pai…', which resolves
+   to no repo`. It is scanning past the block's end and treating following body text as paths, so
+   `craft-flows` alone contributes six. Nothing is miscounted (an unresolvable path is skipped) but
+   it is noise on the one surface an agent reads at commit time, and **noise on a warning channel is
+   how a real warning gets missed** — the same argument that retires a check firing on honest prose.
+   Fix the parser before touching the counting.
+   → **model: sonnet**. The plan is the four findings above; it used to point at a file in
    `~/.claude/plans/`, which `AGENTS.md` forbids — a plan lives in the ROADMAP of the thing it
    changes, not in harness-owned state no clone of this workspace would ever get.
 
@@ -429,7 +391,7 @@ at the moment it applies. The close itself is [`core/tools/wos/roundup`](core/to
 the two skills; every decision behind that split, and why no session spawns its own successor, is
 [`core/SPECS.md`](core/SPECS.md) § AD-09.
 
-**The lesson this frente cost the most to learn, twice: a number nobody can re-run steers the work
+**The lesson this front cost the most to learn, twice: a number nobody can re-run steers the work
 anyway — and building the instrument is not the same as checking it.** The first framing came from a
 single 24 h window wrong in every claim. The second came from a tool, was re-runnable, and was still
 wrong by 2x for three weeks because nobody re-derived its output by hand. So: a number in this file
@@ -473,7 +435,7 @@ that [`core/tools/wos/session/usage`](core/tools/wos/session/usage) cannot repro
    Two facts to put on the table before opinions. `core/agents/` **does** exist — lead, researcher,
    writer, verifier, reviewer, ported from Feynman — so the claim "não temos agentes" is about them
    being unused, not absent; find out which is true before designing anything. And the measured
-   fact from this frente: *zero* sidechain messages across 328 transcripts, which is why the
+   fact from this front: *zero* sidechain messages across 328 transcripts, which is why the
    "59% from subagent-heavy sessions" claim was retired. **Nothing has ever been delegated here**,
    so this is a question about a capability with no usage data at all, not a tuning question.
    Same treatment as Front 10.1: bring options and trade-offs, decide with Lucas, do not arrive
@@ -490,7 +452,7 @@ that [`core/tools/wos/session/usage`](core/tools/wos/session/usage) cannot repro
    chain before any file access in a subtree, and `pre-read.sh` redirects source reads to stubs —
    both are designed to *save* context, and neither has ever been measured doing it. A chain
    re-read once per subtree per session is the mechanism paying for itself; re-read per *file* is
-   the mechanism billing for the same page repeatedly, and the frente's own rule applies: a number
+   the mechanism billing for the same page repeatedly, and the front's own rule applies: a number
    nobody can re-run steers the work anyway.
 
    The transcript already holds every `Read` with its offset and limit, and
@@ -714,23 +676,24 @@ hypothesis; re-run it before spending a decision on it.**
    covered; **ordinary commits are the gap.**
    → **model: sonnet**.
 
-3. 🟡 **`code/ROADMAP-spec-drive.md` is gitignored, and the discipline it tracks was forgotten.** Two
-   captures from 2026-08-15 that are the same finding from both ends. The mechanical half: the
-   `code/*` rule at `.gitignore:37` excludes it while its first-level siblings `code/VERIFY.md` and
-   `code/SPECS.md` are tracked, so every edit to it has stayed on one machine — found while
-   repointing `SETUP.md` references, when a two-line fix showed up in neither `git status` nor
-   `git diff`. The human half, Lucas: *"sobre SDD (SPEC DRIVEN DEVELOPMENT), sinto que começamos
-   isso mas esquecemos completamente."*
+3. 🔴 **is spec-driven development resumed, rescoped, or killed?** Lucas, 2026-08-15: *"sobre SDD
+   (SPEC DRIVEN DEVELOPMENT), sinto que começamos isso mas esquecemos completamente."* The ledger
+   is [`code/ROADMAP-spec-drive.md`](code/ROADMAP-spec-drive.md) and it is **readable now** — it was
+   gitignored by the `code/*` rule, so every edit stayed on one machine, which is a sufficient
+   explanation for the forgetting on its own.
 
-   **Treat them as one.** A rollout ledger that cannot be pushed cannot be picked up by the next
-   session, on this machine or any other — invisibility is a sufficient explanation for being
-   forgotten, and it is the half that is cheap to fix. Do that first, then read the file's own Open
-   items with fresh eyes and decide whether SDD is resumed, rescoped, or killed outright (its gates
-   are live either way: `pre-commit` §1d and `read/spec-read-gate.py` are still firing on every
-   session, which makes an abandoned rollout more expensive than a dead one). Front 12 already
-   queues its rename to `ROADMAP-spec-drive.md` — land tracking and that rename in the same commit,
-   since both are about the file being a real ledger.
-   → **model: opus** for the resume/kill call, sonnet for the `.gitignore` fix.
+   **The decision cannot be deferred cheaply, because the gates are live either way.** `pre-commit`
+   §1d and `read/spec-read-gate.py` fire on every session regardless of whether anyone is still
+   rolling this out, which makes an *abandoned* rollout more expensive than a dead one. Read the
+   file's own Open items with fresh eyes and rule.
+
+   **What tracking it immediately revealed, and it is the argument for the whole `.gitignore`
+   allowlist discipline:** the moment the file entered the corpus it failed `verify-fast` on three
+   retired tokens from the July `loops`→`flows` rename. Every other file was swept then. This one
+   could not be seen, so for a month it kept pointing readers at a flow file that had been renamed,
+   **An untracked file does not merely lack backup — it opts out of every
+   check the workspace has**, and goes on giving instructions while it rots.
+   → **model: opus**, with Lucas.
 
 ---
 
@@ -760,29 +723,29 @@ is no conceptual intersection."* Each type answers exactly one question.
 | CONTEXT vs SPECS | rules that *constrain code* → SPECS; what the dir *is* → CONTEXT |
 | ROADMAP vs BUGS | BUGS owns the text; ROADMAP references by id and never restates it |
 
-1. 🟢 **retype what the gate now blocks but cannot fix.** `core/hooks/checks/type-gate.py` stops *new*
-   off-allowlist names; **40 existing ones remain, enumerated live in
-   [`entropy.md`](entropy.md)** — read the report, do not re-scan. They group into four jobs, in
-   order of how much judgment each needs:
+1. 🟢 **the `SPEC.md` → `SPECS.md` migration — the one part of retyping that is still wos work.**
+   `core/hooks/checks/type-gate.py` stops *new* off-allowlist names; the existing ones are
+   enumerated live in [`entropy.md`](entropy.md) — read the report, never re-scan.
 
-   | Job | Names | Route | Needs |
-   |---|---|---|---|
-   | **B. the SPEC migration** | `SPEC.md` ×2 (`spacemantics`, `aiwbot`) + `code/_templates/module.SPEC.md` | → `SPECS.md` | blocked: load-bearing in five enforcement points (`core/hooks/pre-commit` §1d, `spec-read-gate.py`, `context-tracker.py:36`, `spec-scan`, `spec-contract-check`). **One reviewed change**, never piecemeal. |
-   | **C. spacemantics' own vocabulary** | 11 more in that one repo: `TAXONOMY` · `TAXONOMY-FAMILIES` · `TYPES` · `LEXICON` · `GRAMMAR-JSON` · `CONFORMANCE` · `CHECKABILITY` · `EXAMPLES` · `CONFLICTS` · `INVENTORY` · `INVENTORY-ADVISORY` | mostly → `SPECS.md` or lowercase instance | **its own session.** A DSL project legitimately has many spec-shaped documents; deciding which are one `SPECS.md` and which are content is a design question about spacemantics, not a naming sweep. |
-   | **D. the long tail** | 20 across 9 repos: `isoroll-content` ×7, `flows` ×4, `casinhas` ×3, `instituto` ×3, `dobra` ×2, `2027-CHI-cria`, `2027-ICLR-dobra` | one of the four disposal routes each | a peek at each file. Sonnet, one repo at a time. |
+   **Three `SPEC.md` instances**: `spacemantics`, `aiwbot`, and `code/_templates/module.SPEC.md`.
+   The template is the generator, so it moves first or the name grows straight back. This is
+   **one reviewed change, never piecemeal**, because the singular spelling is load-bearing in five
+   enforcement points — `core/hooks/pre-commit` §1d, `read/spec-read-gate.py`,
+   `read/context-tracker.py`, `core/tools/wos/spec-scan`, `core/tools/wos/spec-contract-check` —
+   and in the `> spec:` convention every `code/` CONTEXT.md declares. Only when it lands does
+   `SPEC.md` earn its row in `core/SCHEMA.md` § Retired tokens; a row written before the sweep
+   completes fails on day one and trains people to ignore the check.
 
-   **Job A is drained** (2026-07-30): the six `HISTORY.md` are gone, one commit per repo. It was
-   *not* zero judgment — 25 referrers had to be scrubbed, and the ROADMAP headers in `flows`,
-   `isoroll-module`, `gira` and `laplata` were **instructing every future session to write a
-   HISTORY.md**, which is what kept regenerating the type. **The lesson for B/C/D: delete the
-   generator before the artefact, or the name grows back.** Rejected-approach content is the one
-   thing git cannot hold — `aiwbot` (5 items) and `flows` (1) needed it salvaged to
-   `ROADMAP.md § Rejected` before the file could go.
+   **The rest is refiled (2026-08-16).** spacemantics' eleven spec-shaped names are that repo's
+   design question and now live in its ROADMAP; the twenty-name long tail across nine repos is
+   each repo's own, as are the completed-milestone corpses still sitting in `flows` and `aiwbot`.
+   [`entropy.md`](entropy.md) keeps counting all of it, so nothing goes dark.
 
-   Still on the floor from A: `flows` M12/M13 and `aiwbot`'s finish-line diagram are completed
-   milestones kept as `Status: complete` bodies and struck-through text — annotated corpses that
-   the same rule says to cut, and that `entropy.md` § Prose describing finished work now lists by
-   file and line. Left for job D's pass over those repos, not smuggled into A.
+   **The lesson that generalises, from draining the six `HISTORY.md`: delete the generator before
+   the artefact, or the name grows back.** Four ROADMAP headers were *instructing every future
+   session* to write one. And rejected-approach content is the single thing git cannot hold — save
+   it to `ROADMAP.md § Rejected` before the file goes.
+   → **model: sonnet**.
 2. 🟡 **does `entropy.md` sit in the right place, and should its name be uppercase?** Lucas, INBOX
    2026-08-15. It is the one always-present report at the workspace root that is not on the type
    allowlist, so the question is real rather than cosmetic. The evidence points at *lowercase, stays
@@ -812,84 +775,23 @@ is no conceptual intersection."* Each type answers exactly one question.
 
    **Left, one reviewed commit each:** `code/VERIFY.md` → `ROADMAP-verify.md` (24 inbound refs, 7 in
    `core/hooks/*` comments — but they cite **anchor ids**, which a rename preserves; only paths
-   move), `code/ROADMAP-spec-drive.md` → `ROADMAP-spec-drive.md`, `code/isoroll-module/REFACTOR.md` →
-   `ROADMAP-refactor.md`. And `code/dobra/DECISIONS.md` is not a roadmap at all — decisions are
-   *what must be true and why*, so it folds into that project's `SPECS.md`.
+   move), and `code/isoroll-module/REFACTOR.md` → `ROADMAP-refactor.md`, which is that repo's own
+   commit. `code/dobra/DECISIONS.md` is not a roadmap at all — decisions are *what must be true and
+   why*, so it folds into that project's `SPECS.md`, also in that repo.
+
+   **Sweep the file's own content, not just the references to it.** A file that was gitignored has
+   been exempt from every check the workspace runs, so a rename of one is a first import, not a
+   move — expect it to arrive carrying tokens the rest of the corpus retired months ago.
    → **model: sonnet**, one file per commit.
 
 ---
-
-## Front 13 — the `.md` corpus audit: ASSESS, CUT, REDIRECT, then compress
-
-**The four verbs, and the order** (Lucas, 2026-08-15). CUT alone was the wrong single verb, because
-content in the wrong *place* is a different defect from content that is wrong, and some content is
-*under*-placed rather than over-placed. ASSESS whether a section is still true and who needs it;
-CUT what nothing changes without; REDIRECT what is true and needed but sitting where it is not
-read, or read by everyone; COMPRESS only what survives. The law is
-[`core/SCHEMA.md`](core/SCHEMA.md) § Placement — tier (ESSENTIAL / IMPORTANT / DESIRABLE) crossed
-with read-frequency, giving KEEP / PROMOTE / REDIRECT / CUT.
-
-**The mechanical halves are checked, so do not hand-count anything.** [`entropy.md`](entropy.md)
-§ Prose describing finished work and § Constraints trapped in a CONTEXT.md head are this frente's
-live queues; each ratchets in `core/tools/test/workspace/test_corpus_ratchet.py` and its ceiling
-must be lowered as the drain proceeds. What the checks cannot answer — *does anyone need this* —
-stays judgement, and stays unmeasured until Front 14 gives it an instrument.
-
-**One ratchet per named defect, never a shared one.** Until 2026-08-15 the corpse check also
-matched the routing generator's unfilled-description marker, so 70 markers sat inside a queue of
-105 wearing the wrong label and carrying a remedy — *cut it* — that made the generator rewrite them
-on the next save. The marker is § Unanswered scaffold placeholders now, and draining it is **Front
-4 item 6**, not this frente. The lesson generalises: a queue that counts two defects can have one
-of them grow while its number falls.
-
-1. 🟡 **drain the nested repos — the whole of what is left.** Two thirds of the corpus (~187 of 261
-   `CONTEXT.md`) lives in nested `code/` and `academy/papers/` repos with their own branches and
-   gates, so it cannot ride a wos commit. Same classification as the `.d.ts` stub gap: counted in
-   [`entropy.md`](entropy.md), drained where the files are. Live: **19 corpses, 17 trapped heads.**
-   The wos half is done; `FINISHED_CEILING` and `MISPLACED_CEILING` in
-   `core/tools/test/workspace/test_corpus_ratchet.py` hold that ground, and the nested repos cannot
-   move them — each runs its own verify.
-
-   **The REDIRECT recipe, in order, and it survives contact:** (1) delete what a hook enforces — it
-   names the fix when it fires, except numbers that change how you write *before* the hook can
-   speak, so the 150/200 line caps stay; (2) move constraints to a sibling `SPECS.md`, creating it
-   if absent; (3) move data out (alias lists, schemas); (4) delete stale claims; (5) keep identity
-   and navigation only.
-
-   **Delete-first is what makes it cheap: six new `SPECS.md`, not eleven.** Running step 1 before
-   step 2 found that most of what looked movable was already written better somewhere else —
-   caveman's path table duplicated its own generated routing block, its `hooks/` layering table
-   duplicated the child `CONTEXT.md`, and craft's vocabulary section restated `core/SCHEMA.md`
-   verbatim. **Open the child `CONTEXT.md` and the file's own routing block before relocating
-   anything.** Heads: `core/skills/caveman` 1332 → 211, `core/experiments` 708 → 212,
-   `core/skills` 656 → 108, `core/flows/craft` 620 → 91, `academy/papers` 462 → 186,
-   `core/refs` 441 → 120.
-
-   **The check needs an over-size head *and* a modal, so a thin pointer line is the whole trick** —
-   `Gate behavior and the agent-shim contract: SPECS.md`, never "you must read SPECS.md". Two heads
-   (`core/tools/notes` 444, `core/tools/verify` 448) sit above the token warn with zero modals and
-   are correct as they are; the warn is a signal, not a cap.
-
-   `.opencode/CONTEXT.md` is the biggest head of all and is a **generated mirror** — fix it at the
-   generator or leave it.
-
-   **The prediction that every pass surfaces a defect held, and both were in generators, not prose:**
-   `.sh`/`.jsx` missing from `COMMENT_RE` (see 4.6) and `is_skill()` in
-   `core/tools/wos/skills/mirror.sh` excluding only `CONTEXT`, so the first `SPECS.md` written
-   inside `core/skills/` read as a skill with no frontmatter and failed the commit for *every*
-   staged `core/skills/*.md`. Both fixed with tests. **A doc pass is a cheap fuzzer for the
-   generators that read those docs** — it writes file shapes nobody had written before.
-
-   `brain/goals/workspace-os.md` and `test_gitignore_self_heal.py` both cite a **Front 6** that no
-   longer exists — retired ledger numbering still has live references.
-   → **model: sonnet**, one repo at a time.
 
 ## Front 14 — ablation: nothing in this workspace has ever been measured
 
 > **The paper twin is [`academy/papers/wos-ablation/`](academy/papers/wos-ablation/CONTEXT.md)**
 > (2026-08-16). Lucas: *"o WOS pode virar um artigo. o estudo de ablação, se bem feito, me parece
 > bem publicável."* The ablation and the paper are one artifact, so the experimental design lives
-> there and this frente holds only the build work it depends on.
+> there and this front holds only the build work it depends on.
 
 1. 🔴 **build the instrument, then run the ablation.** Lucas, INBOX 2026-08-15: *"um engenheiro
    líder da Anthropic sugeriu de tempos em tempos a gente 'deletar' o CLAUDE.md e ver como modelos
@@ -910,7 +812,7 @@ of them grow while its number falls.
    before the switch repeats the failure.
 
    Scope is the whole enforcement layer, not the `.md` corpus: hooks, skills, tools, `AGENTS.md`
-   itself. Front 13 is downstream — its verdicts are judgement calls today precisely because this
+   itself. The corpus drain is downstream — its verdicts are judgement calls today precisely because this
    instrument does not exist, and it says so rather than implying they are measured.
    → **model: opus** for the design, sonnet to run it.
 
@@ -933,7 +835,7 @@ short of information; it was short of the habit of checking.
 **What that case study says about the two proposals, and it cuts against the easy one.** The
 instruction is the cheap half and is the half already tried: the workspace is thick with
 *re-run it, never quote it* prose, and it did not prevent either failure. Prose asking for doubt is
-INDUCED, and this repo's whole bet is that INDUCED loses to ENFORCED. So the frente's real question
+INDUCED, and this repo's whole bet is that INDUCED loses to ENFORCED. So the front's real question
 is **what a confidence check looks like as a gate**, not as a paragraph.
 
 Three sub-questions, in the order they can be answered:
@@ -1025,23 +927,33 @@ months anyway. Cheaper than a list nobody reads.
 - **`pre-edit.py` vs `check-line-counts.sh` scope disagreement** — policy nit, no live symptom.
 - **`core/tools/paper/papers --ss` live smoke** — it will smoke itself on the next real use.
 - **Commit the `.claude/commands/{drive,calendar}.md` symlinks** — done inline rather than tracked.
-- **`/caveman compress` on workspace docs** — piloted on the worst offender: 8571 → 8552 chars, **0.22%**, for one full quota call. The docs have no lexical fat, so placement beats phrasing and compression stays the last step on an already-reduced surface (Front 13).
+- **`/caveman compress` on workspace docs** — piloted on the worst offender: 8571 → 8552 chars, **0.22%**, for one full quota call. The docs have no lexical fat, so placement beats phrasing and compression stays the last step on an already-reduced surface (core/SCHEMA.md § Placement).
 - **The ~8% unexplained spend gap between `usage` and the one-off script** — the premise is void. Both summed transcript records instead of API responses, so they agreed on shares while being 1.97x wrong together, and the agreement is what stopped anyone looking. Absolute spend is list price and has never been checked against a bill; that is the only caveat left.
 
 ## Sequencing
 
-1. **Front 12.1** — apply the type system. Do it before 4.1 so Tier 0 enforces a vocabulary that is
-   already true, and before 12.2 so refinement passes are not spent on files about to be deleted.
-2. **Drain [`entropy.md`](entropy.md)** — the keystone is built; criterion 1 is a drain, not a
-   design. Biggest families first; the report's summary table says which those are today.
-3. **Front 4.2** — the `loops`→`flows` generator rename. Its retired tokens are declared in
-   `core/SCHEMA.md` § Retired tokens, so the sweep has an assertion waiting: add the old spellings
-   to that table the moment the rename lands, and the check proves it complete.
-4. **Front 10** (1, 2) — the install idiom + declared deps.
-5. **Front 13.1** — the corpus drain, hot files first.
-6. **Front 11.1** — the four sweep rulings, whenever Lucas has direction.
-7. **The judgment calls: 8.1, 9.1, then 10.1 → 10.3 → 10.4 → 14.1**, which is one chain rather than
-   four independents — the toggle registry is the instrument the ablation needs.
+**The v1 line runs through Front 10 and nothing else.** Criteria 2 and 3 are met; criterion 1 is
+held in this repo and the rest of it now lives in the repos that own the files. So:
+
+1. **10.1** — make `SETUP.md` an executable procedure and add `/install`. This *is* criterion 4.
+2. **10.2** — declared deps. It gates 10.1's honesty: a step cannot be offered as optional until
+   the thing it installs is checkable.
+3. **10.4** — the feature registry and profile. Not a sibling of 14.1, its **instrument** — the
+   ablation's first run produced no signal because no feature could be switched off.
+4. **10.5** — the public scaffold repo and its one-way sync. The allowlist is the deliverable.
+5. **14.1** — the ablation, once 10.4 has *shipped* rather than been designed.
+
+Alongside, in any order, all mechanical:
+
+- **11.2** the branch-drift warning and **11.1** the unmerged-branch signal — both cheap, both
+  measure something currently invisible.
+- **4.2** the `loops`→`flows` generator rename; its retired tokens have an assertion waiting in
+  `core/SCHEMA.md` § Retired tokens.
+- **12.1** the `SPEC.md`→`SPECS.md` migration — one reviewed change across five enforcement points.
+- **4.6** the first-line-comment gate, **4.8** the `python_api` walk, **8.2**, **8.3**, **9.6**.
+
+**Needing Lucas:** 9.5 (agents vs skills), 11.3 (resume or kill SDD), 15.1 (the knowledge base).
+Three, and § How to read this must keep saying three.
 
 ## Model-switching guide
 

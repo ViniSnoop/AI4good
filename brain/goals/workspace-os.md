@@ -12,12 +12,12 @@ transformative · essential · thrilled
 immersed mode · advancing motion · intrinsic source  
 2026-07-22 compass: highest wind + in-flow this session — mvp-gaps localized then closed, gitflow enforced, gitlinks killed, `/compass` shipped. Lucas ordered it #1: make v1 strong (gaps 1&2 cleanup) + finish aiwbot.  
 2026-07-29: the work is no longer *discovering* what to fix — it is draining a known list. Ledgers collapsed to one entrypoint, v1 given an explicit 4-criterion gate. Momentum now depends on the gate staying honest, not on new insight.  
-2026-08-13 compass: **confirmed #1 for a second cycle, and the numbers back it — 29 of 29 workspace commits in 14 days landed here.** Hooks became a root of law plus families, 37 tools became eight, the verify suite split by what it asserts, the session got a size meter, the INBOX drained to zero. The gate held honest under all of it: criterion 3 went *backwards* on purpose when a re-audit across 25 repos found three remotes missing, rather than staying a green tick that was false. What is left is not build — it is **one decision and one mechanical frente**. This is a finish.
+2026-08-13 compass: **confirmed #1 for a second cycle, and the numbers back it — 29 of 29 workspace commits in 14 days landed here.** Hooks became a root of law plus families, 37 tools became eight, the verify suite split by what it asserts, the session got a size meter, the INBOX drained to zero. The gate held honest under all of it: criterion 3 went *backwards* on purpose when a re-audit across 25 repos found three remotes missing, rather than staying a green tick that was false. What is left is not build — it is **one decision and one mechanical front**. This is a finish.
 
 ## selected next achievement
     [v1] pass the four-criterion v1 gate — Tier 0 anti-entropy live · one ledger, no duplicates · everything pushed and gitflow-shaped · clonable by a student
 
-**All build work lives in [/ROADMAP.md](../../ROADMAP.md)** — the single wos ledger (12 frentes + two
+**All build work lives in [/ROADMAP.md](../../ROADMAP.md)** — the single wos ledger (12 fronts + two
 ready-to-execute batches, each step tagged with model tier and impact flag). This file holds only why,
 signals, dynamics, and timing. Plans do not live in goal files (AGENTS.md).
 
@@ -73,10 +73,10 @@ last-touch: 2026-08-16  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |     194 |
-| trimester   |     238 |
-| semester    |     253 |
-| year        |     253 |
-| 2-year      |     253 |
-| 4-year      |     253 |
+| month       |     199 |
+| trimester   |     243 |
+| semester    |     258 |
+| year        |     258 |
+| 2-year      |     258 |
+| 4-year      |     258 |
 <!-- stats:end -->
