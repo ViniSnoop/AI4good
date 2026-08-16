@@ -12,6 +12,18 @@ concepts. This is **data, not a rule** — which is why it lives here and not in
 |-----------|--------------|
 | **workspace-os** | `wos` · `WOS` · `w-os` · `W-OS` |
 | **craft flow** | the `/loops` skill, `core/flows/craft/` (retired spellings: § Retired tokens) |
+| **Front** | a top-level workstream in `ROADMAP.md` (retired spelling: `Frente`) |
+
+**Why `Front` and not `Workstream`** — ruled 2026-08-16 (Lucas). *"progress on several fronts"* is
+ordinary English for parallel areas of effort, which is exactly what these are, so the word carries
+the meaning without the military or meteorological reading a bare *front* invites. It also keeps the
+initial, so every existing habit of reference survives the rename. A roadmap heading is a
+**contract**, and this workspace writes contracts in English even where its rationale is Portuguese.
+
+**A Front number is not a citable identifier.** Closed items are deleted, so `Front 4.1` becomes a
+dead pointer the day the work lands — cite the `SPECS.md` or `SCHEMA.md` section that owns the rule
+instead. Numbering is legal only inside `ROADMAP.md` / `ROADMAP-<slug>.md`, and in commit messages,
+which git keeps.
 
 ### Retired tokens
 
@@ -31,6 +43,7 @@ this table holds the guard.
 | `loop-architecture` | `architect` | 2026-07-23 |
 | `LOOP-TREE` | `tree.md` | 2026-07-23 |
 | `KNOWN-BUGS` | `BUGS.md` | 2026-07-30 |
+| `Frente` | `Front` | 2026-08-16 |
 
 Not yet listed because the rename has not landed: `SPEC.md`→`SPECS.md` (load-bearing in five
 enforcement points; see [ROADMAP.md](../ROADMAP.md)). A token joins this table only when

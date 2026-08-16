@@ -1,6 +1,6 @@
 # Roadmap — what our own output costs
 
-> Plan for INBOX entries 2, 3 and 6 (2026-08-15), referenced from [`ROADMAP.md`](ROADMAP.md) § Frente 9.
+> Plan for INBOX entries 2, 3 and 6 (2026-08-15), referenced from [`ROADMAP.md`](ROADMAP.md) § Front 9.
 > Written by the planning session; the build is the next session's work.
 > **Deletion policy is this repo's: completion is deletion.** Cut an item when its verification passes.
 
@@ -82,7 +82,7 @@ all output**, not the ~15% the raw figure implied — most heredoc volume is leg
 What survives is **governance, not cost**: those 128 writes met **no gate at all**. `pre-edit.py` and
 `bugs-gate.py` are `PreToolUse: Edit|Write`; the only Bash hook is `bash-context-gate.py`, a *read* gate.
 `brain/INBOX.md`, `HISTORY.md` and `core/tools/test/law/test_entropy_ledger.py` were all written past the
-200-line size gate, the first-line-comment check and the CONTEXT.md description requirement. **Frente 4.6
+200-line size gate, the first-line-comment check and the CONTEXT.md description requirement. **Front 4.6
 predicted this** (*"files written by a generator, by a shell heredoc, by `git checkout`"*); this is the
 first time it is measured.
 
@@ -157,7 +157,7 @@ applies here with more force, because this budget buys correctness rather than b
 
 So: **measure before touching it.** The arm is the same shape as caveman's — the same task at two
 effort levels, comparing billed output per turn *and* whether the work came out right — and it needs
-the feature-toggle registry (Frente 10.4) to switch cleanly. No behavior change until then.
+the feature-toggle registry (Front 10.4) to switch cleanly. No behavior change until then.
 → **model: opus**, with Lucas in the loop.
 
 ## Instruments before prose
@@ -222,9 +222,9 @@ table from [`core/hooks/compact/SPECS.md`](core/hooks/compact/SPECS.md).
    **Delete verification scaffolding** — audit `core/skills/` and `AGENTS.md` for *"double-check"* /
    *"verify before"* phrasing and cut it. → **model: sonnet**.
 
-6. 🔴 **The `AGENTS.md` pass — advances Frente 3.1, and is not a cost item.** Say so plainly: `AGENTS.md`
+6. 🔴 **The `AGENTS.md` pass — advances Front 3.1, and is not a cost item.** Say so plainly: `AGENTS.md`
    is **754 tokens, 2.7% of turn 1** ([`core/experiments/context-window.md`](core/experiments/context-window.md)).
-   Halving it saves nothing measurable; selling it as savings repeats the error Frente 9 spent weeks on.
+   Halving it saves nothing measurable; selling it as savings repeats the error Front 9 spent weeks on.
    Run it as a real audit with the `claude-api` skill's `shared/prompt-audit.md` method and — more
    importantly — **its keep-list**: *context is never cruft; cruft ≠ length; never justify a deletion by
    character count alone.* Deliver a three-column verdict per rule: **delete** (a hook already enforces
@@ -240,8 +240,8 @@ table from [`core/hooks/compact/SPECS.md`](core/hooks/compact/SPECS.md).
    already moved out of it into hooks. **Propose, do not swing** — he asked for *bastante carinho*.
    → **model: opus**, with Lucas in the loop.
 
-7. 🟢 **Route the three entries out of `brain/INBOX.md`.** Entry 2 → Frente 3.1 + step 6's verdict table;
-   entry 3 → the new experiment file; entry 6 → Frente 9 evidence, its three claims superseded by the
+7. 🟢 **Route the three entries out of `brain/INBOX.md`.** Entry 2 → Front 3.1 + step 6's verdict table;
+   entry 3 → the new experiment file; entry 6 → Front 9 evidence, its three claims superseded by the
    numbers above. Delete all three; leave 1, 4, 5. → **model: haiku**.
 
 ## Verification

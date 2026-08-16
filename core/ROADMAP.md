@@ -36,7 +36,7 @@ No flow is privileged — the exemplar is `flows/_template.md` (see [SCHEMA.md](
 - [ ] **Rename the skill `loops` → `craft` — ruled 2026-08-14 (Lucas).** `/loops` dispatches to
       `flows/craft/craft.md`: one concept, two words at two layers. Renaming the skill restores the
       location rule (`flows/<skill>/` ⟺ dispatcher skill name) instead of dragging the flow pool
-      backwards to `flows/loops/`. **Ship it inside the Frente 4.2 sweep in
+      backwards to `flows/loops/`. **Ship it inside the Front 4.2 sweep in
       [/ROADMAP.md](../ROADMAP.md), not separately** — that sweep already renames `.loop/` → `.craft/`
       and `.loop-skills/` → `.craft-skills/` across 14 live state dirs and 74 doc mentions, and this
       skill is the generator-side half that made the rename keep coming back. Keep **"Loop 0..6"** as
@@ -82,10 +82,10 @@ No flow is privileged — the exemplar is `flows/_template.md` (see [SCHEMA.md](
 - [ ] **Audit our own skills — effective, or verbose and making work?** Lucas (INBOX 2026-08-13): check
       every `core/skills/*.md` for verbosity, redundancy, ambiguity, and steps that cost more than they
       save. Distinct from the survey bullet below — that one imports from outside, this one prunes what we
-      already run. Sequence it after the six-practices assessment in [/ROADMAP.md](../ROADMAP.md) Frente 3,
+      already run. Sequence it after the six-practices assessment in [/ROADMAP.md](../ROADMAP.md) Front 3,
       which decides the *shape* to prune toward (rules → interfaces).
 - [ ] **`/caveman compress` — two bugs that outlive the rejection.** The measured rejection of compressing
-      workspace docs is recorded in [/ROADMAP.md](../ROADMAP.md) Frente 3.2; these two survive it because
+      workspace docs is recorded in [/ROADMAP.md](../ROADMAP.md) Front 3.2; these two survive it because
       the tool still runs on demand: (a) it strips the file's trailing newline
       (`skills/caveman/scripts/compress.py`, `write_text(compressed)`); (b) `compress.py:34` defaults
       `CAVEMAN_MODEL` to `claude-sonnet-4-5`, a stale model id. (INBOX 2026-07-30)

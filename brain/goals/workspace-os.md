@@ -64,7 +64,7 @@ fallback · iterate — MVP can always be extended*
 <!-- done:start -->
 
 > [x] [mvp-gaps] DONE 2026-07-22 — all 3 gaps localized with hard numbers (see findings above): (1) `core/hooks` overengineering (~40 files / 3068 LOC), (2) 14 GB workspace-root cruft (`.Trash-1000` + root `.venv`), (3) reframed to the missing gentle-resurfacing rhythm → shipped as the `/compass` fold. Closed via `/compass`, first dogfood of the new skill.
-> [x] [v1-strong] DONE 2026-07-29 — superseded by the explicit [v1] gate. Its three parts each landed or moved: cruft reclaimed (6.6 GB, gap 2), hooks de-overengineered (gap 1, and the diagnosis partly reversed — most "duplicate families" were live), telegram_daemon retired into `code/aiwbot`. What remained became ROADMAP Frentes 6 and 12.8.
+> [x] [v1-strong] DONE 2026-07-29 — superseded by the explicit [v1] gate. Its three parts each landed or moved: cruft reclaimed (6.6 GB, gap 2), hooks de-overengineered (gap 1, and the diagnosis partly reversed — most "duplicate families" were live), telegram_daemon retired into `code/aiwbot`. What remained became later roadmap work.
 > [x] [roadmap-entrypoint] DONE 2026-07-29 — wos work collapsed from four overlapping ledgers (~94 items, 789 lines, four of them already false) into one: `/ROADMAP.md`. Goal file = why, `brain/TODO.md` = life, `core/ROADMAP.md` = library. Deletion policy set: hard delete, git is the history. Discipline now tracked as ROADMAP § The ledger discipline.<!-- done:end -->
 
 ## stats
@@ -73,10 +73,10 @@ last-touch: 2026-08-16  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |     193 |
-| trimester   |     237 |
-| semester    |     252 |
-| year        |     252 |
-| 2-year      |     252 |
-| 4-year      |     252 |
+| month       |     194 |
+| trimester   |     238 |
+| semester    |     253 |
+| year        |     253 |
+| 2-year      |     253 |
+| 4-year      |     253 |
 <!-- stats:end -->

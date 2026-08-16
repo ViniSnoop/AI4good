@@ -23,10 +23,10 @@ Four criteria. Nothing else gates v1.
 
 | # | Criterion | Owner | State |
 |---|-----------|-------|-------|
-| 1 | **verify-fast green + Tier 0 live** — naming, placement, pointer integrity, size-as-signal deterministic; **this repo** clean, every nested repo on a shrinking baseline | Frente 4 | checks live · **read [`entropy.md`](entropy.md) for the count, never a copy of it** |
-| 2 | **One ledger, no duplicates** — this file is the sole wos ledger, verified by scan not eyeball | Frente 8 | ✅ **MET 2026-07-30** — `test_no_item_lives_in_two_ledgers` |
-| 3 | **Everything pushed, gitflow-shaped** — every `code/` repo on `main`/`feature/*`, zero unpushed, no repo without a remote | Frente 11 | ✅ **MET 2026-08-14** — re-audited across every repo |
-| 4 | **Clonable by a student** — fresh clone gets every capability; deps declared, no undocumented hand-installs | Frente 10 | open |
+| 1 | **verify-fast green + Tier 0 live** — naming, placement, pointer integrity, size-as-signal deterministic; **this repo** clean, every nested repo on a shrinking baseline | Front 4 | checks live · **read [`entropy.md`](entropy.md) for the count, never a copy of it** |
+| 2 | **One ledger, no duplicates** — this file is the sole wos ledger, verified by scan not eyeball | Front 8 | ✅ **MET 2026-07-30** — `test_no_item_lives_in_two_ledgers` |
+| 3 | **Everything pushed, gitflow-shaped** — every `code/` repo on `main`/`feature/*`, zero unpushed, no repo without a remote | Front 11 | ✅ **MET 2026-08-14** — re-audited across every repo |
+| 4 | **Clonable by a student** — fresh clone gets every capability; deps declared, no undocumented hand-installs | Front 10 | open |
 
 Post-v1 validation is `[mvp-validate]`: use the system daily for 30 days, then assess whether it
 reduced mental load. That is the real test and it can only run after v1.
@@ -42,11 +42,11 @@ twice, once claiming one while five were live, and once (2026-08-16) carrying fo
 whose own `→ model:` line said sonnet. **🔴 means Lucas decides, not "this is hard"**; an item an
 opus-tier agent can rule on alone is 🟡. Re-derive the count from the marks before quoting it.
 
-The whole Frente 10 chain came off this list on 2026-08-16 — six 🔴 items closed in one sitting,
+The whole Front 10 chain came off this list on 2026-08-16 — six 🔴 items closed in one sitting,
 because they were one decision wearing six numbers and none of them could be taken alone.
 
 **Never cite an item number from code or from a test.** A closed item is *deleted* — that is the
-workspace rule — so every `Frente N.M` in a comment becomes a dead pointer the day the work lands.
+workspace rule — so every `Front N.M` in a comment becomes a dead pointer the day the work lands.
 Cutting 4.7 broke six of them at once (2026-08-15). Point at the `SPECS.md` or `SCHEMA.md` section
 that owns the rule instead; those are durable, and writing the rule there is what closing an item
 is *for*. Citing a number is fine **inside this file**, and in a commit message, which git keeps.
@@ -65,7 +65,7 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
 
 ---
 
-## Frente 3 — Memory and always-loaded context
+## Front 3 — Memory and always-loaded context
 
 0. 🟢 **measure `.claude/commands/`, then decide — the only unmeasured thing left at session start.**
    `mirror.sh` copies all 13 skills a *second* time as slash commands (52 KB on disk). That copy is
@@ -96,7 +96,7 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
 
 ---
 
-## Frente 4 — workspace anti-entropy — **the keystone, v1 criterion 1**
+## Front 4 — workspace anti-entropy — **the keystone, v1 criterion 1**
 
 > The real target: files grow, scatter, duplicate, and drift from naming/structure patterns.
 > **Structure is a spec; drift is a test failure.** `code/` already has this (the `> spec:` gate);
@@ -288,15 +288,15 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
      to stdout on exit 0, which Claude Code shows in transcript mode only. The channel that reaches
      the model is `hookSpecificOutput.additionalContext`, now verified on `PreToolUse`
      ([`core/hooks/SPECS.md`](core/hooks/SPECS.md)). Port it, or reclassify it honestly.
-   - **Dead item-number pointers in code.** `Frente 9.2` is cited from `core/tools/wos/roundup`
+   - **Dead item-number pointers in code.** `Front 9.2` is cited from `core/tools/wos/roundup`
      (×2), `test_roundup.py` and `test_roundup_skills.py` (×2); that item is deleted. § How to read
      this already bans citing item numbers from code and nothing enforces it — a Tier 0 check over
-     `Frente \d+\.\d+` outside this file is the enforcement, and it would have caught these.
+     `Front \d+\.\d+` outside this file is the enforcement, and it would have caught these.
    → **model: sonnet**.
 
 ---
 
-## Frente 8 — The ledger discipline — **v1 criterion 2**
+## Front 8 — The ledger discipline — **v1 criterion 2**
 
 Collapsed 2026-07-29 (four ledgers → one) and cut 2026-07-30 (52 open steps → 17). The collapse made
 the ledger honest but not smaller — items went 158 → 123 while mass stayed flat, and Lucas reported
@@ -316,7 +316,7 @@ feeling lost twice. **Mass is the disease and only deletion cures it.**
    2. **Delete** — remove the file, then the type: the row in `core/SCHEMA.md`'s type table, the
       mention in [brain/CONTEXT.md](brain/CONTEXT.md), and the "four ledgers" phrasing in this
       file's own header, which becomes three. Deleting the file while leaving the type declared
-      would regenerate it — that is the lesson job A of Frente 12.1 already paid for.
+      would regenerate it — that is the lesson job A of Front 12.1 already paid for.
 
    **Why this beats redesigning it.** The redesign question was *"what would make it get checked
    daily"*, and the honest answer is nothing: `/compass` is already the review ritual and it reads
@@ -372,7 +372,7 @@ feeling lost twice. **Mass is the disease and only deletion cures it.**
 
 ---
 
-## Frente 9 — Cost & model routing
+## Front 9 — Cost & model routing
 
 > **The output-cost plan is [`ROADMAP-output-cost.md`](ROADMAP-output-cost.md)**; the measurement it
 > may not contradict is [`core/experiments/output-cost.md`](core/experiments/output-cost.md).
@@ -450,7 +450,7 @@ that [`core/tools/wos/session/usage`](core/tools/wos/session/usage) cannot repro
    pertinente. não sei como fazer isso, seria ótimo se tivesse uma forma mais garantida de fazer
    isso acontecer."* Item 1 says routing is *worth doing* and measures the split at opus 84% /
    sonnet 7.7%; this item is why that split has not moved. **A per-item `→ model:` line in this
-   file is advice an agent may skip, and mostly does** — same class of defect as Frente 4.6's
+   file is advice an agent may skip, and mostly does** — same class of defect as Front 4.6's
    first-line comment, where a rule existed and the number still grew.
 
    His proposed trigger is the concrete part: *"talvez se toda vez que o modo plan fosse utilizado
@@ -481,7 +481,7 @@ that [`core/tools/wos/session/usage`](core/tools/wos/session/usage) cannot repro
    fact from this frente: *zero* sidechain messages across 328 transcripts, which is why the
    "59% from subagent-heavy sessions" claim was retired. **Nothing has ever been delegated here**,
    so this is a question about a capability with no usage data at all, not a tuning question.
-   Same treatment as Frente 10.1: bring options and trade-offs, decide with Lucas, do not arrive
+   Same treatment as Front 10.1: bring options and trade-offs, decide with Lucas, do not arrive
    with one answer.
    → **model: opus**, with Lucas in the loop — not a solo pass.
 6. 🟢 **measure whether our own gates make a session re-read the same file.** Lucas, INBOX
@@ -502,7 +502,7 @@ that [`core/tools/wos/session/usage`](core/tools/wos/session/usage) cannot repro
    [`core/tools/wos/session/usage`](core/tools/wos/session/usage) already replays transcripts — so
    this is a second lens on data we have, zero-token, no new capture. Report per file: bytes read,
    read count, and whether a stub or the source was served. Ships in the same roundup block as
-   item 4, and **feeds Frente 14** — read amplification is exactly the kind of cost an ablation
+   item 4, and **feeds Front 14** — read amplification is exactly the kind of cost an ablation
    needs an instrument for.
    → **model: sonnet**.
 7. 🟡 **show context growth continuously, not just at two thresholds.** Lucas, same capture:
@@ -526,7 +526,7 @@ that [`core/tools/wos/session/usage`](core/tools/wos/session/usage) cannot repro
 
 ---
 
-## Frente 10 — Portability & clonability — **v1 criterion 4**
+## Front 10 — Portability & clonability — **v1 criterion 4**
 
 > **Ruled 2026-08-16 (Lucas). The whole decide-first chain is closed; what is left is build work.**
 >
@@ -639,7 +639,7 @@ that [`core/tools/wos/session/usage`](core/tools/wos/session/usage) cannot repro
 
 ---
 
-## Frente 11 — Git & sync integrity — **v1 criterion 3 — ✅ MET 2026-08-14**
+## Front 11 — Git & sync integrity — **v1 criterion 3 — ✅ MET 2026-08-14**
 
 **The criterion holds as of 2026-08-14**, re-audited across every repo in the tree: each has a
 remote, each sits on `main`/`master`/`feature/*`, and the only unpushed commits are one apiece in
@@ -654,7 +654,7 @@ rather than moved to LFS — `.git` went **193 M → 128 K** and the repo pushed
 in that repo's `.gitignore` beside the other heavy binaries, so the next SketchUp export cannot
 recreate the block.
 
-**The lesson, and it is the same one Frente 9 paid for: an audit's findings rot faster than the
+**The lesson, and it is the same one Front 9 paid for: an audit's findings rot faster than the
 ledger holding them.** Every item of the old step 1 was re-checked on 2026-08-14 and **three of
 four had resolved themselves** in a fortnight — the `Makefile` was untracked in **zero** repos (the
 three named repos that still showed it had been moved to `.Trash-1000`), `shortvid`'s duplicated
@@ -732,14 +732,14 @@ hypothesis; re-run it before spending a decision on it.**
    forgotten, and it is the half that is cheap to fix. Do that first, then read the file's own Open
    items with fresh eyes and decide whether SDD is resumed, rescoped, or killed outright (its gates
    are live either way: `pre-commit` §1d and `read/spec-read-gate.py` are still firing on every
-   session, which makes an abandoned rollout more expensive than a dead one). Frente 12 already
+   session, which makes an abandoned rollout more expensive than a dead one). Front 12 already
    queues its rename to `ROADMAP-spec-drive.md` — land tracking and that rename in the same commit,
    since both are about the file being a real ledger.
    → **model: opus** for the resume/kill call, sonnet for the `.gitignore` fix.
 
 ---
 
-## Frente 12 — The `.md` type system (decided 2026-07-30)
+## Front 12 — The `.md` type system (decided 2026-07-30)
 
 **Why.** Lucas: *"all I want is to delimit precisely where one file ends and another begins, so there
 is no conceptual intersection."* Each type answers exactly one question.
@@ -799,7 +799,7 @@ is no conceptual intersection."* Each type answers exactly one question.
    one must be tracked to serve as the criterion-1 ratchet. Decide once and write the answer into
    `core/SCHEMA.md` so it stops looking like an oversight.
    → **model: opus** — one ruling, then at most a `git mv`.
-2b. 🟡 **"Frente" is Portuguese in an English contract vocabulary — decide, then sweep or keep.**
+2b. 🟡 **"Front" is Portuguese in an English contract vocabulary — decide, then sweep or keep.**
    Lucas, INBOX 2026-08-15: *"por que chamamos de FRENTE as etapas do roadmap? … FRENTE até onde sei
    é só em português. em inglês seria FRONT não é n?"* He is right on the facts. The literal English
    is *front*, but an English roadmap would idiomatically say **workstream** or **track** — *front*
@@ -841,7 +841,7 @@ is no conceptual intersection."* Each type answers exactly one question.
 
 ---
 
-## Frente 13 — the `.md` corpus audit: ASSESS, CUT, REDIRECT, then compress
+## Front 13 — the `.md` corpus audit: ASSESS, CUT, REDIRECT, then compress
 
 **The four verbs, and the order** (Lucas, 2026-08-15). CUT alone was the wrong single verb, because
 content in the wrong *place* is a different defect from content that is wrong, and some content is
@@ -855,12 +855,12 @@ with read-frequency, giving KEEP / PROMOTE / REDIRECT / CUT.
 § Prose describing finished work and § Constraints trapped in a CONTEXT.md head are this frente's
 live queues; each ratchets in `core/tools/test/workspace/test_corpus_ratchet.py` and its ceiling
 must be lowered as the drain proceeds. What the checks cannot answer — *does anyone need this* —
-stays judgement, and stays unmeasured until Frente 14 gives it an instrument.
+stays judgement, and stays unmeasured until Front 14 gives it an instrument.
 
 **One ratchet per named defect, never a shared one.** Until 2026-08-15 the corpse check also
 matched the routing generator's unfilled-description marker, so 70 markers sat inside a queue of
 105 wearing the wrong label and carrying a remedy — *cut it* — that made the generator rewrite them
-on the next save. The marker is § Unanswered scaffold placeholders now, and draining it is **Frente
+on the next save. The marker is § Unanswered scaffold placeholders now, and draining it is **Front
 4 item 6**, not this frente. The lesson generalises: a queue that counts two defects can have one
 of them grow while its number falls.
 
@@ -902,11 +902,11 @@ of them grow while its number falls.
    staged `core/skills/*.md`. Both fixed with tests. **A doc pass is a cheap fuzzer for the
    generators that read those docs** — it writes file shapes nobody had written before.
 
-   `brain/goals/workspace-os.md` and `test_gitignore_self_heal.py` both cite a **Frente 6** that no
+   `brain/goals/workspace-os.md` and `test_gitignore_self_heal.py` both cite a **Front 6** that no
    longer exists — retired ledger numbering still has live references.
    → **model: sonnet**, one repo at a time.
 
-## Frente 14 — ablation: nothing in this workspace has ever been measured
+## Front 14 — ablation: nothing in this workspace has ever been measured
 
 > **The paper twin is [`academy/papers/wos-ablation/`](academy/papers/wos-ablation/CONTEXT.md)**
 > (2026-08-16). Lucas: *"o WOS pode virar um artigo. o estudo de ablação, se bem feito, me parece
@@ -927,18 +927,18 @@ of them grow while its number falls.
    **Precondition, and it is the reason the last attempt produced nothing.**
    [`core/ROADMAP.md`](core/ROADMAP.md) § ablation-bench ran once and yielded no signal for exactly
    one reason: there was no clean way to turn a single feature off. So the toggle registry in
-   Frente 10.4 is not a sibling of this item, it is its instrument — *"it also would ease ablation
+   Front 10.4 is not a sibling of this item, it is its instrument — *"it also would ease ablation
    tests so we can indeed see the impacts of each option"* (Lucas, 2026-08-14). Building the bench
    before the switch repeats the failure.
 
    Scope is the whole enforcement layer, not the `.md` corpus: hooks, skills, tools, `AGENTS.md`
-   itself. Frente 13 is downstream — its verdicts are judgement calls today precisely because this
+   itself. Front 13 is downstream — its verdicts are judgement calls today precisely because this
    instrument does not exist, and it says so rather than implying they are measured.
    → **model: opus** for the design, sonnet to run it.
 
 ---
 
-## Frente 15 — the agent is confidently wrong, and nothing catches it
+## Front 15 — the agent is confidently wrong, and nothing catches it
 
 Lucas, INBOX 2026-08-16: *"vi um comentário sobre o OPUS ter MUITA SEGURANÇA sobre pontos que na
 verdade ele estava errado… eu gostaria que todas as opiniões técnicas da IA fossem tomadas com base
@@ -946,7 +946,7 @@ em pesquisas."* His two proposals: a **knowledge base** — a curated store, che
 when a stored fact is old enough to have moved — and an **instruction**: *"YOU DON'T KNOW THINGS,
 don't feel too certain, search before giving precise technical opinions."*
 
-**This workspace has the case study, and it is not hypothetical.** Frente 9 was steered for three
+**This workspace has the case study, and it is not hypothetical.** Front 9 was steered for three
 weeks by a confident, re-runnable, wrong number. The instrument agreed with the script it replaced,
 which read as confirmation and was not, because both shared one misunderstanding. Before that, four
 consecutive explanations of the rtk hook were asserted and retracted. In neither case was the agent
@@ -1017,7 +1017,7 @@ baseline rule.
 Kept only so a dead idea does not resurface looking new. Accepted price: some will resurface in
 months anyway. Cheaper than a list nobody reads.
 
-- **INBOX provenance probe** — Frente 1 shipped; the probe measures a threat model already ruled inert.
+- **INBOX provenance probe** — Front 1 shipped; the probe measures a threat model already ruled inert.
 - **SLM confirmation run** — depends on `dobra` maturity that does not exist; the preprint stays provisional, which is fine.
 - **Tier 1 periodic cheap-agent detectors** (gold tasks, scheduled `/dedup`, misplacement audit) — paid detection of what Tier 0 catches free.
 - **Tier 2 `/tidy` skill** — a new skill to do what a human can do directly from the dashboard; scatter.
@@ -1047,21 +1047,21 @@ months anyway. Cheaper than a list nobody reads.
 - **`pre-edit.py` vs `check-line-counts.sh` scope disagreement** — policy nit, no live symptom.
 - **`core/tools/paper/papers --ss` live smoke** — it will smoke itself on the next real use.
 - **Commit the `.claude/commands/{drive,calendar}.md` symlinks** — done inline rather than tracked.
-- **`/caveman compress` on workspace docs** — piloted on the worst offender: 8571 → 8552 chars, **0.22%**, for one full quota call. The docs have no lexical fat, so placement beats phrasing and compression stays the last step on an already-reduced surface (Frente 13).
+- **`/caveman compress` on workspace docs** — piloted on the worst offender: 8571 → 8552 chars, **0.22%**, for one full quota call. The docs have no lexical fat, so placement beats phrasing and compression stays the last step on an already-reduced surface (Front 13).
 - **The ~8% unexplained spend gap between `usage` and the one-off script** — the premise is void. Both summed transcript records instead of API responses, so they agreed on shares while being 1.97x wrong together, and the agreement is what stopped anyone looking. Absolute spend is list price and has never been checked against a bill; that is the only caveat left.
 
 ## Sequencing
 
-1. **Frente 12.1** — apply the type system. Do it before 4.1 so Tier 0 enforces a vocabulary that is
+1. **Front 12.1** — apply the type system. Do it before 4.1 so Tier 0 enforces a vocabulary that is
    already true, and before 12.2 so refinement passes are not spent on files about to be deleted.
 2. **Drain [`entropy.md`](entropy.md)** — the keystone is built; criterion 1 is a drain, not a
    design. Biggest families first; the report's summary table says which those are today.
-3. **Frente 4.2** — the `loops`→`flows` generator rename. Its retired tokens are declared in
+3. **Front 4.2** — the `loops`→`flows` generator rename. Its retired tokens are declared in
    `core/SCHEMA.md` § Retired tokens, so the sweep has an assertion waiting: add the old spellings
    to that table the moment the rename lands, and the check proves it complete.
-4. **Frente 10** (1, 2) — the install idiom + declared deps.
-5. **Frente 13.1** — the corpus drain, hot files first.
-6. **Frente 11.1** — the four sweep rulings, whenever Lucas has direction.
+4. **Front 10** (1, 2) — the install idiom + declared deps.
+5. **Front 13.1** — the corpus drain, hot files first.
+6. **Front 11.1** — the four sweep rulings, whenever Lucas has direction.
 7. **The judgment calls: 8.1, 9.1, then 10.1 → 10.3 → 10.4 → 14.1**, which is one chain rather than
    four independents — the toggle registry is the instrument the ablation needs.
 
