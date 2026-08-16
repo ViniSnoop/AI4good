@@ -50,8 +50,8 @@ def self_authored(rows) -> tuple:
 
 
 def brief(rows) -> None:
-	"""The per-session block /roundup prints. Shares and $/turn only: ROADMAP Frente 9.2 bars an
-	absolute total while the ~8% gap between this tool and the one-off script is open."""
+	"""The per-session block /roundup prints. Shares and $/turn only — absolute spend is list price
+	and has never been checked against a bill, so it is not a number to hand a session close."""
 	by_model: dict = defaultdict(float)
 	total = out = 0.0
 	for _context, comp, model, _session, _out_tokens, _logged in rows:

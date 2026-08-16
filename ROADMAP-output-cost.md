@@ -13,32 +13,30 @@ Three captures were one question:
 - the Claude Code usage report — 73% of spend above 150k context, 44% subagent-heavy, `/roundup` 14%
 
 Lucas set the method: **research (papers + web), brainstorm, then repeat refining** — *"isso é crítico e
-deve ser feito com excelência. Não vamos ser ingênuos."* What follows records where the second round
-**corrected** the first, twice. Those corrections are the reason to trust the rest.
+deve ser feito com excelência. Não vamos ser ingênuos."* Three rounds have now corrected this file,
+the third one hardest: the instrument it was rewritten around was itself wrong by 2x. The corrections
+are recorded in [`core/experiments/output-cost.md`](core/experiments/output-cost.md) and are the
+reason to trust what survives.
 
 ## What was measured
 
-All 21,672 main-chain turns in `~/.claude/projects/-mnt-workspace/*.jsonl`, replayed through
-[`session_cost.py`](core/tools/wos/session/session_cost.py)'s rates — the `usage` fields the API itself
-reported, not estimates.
+**The measurement lives in [`core/experiments/output-cost.md`](core/experiments/output-cost.md)** —
+its Method is runnable, its Results are dated, and it is the authority. What follows is only what
+this plan needs to rank its own items.
 
-**Output is 14.9% of spend at sticker price** ($548 of $3,672), which reads minor and is the trap.
-Cache read is 51.0%, cache write (1h) 32.6%. **An output token is not paid once** — it lands in the
-thread and every later turn re-reads it:
+**Output is 12.9% of spend at sticker price**, and **24.8% once every later turn's re-read is
+counted** — a multiplier of **1.9x**, not the 5.8x this file carried until 2026-08-16. Cache read is
+**59.1%** and owns the bill. Only **35% of billed output tokens are logged** — text and tool-call
+arguments, the part that lands in the thread; the other 65% is thinking, which is paid once.
 
-- mean share of a turn's context that is **self-authored: 75.7%**
-- spend attributable to our own output: **86.9%**
-- effective multiplier on one output token: **~5.8x sticker**
-- the eight priciest sessions ($115–$184) run **88–98% self-authored**
+Entries 3 and 6 are still **one mechanism** — long sessions cost more because every turn re-reads the
+whole thread — but the thread is filled far less by our own writing than this file claimed: a mean
+turn is **11.5%** self-authored, not 75.7%.
 
-Entries 3 and 6 are therefore **one mechanism**: long sessions cost more because the assistant fills them
-with its own writing, then pays to re-read it every turn.
-
-**The popular fix targets the wrong slice.** Output is **86.1% tool_use arguments** (Bash 26.6%,
-Write 25.4%, Edit 23.8%) against **13.9% prose to the user**. "SHUT UP AND WORK" attacks that 13.9%
-— ~12% of spend amplified. That also **bounds the open question in
-[`core/experiments/caveman-cost.md`](core/experiments/caveman-cost.md)**: caveman compresses prose, so
-its ceiling is ~12%, computable now without the Frente 10.4 toggle registry.
+**The popular fix targets the wrong slice.** Logged output is **86.3% tool_use arguments** (Bash
+26.2%, Write 25.3%, Edit 23.9%) against **13.7% prose to the user**. "SHUT UP AND WORK" attacks that
+13.7%, which is 4.8% of billed output and **under 1% of the bill**. That is also the ceiling on
+[`core/experiments/caveman-cost.md`](core/experiments/caveman-cost.md), now recorded there.
 
 ## Evidence from outside
 
@@ -127,14 +125,40 @@ about the system.** Vary the probe's shape before believing what it reports.
 
 | Lever | Measured mass | Enforceable? | Verdict |
 |---|---|---|---|
-| **Re-emitting a file already in context** — `Write` over an open path (879,502 chars = 34% of Write output) + shell heredoc writes (354,100) | **≈13% of all output**, ~11% of spend amplified | yes — one gate, two paths | take it |
-| Length of files we author | Write total 2.59M = 25% of output | prompt only | take it |
-| Prose to the user | 1.54M = 13.9% | caveman already on | bound it, don't re-litigate |
-| Subagent delegation | 1.2% of output, but each worker is a whole session (turn-1 ≈17.7k tok) | policy + cap | note only |
-| Session length | multiplier is linear in turns remaining | `context-meter` live | already built |
+| **The unlogged 65% of output** — thinking, billed and invisible | **~8% of the whole bill**, the largest single output slice | `effort` / model routing | **measure first** — see § The lever nobody has looked at |
+| Session length | every turn re-reads the thread; 4.2x from the cheapest context band to the dearest | `context-meter` live | already built, and still the biggest |
+| Re-emitting a file already in context — `Write` over an open path + shell heredoc writes | ≈13% of *logged* output → **~1% of spend** | yes — one gate | **governance only**, step 4 |
+| Length of files we author | `Write` 25.3% of logged output | prompt only | take it, cheaply |
+| Prose to the user | 13.7% of logged output → **<1% of spend** | caveman already on | bounded; do not re-litigate |
+| Subagent delegation | 1.2% of logged output, but each worker is a whole session (turn-1 ≈17.7k tok) | policy + cap | note only |
 
-Deliberately **not** proposed: a global terseness rule (ACL 2025: wrong budgets degrade work), and
-lowering `effort` to shorten output (Anthropic: it does not reliably move visible length).
+Deliberately **not** proposed: a global terseness rule (ACL 2025: wrong budgets degrade work).
+
+**The ranking inverted on 2026-08-16** and it is worth saying why plainly. Every row here was sized
+against *logged* output, which turned out to be a third of what is billed, and against a 5.8x re-read
+multiplier that turned out to be 1.9x. The two levers this plan was built to justify — the re-emit
+gate and prose compression — are together worth ~2% of spend. The one it explicitly rejected is the
+largest.
+
+## The lever nobody has looked at
+
+**Thinking is 65% of billed output tokens and no instrument in this workspace can see it.** Its text
+is never written to the transcript, so every composition number ever quoted here — including all of
+the ones above — describes the other 35%.
+
+This reopens what the first round closed. Anthropic's guidance is that **`effort` is not a length
+lever**: it moves thinking volume, not reliably visible output. That was read as *effort is not a
+cost lever* and the idea was dropped. But thinking volume **is** billed, at output rates, and is the
+biggest slice of it. The guidance and the rejection do not actually agree.
+
+What is **not** claimed: that lowering effort is free. Thinking is where the reasoning happens, and
+the same ACL 2025 result that bars a global terseness rule — a wrong budget degrades the answer —
+applies here with more force, because this budget buys correctness rather than brevity.
+
+So: **measure before touching it.** The arm is the same shape as caveman's — the same task at two
+effort levels, comparing billed output per turn *and* whether the work came out right — and it needs
+the feature-toggle registry (Frente 10.4) to switch cleanly. No behavior change until then.
+→ **model: opus**, with Lucas in the loop.
 
 ## Instruments before prose
 
@@ -149,13 +173,21 @@ it was still misread.
 
 **Two instruments now exist**, both re-runnable in one command:
 
-- `core/tools/wos/session/usage` prints the **billed-component split**, the self-authored share and
-  the multiplier. It reproduces the one-off script this file was written from — output 15.0% of spend
-  at sticker, 86.3% once re-reads are counted, 5.8x — so the numbers above are now regenerable rather
-  than quoted. **The tool is the authority; a row here it cannot reproduce should be deleted.**
+- `core/tools/wos/session/usage` prints the **billed-component split**, the logged/unlogged split of
+  output, the self-authored share and the multiplier. **The tool is the authority; a row here it
+  cannot reproduce should be deleted.**
 - `core/tools/wos/roundup` prints, per session, `$/turn` + model split + output share + **compaction
   adoption**: the share of Bash calls the shim actually rewrote. This exact bug would have shown as a
   flat zero on day one. A lever with no standing metric is a lever nobody can tell is broken.
+
+**And an instrument is not evidence until something checks it.** `usage` agreed with the one-off
+script this file was originally written from, which read as confirmation and was not: both summed
+transcript *records* rather than API responses, so they agreed while being 1.97x wrong together, and
+the agreement is what stopped anyone looking further. Three weeks later the numbers were re-derived
+by hand and every headline moved. **Two implementations of the same misunderstanding are one
+measurement** — a new instrument owes one hand-check against raw data before anything is quoted from
+it. Recorded as correction 3 in
+[`core/experiments/output-cost.md`](core/experiments/output-cost.md).
 
 **The benchmark still has no home.** `brain/INBOX.md` carries *"o WOS pode virar um artigo. o estudo
 de ablação, se bem feito, me parece bem publicável."* The ablation study and the benchmark Lucas asked
@@ -185,34 +217,25 @@ table from [`core/hooks/compact/SPECS.md`](core/hooks/compact/SPECS.md).
 ## Steps
 
 
-1. 🟢 **Record the measurement — `core/experiments/output-cost.md`.** One file per question, per
-   [`core/experiments/SPECS.md`](core/experiments/SPECS.md): *"output tokens are more expensive than
-   input — by how much, and where are ours?"* Carry the tables, the method, the citations, **and both
-   corrections above** — a 55% headline that became 3.7% is exactly what that directory exists to stop.
-   Limitations to state: composition shares are of *logged* output only (thinking is billed inside
-   `output_tokens` but never stored in transcripts); the self-authored share caps `cum_output/context`
-   at 1.0 and ignores compaction, so 75.7% is an upper estimate.
-   Then update [`core/experiments/caveman-cost.md`](core/experiments/caveman-cost.md): its Results row
-   and first Limitation both say the benefit side needs the toggle registry. The *ceiling* no longer does.
-   → **model: sonnet**.
-
-4. 🟡 **One gate for re-emitting a file already in context.** Two paths, one rule — a gate covering only
-   `Write` moves the behavior to `cat >`, which is where 128 ungated writes already went.
-   - **`Write`** — extend [`core/hooks/checks/pre-edit.py`](core/hooks/checks/pre-edit.py). It hooks
-     `PreToolUse: Write` but only inside `if not os.path.exists(file_path)`, so it covers creation and
-     nothing else. Add the `else` branch: file exists **and** payload over threshold → warn that an
-     `Edit` costs ~3x less (Edit averages 1,194 chars against Write's 3,596) and does not re-inject the
-     file into context.
-   - **`Bash`** — a new `PreToolUse: Bash` check matching `cat|tee > <path> <<`. Same message. This half
-     closes the enforcement hole, not just the cost one.
-   - **Warn, never block.** A legitimate full rewrite is common; the honest failure mode of this whole
-     plan is a gate that makes real work harder. Zero-token until it fires.
-   - Threshold is a number → [`core/hooks/limits.env`](core/hooks/limits.env), read through
-     `file_law.py`, never inlined in a checker. Message names **one action**.
+4. 🟡 **Close the ungated-write hole — governance, not cost.** A new `PreToolUse: Bash` check matching
+   `cat|tee > <path> <<`. **128 shell heredoc writes met no gate at all**: `pre-edit.py` and
+   `bugs-gate.py` are `PreToolUse: Edit|Write`, and the only Bash hooks are a read gate and the rtk
+   shim, so `brain/INBOX.md`, `HISTORY.md` and `test_entropy_ledger.py` were all written past the
+   200-line size gate, the first-line-comment check and the CONTEXT.md description requirement.
+   Frente 4.6 predicted exactly this.
+   - It must **not** fire on `python3 - <<'EOF'` — stdin to an interpreter writes nothing and is 44%
+     of heredoc volume, including every measurement script behind this plan.
+   - **Warn, never block**, and say why in `core/hooks/SPECS.md`: a `PreToolUse` hook fires *after*
+     the model has emitted the payload, so the tokens are already spent and blocking only makes the
+     turn re-emit. The gate teaches turn N+1; it cannot recover turn N.
+   - Message names **one action**: use `Write`, so the file gates apply. Any threshold goes in
+     [`core/hooks/limits.env`](core/hooks/limits.env) through `file_law.py`, never inlined.
+   - The `Write`-over-an-open-path half of this item is **dropped**. Its case was cost, and the cost
+     was ~1% of spend, not the 11% this file claimed.
    → **model: opus** for the gate, sonnet for tests.
 
 5. 🟢 **Two prompt changes, and only two.** Both target measured mass; neither is a global terseness rule.
-   **Deliverable length** (the 25% of output that is `Write`): *"Match the length of written deliverables
+   **Deliverable length** (25.3% of logged output is `Write`): *"Match the length of written deliverables
    to what the task needs; do not pad with filler sections, redundant summaries, or boilerplate."*
    **Delete verification scaffolding** — audit `core/skills/` and `AGENTS.md` for *"double-check"* /
    *"verify before"* phrasing and cut it. → **model: sonnet**.
@@ -241,12 +264,12 @@ table from [`core/hooks/compact/SPECS.md`](core/hooks/compact/SPECS.md).
 
 ## Verification
 
-1. `verify-fast` green (297 passing today; step 4 must not drop one).
-2. **The tool checks step 1**: run `core/tools/wos/session/usage` and confirm every component share
-   matches the table in `output-cost.md`. On disagreement the file is wrong — the tool is the authority.
-3. **Step 4**, four cases, all asserted beside the existing `pre-edit` coverage — the current bug is
-   precisely a branch never exercised: `Write` to an existing file over threshold → warns, write still
-   succeeds · `Write` to a new path → silent · `Bash` with `cat > existing << 'EOF'` → warns, still runs ·
-   `Bash` with `python3 - <<'EOF'` (analysis, no redirect) → **silent**, or the gate fires on every
-   measurement script behind this plan.
+1. `verify-fast` green (305 passing today; step 4 must not drop one).
+2. **The tool checks the experiment file**: run `core/tools/wos/session/usage` and confirm every share
+   matches [`core/experiments/output-cost.md`](core/experiments/output-cost.md). On disagreement the
+   file is wrong — the tool is the authority.
+3. **Step 4**, four cases, asserted beside the existing gate coverage in
+   `core/tools/test/workspace/gates/`: `cat > existing << 'EOF'` → warns, still runs ·
+   `tee > path <<` → warns · `python3 - <<'EOF'` (analysis, no redirect) → **silent**, or the gate
+   fires on every measurement script behind this plan · a plain command → silent.
 4. **Step 6** stops at the verdict table and waits for Lucas.

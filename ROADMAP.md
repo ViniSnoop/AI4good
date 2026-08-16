@@ -355,20 +355,22 @@ feeling lost twice. **Mass is the disease and only deletion cures it.**
 
 ## Frente 9 — Cost & model routing
 
-> **The output-cost plan is [`ROADMAP-output-cost.md`](ROADMAP-output-cost.md)** (2026-08-15): output is
-> ~15% of spend at sticker but **~86% once re-reads are counted** — a mean turn is ~75% self-authored.
-> Its instruments exist: `usage` prints the billed-component split and the multiplier, `roundup`
-> prints per-session cost and compaction adoption. Both re-runnable in one command, so those numbers
-> regenerate instead of being quoted. What remains there measures Frente 4.6's shell-heredoc hole.
+> **The output-cost plan is [`ROADMAP-output-cost.md`](ROADMAP-output-cost.md)**; the measurement it
+> may not contradict is [`core/experiments/output-cost.md`](core/experiments/output-cost.md).
+> Output is **~13% of spend at sticker and ~25% once re-reads are counted** — a mean turn is ~12%
+> self-authored, and one written token costs **1.9x** list. Only **35%** of billed output tokens are
+> logged and re-read; the other 65% is thinking, paid once. `usage` prints all of it and `roundup`
+> prints the per-session line plus compaction adoption, so these regenerate instead of being quoted.
 
-**Why — re-measured 2026-08-13, and the old numbers were wrong.** The previous framing came from a
-single 24 h window. Re-run it yourself — that is the point of
-[`core/tools/wos/session/usage`](core/tools/wos/session/usage), built this session so no claim here rests on a
-number nobody can reproduce. Over **118 sessions · 18,122 turns · 2026-07-25 → 08-13**:
+**Why — re-measured 2026-08-16, and the old numbers were wrong twice over.** The first framing came
+from a single 24 h window. The second came from `usage` itself, which summed transcript *records*
+rather than API responses (1.97x) and charged thinking the re-read multiplier — so the numbers this
+section carried until 2026-08-16 were inflated by the tool built to make them trustworthy. Re-run it
+yourself: [`core/tools/wos/session/usage`](core/tools/wos/session/usage). Over
+**141 sessions · 11,381 turns**:
 
-> **Trust the ratios, not the dollar total.** A one-off script and the tool agreed on every share
-> and per-turn cost but differed ~8% on absolute spend (mostly the `fable` line), and that is not
-> yet explained. Quote percentages and $/turn from the tool; treat any absolute total as ±10%.
+> **Trust the ratios, not the dollar total.** Absolute spend is list price and has never been checked
+> against a bill. Quote percentages and $/turn.
 
 | Claim | Verdict |
 |---|---|
@@ -381,23 +383,28 @@ the context it carried, and what each band adds over the one below it:
 
 | band | $/turn | vs. band below | | band | $/turn | vs. band below |
 |---|---|---|---|---|---|---|
-| <50k | 0.087 | — | | 200-250k | 0.202 | **+5%** ← plateau |
-| 50-100k | 0.102 | +17% | | 250-300k | 0.218 | +8% |
-| 100-150k | 0.147 | **+45%** ← bend | | 300-400k | 0.269 | +24% |
-| 150-200k | 0.193 | +31% | | >400k | 0.373 | +39% |
+| <50k | 0.077 | — | | 200-250k | 0.167 | +13% |
+| 50-100k | 0.085 | +10% | | 250-300k | 0.195 | +17% |
+| 100-150k | 0.116 | **+36%** ← bend | | 300-400k | 0.244 | +25% |
+| 150-200k | 0.148 | +28% | | >400k | 0.326 | +34% |
 
-Flat below 100k, a hard climb to 200k, then a **plateau at ~2x the cheap rate that never comes back
-down**, and a second climb past 300k. **86% of spend is paid above 100k, 55% above 200k.** The
-mechanism is that every turn re-reads the whole thread: **3.4 Gtok** of cache reads over the window.
-Long sessions therefore cost super-linearly in their own length, and the **top decile of sessions is
-~44% of total spend.**
+Flat below 100k, then a climb that never stops — **4.2x from the cheapest band to the dearest**.
+**88% of spend is paid above 100k, 56% above 200k.** The mechanism is that every turn re-reads the
+whole thread: **2.2 Gtok** of cache reads. Long sessions therefore cost super-linearly in their own
+length, and the **top decile of sessions is ~46% of total spend.**
 
-Two facts that decide where a threshold can usefully sit. **Sessions are bimodal** — median peak
-context **59k**, p75 **271k**, almost nothing between — so firing earlier costs far less noise than
-it looks (100k fires in 48% of sessions, 150k in 44%). And **there is runway to act**: at 100k the
-median session still has **~211 turns** ahead, so a hand-off has time to repay its re-grounding
-cost. Warning early does not cost precision work; that fear priced a session about to end, and at
-these thresholds the session is not about to end.
+The old reading of this table claimed a *plateau* at 200-300k (+5%, +8%) and set `CTX_LOUD` where the
+climb was thought to finish. The plateau was an artifact of the record-duplication bug: bands whose
+turns carry more content blocks were counted more times. The corrected curve has no plateau, which
+strengthens the thresholds rather than moving them — 100k is still where the bend starts, and past
+200k there is no point at which one more turn stops getting dearer.
+
+Two facts that decide where a threshold can usefully sit. **Most sessions cross the bend** — median
+peak context **136k**, p75 **248k** — so firing at 100k rather than 150k costs almost no extra noise
+(52% of sessions against 48%). And **there is runway to act**: after crossing 100k the median session
+still has **~85 turns** ahead, enough for a hand-off to repay its re-grounding cost. Warning early
+does not cost precision work; that fear priced a session about to end, and at these thresholds the
+session is not about to end.
 
 Both halves of the session transition are live. The size signal is
 [`core/hooks/session/context-meter.py`](core/hooks/session/context-meter.py) on `UserPromptSubmit`:
@@ -408,28 +415,22 @@ at the moment it applies. The close itself is [`core/tools/wos/roundup`](core/to
 the two skills; every decision behind that split, and why no session spawns its own successor, is
 [`core/SPECS.md`](core/SPECS.md) § AD-09.
 
-**The lesson this frente cost the most to learn: a number nobody can re-run steers the work anyway.**
-It was aimed for weeks by a single 24 h window that turned out wrong in every claim — "59% from
-subagent-heavy sessions" was retired outright (zero sidechain messages across 328 transcripts), and
-the thresholds first shipped at 150k/250k, which fired *halfway up* the climb and *after* the
-plateau began. So: a number in this file that
-[`core/tools/wos/session/usage`](core/tools/wos/session/usage) cannot reproduce should be **deleted, not softened**.
+**The lesson this frente cost the most to learn, twice: a number nobody can re-run steers the work
+anyway — and building the instrument is not the same as checking it.** The first framing came from a
+single 24 h window wrong in every claim. The second came from a tool, was re-runnable, and was still
+wrong by 2x for three weeks because nobody re-derived its output by hand. So: a number in this file
+that [`core/tools/wos/session/usage`](core/tools/wos/session/usage) cannot reproduce should be
+**deleted, not softened** — and a new instrument owes one hand-check before anything is quoted from it.
 
-1. 🟢 **safe — cheaper models where the work is mechanical.** Measured split: opus 68%, fable 24%,
-   sonnet 7.8%, haiku ~0%. Worth doing, but note the ceiling — routing cannot beat a 3x context
-   multiplier, and the transition above already took the larger win.
-   → **model: sonnet**.
-2. 🟡 **the ~8% spend gap is still unexplained**, four sessions running. A one-off script and
-   [`core/tools/wos/session/usage`](core/tools/wos/session/usage) agree on every share and per-turn cost but differ
-   on absolute total, almost all of it in the `claude-fable-5` line. Quote percentages and $/turn;
-   treat any absolute total as ±10% until this closes. By the rule above, if it cannot be resolved
-   the absolute numbers should be dropped from the tool's output rather than footnoted.
-   → **model: sonnet**.
+1. 🟢 **safe — cheaper models where the work is mechanical.** Measured split (2026-08-16):
+   opus-5 56.5%, opus-4.8 27.5%, fable 8.3%, sonnet 7.7%, haiku ~0%. Worth doing, but note the
+   ceiling — routing cannot beat a 4x context multiplier, and the transition above already took the
+   larger win. → **model: sonnet**.
 3. 🔴 **make delegation happen, instead of hoping for it.** Lucas, INBOX 2026-08-15: *"só tenho
    confiado no opus. mas gostaria que ele delegasse mais ao sonnet pra economizar quando fosse
    pertinente. não sei como fazer isso, seria ótimo se tivesse uma forma mais garantida de fazer
-   isso acontecer."* Item 1 says routing is *worth doing* and measures the split at opus 68% /
-   sonnet 7.8%; this item is why that split has not moved. **A per-item `→ model:` line in this
+   isso acontecer."* Item 1 says routing is *worth doing* and measures the split at opus 84% /
+   sonnet 7.7%; this item is why that split has not moved. **A per-item `→ model:` line in this
    file is advice an agent may skip, and mostly does** — same class of defect as Frente 4.6's
    first-line comment, where a rule existed and the number still grew.
 
