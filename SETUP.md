@@ -26,7 +26,7 @@ not to go looking for an install step.
 | Claude Code hooks | `.claude/settings.json` is in the repo; Claude Code reads it when the workspace is opened, and `core/hooks/` activates immediately |
 | opencode policy plugin | `.opencode/plugins/workspace-policy.js` is a project-level plugin, auto-loaded on startup from `/mnt/workspace`. Helpers live in `.opencode/wp-helpers.js`, outside `plugins/` so opencode does not load them as a second plugin |
 | Copilot hook registration | `.github/hooks/workspace-policy.json` and `.github/hooks/rtk-rewrite.json` are inert config files until Copilot itself is installed |
-| rtk for Claude Code in this repo | the `Bash` matcher in `.claude/settings.json` already runs [`core/hooks/compact/`](core/hooks/compact/CONTEXT.md)'s shim over `rtk hook claude`; only the binary itself is per-machine (see § RTK) |
+| rtk for Claude Code | **per-machine, not versioned** — [`core/hooks/compact/`](core/hooks/compact/CONTEXT.md)'s shim is registered once in `~/.claude/settings.json` so it also covers nested `code/*` repos. The code is in the repo; the one-line registration and the binary are not (see § RTK) |
 
 Verify the opencode plugin parses:
 ```bash
@@ -187,18 +187,44 @@ reachingforthejack/rtk (Rust Type Kit), a different tool with the same name. Che
 
 ⚠ **`rtk hook` reads the first line only.** A multi-line Bash payload gets one shot at rewriting,
 and if line 1 is not rewritable — `cd` opens 23.4% of this workspace's Bash calls — the whole call
-runs raw. In-workspace that is patched by [`core/hooks/compact/`](core/hooks/compact/CONTEXT.md),
-which the project hook points at instead of `rtk hook claude`; outside it, prefer single-line
-`&&` chains. **Verify by watching `rtk gain`'s counter move, never by reading config** — the
-wiring looked correct for weeks while this was dropping every multi-line call.
+runs raw. That is patched by [`core/hooks/compact/`](core/hooks/compact/CONTEXT.md), which every
+Claude Code session points at instead of `rtk hook claude`. **Verify by watching `rtk gain`'s
+counter move, never by reading config** — the wiring looked correct for weeks while this was
+dropping every multi-line call.
 
-**Claude Code** is dual-wired: the project-scoped hook is already versioned here (see § Already
-wired). For sessions *outside* this workspace, patch the global config:
+**Claude Code — one registration, and it must be the shim.** Claude Code merges hooks across
+settings scopes and runs *all* matches, so a project entry does not replace a global one; it runs
+beside it. The workspace therefore registers the shim **globally** and holds no `Bash` compact entry
+of its own, which also covers sessions started inside nested `code/*` repos (those have no
+project settings of their own and would otherwise get line-1-only compaction):
+
 ```bash
-rtk init --global --auto-patch      # additive; takes a .bak; verify with: rtk init --show
+python3 - <<'PATCH'                 # idempotent; run once per machine
+import json, pathlib
+p = pathlib.Path.home() / '.claude' / 'settings.json'
+d = json.loads(p.read_text())
+shim = 'python3 /mnt/workspace/core/hooks/compact/bash-compact-rewrite.py'
+pre = d.setdefault('hooks', {}).setdefault('PreToolUse', [])
+entry = next((e for e in pre if e.get('matcher') == 'Bash'), None)
+if entry is None:
+    pre.append({'matcher': 'Bash', 'hooks': [{'type': 'command', 'command': shim}]})
+else:
+    entry['hooks'] = [{'type': 'command', 'command': shim}]
+p.write_text(json.dumps(d, indent=2) + '\n')
+PATCH
 ```
-It only inserts a `PreToolUse`/`Bash` block into `~/.claude/settings.json` and leaves existing
-`SessionStart`/`UserPromptSubmit`/`statusLine` keys (caveman's) untouched.
+Verify it end to end — config alone proves nothing:
+```bash
+printf '%s' '{"hook_event_name":"PreToolUse","tool_name":"Bash","session_id":"probe",
+"tool_input":{"command":"cd core\ngit status\nls -la"}}' \
+  | python3 /mnt/workspace/core/hooks/compact/bash-compact-rewrite.py
+# expect: cd core / rtk git status / rtk ls -la  — lines 2 and 3 are what raw rtk drops
+```
+
+⚠ **Do not run `rtk init --global --auto-patch` on this machine.** It overwrites that `Bash` entry
+back to `rtk hook claude`, silently reverting multi-line compaction. `rtk init --show` cannot tell
+the two apart either — it reports `settings.json: RTK hook configured` for both, so a green line
+there is not evidence the shim is wired. Use the probe above instead.
 
 **opencode** — global plugin only, no project-scoped variant exists:
 ```bash

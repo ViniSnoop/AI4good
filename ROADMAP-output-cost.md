@@ -136,48 +136,46 @@ about the system.** Vary the probe's shape before believing what it reports.
 Deliberately **not** proposed: a global terseness rule (ACL 2025: wrong budgets degrade work), and
 lowering `effort` to shorten output (Anthropic: it does not reliably move visible length).
 
-## Instruments before prose — the reorder Lucas asked for
+## Instruments before prose
 
 *"É difícil perceber que estamos avançando... a ausência de benchmark, medições e testes visíveis me
 faz duvidar se nossas edições estão boas ou confundindo as coisas."* (2026-08-15)
 
-That is a gap in the workspace, not a mood. This repo has an instrument for **tidiness**
-([`entropy.md`](entropy.md)) and one for **correctness** (`verify-fast`, 293 tests). It has **none for
-value**. Nothing on disk answers *are sessions getting cheaper* or *is the agent getting better*, so
-every session's worth is argued in prose — and prose is exactly what cannot be audited. The RTK bug is
-the proof: it was invisible for weeks precisely because no standing number tracked it, and when a
-number finally moved it was still misread.
+That was a gap in the workspace, not a mood. This repo had an instrument for **tidiness**
+([`entropy.md`](entropy.md)) and one for **correctness** (`verify-fast`) and **none for value**, so
+every session's worth was argued in prose — which is exactly what cannot be audited. The RTK bug is
+the proof: invisible for weeks because no standing number tracked it, and when a number finally moved
+it was still misread.
 
-**So steps 2 and 3 run before step 1.** The plan built the writeup first and the instruments last;
-that ordering is what produced a session whose output Lucas cannot check. Inverted, every `/roundup`
-from the next one onward prints its own cost, and the writeup gets numbers that regenerate.
+**Two instruments now exist**, both re-runnable in one command:
 
-Two additions the reorder needs:
+- `core/tools/wos/session/usage` prints the **billed-component split**, the self-authored share and
+  the multiplier. It reproduces the one-off script this file was written from — output 15.0% of spend
+  at sticker, 86.3% once re-reads are counted, 5.8x — so the numbers above are now regenerable rather
+  than quoted. **The tool is the authority; a row here it cannot reproduce should be deleted.**
+- `core/tools/wos/roundup` prints, per session, `$/turn` + model split + output share + **compaction
+  adoption**: the share of Bash calls the shim actually rewrote. This exact bug would have shown as a
+  flat zero on day one. A lever with no standing metric is a lever nobody can tell is broken.
 
-- **A compaction-adoption number** in the same block: share of Bash calls the shim actually rewrote.
-  This exact bug would have shown as a flat zero on day one. A lever with no standing metric is a
-  lever nobody can tell is broken.
-- **The benchmark already has a home.** `brain/INBOX.md` carries *"o WOS pode virar um artigo. o estudo
-  de ablação, se bem feito, me parece bem publicável."* The ablation study and the benchmark Lucas is
-  asking for are the same artifact — a before/after over a fixed task set, with the gates and skills
-  switched off one at a time. Route that entry to a paper house and it stops being two wishes.
+**The benchmark still has no home.** `brain/INBOX.md` carries *"o WOS pode virar um artigo. o estudo
+de ablação, se bem feito, me parece bem publicável."* The ablation study and the benchmark Lucas asked
+for are the same artifact — a before/after over a fixed task set, with the gates and skills switched
+off one at a time. Routing that entry to a paper house is still open, and is the remaining half of
+this section.
 
-**Until one of these lands, prefer changes whose effect is visible in a number**, and say plainly in
-the hand-off which number moved. A session that cannot name one is a session Lucas has to take on faith.
+**Prefer changes whose effect is visible in a number**, and say plainly in the hand-off which number
+moved. A session that cannot name one is a session Lucas has to take on faith.
+
+## Known asymmetry — compaction is Claude-only
+
+`core/hooks/compact/bash-compact-rewrite.py` hardcodes `rtk hook claude` in two places, so **only
+Claude Code gets multi-line splitting**; every other vendor still gets rtk's line-1-only behavior.
+`core/hooks/copilot/` exists precisely to translate other vendors onto the canonical gates, and this
+directory has no equivalent. Not a cost item and not urgent — written down because the workspace's
+rule is that an asymmetry gets recorded when it is found.
 
 ## Steps
 
-0. 🔴 **RTK is wired twice, and precedence between them is undefined.**
-   `~/.claude/settings.json` registers `PreToolUse: Bash → rtk hook claude` globally, and
-   `/mnt/workspace/.claude/settings.json` registers the shim. Both fire on every Bash call here. Where
-   only the shim answers the shim wins (verified), but for a payload both rewrite — `git status` ⏎
-   `ls -la` — two competing `updatedInput` values are returned and the harness documents no rule for
-   picking one. Observed behaviour today is the shim, which is the correct outcome by luck rather than
-   by contract. Decide one: drop the Bash matcher from the global file (compaction outside this
-   workspace then needs `rtk init -g --hook-only` re-run against the shim), or point the global entry
-   at the shim by absolute path and accept the workspace-path dependency. **Verify by the delta method,
-   with a payload both hooks would rewrite** — that is the only shape that discriminates.
-   → **model: opus**, because the wrong choice degrades every repo on the machine.
 
 1. 🟢 **Record the measurement — `core/experiments/output-cost.md`.** One file per question, per
    [`core/experiments/SPECS.md`](core/experiments/SPECS.md): *"output tokens are more expensive than
@@ -188,20 +186,6 @@ the hand-off which number moved. A session that cannot name one is a session Luc
    at 1.0 and ignores compaction, so 75.7% is an upper estimate.
    Then update [`core/experiments/caveman-cost.md`](core/experiments/caveman-cost.md): its Results row
    and first Limitation both say the benefit side needs the toggle registry. The *ceiling* no longer does.
-   → **model: sonnet**.
-
-2. 🟢 **`usage` grows a component split.** In [`core/tools/wos/session/usage`](core/tools/wos/session/usage),
-   reusing `session_cost.py`'s `RATES` and the existing `turns()` loop — no second walker. Add the
-   component table (fresh / cache-write 1h / 5m / cache-read / output), per-model output share, the
-   self-authored share and the multiplier. ~35 lines. Frente 9's law: anything step 1 states must be
-   re-runnable in one command. → **model: sonnet**.
-
-3. 🟢 **Per-session cost in the roundup — closes Frente 9.4.** That frente says outright it *"is a wiring
-   job, not a new instrument."* Wire it into [`core/tools/wos/roundup`](core/tools/wos/roundup), printed
-   with the state facts in Phase 4 — not the skill, because it has one right answer. The script has no
-   session id: resolve the current transcript as the newest-mtime `*.jsonl` under
-   `~/.claude/projects/-mnt-workspace/`. Respect Frente 9.2 — shares, $/turn, output share; **no absolute
-   total** while the ~8% gap is open. A few lines only: `/roundup` is itself 14% of usage.
    → **model: sonnet**.
 
 4. 🟡 **One gate for re-emitting a file already in context.** Two paths, one rule — a gate covering only
@@ -249,14 +233,12 @@ the hand-off which number moved. A session that cannot name one is a session Luc
 
 ## Verification
 
-1. `verify-fast` green (283 passing today; steps 2 and 4 must not drop one).
-2. **Step 2 checks step 1**: run `core/tools/wos/session/usage` and confirm every component share matches
-   the table in `output-cost.md`. On disagreement the file is wrong — the tool is the authority.
-3. **Step 3**: run `core/tools/wos/roundup`; the cost block prints, names a model split, prints no
-   absolute dollar total.
-4. **Step 4**, four cases, all asserted beside the existing `pre-edit` coverage — the current bug is
+1. `verify-fast` green (297 passing today; step 4 must not drop one).
+2. **The tool checks step 1**: run `core/tools/wos/session/usage` and confirm every component share
+   matches the table in `output-cost.md`. On disagreement the file is wrong — the tool is the authority.
+3. **Step 4**, four cases, all asserted beside the existing `pre-edit` coverage — the current bug is
    precisely a branch never exercised: `Write` to an existing file over threshold → warns, write still
    succeeds · `Write` to a new path → silent · `Bash` with `cat > existing << 'EOF'` → warns, still runs ·
    `Bash` with `python3 - <<'EOF'` (analysis, no redirect) → **silent**, or the gate fires on every
    measurement script behind this plan.
-5. **Step 6** stops at the verdict table and waits for Lucas.
+4. **Step 6** stops at the verdict table and waits for Lucas.

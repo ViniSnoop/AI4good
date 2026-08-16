@@ -356,10 +356,10 @@ feeling lost twice. **Mass is the disease and only deletion cures it.**
 ## Frente 9 — Cost & model routing
 
 > **The output-cost plan is [`ROADMAP-output-cost.md`](ROADMAP-output-cost.md)** (2026-08-15): output is
-> 14.9% of spend at sticker but **86.9% once re-reads are counted** — a mean turn is 75.7% self-authored.
-> It closes 9.4 and measures Frente 4.6's shell-heredoc hole. It now leads with **instruments before
-> prose** — steps 2 and 3 run first, so every `/roundup` prints its own cost and a session's worth
-> stops being argued in text.
+> ~15% of spend at sticker but **~86% once re-reads are counted** — a mean turn is ~75% self-authored.
+> Its instruments exist: `usage` prints the billed-component split and the multiplier, `roundup`
+> prints per-session cost and compaction adoption. Both re-runnable in one command, so those numbers
+> regenerate instead of being quoted. What remains there measures Frente 4.6's shell-heredoc hole.
 
 **Why — re-measured 2026-08-13, and the old numbers were wrong.** The previous framing came from a
 single 24 h window. Re-run it yourself — that is the point of
@@ -440,14 +440,12 @@ plateau began. So: a number in this file that
    already the moment the work is cut into tasks, so it is the one point where per-task routing is
    free to decide and cheap to record. Make the plan *carry* the assignment rather than leaving it
    to recall at execution time.
+
+   **Its feedback loop is already wired**: [`core/tools/wos/roundup`](core/tools/wos/roundup) prints
+   the per-session model split at every close, so whether this item moves the opus/sonnet ratio is
+   readable without new instrumentation. A delegation policy nobody measures per session would be
+   unenforced advice one more time.
    → **model: opus** for the mechanism, sonnet to wire it.
-4. 🔴 **report opus vs sonnet spend per session, in the roundup.** Lucas, same capture: *"gostaria
-   de saber em cada sessão o quanto de opus e o quanto de sonnet foi utilizado. talvez seja uma boa
-   anexar esse report à skill de roundup. monitorar esse tipo de economia."*
-   [`core/tools/wos/session/usage`](core/tools/wos/session/usage) already computes the split — this
-   is a wiring job, not a new instrument. It is also **item 3's feedback loop**: a delegation policy
-   nobody measures per session is the same unenforced advice one more time. Respect item 2 —
-   quote shares and $/turn, not absolute totals, until the ~8% gap closes.
    → **model: sonnet**.
 5. 🔴 **discuss — should this workspace have agents, or are skills enough?** Lucas, same capture,
    and flagged by him as a discussion rather than a task: *"um aluno comentou que existem formas

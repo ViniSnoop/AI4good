@@ -31,10 +31,6 @@
           {
             "type": "command",
             "command": "python3 /mnt/workspace/core/hooks/read/bash-context-gate.py"
-          },
-          {
-            "type": "command",
-            "command": "python3 /mnt/workspace/core/hooks/compact/bash-compact-rewrite.py"
           }
         ]
       },
