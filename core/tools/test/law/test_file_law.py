@@ -7,6 +7,7 @@
 # core/tools/wos/sync-skills 341 without ever being stopped.
 #
 # test_no_checker_carries_its_own_extension_list is the one that makes that unrepeatable.
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -61,6 +62,41 @@ def test_vendored_templates_are_exempt() -> None:
     ours = WORKSPACE_ROOT / 'core/hooks/file_law.py'
     assert is_vendored(template, WORKSPACE_ROOT)
     assert not is_vendored(ours, WORKSPACE_ROOT)
+
+
+def test_every_checker_resolves_the_workspace_root_to_the_workspace() -> None:
+    """A checker one directory off reads the law correctly and then applies it to nothing.
+
+    `vendored.txt` patterns are workspace-relative, so a checker whose WORKSPACE_ROOT is
+    `core/` matches none of them: is_vendored() returns False for every path and the
+    exemption silently stops existing. pre-edit.py carried exactly that bug — `parents[2]`
+    from `core/hooks/checks/` — so editing a vendored file past the cap was blocked by the
+    gate `vendored.txt` was written to waive. Nothing failed; the waiver just never applied.
+
+    Asserted against the marker file rather than a hardcoded depth, so moving a checker
+    breaks this test instead of silently disabling its exemptions.
+    """
+    for checker in sorted(HOOKS.rglob('*.py')):
+        text = checker.read_text(encoding='utf-8')
+        match = re.search(r'WORKSPACE_ROOT = Path\(__file__\)\.resolve\(\)\.parents\[(\d+)\]',
+                          text)
+        if not match:
+            continue
+        root = checker.resolve().parents[int(match.group(1))]
+        assert (root / 'AGENTS.md').exists(), (
+            f'{checker.relative_to(WORKSPACE_ROOT)} resolves WORKSPACE_ROOT to {root}, which '
+            f'is not the workspace — every workspace-relative law it reads will match nothing')
+
+
+def test_the_vendored_waiver_reaches_the_edit_gate() -> None:
+    """The end-to-end version of the above: a real vendored file, through pre-edit's own root."""
+    gate = HOOKS / 'checks/pre-edit.py'
+    depth = int(re.search(r'WORKSPACE_ROOT = Path\(__file__\)\.resolve\(\)\.parents\[(\d+)\]',
+                          gate.read_text(encoding='utf-8')).group(1))
+    root = gate.resolve().parents[depth]
+    vendored = WORKSPACE_ROOT / 'code/corpora/depth_anything_v2/_vit_helpers.py'
+    assert vendored.exists(), 'fixture moved — pick another path listed in vendored.txt'
+    assert is_vendored(vendored, root)
 
 
 def test_every_extensionless_tracked_file_is_explained() -> None:

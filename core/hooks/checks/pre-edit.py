@@ -8,7 +8,11 @@ from file_law import CODE_EXTS, is_code_file, is_vendored, load_limits
 from hook_input import parse_stdin
 
 CONTENT_EXTS = {'.md', '.yaml', '.yml', '.toml'}
-WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
+# parents[3], not [2]: this file is core/hooks/checks/pre-edit.py, so [2] is core/ and every
+# workspace-relative `vendored.txt` pattern silently failed to match — is_vendored() always
+# returned False here, and the size gate blocked the vendored files that list exists to waive.
+# Latent for as long as the file has been in checks/; caught by reading, not by a failure.
+WORKSPACE_ROOT = Path(__file__).resolve().parents[3]
 
 _limits = load_limits()
 WARN_LINES, BLOCK_LINES = _limits['WARN_LINES'], _limits['BLOCK_LINES']

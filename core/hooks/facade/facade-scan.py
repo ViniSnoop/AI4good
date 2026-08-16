@@ -1,6 +1,18 @@
 #!/usr/bin/env python3
 # Pre-Write hook: list existing facade exports before creating a new file in the same module.
-import re, sys
+#
+# core/hooks/SPECS.md classes this hook "Informs", and for as long as it existed it informed
+# nobody: it printed to stdout on exit 0, which Claude Code shows in transcript mode only.
+# `hookSpecificOutput.additionalContext` is the one non-blocking channel that reaches the
+# model — `systemMessage` addresses Lucas, and exit-0 stdout addresses no one. Ported
+# 2026-08-16, following heredoc-gate.py, where the channel was verified end to end.
+#
+# The class of bug this belonged to: a gate that looks installed and is not doing its job.
+# It never errored, so nothing ever said so — which is why "what does this produce, and does
+# it arrive?" beats reading the code for a raised exception.
+import json
+import re
+import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
@@ -65,9 +77,15 @@ except ValueError:
     rel = facade
 
 if exports:
-    print(f"📦 {rel} exports: {', '.join(exports)}")
-    print(f"   Verify new file adds functionality not already covered above.")
+    message = (f"📦 {rel} exports: {', '.join(exports)}. "
+               f"Verify the new file adds functionality not already covered above.")
 else:
-    print(f"📦 {rel} exists but exports nothing yet — ensure new file gets re-exported there.")
+    message = (f"📦 {rel} exists but exports nothing yet — "
+               f"ensure the new file gets re-exported there.")
+
+print(json.dumps({'hookSpecificOutput': {
+    'hookEventName': 'PreToolUse',
+    'additionalContext': message,
+}}))
 
 sys.exit(0)

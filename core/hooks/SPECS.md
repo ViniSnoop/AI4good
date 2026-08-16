@@ -108,8 +108,9 @@ whose subject is *what is about to happen on disk* should still block.
 
 - `PreToolUse` delivers `hookSpecificOutput.additionalContext` **to the model**, on exit 0, with the
   tool still running. That is the only non-blocking channel that reaches the model: exit-0 stdout is
-  transcript-only and `systemMessage` addresses Lucas, not the agent. `facade-scan.py` still prints
-  to stdout and so is read by nobody — a live asymmetry, not a design.
+  transcript-only and `systemMessage` addresses Lucas, not the agent. **Every "Informs" hook uses it**
+  — `facade-scan.py` printed to stdout until 2026-08-16 and so was read by nobody, which is the
+  asymmetry this line used to record. Asserted now by `test_an_informing_hook_speaks_on_the_channel_that_reaches_the_model`.
 - **A `.claude/settings.json` hook edit is live in the session that made it.** Registration is not
   captured at session start, which was an open question for two sessions. Probed by adding
   `heredoc-gate.py` and running one heredoc write in the same session; the context arrived.
