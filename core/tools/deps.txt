@@ -1,0 +1,45 @@
+# Every external dependency the core/tools surface needs, declared: what installs it, what probes it, and what its absence breaks. Read by core/tools/wos/deps
+# (the probe runner) and by core/tools/test/wos/test_deps.py (the class check).
+#
+# WHY THIS FILE EXISTS: four capabilities were installed straight into .venv to unblock a tool and
+# never written down, so a fresh clone lost them SILENTLY — the tool did not crash, it returned a
+# worse answer or a misleading error. The `breaks` column is the cure: it says what the failure
+# LOOKS like, because the expensive case (secretstorage) reads like bad credentials.
+#
+# Tab-separated. Columns:
+#   name     the installable name, exactly as the install command spells it
+#   kind     pip | apt | npm | npx | binary  — how it arrives, which fixes how it is installed
+#   import   the python module it provides, or - for anything not imported by our code.
+#            THIS IS THE JOIN KEY: test_deps.py fails on any third-party import missing from here.
+#   probe    a command that exits 0 when the dep is present. Run from the workspace root.
+#   feature  the feature slug that owns it — same slugs SETUP.md declares per step
+#   breaks   what stops working without it, written in the words the FAILURE uses
+#
+name	kind	import	probe	feature	breaks
+pytest	pip	pytest	.venv/bin/python3 -c "import pytest"	verify-suite	make verify-fast cannot run at all, so the pre-commit gate has nothing to check
+mypy	pip	-	.venv/bin/stubgen --version	interface-stubs	interface stubs stop regenerating on save; the .pyi files go stale without anything saying so
+pyyaml	pip	yaml	.venv/bin/python3 -c "import yaml"	paper-tools	core/tools/paper/terms dies on import, so the pre-commit term-consistency gate silently skips every paper
+requests	pip	requests	.venv/bin/python3 -c "import requests"	notes-notion	core/tools/notes/notion cannot reach the API
+anthropic	pip	anthropic	.venv/bin/python3 -c "import anthropic"	mail-triage	gmail attachment + triage paths lose their model calls
+pillow	pip	PIL	.venv/bin/python3 -c "import PIL"	asset-inspect	core/tools/assets/inspect cannot open an image; the video OCR and VLM paths lose frame handling
+google-auth	pip	google	.venv/bin/python3 -c "import google.oauth2.credentials"	google-auth	every Google-backed tool (mail, calendar, files, slides) fails before it reaches the network
+google-auth-oauthlib	pip	google_auth_oauthlib	.venv/bin/python3 -c "import google_auth_oauthlib"	google-auth	the first-run OAuth consent flow cannot start, so no account can be added
+google-api-python-client	pip	googleapiclient	.venv/bin/python3 -c "import googleapiclient"	google-auth	mail, calendar, files and slides have no API client to call
+yt-dlp	pip	-	.venv/bin/yt-dlp --version	video-text	core/tools/video/video returns nothing for every video link
+gallery-dl	pip	-	.venv/bin/gallery-dl --version	video-text	image posts and Instagram carousels fall back to yt-dlp, which reports "No video formats found" — reads like an auth failure, is not one
+secretstorage	pip	-	.venv/bin/python3 -c "import secretstorage"	video-text	yt-dlp cannot decrypt the Brave cookie DB and fails with "failed to decrypt cookie (AES-CBC) ... Possibly the key is wrong?" — reads like a wrong password, is a missing module. Cost a full session to diagnose.
+faster-whisper	pip	faster_whisper	.venv/bin/python3 -c "import faster_whisper"	video-text	local transcription (level speech) is unavailable; the tool stops at captions
+pytesseract	pip	pytesseract	.venv/bin/python3 -c "import pytesseract"	video-text	burned-in text OCR (level ocr) is unavailable
+torch	pip	torch	.venv/bin/python3 -c "import torch"	video-text	the visual captioning level cannot load a model
+transformers	pip	transformers	.venv/bin/python3 -c "import transformers"	video-text	the visual captioning level cannot load a model
+accelerate	pip	-	.venv/bin/python3 -c "import accelerate"	video-text	visual captioning loads without device_map and either runs on CPU or exhausts VRAM
+pypandoc-binary	pip	-	pandoc --version	paper-tools	core/tools/paper/parse cannot read .docx or .pptx — it falls through to the plain-text arm and returns mojibake rather than an error
+poppler-utils	apt	-	pdftotext -v	paper-tools	core/tools/paper/parse cannot read a PDF, which is its most common input
+ffmpeg	apt	-	ffmpeg -version	video-text	audio extraction and frame sampling fail, so the speech and ocr levels cannot start
+tesseract-ocr	apt	-	tesseract --version	video-text	pytesseract imports fine and then fails at call time — the module is the wrapper, this is the engine
+ddgr	apt	-	ddgr --version	web-search	the fallback backend is gone, so a missing or rate-limited Exa key leaves no search at all
+nodejs	binary	-	node --version	opencode-plugin	the opencode policy plugin cannot load, and every npm/npx-backed gate below loses its runtime
+typescript	npm	-	tsc --version	interface-stubs	.d.ts stubs stop regenerating for TypeScript projects
+jscpd	npx	-	npx --yes jscpd --version	duplication-gate	the copy-paste gate SKIPS instead of blocking, printing one warning line that is easy to miss — a gate that silently stops gating
+rtk	binary	-	rtk --version	rtk-compaction	tool output reaches the context raw; nothing breaks, the session just costs 60-90% more
+flutter	binary	-	flutter --version	apptime-verify	code/apptime's verify cannot run at all, so its commits are gated by nothing

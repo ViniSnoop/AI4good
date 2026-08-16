@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/mnt/workspace/.venv/bin/python3
 # Usage: core/tools/wos/session/usage [--project <slug>] [--session <id>] — where session spend goes:
 # by model, by context size, by billed component, and what one more turn costs. Reads the local
 # transcripts; no network, no model.

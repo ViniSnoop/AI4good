@@ -61,4 +61,38 @@ printf '%s\n' '<secret>' | core/tools/<family>/<tool> auth <alias>
    reader a routing table that says nothing — `auth/` is the live example of the cheap side.
 4. Add `# Usage: core/tools/<family>/<name> <args> — <description>` as the first comment line, after
    the shebang.
-5. Save — the routing block regenerates automatically.
+5. Give it the **venv shebang**, `#!/mnt/workspace/.venv/bin/python3` — see § The interpreter below.
+6. Declare any new third-party dependency in [`deps.txt`](deps.txt) — see § Declared dependencies.
+7. Save — the routing block regenerates automatically.
+
+## Declared dependencies
+
+Every external thing the tool surface needs is one row in [`deps.txt`](deps.txt): what installs it,
+what probes it, which feature owns it, and **what its absence looks like**. `core/tools/wos/deps`
+runs the probes; `core/tools/test/wos/test_deps.py` fails on any third-party import missing a row.
+
+**Why the `breaks` column is the point.** These deps were found because four of them had been
+installed by hand into `.venv` and never written down, so a fresh clone lost the capability
+*silently* — the tool did not crash, it returned a worse answer. The expensive one cost a full
+session: without `secretstorage`, yt-dlp fails with `failed to decrypt cookie (AES-CBC) ... Possibly
+the key is wrong?`, which reads like a wrong password and is a missing module. A dependency list
+that only names packages would not have saved that session; one that names the *symptom* does.
+
+**The import half is enforced, the binary half is declared.** An ast walk cannot be fooled about
+imports, so a new `import` fails the suite until it is declared. A binary invoked through a shell
+string (`pandoc`, `ffmpeg`, `pdftotext`, `flutter`) cannot be found by any scan, so those rows are
+kept honest by their probe alone. Do not let the file imply otherwise.
+
+## The interpreter
+
+**A tool runs under the workspace venv, never under whatever python the caller happens to have.**
+The venv holds the declared dependencies; the system interpreter holds none of them. Sixteen tools
+carried `#!/usr/bin/env python3` and worked only because sessions happened to start with the venv
+active — `core/tools/paper/terms` imports `yaml`, and the pre-commit term gate that calls it would
+have skipped silently on a clean machine.
+
+The path is absolute because **a shebang cannot resolve a relative one**. That is a real cost: it
+hardcodes `/mnt/workspace`, so a clone living anywhere else needs the shebangs rewritten. That
+rewrite is a step in [`SETUP.md`](../../SETUP.md) § Workspace path rather than a caveat in prose —
+it is idempotent, it has a probe, and an agent performs it. The test asserts the *absence of the
+system shebang*, so it keeps passing on a relocated clone.

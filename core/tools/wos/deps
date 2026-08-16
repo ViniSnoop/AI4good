@@ -1,0 +1,69 @@
+#!/mnt/workspace/.venv/bin/python3
+# Usage: core/tools/wos/deps [--check] [--feature <slug>] — probe every dependency declared in core/tools/deps.txt, reporting what each miss breaks; --check exits 1 on any miss
+from __future__ import annotations
+
+import argparse
+import subprocess
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[3]
+DECLARED = ROOT / 'core' / 'tools' / 'deps.txt'
+
+INSTALL = {
+    'pip': '.venv/bin/pip install {name}',
+    'apt': 'sudo apt-get install -y {name}',
+    'npm': 'npm install -g {name}',
+    'npx': 'npx --yes {name}   # no install needed, but the first run must reach the registry',
+    'binary': 'see SETUP.md — {name} has its own installer',
+}
+
+
+def rows() -> list[dict]:
+    """Parse deps.txt: '#' comments dropped, first surviving line is the header."""
+    lines = [ln.rstrip('\n') for ln in DECLARED.read_text().splitlines()
+             if ln.strip() and not ln.startswith('#')]
+    header = lines[0].split('\t')
+    return [dict(zip(header, ln.split('\t'))) for ln in lines[1:]]
+
+
+def probe(cmd: str) -> bool:
+    """Present = the probe exits 0. Never trust config; run the thing."""
+    try:
+        r = subprocess.run(cmd, shell=True, cwd=ROOT, capture_output=True, timeout=60)
+        return r.returncode == 0
+    except subprocess.TimeoutExpired:
+        return False
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser(add_help=True)
+    ap.add_argument('--check', action='store_true', help='exit 1 if anything is missing')
+    ap.add_argument('--feature', help='probe only the deps owned by one feature slug')
+    args = ap.parse_args()
+
+    wanted = [r for r in rows() if not args.feature or r['feature'] == args.feature]
+    if not wanted:
+        print(f'no declared dependency for feature {args.feature!r}', file=sys.stderr)
+        return 1
+
+    missing = []
+    for r in wanted:
+        ok = probe(r['probe'])
+        print(f"{'ok     ' if ok else 'MISSING'}  {r['name']:26s} {r['feature']}")
+        if not ok:
+            missing.append(r)
+
+    if missing:
+        print(f'\n{len(missing)} missing — install, then re-run this command:\n')
+        for r in missing:
+            print(f"  # {r['name']}: {r['breaks']}")
+            print(f"  {INSTALL[r['kind']].format(name=r['name'])}\n")
+    else:
+        print(f'\nall {len(wanted)} declared dependencies present.')
+
+    return 1 if (missing and args.check) else 0
+
+
+if __name__ == '__main__':
+    sys.exit(main())
