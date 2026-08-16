@@ -109,5 +109,10 @@ Print the block between the `---` markers:
 After printing:
 
 > Resume prompt ready — written to `outputs/handoff.md`. Open a new session (`/clear` or a fresh
-> window) and start it with: `Read outputs/handoff.md and continue.` Pasting the block itself
+> window) and start it with: `Read outputs/handoff.md and plan what you'll do in this session.`
+> **Plan, never "continue"** — ruled 2026-08-16 (Lucas). "Continue" makes a session start at the
+> next action this file names and never look up; planning forces it to read the whole ledger first,
+> which is what surfaces blocked decisions and cross-item ordering. The session that ruled it opened
+> that way and closed six decision items that had been open for weeks because nobody had asked which
+> ones were blocking. Pasting the block itself
 > works too, but the file is what survives if this session dies first.

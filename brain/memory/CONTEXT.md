@@ -55,6 +55,7 @@ enough to be worth folding was tested and **rejected on the numbers** —
 | [`project_spacemantics.md`](project_spacemantics.md) | spacemantics project — verifiable spatial DSL giving LLMs spatial capability; 4… |
 | [`project_verify_roadmap.md`](project_verify_roadmap.md) | Workspace verification/enforcement roadmap lives at code/VERIFY.md — check… |
 | [`project_wos_fanout_split.md`](project_wos_fanout_split.md) | core/hooks and core/tools split into families 2026-07-31 (every CLI path… |
+| [`project_wos_zero_roadmap.md`](project_wos_zero_roadmap.md) | Lucas quer zerar o ROADMAP do WOS o quanto antes — infra já consumiu tempo… |
 | [`reference_linuz90_bot.md`](reference_linuz90_bot.md) | linuz90/claude-telegram-bot source read — the reference design for aiwbot; how… |
 | [`reference_texpace_is_spacemantics.md`](reference_texpace_is_spacemantics.md) | texpace" routes to the spacemantics project — same thing for /inbox routing |
 | [`user_profile.md`](user_profile.md) | Lucas — read before any Brain task. |

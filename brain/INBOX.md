@@ -9,6 +9,14 @@
 
 <!-- add entries below, newest first -->
 
+sinto que arquivos de objetivos (goals) são pouco usados. roadmaps são muito usados. gostaria de primeiro ter esse monitoramento de forma automática (zero-token) de quais arquivos UPPERCASE.md são lidos e com que frequencia (e se possível o custo em tokens de leitura deles). tudo isso monitorado no tempo. depois gostaria de reforçar a conexão entre os goals e os roadmaps, não sei se tem como, talvez até algo ENFORCED...
+
+muitas vezes o "drain" do inbox.md não lê direito os links. isso deveria ser automático, zero-token, mas muitas vezes o modelo escolhe pular, é "preguiça"? tentar contornar isso
+
+https://www.instagram.com/reel/DbsInXVNmjZ/?igsh=NnY2N3BocXV5YTgy
+have adversarials as our standards, maybe enforced... e.g., a plan that doesn't have any adversarial steps is rejected
+— via aiwbot · 2026-08-16
+
 GitHub - github/spec-kit: 💫 Toolkit to help you get started with Spec-Driven Development · GitHub
 https://github.com/github/spec-kit
 pra ajudar a gente a aplicar o SDD. vale a pena pesquisar bem pra não pegar a primeira opção sem pensar

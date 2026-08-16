@@ -690,6 +690,12 @@ hypothesis; re-run it before spending a decision on it.**
    could not be seen, so for a month it kept pointing readers at a flow file that had been renamed,
    **An untracked file does not merely lack backup — it opts out of every
    check the workspace has**, and goes on giving instructions while it rots.
+
+   **Read [`github/spec-kit`](https://github.com/github/spec-kit) before ruling** (ref in
+   [`core/refs/REFS.md`](core/refs/REFS.md); Lucas, INBOX 2026-08-16: *"vale a pena pesquisar bem
+   pra não pegar a primeira opção sem pensar"*). It is input to the decision, not a replacement for
+   it — ours is already wired into five enforcement points, so the honest question is what spec-kit
+   does that those do not, and whether adopting it would mean deleting our gates or feeding them.
    → **model: opus**, with Lucas.
 
 ---

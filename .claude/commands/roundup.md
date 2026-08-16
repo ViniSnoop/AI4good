@@ -129,4 +129,5 @@ declines. Then report, in this order, **omitting every line with nothing behind 
 
 Nothing else. No session summary, no next steps: `/handoff` just emitted those, and repeating them
 is the padding this skill exists to not produce. Close with one instruction — start the next
-session with `Read outputs/handoff.md and continue.` — or, if `/handoff` skipped, with nothing.
+session with `Read outputs/handoff.md and plan what you'll do in this session.` — **plan, never
+"continue"**; the rationale is in [`handoff.md`](../../core/skills/handoff.md). Or, if `/handoff` skipped, nothing.

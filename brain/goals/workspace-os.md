@@ -17,9 +17,19 @@ immersed mode · advancing motion · intrinsic source
 ## selected next achievement
     [v1] pass the four-criterion v1 gate — Tier 0 anti-entropy live · one ledger, no duplicates · everything pushed and gitflow-shaped · clonable by a student
 
-**All build work lives in [/ROADMAP.md](../../ROADMAP.md)** — the single wos ledger (12 fronts + two
-ready-to-execute batches, each step tagged with model tier and impact flag). This file holds only why,
-signals, dynamics, and timing. Plans do not live in goal files (AGENTS.md).
+**All build work lives in [/ROADMAP.md](../../ROADMAP.md)** — the single wos ledger, each step tagged
+with model tier and impact flag. This file holds only why, signals, dynamics, and timing. Plans do not
+live in goal files (AGENTS.md).
+
+> **The governing constraint, Lucas 2026-08-16:** *"definitivamente, quero zerar o roadmap do WOS o
+> quanto antes. já usamos demasiado tempo e esforço na infraestrutura."*
+>
+> This outranks completeness. It is not a request to work faster — it is a filter on what may be in
+> the ledger at all. Three consequences, in the order they bite: **an item that another repo owns is
+> refiled there, not held here**; **an item that does not gate v1 is a candidate for the Rejected
+> list, not the backlog**; and a finding worth keeping goes into the `SPECS.md` or `SCHEMA.md`
+> section that owns the rule, because writing the rule there is what closing an item *is*. The
+> scaffold is a means. Time spent on it past v1 is time not spent on the work it exists to serve.
 
 **ease-start**  
 The gate is two rows from done and **one of them is a decision, not work — yours, and nobody else can
@@ -73,10 +83,10 @@ last-touch: 2026-08-16  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |     199 |
-| trimester   |     243 |
-| semester    |     258 |
-| year        |     258 |
-| 2-year      |     258 |
-| 4-year      |     258 |
+| month       |     202 |
+| trimester   |     246 |
+| semester    |     261 |
+| year        |     261 |
+| 2-year      |     261 |
+| 4-year      |     261 |
 <!-- stats:end -->
