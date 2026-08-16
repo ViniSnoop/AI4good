@@ -990,6 +990,7 @@ months anyway. Cheaper than a list nobody reads.
 - **`core/tools/paper/papers --ss` live smoke** — it will smoke itself on the next real use.
 - **Commit the `.claude/commands/{drive,calendar}.md` symlinks** — done inline rather than tracked.
 - **`/caveman compress` on workspace docs** — piloted on the worst offender: 8571 → 8552 chars, **0.22%**, for one full quota call. The docs have no lexical fat, so placement beats phrasing and compression stays the last step on an already-reduced surface (core/SCHEMA.md § Placement).
+- **A media-host allowlist for INBOX link extraction** — deciding which links the video tool runs from a list of known hosts (instagram/youtube/tiktok/…) is faster, and the list rots into exactly the silent skip the batch fix exists to kill. Every link is attempted; one with no media falls back to `core/tools/web/fetch`.
 - **The ~8% unexplained spend gap between `usage` and the one-off script** — the premise is void. Both summed transcript records instead of API responses, so they agreed on shares while being 1.97x wrong together, and the agreement is what stopped anyone looking. Absolute spend is list price and has never been checked against a bill; that is the only caveat left.
 
 ## Sequencing
