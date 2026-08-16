@@ -1,0 +1,77 @@
+# T0 the heredoc gate: a shell write to a workspace file must not walk past the file gates.
+#
+# `pre-edit.py` and the other file checks are `PreToolUse: Edit|Write`, so `cat > f << 'EOF'` met
+# none of them — 128 such calls in this workspace's transcripts, among them brain/INBOX.md and
+# HISTORY.md, both written past the size gate and the first-line-comment check.
+#
+# The silence cases matter more than the firing ones. Stdin-to-an-interpreter is 44% of heredoc
+# volume here and writes nothing; a gate that fires on those is a gate that gets switched off, and
+# it would fire on every measurement script behind ROADMAP Frente 9.
+import json
+import subprocess
+
+import pytest
+
+from conftest import WORKSPACE_ROOT
+
+GATE = WORKSPACE_ROOT / 'core/hooks/checks/heredoc-gate.py'
+
+
+def run(command: str, tool: str = 'Bash') -> str:
+	"""The context the gate would inject, or '' when it stays silent."""
+	payload = json.dumps({'tool_name': tool, 'cwd': str(WORKSPACE_ROOT),
+	                      'tool_input': {'command': command}})
+	done = subprocess.run(['python3', str(GATE)], input=payload,
+	                      capture_output=True, text=True)
+	assert done.returncode == 0, f'the gate must never block: {done.stderr}'
+	if not done.stdout.strip():
+		return ''
+	return json.loads(done.stdout)['hookSpecificOutput']['additionalContext']
+
+
+@pytest.mark.parametrize('command', [
+	"cat > /mnt/workspace/brain/INBOX.md << 'EOF'\nx\nEOF",
+	"cat >> /mnt/workspace/HISTORY.md <<'EOF'\nx\nEOF",
+	"tee /mnt/workspace/notes.md <<'EOF'\nx\nEOF",
+	"tee -a /mnt/workspace/notes.md <<'EOF'\nx\nEOF",
+	"cat > notes.md <<'EOF'\nx\nEOF",
+])
+def test_a_heredoc_that_writes_a_workspace_file_is_named(command):
+	"""Both spellings and both append forms, absolute and relative to cwd."""
+	assert 'UNGATED WRITE' in run(command)
+
+
+@pytest.mark.parametrize('command', [
+	"python3 - <<'EOF'\nprint(1)\nEOF",
+	"python3 - 2>/dev/null <<'EOF'\nprint(1)\nEOF",
+	"bash <<'EOF'\nls\nEOF",
+	"cat <<'EOF'\njust printing\nEOF",
+	"grep x <<< '/mnt/workspace/a.md'",
+	'echo hi',
+	'cat /mnt/workspace/README.md',
+])
+def test_analysis_and_ordinary_shell_stay_silent(command):
+	"""Nothing here writes a workspace file, and a false fire is what kills a warn-only gate."""
+	assert run(command) == ''
+
+
+def test_a_write_outside_the_workspace_is_not_this_gate_s_business():
+	"""Scratch files are the reason /tmp exists; gating them would be noise with no rule behind it."""
+	assert run("cat > /tmp/scratch.md <<'EOF'\nx\nEOF") == ''
+
+
+def test_a_redirect_inside_the_heredoc_body_is_text_not_shell():
+	"""The body is data. Parsing it would fire on any script that merely mentions a path."""
+	assert run("python3 - <<'EOF'\nopen('> /mnt/workspace/z.md', 'w')\nEOF") == ''
+
+
+def test_the_message_names_one_action():
+	"""AGENTS.md: agent-facing text names one flow. Two suggestions is a decision to improvise on."""
+	message = run("cat > /mnt/workspace/x.md <<'EOF'\nx\nEOF")
+	assert 'Write tool' in message
+	assert message.count('Use ') == 1
+
+
+def test_a_non_bash_tool_is_not_touched():
+	"""Registered on Bash, but a shim may hand it anything; Edit and Write have their own gates."""
+	assert run("cat > /mnt/workspace/x.md <<'EOF'\nx\nEOF", tool='Write') == ''

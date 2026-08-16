@@ -75,6 +75,7 @@ other provider's shim.
 | `facade/facade-tracker.py` | PostToolUse: Read | Records facade reads, consumed by `facade-gate.py` |
 | `read/context-gate.py` | PreToolUse: Read, Edit, Write, Grep, NotebookEdit | **Blocks** file access until the target subtree's `CONTEXT.md` chain was Read this session. Session-deduped; `CONTEXT.md`/`AGENTS.md` targets exempt |
 | `read/bash-context-gate.py` | PreToolUse: Bash | **Blocks** Bash commands naming workspace files in subtrees whose chain is unread — this is what closes the `cat`/`grep` bypass |
+| `checks/heredoc-gate.py` | PreToolUse: Bash | **Warns, never blocks** — a heredoc writing a workspace file (`cat >`/`tee`) meets none of the `Edit|Write` gates. Silent for stdin-to-an-interpreter, which writes nothing |
 | `compact/bash-compact-rewrite.py` | PreToolUse: Bash | **Rewrites, never blocks** — sends every line of a multi-line command through rtk, which parses line 1 only; delegates any payload it cannot split safely |
 | `read/pre-read.sh` | PreToolUse: Read | **Blocks** reading a source file while its interface is current; warns when the interface is stale. Reading the interface unlocks the source for the session |
 | `read/context-tracker.py` | PostToolUse: Read | Records `CONTEXT.md` reads and interface reads — the state both gates above consume |
@@ -84,6 +85,24 @@ other provider's shim.
 | `post-edit.sh` | PostToolUse: Edit, Write | Regenerates interfaces, scaffolds `jsconfig.json`/`tsconfig.json` if missing, reminds about a missing first-line comment, runs the routing sync |
 | `session/precompact-wipe.sh` | PreCompact | Wipes the seen-markers, so the `CONTEXT.md` chain is re-read after compaction |
 | `session/session-prune.sh` | SessionStart | Prunes session marker files older than 2 days |
+
+**Why one of them only warns.** A `PreToolUse` hook fires *after* the model has emitted the tool
+call, so by the time `heredoc-gate.py` sees a 3,000-character `cat >` payload those tokens are
+already billed and already in the thread. Blocking cannot recover them — it makes the turn emit the
+same content a second time as a `Write`. So the gate exists to change turn N+1, and its whole cost
+is zero until it fires. Any gate whose subject is *what was already sent* has this shape; a gate
+whose subject is *what is about to happen on disk* should still block.
+
+**How a hook warns without blocking**, and two harness facts verified by running it (Claude Code
+2.1.218, neither in the documentation):
+
+- `PreToolUse` delivers `hookSpecificOutput.additionalContext` **to the model**, on exit 0, with the
+  tool still running. That is the only non-blocking channel that reaches the model: exit-0 stdout is
+  transcript-only and `systemMessage` addresses Lucas, not the agent. `facade-scan.py` still prints
+  to stdout and so is read by nobody — a live asymmetry, not a design.
+- **A `.claude/settings.json` hook edit is live in the session that made it.** Registration is not
+  captured at session start, which was an open question for two sessions. Probed by adding
+  `heredoc-gate.py` and running one heredoc write in the same session; the context arrived.
 
 Why a subagent is exempt from the context gate, and why the briefing needs two events to work:
 [`../SPECS.md`](../SPECS.md) § AD-13.
