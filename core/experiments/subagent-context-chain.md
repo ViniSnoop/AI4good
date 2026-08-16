@@ -49,11 +49,11 @@ for subtrees the parent happened to visit, and pays the full chain everywhere el
 ## What changed
 
 - **Subagents are exempt from the context gate by decision** (Lucas, 2026-08-15), replacing an
-  exemption that was accidental and partial. The argument is the type system's own: Frente 12 rules
+  exemption that was accidental and partial. The argument is the type system's own: SCHEMA.md rules
   that constraints live in `SPECS.md` and `CONTEXT.md` carries **routing**, so a worker told to edit
   one function does not need to know where else it could have gone. `spec-read-gate.py` keeps firing.
 - **The orchestrator owns worker context instead**, injected rather than demanded — induce, never
-  block. [/ROADMAP.md](../../ROADMAP.md) Frente 3.1.
+  block. [`core/hooks/SPECS.md`](../hooks/SPECS.md).
 - **The ablation's follow-up design is preserved** below rather than re-derived.
 
 ## Follow-up design, if this is ever re-run

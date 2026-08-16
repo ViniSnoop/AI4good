@@ -1,12 +1,11 @@
-# T0 pointer-integrity check (Frente 4 Tier 0, subsumes Frente 2): every relative
+# T0 pointer-integrity check (Tier 0): every relative
 # ](path) link across CONTEXT.md / ROADMAP*.md / SCHEMA.md / AGENTS.md (repo) and
 # MEMORY.md (auto-memory) must resolve. Zero-token, runs in verify-fast.
 #
-# [[slug]] resolution is intentionally NOT gated here — core/ROADMAP.md Frente 2
-# item 3 marks it decide-first: the memory spec allows a dangling [[slug]] as a
-# "planned, not yet written" memory, and the corpus mixes kebab-case `name:`
-# fields with underscore filenames as the link target, so there is no single
-# rule to enforce yet.
+# [[slug]] resolution is intentionally NOT gated here: the memory spec allows a
+# dangling [[slug]] as a "planned, not yet written" memory, and the corpus mixes
+# kebab-case `name:` fields with underscore filenames as the link target, so there
+# is no single rule to enforce yet. The entropy dashboard counts them instead.
 import re
 from pathlib import Path
 

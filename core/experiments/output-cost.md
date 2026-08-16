@@ -111,7 +111,7 @@ only from re-deriving the tool's own output by hand. Do that once before quoting
   "what counts as one API response" moved to `session_turns.py` with eight tests
   ([`core/tools/test/wos/test_usage.py`](../tools/test/wos/test_usage.py)).
 - The output line now prints its logged/unlogged split, so the half that is paid once is visible.
-- `ROADMAP.md` Frente 9, `ROADMAP-output-cost.md` and `core/hooks/limits.env` had the withdrawn
+- `ROADMAP.md` § Cost & model routing, `ROADMAP-output-cost.md` and `core/hooks/limits.env` had the withdrawn
   numbers deleted, not softened.
 - The re-emit gate was **demoted from a cost item to a governance item**: at 1.9x it is worth ~1% of
   spend, and the ungated-write hole is the whole of its remaining case.
@@ -128,7 +128,7 @@ only from re-deriving the tool's own output by hand. Do that once before quoting
 - **The self-authored share caps at 1.0 per turn and ignores compaction**, so it remains an upper
   estimate even after the fix.
 - **Absolute spend is list price**, and does not reflect a subscription. Ratios are the trustworthy
-  part; the ROADMAP § Frente 9 caveat about the absolute total still stands.
+  part; the ROADMAP § Cost & model routing caveat about the absolute total still stands.
 - **Subagent turns are excluded** — they are billed in their own transcripts under
   `<session>/subagents/`, which this measurement does not open.
 - **A row will not re-run to the same counts.** The population is every transcript on this machine

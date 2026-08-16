@@ -5,7 +5,7 @@ Split out of [`../CONTEXT.md`](../CONTEXT.md): these three share
 [`session_log.py`](session_log.py) and read `~/.claude/projects/<slug>/*.jsonl`, unlike the
 parent's other tools, which act on the workspace tree.
 
-Quote neither report from memory — re-run the command. The Frente 9 lesson was four false claims
+Quote neither report from memory — re-run the command. The cost work's lesson was four false claims
 from a stale read.
 
 ## Two rules that make the attribution honest

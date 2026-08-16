@@ -11,5 +11,5 @@
 | [`check-line-counts.sh`](check-line-counts.sh) | — | — | Check workspace code file line counts and print warnings/errors. |
 | [`heredoc-gate.py`](heredoc-gate.py) | [`heredoc-gate.pyi`](heredoc-gate.pyi) | `targets`, `in_workspace`, `written_paths`, `main` | PreToolUse: Bash — a shell heredoc that writes a workspace file meets none of the file gates. |
 | [`pre-edit.py`](pre-edit.py) | [`pre-edit.pyi`](pre-edit.pyi) | `block` | PreToolUse: Edit|Write — size gate (200-line block), first-line comment, CONTEXT.md description. |
-| [`type-gate.py`](type-gate.py) | [`type-gate.pyi`](type-gate.pyi) | `check_name`, `staged_added_files`, `failures_for`, `main` | Tier 0 gate (ROADMAP.md Frente 4.1): a staged file must be a known .md type or a |
+| [`type-gate.py`](type-gate.py) | [`type-gate.pyi`](type-gate.pyi) | `check_name`, `staged_added_files`, `failures_for`, `main` | Tier 0 gate (core/SCHEMA.md § The .md type system): a staged file must be a known .md type or a |
 <!-- routing:end -->

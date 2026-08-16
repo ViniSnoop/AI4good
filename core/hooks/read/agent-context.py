@@ -2,7 +2,7 @@
 # PreToolUse: Agent (collect) + SubagentStart (inject) — hand a worker the context for the paths it
 # was pointed at, so the orchestrator does not have to remember to.
 #
-# Subagents are exempt from the context gate (ROADMAP Frente 3.1, ruled 2026-08-15): a worker told
+# Subagents are exempt from the context gate (core/hooks/SPECS.md, ruled 2026-08-15): a worker told
 # to edit one function does not need the routing chain for everywhere it could have gone. That
 # ruling moves the duty to the orchestrator, and this hook is what stops the duty being a discipline
 # nobody keeps. It INDUCES, never blocks: a thin prompt yields a thin injection.

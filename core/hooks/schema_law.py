@@ -4,7 +4,7 @@
 # checks exist to catch.
 #
 # Extracted from type-gate.py 2026-07-30 when the second and third checks (naming and
-# retired tokens) needed the same parse. See ROADMAP.md Frente 4.1.
+# retired tokens) needed the same parse. See core/SCHEMA.md.
 import re
 from pathlib import Path
 

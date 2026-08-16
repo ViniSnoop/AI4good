@@ -3,7 +3,7 @@
 # by model, by context size, by billed component, and what one more turn costs. Reads the local
 # transcripts; no network, no model.
 #
-# Exists because ROADMAP Frente 9 was steered for weeks by numbers from a single 24h window, two
+# Exists because the cost model was steered for weeks by numbers from a single 24h window, two
 # of which were false. Any claim about where usage goes should be re-runnable in one command.
 import sys
 from collections import defaultdict

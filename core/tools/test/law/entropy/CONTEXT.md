@@ -21,10 +21,10 @@ it is the same ambiguity the reader has.
 
 | File | Interface | Description |
 |------|-----------|-------------|
-| [`test_entropy_context.py`](test_entropy_context.py) | [`test_entropy_context.pyi`](test_entropy_context.pyi) | T0 CONTEXT.md rules (Frente 4.1 Tier 0). Zero-token, runs in verify-fast. |
-| [`test_entropy_fanout.py`](test_entropy_fanout.py) | [`test_entropy_fanout.pyi`](test_entropy_fanout.pyi) | T0 directory fanout (Frente 4.1 Tier 0). Zero-token, runs in verify-fast. |
-| [`test_entropy_inventory.py`](test_entropy_inventory.py) | [`test_entropy_inventory.pyi`](test_entropy_inventory.pyi) | T0 no-hand-inventory rule (Frente 4.1 Tier 0). Zero-token, runs in verify-fast. |
-| [`test_entropy_ledger.py`](test_entropy_ledger.py) | [`test_entropy_ledger.pyi`](test_entropy_ledger.pyi) | T0 ledger and vocabulary checks (Frente 4.1 Tier 0). Zero-token, runs in verify-fast. |
-| [`test_entropy_naming.py`](test_entropy_naming.py) | [`test_entropy_naming.pyi`](test_entropy_naming.pyi) | T0 naming and placement (Frente 4.1 Tier 0). Zero-token, runs in verify-fast. |
-| [`test_entropy_placeholders.py`](test_entropy_placeholders.py) | [`test_entropy_placeholders.pyi`](test_entropy_placeholders.pyi) | T0 unanswered scaffold placeholders (Frente 4.6). Zero-token, runs in verify-fast. |
+| [`test_entropy_context.py`](test_entropy_context.py) | [`test_entropy_context.pyi`](test_entropy_context.pyi) | T0 CONTEXT.md rules (Tier 0, law in core/SCHEMA.md). Zero-token, runs in verify-fast. |
+| [`test_entropy_fanout.py`](test_entropy_fanout.py) | [`test_entropy_fanout.pyi`](test_entropy_fanout.pyi) | T0 directory fanout (Tier 0, law in core/SCHEMA.md). Zero-token, runs in verify-fast. |
+| [`test_entropy_inventory.py`](test_entropy_inventory.py) | [`test_entropy_inventory.pyi`](test_entropy_inventory.pyi) | T0 no-hand-inventory rule (Tier 0, law in core/SCHEMA.md). Zero-token, runs in verify-fast. |
+| [`test_entropy_ledger.py`](test_entropy_ledger.py) | [`test_entropy_ledger.pyi`](test_entropy_ledger.pyi) | T0 ledger and vocabulary checks (Tier 0, law in core/SCHEMA.md). Zero-token, runs in verify-fast. |
+| [`test_entropy_naming.py`](test_entropy_naming.py) | [`test_entropy_naming.pyi`](test_entropy_naming.pyi) | T0 naming and placement (Tier 0, law in core/SCHEMA.md). Zero-token, runs in verify-fast. |
+| [`test_entropy_placeholders.py`](test_entropy_placeholders.py) | [`test_entropy_placeholders.pyi`](test_entropy_placeholders.pyi) | T0 unanswered scaffold placeholders (first-line-comment rule, core/hooks/SPECS.md). Zero-token, runs in verify-fast. |
 <!-- routing:end -->

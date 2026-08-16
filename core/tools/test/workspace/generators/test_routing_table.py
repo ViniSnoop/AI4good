@@ -1,4 +1,4 @@
-# The routing table's generated columns (Frente 3.2). Zero-token, runs in verify-fast.
+# The routing table's generated columns (core/hooks/SPECS.md). Zero-token, runs in verify-fast.
 #
 # Two rules, both measured on 2026-07-30 across 159 CONTEXT.md / 1242 rows:
 #   1. A generated column empty on EVERY row is not emitted. 773 of 1242 rows carried an
@@ -83,7 +83,7 @@ def test_every_scanned_extension_can_be_described() -> None:
     were in ALL_EXTS and absent from COMMENT_RE, so 59 tracked files were undescribable by
     construction. Each got `← add first-line comment` in its routing row no matter how well
     it was commented — including `core/hooks/post-edit.sh`, inside the enforcement
-    directory, which ROADMAP.md Frente 4.6 read as evidence of a discipline hole.
+    directory, which was read as evidence of a discipline hole until the generator was asked.
     """
     missing = sorted(ALL_EXTS - set(COMMENT_RE))
     assert not missing, (

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Self-healing .gitignore allowlist (decided 2026-07-24, ROADMAP.md Frente 6 item 2).
+# Self-healing .gitignore allowlist (decided 2026-07-24). Contract: core/hooks/SPECS.md.
 # Every domain folder (core/, code/, academy/, branches/, brain/, models/, datasets/) uses a
 # denylist-first .gitignore pattern (`<domain>/*` + explicit `!<domain>/<dir>/` allow lines),
 # so a brand-new domain subdir is silently untracked until someone remembers to add its line
@@ -33,7 +33,7 @@ for domain in $(grep -oE '^[a-zA-Z0-9_-]+/\*$' "$GITIGNORE" | sed 's#/\*$##'); d
     # without submodules, which the 2026-07-22 nested-gitlink-gate decision deliberately killed.
     # An allow line would track nothing and leave a permanent `?? <dir>` in every git status,
     # which is exactly what the first version of this hook did to 13 code/ projects. Routing
-    # reads their CONTEXT.md off-disk instead. Corrected 2026-07-29 (/ROADMAP.md Frente 11.1).
+    # reads their CONTEXT.md off-disk instead. Corrected 2026-07-29.
     [ -e "${dir}.git" ] && continue
     [ -f "${dir}CONTEXT.md" ] || continue
     name="$domain/$(basename "$dir")"

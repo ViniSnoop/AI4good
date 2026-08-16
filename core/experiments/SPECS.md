@@ -19,7 +19,7 @@ whose command no longer runs is a dead row: delete it, do not annotate it.
 | `## Limitations` | what this cannot tell you. Never omit it |
 
 The append-only table is the deliberate exception to *done work is deleted*: everywhere else a
-finished row is cut; here the trend is the artifact, and Frente 9 already proved what a single
+finished row is cut; here the trend is the artifact, and the cost work already proved what a single
 current-state number does — it steered the ledger for weeks while being wrong in every claim.
 
 ## Honest reporting rules

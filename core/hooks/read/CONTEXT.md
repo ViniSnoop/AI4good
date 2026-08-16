@@ -3,7 +3,7 @@
 
 Two directions, one subject. **Gates force a read**: the CONTEXT.md chain, the interface stub, the
 module spec. **[`agent-context.py`](agent-context.py) supplies one** — subagents are exempt from the
-chain gate (ROADMAP Frente 3.1, ruled 2026-08-15), which moves the duty of briefing a worker onto
+chain gate ([`SPECS.md`](../SPECS.md), ruled 2026-08-15), which moves the duty of briefing a worker onto
 the orchestrator, and that hook is what stops the duty being a discipline nobody keeps. It induces,
 never blocks.
 

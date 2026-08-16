@@ -3,7 +3,7 @@
 # window: what is already in it at turn 1, what the CONTEXT.md chain costs, what grows it turn over
 # turn, and what a subagent starts with. Reads the local transcripts; no network, no model.
 #
-# Exists because ROADMAP Frente 3.1 asks a question no session can answer about itself: the window
+# Exists because a session cannot answer this about itself: the window
 # is invisible from inside, so every claim about what fills it was an estimate. The transcript
 # labels its own injected blocks, so this attributes what is labelled and reports the rest as a
 # named remainder rather than burying it in a total. Replay and attribution: session_log.py.

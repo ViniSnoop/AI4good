@@ -6,7 +6,7 @@
 #
 # The silence cases matter more than the firing ones. Stdin-to-an-interpreter is 44% of heredoc
 # volume here and writes nothing; a gate that fires on those is a gate that gets switched off, and
-# it would fire on every measurement script behind ROADMAP Frente 9.
+# it would fire on every cost-measurement script in core/tools/wos/session/.
 import json
 import subprocess
 

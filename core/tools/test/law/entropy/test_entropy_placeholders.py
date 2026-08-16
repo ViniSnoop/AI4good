@@ -1,4 +1,4 @@
-# T0 unanswered scaffold placeholders (Frente 4.6). Zero-token, runs in verify-fast.
+# T0 unanswered scaffold placeholders (first-line-comment rule, core/hooks/SPECS.md). Zero-token, runs in verify-fast.
 #
 # Split from test_entropy_ledger.py 2026-08-15, alongside the check itself. The branch
 # these cover shipped with NO test, which is how it went a year labelled as the wrong

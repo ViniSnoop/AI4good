@@ -12,6 +12,6 @@ if [ -f "brain/GOALS.md" ]; then
 fi
 
 
-# ── 0b. Self-healing .gitignore allowlist (Frente 6 item 2, decided 2026-07-24) ─
+# ── 0b. Self-healing .gitignore allowlist (decided 2026-07-24) ─
 /mnt/workspace/core/hooks/git/gitignore-self-heal.sh .
 

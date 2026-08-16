@@ -5,7 +5,7 @@
 # `PreToolUse: Edit|Write`, so `cat > file << 'EOF'` walks past every one of them. Measured over
 # this workspace's transcripts (2026-08-15): 128 such calls, 354,100 chars, and among them
 # brain/INBOX.md, HISTORY.md and test_entropy_ledger.py — written past the 200-line size gate, the
-# first-line-comment check and the CONTEXT.md description rule. ROADMAP Frente 4.6 predicted it.
+# first-line-comment check and the CONTEXT.md description rule. See core/hooks/SPECS.md.
 #
 # Warns, never blocks, and the reason is not politeness: a PreToolUse hook fires AFTER the model has
 # emitted the payload. The tokens are already spent, and blocking only makes the turn re-emit them.
@@ -33,7 +33,7 @@ def targets(line: str) -> list:
 
 	That exclusion is the one this gate cannot get wrong: stdin-to-an-interpreter is 44% of all
 	heredoc volume here and is throwaway analysis, including every script the cost measurements
-	behind ROADMAP Frente 9 were run from. A gate firing on those is a gate that gets turned off.
+	behind the cost measurements were run from. A gate firing on those is a gate that gets turned off.
 	"""
 	found = [match.group(1) for match in REDIRECT.finditer(line)]
 	found += [match.group(2) for match in TEE.finditer(line)]

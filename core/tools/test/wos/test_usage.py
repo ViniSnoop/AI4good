@@ -1,4 +1,4 @@
-# T1 the cost instrument (Frente 9): what counts as one turn, and which half of output is re-read.
+# T1 the cost instrument: what counts as one turn, and which half of output is re-read.
 #
 # Both cases here are bugs the tool shipped with and quoted as authority for weeks. It summed
 # transcript *records* rather than API responses — 1.97x over the real project — and it treated
@@ -108,7 +108,7 @@ def test_a_sidechain_response_never_enters_the_main_chain(project):
 
 
 def test_a_thinking_heavy_session_does_not_read_as_self_authored(tmp_path):
-	"""End-to-end on the real script: the claim the whole of Frente 9 rested on.
+	"""End-to-end on the real script: the claim the whole cost model rested on.
 
 	Ten turns whose output is almost entirely thinking. Nothing lands in the thread, so the
 	self-authored share must stay near zero — the old `cum += output_tokens` drove it to the 1.0

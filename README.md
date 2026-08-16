@@ -96,4 +96,4 @@ Adding a fourth means implementing three hook points against a documented stdin/
 
 Not yet supported, honestly. Making this genuinely installable by someone who is not its author —
 separating what is general from what is Lucas-specific, and letting a newcomer enable only the
-subset they want — is open work tracked in [`ROADMAP.md`](ROADMAP.md) § Frente 10.
+subset they want — is open work tracked in [`ROADMAP.md`](ROADMAP.md) § Portability & clonability.

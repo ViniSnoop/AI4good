@@ -164,7 +164,7 @@ Update + Insert* já é a concessão inteira.
 
 ### AD-13 — Subagente não passa pelo context gate; quem o invoca é que entrega o contexto (2026-08-15)
 
-`CONTEXT.md` carrega **roteamento**; restrição mora em `SPECS.md` (Frente 12), e o gate que protege
+`CONTEXT.md` carrega **roteamento**; restrição mora em `SPECS.md` (SCHEMA.md § Boundaries), e o gate que protege
 contrato — `spec-read-gate.py` — continua disparando para todo mundo. Então um worker que recebeu
 **um caminho explícito** nunca precisou da cadeia: obrigá-lo a lê-la cobra ~2k tok sobre um início de
 17,8k, relidos a cada turno. Regra em `hook_input.is_subagent`, chaveada em `agent_id` — o único

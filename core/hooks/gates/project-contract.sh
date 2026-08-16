@@ -92,7 +92,7 @@ fi
 # ── 1g. Tier 0 type gate — .md type allowlist + CONTEXT.md hand-inventory ─────
 # Ratchet/boy-scout, same shape as 1c/1d: fires only on files this commit ADDS, so a
 # repo that inherited violations is not blocked on every commit. The allowlist is
-# parsed from core/SCHEMA.md, never restated. See ROADMAP.md Frente 4.1.
+# parsed from core/SCHEMA.md, never restated. See core/hooks/SPECS.md.
 python3 /mnt/workspace/core/hooks/checks/type-gate.py || exit 1
 
 # ── 1f. Nested-gitlink gate (workspace repo) ──────────────────────────────────

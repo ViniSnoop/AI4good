@@ -1,4 +1,4 @@
-# T1 the context instrument (Frente 3.1): what fills the window, attributed from the transcript.
+# T1 the context instrument (core/hooks/SPECS.md): what fills the window, attributed from the transcript.
 #
 # Every case here is a bug the instrument actually shipped with, kept as an invariant:
 # scanning only attachments found 1 CONTEXT GATE firing where the transcripts hold 518, and a

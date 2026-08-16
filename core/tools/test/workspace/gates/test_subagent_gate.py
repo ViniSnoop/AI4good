@@ -1,4 +1,4 @@
-# T0 the subagent exemption (ROADMAP Frente 3.1): a worker is not made to read the routing chain.
+# T0 the subagent exemption (core/hooks/SPECS.md): a worker is not made to read the routing chain.
 #
 # Ruled 2026-08-15 (Lucas). The argument is the type system's own — CONTEXT.md carries *routing*,
 # constraints live in SPECS.md — so a worker handed one explicit path does not need the chain, while

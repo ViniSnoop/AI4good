@@ -14,7 +14,7 @@ transformative · essential · thrilled
 > aposentadas estão em § *Retired tokens* e são verificadas por hook. Os flows vivem em
 > [`core/flows/craft/`](../../core/flows/craft/CONTEXT.md), executados por `craft-{low,medium,high}`.
 > **Ainda emitem a palavra aposentada**: a skill `/loops` e o dir de estado `.loop/<slug>/` —
-> rename pendente na [`/ROADMAP.md`](../../ROADMAP.md) Frente 4.2.
+> rename pendente na [`/ROADMAP.md`](../../ROADMAP.md) — o sweep `loops` → `flows` no gerador.
 
 ## selected next achievement
     [opencode-reliability] (A2) executar UM chain completo no opencode (menor feature isoroll) com MESMO modelo via openrouter em paralelo com uma run Claude Code; comparar verdicts/files; decidir: ajustar plugin OU trocar provider OU scope /loops ao Claude Code só
@@ -71,14 +71,14 @@ Abrir `core/flows/craft/craft.md` `## Field Practice` (7 runs auditados, A1 DONE
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-13  ·  trend: advancing
+last-touch: 2026-08-15  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |      27 |
-| trimester   |      33 |
-| semester    |      69 |
-| year        |      69 |
-| 2-year      |      69 |
-| 4-year      |      69 |
+| month       |      30 |
+| trimester   |      36 |
+| semester    |      72 |
+| year        |      72 |
+| 2-year      |      72 |
+| 4-year      |      72 |
 <!-- stats:end -->

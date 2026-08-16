@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Tier 0 gate (ROADMAP.md Frente 4.1): a staged file must be a known .md type or a
+# Tier 0 gate (core/SCHEMA.md § The .md type system): a staged file must be a known .md type or a
 # well-shaped instance, must sit where its type is allowed to live, and a CONTEXT.md must
 # not hand-list files. Zero-token, deterministic, no LLM.
 #
@@ -10,7 +10,7 @@
 #
 # Ratchet, like the spec-drive gate (core/hooks/pre-commit 1d): only files this commit ADDS
 # are blocked. Pre-existing violations are reported by the entropy dashboard
-# (entropy-dashboard.py, Frente 4.3), not by failing every commit in a repo that
+# (entropy-dashboard.py), not by failing every commit in a repo that
 # inherited them.
 import re
 import subprocess

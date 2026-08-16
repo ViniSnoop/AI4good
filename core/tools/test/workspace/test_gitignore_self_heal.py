@@ -1,4 +1,4 @@
-# T0 self-healing .gitignore allowlist check (Frente 6 item 2): a new domain subdir with a
+# T0 self-healing .gitignore allowlist check (core/hooks/SPECS.md): a new domain subdir with a
 # CONTEXT.md must get its `!<domain>/<dir>/` allow line added automatically, no human action.
 import subprocess
 from pathlib import Path

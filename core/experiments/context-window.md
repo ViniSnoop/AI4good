@@ -2,7 +2,7 @@
 > What fills a session's context window, split by source, and how much of it the workspace controls.
 
 Asked because a session cannot see its own window, so every claim about what fills it was an
-estimate — including the ones steering [/ROADMAP.md](../../ROADMAP.md) Frente 3. The suspicion under
+estimate — including the ones steering always-loaded context. The suspicion under
 it was specific: that the auto-memory store duplicates what `USER.md`, `goals/` and the CONTEXT chain
 already carry, and is therefore worth folding.
 
@@ -50,11 +50,11 @@ rising to 21,419 is the same artefact, not a regression: it is the arithmetic re
 ## What changed
 
 - **The memory-store question is answered: do not fold it.** At ~1,198 tok it is not where the cost
-  is. Frente 3.1 updated.
+  is. The always-loaded-context item is updated.
 - **The cuts were made and are worth ~394 tok** (~256 from `RTK.md` leaving the always-loaded chain,
   ~138 from six skill descriptions), against a scoped ceiling of ~1,600. The rest of the ceiling is
   caveman, which Lucas kept — see [`caveman-cost.md`](caveman-cost.md).
-- **The cascade fear from Frente 3.2 is retired.** The CONTEXT.md chain is 4.6% of growth.
+- **The cascade fear is retired.** The CONTEXT.md chain is 4.6% of growth.
 - **Cuts were scoped and found small.** Ceiling ~1,600 tok (5.8%). A session in an empty directory
   with no workspace skills still costs 32k, so the workspace adds 4–9k. Only 36% of the skill listing
   is workspace-owned — three harness plugins outweigh every workspace skill combined.

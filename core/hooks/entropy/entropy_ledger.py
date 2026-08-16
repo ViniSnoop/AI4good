@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Tier 0 ledger and vocabulary checks (ROADMAP.md Frente 4.1). Zero-token, deterministic.
+# Tier 0 ledger and vocabulary checks, parsed from core/SCHEMA.md. Zero-token, deterministic.
 #
 # Two assertions that make two recurring bugs catchable instead of re-discovered:
 #   retired tokens  — a rename is finished only when its old spelling appears nowhere

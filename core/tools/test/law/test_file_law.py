@@ -1,4 +1,4 @@
-# T0 file law (Frente 3.2 close-out). Zero-token, runs in verify-fast.
+# T0 file law (core/hooks/SPECS.md). Zero-token, runs in verify-fast.
 #
 # Why this file exists: "a code file" was defined FIVE times — check-line-counts.sh,
 # entropy-dashboard.py, workspace_meta.py, pre-edit.py and facade-gate.py each carried an

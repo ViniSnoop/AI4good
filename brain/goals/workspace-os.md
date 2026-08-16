@@ -23,7 +23,7 @@ signals, dynamics, and timing. Plans do not live in goal files (AGENTS.md).
 
 **ease-start**  
 The gate is two rows from done and **one of them is a decision, not work — yours, and nobody else can
-make it.** Open [/ROADMAP.md](../../ROADMAP.md) § Frente 11 and read the one paragraph about
+make it.** Open [/ROADMAP.md](../../ROADMAP.md) § Git & sync integrity and read the one paragraph about
 `branches/casinhas`: `modelo/sketchup-referencia/volume-lucas-v04.skp` is **199 MB**, over GitHub's
 hard 100 MB limit, so the push is rejected outright. Three ways out, and you only have to point at one:
 
@@ -33,7 +33,7 @@ hard 100 MB limit, so the push is rejected outright. Three ways out, and you onl
    criterion stays honest because the exclusion is written down rather than assumed.
 
 Read the paragraph, say a number. **5 minutes, zero typing.** Criterion 3 goes green mechanically
-after that, and criterion 4 (Frente 10 — SETUP split + declared deps) is sonnet-tier from there.
+after that, and criterion 4 (clonability — SETUP split + declared deps) is sonnet-tier from there.
 
 **Known risk — dataset with no live backup:** `datasets/relativistic_raytracer` (5.8 GB) is the sole
 surviving copy of its data — Zenodo record 20240662 returns HTTP 410 ("personal-data"), gone since
@@ -54,9 +54,9 @@ fallback · iterate — MVP can always be extended*
 
 > [ ] [v1] the four-criterion gate — see [/ROADMAP.md](../../ROADMAP.md) § v1 definition of done  
 > [ ] [mvp-validate] use the system daily for 30 days, then assess: does it reduce mental load? By definition post-v1 — this is the achievement v1 exists to make measurable  
-> [ ] [daily-use] the practical layer actually gets used — TODO redesign, dashboard freshness, mobile capture (ROADMAP Frente 8 + 12.5)  
-> [ ] [domain-coverage] `branches/` covers all active life domains and every `GOALS.md` stub has a real goal file (ROADMAP Frente 12.6)  
-> [ ] [content-in] course materials and Google Drive brought in under a decided strategy (ROADMAP Frente 12.1, parked until v1)  
+> [ ] [daily-use] the practical layer actually gets used — TODO redesign, dashboard freshness, mobile capture (ROADMAP § The ledger discipline)  
+> [ ] [domain-coverage] `branches/` covers all active life domains and every `GOALS.md` stub has a real goal file (ROADMAP § the .md type system)  
+> [ ] [content-in] course materials and Google Drive brought in under a decided strategy (ROADMAP § Parked, until v1)  
 > [ ] [offline-resilient] survives a world without internet — Reticulum for network, Kiwix for corpus (parked, ROADMAP § Parked)  
 
 ## done
@@ -65,18 +65,18 @@ fallback · iterate — MVP can always be extended*
 
 > [x] [mvp-gaps] DONE 2026-07-22 — all 3 gaps localized with hard numbers (see findings above): (1) `core/hooks` overengineering (~40 files / 3068 LOC), (2) 14 GB workspace-root cruft (`.Trash-1000` + root `.venv`), (3) reframed to the missing gentle-resurfacing rhythm → shipped as the `/compass` fold. Closed via `/compass`, first dogfood of the new skill.
 > [x] [v1-strong] DONE 2026-07-29 — superseded by the explicit [v1] gate. Its three parts each landed or moved: cruft reclaimed (6.6 GB, gap 2), hooks de-overengineered (gap 1, and the diagnosis partly reversed — most "duplicate families" were live), telegram_daemon retired into `code/aiwbot`. What remained became ROADMAP Frentes 6 and 12.8.
-> [x] [roadmap-entrypoint] DONE 2026-07-29 — wos work collapsed from four overlapping ledgers (~94 items, 789 lines, four of them already false) into one: `/ROADMAP.md`. Goal file = why, `brain/TODO.md` = life, `core/ROADMAP.md` = library. Deletion policy set: hard delete, git is the history. Discipline now tracked as ROADMAP Frente 8.<!-- done:end -->
+> [x] [roadmap-entrypoint] DONE 2026-07-29 — wos work collapsed from four overlapping ledgers (~94 items, 789 lines, four of them already false) into one: `/ROADMAP.md`. Goal file = why, `brain/TODO.md` = life, `core/ROADMAP.md` = library. Deletion policy set: hard delete, git is the history. Discipline now tracked as ROADMAP § The ledger discipline.<!-- done:end -->
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-15  ·  trend: advancing
+last-touch: 2026-08-16  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |     168 |
-| trimester   |     212 |
-| semester    |     227 |
-| year        |     227 |
-| 2-year      |     227 |
-| 4-year      |     227 |
+| month       |     193 |
+| trimester   |     237 |
+| semester    |     252 |
+| year        |     252 |
+| 2-year      |     252 |
+| 4-year      |     252 |
 <!-- stats:end -->

@@ -2,7 +2,7 @@
 > What we measured about this workspace, when, and what changed because of it. One file per question.
 
 **Why this exists.** *"No feature in this workspace has ever been measured"*
-([/ROADMAP.md](../../ROADMAP.md) Frente 10.4). Every instrument we own —
+([/ROADMAP.md](../../ROADMAP.md) § Portability & clonability). Every instrument we own —
 [`session/context`](../tools/wos/session/context), [`session/usage`](../tools/wos/session/usage),
 [`entropy.md`](../../entropy.md) — prints the present and forgets; git holds the past but not a
 readable trend. This directory is the readable half, and differs on purpose from

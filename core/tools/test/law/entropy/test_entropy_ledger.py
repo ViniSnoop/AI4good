@@ -1,4 +1,4 @@
-# T0 ledger and vocabulary checks (Frente 4.1 Tier 0). Zero-token, runs in verify-fast.
+# T0 ledger and vocabulary checks (Tier 0, law in core/SCHEMA.md). Zero-token, runs in verify-fast.
 #
 # Two of these tests assert against the LIVE workspace and are meant to be green at all
 # times, not baselined: a surviving retired token means a rename is unfinished, and a
@@ -31,7 +31,7 @@ def test_retired_tokens_come_from_schema():
     retired = schema_law.load_retired()
     assert retired['loop-engineering'] == 'craft'
     assert retired['KNOWN-BUGS'] == 'BUGS.md'
-    assert 'SPEC.md' not in retired, 'that rename has not landed yet (Frente 12.1)'
+    assert 'SPEC.md' not in retired, 'that rename has not landed yet'
 
 
 def test_no_retired_token_survives():

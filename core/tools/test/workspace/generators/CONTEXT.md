@@ -17,5 +17,5 @@ actually has*.
 |------|-----------|-------------|
 | [`test_interface_generators.py`](test_interface_generators.py) | [`test_interface_generators.pyi`](test_interface_generators.pyi) | T0 interface-generator invariants: a generated stub must land beside its source, and a |
 | [`test_routing_sync_bugs.py`](test_routing_sync_bugs.py) | [`test_routing_sync_bugs.pyi`](test_routing_sync_bugs.pyi) | T0 routing-generator invariants (ROADMAP Batch B item 1): four ways the CONTEXT.md routing |
-| [`test_routing_table.py`](test_routing_table.py) | [`test_routing_table.pyi`](test_routing_table.pyi) | The routing table's generated columns (Frente 3.2). Zero-token, runs in verify-fast. |
+| [`test_routing_table.py`](test_routing_table.py) | [`test_routing_table.pyi`](test_routing_table.pyi) | The routing table's generated columns (core/hooks/SPECS.md). Zero-token, runs in verify-fast. |
 <!-- routing:end -->

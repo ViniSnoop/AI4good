@@ -1,4 +1,4 @@
-# T0 context meter (Frente 9.1): the session-size signal that decides when to hand off.
+# T0 context meter (core/SPECS.md § AD-09): the session-size signal that decides when to hand off.
 # Zero-token, runs in verify-fast.
 #
 # Two things are worth guarding here. The thresholds must come from limits.env, so the
@@ -147,7 +147,7 @@ def test_the_handoff_artifact_is_not_an_uppercase_type():
 
 
 def test_the_meter_never_spawns_a_session():
-    """Decided 2026-08-13 (Frente 9.1): a successor cannot take the terminal, so none is spawned."""
+    """Decided 2026-08-13 (core/SPECS.md § AD-09): a successor cannot take the terminal, so none is spawned."""
     source = (WORKSPACE_ROOT / 'core/hooks/session/context-meter.py').read_text(encoding='utf-8')
     for forbidden in ('--bg', 'subprocess', 'claude -p', 'os.system'):
         assert forbidden not in source, f'{forbidden} in a hook that must only ever print'

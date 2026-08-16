@@ -33,7 +33,7 @@ this table holds the guard.
 | `KNOWN-BUGS` | `BUGS.md` | 2026-07-30 |
 
 Not yet listed because the rename has not landed: `SPEC.md`→`SPECS.md` (load-bearing in five
-enforcement points; see [ROADMAP.md](../ROADMAP.md) Frente 12.1). A token joins this table only when
+enforcement points; see [ROADMAP.md](../ROADMAP.md)). A token joins this table only when
 the sweep is complete — a row that fails on the day it is written trains people to ignore the check.
 
 ## The `.md` type system
@@ -372,7 +372,7 @@ state does not change is not iteration — it is a hang.
 
 ## Routing depth and locality (structural policy)
 
-> Decided 2026-07-24 (workspace-os Frente 3). Governs how every subtree is structured, not just the
+> Decided 2026-07-24. Governs how every subtree is structured, not just the
 > library. Two axes, deliberately separate — conflating them produced the wrong "flatten everything"
 > call in an earlier round.
 
@@ -437,7 +437,7 @@ curated content, which is the side of the evidence split that helps — see [ref
 pack reaches ~2× accuracy at ½ the tokens vs. raw at corpus scale, and *"the weaker the agent's
 native navigation, the earlier the skill pack earns its keep."* **Preprint = provisional** (see
 [refs/CONTEXT.md](refs/CONTEXT.md)); this policy is a default, not a hard gate. Nothing here has been
-measured on our own corpus — [ROADMAP.md](../ROADMAP.md) Frente 14 is where that would happen.
+measured on our own corpus — [ROADMAP.md](../ROADMAP.md) § ablation is where that would happen.
 
 ## Enforcement
 

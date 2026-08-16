@@ -1,4 +1,4 @@
-# T0 the session-close skills (Frente 9.2): what bash cannot assert about the other layer.
+# T0 the session-close skills (core/SPECS.md § AD-09): what bash cannot assert about the other layer.
 # Zero-token, no network.
 #
 # The split only holds if the skill keeps *not* doing the script's work. Prose has no compiler, so
@@ -29,7 +29,7 @@ def _phase_naming(text, needle):
 
 
 def test_the_skill_does_not_reinline_the_script():
-    """Frente 9.2's whole point: these ran as prose at the session's most expensive turns."""
+    """The whole point: these ran as prose at the session's most expensive turns."""
     for block in _blocks(ROUNDUP_SKILL):
         for inlined in ('make entropy', 'git merge', 'git push', 'verify-fast'):
             assert inlined not in block, (

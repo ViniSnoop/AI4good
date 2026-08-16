@@ -1,4 +1,4 @@
-# T0 directory fanout (Frente 4.1 Tier 0). Zero-token, runs in verify-fast.
+# T0 directory fanout (Tier 0, law in core/SCHEMA.md). Zero-token, runs in verify-fast.
 #
 # The law is not new: a files-per-directory threshold has always existed and
 # context_synchronizer.sync has always warned on it — to stdout, during a sync nobody

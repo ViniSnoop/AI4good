@@ -1,4 +1,4 @@
-# T0 naming and placement (Frente 4.1 Tier 0). Zero-token, runs in verify-fast.
+# T0 naming and placement (Tier 0, law in core/SCHEMA.md). Zero-token, runs in verify-fast.
 #
 # The whole-tree test is a RATCHET, not a green light: it asserts the live violations are
 # a subset of a named baseline, so a new one fails the build while the three inherited
@@ -17,7 +17,7 @@ import schema_law  # noqa: E402
 
 # Inherited violations, each with the item that retires it. Nothing else may join.
 BASELINE = {
-    'code/_templates/module.SPEC.md',   # SPEC.md -> SPECS.md, Frente 12.1
+    'code/_templates/module.SPEC.md',   # SPEC.md -> SPECS.md, pending
 }
 
 

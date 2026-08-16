@@ -46,7 +46,7 @@ def rebase_links(text: str, prefix: str) -> str:
     """
     # Underscored because `python_api` walks the whole AST, so a nested closure with a bare
     # name is advertised in the routing table as importable API. Real gap, open as ROADMAP.md
-    # Frente 4.8; the `_` convention already carries the workaround.
+    # the `_` convention already carries the workaround.
     def _fix(match):
         target = match.group(2)
         if target.startswith(('/', '#')) or '://' in target or target.startswith('mailto:'):

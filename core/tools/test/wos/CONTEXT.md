@@ -6,7 +6,7 @@ against throwaway workspaces — a fake `core/tools/wos/roundup` inside a tmp re
 equals `WORKSPACE` and the gitflow and entropy paths are reachable at all.
 [`test_roundup_skills.py`](test_roundup_skills.py) guards what cannot be asserted in bash: that
 the skill does not re-inline the work the script took over, and that the hand-off template keeps
-the shape agreed in ROADMAP Frente 9.2.
+the shape agreed in [`core/SPECS.md`](../../../SPECS.md) § AD-09.
 
 Zero-token, no network. Each test builds its own repo and bare origin; nothing touches the real
 workspace.
@@ -16,8 +16,8 @@ workspace.
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
-| [`test_context.py`](test_context.py) | [`test_context.pyi`](test_context.pyi) | `turn`, `result`, `use`, `transcript`, `build` | T1 the context instrument (Frente 3.1): what fills the window, attributed from the transcript. |
-| [`test_roundup.py`](test_roundup.py) | [`test_roundup.pyi`](test_roundup.pyi) | — | T1 roundup tool (Frente 9.2): the deterministic half of the session-close ritual. |
-| [`test_roundup_skills.py`](test_roundup_skills.py) | [`test_roundup_skills.pyi`](test_roundup_skills.pyi) | — | T0 the session-close skills (Frente 9.2): what bash cannot assert about the other layer. |
-| [`test_usage.py`](test_usage.py) | [`test_usage.pyi`](test_usage.pyi) | `response`, `text`, `thinking`, `project`, `build` | T1 the cost instrument (Frente 9): what counts as one turn, and which half of output is re-read. |
+| [`test_context.py`](test_context.py) | [`test_context.pyi`](test_context.pyi) | `turn`, `result`, `use`, `transcript`, `build` | T1 the context instrument (core/hooks/SPECS.md): what fills the window, attributed from the transcript. |
+| [`test_roundup.py`](test_roundup.py) | [`test_roundup.pyi`](test_roundup.pyi) | — | T1 roundup tool (core/SPECS.md § AD-09): the deterministic half of the session-close ritual. |
+| [`test_roundup_skills.py`](test_roundup_skills.py) | [`test_roundup_skills.pyi`](test_roundup_skills.pyi) | — | T0 the session-close skills (core/SPECS.md § AD-09): what bash cannot assert about the other layer. |
+| [`test_usage.py`](test_usage.py) | [`test_usage.pyi`](test_usage.pyi) | `response`, `text`, `thinking`, `project`, `build` | T1 the cost instrument: what counts as one turn, and which half of output is re-read. |
 <!-- routing:end -->

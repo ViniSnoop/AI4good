@@ -11,7 +11,7 @@ Everything with a single right answer — the verification gate, the entropy das
 promotion — is [`core/tools/wos/roundup`](../tools/wos/roundup), run once in Phase 4. It carries
 this skill's name because it is the same ritual, one layer down. **Do not do its work by hand:**
 this skill fires at the session's maximum context, so every command reasoned about here is paid at
-the most expensive turns the session will ever have (ROADMAP Frente 9).
+the most expensive turns the session will ever have.
 
 Write directly to files. Ask only on conflict or destructive ambiguity.
 

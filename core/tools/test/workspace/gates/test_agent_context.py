@@ -1,4 +1,4 @@
-# T0 the agent-context briefing (ROADMAP Frente 3.1): the orchestrator's duty, done by a hook.
+# T0 the agent-context briefing (core/hooks/SPECS.md): the orchestrator's duty, done by a hook.
 #
 # Subagents are exempt from the context gate, which moves the duty of supplying context to the
 # orchestrator. This hook is what stops that duty being a discipline nobody keeps. It induces and

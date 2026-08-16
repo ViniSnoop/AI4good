@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# The entropy dashboard (ROADMAP.md Frente 4.3). Runs every Tier 0 check over the whole
+# The entropy dashboard. Runs every Tier 0 check over the whole
 # tree and writes ONE generated report, so agents and Lucas read a pre-computed file
 # instead of re-scanning the workspace. Zero-token, no LLM.
 #
