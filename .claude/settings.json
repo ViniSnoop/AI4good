@@ -34,7 +34,7 @@
           },
           {
             "type": "command",
-            "command": "rtk hook claude"
+            "command": "python3 /mnt/workspace/core/hooks/compact/bash-compact-rewrite.py"
           }
         ]
       },

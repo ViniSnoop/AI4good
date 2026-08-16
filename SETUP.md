@@ -26,7 +26,7 @@ not to go looking for an install step.
 | Claude Code hooks | `.claude/settings.json` is in the repo; Claude Code reads it when the workspace is opened, and `core/hooks/` activates immediately |
 | opencode policy plugin | `.opencode/plugins/workspace-policy.js` is a project-level plugin, auto-loaded on startup from `/mnt/workspace`. Helpers live in `.opencode/wp-helpers.js`, outside `plugins/` so opencode does not load them as a second plugin |
 | Copilot hook registration | `.github/hooks/workspace-policy.json` and `.github/hooks/rtk-rewrite.json` are inert config files until Copilot itself is installed |
-| rtk for Claude Code in this repo | the `Bash` matcher in `.claude/settings.json` already runs `rtk hook claude`; only the binary itself is per-machine (see § RTK) |
+| rtk for Claude Code in this repo | the `Bash` matcher in `.claude/settings.json` already runs [`core/hooks/compact/`](core/hooks/compact/CONTEXT.md)'s shim over `rtk hook claude`; only the binary itself is per-machine (see § RTK) |
 
 Verify the opencode plugin parses:
 ```bash
@@ -184,6 +184,13 @@ rtk --version                     # installs to ~/.local/bin/rtk
 
 ⚠ **Name collision.** If `rtk gain` reports an unknown subcommand, the installed binary is
 reachingforthejack/rtk (Rust Type Kit), a different tool with the same name. Check `which rtk`.
+
+⚠ **`rtk hook` reads the first line only.** A multi-line Bash payload gets one shot at rewriting,
+and if line 1 is not rewritable — `cd` opens 23.4% of this workspace's Bash calls — the whole call
+runs raw. In-workspace that is patched by [`core/hooks/compact/`](core/hooks/compact/CONTEXT.md),
+which the project hook points at instead of `rtk hook claude`; outside it, prefer single-line
+`&&` chains. **Verify by watching `rtk gain`'s counter move, never by reading config** — the
+wiring looked correct for weeks while this was dropping every multi-line call.
 
 **Claude Code** is dual-wired: the project-scoped hook is already versioned here (see § Already
 wired). For sessions *outside* this workspace, patch the global config:

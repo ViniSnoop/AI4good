@@ -88,44 +88,45 @@ What survives is **governance, not cost**: those 128 writes met **no gate at all
 predicted this** (*"files written by a generator, by a shell heredoc, by `git checkout`"*); this is the
 first time it is measured.
 
-**2. RTK: two wrong stories before the test.** Lucas asked whether RTK still runs on Bash and said it
-deserved a test. It does not run, and both explanations written before testing were wrong.
+**2. RTK: four wrong stories before the test that held.** Lucas asked whether RTK still runs on Bash and
+said it deserved a test. Every explanation written before running one was wrong, including the last two,
+which were written *by* a test.
 
-`rtk` 0.43.0 is installed; `.claude/settings.json` carries `PreToolUse: Bash → rtk hook claude`;
-[`SETUP.md`](SETUP.md) § RTK promises *"Everything is rewritten transparently at zero token cost —
-`git status` becomes `rtk git status` without anyone asking."* The test:
+Retracted in order: *"we deleted RTK.md and lost the instruction"* (commit `804ab0a` moved
+provider-neutral prose into `SETUP.md`, correct by this repo's first rule); *"the hook only tracks"*;
+**"the hook does not rewrite at all"** — measured as `rtk gain` delta = 0 over `git status` and
+`ls -la core`; and **"Claude Code's `PreToolUse` cannot mutate tool input"**, the hypothesis that delta
+implied. The last two are the interesting ones, because the delta was real and the reading of it was not.
 
-```
-rtk gain → Total commands: 8662
-git status      # real output, no redirection — raw git, unfiltered
-ls -la core     # real output — raw ls
-rtk gain → Total commands: 8662        delta = 0
-```
+**What is actually true** (Claude Code 2.1.218, each verified by experiment):
 
-**The hook does not rewrite.** (A first attempt redirecting to `/dev/null` was discarded as unsound; the
-clean re-run agrees.) `rtk discover` agrees from the other side: 194 sessions, 13,543 Bash commands,
-**65 using RTK (0.5%)**, 5,421 handled commands missed, **~919,400 tokens**. Yet `rtk gain` shows 34.4M
-tokens saved at 90.7% historically — the binary works; the wiring is dead.
+- `PreToolUse` **does** apply `hookSpecificOutput.updatedInput`, and **without** requiring
+  `permissionDecision: "allow"` — checked with two probe hooks differing in exactly that field.
+  Both rewrote. Upstream reports the opposite (`claude-agent-sdk-python#381`, open; `claude-code#15897`,
+  closed then observed fixed in 2.1.168), so this is version-dependent and undocumented either way.
+- **rtk parses the first line of a payload and nothing else.** `git status` rewrites; `cd x; git status`
+  on one line rewrites both; `cd x` ⏎ `git status` rewrites **nothing at all** — a non-rewritable first
+  line makes rtk decline the whole call.
+- The delta-0 test therefore measured its own payload shape. It was submitted as one multi-line Bash
+  call, so `git status` and `ls -la core` sat on lines 2 and 3 and never reached rtk.
+- `rtk discover`'s *0.5% adoption* is partly an artifact: transcripts record the command the **model
+  sent**, and a working hook rewrites after that. It cannot see its own successes.
 
-Retracted: *"we deleted RTK.md and lost the instruction"* — `~/.claude/RTK.md` went in commit `804ab0a`,
-whose message shows it was moving provider-neutral prose out of harness-owned state into `SETUP.md`,
-correct by this repo's first rule and not the cause. Also retracted: *"the hook only tracks"* — `SETUP.md`
-says it rewrites, and nothing yet shows why it doesn't.
+**The mass, re-measured** over 5,628 Bash calls: **23.4% open with `cd`** — rtk's one shot spent on a
+`cd`, everything after it dropped — and **1,249 rewritable commands are stranded on lines 2+**, 783 of
+them `git`. So entry 6's lever survives the correction; only its cause changed, from *dead wiring* to
+*a parser that stops at line 1 meeting an agent that writes multi-line shell*.
 
-**Leading hypothesis: Claude Code's `PreToolUse` contract may not permit mutating a tool's input** — a
-hook can allow, block or annotate. RTK's other targets get real rewrite surfaces (opencode plugin,
-Copilot `rtk-rewrite.json`); Claude Code gets a hook. If so, `SETUP.md`'s promise is false *for this
-harness* and the doc is the bug.
-
-**The reusable lesson:** a capability can be installed, configured, version-controlled and documented as
-automatic while doing nothing for weeks. Every static signal said fine; only watching a counter move said
-otherwise.
+**The reusable lesson, also corrected.** The first draft said: a capability can be documented as
+automatic while doing nothing for weeks, and only a counter says otherwise. Half right. The counter
+*did* say otherwise — and was still misread, because the test payload was written in the same
+multi-line style that was the bug. **A negative result is a claim about the probe before it is a claim
+about the system.** Vary the probe's shape before believing what it reports.
 
 ## Levers, ranked
 
 | Lever | Measured mass | Enforceable? | Verdict |
 |---|---|---|---|
-| **RTK hook inert** (input side) | ~919k tok / 30 days unfiltered; 90.7% proven where it runs | diagnose first | take first, debug before fixing |
 | **Re-emitting a file already in context** — `Write` over an open path (879,502 chars = 34% of Write output) + shell heredoc writes (354,100) | **≈13% of all output**, ~11% of spend amplified | yes — one gate, two paths | take it |
 | Length of files we author | Write total 2.59M = 25% of output | prompt only | take it |
 | Prose to the user | 1.54M = 13.9% | caveman already on | bound it, don't re-litigate |
@@ -136,14 +137,6 @@ Deliberately **not** proposed: a global terseness rule (ACL 2025: wrong budgets 
 lowering `effort` to shorten output (Anthropic: it does not reliably move visible length).
 
 ## Steps
-
-0. 🔴 **Diagnose why the RTK hook does not fire.** In order: run `rtk hook claude` by hand against a
-   sample `PreToolUse` payload and read what it returns; ask `claude-code-guide` whether the harness's
-   hook contract permits rewriting tool input at all; *only then* choose between a wiring fix, an
-   explicit instruction, or a wrapper tool. Re-verify with the delta method above — never by re-reading
-   configuration. If `SETUP.md`'s "without anyone asking" is false for Claude Code, that sentence is the
-   bug and gets a per-harness qualifier. **Do not restore prose before step 2 answers the question.**
-   → **model: opus** for the diagnosis, sonnet to wire.
 
 1. 🟢 **Record the measurement — `core/experiments/output-cost.md`.** One file per question, per
    [`core/experiments/SPECS.md`](core/experiments/SPECS.md): *"output tokens are more expensive than
@@ -225,6 +218,4 @@ lowering `effort` to shorten output (Anthropic: it does not reliably move visibl
    succeeds · `Write` to a new path → silent · `Bash` with `cat > existing << 'EOF'` → warns, still runs ·
    `Bash` with `python3 - <<'EOF'` (analysis, no redirect) → **silent**, or the gate fires on every
    measurement script behind this plan.
-5. **Step 0**: `rtk gain` delta over plain unprefixed commands must become non-zero, or the diagnosis
-   must state why rewriting is impossible on this harness.
-6. **Step 6** stops at the verdict table and waits for Lucas.
+5. **Step 6** stops at the verdict table and waits for Lucas.

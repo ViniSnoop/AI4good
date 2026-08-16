@@ -46,6 +46,7 @@ exist: [`code/VERIFY.md`](../../code/VERIFY.md). Installing the toolchain they d
 |--------------|-------------|
 | [`brain/`](brain/CONTEXT.md) | brain/ attention stats and the GOALS.md dashboard. |
 | [`checks/`](checks/CONTEXT.md) | Standalone blocking checks the commit and edit hooks run. |
+| [`compact/`](compact/CONTEXT.md) | Shrink tool output before it reaches the context — the input-side twin of… |
 | [`copilot/`](copilot/CONTEXT.md) | Provider shim: translates Copilot hook payloads onto the canonical gates. |
 | [`entropy/`](entropy/CONTEXT.md) | The entropy dashboard and the Tier 0 checks it runs over the whole tree. |
 | [`facade/`](facade/CONTEXT.md) | The facade discipline: read the facade before editing, never import around it. |

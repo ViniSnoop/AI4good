@@ -43,3 +43,18 @@ Explore
 3%
 general-purpose
 1%
+
+---
+
+copilot runs `rtk hook copilot` raw in `.github/hooks/rtk-rewrite.json`, so it still carries the
+first-line-only bug that `core/hooks/compact/` shims out for claude code. task: decide whether
+that directory grows a copilot shim (its output shape differs) or whether copilot's
+"always prefix with rtk" instruction is enough — measure before building.
+
+upstream: rtk parses only the first line of a bash payload and declines the whole call when that
+line is not rewritable. worth reporting to rtk-ai/rtk — nobody outside this workspace has the
+shim. task: file the issue with the four-shape table from `core/hooks/compact/SPECS.md`.
+
+and a measurement trap to remember: `rtk discover`'s adoption % reads transcripts, which record
+the command the MODEL sent — a working hook rewrites after that. it cannot see its own successes,
+so its 0.5% was never evidence the hook was dead. don't quote it as a lever without that caveat.
