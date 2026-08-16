@@ -43,6 +43,12 @@ wearing four numbers: the feature-toggle registry (10.4) is what makes the Lucas
 split executable, what an installer writes a profile into, what a public scaffold repo is allowed to
 copy, and the switch Frente 14 needs before it can measure anything.
 
+**Never cite an item number from code or from a test.** A closed item is *deleted* — that is the
+workspace rule — so every `Frente N.M` in a comment becomes a dead pointer the day the work lands.
+Cutting 4.7 broke six of them at once (2026-08-15). Point at the `SPECS.md` or `SCHEMA.md` section
+that owns the rule instead; those are durable, and writing the rule there is what closing an item
+is *for*. Citing a number is fine **inside this file**, and in a commit message, which git keeps.
+
 Measurements never live here. The instrument is
 [`core/tools/wos/session/context`](core/tools/wos/session/context); results live in
 [`core/experiments/`](core/experiments/CONTEXT.md); drift counts live in [`entropy.md`](entropy.md).
@@ -257,48 +263,6 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
    against a queue of 150, not 204, and that **the next new marker deserves a look at
    `COMMENT_RE` before it deserves a sweep**.
    → **model: opus** for the gate, **sonnet** for the sweep behind it.
-
-7. 🟢 **the routing block reads worse than the files it describes — both causes fixed
-   2026-08-15.** Lucas (INBOX 2026-08-15): *"brain/CONTEXT.md tem repetições, routing duas
-   vezes… no routing automático as descrições estão horríveis… corrigir esse problema na
-   raiz… não somente para esse CONTEXT.md mas para todos."* Neither half was a content problem,
-   and the corpus followed the generator for free: 51 `CONTEXT.md` regenerated, this repo's
-   inventory findings drained to zero.
-
-   **One defect, found four times, and the fourth is the reusable one.** The blurb-hoist
-   (`.md` rows showed the `#` H1, never the line-2 `>` blurb) and the `.sh` gap in item 6 were
-   already known to be the same shape. Two more fell out while fixing them: a **multi-line
-   module docstring** was undescribable because `COMMENT_RE['.py']` only matched a one-line
-   `"""…"""`, and the four files `core/hooks` keeps its law in were unreachable because `.env`
-   and `.txt` were absent from `CONTENT_EXTS`. All four are one sentence: **the generator held
-   the text and did not reach for it** — and each was invisible because its symptom, a `← add`
-   marker or a bare filename, is exactly what a genuinely undocumented file looks like. The
-   marker queue fell 69 → 55 with no file described by hand.
-
-   **The `core/hooks` case is the one to remember: a hand-written inventory can be a symptom,
-   not a lapse.** Its table existed because the routing block *could not name* `limits.env`,
-   `vendored.txt` and the other two. Deleting the table would have deleted three real pointers;
-   widening `CONTENT_EXTS` made the table redundant, and then it could go. **Before draining a
-   hand-written list, check whether the generator is able to replace it.**
-
-   Hoisting is now one operation in one module ([`core/hooks/routing/hoist.py`](core/hooks/routing/hoist.py)):
-   find the sentence, rebase its links, bound its length. It had been three steps split across
-   two modules, which is *why* only subdirectory rows got all three. A code file's first-line
-   comment does not go through it — that text was authored as a one-liner for this table, and
-   cutting it would lose what nothing else carries. Truncation now stops at a word boundary and
-   marks the cut: `Tier 0 checks t` read as a typo, not as a truncation.
-
-   **The table criterion.** `check_inventory` matched headings and bullets, never a **table** —
-   so `brain/CONTEXT.md`, the workspace's most-read file, carried the exact defect the check
-   was written for. Rows and bullets are now counted *together* against the same threshold of
-   three, or the fix for a flagged bullet list would be to redraw half of it as a table. Two
-   boundaries hold the false-positive rate down and both are tested: the path must be the
-   **first cell** (so `| Area | Covers |` is the directory describing itself, not listing it)
-   and it must **exist on disk** (so a table of naming patterns is prose). The bullet pattern
-   was widened in the same commit — `` - [`a.py`](a.py) ``, the backtick *inside* the link,
-   had been escaping it, which is the most common way this workspace writes a file pointer.
-   Findings went 4 → 28: **six in this repo, drained; 22 newly visible in nested repos**, which
-   ride their own verify (13.2).
 
 8. 🔴 **`python_api` advertises nested closures as importable API.** Found 2026-08-15 by
    reading the diff of the item above: `hoist.py`'s row listed `fix`, a closure inside

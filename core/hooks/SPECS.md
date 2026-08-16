@@ -166,8 +166,10 @@ operation, revert. Both `checks/pre-edit.py` and `checks/check-line-counts.sh` r
 parent directory) and every commit. It keeps each directory's `## Routing` block true without
 anyone maintaining it:
 
-- **adds** a new file, taking its description from the first-line comment (code), `description:`
-  frontmatter (`.md`), or the ` — ` usage comment (extensionless scripts)
+- **adds** a new file, taking its description from the first source that answers, in this order:
+  the first-line comment (code, below any shebang), a module docstring's first line (`.py`, per
+  PEP 257), `description:` frontmatter then the line-2 `> ` blurb (`.md`), or the ` — ` usage
+  comment (extensionless scripts)
 - **removes** entries for deleted files, and **links** interfaces to their source
 - **folds** a leaf directory under `WARN_FILES` into the parent block; **links** one at or above it,
   or one that carries its own `CONTEXT.md`
@@ -176,6 +178,19 @@ anyone maintaining it:
 **Never edit inside the `<!-- routing:start/end -->` sentinels** — the next sync overwrites it.
 **Renames are not tracked**: the old entry disappears and the new file arrives with a placeholder,
 so the description is rewritten by hand after a rename.
+
+**A `← add` marker is a claim about the generator before it is a claim about the file.** Four times
+out of four (2026-08-15) the text was already there and this list was not reaching for it: `.sh` and
+`.jsx` had no `COMMENT_RE` pattern, `.py` matched only a single-line docstring, `.env`/`.txt` were
+outside `CONTENT_EXTS`, and `.md` rows read the H1 instead of the blurb. **Check the extension's
+entry in `routing/workspace_meta.py` before writing a description by hand** — and when a whole
+extension is undescribable, fix it there, because a sweep re-fills.
+
+**Hoisted text is bounded and rebased; authored text is not.** A `.md` blurb and a subdirectory
+blurb were written to sit under their own heading, in their own directory, so
+[`routing/hoist.py`](routing/hoist.py) rebases their links and cuts them at `DESC_LIMIT`. A code
+file's first-line comment goes in untouched: it was authored as this table's one-liner and cutting
+it would lose text nothing else carries.
 
 ### First-line descriptions
 

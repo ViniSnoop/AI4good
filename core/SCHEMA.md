@@ -104,7 +104,7 @@ The three real conflicts, with the resolving rule:
 
 | Conflict | Rule |
 |----------|------|
-| `CONTEXT.md` vs its own routing block | CONTEXT **never hand-lists files**; the generated routing block owns inventory. A hand-written File Map is a bug. |
+| `CONTEXT.md` vs its own routing block | CONTEXT **never hand-lists files**; the generated routing block owns inventory. A hand-written File Map is a bug — as a bullet list *or* a table, both counted by `entropy_context.check_inventory`. **But ask why it was written before deleting it**: `core/hooks/CONTEXT.md` hand-listed `limits.env` and three siblings because the generator could not *reach* them, and cutting the table would have cut three real pointers. Fix the generator first, then the list is redundant. |
 | `CONTEXT.md` vs `SPECS.md` | Rules that *constrain code* → SPECS. What the directory *is* → CONTEXT. |
 | `ROADMAP.md` vs `BUGS.md` | BUGS owns the bug text; ROADMAP references it by id and never restates it. Intent vs. state: a roadmap item leaves the list when deprioritised, a bug does not stop being true. |
 

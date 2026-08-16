@@ -11,6 +11,16 @@ No flow is privileged — the exemplar is `flows/_template.md` (see [SCHEMA.md](
 
 ## Open
 
+- [ ] **`parse_owns` swallows prose as declared paths.** In
+      [`hooks/brain/brain_attention.py`](hooks/brain/brain_attention.py), the `>**owns**` block ends
+      only at the next `>**field**` or a `##` heading, so a blank line followed by an ordinary
+      blockquote stays inside it and every sentence becomes a candidate path. Visible on **every
+      commit** as `[Brain] ⚠ <goal>: owns '<prose>' ... which resolves to no repo` — at least
+      `craft-flows`, `burocracia-academica`, `ecovila`. The noise is the real cost: it trains the
+      reader to skip post-commit output, which is where the gates also speak. Likely fix: end the
+      block at the first blank line. Add a case to the brain tests with a goal file whose `owns`
+      block is followed by prose.
+      → **model: sonnet**.
 - [ ] **2b — craft-agent tier source + generator.** Create `core/agents/craft-{low,medium,high}.md`
       carrying `tier:`; extract the craft flow's tier→model map to `core/tier-map.json`; add a
       generator that emits `.claude/agents/craft-*.md` with `model:` resolved. Removes the last

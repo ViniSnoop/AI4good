@@ -99,7 +99,7 @@ def test_a_shell_script_is_described_below_its_shebang(tmp_path) -> None:
     assert file_description(p) == 'does the thing'
 
 
-# ── a `.md` row describes the file, not just names it (Frente 4.7) ────────────────────
+# ── a `.md` row describes the file, not just names it ─────────────────────────────────
 #
 # `COMMENT_RE['.md']` captured the `#` H1 and stopped, so every `.md` row in the corpus
 # advertised a NAME where the sentence saying what the file is sat one line below, unread:

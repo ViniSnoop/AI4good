@@ -36,8 +36,8 @@ def test_truncation_never_cuts_a_link_in_half() -> None:
 
 
 def test_truncation_never_cuts_a_word_in_half() -> None:
-    """`the Tier 0 checks t` read as a typo, not as a cut — half of Frente 4.7's
-    "descrições horríveis". Retreat to the last whole word and mark the cut."""
+    """`the Tier 0 checks t` read as a typo, not as a cut. Retreat to the last whole word
+    and mark the cut, so the reader can tell truncation from a mistake."""
     assert truncate_outside_links("alpha beta gamma delta", 14) == "alpha beta…"
 
 

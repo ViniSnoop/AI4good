@@ -117,8 +117,9 @@ def _module_docstring(path: Path) -> str:
     `COMMENT_RE['.py']` matches `\"\"\"one line\"\"\"` and nothing else, so a module whose
     docstring opens on line 1 and closes three lines down was undescribable: 13 tracked
     modules asked for a comment they had already answered in the way Python itself
-    prescribes. Third instance of the gap ROADMAP.md Frente 4.7 is about, after `.sh` and
-    the `.md` blurb — the generator holding the text and not reaching for it.
+    prescribes. Third instance of one gap, after `.sh` and the `.md` blurb — the generator
+    holding the text and not reaching for it. The rule that came out of it, and the order
+    these sources are tried in: core/hooks/SPECS.md § The `CONTEXT.md` routing block.
 
     Runs only after the `#` pattern misses, so this workspace's line-1 comment convention
     keeps precedence and no existing row moves.

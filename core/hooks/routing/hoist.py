@@ -4,8 +4,8 @@
 # design: hoisting is one operation with three parts — FIND the sentence, REBASE its links,
 # BOUND its length — and those parts had drifted into two modules that each did some of it.
 # A subdirectory row hoisted a blurb and got all three; a `.md` file row hoisted nothing and
-# showed its H1 instead (ROADMAP.md Frente 4.7). One module, one rule: everything hoisted
-# goes through hoist().
+# showed its H1 instead. One module, one rule: everything hoisted goes through hoist().
+# The contract this serves: core/hooks/SPECS.md § The `CONTEXT.md` routing block.
 import re
 from pathlib import Path
 
@@ -45,8 +45,8 @@ def rebase_links(text: str, prefix: str) -> str:
     directory, so they are left alone.
     """
     # Underscored because `python_api` walks the whole AST, so a nested closure with a bare
-    # name is advertised in the routing table as importable API. Real gap, written down in
-    # ROADMAP.md Frente 4.7; the convention already carries the fix.
+    # name is advertised in the routing table as importable API. Real gap, open as ROADMAP.md
+    # Frente 4.8; the `_` convention already carries the workaround.
     def _fix(match):
         target = match.group(2)
         if target.startswith(('/', '#')) or '://' in target or target.startswith('mailto:'):
