@@ -355,6 +355,11 @@ feeling lost twice. **Mass is the disease and only deletion cures it.**
 
 ## Frente 9 — Cost & model routing
 
+> **The output-cost plan is [`ROADMAP-output-cost.md`](ROADMAP-output-cost.md)** (2026-08-15): output is
+> 14.9% of spend at sticker but **86.9% once re-reads are counted** — a mean turn is 75.7% self-authored.
+> It closes 9.4, measures Frente 4.6's shell-heredoc hole, and opens with a tested finding: **the RTK
+> hook is configured and does not fire**, leaving ~919k tok/30 days unfiltered.
+
 **Why — re-measured 2026-08-13, and the old numbers were wrong.** The previous framing came from a
 single 24 h window. Re-run it yourself — that is the point of
 [`core/tools/wos/session/usage`](core/tools/wos/session/usage), built this session so no claim here rests on a
