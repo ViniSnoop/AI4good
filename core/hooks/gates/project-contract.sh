@@ -95,6 +95,11 @@ fi
 # parsed from core/SCHEMA.md, never restated. See core/hooks/SPECS.md.
 python3 /mnt/workspace/core/hooks/checks/type-gate.py || exit 1
 
+# ── 1h. Tier 0 citation gate — roadmap item numbers cited outside a roadmap ───
+# NOT a ratchet: the corpus was swept to zero, so every staged file is checked, not only
+# the ones a commit adds. A closed item is deleted, so its number becomes a dead pointer.
+python3 /mnt/workspace/core/hooks/checks/citation-gate.py || exit 1
+
 # ── 1f. Nested-gitlink gate (workspace repo) ──────────────────────────────────
 if [ -x /mnt/workspace/core/hooks/git/nested-gitlink-gate.sh ]; then
   /mnt/workspace/core/hooks/git/nested-gitlink-gate.sh || exit 1

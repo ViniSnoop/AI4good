@@ -21,6 +21,7 @@ it is the same ambiguity the reader has.
 
 | File | Interface | Description |
 |------|-----------|-------------|
+| [`test_entropy_citations.py`](test_entropy_citations.py) | [`test_entropy_citations.pyi`](test_entropy_citations.pyi) | T0 roadmap item numbers may not be cited outside a roadmap. Zero-token, runs in verify-fast. |
 | [`test_entropy_context.py`](test_entropy_context.py) | [`test_entropy_context.pyi`](test_entropy_context.pyi) | T0 CONTEXT.md rules (Tier 0, law in core/SCHEMA.md). Zero-token, runs in verify-fast. |
 | [`test_entropy_fanout.py`](test_entropy_fanout.py) | [`test_entropy_fanout.pyi`](test_entropy_fanout.pyi) | T0 directory fanout (Tier 0, law in core/SCHEMA.md). Zero-token, runs in verify-fast. |
 | [`test_entropy_inventory.py`](test_entropy_inventory.py) | [`test_entropy_inventory.pyi`](test_entropy_inventory.pyi) | T0 no-hand-inventory rule (Tier 0, law in core/SCHEMA.md). Zero-token, runs in verify-fast. |

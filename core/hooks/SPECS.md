@@ -54,6 +54,16 @@ this workspace.
   staged files (75 tokens / 10 lines).
 - Spec-driven module gate: a new `CONTEXT.md` under `code/` must declare `> spec: <file>` or
   `> spec: none`. Ratchet — existing modules are grandfathered.
+- `checks/type-gate.py`: a staged `.md` must be a known type or a well-shaped instance, sitting
+  where its type is allowed. Ratchet — only what a commit **adds**. Law parsed from
+  [`../SCHEMA.md`](../SCHEMA.md), never restated.
+- `checks/citation-gate.py`: a roadmap item number (`Front 4.1`, and the bare `Front 9`) may not
+  appear outside `ROADMAP.md` / `ROADMAP-<slug>.md`. **Not a ratchet** — the corpus was swept to
+  zero on 2026-08-16, so every staged file is checked, not only what a commit adds. Completion is
+  deletion here, so a cited number becomes a pointer to nothing the day the item lands; point at
+  the `SPECS.md` / `SCHEMA.md` section that owns the rule instead. The gate also owns the
+  `Frente`→`Front` rename by matching the citation *shape* rather than the word, because
+  `frente` is ordinary Portuguese and a bare-word retired token fired on honest prose.
 
 **No exemptions for vendored third-party code.** Anything brought into the workspace complies with
 the same gates as our own code. A `.vendor` marker that switched them off was tried and rejected

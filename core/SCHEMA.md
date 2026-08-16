@@ -43,7 +43,15 @@ this table holds the guard.
 | `loop-architecture` | `architect` | 2026-07-23 |
 | `LOOP-TREE` | `tree.md` | 2026-07-23 |
 | `KNOWN-BUGS` | `BUGS.md` | 2026-07-30 |
-| `Frente` | `Front` | 2026-08-16 |
+
+**`Frente`→`Front` (2026-08-16) is deliberately *not* a row here, and the reason is a limit of
+this table.** Every token above is a coined string that can only mean the thing it names, so a
+bare-word match is safe. `frente` is an ordinary Portuguese noun — `branches/casinhas/CONTEXT.md`
+uses it in a table header to mean a work front on a building site — and a row would have failed
+on honest prose the day it was written, which is precisely what the paragraph above says trains
+people to ignore a check. `core/hooks/entropy/entropy_citations.py` owns that rename instead, by
+matching the **citation shape** `Frente <n>` rather than the word. The word stays legal; the
+pointer does not. **A rename whose old spelling is also a real word needs a shape, not a token.**
 
 Not yet listed because the rename has not landed: `SPEC.md`→`SPECS.md` (load-bearing in five
 enforcement points; see [ROADMAP.md](../ROADMAP.md)). A token joins this table only when

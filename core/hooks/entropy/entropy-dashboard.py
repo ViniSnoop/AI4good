@@ -43,9 +43,10 @@ LEDGERS = {
 }
 
 
-def _type_gate():
+def _gate(name: str):
+    """Load a kebab-named gate from checks/ — the dashboard reports what the gates block."""
     spec = spec_from_file_location(
-        'type_gate', WORKSPACE_ROOT / 'core/hooks/checks/type-gate.py')
+        name.replace('-', '_'), WORKSPACE_ROOT / f'core/hooks/checks/{name}.py')
     module = module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
@@ -70,7 +71,7 @@ def _rel(path) -> str:
 
 
 def collect(files: list) -> dict:
-    gate = _type_gate()
+    gate = _gate("type-gate")
     allowed, exempt = load_law(SCHEMA)
     scopes = load_scopes(SCHEMA)
     head_warn = load_limits()['CONTEXT_HEAD_WARN']
@@ -91,6 +92,9 @@ def collect(files: list) -> dict:
                 findings['naming'].append(failure)
     exempt = enforcement_paths(WORKSPACE_ROOT)
     findings['retired'] = retired_hits(files, load_retired(SCHEMA), exempt)
+    citations = _gate('citation-gate')
+    findings['citations'] = citations.citation_hits(
+        files, citations.citation_exempt_paths(WORKSPACE_ROOT))
     findings['wiki'] = wiki_link_hits(
         files, goal_vocabulary(WORKSPACE_ROOT / 'brain/goals'),
         wiki_exempt_paths(WORKSPACE_ROOT))

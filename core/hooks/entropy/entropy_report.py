@@ -17,6 +17,8 @@ SECTIONS = (
     ('goals', 'Projects not declaring their goal', 'line 3 of a code/ CONTEXT.md'),
     ('wiki', 'Wiki-links naming nothing', 'a [[slug]] is a goal file or an item in one'),
     ('retired', 'Retired tokens still alive', 'a rename is unfinished until these are zero'),
+    ('citations', 'Roadmap item numbers cited outside a roadmap',
+     'a closed item is deleted — cite the SPECS.md/SCHEMA.md section that owns the rule'),
     ('duplicates', 'Items claimed by two ledgers', 'v1 criterion 2 — an item lives in one place'),
     ('size', 'Size signals', 'a signal for review, never a cap — do not summarize to fit'),
     ('stubs', 'Source files with no interface stub',

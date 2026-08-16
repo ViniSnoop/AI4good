@@ -1,0 +1,13 @@
+from _typeshed import Incomplete
+from pathlib import Path
+
+CITATION: Incomplete
+RETIRED_SPELLING: Incomplete
+LEDGER_NAMES: Incomplete
+ENFORCEMENT: Incomplete
+WORKSPACE_ROOT: Incomplete
+
+def citation_exempt_paths(root: Path) -> set: ...
+def staged_files() -> list: ...
+def citation_hits(files: list, exempt: set) -> list: ...
+def main() -> int: ...
