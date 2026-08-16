@@ -527,6 +527,14 @@ says so on every run: **`flutter`**, without which `code/apptime`'s verify canno
    because this repo is Lucas's and must reproduce across his machines. The public repo gets a
    placeholder profile (step 5).
 
+   **The vocabulary already exists in two places and they only partly overlap — reconciling them is
+   the first task, not a detail.** `SETUP.md` declares a slug per install step (13 of them), and
+   `core/tools/deps.txt` declares one per dependency (13 more); four are shared verbatim
+   (`google-auth`, `interface-stubs`, `rtk-compaction`, `web-search`) and the rest name capabilities
+   from two different angles — an install step vs. a thing that breaks. Both lists are internally
+   consistent and neither is wrong; the registry is precisely where they become one set. Do not
+   invent a third vocabulary.
+
    **Requirement Lucas stated explicitly: each feature is declared with what it is for and what it
    buys you** — nobody accepts an enforcement layer they cannot see the value of, and writing that
    sentence per feature is itself an audit of whether it earns its place. `README.md` § What the
