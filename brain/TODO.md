@@ -87,6 +87,11 @@
       track spending, propose amendments) as a mechanism-design case worth citing/comparing against
       current research angle (cria/instituto) — ref in `academy/refs/REFS.md` (INBOX 2026-07-26)
 - [ ] [code] novo projeto: gerador de animações (claude-code + remotion)
+- [ ] [wos] deixar o plan mode como default de sessão nova na extensão VSCode do Claude Code
+      (INBOX 2026-08-16). Config do harness, não do workspace — checar se há setting em
+      `.claude/settings.json` ou se é só na UI da extensão; se for setting, é one-liner e a skill
+      `update-config` cobre. Casa com a mudança do `/roundup`, que agora fecha pedindo *plan*, não
+      *continue* — o hábito de sessão passa a ser planejar primeiro nos dois pontos
 - [ ] [code / security] decidir quais dos 20 itens da checklist pré-lançamento viram gate de verdade
       para os projetos que vão pro ar (gira, voti, ppc) — vários já estão cobertos (secret-scan no
       pre-commit, skill `security-review`); o que sobra é auth server-side, RLS, rate-limit e

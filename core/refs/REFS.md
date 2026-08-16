@@ -174,6 +174,23 @@ with a tier marker; kill the rest by deleting the line. Folded in from `core/WAT
 
 - `[C]` [github/spec-kit](https://github.com/github/spec-kit) — GitHub's Spec-Driven Development toolkit. Lucas, INBOX 2026-08-16: *"pra ajudar a gente a aplicar o SDD. vale a pena pesquisar bem pra não pegar a primeira opção sem pensar"* — so it is a candidate to evaluate, explicitly not a choice already made. Read it as **input to the resume/rescope/kill decision** on our own rollout (`code/ROADMAP-spec-drive.md`), not as a replacement for it: our version is already wired into five enforcement points, and the honest comparison is what spec-kit does that those do not. Paired task lives in /ROADMAP.md § Git & sync integrity.
 
+### Adversarial review as a standard (INBOX 2026-08-16, paired item in /ROADMAP.md)
+Three reels from the same practitioner, captured together because Lucas's note is one idea across
+all of them: *"have adversarials as our standards, maybe enforced… e.g., a plan that doesn't have
+any adversarial steps is rejected"*.
+- `[C]` [Do you even adversarial bro?!](https://www.instagram.com/reel/DbsInXVNmjZ/) — Kem @ GlitchCatClub. The framing reel; no method in the caption
+- `[C]` [How I do mine — great but can be a death loop](https://www.instagram.com/reel/DcB57k9tigG/) — same author, method doc at `https://claude.ai/code/artifact/915ce49a-bdb8-4723-8f14-638c6d1b1391`. **The caveat is the useful half**: he says the technique can become a death loop, which is the failure mode to design against, not a footnote
+- `[C]` [Less AI slop — 26 gates you can implement today](https://www.instagram.com/reel/Dbk11QVtZB8/) — same author, doc at `https://claude.ai/code/artifact/18822ddb-3982-41b3-bcb6-2bd68fd84243`. Directly comparable to this workspace's own gate set
+
+⚠ **Both artifact docs are unread.** `WebFetch` refuses them: *"this artifact is served to you as a
+public (non-member) reader, and reading public artifacts that way is not enabled yet"*, and
+`core/tools/web/fetch` gets only the disclaimer line — the page is JS-rendered. So the two entries
+above are captured on their captions alone. **Nothing here is evidence about what the docs say.**
+Lucas can open them in a browser and paste the content, which is the only path that currently works.
+
+### Agent methodologies to evaluate against our own
+- `[C]` [obra/Superpowers](https://github.com/obra/Superpowers) — *"a complete software development methodology for your coding agents, built on top of a set of composable skills"*. Same shape as our craft flow: interview for intent → spec in readable chunks → implementation plan written for *"an enthusiastic junior engineer with poor taste, no judgement, no project context, and an aversion to testing"* → subagent-driven execution with red/green TDD, YAGNI, DRY. Installs per-harness across 14 agents (Claude Code, opencode, Pi, Copilot, Gemini, Cursor…), so it is provider-agnostic the same way we are. Lucas, INBOX 2026-08-16: *"será que eu deveria usar o superpowers?"* — the honest comparison is against `core/flows/craft/` and `/loops`, which already do this, and the question is whether theirs is better rather than whether it is good. Paired assessment item in /ROADMAP.md
+
 ### Offline resilience (parked, see /ROADMAP.md)
 - [Reticulum](https://github.com/markqvist/Reticulum) — E2E-encrypted network stack that keeps working with no internet or infrastructure
 - **Kiwix** — all of Wikipedia offline; almost certainly the "NOMAD project" Lucas half-remembered

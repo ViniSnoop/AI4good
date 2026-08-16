@@ -816,6 +816,14 @@ is no conceptual intersection."* Each type answers exactly one question.
    tests so we can indeed see the impacts of each option"* (Lucas, 2026-08-14). Building the bench
    before the switch repeats the failure.
 
+   **Named for measurement by Lucas (INBOX 2026-08-16), and the list is the scope:** *"incluir na
+   nossa medição do estudo de ablação as funcionalidades da fachada, das interfaces, do limite de
+   LOC, limite de arquivos, enfim, fazer o planejamento desse estudo com bastante calma."* Facade
+   discipline, interface-first reads, the 150/200-line cap and the 7/10-file fanout cap — the four
+   restraint gates nobody has ever measured, each of which shapes how every file in this workspace
+   is written. *"com bastante calma"* is a constraint on the study, not a mood: these are the
+   workspace's most load-bearing rules, so a weak design produces a number that gets quoted forever.
+
    Scope is the whole enforcement layer, not the `.md` corpus: hooks, skills, tools, `AGENTS.md`
    itself. The corpus drain is downstream — its verdicts are judgement calls today precisely because this
    instrument does not exist, and it says so rather than implying they are measured.
@@ -885,6 +893,72 @@ exception.**
 Open, and per-repo drain work rather than a wos item: the `.d.ts` half of the stub gap — 203
 files, all in nested repos, now counted in [`entropy.md`](entropy.md) under the criterion-1
 baseline rule.
+
+## Front 16 — post-v1, and the ledger is open again on purpose
+
+**Ruled 2026-08-16 (Lucas), after all four v1 criteria went green.** The governing constraint
+(*"quero zerar o roadmap do WOS o quanto antes"*) was a filter for reaching v1, not a permanent ban:
+asked where three real ideas should land, he chose to **reopen this ledger** rather than push them
+into `core/ROADMAP.md` or leave them in the INBOX. So v1 is a milestone, not a stopping point —
+**but the filter that got us here still applies to what enters**: an item another repo owns is
+refiled there, and a finding worth keeping goes into the `SPECS.md` section that owns the rule.
+
+1. 🟡 **adversarial review as a standard, possibly enforced.** Lucas, INBOX 2026-08-16: *"have
+   adversarials as our standards, maybe enforced… e.g., a plan that doesn't have any adversarial
+   steps is rejected"*. The natural home is the craft flow's plan step
+   ([`core/flows/craft/`](core/flows/craft/CONTEXT.md)), which already has a plan-review stage — so
+   the question is whether that stage becomes a *requirement with a shape a check can see*, the way
+   the citation gate matches `Frente <n>` rather than a word.
+
+   **Design against the failure the source itself names**: the practitioner who proposed this says
+   the technique *"can be a death loop"*. A gate that demands an adversarial step, on a plan whose
+   adversary always finds something, is a loop with no exit. Whatever ships needs a termination
+   rule before it needs a check. Refs and the two unread method docs: `core/refs/REFS.md`
+   § Adversarial review as a standard.
+   → **model: opus** for the shape, sonnet to wire it.
+2. 🟡 **measure which `UPPERCASE.md` files are actually read, and what they cost.** Lucas, INBOX
+   2026-08-16: *"sinto que arquivos de objetivos (goals) são pouco usados. roadmaps são muito
+   usados. gostaria de primeiro ter esse monitoramento de forma automática (zero-token) de quais
+   arquivos UPPERCASE.md são lidos e com que frequência (e se possível o custo em tokens de leitura
+   deles). tudo isso monitorado no tempo."*
+
+   **Ordering is explicit and it is the whole point: measure first, then act.** He suspects goal
+   files are dead weight; this measures it instead of assuming it. The instrument is close to
+   existing — [`core/tools/wos/session/context`](core/tools/wos/session/context) already attributes
+   context growth per file from the transcripts, so this is mostly a longitudinal store plus a
+   per-type rollup, not a new measurement. Results belong in
+   [`core/experiments/`](core/experiments/CONTEXT.md), never in this file.
+   → **model: sonnet**.
+3. 🟡 **then reinforce the goal↔roadmap link, possibly enforced.** Same capture, and deliberately
+   second: *"depois gostaria de reforçar a conexão entre os goals e os roadmaps, não sei se tem
+   como, talvez até algo ENFORCED"*. Every goal file already carries an `>**owns**` block and every
+   plan is supposed to live in a `ROADMAP.md`; what is missing is anything asserting the two agree.
+   **Do not design this before item 2 reports** — if goal files turn out to be read rarely, the fix
+   is not a stronger link to them.
+   → **model: sonnet**.
+4. 🟡 **evaluate `obra/Superpowers` against our own craft flow.** Lucas, INBOX 2026-08-16: *"será
+   que eu deveria usar o superpowers?"* It is the same shape as `/loops` — spec from an interview,
+   plan written for a junior engineer, subagent-driven TDD — and it installs across 14 harnesses,
+   so it is provider-agnostic the way we are. **The question is not whether it is good, it is
+   whether it is better than the flow we already run**, and the answer has to name what it does
+   that `core/flows/craft/` does not. A real outcome here is deleting our own flow.
+   → **model: opus** — this is a judgement about our own work.
+5. 🟢 **make link extraction in an INBOX drain one command instead of N.** Lucas, INBOX 2026-08-16:
+   *"muitas vezes o 'drain' do inbox.md não lê direito os links. isso deveria ser automático,
+   zero-token, mas muitas vezes o modelo escolhe pular, é 'preguiça'? tentar contornar isso."*
+
+   **The instruction is not the problem — it already exists and is already emphatic.**
+   `core/skills/inbox.md` § Video / image links says the step *"is not optional and not a judgement
+   call"*, quoting the same complaint from 2026-07-29. Repeating it a third time will not work. The
+   diagnosis is mechanical: `core/tools/video/video` takes exactly one URL (`url = args[0]`), so a
+   drain with eight links is eight separate invocations, each one a place to decide to stop. **What
+   gets skipped is a step that costs N decisions; what does not is a step that costs one.**
+
+   Fix the shape, not the wording: let the tool take many URLs, or read them straight out of
+   `brain/INBOX.md`, so the drain runs one command and the model never chooses per link. This is
+   the workspace's own rule from `AGENTS.md` — *agent-facing text names one action* — applied to
+   the tool the text points at.
+   → **model: sonnet**.
 
 ## Parked — explicitly out of v1
 

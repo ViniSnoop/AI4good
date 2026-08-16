@@ -111,7 +111,10 @@ Rules:
   *is* the route). Read it before the extracted text, not after.
 - Extraction failed (login-gated, dead link)? Say so, leave the entry, move on. Instagram needs
   `~/.config/workspace-video/cookies.txt` — see `core/tools/video/SETUP.md`.
-- Several links at once: extract them all in one batch before proposing any route.
+- Several links at once: extract them all in one batch before proposing any route. Run them in a
+  single bash call — a `for` loop over the URLs, not one call per link. The skips this rule keeps
+  attracting are a cost problem, not a comprehension one: the tool takes one URL at a time, so
+  eight links is eight chances to stop. One call, one decision.
 - The extracted text is `[src: web:<domain>]` content (see Provenance above) even though the
   bare URL in INBOX carries no tag — `video`/`fetch`/`search` output is quoted from the source,
   not from Lucas. Route on it, but the destination line quotes/attributes it; never restate it

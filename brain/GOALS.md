@@ -4,11 +4,11 @@
 <!-- stats:start -->
 <!-- data:start -->
 ## attention dashboard  _(auto-updated on every commit)_
-last-updated: 2026-08-16 13:21
+last-updated: 2026-08-16 17:22
 
 >**areas** — last 14 days  
 ```
-health       ██████████   106 touches
+health       ██████████   111 touches
 career       █░░░░░░░░░   13 touches
 finances     ░░░░░░░░░░   8 touches
 fun          ░░░░░░░░░░   5 touches
@@ -21,7 +21,7 @@ CONTEXT                  ░░░░░░░░░░   3 touches
 burocracia-academica     ░░░░░░░░░░   4 touches
 career-ufrpe             ░░░░░░░░░░   0 touches
 corporal-expressiveness  ░░░░░░░░░░   0 touches
-craft-flows              █░░░░░░░░░   11 touches
+craft-flows              ░░░░░░░░░░   11 touches
 cria                     ░░░░░░░░░░   3 touches
 dance                    ░░░░░░░░░░   1 touches
 ecovila                  ░░░░░░░░░░   3 touches
@@ -44,7 +44,7 @@ rpg-isoroll              ░░░░░░░░░░   3 touches
 sleep-regularity         ░░░░░░░░░░   0 touches
 smartphone-addiction     ░░░░░░░░░░   0 touches
 spacemantics             ░░░░░░░░░░   5 touches
-spec-driven-development  ░░░░░░░░░░   4 touches
+spec-driven-development  ░░░░░░░░░░   5 touches
 startapps-apptime        ░░░░░░░░░░   3 touches
 startapps-arede          ░░░░░░░░░░   0 touches
 startapps-batituque      ░░░░░░░░░░   0 touches
@@ -67,7 +67,7 @@ teaching-materials       ░░░░░░░░░░   9 touches
 travel                   ░░░░░░░░░░   1 touches
 vipassana                ░░░░░░░░░░   0 touches
 voice                    ░░░░░░░░░░   0 touches
-workspace-os             ██████████   106 touches
+workspace-os             ██████████   111 touches
 yoga                     ░░░░░░░░░░   0 touches
 ```
 <!-- data:end -->
