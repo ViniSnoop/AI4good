@@ -5,8 +5,14 @@ from pathlib import Path
 # One definition, from core/hooks/file_law.py — this module used to carry its own copy.
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from file_law import CODE_EXTS  # noqa: E402  (re-exported: callers import it from here)
+from hoist import md_blurb  # noqa: E402
 
-CONTENT_EXTS = {'.md', '.yaml', '.yml', '.toml'}
+# `.env` and `.txt` joined 2026-08-15: the four files core/hooks keeps its law in
+# (`limits.env`, `vendored.txt`, `extensionless.txt`, `gitignore-exceptions.txt`) each carry a
+# `#` first line and were unreachable by the generator, so core/hooks/CONTEXT.md hand-wrote a
+# table to name them — an inventory forced by a gap in this set. Five such files are tracked
+# workspace-wide, four of them here; this is a narrow list, not a net for data dumps.
+CONTENT_EXTS = {'.md', '.yaml', '.yml', '.toml', '.env', '.txt'}
 ALL_EXTS     = CODE_EXTS | CONTENT_EXTS
 PLACEHOLDER  = '← add first-line comment'
 
@@ -24,6 +30,7 @@ COMMENT_RE = {
     '.html':[r'^<!--\s*(.+?)\s*-->'], '.dart': [r'^//\s*(.+)'],
     '.md':  [r'^#\s*(.+)'], '.yaml': [r'^#\s*(.+)'], '.yml':  [r'^#\s*(.+)'],
     '.tex': [r'^%\s*(.+)'], '.toml': [r'^#\s*(.+)'], '.sh': [r'^#\s*(.+)'],
+    '.env': [r'^#\s*(.+)'], '.txt': [r'^#\s*(.+)'],
 }
 
 def _exec_description(path: Path) -> str:
@@ -82,6 +89,9 @@ def file_description(path: Path) -> str:
         fm = _frontmatter_description(path)
         if fm:
             return fm
+        blurb = md_blurb(path)
+        if blurb:
+            return blurb
     patterns = COMMENT_RE.get(path.suffix, [])
     try:
         lines = path.read_text(encoding='utf-8', errors='ignore').splitlines()
@@ -96,7 +106,28 @@ def file_description(path: Path) -> str:
     for pat in patterns:
         m = re.match(pat, first.strip())
         if m: return m.group(1).strip()
+    if path.suffix == '.py':
+        return _module_docstring(path)
     return ''
+
+
+def _module_docstring(path: Path) -> str:
+    """A module docstring's first line, per PEP 257 — the fallback, never the first choice.
+
+    `COMMENT_RE['.py']` matches `\"\"\"one line\"\"\"` and nothing else, so a module whose
+    docstring opens on line 1 and closes three lines down was undescribable: 13 tracked
+    modules asked for a comment they had already answered in the way Python itself
+    prescribes. Third instance of the gap ROADMAP.md Frente 4.7 is about, after `.sh` and
+    the `.md` blurb — the generator holding the text and not reaching for it.
+
+    Runs only after the `#` pattern misses, so this workspace's line-1 comment convention
+    keeps precedence and no existing row moves.
+    """
+    try:
+        doc = ast.get_docstring(ast.parse(path.read_text(encoding='utf-8', errors='ignore')))
+    except (SyntaxError, ValueError, OSError):
+        return ''
+    return doc.strip().splitlines()[0].strip() if doc and doc.strip() else ''
 
 # A `test_*` name is collected by the runner, never imported by another module, so it is
 # not API — listing it in the routing table spends tokens naming something no reader can

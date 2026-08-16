@@ -22,8 +22,13 @@ HEAD_WARN = load_limits()['CONTEXT_HEAD_WARN']
 # Inherited backlog, drained by ROADMAP.md Frente 13 (corpses, heads) and Frente 4.6 (markers).
 # The wos half of the corpse and head queues is drained; what remains in both is nested-repo
 # work, which cannot ride a wos commit (Frente 13.2) — so these two stop falling here.
+#
+# The marker queue fell 69 → 55 on 2026-08-15 without a single file being described by hand:
+# the generator learned to read a multi-line module docstring and the `core/hooks` data files
+# (Frente 4.7). Markers answered by closing a generator gap are the cheapest kind, and they
+# are indistinguishable here from ones answered by writing prose — which is the point.
 FINISHED_CEILING = 19
-UNDESCRIBED_CEILING = 69
+UNDESCRIBED_CEILING = 55
 MISPLACED_CEILING = 17
 
 # The margin lets one cut land without forcing a test edit; a real drain pass trips it.

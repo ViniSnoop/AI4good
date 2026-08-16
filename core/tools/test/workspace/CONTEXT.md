@@ -13,8 +13,8 @@ are one word apart: [`gates/`](gates/CONTEXT.md) and [`generators/`](generators/
 
 | Subdirectory | Description |
 |--------------|-------------|
-| [`gates/`](gates/CONTEXT.md) | What a blocking gate must say, and who it must fire for. Mirrors `core/hooks/gat |
-| [`generators/`](generators/CONTEXT.md) | What the generators must produce, and what they must never produce. Mirrors `cor |
+| [`gates/`](gates/CONTEXT.md) | What a blocking gate must say, and who it must fire for. Mirrors… |
+| [`generators/`](generators/CONTEXT.md) | What the generators must produce, and what they must never produce. Mirrors… |
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|

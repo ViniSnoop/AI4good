@@ -5,6 +5,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from file_law import load_limits  # noqa: E402
+from hoist import hoist, md_blurb  # noqa: E402
 from workspace_meta import (  # noqa: E402
     ALL_EXTS, PLACEHOLDER, extract_api, file_description, interface_for,
 )
@@ -90,53 +91,13 @@ def parse_preserved_subs(inner: str) -> dict:
             if desc not in ('Description', '—', '', '← add description'): rows[name] = desc
     return rows
 
-_LINK_RE = re.compile(r'\[([^\]]*)\]\(([^)]+)\)')
-DESC_LIMIT = 80
-
-
-def _rebase_links(text: str, prefix: str) -> str:
-    """Rewrite relative link targets so they resolve from the PARENT directory.
-
-    A child's line-2 description is hoisted verbatim into the parent's routing row, where
-    `[REFS.md](REFS.md)` silently names the *parent's* REFS.md — a different file, or none
-    at all. Absolute paths, URLs and bare anchors already mean the same from either
-    directory, so they are left alone.
-    """
-    def fix(m):
-        target = m.group(2)
-        if target.startswith(('/', '#')) or '://' in target or target.startswith('mailto:'):
-            return m.group(0)
-        return f'[{m.group(1)}]({prefix}{target})'
-    return _LINK_RE.sub(fix, text)
-
-
-def _truncate_outside_links(text: str, limit: int) -> str:
-    """Cut to `limit`, never mid-link — a half-copied `[REFS.md](RE` is a broken pointer,
-    and the pointer-integrity check would be right to fail on it."""
-    if len(text) <= limit:
-        return text
-    cut = limit
-    for m in _LINK_RE.finditer(text):
-        if m.start() < cut < m.end():
-            cut = m.start()
-            break
-    return text[:cut].rstrip()
-
-
 def build_sub_rows(link_list: list, preserved_subs: dict) -> str:
     rows = ['| Subdirectory | Description |', '|--------------|-------------|']
     for sub in link_list:
         ctx_sub = sub / 'CONTEXT.md'
         desc = preserved_subs.get(sub.name, '—')
-        if ctx_sub.exists():
-            lines = ctx_sub.read_text().splitlines()
-            if len(lines) > 1:
-                m = re.match(r'^>\s*(.+)', lines[1].strip())
-                if m:
-                    candidate = _truncate_outside_links(
-                        _rebase_links(m.group(1).strip(), f'{sub.name}/'), DESC_LIMIT)
-                    if candidate != '← add description':
-                        desc = candidate
+        if ctx_sub.exists() and (blurb := md_blurb(ctx_sub)):
+            desc = hoist(blurb, f'{sub.name}/')
         link = f'{sub.name}/CONTEXT.md' if ctx_sub.exists() else f'{sub.name}/'
         rows.append(f'| [`{sub.name}/`]({link}) | {desc} |')
     return '\n'.join(rows)
@@ -170,7 +131,15 @@ def build_file_rows(files_with_rel: list, preserved: dict, ctx_dir: Path) -> str
     for f, rel in sorted(files_with_rel, key=lambda x: (x[0].name not in FACADE_NAMES, x[1])):
         pre  = FACADE_PREFIX if f.name in FACADE_NAMES else ''
         kept = _strip_facade(preserved.get(rel, preserved.get(f.name, PLACEHOLDER)))
-        desc = pre + (file_description(f) or kept)
+        found = file_description(f)
+        # A `.md` description is its own file's blurb — written under its own H1, in its own
+        # directory. That makes it hoisted text, exactly like a subdirectory's, so it gets
+        # the same rebase and the same bound. Everything else here is a first-line comment,
+        # authored for this table, and is carried through untouched.
+        if found and f.suffix == '.md':
+            folded = Path(rel).parent
+            found = hoist(found, '' if str(folded) == '.' else f'{folded}/')
+        desc = pre + (found or kept)
         rows.append((f'[`{rel}`]({rel})', interface_for(f, ctx_dir), extract_api(f), desc))
     if not rows:
         return ''

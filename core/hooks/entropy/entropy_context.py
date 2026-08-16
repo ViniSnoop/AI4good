@@ -12,7 +12,11 @@ from entropy_corpus import is_generated_mirror
 # core/SCHEMA.md § Boundaries where types nearly touch: CONTEXT never hand-lists files.
 ROUTING_START = '<!-- routing:start -->'
 TREE_GLYPH = re.compile(r'[├└│]──')
-PATH_BULLET = re.compile(r'^\s*[-*]\s+[`\[]([\w./-]+\.\w+|[\w./-]+/)', re.M)
+PATH_BULLET = re.compile(r'^\s*[-*]\s+[`\[]+([\w./-]+\.\w+|[\w./-]+/)', re.M)
+# The same list, drawn as a table. Anchored at the FIRST cell, because a path named in a
+# later cell is a pointer inside a description, not the thing the row is about — that is
+# how `| Area | Covers |` and `| Runtime | How to spawn |` stay legitimate CONTEXT content.
+PATH_TABLE_ROW = re.compile(r'^\|\s*[`\[]+([\w./-]+\.\w+|[\w./-]+/)', re.M)
 INVENTORY_HEADING = re.compile(
     r'^#+\s+.*\b(file map|repository shape|project layout|file list|directory structure|'
     r'folder structure|files?\s+in\s+this|inventory)\b', re.I)
@@ -32,13 +36,20 @@ def check_inventory(path: Path) -> str | None:
         reasons.append(f'inventory heading {heading.strip()!r}')
     if TREE_GLYPH.search(head):
         reasons.append('an ASCII directory tree')
-    # A bullet counts only when the path REALLY EXISTS beside the CONTEXT.md. Documenting
-    # a naming convention with globs (`grav_cam2_gXX_sq.png` in a paper's images/) is
+    # A row counts only when the path REALLY EXISTS beside the CONTEXT.md. Documenting a
+    # naming convention with globs (`grav_cam2_gXX_sq.png` in a paper's images/) is
     # legitimate CONTEXT content — describing the directory, which is its whole job. Only
     # a list of actual files duplicates the generated block.
-    bullets = [b for b in PATH_BULLET.findall(head) if (path.parent / b).exists()]
-    if len(bullets) >= 3:
-        reasons.append(f'{len(bullets)} bullets listing real files')
+    #
+    # A table is the same inventory as a bullet list and was invisible to this check for
+    # months: brain/CONTEXT.md, the workspace's most-read file, carried a hand-written
+    # `| File / Folder | Role |` above its generated block saying the same thing — the
+    # defect this check was written for, in the file it was written to protect. Bullets and
+    # rows are counted TOGETHER: splitting one list across both shapes is still one list.
+    listed = [m for m in (PATH_BULLET.findall(head) + PATH_TABLE_ROW.findall(head))
+              if (path.parent / m).exists()]
+    if len(listed) >= 3:
+        reasons.append(f'{len(listed)} bullets/table rows listing real files')
     if not reasons:
         return None
     return (f"{path}: hand-written file inventory ({', '.join(reasons)}).\n"

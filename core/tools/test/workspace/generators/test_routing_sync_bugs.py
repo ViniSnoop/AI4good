@@ -12,28 +12,43 @@ ROUTING = WORKSPACE_ROOT / "core/hooks/routing"
 sys.path.insert(0, str(ROUTING))
 
 from context_synchronizer import RE, RS, sync  # noqa: E402
-from workspace_scanner import (  # noqa: E402
-    _rebase_links, _strip_facade, _truncate_outside_links, build_sub_rows,
-)
+from hoist import rebase_links, truncate_outside_links  # noqa: E402
+from workspace_scanner import _strip_facade, build_sub_rows  # noqa: E402
 
 
 # ── (a) a child's description is hoisted into the parent, links and all ────────────────
 
 def test_relative_links_are_rebased_onto_the_child_directory() -> None:
-    assert _rebase_links("see [REFS.md](REFS.md)", "refs/") == "see [REFS.md](refs/REFS.md)"
+    assert rebase_links("see [REFS.md](REFS.md)", "refs/") == "see [REFS.md](refs/REFS.md)"
 
 
 @pytest.mark.parametrize("target", ["/abs/x.md", "#anchor", "https://x.dev", "mailto:a@b.c"])
 def test_non_relative_targets_are_left_alone(target: str) -> None:
     text = f"see [x]({target})"
-    assert _rebase_links(text, "sub/") == text
+    assert rebase_links(text, "sub/") == text
 
 
 def test_truncation_never_cuts_a_link_in_half() -> None:
     # A limit landing inside the link must drop the whole link, not leave `](RE`.
     text = "aaaa [REFS.md](REFS.md) bbbb"
-    assert _truncate_outside_links(text, 12) == "aaaa"
-    assert "](" not in _truncate_outside_links(text, 12)
+    assert truncate_outside_links(text, 12) == "aaaa…"
+    assert "](" not in truncate_outside_links(text, 12)
+
+
+def test_truncation_never_cuts_a_word_in_half() -> None:
+    """`the Tier 0 checks t` read as a typo, not as a cut — half of Frente 4.7's
+    "descrições horríveis". Retreat to the last whole word and mark the cut."""
+    assert truncate_outside_links("alpha beta gamma delta", 14) == "alpha beta…"
+
+
+def test_a_cut_on_a_space_keeps_the_whole_last_word() -> None:
+    """Retreating a word is for mid-word cuts only; a limit landing on the space between
+    words has nothing to retreat from and must not eat a word that fitted."""
+    assert truncate_outside_links("alpha beta gamma", 10) == "alpha beta…"
+
+
+def test_text_within_the_limit_is_never_marked() -> None:
+    assert truncate_outside_links("alpha beta", 40) == "alpha beta"
 
 
 def test_hoisted_row_points_into_the_child(tmp_path: Path) -> None:

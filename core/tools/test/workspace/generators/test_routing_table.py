@@ -99,6 +99,82 @@ def test_a_shell_script_is_described_below_its_shebang(tmp_path) -> None:
     assert file_description(p) == 'does the thing'
 
 
+# ── a `.md` row describes the file, not just names it (Frente 4.7) ────────────────────
+#
+# `COMMENT_RE['.md']` captured the `#` H1 and stopped, so every `.md` row in the corpus
+# advertised a NAME where the sentence saying what the file is sat one line below, unread:
+# `tree.md` read "The Craft Tree", `INBOX.md` read "inbox". The line-2 `>` blurb was already
+# being hoisted — but only from a *child's* CONTEXT.md into its parent's subdirectory table.
+
+def test_an_md_row_shows_its_blurb_not_its_heading(tmp_path) -> None:
+    table = _table(tmp_path, **{'tree.md': '# The Craft Tree\n> Canonical map of `/loops`.\n'})
+    assert 'Canonical map' in table
+    assert 'The Craft Tree' not in table
+
+
+def test_an_md_row_falls_back_to_its_heading(tmp_path) -> None:
+    """No blurb is not a defect — GOALS.md is a dashboard under a bare H1."""
+    table = _table(tmp_path, **{'GOALS.md': '# goals\n\nbody\n'})
+    assert '| goals |' in table
+
+
+def test_frontmatter_still_outranks_the_blurb(tmp_path) -> None:
+    """A skill declares its description in frontmatter; that is the authored answer."""
+    table = _table(tmp_path, **{
+        's.md': '---\ndescription: the declared one\n---\n# s\n> the blurb\n'})
+    assert 'the declared one' in table
+    assert 'the blurb' not in table
+
+
+def test_an_unanswered_scaffold_blurb_is_not_hoisted(tmp_path) -> None:
+    """A generated marker is a question, not a description — hoisting one would answer it
+    with itself, and the placeholder check would stop seeing it."""
+    table = _table(tmp_path, **{'x.md': '# x\n> ← add description\n'})
+    assert '← add description' not in table
+
+
+def test_a_multiline_module_docstring_describes_the_module(tmp_path) -> None:
+    """PEP 257's answer counts. The one-line-docstring pattern was the whole of it, so a
+    docstring that opened on line 1 and closed three lines down read as undescribed."""
+    p = tmp_path / 'a.py'
+    p.write_text('#!/usr/bin/env python3\n"""Does the thing.\n\nAt length.\n"""\n',
+                 encoding='utf-8')
+    assert file_description(p) == 'Does the thing.'
+
+
+def test_a_line_one_comment_outranks_the_docstring(tmp_path) -> None:
+    """This workspace's convention is the `#` line, and the gate enforces it there. The
+    docstring is a fallback — if it could outrank the comment, every row would move."""
+    p = tmp_path / 'a.py'
+    p.write_text('# the convention\n"""The docstring.\n\nMore.\n"""\n', encoding='utf-8')
+    assert file_description(p) == 'the convention'
+
+
+def test_a_folded_md_blurb_has_its_links_rebased(tmp_path) -> None:
+    """A blurb from a folded subdirectory names files relative to ITS directory."""
+    sub = tmp_path / 'sub'
+    sub.mkdir()
+    (sub / 'a.md').write_text('# a\n> see [SPECS.md](SPECS.md)\n', encoding='utf-8')
+    table = build_file_rows([(sub / 'a.md', 'sub/a.md')], {}, tmp_path)
+    assert '(sub/SPECS.md)' in table
+    assert '](SPECS.md)' not in table
+
+
+def test_a_long_md_blurb_is_bounded(tmp_path) -> None:
+    """One file's paragraph must not set the width of another file's table."""
+    table = _table(tmp_path, **{'a.md': f'# a\n> {"word " * 60}\n'})
+    assert '…' in table
+    assert max(len(line) for line in table.splitlines()) < 160
+
+
+def test_a_first_line_comment_is_never_bounded(tmp_path) -> None:
+    """Only hoisted text is cut. A code comment was authored as this table's one-liner —
+    it lives in this directory, has nothing to rebase, and nothing else carries its text."""
+    comment = 'x ' * 60
+    table = _table(tmp_path, **{'a.py': f'# {comment}\n'})
+    assert comment.strip() in table
+
+
 def test_preserved_descriptions_survive_a_narrower_table() -> None:
     """Descriptions are re-read from tables of any arity — first cell file, last cell desc."""
     four = '| [`a.py`](a.py) | — | `go` | does the thing |'

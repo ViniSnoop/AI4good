@@ -4,6 +4,7 @@ from pathlib import Path
 ROUTING_START: str
 TREE_GLYPH: Incomplete
 PATH_BULLET: Incomplete
+PATH_TABLE_ROW: Incomplete
 INVENTORY_HEADING: Incomplete
 GOAL_LINE: Incomplete
 
