@@ -4,7 +4,9 @@
 # 23.4% of Bash calls (first line is `cd`) plus 1,249 rewritable commands stranded on lines 2+.
 # Delegates verbatim to `rtk hook claude` for every shape it cannot split safely.
 import json
+import os
 import re
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -43,8 +45,9 @@ def rtk_rewrite(command: str) -> str | None:
 	return got if isinstance(got, str) and got != command else None
 
 
-def delegate(command: str) -> None:
-	"""Hand the untouched payload to rtk and pass its verdict through unchanged."""
+def delegate(command: str) -> str:
+	"""Hand the untouched payload to rtk and pass its verdict through unchanged.
+	Returns the verdict for the counter; the caller has nothing else to do with it."""
 	payload = json.dumps({
 		'hook_event_name': 'PreToolUse',
 		'tool_name': 'Bash',
@@ -56,9 +59,32 @@ def delegate(command: str) -> None:
 			capture_output=True, text=True, timeout=10,
 		)
 	except (OSError, subprocess.SubprocessError):
+		return 'no-rtk'
+	if not done.stdout.strip():
+		return 'delegated-noop'
+	sys.stdout.write(done.stdout)
+	try:
+		json.loads(done.stdout)['hookSpecificOutput']['updatedInput']['command']
+	except (ValueError, KeyError, TypeError):
+		return 'delegated-noop'
+	return 'delegated-rewrote'
+
+
+def record(session_id: str, verdict: str, lines: int) -> None:
+	"""One row per Bash call, so adoption is a number instead of a belief. This exact bug read as a
+	flat zero for weeks with nothing watching — a lever with no standing metric is a lever nobody
+	can tell is broken. Same store convention as hook_input.seen_file(): per session, in /tmp.
+	Ephemeral on purpose; the trend belongs in core/experiments/, not in a file that churns git."""
+	if not session_id:
 		return
-	if done.stdout.strip():
-		sys.stdout.write(done.stdout)
+	# Overridable so the suite can assert on an isolated dir instead of the shared /tmp path,
+	# and so a harness that owns its own state directory can point this at it.
+	directory = os.environ.get('RTK_COMPACT_DIR', '/tmp')
+	try:
+		with open(f'{directory}/claude_rtk_compact_{session_id}.tsv', 'a') as handle:
+			handle.write(f'{verdict}\t{lines}\n')
+	except OSError:
+		pass  # counting must never be able to break the command being counted
 
 
 def splittable(lines: list[str]) -> bool:
@@ -74,15 +100,21 @@ def splittable(lines: list[str]) -> bool:
 
 
 def main() -> int:
-	_raw, tool, tool_input, _session_id, _cwd = parse_stdin()
+	_raw, tool, tool_input, session_id, _cwd = parse_stdin()
 	if tool and tool != 'Bash':
 		return 0
 	command = str(tool_input.get('command', ''))
 	if not command:
 		return 0
 	lines = command.split('\n')
+	# Checked once, up front: rtk_rewrite() cannot tell "declined" from "not installed", so
+	# without this the split path files a missing binary as `split-noop` — an idle shim and an
+	# absent one would read identically, which is the exact ambiguity the counter exists to kill.
+	if shutil.which('rtk') is None:
+		record(session_id, 'no-rtk', len(lines))
+		return 0
 	if len(lines) < 2 or not splittable(lines):
-		delegate(command)
+		record(session_id, delegate(command), len(lines))
 		return 0
 
 	rewritten: list[str] = []
@@ -100,8 +132,10 @@ def main() -> int:
 		rewritten.append(line[:len(line) - len(line.lstrip())] + got)
 		changed = True
 	if not changed:
+		record(session_id, 'split-noop', len(lines))
 		return 0
 
+	record(session_id, 'split-rewrote', len(lines))
 	updated = dict(tool_input)
 	updated['command'] = '\n'.join(rewritten)
 	print(json.dumps({'hookSpecificOutput': {

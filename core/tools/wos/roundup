@@ -149,8 +149,27 @@ if [ -z "$SYNC" ]; then
   SYNC="promoted ·${SHAS} ·$([ "$UNPUSHED" = "0" ] && echo " all pushed" || echo " $UNPUSHED branch(es) unpushed")"
 fi
 
+# ── What this session cost, and whether compaction ran (ROADMAP Frente 9.4 — a wiring job, not a
+#    new instrument). The script has no session id, so resolve it the only way available: the
+#    newest transcript under this repo's project slug is this session, and its stem is the id that
+#    both `usage --session` and the compaction counter are keyed by. Both are best-effort —
+#    a session-close must never fail because a report did.
+SLUG="$(printf '%s' "$ROOT" | sed 's|/|-|g')"
+SID="$(ls -t "$HOME/.claude/projects/$SLUG"/*.jsonl 2>/dev/null | head -1 | xargs -r basename | sed 's/\.jsonl$//')"
+COST=""; COMPACT=""
+if [ -n "$SID" ]; then
+  COST="$("$SCRIPT_DIR/session/usage" --session "$SID" 2>/dev/null)" || COST=""
+  TSV="/tmp/claude_rtk_compact_$SID.tsv"
+  # Adoption, not savings: rtk gain measures the tokens saved, this measures whether the shim is
+  # reaching the commands at all. A flat 0% here is what the multi-line bug looked like.
+  [ -s "$TSV" ] && COMPACT="$(awk -F'\t' '{n++} $1 ~ /rewrote/ {r++} END {
+    printf "%d%% of %d bash calls rewritten", (r*100)/n, n}' "$TSV")"
+fi
+
 printf 'verify: %s\n' "$VERIFY"
 [ -n "$ENTROPY" ] && printf 'entropy: %s\n' "$ENTROPY"
 printf 'sync: %s\n' "$SYNC"
+[ -n "$COST" ] && printf '%s\n' "$COST"
+[ -n "$COMPACT" ] && printf 'compaction: %s\n' "$COMPACT"
 [ "$VERIFY" = "red" ] && { echo "--- verify tail ---"; tail -20 "$LOG"; }
 exit $RC

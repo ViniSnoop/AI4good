@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
-# Usage: core/tools/wos/session/usage [--project <slug>] [--top N] — where session spend goes: by model,
-# by context size, and what one more turn costs. Reads the local transcripts; no network, no model.
+# Usage: core/tools/wos/session/usage [--project <slug>] [--session <id>] — where session spend goes:
+# by model, by context size, by billed component, and what one more turn costs. Reads the local
+# transcripts; no network, no model.
 #
 # Exists because ROADMAP Frente 9 was steered for weeks by numbers from a single 24h window, two
 # of which were false. Any claim about where usage goes should be re-runnable in one command.
@@ -10,18 +11,26 @@ from collections import defaultdict
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from session_cost import turn_cost
+from session_cost import COMPONENTS, turn_components
 
 ROOT = Path.home() / '.claude' / 'projects'
 BUCKETS = [50, 100, 150, 200, 250, 300, 400, 10 ** 6]
+# What each component is called on screen, and the multiple of a fresh input token it is billed at.
+LABELS = {'input': 'fresh input', 'write_1h': 'cache write 1h', 'write_5m': 'cache write 5m',
+          'cache_read': 'cache read', 'output': 'output'}
 
 
-def turns(project: str):
-	"""Every main-chain assistant turn: (context it carried, what it cost, model, session)."""
+def turns(project: str, session: str = ''):
+	"""Every main-chain assistant turn: (context, cost, model, session, output tokens)."""
 	directory = ROOT / project
 	if not directory.is_dir():
 		sys.exit(f'no such project: {directory}')
-	for path in sorted(directory.glob('*.jsonl')):
+	paths = sorted(directory.glob('*.jsonl'))
+	if session:
+		paths = [p for p in paths if p.stem == session]
+		if not paths:
+			sys.exit(f'no such session: {session}')
+	for path in paths:
 		with path.open(errors='replace') as handle:
 			for line in handle:
 				if '"usage"' not in line:
@@ -39,38 +48,98 @@ def turns(project: str):
 				context = (usage.get('input_tokens', 0)
 				           + usage.get('cache_read_input_tokens', 0)
 				           + usage.get('cache_creation_input_tokens', 0))
-				yield context, turn_cost(model, usage), model, path.stem
+				yield (context, turn_components(model, usage), model, path.stem,
+				       usage.get('output_tokens', 0))
 
 
 def bucket_of(context: int) -> int:
 	return next(edge for edge in BUCKETS if context < edge * 1000)
 
 
+def self_authored(rows) -> tuple:
+	"""How much of a turn's context the agent itself wrote, and what that does to an output token.
+	An output token is not paid once: it lands in the thread and every later turn re-reads it.
+	Capped at 1.0 per turn — cumulative output ignores compaction, so past the cap the ratio would
+	measure the cap rather than the thread. That makes the mean an upper estimate."""
+	cum: dict = defaultdict(int)
+	shares = []
+	attributable = total = out = 0.0
+	for context, comp, _model, session, out_tokens in rows:
+		share = min(cum[session] / context, 1.0) if context else 0.0
+		shares.append(share)
+		cost = sum(comp.values())
+		# The input side of this turn is context re-read; `share` of it exists because of our
+		# own earlier output. The turn's own output is attributable in full.
+		attributable += (cost - comp['output']) * share + comp['output']
+		total += cost
+		out += comp['output']
+		cum[session] += out_tokens
+	mean = sum(shares) / len(shares) if shares else 0.0
+	attr_share = attributable / total if total else 0.0
+	out_share = out / total if total else 0.0
+	return mean, attr_share, (attr_share / out_share if out_share else 0.0)
+
+
+def brief(rows) -> None:
+	"""The per-session block /roundup prints. Shares and $/turn only: ROADMAP Frente 9.2 bars an
+	absolute total while the ~8% gap between this tool and the one-off script is open."""
+	by_model: dict = defaultdict(float)
+	total = out = 0.0
+	for _context, comp, model, _session, _out_tokens in rows:
+		cost = sum(comp.values())
+		by_model[model] += cost
+		total += cost
+		out += comp['output']
+	_mean, attr_share, multiplier = self_authored(rows)
+	split = ' · '.join(f'{model.replace("claude-", "")} {cost / total:.0%}'
+	                   for model, cost in sorted(by_model.items(), key=lambda kv: -kv[1]))
+	print(f'cost: {len(rows):,} turns · ${total / len(rows):.3f}/turn · {split}')
+	print(f'output: {out / total:.1%} of spend at sticker, {attr_share:.0%} once re-reads are '
+	      f'counted ({multiplier:.1f}x)')
+
+
 def main() -> None:
 	args = sys.argv[1:]
 	project = args[args.index('--project') + 1] if '--project' in args else '-mnt-workspace'
-	rows = list(turns(project))
+	session = args[args.index('--session') + 1] if '--session' in args else ''
+	rows = list(turns(project, session))
 	if not rows:
 		sys.exit(f'{project}: no assistant turns with usage')
+	if session:
+		brief(rows)
+		return
 
-	total = sum(cost for _c, cost, _m, _s in rows)
+	total = sum(sum(comp.values()) for _c, comp, _m, _s, _o in rows)
 	by_model: dict = defaultdict(float)
+	by_model_out: dict = defaultdict(float)
 	by_bucket: dict = defaultdict(lambda: [0, 0.0])
 	by_session: dict = defaultdict(float)
+	by_component: dict = defaultdict(float)
 	reread = 0
-	for context, cost, model, session in rows:
+	for context, comp, model, session_id, _out_tokens in rows:
+		cost = sum(comp.values())
 		by_model[model] += cost
+		by_model_out[model] += comp['output']
 		slot = by_bucket[bucket_of(context)]
 		slot[0] += 1
 		slot[1] += cost
-		by_session[session] += cost
+		by_session[session_id] += cost
+		for name, value in comp.items():
+			by_component[name] += value
 		reread += context
 
 	print(f'{project} · {len(by_session)} sessions · {len(rows):,} turns · ${total:,.2f}\n')
 
-	print('by model')
+	print('by model — and how much of each is the model talking rather than reading')
 	for model, cost in sorted(by_model.items(), key=lambda kv: -kv[1]):
-		print(f'  {model:<28} ${cost:9,.2f}  {cost / total:5.1%}')
+		print(f'  {model:<28} ${cost:9,.2f}  {cost / total:5.1%}'
+		      f'   output {by_model_out[model] / cost:5.1%}')
+
+	print('\nby billed component — output looks small here, and that is the trap')
+	for name in COMPONENTS:
+		cost = by_component[name]
+		if cost:
+			print(f'  {LABELS[name]:<28} ${cost:9,.2f}  {cost / total:5.1%}')
 
 	print('\nby the context the turn carried — the cost of one more turn, and what it adds up to')
 	# The last column is the share of spend at or above this row's *lower* edge — read the <200k
@@ -92,6 +161,14 @@ def main() -> None:
 	      f'({sum(ranked[:decile]) / total:.1%} of spend)')
 	print(f'context re-read across all turns: {reread / 1e6:,.1f}M tokens — every turn pays for the '
 	      f'whole thread,\nwhich is why a long session costs more than the same work split in two.')
+
+	mean, attr_share, multiplier = self_authored(rows)
+	print(f'\nwhat our own output really costs')
+	print(f'  mean share of a turn\'s context that is self-authored   {mean:5.1%}')
+	print(f'  spend attributable to our own output                   {attr_share:5.1%}')
+	print(f'  effective multiplier on one output token       {multiplier:9.1f}x sticker')
+	print(f'  → output is {by_component["output"] / total:.1%} of spend at sticker and '
+	      f'{attr_share:.0%} once re-reads are counted.')
 
 
 if __name__ == '__main__':

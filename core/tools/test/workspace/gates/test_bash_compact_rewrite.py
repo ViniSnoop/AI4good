@@ -51,11 +51,14 @@ def rtk_path(tmp_path):
 	return f'{tmp_path}{os.pathsep}{_path_without_rtk()}'
 
 
-def _run(command: str, path: str, tool: str = 'Bash') -> str:
+def _run(command: str, path: str, tool: str = 'Bash', counter: str = '') -> str:
 	payload = {'session_id': 'test', 'cwd': str(WORKSPACE_ROOT), 'tool_name': tool,
 	           'tool_input': {'command': command, 'description': 'd'}}
+	env = {'PATH': path}
+	if counter:
+		env['RTK_COMPACT_DIR'] = counter
 	done = subprocess.run(['python3', str(SHIM)], input=json.dumps(payload),
-	                      capture_output=True, text=True, env={'PATH': path})
+	                      capture_output=True, text=True, env=env)
 	assert done.returncode == 0, done.stderr
 	return done.stdout.strip()
 
@@ -115,3 +118,54 @@ def test_a_non_bash_tool_is_not_touched(rtk_path) -> None:
 def test_a_missing_rtk_fails_open() -> None:
 	"""Compaction is an optimisation; without the binary the command must still run as written."""
 	assert _run('cd /tmp\ngit status', _path_without_rtk()) == ''
+
+
+# ── The adoption counter. It exists because the multi-line bug was invisible for weeks: the
+#    configuration read as correct, and nothing on disk disagreed. These assert the one property
+#    that makes it an instrument — a shim reaching nothing must be distinguishable from a shim
+#    doing its job, which is exactly what `rtk gain` cannot tell you.
+
+def _verdicts(counter, session: str = 'test') -> list[str]:
+	log = counter / f'claude_rtk_compact_{session}.tsv'
+	if not log.exists():
+		return []
+	return [line.split('\t')[0] for line in log.read_text().splitlines()]
+
+
+def test_reaching_a_stranded_command_is_counted(rtk_path, tmp_path) -> None:
+	"""The shape the bug hid in. It must leave a row saying it was rewritten, not merely run."""
+	counter = tmp_path / 'counter'
+	counter.mkdir()
+	_run('cd /tmp\ngit status', rtk_path, counter=str(counter))
+	assert _verdicts(counter) == ['split-rewrote']
+
+
+def test_a_payload_with_nothing_to_gain_is_counted_as_a_miss(rtk_path, tmp_path) -> None:
+	"""A no-op must still leave a row. Counting only successes is how 0% adoption reads as silence."""
+	counter = tmp_path / 'counter'
+	counter.mkdir()
+	_run('echo one\necho two', rtk_path, counter=str(counter))
+	assert _verdicts(counter) == ['split-noop']
+
+
+def test_a_missing_rtk_is_counted_as_such(tmp_path) -> None:
+	"""`no-rtk` must not be filed as a miss: an uninstalled binary and an idle shim are
+	different failures, and the roundup's percentage is unreadable if they collapse."""
+	counter = tmp_path / 'counter'
+	counter.mkdir()
+	_run('cd /tmp\ngit status', _path_without_rtk(), counter=str(counter))
+	assert _verdicts(counter) == ['no-rtk']
+
+
+def test_counting_never_breaks_the_command_being_counted(rtk_path, tmp_path) -> None:
+	"""An unwritable counter is a lost measurement, never a lost command."""
+	counter = tmp_path / 'nonexistent'
+	assert _rewritten_with_counter('cd /tmp\ngit status', rtk_path, str(counter)) == \
+	       'cd /tmp\nrtk git status'
+
+
+def _rewritten_with_counter(command: str, path: str, counter: str) -> str | None:
+	out = _run(command, path, counter=counter)
+	if not out:
+		return None
+	return json.loads(out)['hookSpecificOutput']['updatedInput']['command']

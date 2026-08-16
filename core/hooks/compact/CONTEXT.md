@@ -15,5 +15,5 @@ untouched, and the two undocumented harness facts it rests on: [`SPECS.md`](SPEC
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
 | [`SPECS.md`](SPECS.md) | — | — | What the rtk shim may rewrite, what it must leave alone, and the two harness… |
-| [`bash-compact-rewrite.py`](bash-compact-rewrite.py) | [`bash-compact-rewrite.pyi`](bash-compact-rewrite.pyi) | `rtk_rewrite`, `delegate`, `splittable`, `main` | PreToolUse: Bash — send every line of a multi-line command through rtk, not just the first. |
+| [`bash-compact-rewrite.py`](bash-compact-rewrite.py) | [`bash-compact-rewrite.pyi`](bash-compact-rewrite.pyi) | `rtk_rewrite`, `delegate`, `record`, `splittable`, `main` | PreToolUse: Bash — send every line of a multi-line command through rtk, not just the first. |
 <!-- routing:end -->
