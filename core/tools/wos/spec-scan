@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # Usage: core/tools/wos/spec-scan [code-dir] — ledger of module SPEC.md status (locked|draft|optout|none)
 # Spec-driven-development coverage ratchet. A module = a dir with a CONTEXT.md under code/.
-# See code/SPEC-DRIVE.md.
+# See code/ROADMAP-spec-drive.md.
 import re
 import sys
 from pathlib import Path

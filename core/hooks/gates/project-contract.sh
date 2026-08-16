@@ -57,7 +57,7 @@ esac
 # ── 1d. Spec-driven module gate — new module CONTEXT.md must declare '> spec:' ──
 # Ratchet/boy-scout: fires ONLY for newly-added CONTEXT.md under code/ (existing modules
 # are grandfathered). '> spec: <file>' must point to an existing SPEC.md; '> spec: none'
-# opts out. Mirrors the 1c goal-link convention. See code/SPEC-DRIVE.md.
+# opts out. Mirrors the 1c goal-link convention. See code/ROADMAP-spec-drive.md.
 case "$TOPLEVEL" in
   /mnt/workspace/code/*)
     NEW_CONTEXTS=$(git diff --cached --name-only --diff-filter=A 2>/dev/null | grep -E '(^|/)CONTEXT\.md$' || true)
@@ -68,7 +68,7 @@ case "$TOPLEVEL" in
         if [ -z "$SPEC_DECL" ]; then
           printf "⛔ %s missing '> spec:' declaration (new module under code/).\n" "$ctx"
           printf "   Add '> spec: SPEC.md' (author it from code/_templates/module.SPEC.md),\n"
-          printf "   or '> spec: none' to opt out. See code/SPEC-DRIVE.md.\n"
+          printf "   or '> spec: none' to opt out. See code/ROADMAP-spec-drive.md.\n"
           exit 1
         fi
         if [ "$SPEC_DECL" != "none" ]; then

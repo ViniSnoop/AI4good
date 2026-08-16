@@ -114,7 +114,7 @@ No runtime `subagent`/`Agent`/`task` tool → the user opens a fresh session per
 
 **Tier:** high (max if ambitious/innovative). **Input:** the raw request + user interview. **Output:** `0-clarify.md`. The only interactive loop.
 
-**Spec precedes code (SDD).** If any target module under `code/` is spec-locked — its `CONTEXT.md` carries `> spec: <path>` and that `SPEC.md` is `status: locked` — **read the SPEC.md first** (the `spec-read-gate` will block edits otherwise) and treat its `## Invariants` as pre-set acceptance criteria: fold them into `criteria:` below so the flow verifies them. The module spec is the contract; this run must not violate it. See `code/SPEC-DRIVE.md`.
+**Spec precedes code (SDD).** If any target module under `code/` is spec-locked — its `CONTEXT.md` carries `> spec: <path>` and that `SPEC.md` is `status: locked` — **read the SPEC.md first** (the `spec-read-gate` will block edits otherwise) and treat its `## Invariants` as pre-set acceptance criteria: fold them into `criteria:` below so the flow verifies them. The module spec is the contract; this run must not violate it. See `code/ROADMAP-spec-drive.md`.
 
 Interview the user (don't assume — workspace rule) until you can fill every field. Then apply the **bakery gate**: verdict `padaria` iff ALL hold — ≤2 files touched, no new public API, no schema/data migration, an existing pattern in the repo covers it, revert fully undoes it, criticality=low|normal. Otherwise `standard` (or `critico` if criticality=critical).
 
@@ -229,7 +229,7 @@ verdict: PASS | FAIL <reason>
 
 This is the heart of the feature subtree: **lay out every module/step I/O contract before any implementation**, so the connection graph is defined in advance and the code merely fills the placeholders. The contract is mandatory regardless of the supervision panel; only the *human sign-off* on it is optional.
 
-1. For every `code/` module the architecture touches, create/update its `SPEC.md` from `code/_templates/module.SPEC.md` — fill `Inputs`, `Outputs`, `Invariants` from the architecture's signatures + the Carry criteria; set `> spec: SPEC.md` in the module `CONTEXT.md`. (This is also what satisfies the standing spec gates — see `code/SPEC-DRIVE.md`.)
+1. For every `code/` module the architecture touches, create/update its `SPEC.md` from `code/_templates/module.SPEC.md` — fill `Inputs`, `Outputs`, `Invariants` from the architecture's signatures + the Carry criteria; set `> spec: SPEC.md` in the module `CONTEXT.md`. (This is also what satisfies the standing spec gates — see `code/ROADMAP-spec-drive.md`.)
 2. Generate the interface skeleton (the `.pyi`/`.d.ts`/`.dart.api` stubs the post-edit hook already emits) so the boundaries exist as types before bodies.
 3. Wire the **connection graph**: for each planned edge `A → B`, assert `A.outputs` type matches `B.inputs` type. Run `core/tools/wos/spec-contract-check <project>` — it fails if any planned module lacks a contract or any edge's types mismatch.
 4. **Human gate:** if Carry `supervision: io-signoff=yes`, present the I/O map (modules, their in/out, the edges) and wait for an explicit OK before Loop 4a; otherwise proceed.
@@ -310,7 +310,7 @@ matches-expected-result: yes|no <diff if no>
 
 Verify the working tree contains only in-scope changes (diff vs plan `files` + `.loop/`); update the project `ROADMAP.md` line to done with a one-line outcome; delete `.loop/<slug>/` unless `keep-trail: yes`; commit (normal prose, project's commit conventions) and push the feature branch. Do not merge — that is the user's call.
 
-**Spec promotion (SDD).** Before deleting `.loop/<slug>/`, if the chain touched a `code/` module, distill its durable contract into the module's `SPEC.md` (create from `code/_templates/module.SPEC.md` if absent): fold the Carry `criteria` C1..Cn and Loop 3's `seams` into the spec's `## Invariants`/`## Examples`, point `## Examples` at the new tests (`4a-tests.md`), and set the `CONTEXT.md` `> spec: SPEC.md` line + `status: locked`. This converts the ephemeral per-feature journal into a durable per-module contract — a new module born this way satisfies the `1d` new-module gate on the same commit. See `code/SPEC-DRIVE.md`.
+**Spec promotion (SDD).** Before deleting `.loop/<slug>/`, if the chain touched a `code/` module, distill its durable contract into the module's `SPEC.md` (create from `code/_templates/module.SPEC.md` if absent): fold the Carry `criteria` C1..Cn and Loop 3's `seams` into the spec's `## Invariants`/`## Examples`, point `## Examples` at the new tests (`4a-tests.md`), and set the `CONTEXT.md` `> spec: SPEC.md` line + `status: locked`. This converts the ephemeral per-feature journal into a durable per-module contract — a new module born this way satisfies the `1d` new-module gate on the same commit. See `code/ROADMAP-spec-drive.md`.
 
 ```markdown
 ## Carry

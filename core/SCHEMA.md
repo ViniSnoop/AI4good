@@ -49,7 +49,7 @@ this table.** Every token above is a coined string that can only mean the thing 
 bare-word match is safe. `frente` is an ordinary Portuguese noun — `branches/casinhas/CONTEXT.md`
 uses it in a table header to mean a work front on a building site — and a row would have failed
 on honest prose the day it was written, which is precisely what the paragraph above says trains
-people to ignore a check. `core/hooks/entropy/entropy_citations.py` owns that rename instead, by
+people to ignore a check. `core/hooks/checks/citation-gate.py` owns that rename instead, by
 matching the **citation shape** `Frente <n>` rather than the word. The word stays legal; the
 pointer does not. **A rename whose old spelling is also a real word needs a shape, not a token.**
 
@@ -221,7 +221,7 @@ Membership is **closed at four** and each has a route.
 | File | Route | Why |
 |---|---|---|
 | `code/VERIFY.md` | → ROADMAP-verify.md | the rename is mechanical but not free — see below |
-| `code/SPEC-DRIVE.md` | → ROADMAP-spec-drive.md | same shape, no anchor citations |
+| `code/ROADMAP-spec-drive.md` | → ROADMAP-spec-drive.md | same shape, no anchor citations |
 | `code/isoroll-module/REFACTOR.md` | → ROADMAP-refactor.md | project-local, cheapest of the four |
 | `code/dobra/DECISIONS.md` | → that project's SPECS.md | **not a roadmap at all** — decisions are *what must be true and why*, which is the SPECS question. It sat in this list by naming accident |
 

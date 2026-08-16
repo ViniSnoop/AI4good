@@ -32,7 +32,7 @@ def test_law_comes_from_schema():
     # The transient-initiative exemption is parsed from its own section.
     assert 'VERIFY.md' in exempt
     # Membership closed at four (2026-08-14); each is routed to a ROADMAP-<slug>.md or a SPECS.md.
-    assert exempt == {'VERIFY.md', 'SPEC-DRIVE.md', 'REFACTOR.md', 'DECISIONS.md'}, (
+    assert exempt == {'VERIFY.md', 'ROADMAP-spec-drive.md', 'REFACTOR.md', 'DECISIONS.md'}, (
         'the exemption is a closed list that only shrinks — a new name here means someone '
         'invented a type instead of using ROADMAP-<slug>.md'
     )

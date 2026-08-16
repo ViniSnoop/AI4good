@@ -289,20 +289,6 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
    bodies rather than `ast.walk`, and it will move API columns across the corpus, so measure
    the churn before taking it.
    → **model: sonnet**.
-9. 🟢 **two defects in the enforcement layer itself**, found 2026-08-16 while building the
-   heredoc gate. Each is small; together they are the same shape — a gate that looks installed and
-   is not doing its job, which is this repo's named failure mode.
-   - **`checks/pre-edit.py:11` sets `WORKSPACE_ROOT` one directory too shallow** —
-     `parents[2]` is `/mnt/workspace/core`. `vendored.txt` patterns are workspace-relative, so
-     `is_vendored()` always returns False there and the vendored exemption never applies at edit
-     time. Editing a vendored `.py` past 200 lines is blocked by the gate `vendored.txt` exists to
-     waive. Latent, not observed — fix with a test that edits a path listed in `vendored.txt`.
-   - **`facade/facade-scan.py` talks to nobody.** `SPECS.md` classes it **Informs**, but it prints
-     to stdout on exit 0, which Claude Code shows in transcript mode only. The channel that reaches
-     the model is `hookSpecificOutput.additionalContext`, now verified on `PreToolUse`
-     ([`core/hooks/SPECS.md`](core/hooks/SPECS.md)). Port it, or reclassify it honestly.
-   → **model: sonnet**.
-
 ---
 
 ## Front 8 — The ledger discipline — **v1 criterion 2**
@@ -728,7 +714,7 @@ hypothesis; re-run it before spending a decision on it.**
    covered; **ordinary commits are the gap.**
    → **model: sonnet**.
 
-3. 🟡 **`code/SPEC-DRIVE.md` is gitignored, and the discipline it tracks was forgotten.** Two
+3. 🟡 **`code/ROADMAP-spec-drive.md` is gitignored, and the discipline it tracks was forgotten.** Two
    captures from 2026-08-15 that are the same finding from both ends. The mechanical half: the
    `code/*` rule at `.gitignore:37` excludes it while its first-level siblings `code/VERIFY.md` and
    `code/SPECS.md` are tracked, so every edit to it has stayed on one machine — found while
@@ -826,7 +812,7 @@ is no conceptual intersection."* Each type answers exactly one question.
 
    **Left, one reviewed commit each:** `code/VERIFY.md` → `ROADMAP-verify.md` (24 inbound refs, 7 in
    `core/hooks/*` comments — but they cite **anchor ids**, which a rename preserves; only paths
-   move), `code/SPEC-DRIVE.md` → `ROADMAP-spec-drive.md`, `code/isoroll-module/REFACTOR.md` →
+   move), `code/ROADMAP-spec-drive.md` → `ROADMAP-spec-drive.md`, `code/isoroll-module/REFACTOR.md` →
    `ROADMAP-refactor.md`. And `code/dobra/DECISIONS.md` is not a roadmap at all — decisions are
    *what must be true and why*, so it folds into that project's `SPECS.md`.
    → **model: sonnet**, one file per commit.

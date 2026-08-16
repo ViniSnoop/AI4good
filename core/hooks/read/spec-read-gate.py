@@ -2,7 +2,7 @@
 # PreToolUse: Edit|Write — a spec-locked module (its CONTEXT.md carries `> spec:` and the referenced
 # SPEC.md header is `status: locked`) requires that SPEC.md be Read this session before editing the
 # module's files. Ratchet coverage: creating a new file in a code/ module with no spec prints a
-# non-blocking nudge. Session-dedup via the context-tracker marker. See code/SPEC-DRIVE.md.
+# non-blocking nudge. Session-dedup via the context-tracker marker. See code/ROADMAP-spec-drive.md.
 import re
 import sys
 from pathlib import Path

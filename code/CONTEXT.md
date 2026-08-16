@@ -46,7 +46,7 @@ You are a SENIOR software architect, your code WILL be evaluated!
 | File | API | Description |
 |------|-----|-------------|
 | [`SETUP.md`](SETUP.md) | — | Per-language setup, facade templates, and project scaffolding reference |
-| [`SPEC-DRIVE.md`](SPEC-DRIVE.md) | — | Enforcement rollout making the spec the contract for `code/` modules: verifiable… |
+| [`ROADMAP-spec-drive.md`](ROADMAP-spec-drive.md) | — | Enforcement rollout making the spec the contract for `code/` modules: verifiable… |
 | [`SPECS.md`](SPECS.md) | — | Engineering conventions, architecture decisions, and process rules for all code/… |
 | [`VERIFY.md`](VERIFY.md) | — | Testing-discipline rollout for `code/` projects: make agents verify their own… |
 | [`eslint.shared.js`](eslint.shared.js) | `localPlugin`, `sharedRules`, `countCallsInSubtree`, `getChainDepth` | Shared ESLint rules for all TypeScript/JavaScript projects under code/ — R1-R6 style enforcement. |

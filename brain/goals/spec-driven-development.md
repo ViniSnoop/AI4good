@@ -21,7 +21,7 @@ Rodar `core/tools/wos/spec-scan` (vê a catraca: 1/88 locked hoje). Abrir `code/
 
 ## backlog
 
-> [x] [protocol-v0] SPEC v0 — formato mínimo (nome/in/out/invariantes/exemplos) + 1 piloto — DONE 2026-07-17 (ver `code/SPEC-DRIVE.md` P0)  
+> [x] [protocol-v0] SPEC v0 — formato mínimo (nome/in/out/invariantes/exemplos) + 1 piloto — DONE 2026-07-17 (ver `code/ROADMAP-spec-drive.md` P0)  
 > [x] [loop-integration] cada etapa do loop produz/consome uma spec parseável (ver [[craft-flows]]) — DONE 2026-07-17 (Loop 0 lê / Loop 6 promove; SPEC-DRIVE P3)  
 > [x] [tree-map] mapear árvore de módulos do workspace — onde falta spec — DONE 2026-07-17 (`core/tools/wos/spec-scan`; SPEC-DRIVE P4)  
 > [~] [verify-from-spec] checker que valida "saída real matche spec" por módulo — PARCIAL: conformance monta na verify:fast (modo referência); extrator de exemplos embutidos adiado até 1º consumidor (SPEC-DRIVE P2)  
@@ -32,19 +32,19 @@ Rodar `core/tools/wos/spec-scan` (vê a catraca: 1/88 locked hoje). Abrir `code/
 ## done
 
 <!-- done:start -->
-> [x] [enforcement-rollout] SDD virou catraca aplicada, não convenção — DONE 2026-07-17. Espinha = gate-or-injection (Princípio 1 do VERIFY). Entregue: SPEC v0 (`code/_templates/module.SPEC.md`); piloto `spacemantics/dsl` locked (verify green, 39 tests); `spec-read-gate.py` (bloqueia editar módulo spec-locked sem ler o SPEC) + pre-commit bloco 1d (novo módulo sob code/ exige `> spec:`) — testados nos 3 runtimes (Claude/opencode/copilot); Loop 0 lê spec / Loop 6 promove; `core/tools/wos/spec-scan` ledger (baseline 1/88). Roadmap canônico: `code/SPEC-DRIVE.md`.
+> [x] [enforcement-rollout] SDD virou catraca aplicada, não convenção — DONE 2026-07-17. Espinha = gate-or-injection (Princípio 1 do VERIFY). Entregue: SPEC v0 (`code/_templates/module.SPEC.md`); piloto `spacemantics/dsl` locked (verify green, 39 tests); `spec-read-gate.py` (bloqueia editar módulo spec-locked sem ler o SPEC) + pre-commit bloco 1d (novo módulo sob code/ exige `> spec:`) — testados nos 3 runtimes (Claude/opencode/copilot); Loop 0 lê spec / Loop 6 promove; `core/tools/wos/spec-scan` ledger (baseline 1/88). Roadmap canônico: `code/ROADMAP-spec-drive.md`.
 <!-- done:end -->
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-14  ·  trend: advancing
+last-touch: 2026-08-15  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |      11 |
-| trimester   |      11 |
-| semester    |      11 |
-| year        |      11 |
-| 2-year      |      11 |
-| 4-year      |      11 |
+| month       |      12 |
+| trimester   |      12 |
+| semester    |      12 |
+| year        |      12 |
+| 2-year      |      12 |
+| 4-year      |      12 |
 <!-- stats:end -->

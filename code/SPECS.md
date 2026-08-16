@@ -96,7 +96,7 @@ Skeletons for all files: [`_templates/`](_templates/)
 
 ## Module Spec Contract (Spec-Driven Development)
 
-Rollout tracked in [`SPEC-DRIVE.md`](SPEC-DRIVE.md). Goal: the spec is the contract — a module's
+Rollout tracked in [`ROADMAP-spec-drive.md`](ROADMAP-spec-drive.md). Goal: the spec is the contract — a module's
 verifiable inputs/outputs/invariants precede and govern its code.
 
 A **module** = a directory under `code/<project>/` that has a `CONTEXT.md`. A module is **spec-locked**
