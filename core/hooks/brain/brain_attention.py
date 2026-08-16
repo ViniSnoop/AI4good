@@ -33,18 +33,30 @@ _SEP = re.compile(r"\s*·\s*|\s{2,}")
 def parse_owns(path):
     """Paths declared in a goal file's `>**owns**` block, workspace-root-relative.
 
-    Same block shape as `>**timing**`: content runs until the next `>**field**` or `##`
-    heading, so a long list may wrap across lines.
+    Same block shape as `>**timing**`: content may wrap across lines, so it runs until the
+    block ends. **A blank line ends it** — that is what actually separates a field from the
+    prose beneath it, and it is the terminator the first version was missing. Without it the
+    parser ran on into the goal's body and offered whole paragraphs as paths: nine warnings
+    per commit, each quoting an essay, on the one surface an agent reads at commit time.
+    Nothing was miscounted (an unresolvable path is skipped) but noise on a warning channel is
+    how a real warning gets missed.
+
+    The second miss was narrower: `> **Bold**` has a space after the `>`, so a following
+    blockquote paragraph did not read as the next field either. Both are fixed here; either
+    alone would have left craft-flows contributing six of the nine.
     """
     owns, in_block = [], False
     for line in path.read_text().splitlines():
-        if re.match(r'^>?\*\*owns\*\*', line.strip()):
+        if re.match(r'^>?\s*\*\*owns\*\*', line.strip()):
             in_block = True
             continue
         if in_block:
-            if re.match(r'^>?\*\*\w', line.strip()) or line.startswith('##'):
+            stripped = line.strip()
+            if not stripped or stripped == '>':
                 break
-            for chunk in _SEP.split(line.strip().lstrip('>').strip()):
+            if re.match(r'^>?\s*\*\*\w', stripped) or line.startswith('##'):
+                break
+            for chunk in _SEP.split(stripped.lstrip('>').strip()):
                 chunk = chunk.strip().strip('`').rstrip('/')
                 if chunk:
                     owns.append(chunk)
