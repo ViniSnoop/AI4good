@@ -96,3 +96,20 @@ hardcodes `/mnt/workspace`, so a clone living anywhere else needs the shebangs r
 rewrite is a step in [`SETUP.md`](../../SETUP.md) § Workspace path rather than a caveat in prose —
 it is idempotent, it has a probe, and an agent performs it. The test asserts the *absence of the
 system shebang*, so it keeps passing on a relocated clone.
+
+## A step an agent must never skip has to cost one call
+
+**If a step is mandatory, its tool takes the whole batch.** A tool that handles one item at a time
+turns a mandatory step into N decisions, and an agent mid-thread will take the exit at some N.
+
+The evidence cost two rounds of wording. `core/skills/inbox.md` ordered link extraction in
+emphatic prose — *"not optional and not a judgement call"*, plus an explicit instruction to loop
+in a single bash call — and the step was still skipped, because `core/tools/video/video` took
+`args[0]` and a drain with eight links was eight invocations. **The instruction was never the
+defect.** Rewriting it a third time would have failed the same way; the tool learned `--from
+<file>` instead, and the decision count went from N to one.
+
+So a tool that a skill *requires* is designed batch-first: many arguments or a file to read them
+out of, one block of output per item, a summary line naming the failures, and **no item's failure
+ends the run**. This is `AGENTS.md` § *agent-facing text names one action* pointed at the tool
+rather than at the text — the text can only name one action if the tool offers one.

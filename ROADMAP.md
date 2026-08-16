@@ -943,23 +943,6 @@ refiled there, and a finding worth keeping goes into the `SPECS.md` section that
    whether it is better than the flow we already run**, and the answer has to name what it does
    that `core/flows/craft/` does not. A real outcome here is deleting our own flow.
    → **model: opus** — this is a judgement about our own work.
-5. 🟢 **make link extraction in an INBOX drain one command instead of N.** Lucas, INBOX 2026-08-16:
-   *"muitas vezes o 'drain' do inbox.md não lê direito os links. isso deveria ser automático,
-   zero-token, mas muitas vezes o modelo escolhe pular, é 'preguiça'? tentar contornar isso."*
-
-   **The instruction is not the problem — it already exists and is already emphatic.**
-   `core/skills/inbox.md` § Video / image links says the step *"is not optional and not a judgement
-   call"*, quoting the same complaint from 2026-07-29. Repeating it a third time will not work. The
-   diagnosis is mechanical: `core/tools/video/video` takes exactly one URL (`url = args[0]`), so a
-   drain with eight links is eight separate invocations, each one a place to decide to stop. **What
-   gets skipped is a step that costs N decisions; what does not is a step that costs one.**
-
-   Fix the shape, not the wording: let the tool take many URLs, or read them straight out of
-   `brain/INBOX.md`, so the drain runs one command and the model never chooses per link. This is
-   the workspace's own rule from `AGENTS.md` — *agent-facing text names one action* — applied to
-   the tool the text points at.
-   → **model: sonnet**.
-
 ## Parked — explicitly out of v1
 
 - **`[gdrive-integration]` / `[courses-import]`** — content migration, large. Per-folder work lives in
