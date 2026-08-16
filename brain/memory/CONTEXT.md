@@ -35,27 +35,27 @@ enough to be worth folding was tested and **rejected on the numbers** —
 | File | Description |
 |------|-------------|
 | [`MEMORY.md`](MEMORY.md) | Memory Index |
-| [`fable_quota_strategy.md`](fable_quota_strategy.md) | How Lucas spends remaining Fable 5 quota (won't renew) — Fable decides, Opus writes, Sonnet executes; multiview session DONE 2026-07-07 |
-| [`feedback_agent_runs_auth.md`](feedback_agent_runs_auth.md) | Agent runs every auth command itself; Lucas only does what has no command form (provider-UI clicks, consent screens, minting a secret) |
-| [`feedback_background_bash_reliability.md`](feedback_background_bash_reliability.md) | Backgrounded Bash tool calls (run_in_background) can die silently across a ScheduleWakeup boundary, with no completion notification and no error in the redirected log. |
+| [`fable_quota_strategy.md`](fable_quota_strategy.md) | How Lucas spends remaining Fable 5 quota (won't renew) — Fable decides, Opus… |
+| [`feedback_agent_runs_auth.md`](feedback_agent_runs_auth.md) | Agent runs every auth command itself; Lucas only does what has no command form… |
+| [`feedback_background_bash_reliability.md`](feedback_background_bash_reliability.md) | Backgrounded Bash tool calls (run_in_background) can die silently across a… |
 | [`feedback_bug_tracking.md`](feedback_bug_tracking.md) | isoroll-module bugs go in BUGS.md, not memory |
-| [`feedback_delete_weak_features.md`](feedback_delete_weak_features.md) | Lucas deletes a feature that only produces weak signal rather than keeping it as a hint — remove it from every file and mention, leaving only a short rejection note |
-| [`feedback_full_workflow_thinking.md`](feedback_full_workflow_thinking.md) | plan isoroll (and similar) work from the full user workflow, not from artifacts — loose ends are the recurring failure |
-| [`feedback_inbox_ref_task_pairing.md`](feedback_inbox_ref_task_pairing.md) | /inbox — an actionable ref must also spawn an assessment task, never land as ref-only |
-| [`feedback_parallel_sessions.md`](feedback_parallel_sessions.md) | How to work safely when multiple Claude/opencode sessions edit /mnt/workspace at once |
-| [`feedback_provider_agnostic_naming.md`](feedback_provider_agnostic_naming.md) | Never put provider/model names (NB, Gemini, etc.) in file names, verbs, or dirs — workspace is provider-agnostic |
-| [`feedback_visual_eyeball_gate.md`](feedback_visual_eyeball_gate.md) | Every image-producing pipeline step needs Lucas's visual review (artifact board) before advancing — loops passing their own tests is not enough for visual work |
-| [`project_aiwbot.md`](project_aiwbot.md) | provider-agnostic bot to drive swappable coding agents (claude/opencode/copilot) from chat — code/aiwbot, live; next is audio in+out |
-| [`project_casinhas.md`](project_casinhas.md) | Obra das casinhas (7 casas + 3 salas, Várzea/Recife, com o pai) — home em branches/casinhas, cockpit obrigatório, plano de sessões S2..S12 |
-| [`project_core_schema.md`](project_core_schema.md) | core/ agent-library soundness work — enforced frontmatter contract, tier unification, deferred sweep |
-| [`project_dobra.md`](project_dobra.md) | Dobra — context folding + SLM runner project (code/dobra) with paper twin (academy/papers/2027-ICLR-dobra); founded 2026-07-03 |
-| [`project_hybrid_ideation.md`](project_hybrid_ideation.md) | cria — workflow de ideação híbrida humano-IA como mechanism design; AI4Good 2026.2, eletiva, 1º paper LIH.DD (CHI) |
-| [`project_instituto.md`](project_instituto.md) | Programa do instituto tem cockpit em branches/instituto/ — 5 núcleos de fluxo de dinheiro + motor de ideação; ler o cockpit antes de qualquer sessão do tema |
-| [`project_isoroll_scene.md`](project_isoroll_scene.md) | isoroll scene-creation program state — frozen renderer seam, MVP-first milestones, where the live plan lives |
-| [`project_spacemantics.md`](project_spacemantics.md) | spacemantics project — verifiable spatial DSL giving LLMs spatial capability; 4 houses (goal+code+paper+skills); read code+paper CONTEXT before any session |
-| [`project_verify_roadmap.md`](project_verify_roadmap.md) | Workspace verification/enforcement roadmap lives at code/VERIFY.md — check status there before verification/testing/hooks work |
-| [`project_wos_fanout_split.md`](project_wos_fanout_split.md) | core/hooks and core/tools split into families 2026-07-31 (every CLI path changed); a fanout split only counts once each new dir has its own CONTEXT.md |
-| [`reference_linuz90_bot.md`](reference_linuz90_bot.md) | linuz90/claude-telegram-bot source read — the reference design for aiwbot; how it does session lineage + its UX feature set |
+| [`feedback_delete_weak_features.md`](feedback_delete_weak_features.md) | Lucas deletes a feature that only produces weak signal rather than keeping it as… |
+| [`feedback_full_workflow_thinking.md`](feedback_full_workflow_thinking.md) | plan isoroll (and similar) work from the full user workflow, not from artifacts… |
+| [`feedback_inbox_ref_task_pairing.md`](feedback_inbox_ref_task_pairing.md) | /inbox — an actionable ref must also spawn an assessment task, never land as… |
+| [`feedback_parallel_sessions.md`](feedback_parallel_sessions.md) | How to work safely when multiple Claude/opencode sessions edit /mnt/workspace at… |
+| [`feedback_provider_agnostic_naming.md`](feedback_provider_agnostic_naming.md) | Never put provider/model names (NB, Gemini, etc.) in file names, verbs, or dirs… |
+| [`feedback_visual_eyeball_gate.md`](feedback_visual_eyeball_gate.md) | Every image-producing pipeline step needs Lucas's visual review (artifact board)… |
+| [`project_aiwbot.md`](project_aiwbot.md) | provider-agnostic bot to drive swappable coding agents (claude/opencode/copilot)… |
+| [`project_casinhas.md`](project_casinhas.md) | Obra das casinhas (7 casas + 3 salas, Várzea/Recife, com o pai) — home em… |
+| [`project_core_schema.md`](project_core_schema.md) | core/ agent-library soundness work — enforced frontmatter contract, tier… |
+| [`project_dobra.md`](project_dobra.md) | Dobra — context folding + SLM runner project (code/dobra) with paper twin… |
+| [`project_hybrid_ideation.md`](project_hybrid_ideation.md) | cria — workflow de ideação híbrida humano-IA como mechanism design; AI4Good… |
+| [`project_instituto.md`](project_instituto.md) | Programa do instituto tem cockpit em branches/instituto/ — 5 núcleos de fluxo de… |
+| [`project_isoroll_scene.md`](project_isoroll_scene.md) | isoroll scene-creation program state — frozen renderer seam, MVP-first… |
+| [`project_spacemantics.md`](project_spacemantics.md) | spacemantics project — verifiable spatial DSL giving LLMs spatial capability; 4… |
+| [`project_verify_roadmap.md`](project_verify_roadmap.md) | Workspace verification/enforcement roadmap lives at code/VERIFY.md — check… |
+| [`project_wos_fanout_split.md`](project_wos_fanout_split.md) | core/hooks and core/tools split into families 2026-07-31 (every CLI path… |
+| [`reference_linuz90_bot.md`](reference_linuz90_bot.md) | linuz90/claude-telegram-bot source read — the reference design for aiwbot; how… |
 | [`reference_texpace_is_spacemantics.md`](reference_texpace_is_spacemantics.md) | texpace" routes to the spacemantics project — same thing for /inbox routing |
-| [`user_profile.md`](user_profile.md) | User Profile |
+| [`user_profile.md`](user_profile.md) | Lucas — read before any Brain task. |
 <!-- routing:end -->

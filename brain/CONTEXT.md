@@ -6,13 +6,9 @@
 Brain = Lucas's personal OS. Not productivity tool — thinking partner space.
 Agent is first-class collaborator, not just reader.
 
-| File / Folder | Role |
-|---------------|------|
-| [GOALS.md](GOALS.md) | Dashboard, attention monitor, Pareto lens, router to goal files |
-| [goals/](goals/) | One file per goal — organic growth from seed to full |
-| [USER.md](USER.md) | User profile — identity, language, patterns, what helps |
-| [INBOX.md](INBOX.md) | Zero-friction capture, no taxonomy |
-| [memory/](memory/CONTEXT.md) | Cross-session agent memory. The harness path symlinks in here, so what it writes lands in git |
+**Capture is free, structure is earned.** A thought lands in `INBOX.md` with no taxonomy and no
+formatting, and `/inbox` is what routes it to a goal, a task, a reference — or deletes it. Nothing
+else here has to be tidy at write time. The routing table below says what each file is.
 
 ## Area Taxonomy
 
@@ -38,15 +34,15 @@ Design rationale → [SPECS.md](SPECS.md) § Rationale.
 | Subdirectory | Description |
 |--------------|-------------|
 | [`attachments/`](attachments/CONTEXT.md) | — |
-| [`goals/`](goals/CONTEXT.md) | One file per goal — organic growth from seed to full. Dashboard + router: |
-| [`memory/`](memory/CONTEXT.md) | What the agent learned across sessions and nothing else records. Harness-written |
+| [`goals/`](goals/CONTEXT.md) | One file per goal — organic growth from seed to full. Dashboard + router… |
+| [`memory/`](memory/CONTEXT.md) | What the agent learned across sessions and nothing else records… |
 
 | File | Description |
 |------|-------------|
-| [`GOALS.md`](GOALS.md) | goals |
-| [`INBOX.md`](INBOX.md) | inbox |
-| [`SPECS.md`](SPECS.md) | Brain — Specs |
-| [`TODO.md`](TODO.md) | to do |
-| [`USER.md`](USER.md) | User Profile |
+| [`GOALS.md`](GOALS.md) | Dashboard, attention monitor, Pareto lens, and the router to every goal file. |
+| [`INBOX.md`](INBOX.md) | zero friction. thoughts. no taxonomy. no formating. handle duplications. |
+| [`SPECS.md`](SPECS.md) | Goal file format, section growth triggers, signals, dynamics, timing, and… |
+| [`TODO.md`](TODO.md) | practical layer. tasks for today, week, month. each may link to a goal… |
+| [`USER.md`](USER.md) | Lucas — read before any Brain task. |
 | [`drafts/context-folding-report.md`](drafts/context-folding-report.md) | Context Folding: A Graph-Based Architecture for Infinite-Horizon AI Agent Memory |
 <!-- routing:end -->

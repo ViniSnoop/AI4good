@@ -18,16 +18,16 @@ re-sync has to reconcile: [`SPECS.md`](SPECS.md).
 
 | Subdirectory | Description |
 |--------------|-------------|
-| [`hooks/`](hooks/CONTEXT.md) | Claude Code lifecycle hooks for the caveman suite — activation, mode tracking, s |
-| [`scripts/`](scripts/CONTEXT.md) | Compression CLI behind `/caveman compress <file>` — detect file type, call the m |
+| [`hooks/`](hooks/CONTEXT.md) | Claude Code lifecycle hooks for the caveman suite — activation, mode tracking… |
+| [`scripts/`](scripts/CONTEXT.md) | Compression CLI behind `/caveman compress <file>` — detect file type, call the… |
 
 | File | Description |
 |------|-------------|
-| [`SKILL.md`](SKILL.md) | Ultra-compressed communication mode — router. Cuts token usage ~75% by speaking like a smart caveman while keeping full technical accuracy. Intensity levels: lite, full (default), ultra, wenyan-lite, wenyan-full, wenyan-ultra. Sub-commands: /caveman commit, review, compress, stats, crew, help. Use when the user says "caveman mode", "talk like caveman", "less tokens", "be brief", or invokes /caveman. Also auto-triggers when token efficiency is requested. |
-| [`SPECS.md`](SPECS.md) | caveman — Specs |
-| [`cavecrew.md`](cavecrew.md) | Cavecrew — Delegating to Caveman Subagents |
-| [`commit.md`](commit.md) | Caveman — Commit Messages |
-| [`compress.md`](compress.md) | Caveman — Compress a Prose File |
+| [`SKILL.md`](SKILL.md) | Ultra-compressed communication mode — router. Cuts token usage ~75% by speaking… |
+| [`SPECS.md`](SPECS.md) | Global registration, the `$HOME` wiring, and the local adaptations that are the… |
+| [`cavecrew.md`](cavecrew.md) | Subfile of the `caveman` skill. Reached via `/caveman crew` (legacy… |
+| [`commit.md`](commit.md) | Subfile of the `caveman` skill. Reached via `/caveman commit` (legacy `/caveman… |
+| [`compress.md`](compress.md) | Subfile of the `caveman` skill. Reached via `/caveman compress <file>` (legacy… |
 | [`modes.md`](modes.md) | Caveman — intensity levels, worked |
-| [`review.md`](review.md) | Caveman — Code Review Comments |
+| [`review.md`](review.md) | Subfile of the `caveman` skill. Reached via `/caveman review` (legacy… |
 <!-- routing:end -->

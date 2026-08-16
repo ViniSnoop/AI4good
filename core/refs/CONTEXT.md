@@ -11,6 +11,6 @@ definitions and the citation discipline: [`SPECS.md`](SPECS.md).
 
 | File | Description |
 |------|-------------|
-| [`REFS.md`](REFS.md) | References |
-| [`SPECS.md`](SPECS.md) | References — Specs |
+| [`REFS.md`](REFS.md) | Tier-1 capture for the workspace-os / agent-library scaffold. One line per ref. |
+| [`SPECS.md`](SPECS.md) | What each tier marker means, and the citation discipline that keeps REFS.md… |
 <!-- routing:end -->

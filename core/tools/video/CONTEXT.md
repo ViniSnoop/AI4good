@@ -6,7 +6,7 @@
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
-| [`SETUP.md`](SETUP.md) | — | — | video tool — setup |
+| [`SETUP.md`](SETUP.md) | — | — | Dependencies for `core/tools/video/video` (link → navigable text). See goal… |
 | [`video`](video) | — | — | extract navigable text (metadata/captions/transcript/OCR/VLM caption) from a video or image link |
 | [`video_core.py`](video_core.py) | [`video_core.pyi`](video_core.pyi) | `source_of`, `probe`, `clean_vtt`, `get_captions`, `assemble` | video_core.py — extract navigable text (metadata, captions, transcript) from video/image URLs; whisper/OCR backends are config data |
 | [`video_images.py`](video_images.py) | [`video_images.pyi`](video_images.pyi) | `probe`, `download_images`, `gather` | video_images.py — image-post path (Instagram carousels etc): gallery-dl metadata + image download, then OCR/VLM per image. yt-dlp reads video only and returns nothing for these. |

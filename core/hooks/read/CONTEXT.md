@@ -21,6 +21,6 @@ before, already drifted on whether the chain starts at the target or its parent.
 | [`chain.py`](chain.py) | [`chain.pyi`](chain.pyi) | `context_chain`, `paths_in`, `summary_of` | chain.py — the CONTEXT.md chain of a path, and the workspace paths named in a blob of text. |
 | [`context-gate.py`](context-gate.py) | [`context-gate.pyi`](context-gate.pyi) | `target_path`, `main` | PreToolUse: Read|Edit|Write|Grep|NotebookEdit — force-read the CONTEXT.md chain of the |
 | [`context-tracker.py`](context-tracker.py) | [`context-tracker.pyi`](context-tracker.pyi) | `main` | PostToolUse: Read — record CONTEXT.md/SPEC.md reads (consumed by context-gate.py / |
-| [`pre-read.sh`](pre-read.sh) | — | — | ← add first-line comment |
+| [`pre-read.sh`](pre-read.sh) | — | — | PreToolUse: Read — block source reads when a current interface file exists. |
 | [`spec-read-gate.py`](spec-read-gate.py) | [`spec-read-gate.pyi`](spec-read-gate.pyi) | `find_spec_module`, `block`, `nudge`, `main` | PreToolUse: Edit|Write — a spec-locked module (its CONTEXT.md carries `> spec:` and the referenced |
 <!-- routing:end -->

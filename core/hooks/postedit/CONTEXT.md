@@ -6,8 +6,8 @@
 
 | File | Description |
 |------|-------------|
-| [`interfaces.sh`](interfaces.sh) | ← add first-line comment |
-| [`lint.sh`](lint.sh) | ← add first-line comment |
-| [`reminders.sh`](reminders.sh) | ← add first-line comment |
-| [`sync.sh`](sync.sh) | ← add first-line comment |
+| [`interfaces.sh`](interfaces.sh) | Regenerate the interface next to the file just edited — .pyi, .d.ts, .dart.api, .texif. |
+| [`lint.sh`](lint.sh) | ESLint + Prettier for TypeScript under code/ (R1-R6). |
+| [`reminders.sh`](reminders.sh) | Nudges, never blocks: first-line description, facade boundary, CONTEXT.md line 2 and goal link. |
+| [`sync.sh`](sync.sh) | Keep generated indexes fresh: the CONTEXT.md routing block and the codegraph. |
 <!-- routing:end -->

@@ -9,14 +9,10 @@ That is why there is no facade here — nothing outside this directory imports i
 module and it stays internal; add an entrypoint and it must be listed there **and** wired in
 `settings.json`.
 
-| File | Role |
-|------|------|
-| `activate.js` | SessionStart — writes the flag, injects the ruleset filtered to the active level |
-| `mode-tracker.js` | UserPromptSubmit — parses `/caveman …`, updates the flag, re-injects the reminder |
-| `stats.js` | CLI, run by mode-tracker on `/caveman stats`; splits into `stats-data` / `stats-pricing` / `stats-format` |
-| `statusline.sh` | statusLine — renders the badge from a pre-rendered suffix file |
-| `config.js` | default-mode resolution + the flag API every hook imports |
-| `flagfile.js` · `safepath.js` | flag/history I/O and the symlink-safe path handling under it |
+**Four entrypoints, each named by the lifecycle event that fires it** — SessionStart,
+UserPromptSubmit, statusLine, and the `/caveman stats` CLI. Everything else here is a helper they
+import: the flag API, its symlink-safe file I/O, and the three modules `stats` splits into. Which
+file is which is the routing table's job; its descriptions come from their own first lines.
 
 Attribution: [`../CONTEXT.md`](../CONTEXT.md). Wiring, and the local adaptations a re-sync has to
 reconcile: [`../SPECS.md`](../SPECS.md).

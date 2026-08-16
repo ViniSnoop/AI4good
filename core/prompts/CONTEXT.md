@@ -8,5 +8,5 @@ One file per prepared session. Produced by `/prepare` or triage sessions. Delete
 
 | File | Description |
 |------|-------------|
-| [`fable-instituto.md`](fable-instituto.md) | fable session — instituto: empregar amigos hackeando o capitalismo |
+| [`fable-instituto.md`](fable-instituto.md) | tier: max (fable) · effort: high · deliverable… |
 <!-- routing:end -->

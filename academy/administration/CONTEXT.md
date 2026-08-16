@@ -6,7 +6,7 @@
 
 | Subdirectory | Description |
 |--------------|-------------|
-| [`coordenacao-lc/`](coordenacao-lc/CONTEXT.md) | — |
+| [`coordenacao-lc/`](coordenacao-lc/CONTEXT.md) | Coordenação da Licenciatura em Computação (UFRPE) — curriculum redesign work… |
 
 | File | Interface | Description |
 |------|-----------|-------------|

@@ -17,8 +17,8 @@ Per-file format, the rule that keeps a stored number honest, and the reporting d
 
 | File | Description |
 |------|-------------|
-| [`SPECS.md`](SPECS.md) | experiments — Specs |
-| [`caveman-cost.md`](caveman-cost.md) | Caveman activation cost |
-| [`context-window.md`](context-window.md) | Context window composition |
-| [`subagent-context-chain.md`](subagent-context-chain.md) | The CONTEXT.md chain and who pays for it |
+| [`SPECS.md`](SPECS.md) | The format every file in this directory follows, and the discipline that keeps a… |
+| [`caveman-cost.md`](caveman-cost.md) | What does keeping caveman mode on cost per session, and does the compression it… |
+| [`context-window.md`](context-window.md) | What fills a session's context window, split by source, and how much of it the… |
+| [`subagent-context-chain.md`](subagent-context-chain.md) | Does forcing an agent to read a subtree's CONTEXT.md chain change what it does … |
 <!-- routing:end -->

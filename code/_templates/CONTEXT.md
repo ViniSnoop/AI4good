@@ -23,9 +23,9 @@
 | File | Description |
 |------|-------------|
 | [`BUGS.md`](BUGS.md) | [Project Name] — Known Bugs |
-| [`README.md`](README.md) | [Project Name] |
-| [`ROADMAP.md`](ROADMAP.md) | [Project Name] — Roadmap |
-| [`SETUP.md`](SETUP.md) | [Project Name] — Dev Setup |
-| [`SPECS.md`](SPECS.md) | [Project Name] — Specs |
+| [`README.md`](README.md) | [One-line tagline — what it is and why it matters.] |
+| [`ROADMAP.md`](ROADMAP.md) | Pending work only. Completed items are deleted -- git is the history. A rejected… |
+| [`SETUP.md`](SETUP.md) | Everything needed to run this project locally from scratch. |
+| [`SPECS.md`](SPECS.md) | Design decisions, algorithms, conventions, and architecture rationale. |
 | [`module.SPEC.md`](module.SPEC.md) | SPEC: [module name] |
 <!-- routing:end -->

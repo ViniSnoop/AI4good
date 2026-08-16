@@ -26,7 +26,7 @@ doesn't document, per-frame motion via `batchUpdate`, and why Slidev is gone: al
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
-| [`SPECS.md`](SPECS.md) | — | — | Google Slides API — facts worth not rediscovering |
+| [`SPECS.md`](SPECS.md) | — | — | What the API actually returns, learned the expensive way — read alongside… |
 | [`gslides`](gslides) | — | — | Google Slides CLI: auth, list, read, new, add, text, apply |
 | [`slides_core.py`](slides_core.py) | [`slides_core.pyi`](slides_core.pyi) | `get_service`, `get_presentation`, `list_presentations`, `create`, `apply` | slides_core.py — Google Slides read+write seam (account-agnostic) for Core/tools/slides/gslides |
 | [`slides_geom.py`](slides_geom.py) | [`slides_geom.pyi`](slides_geom.pyi) | `rotation_deg`, `eff_scale`, `compose_transforms`, `bounds` | slides_geom.py — Google Slides transform algebra: rotation, effective scale, composition, bounds |

@@ -18,17 +18,17 @@ Ported from Feynman (https://github.com/companion-inc/feynman), adapted for prov
 | Subdirectory | Description |
 |--------------|-------------|
 | [`agents/`](agents/CONTEXT.md) | Agent definitions; load as system prompt to spawn a specialist worker. |
-| [`experiments/`](experiments/CONTEXT.md) | What we measured about this workspace, when, and what changed because of it. One |
+| [`experiments/`](experiments/CONTEXT.md) | What we measured about this workspace, when, and what changed because of it. One… |
 | [`flows/`](flows/CONTEXT.md) | Workflow protocols; each names the agents and steps to execute. |
-| [`hooks/`](hooks/CONTEXT.md) | The enforcement layer: git hooks, agent lifecycle hooks, and the Tier 0 checks t |
-| [`prompts/`](prompts/CONTEXT.md) | Prepared session prompts — copy-paste into parallel agent sessions. Each file no |
-| [`refs/`](refs/CONTEXT.md) | Captured references for the agent library / workspace-os scaffold — tier-1 links |
-| [`skills/`](skills/CONTEXT.md) | Agent skills — provider-agnostic workflows invoked as slash commands or by instr |
-| [`tools/`](tools/CONTEXT.md) | CLI tools callable via bash, one directory per family; routing block auto-synced |
+| [`hooks/`](hooks/CONTEXT.md) | The enforcement layer: git hooks, agent lifecycle hooks, and the Tier 0 checks… |
+| [`prompts/`](prompts/CONTEXT.md) | Prepared session prompts — copy-paste into parallel agent sessions. Each file… |
+| [`refs/`](refs/CONTEXT.md) | Captured references for the agent library / workspace-os scaffold — tier-1 links… |
+| [`skills/`](skills/CONTEXT.md) | Agent skills — provider-agnostic workflows invoked as slash commands or by… |
+| [`tools/`](tools/CONTEXT.md) | CLI tools callable via bash, one directory per family; routing block auto-synced… |
 
 | File | Description |
 |------|-------------|
-| [`ROADMAP.md`](ROADMAP.md) | Core Library Roadmap |
-| [`SCHEMA.md`](SCHEMA.md) | Core Library Schema |
-| [`SPECS.md`](SPECS.md) | Core SPECS |
+| [`ROADMAP.md`](ROADMAP.md) | Making the agent library sound: one enforced frontmatter contract per layer… |
+| [`SCHEMA.md`](SCHEMA.md) | The enforced frontmatter contract for skills, flows, and agents, plus the… |
+| [`SPECS.md`](SPECS.md) | Architecture decisions and conventions for the Core agent library. |
 <!-- routing:end -->

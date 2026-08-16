@@ -1,16 +1,17 @@
 # goals
+> Dashboard, attention monitor, Pareto lens, and the router to every goal file.
 
 <!-- stats:start -->
 <!-- data:start -->
 ## attention dashboard  _(auto-updated on every commit)_
-last-updated: 2026-08-15 20:33
+last-updated: 2026-08-15 21:05
 
 >**areas** — last 14 days  
 ```
-health       ██████████   72 touches
-career       █░░░░░░░░░   11 touches
+health       ██████████   76 touches
+career       █░░░░░░░░░   12 touches
 finances     ░░░░░░░░░░   7 touches
-fun          ░░░░░░░░░░   3 touches
+fun          ░░░░░░░░░░   4 touches
 spiritual    ░░░░░░░░░░   0 touches
 ```
 
@@ -20,7 +21,7 @@ CONTEXT                  ░░░░░░░░░░   1 touches
 burocracia-academica     ░░░░░░░░░░   3 touches
 career-ufrpe             ░░░░░░░░░░   0 touches
 corporal-expressiveness  ░░░░░░░░░░   0 touches
-craft-flows              █░░░░░░░░░   9 touches
+craft-flows              █░░░░░░░░░   10 touches
 cria                     ░░░░░░░░░░   3 touches
 dance                    ░░░░░░░░░░   1 touches
 ecovila                  ░░░░░░░░░░   2 touches
@@ -39,11 +40,11 @@ paper-megatruth          ░░░░░░░░░░   0 touches
 paper-scattercode        ░░░░░░░░░░   0 touches
 prompt-opt-automation    ░░░░░░░░░░   0 touches
 reading                  ░░░░░░░░░░   0 touches
-rpg-isoroll              ░░░░░░░░░░   2 touches
+rpg-isoroll              ░░░░░░░░░░   3 touches
 sleep-regularity         ░░░░░░░░░░   0 touches
 smartphone-addiction     ░░░░░░░░░░   0 touches
 spacemantics             ░░░░░░░░░░   4 touches
-spec-driven-development  ░░░░░░░░░░   2 touches
+spec-driven-development  ░░░░░░░░░░   3 touches
 startapps-apptime        ░░░░░░░░░░   2 touches
 startapps-arede          ░░░░░░░░░░   0 touches
 startapps-batituque      ░░░░░░░░░░   0 touches
@@ -62,10 +63,10 @@ startapps-virada         ░░░░░░░░░░   0 touches
 startapps-voti           ░░░░░░░░░░   1 touches
 startapps-xacomigo       ░░░░░░░░░░   0 touches
 surf                     ░░░░░░░░░░   0 touches
-teaching-materials       ░░░░░░░░░░   7 touches
+teaching-materials       █░░░░░░░░░   8 touches
 vipassana                ░░░░░░░░░░   0 touches
 voice                    ░░░░░░░░░░   0 touches
-workspace-os             ██████████   72 touches
+workspace-os             ██████████   76 touches
 yoga                     ░░░░░░░░░░   0 touches
 ```
 <!-- data:end -->

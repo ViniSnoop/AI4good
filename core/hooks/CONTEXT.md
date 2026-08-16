@@ -5,15 +5,12 @@ Wired globally via `git config --global core.hooksPath /mnt/workspace/core/hooks
 `pre-commit` fires in **every** repo under this workspace, and by absolute path from
 `.claude/settings.json` for the agent-side gates.
 
-## The law lives in these files, not in any checker
+## The law lives in this directory's root, not in any checker
 
-| File | Owns |
-|------|------|
-| [`file_law.py`](file_law.py) | what a file **is** — `is_code_file`, `is_vendored`, `allowed_extensionless`, `load_limits` |
-| [`schema_law.py`](schema_law.py) | what a name **may be** — parsed from [`core/SCHEMA.md`](../SCHEMA.md) |
-| [`limits.env`](limits.env) | every number: `WARN_LINES`/`BLOCK_LINES`, `WARN_FILES`/`BLOCK_FILES` |
-| [`vendored.txt`](vendored.txt) | third-party trees exempt from our authoring rules |
-| [`extensionless.txt`](extensionless.txt) | names an external tool dictates (git hooks, `Makefile`) |
+Two modules answer the two questions — [`file_law.py`](file_law.py) what a file **is**,
+[`schema_law.py`](schema_law.py) what a name **may be** — and each reads its answer out of a
+data file beside it rather than holding one: the numbers, the vendored trees, the
+extensionless names, the `.gitignore` exceptions. The routing table below names all six.
 
 **A checker that restates any of these is the drift the checkers exist to catch.** Two
 incidents that shape this rule, and the test that guards the first: [`SPECS.md`](SPECS.md).
@@ -63,11 +60,15 @@ exist: [`code/VERIFY.md`](../../code/VERIFY.md). Installing the toolchain they d
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
-| [`SPECS.md`](SPECS.md) | — | — | Hooks — Specs |
+| [`SPECS.md`](SPECS.md) | — | — | What must be true of the enforcement layer, and why: what each gate blocks, and… |
+| [`extensionless.txt`](extensionless.txt) | — | — | Files allowed to have no extension because something OUTSIDE this workspace dictates the |
 | [`file_law.py`](file_law.py) | [`file_law.pyi`](file_law.pyi) | `is_code_file`, `load_limits`, `allowed_extensionless`, `is_vendored`, `main` | What a file IS, and which rules apply to it. The numeric-law sibling of schema_law.py: |
+| [`gitignore-exceptions.txt`](gitignore-exceptions.txt) | — | — | One "<domain>/<dir>" per line: a CONTEXT.md-bearing subdir Lucas deliberately wants left |
 | [`hook_input.py`](hook_input.py) | [`hook_input.pyi`](hook_input.pyi) | `parse_stdin`, `is_subagent`, `seen_file`, `load_seen`, `mark_seen` | Shared parser for Claude Code hook stdin JSON — nested (current) and flat (legacy shim) schemas. |
+| [`limits.env`](limits.env) | — | — | Every numeric limit in the workspace, in one file. Read by core/hooks/file_law.py |
 | [`post-commit`](post-commit) | — | — | auto-push feature/* so work survives a dead session |
 | [`post-edit.sh`](post-edit.sh) | — | — | PostToolUse: Edit, Write — regenerates interfaces, checks first-line comment, syncs CONTEXT.md |
 | [`pre-commit`](pre-commit) | — | — | the dispatcher. |
 | [`schema_law.py`](schema_law.py) | [`schema_law.pyi`](schema_law.pyi) | `load_law`, `load_scopes`, `load_retired` | The law parser. Every Tier 0 check reads core/SCHEMA.md through this module, and none |
+| [`vendored.txt`](vendored.txt) | — | — | Third-party files we did not author. Excluded from the line cap, the fanout signal and |
 <!-- routing:end -->

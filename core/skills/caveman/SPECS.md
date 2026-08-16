@@ -59,7 +59,10 @@ Keep this list short: it is what a re-sync with upstream has to reconcile.
    the worked examples from `modes.md` so a session loads one level instead of six.
 5. **Hook filenames** lost their `caveman-` prefix (`activate.js`, not `caveman-activate.js`) — the
    directory already says caveman. The `$HOME` links keep the prefixed names `settings.json` expects.
-6. **`scripts/benchmark.py` glob mode is dead** and was left alone. It resolves
+6. **First-line comments added to `scripts/__main__.py` and `scripts/benchmark.py`** — the two
+   modules upstream left with neither a `#` comment nor a docstring, so the routing generator could
+   not describe them. One line each, above the first import; nothing else moved.
+7. **`scripts/benchmark.py` glob mode is dead** and was left alone. It resolves
    `parents[3]/tests/caveman-compress`, a path from the upstream repo layout that exists in neither
    the old global install nor here. Explicit-pair mode (`benchmark_pair(orig, comp)`) works. Fix it
    upstream, not locally, or the next re-sync conflicts.

@@ -6,5 +6,5 @@
 
 | File | Description |
 |------|-------------|
-| [`REFS.md`](REFS.md) | Refs — ecovila Santuário dos Jatobás |
+| [`REFS.md`](REFS.md) | Captured references for the future ecological build on the lot: técnica… |
 <!-- routing:end -->

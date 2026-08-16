@@ -6,7 +6,7 @@
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
-| [`copilot-agent.sh`](copilot-agent.sh) | — | — | ← add first-line comment |
+| [`copilot-agent.sh`](copilot-agent.sh) | — | — | Copilot wrapper that honors .agentrc.json and runs session-start and hooks |
 | [`copilot-post-tool.py`](copilot-post-tool.py) | [`copilot-post-tool.pyi`](copilot-post-tool.pyi) | `emit_allow`, `main` | Copilot PostToolUse hook: regenerate interfaces, sync context, record read-trackers. |
 | [`copilot-pre-tool.py`](copilot-pre-tool.py) | [`copilot-pre-tool.pyi`](copilot-pre-tool.pyi) | `emit_allow`, `gate`, `main` | Copilot PreToolUse hook: enforce workspace read/edit/terminal policy via the canonical |
 | [`copilot-session-start.py`](copilot-session-start.py) | [`copilot-session-start.pyi`](copilot-session-start.pyi) | `load_input`, `read_workspace_excerpt`, `load_caveman_context`, `main` | Copilot SessionStart hook: inject workspace policy context + caveman rules. |

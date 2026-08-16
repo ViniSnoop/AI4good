@@ -6,5 +6,5 @@
 
 | Subdirectory | Description |
 |--------------|-------------|
-| [`wos/`](wos/CONTEXT.md) | SENAI talk (invited by Rafael) on workspace-os (WOS) — prep hub. Outline + opene |
+| [`wos/`](wos/CONTEXT.md) | SENAI talk (invited by Rafael) on workspace-os (WOS) — prep hub. Outline +… |
 <!-- routing:end -->

@@ -211,9 +211,17 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
    and the facade gate both know `index.dart`, but no gate has been exercised on that repo yet.
 
 6. 🔴 **close the first-line-comment hole, then sweep — in that order, because sweeping first
-   just refills.** 204 `← add` markers sit in 77 `CONTEXT.md` files (2026-08-15): 175 asking for a
-   source file's first-line comment, 25 for a description, 4 for paper domain tags. Each marker is
-   a routing-table row that describes nothing, in the workspace's only enforced-read type.
+   just refills.** Each marker is a routing-table row that describes nothing, in the workspace's
+   only enforced-read type.
+
+   **Re-counted 2026-08-15 after the item-7 generator fixes: 150 markers in 54 `CONTEXT.md`,
+   down from 204 in 77.** Not one was answered by hand — the drain is entirely files the
+   generator could already describe and was not reading (`.sh`, `.env`/`.txt`, multi-line
+   docstrings) plus the six hand-written inventories item 7 removed. **Three of the four
+   markers left in the wos repo are in nested-repo-shaped directories or genuinely
+   undocumented files; the queue that remains is nested-repo work.** Size any sweep against
+   150, and re-run the generator before measuring again — that is the cheap half, and it is
+   now spent.
 
    **The frequency is the finding, and Lucas named it as such** (2026-08-15: *"this is an issue
    that should not be so frequent so it is a warning for us that we may find out a more
@@ -241,30 +249,67 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
    the structure was a missing dict key, not a lapse of discipline. Fixed, guarded by
    `test_every_scanned_extension_can_be_described`.
 
-   So the **cheapest first move is a re-sync, not a sweep**: ten wos `CONTEXT.md` under
-   `core/hooks/` now have their `.sh` rows answerable from the files' own first-line comments, with
-   zero judgement. Re-sync those, re-count, and size the real sweep against what is left — the 204
-   was measured before the generator could describe a shell script.
+   The re-sync that this note called for is **done** (2026-08-15), and it is what the recount
+   above measures. What it settles: **a marker is not evidence of a discipline problem until
+   the generator has been asked whether it can answer it.** Four times out of four, it could.
+   That does not remove the need for the gate — a commit-time check over staged files is still
+   the only thing that covers a stranger's file — but it does mean the gate should be built
+   against a queue of 150, not 204, and that **the next new marker deserves a look at
+   `COMMENT_RE` before it deserves a sweep**.
    → **model: opus** for the gate, **sonnet** for the sweep behind it.
 
-7. 🔴 **the routing block reads worse than the files it describes — two causes, both found.**
-   Lucas (INBOX 2026-08-15): *"brain/CONTEXT.md tem repetições, routing duas vezes… no routing
-   automático as descrições estão horríveis… diagnosticar e corrigir esse problema na raiz. e
-   corrigir esses problemas não somente para esse CONTEXT.md mas para todos."* Both halves are
-   real, and neither is a content problem:
+7. 🟢 **the routing block reads worse than the files it describes — both causes fixed
+   2026-08-15.** Lucas (INBOX 2026-08-15): *"brain/CONTEXT.md tem repetições, routing duas
+   vezes… no routing automático as descrições estão horríveis… corrigir esse problema na
+   raiz… não somente para esse CONTEXT.md mas para todos."* Neither half was a content problem,
+   and the corpus followed the generator for free: 51 `CONTEXT.md` regenerated, this repo's
+   inventory findings drained to zero.
 
-   - **"descrições horríveis"** — a `.md` row shows only the file's `#` H1, never its line-2 `>`
-     blurb, because `COMMENT_RE['.md']` captures the heading and the blurb-hoist is special-cased
-     for `CONTEXT.md` → *parent* table only. So `tree.md` advertises "Craft — Provider Routing"
-     while the sentence that says what it is sits one line below, unread. Same class as the `.sh`
-     gap in item 6: the generator has the text and does not reach for it.
-   - **"routing duas vezes"** — one generated block, plus a hand-written `| File / Folder | Role |`
-     table above it saying the same thing. `entropy_context.check_inventory` exists to catch
-     exactly this and returns `None` here: it matches inventory *headings* and *bullets*, never a
-     **table**. The workspace's most-read file carries the defect its own check was written for.
+   **One defect, found four times, and the fourth is the reusable one.** The blurb-hoist
+   (`.md` rows showed the `#` H1, never the line-2 `>` blurb) and the `.sh` gap in item 6 were
+   already known to be the same shape. Two more fell out while fixing them: a **multi-line
+   module docstring** was undescribable because `COMMENT_RE['.py']` only matched a one-line
+   `"""…"""`, and the four files `core/hooks` keeps its law in were unreachable because `.env`
+   and `.txt` were absent from `CONTENT_EXTS`. All four are one sentence: **the generator held
+   the text and did not reach for it** — and each was invisible because its symptom, a `← add`
+   marker or a bare filename, is exactly what a genuinely undocumented file looks like. The
+   marker queue fell 69 → 55 with no file described by hand.
 
-   Fix both at the generator/check, then regenerate — the corpus follows for free.
-   → **model: opus** for the blurb-hoist and the table criterion, **sonnet** for the regeneration.
+   **The `core/hooks` case is the one to remember: a hand-written inventory can be a symptom,
+   not a lapse.** Its table existed because the routing block *could not name* `limits.env`,
+   `vendored.txt` and the other two. Deleting the table would have deleted three real pointers;
+   widening `CONTENT_EXTS` made the table redundant, and then it could go. **Before draining a
+   hand-written list, check whether the generator is able to replace it.**
+
+   Hoisting is now one operation in one module ([`core/hooks/routing/hoist.py`](core/hooks/routing/hoist.py)):
+   find the sentence, rebase its links, bound its length. It had been three steps split across
+   two modules, which is *why* only subdirectory rows got all three. A code file's first-line
+   comment does not go through it — that text was authored as a one-liner for this table, and
+   cutting it would lose what nothing else carries. Truncation now stops at a word boundary and
+   marks the cut: `Tier 0 checks t` read as a typo, not as a truncation.
+
+   **The table criterion.** `check_inventory` matched headings and bullets, never a **table** —
+   so `brain/CONTEXT.md`, the workspace's most-read file, carried the exact defect the check
+   was written for. Rows and bullets are now counted *together* against the same threshold of
+   three, or the fix for a flagged bullet list would be to redraw half of it as a table. Two
+   boundaries hold the false-positive rate down and both are tested: the path must be the
+   **first cell** (so `| Area | Covers |` is the directory describing itself, not listing it)
+   and it must **exist on disk** (so a table of naming patterns is prose). The bullet pattern
+   was widened in the same commit — `` - [`a.py`](a.py) ``, the backtick *inside* the link,
+   had been escaping it, which is the most common way this workspace writes a file pointer.
+   Findings went 4 → 28: **six in this repo, drained; 22 newly visible in nested repos**, which
+   ride their own verify (13.2).
+
+8. 🔴 **`python_api` advertises nested closures as importable API.** Found 2026-08-15 by
+   reading the diff of the item above: `hoist.py`'s row listed `fix`, a closure inside
+   `rebase_links`, beside four real exports. `python_api` walks the whole AST, so any nested
+   `def` with a bare name is API; it has been masked until now by the `[:5]` cap, which means
+   the corpus is quietly showing this wherever a module exports fewer than five names. Worked
+   around at the call site by underscoring the closure — the convention already excludes `_`
+   names — but the generator is still wrong. The fix is to walk module top level plus class
+   bodies rather than `ast.walk`, and it will move API columns across the corpus, so measure
+   the churn before taking it.
+   → **model: sonnet**.
 
 ---
 

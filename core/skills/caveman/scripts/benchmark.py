@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# Measures what a compression pass saved: token counts before and after, as a table.
 from pathlib import Path
 import sys
 
