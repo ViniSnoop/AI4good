@@ -315,15 +315,12 @@ feeling lost twice. **Mass is the disease and only deletion cures it.**
    and something else moved in. Both are warns now, four and twenty-three lines from a hard block
    respectively — so the next session on this front starts by paying that down, before adding
    anything.
-   **A fourth finding, and it is loud on every commit (2026-08-16): the `>**owns**` parser reads
-   ordinary prose as ownership entries.** Nine warnings print per commit, each quoting a whole
-   paragraph — `ecovila: owns 'Terreno de 200 m² (com vista) comprado com o pai…', which resolves
-   to no repo`. It is scanning past the block's end and treating following body text as paths, so
-   `craft-flows` alone contributes six. Nothing is miscounted (an unresolvable path is skipped) but
-   it is noise on the one surface an agent reads at commit time, and **noise on a warning channel is
-   how a real warning gets missed** — the same argument that retires a check firing on honest prose.
-   Fix the parser before touching the counting.
-   → **model: sonnet**. The plan is the four findings above; it used to point at a file in
+   **The parser is fixed and tested (`test_brain_attention.py`), so start from a quiet baseline.**
+   It used to read the goal's body as repo paths and print nine warnings per commit. Worth
+   remembering while doing the counting work: nothing was ever *miscounted* by it, which is why it
+   survived — the output was wrong in a way that changed no number.
+
+   → **model: sonnet**. The plan is the three findings above; it used to point at a file in
    `~/.claude/plans/`, which `AGENTS.md` forbids — a plan lives in the ROADMAP of the thing it
    changes, not in harness-owned state no clone of this workspace would ever get.
 
