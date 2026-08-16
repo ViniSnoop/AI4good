@@ -43,3 +43,12 @@ Explore
 3%
 general-purpose
 1%
+---
+
+`parse_owns` em `core/hooks/brain/brain_attention.py` engole prosa como se fosse caminho.
+O bloco `>**owns**` só termina em `>**campo**` ou `##`, então uma linha em branco seguida de
+um blockquote comum continua dentro do bloco. Sintoma visível em todo commit: `[Brain] ⚠
+craft-flows: owns '**Vocabulário: o termo canônico é *flow*...' which resolves to no repo`.
+Atinge pelo menos craft-flows, burocracia-academica e ecovila. Pré-existente, não é do
+trabalho de routing de 2026-08-15 — achado ao ler a saída do post-commit. Correção provável:
+terminar o bloco na primeira linha em branco.
