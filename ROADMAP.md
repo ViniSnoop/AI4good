@@ -26,7 +26,7 @@ Four criteria. Nothing else gates v1.
 | 1 | **verify-fast green + Tier 0 live** — naming, placement, pointer integrity, size-as-signal deterministic; **this repo** clean, every nested repo on a shrinking baseline | Front 4 | checks live · **read [`entropy.md`](entropy.md) for the count, never a copy of it** |
 | 2 | **One ledger, no duplicates** — this file is the sole wos ledger, verified by scan not eyeball | Front 8 | ✅ **MET 2026-07-30** — `test_no_item_lives_in_two_ledgers` |
 | 3 | **Everything pushed, gitflow-shaped** — every `code/` repo on `main`/`feature/*`, zero unpushed, no repo without a remote | Front 11 | ✅ **MET 2026-08-14** — re-audited across every repo |
-| 4 | **Clonable by a student** — fresh clone gets every capability; deps declared, no undocumented hand-installs | Front 10 | open |
+| 4 | **Clonable by a student** — fresh clone gets every capability; deps declared, no undocumented hand-installs | Front 10 | ✅ **MET 2026-08-16** — `SETUP.md` is an executed procedure, every dep declared in `core/tools/deps.txt`, both enforced by `verify-fast` |
 
 Post-v1 validation is `[mvp-validate]`: use the system daily for 30 days, then assess whether it
 reduced mental load. That is the real test and it can only run after v1.
@@ -36,10 +36,12 @@ reduced mental load. That is the real test and it can only run after v1.
 Per-step `model` = the tier that is *enough* (a floor, not a ceiling).
 🔴 needs Lucas · 🟡 pilot on one subtree first · 🟢 mechanical.
 
-**Three open steps need Lucas's own judgment: 9.5, 14.1, 15.1.** Everything else is agent work.
+**Four open steps need Lucas's own judgment: 9.5, 11.3, 14.1, 15.1.** Everything else is agent work.
 Stating that number is part of the cure for feeling lost, so **keep it true** — it has been wrong
-twice, once claiming one while five were live, and once (2026-08-16) carrying four items marked 🔴
-whose own `→ model:` line said sonnet. **🔴 means Lucas decides, not "this is hard"**; an item an
+three times: once claiming one while five were live; once (2026-08-16) carrying four items marked 🔴
+whose own `→ model:` line said sonnet; and once holding *two* lists of the same set, here and in
+§ Sequencing, which named different threes and so were both wrong. **Derive it from the 🔴 marks, and
+keep the two lists identical or delete one.** **🔴 means Lucas decides, not "this is hard"**; an item an
 opus-tier agent can rule on alone is 🟡. Re-derive the count from the marks before quoting it.
 
 The whole Front 10 chain came off this list on 2026-08-16 — six 🔴 items closed in one sitting,
@@ -512,29 +514,11 @@ that [`core/tools/wos/session/usage`](core/tools/wos/session/usage) cannot repro
 > the profile with a placeholder on the way out. That also settles the old step 3: the
 > general/Lucas-specific line is not a document, it is **what the sync script is allowed to copy**.
 
-1. 🟡 **make `SETUP.md` executable by an agent, and add `/install` as its entry point.** Both, and
-   they are not two surfaces: the file is the procedure, the skill is a doorway that reads it. A
-   stranger on opencode or copilot has no skill loaded, which is exactly the population this is for,
-   so the file must stand alone and the skill must never restate it — a second copy is what
-   § Boundaries calls a bug.
+**The install itself is done (2026-08-16) and criterion 4 is met.** The feature slugs `SETUP.md`
+declares per step are the registry's keys, already written — step 4 below supplies the answers, not
+the vocabulary. One dependency is still genuinely missing on this machine and `core/tools/wos/deps`
+says so on every run: **`flutter`**, without which `code/apptime`'s verify cannot run at all.
 
-   What "executable" costs, per step: a **precondition** (how to tell it is already done), the
-   command, a **verify probe**, and idempotency. The file is roughly there already — § RTK's probe
-   is the model, and it exists because *"the wiring looked correct for weeks while this was dropping
-   every multi-line call"*. Steps that an agent cannot perform stay clearly marked and are the
-   short list: API keys, the systemd pairing, and provider consent screens.
-
-   Each step also declares **which feature it installs**, so the profile in step 4 can switch it off
-   and the agent skips it rather than asking. That is the join between this item and the registry.
-   → **model: sonnet**, opus only if the feature table turns out to be contested.
-2. 🟢 **safe — declare the ad-hoc venv deps.** Four known cases, each installed straight into `.venv`
-   to unblock a tool, so a fresh clone silently loses the capability: `pypandoc-binary`
-   (`core/tools/paper/parse` on `.docx`), `secretstorage` (`core/tools/video/video` reading Brave cookies —
-   without it yt-dlp fails with an AES-CBC decrypt error that reads like bad credentials; cost a
-   session to diagnose), `gallery-dl` (`core/tools/video/video` carousel path), and **`flutter`** (found
-   2026-07-29: `apptime`'s verify cannot run at all). Fix the **class**: a declared dep list the
-   whole `core/tools/` surface is checked against.
-   → **model: sonnet**.
 4. 🟡 **the feature registry and the profile it answers.** Lucas (INBOX 2026-08-14): *"the ability
    to toggle on and off the WOS features — LOC limit, file-per-folder limit, caveman, even
    context-tree, … also gdrive, latex, gmail, which skills and tools"*. Two files, and the split is
@@ -584,6 +568,16 @@ that [`core/tools/wos/session/usage`](core/tools/wos/session/usage) cannot repro
      and nothing auto-flows back. A useful PR is read and re-implemented here by hand, captured
      through `brain/INBOX.md` like every other input. The private repo stays the single source of
      truth, and contribution stays honest rather than blocked.
+   - **The public checkout lives at `code/wos/`**, as a nested repo like every other project. Lucas:
+     *"maybe a good idea is for us to have it here as a code repo under `code/wos/` so it is easy to
+     monitor it. this workspace repo is private, mine and only I use it amongst my machines (two
+     laptops), and the public is for my students and anyone else."* Still its own repository with its
+     own history — that is what keeps personal commits from crossing — this only fixes where the
+     working copy sits. It pays twice: the sync becomes an ordinary write into a tree that can be
+     `git diff`ed **before** anything is pushed, so **the allowlist is reviewable as a diff rather
+     than trusted as a script**; and the public repo inherits the gates, since `core/hooks` is wired
+     globally and fires in every nested repo. Mechanically free — `code/wos` joins the `code/*`
+     ignore list like `aiwbot` and `apptime`, so no gitlink forms.
 
    The registry (step 4) ships as scaffold — it is the thing that makes a subset installable — with
    the profile replaced by a placeholder on the way out. **The sync's allowlist is the deliverable**,
@@ -935,16 +929,16 @@ months anyway. Cheaper than a list nobody reads.
 
 ## Sequencing
 
-**The v1 line runs through Front 10 and nothing else.** Criteria 2 and 3 are met; criterion 1 is
-held in this repo and the rest of it now lives in the repos that own the files. So:
+**All four v1 criteria are met as of 2026-08-16.** What remains in Front 10 is past v1, and the
+governing constraint in [`brain/goals/workspace-os.md`](brain/goals/workspace-os.md) applies at full
+force to it: an item that does not earn its keep is a candidate for *Rejected*, not the backlog.
 
-1. **10.1** — make `SETUP.md` an executable procedure and add `/install`. This *is* criterion 4.
-2. **10.2** — declared deps. It gates 10.1's honesty: a step cannot be offered as optional until
-   the thing it installs is checkable.
-3. **10.4** — the feature registry and profile. Not a sibling of 14.1, its **instrument** — the
-   ablation's first run produced no signal because no feature could be switched off.
-4. **10.5** — the public scaffold repo and its one-way sync. The allowlist is the deliverable.
-5. **14.1** — the ablation, once 10.4 has *shipped* rather than been designed.
+1. **10.4** — the feature registry and profile. Not a sibling of 14.1, its **instrument** — the
+   ablation's first run produced no signal because no feature could be switched off. The vocabulary
+   already exists: `SETUP.md` declares a feature slug per step, so this supplies answers, not names.
+2. **10.5** — the public scaffold repo at `code/wos/` and its one-way sync. The allowlist is the
+   deliverable.
+3. **14.1** — the ablation, once 10.4 has *shipped* rather than been designed.
 
 Alongside, in any order, all mechanical:
 
@@ -955,8 +949,13 @@ Alongside, in any order, all mechanical:
 - **12.1** the `SPEC.md`→`SPECS.md` migration — one reviewed change across five enforcement points.
 - **4.6** the first-line-comment gate, **4.8** the `python_api` walk, **8.2**, **8.3**, **9.6**.
 
-**Needing Lucas:** 9.5 (agents vs skills), 11.3 (resume or kill SDD), 15.1 (the knowledge base).
-Three, and § How to read this must keep saying three.
+**Needing Lucas: four.** 9.5 (agents vs skills), 11.3 (resume or kill SDD), 14.1 (the ablation),
+15.1 (the knowledge base). Re-derived from the 🔴 marks 2026-08-16, which is how the disagreement
+below was caught — this list said 9.5/11.3/15.1 and § How to read this said 9.5/14.1/15.1, so each
+was missing a different item and both claimed three. **Two lists of the same set is the asymmetry;
+the count is the symptom.** Worth a look on the next pass: 14.1's 🔴 may be a mis-mark — Lucas has
+already asked for the ablation, and its own line reads *"model: opus for the design"*, which by
+§ How to read this makes it 🟡. Left alone here because re-tiering his item is his call.
 
 ## Model-switching guide
 

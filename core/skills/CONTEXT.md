@@ -28,6 +28,7 @@ mirroring, and the folder-shaped global-skill pattern (`caveman/`): [`SPECS.md`]
 | [`gmail.md`](gmail.md) | Triage Gmail across all configured accounts — classify, confirm routes, write to… |
 | [`handoff.md`](handoff.md) | Emit a copy-pasteable resume prompt for the next session. For the full… |
 | [`inbox.md`](inbox.md) | Triage brain/INBOX.md — route each entry to a goal, task, reference, project… |
+| [`install.md`](install.md) | Install this workspace on the machine you are running on: probe every step in… |
 | [`iso-visual.md`](iso-visual.md) | Isoroll visual-semantics reference: image-to-text conventions, known model… |
 | [`loops.md`](loops.md) | Run the craft flow: develop a feature in file-relayed loops with model… |
 | [`prepare.md`](prepare.md) | Turn a raw task into an optimized agent prompt: interviews for intent… |

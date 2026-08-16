@@ -94,6 +94,19 @@ Adding a fourth means implementing three hook points against a documented stdin/
 
 ## Cloning it for yourself
 
-Not yet supported, honestly. Making this genuinely installable by someone who is not its author —
-separating what is general from what is Lucas-specific, and letting a newcomer enable only the
-subset they want — is open work tracked in [`ROADMAP.md`](ROADMAP.md) § Portability & clonability.
+Clone the repo, open your own coding agent, and tell it to follow [`SETUP.md`](SETUP.md) — **the
+harness you already opened is the installer.** There is no `curl | sh` and there is not going to be
+one: an installer would have to be ported to every agent, while a procedure works on whichever one
+you have. Every step there declares how to tell it is already done, an idempotent install, and a
+probe that proves it worked, so the agent runs the whole thing and hands you back the short list
+only you can finish — an API key, a consent screen, a device pairing. Agents with skill support can
+open the same file with `/install`.
+
+Dependencies are declared in [`core/tools/deps.txt`](core/tools/deps.txt), with what each one's
+absence *looks like* — the expensive ones do not announce themselves as missing, they just return a
+worse answer. `core/tools/wos/deps` probes them all.
+
+Still open, and honestly so: installing only a **subset**. Every step names the feature it installs,
+but the registry that would let you switch one off is unbuilt — [`ROADMAP.md`](ROADMAP.md)
+§ Portability & clonability. Today it is all or nothing minus whatever you skip by hand. What
+crosses into a public copy, and what stays private, is the same open work.
