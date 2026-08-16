@@ -171,8 +171,16 @@ moved. A session that cannot name one is a session Lucas has to take on faith.
 `core/hooks/compact/bash-compact-rewrite.py` hardcodes `rtk hook claude` in two places, so **only
 Claude Code gets multi-line splitting**; every other vendor still gets rtk's line-1-only behavior.
 `core/hooks/copilot/` exists precisely to translate other vendors onto the canonical gates, and this
-directory has no equivalent. Not a cost item and not urgent — written down because the workspace's
-rule is that an asymmetry gets recorded when it is found.
+directory has no equivalent. Concretely: `.github/hooks/rtk-rewrite.json` runs `rtk hook copilot`
+raw, carrying the same first-line-only bug the shim exists to fix.
+
+**Measure before building.** Decide whether that directory grows a copilot shim — its output shape
+differs — or whether copilot's "always prefix with `rtk`" instruction already covers it. The
+adoption counter is the instrument that can answer it, and it is now the cheap way to find out.
+
+One task still open upstream: rtk itself declines the whole call when line 1 is not rewritable, and
+nobody outside this workspace has the shim. Worth reporting to `rtk-ai/rtk` with the four-shape
+table from [`core/hooks/compact/SPECS.md`](core/hooks/compact/SPECS.md).
 
 ## Steps
 

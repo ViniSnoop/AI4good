@@ -94,8 +94,8 @@ def brief(rows) -> None:
 	split = ' · '.join(f'{model.replace("claude-", "")} {cost / total:.0%}'
 	                   for model, cost in sorted(by_model.items(), key=lambda kv: -kv[1]))
 	print(f'cost: {len(rows):,} turns · ${total / len(rows):.3f}/turn · {split}')
-	print(f'output: {out / total:.1%} of spend at sticker, {attr_share:.0%} once re-reads are '
-	      f'counted ({multiplier:.1f}x)')
+	print(f'output: {out / total:.0%} of the bill at list price, {attr_share:.0%} once you count '
+	      f'every later turn re-reading it ({multiplier:.1f}x what it looks like)')
 
 
 def main() -> None:
@@ -163,12 +163,14 @@ def main() -> None:
 	      f'whole thread,\nwhich is why a long session costs more than the same work split in two.')
 
 	mean, attr_share, multiplier = self_authored(rows)
-	print(f'\nwhat our own output really costs')
-	print(f'  mean share of a turn\'s context that is self-authored   {mean:5.1%}')
-	print(f'  spend attributable to our own output                   {attr_share:5.1%}')
-	print(f'  effective multiplier on one output token       {multiplier:9.1f}x sticker')
-	print(f'  → output is {by_component["output"] / total:.1%} of spend at sticker and '
-	      f'{attr_share:.0%} once re-reads are counted.')
+	print('\nwhat our own writing really costs — a written token is not paid once')
+	print('every turn re-reads the whole thread, so each token we write is billed again on')
+	print('every turn that follows it')
+	print(f'  how much of a turn we had written ourselves            {mean:5.1%}')
+	print(f'  share of the bill traceable to our own writing         {attr_share:5.1%}')
+	print(f'  what one written token really costs      {multiplier:9.1f}x list price')
+	print(f'  → output is {by_component["output"] / total:.0%} of the bill at list price, '
+	      f'{attr_share:.0%} once the re-reading is counted.')
 
 
 if __name__ == '__main__':

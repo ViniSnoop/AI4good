@@ -63,6 +63,17 @@ already-rewritten payload is a no-op rather than `rtk rtk grep`. That is a prope
 guarantee this repo owns — which is precisely why the wiring was reduced to one registration instead
 of being left to it.
 
+## Compaction is invisible in the chat, by design
+
+Nothing tells the model to type `rtk grep` — `rtk init --show` reports `RTK.md: not found` and both
+`CLAUDE.md` files as unconfigured, because commit `804ab0a` moved that prose out. The model sends a
+plain command, the hook rewrites it afterwards, and the UI renders **what was sent**. So a session
+shows no sign of compaction even when it is working perfectly.
+
+This once read as "rtk stopped running". It is not evidence of anything: the visible `rtk` prefix
+and the rewrite are two different mechanisms, and only the first was ever removed. Use the counter
+below, never the chat.
+
 ## The adoption counter
 
 The shim appends one `verdict\tlines` row per Bash call to `/tmp/claude_rtk_compact_<session_id>.tsv`
