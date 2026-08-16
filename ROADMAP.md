@@ -36,12 +36,14 @@ reduced mental load. That is the real test and it can only run after v1.
 Per-step `model` = the tier that is *enough* (a floor, not a ceiling).
 🔴 needs Lucas · 🟡 pilot on one subtree first · 🟢 mechanical.
 
-**Six open steps need Lucas's own judgment: 10.1, 10.1b, 10.3, 10.5, 13.1, 14.1.** Everything else
-is Sonnet or Haiku. Stating that number is part of the cure for feeling lost, so **keep it true** —
-it was wrong for a fortnight, claiming one while five were live. Four of the six are one decision
-wearing four numbers: the feature-toggle registry (10.4) is what makes the Lucas-specific/general
-split executable, what an installer writes a profile into, what a public scaffold repo is allowed to
-copy, and the switch Frente 14 needs before it can measure anything.
+**Three open steps need Lucas's own judgment: 9.5, 14.1, 15.1.** Everything else is agent work.
+Stating that number is part of the cure for feeling lost, so **keep it true** — it has been wrong
+twice, once claiming one while five were live, and once (2026-08-16) carrying four items marked 🔴
+whose own `→ model:` line said sonnet. **🔴 means Lucas decides, not "this is hard"**; an item an
+opus-tier agent can rule on alone is 🟡. Re-derive the count from the marks before quoting it.
+
+The whole Frente 10 chain came off this list on 2026-08-16 — six 🔴 items closed in one sitting,
+because they were one decision wearing six numbers and none of them could be taken alone.
 
 **Never cite an item number from code or from a test.** A closed item is *deleted* — that is the
 workspace rule — so every `Frente N.M` in a comment becomes a dead pointer the day the work lands.
@@ -216,7 +218,7 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
    → **model: sonnet**, one repo at a time. `apptime` is Dart/Flutter — the routing generator
    and the facade gate both know `index.dart`, but no gate has been exercised on that repo yet.
 
-6. 🔴 **close the first-line-comment hole, then sweep — in that order, because sweeping first
+6. 🟡 **close the first-line-comment hole, then sweep — in that order, because sweeping first
    just refills.** Each marker is a routing-table row that describes nothing, in the workspace's
    only enforced-read type.
 
@@ -264,7 +266,7 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
    `COMMENT_RE` before it deserves a sweep**.
    → **model: opus** for the gate, **sonnet** for the sweep behind it.
 
-8. 🔴 **`python_api` advertises nested closures as importable API.** Found 2026-08-15 by
+8. 🟢 **`python_api` advertises nested closures as importable API.** Found 2026-08-15 by
    reading the diff of the item above: `hoist.py`'s row listed `fix`, a closure inside
    `rebase_links`, beside four real exports. `python_api` walks the whole AST, so any nested
    `def` with a bare name is API; it has been masked until now by the `[:5]` cap, which means
@@ -443,7 +445,7 @@ that [`core/tools/wos/session/usage`](core/tools/wos/session/usage) cannot repro
    opus-5 56.5%, opus-4.8 27.5%, fable 8.3%, sonnet 7.7%, haiku ~0%. Worth doing, but note the
    ceiling — routing cannot beat a 4x context multiplier, and the transition above already took the
    larger win. → **model: sonnet**.
-3. 🔴 **make delegation happen, instead of hoping for it.** Lucas, INBOX 2026-08-15: *"só tenho
+3. 🟡 **make delegation happen, instead of hoping for it.** Lucas, INBOX 2026-08-15: *"só tenho
    confiado no opus. mas gostaria que ele delegasse mais ao sonnet pra economizar quando fosse
    pertinente. não sei como fazer isso, seria ótimo se tivesse uma forma mais garantida de fazer
    isso acontecer."* Item 1 says routing is *worth doing* and measures the split at opus 84% /
@@ -463,8 +465,10 @@ that [`core/tools/wos/session/usage`](core/tools/wos/session/usage) cannot repro
    the per-session model split at every close, so whether this item moves the opus/sonnet ratio is
    readable without new instrumentation. A delegation policy nobody measures per session would be
    unenforced advice one more time.
+   **Partly demonstrated 2026-08-16**: this session's own plan carried a `model:` per task, which is
+   the mechanism in its cheapest form — the plan *is* the assignment record. What is unbuilt is
+   anything that makes it non-optional.
    → **model: opus** for the mechanism, sonnet to wire it.
-   → **model: sonnet**.
 5. 🔴 **discuss — should this workspace have agents, or are skills enough?** Lucas, same capture,
    and flagged by him as a discussion rather than a task: *"um aluno comentou que existem formas
    diretas de o claudecode delegar pra subagentes, ele falou acho que com @. é fato que não temos
@@ -480,7 +484,7 @@ that [`core/tools/wos/session/usage`](core/tools/wos/session/usage) cannot repro
    Same treatment as Frente 10.1: bring options and trade-offs, decide with Lucas, do not arrive
    with one answer.
    → **model: opus**, with Lucas in the loop — not a solo pass.
-6. 🔴 **measure whether our own gates make a session re-read the same file.** Lucas, INBOX
+6. 🟢 **measure whether our own gates make a session re-read the same file.** Lucas, INBOX
    2026-08-15: *"does a session, due to our hooks/gates, re-read the same context file more than
    once? can we have a report at the end of each session (maybe on the /roundup) that automatically
    prints (zero-token) all the read and all the written files, and for each file how much of that
@@ -524,71 +528,51 @@ that [`core/tools/wos/session/usage`](core/tools/wos/session/usage) cannot repro
 
 ## Frente 10 — Portability & clonability — **v1 criterion 4**
 
-1. 🔴 **decide-first — what shape does the install path take?** The root `SETUP.md` split landed
-   2026-08-15 and needed no judgement: `core/SCHEMA.md` § The `.md` type system already assigns one
-   question per type, so each section had exactly one destination. 643 lines → `core/hooks/SPECS.md`
-   (the enforcement contract, new), `README.md` (what the workspace is and what each capability buys
-   you — the sentences Frente 10.4 requires), and ~250 lines of install steps left in `SETUP.md`.
-   Three sections were deleted rather than moved: a build log of shipped tasks, a hand-listed file
-   tree that § Boundaries calls a bug and that had been stale since the 2026-07-31 hooks split, and
-   a line-limit policy `code/SPECS.md` already owned. **Section numbers are gone** — `§6`/`§11`
-   pointers had already gone stale twice, so sections are named.
+> **Ruled 2026-08-16 (Lucas). The whole decide-first chain is closed; what is left is build work.**
+>
+> **The harness is the installer.** *"the user opens up a harness and points it to the git repo. all
+> the rest is done intermediated by the harness the user is using. so our job is not to provide an
+> all-in-one installer but rather guidance (in the best way we can, with maybe tools to automate the
+> installation of parts etc) for the harness that is being used."* This kills the 2026-07-30
+> "executable installer" ruling and every idiom that was compared against it — `curl | sh` exists to
+> deliver a binary you do not have, and whoever installs WOS has already cloned the repo. **The
+> newcomer's own agent performs the install**, which is the only shape that is harness-agnostic by
+> construction rather than by porting.
+>
+> **`SETUP.md` lives, and is the deliverable** (closes the 2026-07-30 contradiction with
+> `core/SCHEMA.md`, which now records the ruling). It stops being prose an installer would replace
+> and becomes prose an agent *executes*. `code/SETUP.md` and `academy/SETUP.md` answer a question no
+> WOS installer covers, so the type keeps its row and nine files stay legal.
+>
+> **Features: one grouping, everything else a column.** Grouping is Lucas's own sketch — hooks ·
+> the `AGENTS.md`/`CONTEXT.md` tree + routing · brain · per-area capabilities · skills — because it
+> matches the tree, so a feature is findable. The other three candidate axes become **columns** on
+> the row: installability, enforcement strength (blocks/warns/generates/advises), and scope
+> (general vs Lucas-specific). *"levels of features"* described a column, not a set of boxes. The
+> symmetry test passes: nothing is both a hook and a skill.
+>
+> **This repo is Lucas's and tracks its own profile.** *"our current repo is mine… I want to use it
+> on more machines. so I envision both tracked in the repo. BUT the shareable version of WOS will be
+> placed on a different repo, a public one… the profile part on that repo will be just a
+> placeholder."* So the registry **and** the answers are versioned here, and step 5's sync replaces
+> the profile with a placeholder on the way out. That also settles the old step 3: the
+> general/Lucas-specific line is not a document, it is **what the sync script is allowed to copy**.
 
-   **What is still open is the part that was decided too early.** The 2026-07-30 ruling said install
-   steps "should be an *executable installer*". Lucas, 2026-08-15: not certain. Before inventing a
-   shape, follow an established one — **rtk** is the pattern this workspace already consumes
-   (`curl -fsSL … | sh` for the binary, `rtk init --global --auto-patch` to wire one agent
-   additively with a `.bak`, `--uninstall` to reverse it, `rtk init --show` to verify); also worth
-   reading are caveman's node installer, opencode's project-level plugin auto-load, mise/asdf, and
-   devcontainer. The question is not "script or prose" but **which install idiom an agent-workspace
-   should present to a stranger**. Gates steps 2 and 4.
+1. 🟡 **make `SETUP.md` executable by an agent, and add `/install` as its entry point.** Both, and
+   they are not two surfaces: the file is the procedure, the skill is a doorway that reads it. A
+   stranger on opencode or copilot has no skill loaded, which is exactly the population this is for,
+   so the file must stand alone and the skill must never restate it — a second copy is what
+   § Boundaries calls a bug.
 
-   **Lucas's precondition, INBOX 2026-08-15:** *"BEFORE creating an installer for the workspace…
-   systematically list what the workspace is, what are the features. we have different levels of
-   features, I would like to see this organized first."* First pass the same day put
-   `README.md` § What the enforcement layer buys you on **navigation / restraint / drift control /
-   cost**, one sentence of value each.
+   What "executable" costs, per step: a **precondition** (how to tell it is already done), the
+   command, a **verify probe**, and idempotency. The file is roughly there already — § RTK's probe
+   is the model, and it exists because *"the wiring looked correct for weeks while this was dropping
+   every multi-line call"*. Steps that an agent cannot perform stay clearly marked and are the
+   short list: API keys, the systemd pairing, and provider consent screens.
 
-   **Clarified 2026-08-15, and explicitly NOT decided — this is a discussion, not a ruling.** Lucas:
-   *"what I was thinking is that we have some 'types' of features. we have hooks, and each hook may
-   be toggled, LOC limit, file fan-out limit, gitflow, etc. we have the agents.md|context.md tree +
-   the automated routing. we have the whole brain thing, inbox + goals. we have capabilities per
-   area, slides, email, papers/latex, skills for research and other tasks… I meant we may organize
-   the whole thing somehow so our features fit a simple organization that is semantically correct
-   and symmetric."* Asked whether that settles it, he was explicit: *"I am not decided on that, this
-   is a discussion point."*
-
-   So what is fixed is the **test**, not the taxonomy: whatever organization we land on must be
-   *semantically correct and symmetric* — every feature lands in exactly one group, no group
-   overlaps another, and the groups are peers. What is open is **which axis to cut on**, and the
-   session that takes this **opens with the options and their trade-offs, and decides with Lucas.**
-   Do not arrive with one table and call it done.
-
-   The candidate axes, each with what it costs:
-
-   | Axis | Groups it produces | Buys | Costs |
-   |---|---|---|---|
-   | **by kind of thing** (Lucas's sketch above) | hooks · the `AGENTS.md`/`CONTEXT.md` tree + routing · brain · per-area capabilities · skills | matches how the tree is already laid out, so a feature's group is findable | says nothing about whether a feature is optional, which is what an installer must ask |
-   | **by what it buys the reader** (`README.md` today) | navigation · restraint · drift control · cost | sells the workspace to a stranger | one feature serves two values, so the groups are not disjoint — fails the symmetry test |
-   | **by installability** | free vs needs a binary · scaffold vs Lucas-specific · toggleable vs structural | exactly what steps 2, 3 and 4 need | a pure install view; useless as a way to explain the workspace |
-   | **by enforcement strength** | blocks · warns · generates · advises only | honest about what actually holds, and the ablation instrument (Frente 14) wants it | cuts across every other axis, so it reads as an attribute more than a grouping |
-
-   The real question is likely **whether one axis has to carry all of it**, or whether one is the
-   grouping and the rest are columns on its rows — worth putting on the table, since "levels of
-   features" may describe a *column* (how optional is it) rather than a set of boxes. Whatever
-   lands, step 2's install idiom and step 4's toggle registry both index into it, which is why this
-   gates them.
-   → **model: opus**, with Lucas in the loop — not a solo pass.
-
-1b. 🔴 **decide-first — does `SETUP.md` die as a type?** The ledger and the law contradict each
-   other and **both are dated 2026-07-30**: this frente said "`SETUP.md` dies as a type", while
-   [`core/SCHEMA.md`](core/SCHEMA.md) § The `.md` type system keeps it on the allowlist with a
-   justification paragraph ("earns its row on the evidence, 8 instances"). There are now **9**
-   instances and ~50 inbound references, and `core/hooks/checks/type-gate.py` enforces the
-   allowlist — so striking the row makes nine files illegal in one commit. Downstream of step 1: the
-   type only dies if the install path stops being prose. `core/tools/video/SETUP.md`, the third
-   naming shape, is retired by *this* decision and not before it.
-   → **model: opus**.
+   Each step also declares **which feature it installs**, so the profile in step 4 can switch it off
+   and the agent skips it rather than asking. That is the join between this item and the registry.
+   → **model: sonnet**, opus only if the feature table turns out to be contested.
 2. 🟢 **safe — declare the ad-hoc venv deps.** Four known cases, each installed straight into `.venv`
    to unblock a tool, so a fresh clone silently loses the capability: `pypandoc-binary`
    (`core/tools/paper/parse` on `.docx`), `secretstorage` (`core/tools/video/video` reading Brave cookies —
@@ -597,60 +581,61 @@ that [`core/tools/wos/session/usage`](core/tools/wos/session/usage) cannot repro
    2026-07-29: `apptime`'s verify cannot run at all). Fix the **class**: a declared dep list the
    whole `core/tools/` surface is checked against.
    → **model: sonnet**.
-3. 🔴 **decide-first — clonable for others (the students case).** Make the workspace genuinely
-   plug-and-play for anyone who clones it: what is Lucas-specific, what is general, and how the two
-   separate.
-   → **model: opus**.
-4. 🟡 **the WOS installer — an interview, not a README.** Lucas (INBOX 2026-08-13): *"preparar um
-   'INSTALL' do WOS pra quem quiser"* — the person answers a few questions (which harnesses, which
-   tools, gdrive? gmail?, which hooks) and the workspace installs itself for them. **This is what
-   step 1 already decided SETUP.md must become**, now with the shape named: not a script that
-   installs everything, but one that asks and installs a subset. Two consequences that make it work
-   as a v1 exit test rather than a nice-to-have: it can only ask about capabilities that step 2's
-   declared dep list makes checkable, and it forces step 3's Lucas-specific/general split to be
-   *executable* instead of documented. **Requirement Lucas stated explicitly: each hook is offered
-   with what it is for and what it buys you** — nobody accepts an enforcement layer they cannot see
-   the value of, and writing that sentence per hook is itself an audit of whether the hook earns its
-   place. Sequence it after 1 and 2; running it on a clean machine is the honest test of criterion 4.
+4. 🟡 **the feature registry and the profile it answers.** Lucas (INBOX 2026-08-14): *"the ability
+   to toggle on and off the WOS features — LOC limit, file-per-folder limit, caveman, even
+   context-tree, … also gdrive, latex, gmail, which skills and tools"*. Two files, and the split is
+   the ruling above: a **registry**, versioned, declaring every toggleable capability with its
+   grouping and its columns — and a **profile**, also versioned *in this repo*, holding the answers,
+   because this repo is Lucas's and must reproduce across his machines. The public repo gets a
+   placeholder profile (step 5).
 
-   **The mechanism, named by Lucas 2026-08-14 (INBOX):** *"the ability to toggle on and off the WOS
-   features — LOC limit, file-per-folder limit, caveman, even context-tree, … also gdrive, latex,
-   gmail, which skills and tools"*. An installer that asks questions needs something to *do* with the
-   answers, and that something is a **feature registry with an on/off switch per capability** — the
-   installer then writes a profile, not a patch. Two payoffs, and the second is the larger one:
-   - **install** — a stranger enables the subset they want, which is the whole of step 3's
-     Lucas-specific/general split made executable rather than documented.
+   **Requirement Lucas stated explicitly: each feature is declared with what it is for and what it
+   buys you** — nobody accepts an enforcement layer they cannot see the value of, and writing that
+   sentence per feature is itself an audit of whether it earns its place. `README.md` § What the
+   enforcement layer buys you already has those sentences for the hook half; the registry is where
+   they become data instead of prose.
+
+   Two payoffs, and the second is the larger one:
+   - **install** — the agent following `SETUP.md` skips a step whose feature is off, rather than
+     asking. That is the general/Lucas-specific split made executable.
    - **ablation** — Lucas: *"it also would ease ablation tests so we can indeed see the impacts of
-     each option."* This is the missing half of the pilot in
-     [`core/ROADMAP.md`](core/ROADMAP.md) § ablation-bench, whose first run produced no signal
-     precisely because there was no clean way to turn one feature off. **No feature in this workspace
-     has ever been measured**; a toggle is the cheapest instrument that would let one be.
+     each option."* The pilot in [`core/ROADMAP.md`](core/ROADMAP.md) § ablation-bench produced no
+     signal for exactly one reason: no clean way to turn one feature off. **No feature in this
+     workspace has ever been measured**; a toggle is the cheapest instrument that would let one be.
 
-   Design constraint that falls out of it: a toggle must reach the *enforcement* layer, not just the
-   docs. The numbers already centralise (`core/hooks/limits.env`), the types already centralise
-   (`core/SCHEMA.md`) — so the registry's job is mostly to name which hooks/skills/tools are wired,
-   not to re-implement their rules. **Anything that cannot be switched off is a finding**: it means
-   the capability is entangled with the scaffold rather than sitting on it.
+   Design constraint: a toggle must reach the *enforcement* layer, not just the docs. The numbers
+   already centralise (`core/hooks/limits.env`), the types already centralise (`core/SCHEMA.md`) —
+   so the registry mostly names which hooks/skills/tools are wired rather than re-implementing their
+   rules. **Anything that cannot be switched off is a finding**: the capability is entangled with the
+   scaffold rather than sitting on it.
 
-   **One more question in the set, named by Lucas 2026-08-14 (INBOX):** *"deveríamos oferecer a
-   opção de idioma principal para a interação com o usuário"* — thinking of third parties. It is a
-   profile field like any other, but it lands somewhere the others do not: **agent-facing text**,
-   not source docs. This workspace's own prose is deliberately mixed (rationale in Portuguese,
-   contracts in English) and stays that way; what the setting governs is the language the agent
-   *answers* in. Cheapest shape that does not fork the corpus.
-   → **model: sonnet** to build, **opus** for the question set and the registry shape.
+   **One more field, named by Lucas 2026-08-14 (INBOX):** *"deveríamos oferecer a opção de idioma
+   principal para a interação com o usuário"* — thinking of third parties. A profile field like any
+   other, but it lands on **agent-facing text**, not source docs. This workspace's own prose stays
+   deliberately mixed (rationale in Portuguese, contracts in English); the setting governs the
+   language the agent *answers* in. Cheapest shape that does not fork the corpus.
+   → **model: sonnet**.
 
-5. 🔴 **decide-first — a public scaffold repo, synced from here.** Lucas (INBOX 2026-08-14):
-   *"poderíamos ter uma branch separada no git/github"*, resolved the same day to a **separate
-   public repository holding only the scaffold** (`core/` + hooks + templates), synced from `main`
-   by a script — not a branch. A branch was the first shape considered and lost on one property:
-   personal history never leaves this repo, where a branch carries every commit that ever touched
-   `brain/`. That makes it strictly stronger than step 3's split — the general/Lucas-specific line
-   stops being documentation and becomes *what the sync script is allowed to copy*, checkable on
-   every run. Open questions before building: what the sync does about a stranger's PR coming back,
-   and whether the toggle registry in step 4 ships as scaffold (it should — it is the thing that
-   makes a subset installable).
-   → **model: opus** for the boundary and the sync direction, **sonnet** to build the script.
+5. 🟡 **the public scaffold repo and its one-way sync.** A **separate public repository**, not a
+   branch — personal history never leaves this repo, where a branch would carry every commit that
+   ever touched `brain/`. That is what makes the general/Lucas-specific line checkable on every run
+   instead of documented.
+
+   **Ruled 2026-08-16 (Lucas), both open questions closed:**
+   - **`brain/` crosses as empty structure** — `CONTEXT.md`, an empty `INBOX.md` and `GOALS.md`, one
+     example goal file. No real goals, no `USER.md`, no attachments. The brain system is half the
+     value of WOS; shipping `core/` alone hands someone an enforcement layer with nothing to enforce
+     on. An example rich enough to look like real personal data is the thing to avoid.
+   - **Sync is one-way, contributions land as INBOX entries.** The script pushes private → public
+     and nothing auto-flows back. A useful PR is read and re-implemented here by hand, captured
+     through `brain/INBOX.md` like every other input. The private repo stays the single source of
+     truth, and contribution stays honest rather than blocked.
+
+   The registry (step 4) ships as scaffold — it is the thing that makes a subset installable — with
+   the profile replaced by a placeholder on the way out. **The sync's allowlist is the deliverable**,
+   not the copy: a path that is not on it does not travel, so adding a new top-level directory fails
+   closed.
+   → **model: sonnet**.
 
 ---
 

@@ -76,9 +76,13 @@ by the agent rather than authored**, which is why its content is checked like an
 
 `SETUP.md` earns its row on the evidence: `README.md` is **repo-root only**, and several instances
 sit in directories that are not repos — the workspace root, `academy/`, `code/`, `code/_templates/`.
-"How do I make this work" is not "what is this and how do I run it". Whether the type survives at all
-is an open question — [ROADMAP.md](../ROADMAP.md) Frente 10.1b, downstream of whether the install
-path stays prose.
+"How do I make this work" is not "what is this and how do I run it". **The type survives — ruled
+2026-08-16 (Lucas), and the question is closed.** The install path does not stop being prose, it
+becomes *executable* prose: the harness the newcomer already opened is what performs the install,
+reading this file as a procedure. That makes `SETUP.md` the deliverable rather than the thing an
+installer replaces. The per-directory instances answer a question no installer covers — `code/`
+holds per-language setup, `academy/` the LaTeX toolchain — so they are not install steps that a
+root-level script absorbs.
 
 ### The four disposal routes
 
