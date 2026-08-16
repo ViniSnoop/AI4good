@@ -189,11 +189,10 @@ measurement** — a new instrument owes one hand-check against raw data before a
 it. Recorded as correction 3 in
 [`core/experiments/output-cost.md`](core/experiments/output-cost.md).
 
-**The benchmark still has no home.** `brain/INBOX.md` carries *"o WOS pode virar um artigo. o estudo
-de ablação, se bem feito, me parece bem publicável."* The ablation study and the benchmark Lucas asked
-for are the same artifact — a before/after over a fixed task set, with the gates and skills switched
-off one at a time. Routing that entry to a paper house is still open, and is the remaining half of
-this section.
+**The benchmark has a home**: [`academy/papers/wos-ablation/`](academy/papers/wos-ablation/CONTEXT.md),
+opened 2026-08-16. The ablation study and the benchmark Lucas asked for are the same artifact — a
+before/after over a fixed task set with the gates and skills switched off one at a time — and its
+design lives there rather than here.
 
 **Prefer changes whose effect is visible in a number**, and say plainly in the hand-off which number
 moved. A session that cannot name one is a session Lucas has to take on faith.
@@ -216,23 +215,6 @@ table from [`core/hooks/compact/SPECS.md`](core/hooks/compact/SPECS.md).
 
 ## Steps
 
-
-4. 🟡 **Close the ungated-write hole — governance, not cost.** A new `PreToolUse: Bash` check matching
-   `cat|tee > <path> <<`. **128 shell heredoc writes met no gate at all**: `pre-edit.py` and
-   `bugs-gate.py` are `PreToolUse: Edit|Write`, and the only Bash hooks are a read gate and the rtk
-   shim, so `brain/INBOX.md`, `HISTORY.md` and `test_entropy_ledger.py` were all written past the
-   200-line size gate, the first-line-comment check and the CONTEXT.md description requirement.
-   Frente 4.6 predicted exactly this.
-   - It must **not** fire on `python3 - <<'EOF'` — stdin to an interpreter writes nothing and is 44%
-     of heredoc volume, including every measurement script behind this plan.
-   - **Warn, never block**, and say why in `core/hooks/SPECS.md`: a `PreToolUse` hook fires *after*
-     the model has emitted the payload, so the tokens are already spent and blocking only makes the
-     turn re-emit. The gate teaches turn N+1; it cannot recover turn N.
-   - Message names **one action**: use `Write`, so the file gates apply. Any threshold goes in
-     [`core/hooks/limits.env`](core/hooks/limits.env) through `file_law.py`, never inlined.
-   - The `Write`-over-an-open-path half of this item is **dropped**. Its case was cost, and the cost
-     was ~1% of spend, not the 11% this file claimed.
-   → **model: opus** for the gate, sonnet for tests.
 
 5. 🟢 **Two prompt changes, and only two.** Both target measured mass; neither is a global terseness rule.
    **Deliverable length** (25.3% of logged output is `Write`): *"Match the length of written deliverables
@@ -264,12 +246,20 @@ table from [`core/hooks/compact/SPECS.md`](core/hooks/compact/SPECS.md).
 
 ## Verification
 
-1. `verify-fast` green (305 passing today; step 4 must not drop one).
+1. `verify-fast` green (321 passing today; no step may drop one).
 2. **The tool checks the experiment file**: run `core/tools/wos/session/usage` and confirm every share
    matches [`core/experiments/output-cost.md`](core/experiments/output-cost.md). On disagreement the
    file is wrong — the tool is the authority.
-3. **Step 4**, four cases, asserted beside the existing gate coverage in
-   `core/tools/test/workspace/gates/`: `cat > existing << 'EOF'` → warns, still runs ·
-   `tee > path <<` → warns · `python3 - <<'EOF'` (analysis, no redirect) → **silent**, or the gate
-   fires on every measurement script behind this plan · a plain command → silent.
-4. **Step 6** stops at the verdict table and waits for Lucas.
+3. **Step 6** stops at the verdict table and waits for Lucas.
+
+## Rejected
+
+- **A `Write`-over-an-open-path gate.** Half of the original re-emit item. Its case was cost, and
+  the cost was ~1% of spend once the multiplier was corrected from 5.8x to 1.9x, not the 11% this
+  file claimed. The heredoc half shipped, on governance grounds it never lost.
+- **Lowering `effort` to shorten output.** Rejected as a *length* lever (Anthropic: it does not
+  reliably move visible output) — that still holds. It is **not** rejected as a cost lever; thinking
+  is 65% of billed output and § The lever nobody has looked at is where that lives.
+- **A global terseness rule.** ACL 2025: a wrong budget degrades the answer.
+- **LLMLingua-style prompt compression.** It compresses a request before sending, and Claude Code
+  owns our request.

@@ -274,6 +274,23 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
    bodies rather than `ast.walk`, and it will move API columns across the corpus, so measure
    the churn before taking it.
    → **model: sonnet**.
+9. 🟢 **three defects in the enforcement layer itself**, found 2026-08-16 while building the
+   heredoc gate. Each is small; together they are the same shape — a gate that looks installed and
+   is not doing its job, which is this repo's named failure mode.
+   - **`checks/pre-edit.py:11` sets `WORKSPACE_ROOT` one directory too shallow** —
+     `parents[2]` is `/mnt/workspace/core`. `vendored.txt` patterns are workspace-relative, so
+     `is_vendored()` always returns False there and the vendored exemption never applies at edit
+     time. Editing a vendored `.py` past 200 lines is blocked by the gate `vendored.txt` exists to
+     waive. Latent, not observed — fix with a test that edits a path listed in `vendored.txt`.
+   - **`facade/facade-scan.py` talks to nobody.** `SPECS.md` classes it **Informs**, but it prints
+     to stdout on exit 0, which Claude Code shows in transcript mode only. The channel that reaches
+     the model is `hookSpecificOutput.additionalContext`, now verified on `PreToolUse`
+     ([`core/hooks/SPECS.md`](core/hooks/SPECS.md)). Port it, or reclassify it honestly.
+   - **Dead item-number pointers in code.** `Frente 9.2` is cited from `core/tools/wos/roundup`
+     (×2), `test_roundup.py` and `test_roundup_skills.py` (×2); that item is deleted. § How to read
+     this already bans citing item numbers from code and nothing enforces it — a Tier 0 check over
+     `Frente \d+\.\d+` outside this file is the enforcement, and it would have caught these.
+   → **model: sonnet**.
 
 ---
 
@@ -493,6 +510,15 @@ that [`core/tools/wos/session/usage`](core/tools/wos/session/usage) cannot repro
    since the hook's whole design point is costing zero tokens until crossed. **Do not make it
    chatty every turn**; that trades the thing being measured for the measurement.
    → **model: sonnet**.
+8. 🟡 **auto-continue when the session limit is hit.** Lucas, INBOX 2026-08-16: *"estudar uma forma
+   de ativar um 'auto-continue' do claude code quando o limite das sessões é atingido."* Filed here
+   rather than in `code/aiwbot` because the thing that must survive the interruption is this
+   workspace's session ritual, not a bot's transport.
+   **Study before building** — the honest first question is what the harness actually does at the
+   limit and what state survives it, and the second is whether resuming is even right: a session
+   that hit the limit is a session at maximum context, where `/roundup` plus a fresh start is
+   cheaper per turn than continuing (see the band table above). The likely answer is *auto-close,
+   not auto-continue*. → **model: sonnet** to study, Lucas to rule.
 
 ---
 
@@ -897,6 +923,11 @@ of them grow while its number falls.
 
 ## Frente 14 — ablation: nothing in this workspace has ever been measured
 
+> **The paper twin is [`academy/papers/wos-ablation/`](academy/papers/wos-ablation/CONTEXT.md)**
+> (2026-08-16). Lucas: *"o WOS pode virar um artigo. o estudo de ablação, se bem feito, me parece
+> bem publicável."* The ablation and the paper are one artifact, so the experimental design lives
+> there and this frente holds only the build work it depends on.
+
 1. 🔴 **build the instrument, then run the ablation.** Lucas, INBOX 2026-08-15: *"um engenheiro
    líder da Anthropic sugeriu de tempos em tempos a gente 'deletar' o CLAUDE.md e ver como modelos
    top (como o Opus) performam, dizendo que poderíamos nos surpreender. ou seja, diminuir a carga de
@@ -919,6 +950,50 @@ of them grow while its number falls.
    itself. Frente 13 is downstream — its verdicts are judgement calls today precisely because this
    instrument does not exist, and it says so rather than implying they are measured.
    → **model: opus** for the design, sonnet to run it.
+
+---
+
+## Frente 15 — the agent is confidently wrong, and nothing catches it
+
+Lucas, INBOX 2026-08-16: *"vi um comentário sobre o OPUS ter MUITA SEGURANÇA sobre pontos que na
+verdade ele estava errado… eu gostaria que todas as opiniões técnicas da IA fossem tomadas com base
+em pesquisas."* His two proposals: a **knowledge base** — a curated store, cheap to look up, refreshed
+when a stored fact is old enough to have moved — and an **instruction**: *"YOU DON'T KNOW THINGS,
+don't feel too certain, search before giving precise technical opinions."*
+
+**This workspace has the case study, and it is not hypothetical.** Frente 9 was steered for three
+weeks by a confident, re-runnable, wrong number. The instrument agreed with the script it replaced,
+which read as confirmation and was not, because both shared one misunderstanding. Before that, four
+consecutive explanations of the rtk hook were asserted and retracted. In neither case was the agent
+short of information; it was short of the habit of checking.
+
+**What that case study says about the two proposals, and it cuts against the easy one.** The
+instruction is the cheap half and is the half already tried: the workspace is thick with
+*re-run it, never quote it* prose, and it did not prevent either failure. Prose asking for doubt is
+INDUCED, and this repo's whole bet is that INDUCED loses to ENFORCED. So the frente's real question
+is **what a confidence check looks like as a gate**, not as a paragraph.
+
+Three sub-questions, in the order they can be answered:
+
+1. 🔴 **What is the store, and what earns a row?** The wikilinked memory store
+   ([`brain/memory/`](brain/memory/CONTEXT.md)) and `core/refs/REFS.md` already exist and already
+   hold curated facts — a third store is the failure
+   this workspace names EDIT > CREATE. Establish first whether the graph Lucas wants is a **new
+   structure** or a **query layer and a freshness field** over what is there. → **model: opus**,
+   with Lucas.
+2. 🟡 **What makes a stored fact go stale?** A hash-addressed store is only as good as its refresh
+   rule; a confidently-served 2026-07 fact is the same failure with extra steps. Every fact needs a
+   measured-on date and a claim about how fast its subject moves — harness behaviour ages in weeks,
+   a published result in years. → **model: sonnet**.
+3. 🟡 **Where can doubt be enforced rather than requested?** The one mechanism proven here is the
+   experiments ledger: a number is not quotable until it has a runnable Method
+   ([`core/experiments/SPECS.md`](core/experiments/SPECS.md)), and its new corollary — *a new
+   instrument owes one hand-check against raw data before anything is quoted from it*. Extending
+   that discipline beyond numbers to technical claims is the concrete, non-prose version of what
+   Lucas asked for. → **model: opus**.
+
+**Do not open this with a prompt rule.** That is the cheapest-looking move and the one the evidence
+above already rejects.
 
 ## Silent failure is the failure mode this workspace actually has
 
@@ -988,6 +1063,7 @@ months anyway. Cheaper than a list nobody reads.
 - **`core/tools/paper/papers --ss` live smoke** — it will smoke itself on the next real use.
 - **Commit the `.claude/commands/{drive,calendar}.md` symlinks** — done inline rather than tracked.
 - **`/caveman compress` on workspace docs** — piloted on the worst offender: 8571 → 8552 chars, **0.22%**, for one full quota call. The docs have no lexical fat, so placement beats phrasing and compression stays the last step on an already-reduced surface (Frente 13).
+- **The ~8% unexplained spend gap between `usage` and the one-off script** — the premise is void. Both summed transcript records instead of API responses, so they agreed on shares while being 1.97x wrong together, and the agreement is what stopped anyone looking. Absolute spend is list price and has never been checked against a bill; that is the only caveat left.
 
 ## Sequencing
 

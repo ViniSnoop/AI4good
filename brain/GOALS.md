@@ -4,27 +4,27 @@
 <!-- stats:start -->
 <!-- data:start -->
 ## attention dashboard  _(auto-updated on every commit)_
-last-updated: 2026-08-15 21:05
+last-updated: 2026-08-16 10:36
 
 >**areas** — last 14 days  
 ```
-health       ██████████   76 touches
-career       █░░░░░░░░░   12 touches
-finances     ░░░░░░░░░░   7 touches
+health       ██████████   94 touches
+career       █░░░░░░░░░   13 touches
+finances     ░░░░░░░░░░   8 touches
 fun          ░░░░░░░░░░   4 touches
 spiritual    ░░░░░░░░░░   0 touches
 ```
 
 >**goals** — last 14 days  
 ```
-CONTEXT                  ░░░░░░░░░░   1 touches
-burocracia-academica     ░░░░░░░░░░   3 touches
+CONTEXT                  ░░░░░░░░░░   2 touches
+burocracia-academica     ░░░░░░░░░░   4 touches
 career-ufrpe             ░░░░░░░░░░   0 touches
 corporal-expressiveness  ░░░░░░░░░░   0 touches
-craft-flows              █░░░░░░░░░   10 touches
+craft-flows              █░░░░░░░░░   11 touches
 cria                     ░░░░░░░░░░   3 touches
 dance                    ░░░░░░░░░░   1 touches
-ecovila                  ░░░░░░░░░░   2 touches
+ecovila                  ░░░░░░░░░░   3 touches
 exercise                 ░░░░░░░░░░   0 touches
 finances                 ░░░░░░░░░░   0 touches
 guitar                   ░░░░░░░░░░   0 touches
@@ -63,10 +63,11 @@ startapps-virada         ░░░░░░░░░░   0 touches
 startapps-voti           ░░░░░░░░░░   1 touches
 startapps-xacomigo       ░░░░░░░░░░   0 touches
 surf                     ░░░░░░░░░░   0 touches
-teaching-materials       █░░░░░░░░░   8 touches
+teaching-materials       ░░░░░░░░░░   9 touches
+travel                   ░░░░░░░░░░   0 touches
 vipassana                ░░░░░░░░░░   0 touches
 voice                    ░░░░░░░░░░   0 touches
-workspace-os             ██████████   76 touches
+workspace-os             ██████████   94 touches
 yoga                     ░░░░░░░░░░   0 touches
 ```
 <!-- data:end -->
@@ -137,6 +138,7 @@ yoga                     ░░░░░░░░░░   0 touches
 | xacomigo | craft | year | — | [value-prop] write the core value proposition in 2 sent… | [→](goals/startapps-xacomigo.md) |
 | surf | fun | year | — | [find-school] find a surf school in Recife — Boa Viagem… | [→](goals/surf.md) |
 | teaching materials paradigm | craft | near | — | [inventory-material] mapear o que existe e onde — pasta… | [→](goals/teaching-materials.md) |
+| travel | fun | near | — | [one-trip] escolher UMA viagem para os próximos 12 mese… | [→](goals/travel.md) |
 | vipassana | spiritual | year | none external | [sit-5] sit in silence for 5 minutes — no guidance, no … | [→](goals/vipassana.md) |
 | voice | spiritual | near | — | [voice-map] identify one scenario where not being heard… | [→](goals/voice.md) |
 | workspace OS | health | year | none external | [v1] pass the four-criterion v1 gate — Tier 0 anti-entr… | [→](goals/workspace-os.md) |

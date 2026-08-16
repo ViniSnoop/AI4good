@@ -85,6 +85,9 @@ academy/papers/2027-CHI-cria/*
 !academy/papers/ai4good/
 academy/papers/ai4good/*
 !academy/papers/ai4good/CONTEXT.md
+!academy/papers/wos-ablation/
+academy/papers/wos-ablation/*
+!academy/papers/wos-ablation/CONTEXT.md
 
 branches/*
 !branches/CONTEXT.md
@@ -162,6 +165,7 @@ academy/papers/ai4good
 academy/papers/mechanism-search
 academy/papers/mutual-credit-ai
 academy/papers/pls-pix
+academy/papers/wos-ablation
 branches/casinhas
 branches/instituto
 code/aiwbot
