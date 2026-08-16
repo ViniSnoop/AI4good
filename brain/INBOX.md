@@ -9,6 +9,12 @@
 
 <!-- add entries below, newest first -->
 
+estudar uma forma de ativar um "auto-continue" do claude code quando o limite das sessões é atingido
+
+https://www.instagram.com/p/Db9DJojGKfS/?utm_source=ig_web_copy_link&igsh=NTc4MTIwNjQ2YQ==
+anotar em algum lugar, talvez um goal sobre viagens
+— via aiwbot · 2026-08-15
+
 vi um comentário sobre o OPUS ter MUITA SEGURANÇA sobre pontos que na verdade ele estava errado. será que temos como corrigir isso. de fato eu gostaria que todas as opiniões técnicas da IA fossem tomadas com base em pesquisas. fiquei pensando se podemos desenvolver uma base do conhecimento (KNOWLEDGE BASE), um grafo ou algum outro tipo de estrutura muito fácil de acessar (tipo por hash), que sempre teria a informação curada, com base em estudo, leituras, pesquisas e dicernimento crítico. outra coisa que pensei é instruir o modelo / os agentes dizendo que "YOU DON'T KNOW THINGS, don't feel too certain, search before giving precise technical opinions". e aí induzir ele a olhar a KNOWLEDGE BASE, inclusive se tiver lá mas for algo antigo que pode ter sido atualizado então continuar a pesquisa e atualizar, e se não tiver na base então fazer uma pesquisa mais profunda e inserir. sempre fui fã da ideia de knowledge graph, talvez isso aqui passe por esse ponto.
 
 o AGENTS.md voltou a parecer meio grande pra mim... avaliar ele com bastante carinho
