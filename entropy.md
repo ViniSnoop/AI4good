@@ -132,8 +132,8 @@ Clean.
 
 *a signal for review, never a cap — do not summarize to fit*
 
-- ROADMAP.md — 1013 lines (doc signal, review the delta)
-- SETUP.md — 356 lines (doc signal, review the delta)
+- ROADMAP.md — 1011 lines (doc signal, review the delta)
+- SETUP.md — 382 lines (doc signal, review the delta)
 - academy/papers/2026-JBCS-relativistic_raytracer/outputs/iq-fix-roadmap.md — 372 lines (doc signal, review the delta)
 - code/aiwbot/SPECS.md — 710 lines (doc signal, review the delta)
 - code/flows/SPECS.md — 709 lines (doc signal, review the delta)
@@ -147,7 +147,7 @@ Clean.
 - code/isoroll-module/ROADMAP.md — 347 lines (doc signal, review the delta)
 - core/SCHEMA.md — 455 lines (doc signal, review the delta)
 - core/flows/craft/craft.md — 382 lines (doc signal, review the delta)
-- entropy.md — 499 lines (doc signal, review the delta)
+- entropy.md — 500 lines (doc signal, review the delta)
 
 ## Source files with no interface stub
 
