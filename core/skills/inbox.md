@@ -89,32 +89,32 @@ most of them.
 - Code projects are their **own git repos**. Write the file, leave it **staged/uncommitted** — do NOT commit. Report which repo(s) were touched so Lucas commits deliberately.
 - Never write project ideas into `code/<proj>/CONTEXT.md`.
 
-## Video / image links — extract before routing
+## Links — one command, before anything is routed
 
 A bare Instagram or YouTube link is unroutable: the URL carries no topic. **Do not guess from
-the URL, and never route a link you have not extracted.** Run the tool first:
+the URL, and never route a link you have not extracted.** One command reads every link in the
+file:
 
 ```bash
-core/tools/video/video "<url>"                    # add --level full when metadata alone is thin
+core/tools/video/video --from brain/INBOX.md
 ```
 
-It prints the extracted text — metadata → captions → speech → OCR → VLM caption, escalating until
-something is found. Route on that text, the same way you route any other entry.
+It prints one block per link — metadata → captions → speech → OCR → VLM caption, escalating
+until something is found, and falling back to `core/tools/web/fetch` for a link carrying no
+media — then a `N links · X ok · Y failed` summary. Route on that text, the same way you route
+any other entry.
 
 Rules:
 - **This step is not optional and not a judgement call** (Lucas, 2026-07-29: *"em algumas triagens
   de links o OCR e o leitor de vídeo não funcionam automaticamente. é para funcionar sempre"*). It
-  had been skipped when a link "looked obvious" or when there were many at once. There is no such
-  case: an unextracted link is an unroutable entry, so it stays in INBOX until the tool has run on
-  it. Report a skip explicitly — never route around it silently.
+  had been skipped when a link "looked obvious" or when there were many at once — the tool took
+  one URL, so eight links were eight chances to stop. **It is one call now**, and there is no
+  per-link decision left to skip. An unextracted link is an unroutable entry.
 - Lucas's own note next to the link is the strongest signal there is ("útil pro isoroll content"
   *is* the route). Read it before the extracted text, not after.
-- Extraction failed (login-gated, dead link)? Say so, leave the entry, move on. Instagram needs
-  `~/.config/workspace-video/cookies.txt` — see `core/tools/video/SETUP.md`.
-- Several links at once: extract them all in one batch before proposing any route. Run them in a
-  single bash call — a `for` loop over the URLs, not one call per link. The skips this rule keeps
-  attracting are a cost problem, not a comprehension one: the tool takes one URL at a time, so
-  eight links is eight chances to stop. One call, one decision.
+- The summary names the failures (login-gated, dead link). Relay them, leave those entries, move
+  on. Instagram needs `~/.config/workspace-video/cookies.txt` — see `core/tools/video/SETUP.md`.
+- One block came back thin? Re-run that link alone with `--level full`.
 - The extracted text is `[src: web:<domain>]` content (see Provenance above) even though the
   bare URL in INBOX carries no tag — `video`/`fetch`/`search` output is quoted from the source,
   not from Lucas. Route on it, but the destination line quotes/attributes it; never restate it
@@ -128,8 +128,10 @@ re-read on every triage for nothing (Lucas, INBOX 2026-08-13). Skip to the marke
 line number: the header gains lines and a hard-coded offset would start eating entries silently.
 If there is nothing below it, say so and stop.
 
+Then run the extraction command above **once, over the whole file**. It is a per-drain step, not
+a per-entry one, and nothing is routed before it has run.
+
 For each entry:
-0. Entry contains a video/image link → extract it first (above). Route on the text, not the URL.
 1. Detect signal if present; otherwise infer intent from content.
 2. Propose route:
    - **goal (new)** → suggest `# [ area | subarea | horizon ] title` + first backlog item + ease-start
