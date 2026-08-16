@@ -7,10 +7,14 @@ Wired globally via `git config --global core.hooksPath /mnt/workspace/core/hooks
 
 ## The law lives in this directory's root, not in any checker
 
-Two modules answer the two questions — [`file_law.py`](file_law.py) what a file **is**,
-[`schema_law.py`](schema_law.py) what a name **may be** — and each reads its answer out of a
-data file beside it rather than holding one: the numbers, the vendored trees, the
-extensionless names, the `.gitignore` exceptions. The routing table below names all six.
+Three modules answer the three questions — [`file_law.py`](file_law.py) what a file **is**,
+[`schema_law.py`](schema_law.py) what a name **may be**, [`feature_law.py`](feature_law.py) what
+is **switched on** — and each reads its answer out of a data file rather than holding one: the
+numbers, the vendored trees, the extensionless names, the `.gitignore` exceptions, and (like
+`schema_law.py`, one level up in `core/`) the feature registry and its profile.
+
+Which gates consult `feature_law`, and why a row that does not is a finding:
+[`core/SPECS.md`](../SPECS.md) § AD-14.
 
 **A checker that restates any of these is the drift the checkers exist to catch.** Two
 incidents that shape this rule, and the test that guards the first: [`SPECS.md`](SPECS.md).
@@ -63,6 +67,7 @@ exist: [`code/VERIFY.md`](../../code/VERIFY.md). Installing the toolchain they d
 |------|-----------|-----|-------------|
 | [`SPECS.md`](SPECS.md) | — | — | What must be true of the enforcement layer, and why: what each gate blocks, and… |
 | [`extensionless.txt`](extensionless.txt) | — | — | Files allowed to have no extension because something OUTSIDE this workspace dictates the |
+| [`feature_law.py`](feature_law.py) | [`feature_law.pyi`](feature_law.pyi) | `load_registry`, `slugs`, `load_profile`, `is_enabled`, `setting` | What is switched ON. The third law module: file_law.py says what a file IS, schema_law.py says |
 | [`file_law.py`](file_law.py) | [`file_law.pyi`](file_law.pyi) | `is_code_file`, `load_limits`, `allowed_extensionless`, `is_vendored`, `main` | What a file IS, and which rules apply to it. The numeric-law sibling of schema_law.py: |
 | [`gitignore-exceptions.txt`](gitignore-exceptions.txt) | — | — | One "<domain>/<dir>" per line: a CONTEXT.md-bearing subdir Lucas deliberately wants left |
 | [`hook_input.py`](hook_input.py) | [`hook_input.pyi`](hook_input.pyi) | `parse_stdin`, `is_subagent`, `seen_file`, `load_seen`, `mark_seen` | Shared parser for Claude Code hook stdin JSON — nested (current) and flat (legacy shim) schemas. |

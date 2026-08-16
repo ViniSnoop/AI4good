@@ -117,6 +117,16 @@ name resolves without a decision meeting (decided 2026-07-30):
 | → `SPECS.md` | hand-authored **constraint** |
 | new type | answers a question **no type answers** — `SETUP.md` is the only one that ever qualified |
 
+**A declaration table is a fifth thing, and it takes none of these routes** (ruled 2026-08-16).
+`core/features.txt` and `core/profile.txt` join `core/hooks/limits.env`, `core/tools/deps.txt`,
+`core/hooks/vendored.txt` and `core/hooks/extensionless.txt`: tab-separated or `key=value` data,
+authored by hand, read by exactly one law module, and **never prose**. It is not an
+`UPPERCASE.md` awaiting classification — the type allowlist stays closed and untouched, which is
+the whole reason the shape is worth naming. The two at `core/` root rather than beside their
+reader are there for the same reason `core/SCHEMA.md` is: they are read by `core/hooks/`, but they
+govern the whole workspace, and a file that governs everything does not live inside one of the
+things it governs.
+
 `SPEC.md` is **not** a type: it collapses into `SPECS.md` (decided 2026-07-30, Lucas). The
 singular/plural pair was the sharpest asymmetry in the corpus — two spellings, one meaning — and it
 had leaked into enforcement, so the `> spec:` convention, `core/hooks/pre-commit` §1d,

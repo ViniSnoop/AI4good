@@ -42,9 +42,21 @@ not to go looking for an install step. They are not steps and have no probes of 
 | Claude Code hooks | `.claude/settings.json` is in the repo; Claude Code reads it when the workspace is opened, and `core/hooks/` activates immediately |
 | opencode policy plugin | `.opencode/plugins/workspace-policy.js` is a project-level plugin, auto-loaded on startup from the workspace root. Helpers live in `.opencode/wp-helpers.js`, outside `plugins/` so opencode does not load them as a second plugin |
 | Copilot hook registration | `.github/hooks/workspace-policy.json` and `.github/hooks/rtk-rewrite.json` are inert config files until Copilot itself is installed |
+| The feature registry | `core/features.txt` and `core/profile.txt` are both versioned, and `core/hooks/feature_law.py` reads them where they sit. Nothing to install |
 
 The one exception is rtk for Claude Code: its code is versioned but its registration is not, which
 is why § RTK is a step.
+
+**Before running the steps below, read your profile** — it decides which of them you need:
+
+```bash
+core/tools/wos/features                 # every capability, grouped, with your answer
+core/tools/wos/features --off <slug>    # one you do not want; its install step is then moot
+```
+
+`core/features.txt` declares what each capability is for and what it buys you, so a step you are
+about to run can be judged before it is run rather than after. That is the general/Lucas-specific
+line made executable: the `scope` column says which rows are personal.
 
 ---
 

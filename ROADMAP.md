@@ -36,13 +36,16 @@ reduced mental load. That is the real test and it can only run after v1.
 Per-step `model` = the tier that is *enough* (a floor, not a ceiling).
 🔴 needs Lucas · 🟡 pilot on one subtree first · 🟢 mechanical.
 
-**Four open steps need Lucas's own judgment: 9.5, 11.3, 14.1, 15.1.** Everything else is agent work.
+**Three open steps need Lucas's own judgment: 9.5, 11.3, 15.1** — the single list, quoted here and
+nowhere else. Everything else is agent work.
 Stating that number is part of the cure for feeling lost, so **keep it true** — it has been wrong
 three times: once claiming one while five were live; once (2026-08-16) carrying four items marked 🔴
 whose own `→ model:` line said sonnet; and once holding *two* lists of the same set, here and in
-§ Sequencing, which named different threes and so were both wrong. **Derive it from the 🔴 marks, and
-keep the two lists identical or delete one.** **🔴 means Lucas decides, not "this is hard"**; an item an
-opus-tier agent can rule on alone is 🟡. Re-derive the count from the marks before quoting it.
+§ Sequencing, which named different threes and so were both wrong. **Derive it from the 🔴 marks.**
+**This is the only list; § Sequencing points here rather than restating it.** Two lists of the same
+set is the asymmetry, and the count is only ever its symptom, so the cure is one list rather than
+two kept in sync. **🔴 means Lucas decides, not "this is hard"**; an item an opus-tier agent can
+rule on alone is 🟡. Re-derive the count from the marks before quoting it.
 
 The whole Front 10 chain came off this list on 2026-08-16 — six 🔴 items closed in one sitting,
 because they were one decision wearing six numbers and none of them could be taken alone.
@@ -519,48 +522,17 @@ declares per step are the registry's keys, already written — step 4 below supp
 the vocabulary. One dependency is still genuinely missing on this machine and `core/tools/wos/deps`
 says so on every run: **`flutter`**, without which `code/apptime`'s verify cannot run at all.
 
-4. 🟡 **the feature registry and the profile it answers.** Lucas (INBOX 2026-08-14): *"the ability
-   to toggle on and off the WOS features — LOC limit, file-per-folder limit, caveman, even
-   context-tree, … also gdrive, latex, gmail, which skills and tools"*. Two files, and the split is
-   the ruling above: a **registry**, versioned, declaring every toggleable capability with its
-   grouping and its columns — and a **profile**, also versioned *in this repo*, holding the answers,
-   because this repo is Lucas's and must reproduce across his machines. The public repo gets a
-   placeholder profile (step 5).
+**The registry is live and the profile answers it.** `core/features.txt` declares 62 capabilities,
+`core/profile.txt` holds this machine's answers, `core/hooks/feature_law.py` reads both, and
+`core/tools/wos/features` is the CLI. The rule is [`core/SPECS.md`](core/SPECS.md) § AD-14; the
+placement is [`core/SCHEMA.md`](core/SCHEMA.md) § The four disposal routes. Step 5 inherits one
+file to replace with a placeholder, which is the sync's simplest possible case.
 
-   **The vocabulary already exists in two places and they only partly overlap — reconciling them is
-   the first task, not a detail.** `SETUP.md` declares a slug per install step (13 of them), and
-   `core/tools/deps.txt` declares one per dependency (13 more); four are shared verbatim
-   (`google-auth`, `interface-stubs`, `rtk-compaction`, `web-search`) and the rest name capabilities
-   from two different angles — an install step vs. a thing that breaks. Both lists are internally
-   consistent and neither is wrong; the registry is precisely where they become one set. Do not
-   invent a third vocabulary.
-
-   **Requirement Lucas stated explicitly: each feature is declared with what it is for and what it
-   buys you** — nobody accepts an enforcement layer they cannot see the value of, and writing that
-   sentence per feature is itself an audit of whether it earns its place. `README.md` § What the
-   enforcement layer buys you already has those sentences for the hook half; the registry is where
-   they become data instead of prose.
-
-   Two payoffs, and the second is the larger one:
-   - **install** — the agent following `SETUP.md` skips a step whose feature is off, rather than
-     asking. That is the general/Lucas-specific split made executable.
-   - **ablation** — Lucas: *"it also would ease ablation tests so we can indeed see the impacts of
-     each option."* The pilot in [`core/ROADMAP.md`](core/ROADMAP.md) § ablation-bench produced no
-     signal for exactly one reason: no clean way to turn one feature off. **No feature in this
-     workspace has ever been measured**; a toggle is the cheapest instrument that would let one be.
-
-   Design constraint: a toggle must reach the *enforcement* layer, not just the docs. The numbers
-   already centralise (`core/hooks/limits.env`), the types already centralise (`core/SCHEMA.md`) —
-   so the registry mostly names which hooks/skills/tools are wired rather than re-implementing their
-   rules. **Anything that cannot be switched off is a finding**: the capability is entangled with the
-   scaffold rather than sitting on it.
-
-   **One more field, named by Lucas 2026-08-14 (INBOX):** *"deveríamos oferecer a opção de idioma
-   principal para a interação com o usuário"* — thinking of third parties. A profile field like any
-   other, but it lands on **agent-facing text**, not source docs. This workspace's own prose stays
-   deliberately mixed (rationale in Portuguese, contracts in English); the setting governs the
-   language the agent *answers* in. Cheapest shape that does not fork the corpus.
-   → **model: sonnet**.
+**Sixty of the 62 are not switchable, and that number is the work** — `features --findings` prints
+it, so it is never copied here. Wiring one is mechanical: call `feature_law.is_enabled()` in the
+file that enforces the rule, then name that file in the `wired` column. Two are wired as the
+proof, one per seam — a shell gate and a node hook, both through the same `--enabled` arm.
+**Front 14 cannot report on a feature whose row still reads `-`.**
 
 5. 🟡 **the public scaffold repo and its one-way sync.** A **separate public repository**, not a
    branch — personal history never leaves this repo, where a branch would carry every commit that
@@ -798,7 +770,7 @@ is no conceptual intersection."* Each type answers exactly one question.
 > bem publicável."* The ablation and the paper are one artifact, so the experimental design lives
 > there and this front holds only the build work it depends on.
 
-1. 🔴 **build the instrument, then run the ablation.** Lucas, INBOX 2026-08-15: *"um engenheiro
+1. 🟡 **build the instrument, then run the ablation.** Lucas, INBOX 2026-08-15: *"um engenheiro
    líder da Anthropic sugeriu de tempos em tempos a gente 'deletar' o CLAUDE.md e ver como modelos
    top (como o Opus) performam, dizendo que poderíamos nos surpreender. ou seja, diminuir a carga de
    instruções. esta recomendação é bem forte pro nosso caso. tudo que o WOS faz (ou pelo menos boa
@@ -999,12 +971,17 @@ months anyway. Cheaper than a list nobody reads.
 governing constraint in [`brain/goals/workspace-os.md`](brain/goals/workspace-os.md) applies at full
 force to it: an item that does not earn its keep is a candidate for *Rejected*, not the backlog.
 
-1. **10.4** — the feature registry and profile. Not a sibling of 14.1, its **instrument** — the
-   ablation's first run produced no signal because no feature could be switched off. The vocabulary
-   already exists: `SETUP.md` declares a feature slug per step, so this supplies answers, not names.
+**14.1 is no longer waiting on an instrument — it waits on a backlog.** The registry exists; what
+it reports is that 60 of 62 capabilities still cannot be switched off, and that list is what an
+ablation has to eat through. Read it from `core/tools/wos/features --findings`, never from here.
+
+1. **wire the registry's findings** — the mechanical follow-on, one feature per commit: call
+   `feature_law.is_enabled()` where the rule is enforced, then name that file in the `wired`
+   column. **Front 14 cannot report on a feature whose row still reads `-`**, so this is the
+   ablation's real precondition and the count lives in the tool, never copied here.
 2. **10.5** — the public scaffold repo at `code/wos/` and its one-way sync. The allowlist is the
-   deliverable.
-3. **14.1** — the ablation, once 10.4 has *shipped* rather than been designed.
+   deliverable, and `core/profile.txt` is the one file it replaces with a placeholder.
+3. **14.1** — the ablation, against whatever is switchable by then.
 
 Alongside, in any order, all mechanical:
 
@@ -1015,13 +992,11 @@ Alongside, in any order, all mechanical:
 - **12.1** the `SPEC.md`→`SPECS.md` migration — one reviewed change across five enforcement points.
 - **4.6** the first-line-comment gate, **4.8** the `python_api` walk, **8.2**, **8.3**, **9.6**.
 
-**Needing Lucas: four.** 9.5 (agents vs skills), 11.3 (resume or kill SDD), 14.1 (the ablation),
-15.1 (the knowledge base). Re-derived from the 🔴 marks 2026-08-16, which is how the disagreement
-below was caught — this list said 9.5/11.3/15.1 and § How to read this said 9.5/14.1/15.1, so each
-was missing a different item and both claimed three. **Two lists of the same set is the asymmetry;
-the count is the symptom.** Worth a look on the next pass: 14.1's 🔴 may be a mis-mark — Lucas has
-already asked for the ablation, and its own line reads *"model: opus for the design"*, which by
-§ How to read this makes it 🟡. Left alone here because re-tiering his item is his call.
+**Needing Lucas: the list is in § How to read this and only there.** It used to be restated here,
+and the two copies named different threes — each missing a different item, both claiming three.
+**Two lists of the same set is the asymmetry; the count is the symptom**, so the cure is one list,
+not two careful ones. 14.1 was the item they disagreed about and it is now 🟡: Lucas ruled
+2026-08-16 that it needs no ruling, only its precondition.
 
 ## Model-switching guide
 

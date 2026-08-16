@@ -6,6 +6,13 @@ set -euo pipefail
 HOOKS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 source "$HOOKS_DIR/limits.env"
 
+# Whether this gate runs at all is an answer in core/profile.txt, asked through the law module
+# rather than re-read here — same arm, same reason, as file_law.py --filter-code below. Exiting 0
+# is what "off" means for a gate: it stops rejecting, it does not fail.
+if ! python3 "$HOOKS_DIR/feature_law.py" --enabled line-limit; then
+  exit 0
+fi
+
 : "${WARN_LINES:=150}"
 : "${BLOCK_LINES:=200}"
 

@@ -23,7 +23,7 @@ reconcile: [`../SPECS.md`](../SPECS.md).
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
 | [`activate.js`](activate.js) | [`activate.d.ts`](activate.d.ts) | — | caveman — Claude Code SessionStart activation hook |
-| [`config.js`](config.js) | [`config.d.ts`](config.d.ts) | `getConfigDir`, `getConfigPath`, `getDefaultMode`, `readFlag` | caveman — shared configuration resolver, and the façade the hooks import |
+| [`config.js`](config.js) | [`config.d.ts`](config.d.ts) | `getConfigDir`, `getConfigPath`, `featureOff`, `getDefaultMode`, `readFlag` | caveman — shared configuration resolver, and the façade the hooks import |
 | [`flagfile.js`](flagfile.js) | [`flagfile.d.ts`](flagfile.d.ts) | `safeWriteFlag`, `readFlag`, `appendFlag`, `readHistory` | caveman — reads and writes of the mode flag and the lifetime history log |
 | [`mode-tracker.js`](mode-tracker.js) | [`mode-tracker.d.ts`](mode-tracker.d.ts) | — | caveman — UserPromptSubmit hook to track which caveman mode is active |
 | [`safepath.js`](safepath.js) | [`safepath.d.ts`](safepath.d.ts) | `debugLog`, `resolveSafeDir`, `isWritableTarget`, `prepareTarget`, `withFd` | caveman — symlink-safe path resolution shared by every flag-file writer |

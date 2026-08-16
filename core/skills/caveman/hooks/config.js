@@ -39,7 +39,29 @@ function getConfigPath() {
   return path.join(getConfigDir(), 'config.json');
 }
 
+// Is the workspace's `caveman` feature switched on? Asked of core/hooks/feature_law.py rather
+// than answered here, because the registry and the profile are the one home for that answer and a
+// second reader of them is the drift the law modules exist to prevent.
+//
+// Fail-OPEN by construction: this hook is registered globally and runs in sessions that are not
+// inside the workspace at all, where the law is simply absent. Absent law means unchanged
+// behaviour, never a dead hook.
+function featureOff() {
+  try {
+    const law = path.join(__dirname, '..', '..', '..', 'hooks', 'feature_law.py');
+    if (!fs.existsSync(law)) return false;
+    return require('child_process')
+      .spawnSync('python3', [law, '--enabled', 'caveman']).status === 1;
+  } catch (e) {
+    return false;
+  }
+}
+
 function getDefaultMode() {
+  // 0. The workspace switch. Returning 'off' is the whole wiring: every caveman hook already
+  //    handles that mode, so the feature goes dark through the path it already had.
+  if (featureOff()) return 'off';
+
   // 1. Environment variable (highest priority)
   const envMode = process.env.CAVEMAN_DEFAULT_MODE;
   if (envMode && VALID_MODES.includes(envMode.toLowerCase())) {

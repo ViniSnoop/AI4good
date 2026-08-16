@@ -186,6 +186,38 @@ nasce depois que o prompt já passou.
 
 Medição e sonda: [`core/experiments/subagent-context-chain.md`](experiments/subagent-context-chain.md).
 
+### AD-14 — Capacidade que não pode ser desligada é achado, não recurso (2026-08-16)
+
+O bench de ablação rodou uma vez e não produziu **nenhum** sinal, por um motivo só: não havia como
+desligar uma funcionalidade de cada vez. Enquanto isso for verdade, nada neste workspace é
+mensurável — e nenhuma regra daqui jamais foi medida.
+
+Então o registro é o **instrumento**, não um sistema de configuração. `core/features.txt` declara
+cada capacidade (grupo, força de enforcement, escopo, e o que ela te dá); `core/profile.txt` guarda
+as respostas desta máquina; `core/hooks/feature_law.py` é o terceiro módulo de lei — `file_law.py`
+diz o que um arquivo **é**, `schema_law.py` o que um nome **pode ser**, este diz o que está
+**ligado**. O registro **nomeia** qual hook/skill/tool está ligado e nunca reescreve a regra que
+aquele hook aplica; checker que reescreve a lei é justamente a deriva que os checkers existem para
+pegar.
+
+Três decisões que carregam o peso:
+
+- **A coluna `wired` é honesta ou não serve.** Ela nomeia o arquivo que chama `is_enabled()`, e um
+  `-` é contado por `core/tools/wos/features --findings`. Linha que se diz ligada sem estar faria a
+  ablação relatar "sem efeito" para algo que nunca foi desligado — o mesmo fracasso silencioso que
+  custou o sinal da primeira rodada. `test_features.py` lê o arquivo citado e cobra o slug lá
+  dentro.
+- **`is_enabled` falha ABERTO em slug desconhecido.** Um gate nunca pode parar de enforcar porque
+  alguém errou uma linha de dados. Isso é o que torna seguro ligar qualquer gate ao registro: na
+  pior hipótese ele se comporta como antes de o módulo existir.
+- **`WOS_FEATURES_OFF` só subtrai.** Não existe `WOS_FEATURES_ON`, e a assimetria é de propósito:
+  uma rodada de ablação responde *quanto custa este workspace sem X*. Ligar algo é decisão
+  versionada no profile, não variável de ambiente que some com o shell.
+
+O join é o que impede um terceiro vocabulário: `SETUP.md` declara um slug por passo de instalação
+(coluna `install`), `core/tools/deps.txt` um slug por dependência (coluna `slug`). Treze cada, quatro
+compartilhados — três arquivos, um vocabulário só, cobrado por teste.
+
 ## Conventions
 
 - **Um comando cujo status é um gate nunca vai para dentro de um pipe** (achado 2026-08-13, custou um falso "main pushed"). Em `a | tail && b`, o status é o do `tail`, não o do `a` — então `git merge --ff-only x 2>&1 | tail -1 && git push` executa o push mesmo com o merge abortado, e a sessão reporta sucesso de algo que não aconteceu. Para sequências onde cada passo autoriza o próximo: `set -e` e sem pipes, ou capturar o status explicitamente. Filtrar saída é para inspeção, não para decisão.

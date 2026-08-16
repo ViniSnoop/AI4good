@@ -120,6 +120,8 @@ core/*
 !core/MIGRATION-STATUS.md
 !core/SPECS.md
 !core/WATCHLIST.md
+!core/features.txt
+!core/profile.txt
 !core/agents/
 !core/flows/
 !core/hooks/

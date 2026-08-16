@@ -1,0 +1,98 @@
+# Every toggleable capability this workspace has, declared: what group it belongs to, how hard it
+# enforces, whether it is general or Lucas-specific, and whether it can actually be switched off.
+# Read by core/hooks/feature_law.py; the answers live in core/profile.txt.
+#
+# WHY THIS FILE EXISTS: the ablation bench ran once and produced no signal for exactly one reason —
+# there was no clean way to turn a single feature off. No feature in this workspace has ever been
+# measured. This file is the instrument, not a config system: it NAMES which hook/skill/tool is
+# wired and never restates the rule that hook enforces. A checker that restates the law is the
+# drift the checkers exist to catch.
+#
+# THE TWO VOCABULARIES IT RECONCILES, and it does not invent a third:
+#   SETUP.md          declares a slug per install step ("what do I run")     -> the `install` column
+#   core/tools/deps.txt declares a slug per dependency ("what breaks")       -> the `slug` column
+# Thirteen each, four shared verbatim. Both are the wrong shape for a toggle on their own: neither
+# covers the enforcement layer, which has no install step and no dependency and is three quarters
+# of what Lucas asked to be able to switch off. So this key set is a strict superset of their union.
+#
+# Tab-separated. Columns:
+#   slug         the feature's identity. Every `feature` in core/tools/deps.txt appears here.
+#   group        hooks | context-tree | brain | capabilities | skills — matches the tree, so a
+#                feature is findable. Nothing is both a hook and a skill; that is the symmetry test.
+#   install      the SETUP.md step that installs it, or - . Every `> feature:` slug in SETUP.md
+#                appears in this column. THIS IS THE JOIN: three files, one vocabulary.
+#   enforcement  blocks | warns | generates | advises | none — how hard it pushes.
+#   scope        general | lucas . This column is the general/Lucas-specific line: it is not a
+#                document, it is what the public sync is allowed to copy.
+#   wired        path of the file that calls feature_law.is_enabled(), or - .
+#                A `-` IS A FINDING, counted by `core/tools/wos/features --findings`: a capability
+#                that cannot be switched off is entangled with the scaffold rather than sitting on
+#                it. Do not hide the count by claiming a row is wired when it is not; the honesty
+#                test in test_features.py greps the named path for the slug.
+#   buys         one sentence: what it is for and what it buys you. Required, because nobody
+#                accepts an enforcement layer they cannot see the value of, and writing this
+#                sentence per feature is itself an audit of whether the feature earns its place.
+#
+slug	group	install	enforcement	scope	wired	buys
+context-chain	context-tree	-	blocks	general	-	An agent cannot touch a file in a subtree it has not oriented in, including through cat and grep, so it arrives knowing the neighbourhood instead of guessing from a filename
+interface-first-reads	context-tree	interface-stubs	blocks	general	-	Reading a source file is blocked while its generated stub is current, so the agent reads 30 lines of signatures instead of 200 lines of body
+interface-stubs	context-tree	interface-stubs	generates	general	-	The .pyi / .d.ts / .dart.api / .texif stubs regenerate on every save, so the interface-first read can never serve a stale summary
+routing-tables	context-tree	-	generates	general	-	Each directory's file list writes itself from first-line comments; nobody maintains an index, and an index nobody maintains is the one that lies
+agent-context-brief	context-tree	-	advises	general	-	A spawned subagent is handed its subtree's CONTEXT.md chain instead of being gated on it, so briefing a worker stops being a discipline the orchestrator has to remember
+subtree-read-tracking	context-tree	-	none	general	-	Records which CONTEXT.md a session has already read, which is what lets the chain gate fire once per subtree instead of once per file
+line-limit	hooks	-	blocks	general	core/hooks/checks/check-line-counts.sh	Forces graph-shaped design: small single-responsibility files with explicit imports, because an agent that cannot grow a file has to actually decompose it
+fanout-limit	hooks	-	warns	general	-	Counts how many files one directory asks a reader to hold at once; a split costs one routing hop, so the warn sits where that hop starts to pay for itself
+context-head-budget	hooks	-	warns	general	-	A token in a CONTEXT.md head is paid by every session that touches the subtree, so the head is asked to justify its length rather than capped
+first-line-comment	hooks	-	warns	general	-	Every code file opens with a line saying what it is, and that line is what the routing generator publishes, so the index writes itself
+duplication-gate	hooks	declared-deps	blocks	general	-	jscpd blocks a commit whose staged files clone existing logic; copy-paste is the failure mode agents are fastest at
+facade-discipline	hooks	-	blocks	general	-	Cross-module imports that reach around index / __init__ are blocked, so module boundaries stay real and a rename does not become an archaeology project
+type-gate	hooks	-	blocks	general	-	UPPERCASE.md names are a closed allowlist, ratcheted on what a commit adds, so inventing a file type is a deliberate act instead of an accident
+citation-gate	hooks	-	blocks	general	-	A roadmap item number is not a citable identifier outside the roadmap family, because a closed item is deleted and every citation of it becomes a dead pointer
+bugs-gate	hooks	-	blocks	general	-	A bug cannot be flipped to FIXED without a matching regression test, so "it works now" stops being a claim and becomes a file
+spec-read-gate	hooks	-	blocks	general	-	Editing a module with a locked contract requires having read that contract this session
+heredoc-gate	hooks	-	blocks	general	-	Blocks writing a file through a bash heredoc, which is the one path that bypasses every edit-time gate
+verify-suite	hooks	-	blocks	general	-	make verify-fast is what the pre-commit gate checks against; without it the gate has nothing to run
+verify-contract	hooks	-	blocks	general	-	A project declaring verify:fast must be green to commit, discovered by convention, so a new project opts in by naming a script rather than by wiring anything
+project-contract	hooks	-	blocks	general	-	What a code/ project must declare before it can commit: verify contract, goal link, spec, branch shape, .md type and gitlink
+gitflow-gate	hooks	git-hooks	blocks	general	-	Blocks direct commits to main / master / develop and requires feature|release|hotfix, so a shared branch only ever moves by promotion
+gitlink-gate	hooks	git-hooks	blocks	general	-	Blocks committing an undeclared nested gitlink, which is how a nested repo silently becomes a pointer nobody can clone
+gitignore-self-heal	hooks	git-hooks	generates	general	-	The .gitignore allowlist repairs itself, so a new subtree cannot go untracked and thereby opt out of every check the workspace runs
+lint-typescript	hooks	lint-typescript	blocks	general	-	ESLint and Prettier over staged TypeScript, run last because it needs the .d.ts the generators just wrote
+declared-deps	hooks	declared-deps	warns	general	-	Every external dependency is declared with what installs it and what its absence breaks, so a fresh clone loses a capability loudly instead of silently
+python-runtime	hooks	python-runtime	none	general	-	The .venv every hook and tool executes on; without it the enforcement layer cannot run at all
+tool-shebangs	hooks	tool-shebangs	none	general	-	core/tools CLIs are executable by name, which is what lets any agent call a capability through bash instead of through per-agent wiring
+opencode-plugin	hooks	-	none	general	-	The provider shim that lets a second harness run the same canonical gates, which is what keeps the enforcement layer provider-agnostic in fact and not just in intent
+brain-dashboard	brain	-	generates	lucas	-	GOALS.md renders its own attention bars and active-goal table, so the dashboard cannot drift from the goal files it summarises
+brain-attention	brain	-	none	lucas	-	Counts the commits that actually touched each goal's declared paths, across every repo in the workspace, instead of counting edits to the goal file
+inbox-nudge	brain	-	advises	lucas	-	Says at session start when brain/INBOX.md has piled past a threshold, so capture stays free without the queue quietly going unread
+compass-nudge	brain	-	advises	lucas	-	A soft, ignorable reminder that the strategic review has not run in a while
+telegram-capture	brain	telegram-capture	none	lucas	-	An away-from-PC front door into brain/INBOX.md, so a thought lands in the workspace instead of in a chat app
+context-meter	hooks	-	advises	general	-	Says once per threshold what the next turn costs, so a session crosses into an expensive band knowingly rather than by drift
+precompact-wipe	hooks	-	none	general	-	Clears the CONTEXT.md seen-markers before a compaction, so the chain is re-read by a session that no longer remembers reading it
+entropy-dashboard	hooks	-	none	general	-	Naming, placement, pointer integrity, fanout and size run as deterministic checks over this repo and every nested one, giving a number that must shrink instead of a feeling that the repo is messy
+rtk-compaction	capabilities	rtk-compaction	none	general	-	Compresses tool output before it reaches the context by 60-90%, transparently, with nothing to type
+web-search	capabilities	web-search	none	general	-	One entrypoint every agent calls for search, resolving its own backend, so picking a search CLI is a maintenance burden inside one script instead of in every agent's prompt
+google-auth	capabilities	google-auth	none	lucas	-	Shared OAuth2 for every Google-backed tool: mail, calendar, files and slides
+mail-triage	capabilities	-	none	lucas	-	Reads a mailbox and classifies it into workspace routes, so email arrives as INBOX entries rather than as a second queue
+notes-notion	capabilities	-	none	lucas	-	Pages and note databases read as navigable text
+paper-tools	capabilities	-	none	general	-	Academic search and text extraction: paper search, PDF and docx parse, and the term-consistency check every paper commit runs through
+video-text	capabilities	-	none	general	-	Turns a media link into navigable text through metadata, captions, transcript, OCR and visual captioning, which is what makes a link in the INBOX drainable
+asset-inspect	capabilities	-	none	general	-	Interface stubs for non-code assets, so an image or a CSV is readable without opening it
+latex	capabilities	latex	none	general	-	The toolchain academy/papers compiles with, so a paper builds and its interface stubs and label checks run on the same machine that writes it
+codeburn	capabilities	codeburn	none	lucas	-	A periodic by-hand audit of token waste; wired into no gate on purpose
+apptime-verify	capabilities	-	blocks	lucas	-	flutter, without which code/apptime's verify cannot run at all and its commits are gated by nothing
+caveman	skills	caveman	none	lucas	core/skills/caveman/hooks/config.js	Compresses the agent's own prose by roughly 65% without touching technical content, and goes off with a sentence when precision matters
+craft-flow	skills	-	none	general	-	Develops a feature in file-relayed loops with model autorouting, so a plan carries its own model assignment instead of leaving routing to recall at execution time
+roundup-ritual	skills	-	none	general	-	Drains the session's ledgers into durable files and promotes the branch, so a session's knowledge survives it and no repo idles on an open branch
+handoff-prompt	skills	-	none	general	-	Writes the next session's opening prompt, and refuses when there is nothing open
+inbox-triage	skills	-	none	lucas	-	Routes every INBOX entry to a goal, task, reference or project doc, which is what makes capture free without making the queue permanent
+compass-review	skills	-	none	lucas	-	The strategic review: what has wind, what to reorder, what to ditch guilt-free
+research-flow	skills	-	none	general	-	The research workflow, from scouting sources to a written synthesis
+prepare-prompt	skills	-	none	general	-	Turns a raw task into an optimised agent prompt, recommending model and effort
+dedup-audit	skills	-	none	general	-	Semantic duplication audit for a code project: the near-duplicate logic the verbatim-clone gate misses
+install-skill	skills	-	none	general	-	Probes every step in SETUP.md on this machine, reports what is missing and executes it
+gmail-triage	skills	-	none	lucas	-	Triages Gmail across every configured account and writes the routes into brain/INBOX.md
+calendar-read	skills	-	none	lucas	-	Lists upcoming events and queries date ranges across every configured calendar account
+drive-read	skills	-	none	lucas	-	Lists, searches and downloads files from Google Drive across every configured account
+foundry-ref	skills	-	none	lucas	-	Foundry VTT module development reference, loaded only when that work is in front of us
+iso-visual	skills	-	none	lucas	-	The isoroll visual-semantics reference: image-to-text conventions and known model failure modes
