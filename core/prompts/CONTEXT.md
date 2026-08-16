@@ -6,7 +6,4 @@ One file per prepared session. Produced by `/prepare` or triage sessions. Delete
 <!-- routing:start -->
 ## Routing
 
-| File | Description |
-|------|-------------|
-| [`fable-instituto.md`](fable-instituto.md) | tier: max (fable) · effort: high · deliverable… |
 <!-- routing:end -->

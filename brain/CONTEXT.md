@@ -33,7 +33,7 @@ Design rationale → [SPECS.md](SPECS.md) § Rationale.
 
 | Subdirectory | Description |
 |--------------|-------------|
-| [`attachments/`](attachments/CONTEXT.md) | — |
+| [`attachments/`](attachments/CONTEXT.md) | Files captured from Gmail and Telegram, filed by month — the raw material, not a… |
 | [`goals/`](goals/CONTEXT.md) | One file per goal — organic growth from seed to full. Dashboard + router… |
 | [`memory/`](memory/CONTEXT.md) | What the agent learned across sessions and nothing else records… |
 
