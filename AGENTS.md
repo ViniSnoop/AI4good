@@ -9,11 +9,9 @@
 - WOS = workspace os.
 - EDIT > CREATE: refine / improve / reduce **wins over** creating new, except for prototyping. Avoid scattering.
 - SYMMETRY IS A CORE VALUE, semantic and structural. When you find an asymmetry, write it down.
-- **`UPPERCASE.md` = a type, `lowercase.md` = an instance.** Types are a closed allowlist.
 - **DONE WORK IS DELETED. GIT IS THE HISTORY.** No strikethrough, no annotated corpses.
 - USE OUR TOOLS / FLOWS: we want those to be useful and perfected.
 - **AGENT-FACING TEXT NAMES ONE ACTION.** A hook message, nudge or skill instruction is read mid-thread, not studied. Name the one flow to run — never its internals, never two commands, never "do the thing" in the abstract. Every extra noun is a decision the agent may improvise against.
-- PLANS LIVE IN ROADMAPS: any plan must be persisted in the target project's `ROADMAP.md` — inline or as a `ROADMAP-<slug>.md` referenced from it.
 
 Git Flow, the branch gate's scope, the `--no-verify` protocol, and the push policy:
 [`code/SPECS.md`](code/SPECS.md) § Git Branching. *Gated by `core/hooks/git/gitflow-gate.sh`.*

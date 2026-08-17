@@ -286,12 +286,22 @@ sure as well that we do not create a new .md file for each specific minor thing.
 
 The resolution follows from the type table itself. A rollout is *intent, plan, and what we rejected*,
 scoped to one initiative — which is precisely the question ROADMAP answers. It never needed a name
-of its own; it needed a **scope suffix**, and the workspace already sanctions one: the workspace
-root rules ([AGENTS.md](../AGENTS.md)) say a plan lives inline in the target project's roadmap **or
-as a referenced ROADMAP-\<slug\>.md**. So the target shape is ROADMAP-\<slug\>.md, the conceptual
-intersection with ROADMAP disappears (there was one: both answer *what do we intend to do*), and the
-type count does not grow. **Five differently-named files were the symptom of a missing suffix, not
-of a missing type.**
+of its own; it needed a **scope suffix**. So a structural plan lives inline in the target project's
+roadmap **or as a referenced ROADMAP-\<slug\>.md** — that sanction is this table's, enforced by
+`checks/type-gate.py` against the exempt set closed at four. The conceptual intersection with ROADMAP
+disappears (there was one: both answer *what do we intend to do*), and the type count does not grow.
+**Five differently-named files were the symptom of a missing suffix, not of a missing type.**
+
+**A session plan is not a roadmap, and the type system does not reach it** (ruled 2026-08-17, Lucas:
+*"session plans and roadmaps are two different things… I am not even sure we need to keep that
+directive"*). They differ in kind, not in placement: a roadmap is **structural, mid- and long-term**
+and is re-read every few sessions; a session plan is **ephemeral, short-term, detailed execution**,
+alive for one sitting. So a harness that writes a session plan to its own scratch path creates no
+conflict with anything here — there is nothing to track, and the roadmap is not forgotten because a
+plan sat elsewhere for an afternoon. The workspace-root rules used to carry a `PLANS LIVE IN ROADMAPS`
+directive that read as a conflict precisely because it conflated the two; it was **deleted** rather
+than given an exception, since placement of the structural kind is already blocked by the gate above
+and the ephemeral kind was never in scope.
 
 Membership **only shrinks** and each survivor has a route.
 

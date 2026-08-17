@@ -83,41 +83,6 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
    taught. Record the result in [`core/experiments/context-window.md`](core/experiments/context-window.md).
    → **model: sonnet**.
 
-1. 🟡 **test the six "inverted practices" against our own instructions.** Claim, from a practitioner post
-   (`[C]`, ref in [core/refs/REFS.md](core/refs/REFS.md), captured INBOX 2026-07-31, Lucas: *"ver se é
-   verdade e se for estudar como aproveitar no wos"*): Anthropic cut **>80%** of Claude Code's system
-   prompt for its newest models and replaced hardcoded rules with judgement over rules, interfaces over
-   examples, disclosure over dumping — `TodoWrite` reportedly going from ~9.1k chars of worked examples to
-   an enum-typed interface, verification and code review moving out of the prompt into on-demand skills,
-   and tool definitions deferred behind `ToolSearch` until needed.
-   **The 80% number is self-reported with no published benchmark and is not independently verifiable — do
-   not cite it.** The *framework* is testable here, which is the whole value: our own hooks already prove
-   the mechanism half of it (a hook's error message is a zero-token instruction that arrives exactly when
-   it applies), and the MOVE OUT bucket in 3.2 is the same move by another name.
-   Concrete probe, cheapest first: take the two or three most rule-shaped surfaces we own — `AGENTS.md`,
-   the fattest `CONTEXT.md` heads, and the skills flagged in `core/ROADMAP.md` — and ask per rule whether
-   it could be a **tool parameter, an enum, or a hook message** instead of prose. Whatever survives that
-   question is prose that earns its place. Feeds directly into 3.2's MOVE OUT and the skills audit.
-   → **model: opus** for the judgement pass, sonnet for the rewrites.
-2. 🟡 **the `AGENTS.md` pass — and say plainly that it is not a cost item.** Lucas asked for it as
-   one (*"o AGENTS.md voltou a parecer meio grande… avaliar ele com bastante carinho"*), but it is
-   **754 tokens, 2.7% of turn 1** ([`core/experiments/context-window.md`](core/experiments/context-window.md)):
-   halving it saves nothing measurable, and selling it as savings repeats the error Front 9 spent
-   three weeks inside. Run it as a real audit with the `claude-api` skill's `shared/prompt-audit.md`
-   method and, more importantly, **its keep-list** — *context is never cruft; cruft ≠ length; never
-   justify a deletion by character count alone*. Deliver a three-column verdict per rule: **delete**
-   (a hook already enforces it), **move** (a hook could), **keep** (judgment no check can hold).
-
-   Two findings already in hand. `UPPERCASE.md = a type, lowercase.md = an instance` is enforced by
-   `type-gate.py` and `schema_law.py` off `core/SCHEMA.md` — prose restating a live check is the
-   drift the checks exist to catch. And **`PLANS LIVE IN ROADMAPS` is contradicted live**: the
-   harness requires a planning session to write its plan to `~/.claude/plans/`, a path no clone of
-   this workspace would ever get. Either the rule gains an exception for harness-imposed paths or
-   the plan is copied into the target ROADMAP at exit — **that half is Lucas's call**; the rest is
-   agent work. Ours is small against the AIware 2026 baseline (`core/refs/REFS.md` § Output cost),
-   and what is unusual is how much has already moved out of it into hooks. **Propose, do not swing.**
-   → **model: opus**.
-
 ---
 
 ## Front 4 — workspace anti-entropy — **the keystone, v1 criterion 1**

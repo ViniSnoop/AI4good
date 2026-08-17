@@ -275,6 +275,20 @@ pattern, and 59 well-commented files were marked undescribable — one of them i
 which was read as proof of a discipline hole until the generator was asked. **A marker is not
 evidence of a discipline problem until the generator has been asked whether it can answer it.**
 
+### The next gate: finished-work prose is detected but never blocked
+
+`entropy/entropy_ledger.py` carries the detector for prose describing work that already landed, and
+the dashboard counts it — but `checks/type-gate.py` imports only `goal_vocabulary` and
+`wiki_link_hits` from that module, so the finished-work half **reports and never blocks**. It is the
+same shape as the first-line hole above: a rule already in force, with an edit-time cost of zero and
+no staged-set gate, accumulating a standing queue nobody is charged for.
+
+Wiring it is one import plus one call in the commit gate, and it must go in **ratcheted to what a
+commit adds**, like every other Tier 0 check — the open queue is non-trivial, and a gate that fails
+on the day it lands trains people to ignore it. Until it blocks, the rule stays written in
+`AGENTS.md`: [`core/SPECS.md`](../SPECS.md) § AD-15 makes blocking, not the mere existence of a
+detector, the thing that licenses deleting the prose.
+
 ## What a working install looks like
 
 Behavioural assertions — these are what the gates promise, and the list a new shim is tested

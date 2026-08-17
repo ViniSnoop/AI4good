@@ -288,6 +288,40 @@ O join é o que impede um terceiro vocabulário: `SETUP.md` declara um slug por 
 (coluna `install`), `core/tools/deps.txt` um slug por dependência (coluna `slug`). Treze cada, quatro
 compartilhados — três arquivos, um vocabulário só, cobrado por teste.
 
+### AD-15 — O que uma regra sempre-carregada precisa provar para ficar (2026-08-17)
+
+Vale para todo texto que entra em toda sessão: `AGENTS.md`, cabeça de `CONTEXT.md`, skill sempre
+listada. A pergunta **não é tamanho**. É: *isto poderia ser um parâmetro de ferramenta, um enum, ou a
+mensagem de erro de um hook, em vez de prosa?* O que sobrevive a essa pergunta é prosa que se paga.
+Três colunas por regra:
+
+| coluna | quando | o que acontece |
+|---|---|---|
+| **delete** | um gate **bloqueante e catracado** já aplica a regra | sai da prosa; o hook é a regra |
+| **move** | um check *poderia* aplicá-la, mas nenhum aplica hoje | **fica na prosa** até o gate bloquear |
+| **keep** | julgamento que check nenhum segura | fica, e a razão fica junto |
+
+**O discriminador entre `delete` e `move` é bloqueio, não existência de detector** — foi o que separou
+duas linhas vizinhas de `AGENTS.md` nesta passada. `UPPERCASE.md = tipo` saiu porque
+`checks/type-gate.py` barra o commit. `DONE WORK IS DELETED` ficou: `entropy/entropy_ledger.py` tem o
+detector de prosa-de-obra-feita, mas `type-gate.py` importa dele só a metade de wiki-links, então a
+regra é **relatada e nunca barrada** — apagar a prosa com base num relatório é trocar enforcement por
+nada. Um detector existente e desligado é a coluna `move`, não a `delete`.
+
+**Contrapesos, porque a poda indiscriminada é o único jeito de a auditoria piorar as coisas**
+(keep-list do método `prompt-audit`): contexto nunca é cruft; cruft ≠ comprimento; **nenhuma remoção
+se justifica por contagem de caracteres sozinha**. Auditoria que não acha nada não muda nada.
+
+**E isto não é item de custo.** `AGENTS.md` é uma fração de um dígito do turno 1
+([`core/experiments/context-window.md`](experiments/context-window.md) — releia, não cite daqui):
+cortá-lo pela metade não economiza nada mensurável, e vender isso como economia repete o erro que a
+frente de custo levou três semanas para desfazer. O ganho é enforcement, não tokens.
+
+A moldura veio de um post de prática (`[C]`, `core/refs/REFS.md`) que afirma corte de **>80%** do
+system prompt do Claude Code. **O número é auto-relatado, sem benchmark publicado — não é citável.** O
+que é testável, e é todo o valor, é a moldura: nossos próprios hooks já provam a metade mecânica dela
+— a mensagem de erro de um hook é uma instrução de custo zero que chega exatamente quando se aplica.
+
 ## Conventions
 
 - **Um arquivo não-rastreado não apenas fica sem backup — ele opta por sair de todo check que o
