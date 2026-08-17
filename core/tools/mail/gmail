@@ -10,6 +10,7 @@ sys.path.insert(0, str(_HERE))
 sys.path.insert(0, str(_HERE.parent))
 sys.path.insert(0, str(_HERE.parent / 'auth'))
 import gmail_fetch, gmail_triage, gmail_attachments, gauth
+import tool_law
 
 CONFIG_DIR = pathlib.Path.home() / ".config" / "workspace-gmail"
 CACHE_FILE = CONFIG_DIR / "fetch_cache.json"
@@ -115,6 +116,7 @@ def cmd_attachments(email_id: str | None) -> None:
 
 
 def main():
+    tool_law.require('mail-triage')  # before argparse: off means off, including --help
     p = argparse.ArgumentParser(prog="gmail")
     sub = p.add_subparsers(dest="cmd")
 

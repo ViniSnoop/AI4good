@@ -6,6 +6,8 @@
 # core/tools/SPECS.md § A step an agent must never skip has to cost one call.
 import sys, json, re, pathlib, subprocess
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))  # tools root
+import tool_law  # noqa: E402
 from video_core import assemble
 
 USAGE = ("Usage: core/tools/video/video <url>... | --from <file> "
@@ -107,6 +109,7 @@ def parse_args(args):
 
 
 def main(argv=None):
+    tool_law.require('video-text')  # before argparse: off means off, including --help
     args = list(sys.argv[1:] if argv is None else argv)
     if not args or args[0] in ("-h", "--help"):
         print(USAGE, file=sys.stderr)

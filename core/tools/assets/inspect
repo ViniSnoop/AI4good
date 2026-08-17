@@ -2,6 +2,10 @@
 # Usage: Core/tools/assets/inspect <file> [--desc "description text"] — generate or update .imgif/.csvif interface file
 from __future__ import annotations
 import argparse, csv, json, os, sys
+from pathlib import Path as _P
+
+sys.path.insert(0, str(_P(__file__).resolve().parents[1]))
+import tool_law  # noqa: E402
 from pathlib import Path
 
 IMG_EXTS = {'.png', '.jpg', '.jpeg', '.pdf', '.eps', '.svg', '.tiff', '.tif'}
@@ -96,6 +100,7 @@ def load_existing_desc(ipath: Path) -> str:
 
 
 def main() -> int:
+    tool_law.require('asset-inspect')  # before argparse: off means off, including --help
     ap = argparse.ArgumentParser(description="Generate .imgif/.csvif interface files for assets.")
     ap.add_argument("file", help="Image or CSV file to inspect")
     ap.add_argument("--desc", default="", help="One-line description of the file content")

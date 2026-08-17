@@ -4,6 +4,9 @@ from __future__ import annotations
 import subprocess, sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import tool_law  # noqa: E402
+
 IMG_EXTS = {'.png', '.jpg', '.jpeg', '.tiff', '.tif', '.eps', '.svg'}
 CSV_EXTS = {'.csv', '.tsv'}
 ALL_EXTS = IMG_EXTS | CSV_EXTS
@@ -25,6 +28,10 @@ def needs_description(ipath: Path) -> bool:
 
 
 def main() -> int:
+    tool_law.require('asset-inspect')  # before argparse: off means off.
+    # Second entrypoint of this capability; the registry names core/tools/assets/inspect as
+    # primary. Both carry the guard so the feature cannot be half switched off
+    # (core/SPECS.md AD-14).
     import argparse
     ap = argparse.ArgumentParser(description="Batch-generate asset interface stubs for a paper.")
     ap.add_argument("paper", help="Paper root directory")
