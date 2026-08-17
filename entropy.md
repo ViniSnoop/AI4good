@@ -145,7 +145,7 @@ Clean.
 
 *a signal for review, never a cap — do not summarize to fit*
 
-- ROADMAP.md — 695 lines (doc signal, review the delta)
+- ROADMAP.md — 697 lines (doc signal, review the delta)
 - SETUP.md — 641 lines (doc signal, review the delta)
 - academy/papers/2026-JBCS-relativistic_raytracer/outputs/iq-fix-roadmap.md — 372 lines (doc signal, review the delta)
 - code/aiwbot/SPECS.md — 710 lines (doc signal, review the delta)
@@ -162,7 +162,7 @@ Clean.
 - core/SPECS.md — 451 lines (doc signal, review the delta)
 - core/flows/craft/craft.md — 382 lines (doc signal, review the delta)
 - core/hooks/SPECS.md — 306 lines (doc signal, review the delta)
-- entropy.md — 546 lines (doc signal, review the delta)
+- entropy.md — 547 lines (doc signal, review the delta)
 
 ## Source files with no interface stub
 
@@ -519,7 +519,7 @@ Clean.
 
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
-- . — feature/roadmap-drain is 7 ahead of main
+- . — feature/roadmap-drain is 9 ahead of main
 - code/aiwbot — feature/resume-lineage-question is 2 ahead of main
 - code/apptime — feature/workspace-drift-refile is 1 ahead of main
 - code/isoroll-content — feature/playable-seam is 5 ahead of main
