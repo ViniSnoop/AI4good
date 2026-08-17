@@ -41,7 +41,7 @@ routing-tables	context-tree	-	generates	general	-	Each directory's file list wri
 agent-context-brief	context-tree	-	advises	general	-	A spawned subagent is handed its subtree's CONTEXT.md chain instead of being gated on it, so briefing a worker stops being a discipline the orchestrator has to remember
 subtree-read-tracking	context-tree	-	none	general	-	Records which CONTEXT.md a session has already read, which is what lets the chain gate fire once per subtree instead of once per file
 line-limit	hooks	-	blocks	general	core/hooks/checks/check-line-counts.sh	Forces graph-shaped design: small single-responsibility files with explicit imports, because an agent that cannot grow a file has to actually decompose it
-fanout-limit	hooks	-	warns	general	-	Counts how many files one directory asks a reader to hold at once; a split costs one routing hop, so the warn sits where that hop starts to pay for itself
+fanout-limit	hooks	-	warns	general	core/hooks/entropy/entropy_fanout.py	Counts how many files one directory asks a reader to hold at once; a split costs one routing hop, so the warn sits where that hop starts to pay for itself
 context-head-budget	hooks	-	warns	general	-	A token in a CONTEXT.md head is paid by every session that touches the subtree, so the head is asked to justify its length rather than capped
 first-line-comment	hooks	-	warns	general	-	Every code file opens with a line saying what it is, and that line is what the routing generator publishes, so the index writes itself
 duplication-gate	hooks	declared-deps	blocks	general	-	jscpd blocks a commit whose staged files clone existing logic; copy-paste is the failure mode agents are fastest at

@@ -17,6 +17,7 @@ from collections import Counter
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import feature_law  # noqa: E402
 from file_law import is_code_file, is_vendored, load_limits  # noqa: E402
 
 
@@ -36,7 +37,15 @@ def fanout_counts(files: list, root: Path) -> Counter:
 
 
 def fanout_signals(files: list, root: Path, limit: int = None) -> list:
-    """Directories whose routing table is large because the directory is."""
+    """Directories whose routing table is large because the directory is.
+
+    Switched off by the `fanout-limit` feature, one of the four the ablation names. The switch
+    sits here rather than at the dashboard's call site so that counting stays available to
+    anything that wants the number without the judgement — off means this workspace stops
+    *asking* about fanout, not that it stops being able to see it.
+    """
+    if not feature_law.is_enabled('fanout-limit'):
+        return []
     limits = load_limits()
     warn = limits['WARN_FILES'] if limit is None else limit
     block = limits['BLOCK_FILES']
