@@ -570,12 +570,6 @@ Three sub-questions, in the order they can be answered:
    rule; a confidently-served 2026-07 fact is the same failure with extra steps. Every fact needs a
    measured-on date and a claim about how fast its subject moves — harness behaviour ages in weeks,
    a published result in years. → **model: sonnet**.
-3. 🟡 **Where can doubt be enforced rather than requested?** The one mechanism proven here is the
-   experiments ledger: a number is not quotable until it has a runnable Method
-   ([`core/experiments/SPECS.md`](core/experiments/SPECS.md)), and its new corollary — *a new
-   instrument owes one hand-check against raw data before anything is quoted from it*. Extending
-   that discipline beyond numbers to technical claims is the concrete, non-prose version of what
-   Lucas asked for. → **model: opus**.
 
 **Do not open this with a prompt rule.** That is the cheapest-looking move and the one the evidence
 above already rejects.

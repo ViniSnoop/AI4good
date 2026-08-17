@@ -312,6 +312,9 @@ nada. Um detector existente e desligado é a coluna `move`, não a `delete`.
 (keep-list do método `prompt-audit`): contexto nunca é cruft; cruft ≠ comprimento; **nenhuma remoção
 se justifica por contagem de caracteres sozinha**. Auditoria que não acha nada não muda nada.
 
+**Nota de escopo:** isto vale para texto **sempre carregado**. Prosa em `SPECS.md`, lida sob demanda,
+não paga esse pedágio e não está sob esta regra.
+
 **E isto não é item de custo.** `AGENTS.md` é uma fração de um dígito do turno 1
 ([`core/experiments/context-window.md`](experiments/context-window.md) — releia, não cite daqui):
 cortá-lo pela metade não economiza nada mensurável, e vender isso como economia repete o erro que a
@@ -321,6 +324,41 @@ A moldura veio de um post de prática (`[C]`, `core/refs/REFS.md`) que afirma co
 system prompt do Claude Code. **O número é auto-relatado, sem benchmark publicado — não é citável.** O
 que é testável, e é todo o valor, é a moldura: nossos próprios hooks já provam a metade mecânica dela
 — a mensagem de erro de um hook é uma instrução de custo zero que chega exatamente quando se aplica.
+
+### AD-16 — Dúvida não se cobra na hora de afirmar; cobra-se na hora de guardar (2026-08-17)
+
+O pedido era um jeito de impedir que a IA seja confiante e errada. **Pedir dúvida em prosa é a metade
+barata e já foi tentada**: o workspace é grosso de *re-execute, nunca cite* e isso não impediu nem o
+número errado que guiou uma frente por três semanas nem quatro explicações do hook rtk afirmadas e
+retiradas. Então a pergunta não é como pedir cautela, é **onde ela vira gate**. Três faixas, e a
+primeira contradiz a premissa de onde este item nasceu:
+
+**1. Regra escrita, checker nenhum — é aqui que está o ganho barato, e inclui a nossa própria.** A
+disciplina do `core/experiments/` (`Method` executável, `Results` datado, `Limitations` nunca
+omitido) e os marcadores de tier do `core/refs/REFS.md` (`[A]`/`[B]`/`[P]`/`[V]`/`[C]`) são as duas
+regras que este workspace cita como prova de que sabe duvidar — e **nenhuma das duas é verificada por
+nada**: nenhum teste exige `## Method`, nenhum check de entropia varre `core/experiments/`. Elas
+funcionaram porque poucas sessões cuidadosas as seguiram, não porque algo cobra. É INDUCED se
+passando por ENFORCED, que é exatamente o defeito que esta frente existe para pegar. Ambas são
+fechadas, pequenas e mecanicamente checáveis: é a próxima Tier 0 óbvia.
+
+**2. Enforced por construção — o mecanismo que já funciona e ninguém tinha nomeado assim.** Escreva a
+afirmação **onde algum parser já lê**, e ela passa a ser auditada a cada commit de graça. É o que a
+lei-em-dado faz (`core/SCHEMA.md` é parseado, nunca reescrito num checker), e por isso *"checker que
+reescreve a lei é a deriva que os checkers pegam"* é, no fundo, uma regra de dúvida. Provado em
+flagrante ao escrever a AD-15: uma frase minha em § The one exception adicionou dois tipos falsos ao
+allowlist, e `test_law_comes_from_schema` derrubou o commit — o teste não avaliou minha confiança,
+avaliou o artefato.
+
+**3. Não é cobrável — pare de tentar.** A verdade de uma afirmação técnica nova, dita num turno. Gate
+nenhum segura isso. O que o workspace faz em vez disso é **baratear o erro e acelerar a descoberta**,
+que é o que os testes fizeram acima.
+
+**Corolário que esta sessão pagou, irmão do *build the instrument, then check the instrument*:
+afirmação sobre a nossa própria camada de enforcement se checa no ponto de chamada, nunca no módulo.**
+`entropy_ledger.py` tem o detector de prosa-de-obra-feita, mas `type-gate.py` importa dele só
+`wiki_link_hits` — quem parasse em *"o módulo tem o check"* apagaria de `AGENTS.md` uma regra que na
+prática não é cobrada por ninguém. Ter o detector e cobrar o detector são fatos diferentes.
 
 ## Conventions
 
