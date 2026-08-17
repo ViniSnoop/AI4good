@@ -92,7 +92,6 @@ paper-tools	capabilities	-	none	general	core/tools/paper/papers	Academic search 
 video-text	capabilities	-	none	general	core/tools/video/video	Turns a media link into navigable text through metadata, captions, transcript, OCR and visual captioning, which is what makes a link in the INBOX drainable
 asset-inspect	capabilities	-	none	general	core/tools/assets/inspect	Interface stubs for non-code assets, so an image or a CSV is readable without opening it
 latex	capabilities	latex	none	general	n/a	The toolchain academy/papers compiles with, so a paper builds and its interface stubs and label checks run on the same machine that writes it
-codeburn	capabilities	codeburn	none	lucas	-	A periodic by-hand audit of token waste; wired into no gate on purpose
 apptime-verify	capabilities	-	blocks	lucas	n/a	flutter, without which code/apptime's verify cannot run at all and its commits are gated by nothing
 caveman	skills	caveman	none	lucas	core/skills/caveman/hooks/config.js	Compresses the agent's own prose by roughly 65% without touching technical content, and goes off with a sentence when precision matters
 craft	skills	-	none	general	core/tools/wos/skills/mirror.sh	Develops a feature in file-relayed loops with model autorouting, so a plan carries its own model assignment instead of leaving routing to recall at execution time

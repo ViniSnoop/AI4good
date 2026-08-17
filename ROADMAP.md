@@ -656,6 +656,7 @@ months anyway. Cheaper than a list nobody reads.
 - **`[task-metric]` closed-vs-created instrument** — measuring the ledger is more ledger; the honest signal is Lucas saying he feels lost, and he does say it.
 - **Retroactive ref→task pairing** — the policy holds going forward; old unpaired refs can rot.
 - **Scaffold update log** (`core/SCAFFOLD-LOG.md`) — the paper thread; git plus this file already carry trigger→change. Revisit only if a paper is actually written.
+- **Shipping `codeburn` as a workspace capability** — an external npm binary we do not author, wired into no gate, run by hand. Ruled 2026-08-17: the registry names what this workspace can switch off in order to measure it, and there is no rule of ours to disable. Deleted from `SETUP.md`, `core/features.txt` and `core/profile.txt` together, which keeps the step ⟺ feature join intact. Install it as a personal tool if you want it.
 - **Downloads unification across devices** — cross-device config, life logistics, not scaffold.
 - **Dated `GOALS.md` attention re-check** — a calendar reminder for 2026-08-06, not a ledger row. Verified *not* a live bug; the 14-day window washes the old history out on its own.
 - **opencode + copilot parity** — aiwbot's own premise; lives in `code/aiwbot/ROADMAP.md`.

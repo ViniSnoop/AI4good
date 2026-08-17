@@ -571,26 +571,6 @@ dir `700` / file `600`, the same convention gmail, calendar and drive use; and *
 `brain/attachments/YYYY-MM/` via the shared
 [`core/tools/attachments_util.py`](core/tools/attachments_util.py).
 
-## Codeburn
-> feature: `codeburn` · agent: yes
-
-Periodic audit of token waste. Not wired into any gate — it is run by hand.
-
-**Precondition**
-```bash
-codeburn --version
-```
-
-**Install**
-```bash
-npm install -g codeburn
-```
-
-**Verify**
-```bash
-codeburn optimize --help
-```
-
 ## LaTeX toolchain
 > feature: `latex` · agent: yes
 
