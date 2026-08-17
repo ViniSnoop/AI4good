@@ -3,7 +3,7 @@
 import base64, pathlib, subprocess
 import anthropic
 import sys as _sys, pathlib as _pathlib
-_sys.path.insert(0, str(_pathlib.Path(__file__).resolve().parents[2]))
+_sys.path.insert(0, str(_pathlib.Path(__file__).resolve().parents[1]))  # tools root
 import attachments_util
 
 BRAIN_ATTACHMENTS = pathlib.Path("/mnt/workspace/brain/attachments")
