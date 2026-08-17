@@ -161,7 +161,7 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
    **`git grep` cannot verify a workspace-wide rename, and that is how this one was declared done
    twice** (2026-08-17). The skill sweep was checked with `git grep` from the root, which reads
    *this* repo only — every `code/` project is a separate git repo and is invisible to it. Adding
-   the `/loops` row immediately surfaced four survivors the sweep had reported clean:
+   the retired-command row immediately surfaced four survivors the sweep had reported clean:
    `code/cria/ROADMAP.md`, `code/dobra/CONTEXT.md`, and two `.loop/` run files in
    `isoroll-content`. The entropy dashboard walks nested repos and `git grep` does not, so
    **`make entropy` is the verification for a rename; `git grep` only finds where to start.**
