@@ -33,7 +33,9 @@ reduced mental load. That is the real test and it can only run after v1.
 
 ## How to read this
 
-Per-step `model` = the tier that is *enough* (a floor, not a ceiling).
+Per-step `tier` = the tier that is *enough* (a floor, not a ceiling). **Which concrete model
+fills a tier is data and lives in [`core/flows/craft/routing.md`](core/flows/craft/routing.md),
+never here** — a ledger that names a vendor's model goes stale the day that model does.
 🔴 needs Lucas · 🟡 pilot on one subtree first · 🟢 mechanical.
 
 **Two open steps need Lucas's own judgment: 9.5, 15.1** — the single list, quoted here and
@@ -42,11 +44,11 @@ than questions with options attached, which is what he asked for on 2026-08-17 i
 capability nobody gave a fair trial, and a front too big to decide as a side question.
 Stating that number is part of the cure for feeling lost, so **keep it true** — it has been wrong
 three times: once claiming one while five were live; once (2026-08-16) carrying four items marked 🔴
-whose own `→ model:` line said sonnet; and once holding *two* lists of the same set, here and in
+whose own `→ tier:` line said medium; and once holding *two* lists of the same set, here and in
 § Sequencing, which named different threes and so were both wrong. **Derive it from the 🔴 marks.**
 **This is the only list; § Sequencing points here rather than restating it.** Two lists of the same
 set is the asymmetry, and the count is only ever its symptom, so the cure is one list rather than
-two kept in sync. **🔴 means Lucas decides, not "this is hard"**; an item an opus-tier agent can
+two kept in sync. **🔴 means Lucas decides, not "this is hard"**; an item a high-tier agent can
 rule on alone is 🟡. Re-derive the count from the marks before quoting it.
 
 The whole Front 10 chain came off this list on 2026-08-16 — six 🔴 items closed in one sitting,
@@ -81,7 +83,7 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
    measure first: the cheapest probe is a session with the directory emptied, comparing turn-1
    context. **Do not cut it on suspicion** — that is the mistake the 1.6-3.5x inflation already
    taught. Record the result in [`core/experiments/context-window.md`](core/experiments/context-window.md).
-   → **model: sonnet**.
+   → **tier: medium**.
 
 ---
 
@@ -92,11 +94,6 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
 > the agent library has [core/SCHEMA.md](core/SCHEMA.md). Nothing yet governs the shape of the
 > workspace itself.
 
-1. 🟡 **two projects declare `goal: none` while their goal file exists.** The project ⟺ goal link
-   check blocks, and all 14 projects declare line 3 — but `gira` and `laplata` say `none` where
-   `startapps-gira` / `startapps-laplata` sit on disk. So line 3 is *wrong*, not absent, which no
-   check can catch: a content question, not a check failure.
-   → **Lucas rules** whether those two projects really serve those goals; sonnet edits two lines.
 2. 🟢 **finish the retired-word rename at the per-run state dir.** APPROVED 2026-07-29 (Lucas: *"we
    renamed loops to be flows but apparently this keeps coming back"*). It keeps coming back because
    it **was never a drift problem** — the rename stopped at the flow pool (`core/flows/`, flow
@@ -114,9 +111,12 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
    English, not the retired label.
    **Verify with `make entropy`, not `git grep`** ([`core/SPECS.md`](core/SPECS.md) § Conventions —
    it is how this rename was declared done twice). Four survivors surfaced that way, and two of them
-   sit inside frozen `.loop/` run records: a chain file records what was *run* that day, so rewriting
-   it makes the record lie. **Decide whether run artifacts are exempt before touching them.**
-   → **model: sonnet**.
+   sit inside frozen `.loop/` run records.
+   **Ruled 2026-08-17 (Lucas): rename everything, no exemption.** The case for exempting them was
+   that a chain file records what was *run* that day, so rewriting it makes the record lie. Overruled
+   — one token, one meaning, and a carve-out for run artifacts is a second rule to remember at every
+   future rename. Git holds what the file said before.
+   → **tier: medium**.
 3. 🟢 **drain the entropy dashboard.** `make entropy` → [`entropy.md`](entropy.md), the whole
    workspace and its nested repos in seconds. Read the report; never re-scan the tree. **Never copy
    its counts into this file** — a copied number is the drift these checks exist to catch, and the
@@ -134,7 +134,7 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
    ([`core/hooks/SPECS.md`](core/hooks/SPECS.md) § First-line descriptions). What is left is the standing queue the ratchet deliberately does not
    charge anyone for. **Size it against [`entropy.md`](entropy.md), and re-run the generator before
    measuring** — every marker drained so far was a file the generator could already describe.
-   **Scope here is this repo only**; the nested-repo majority is under § Blocked. → **model: sonnet**.
+   **Scope here is this repo only**; the nested-repo majority is under § Blocked. → **tier: medium**.
 
 ---
 
@@ -175,7 +175,7 @@ spaghetti. I wanted things to be very clear here. very concise, precise."* The i
    goals, so a second surface competes with a ritual that works. Capture goes to INBOX, commitment
    goes to a goal backlog — no third place, no boundary to police. This is the *delete weak features*
    rule applied to our own scaffold instead of to code.
-   → **model: sonnet**. The fold needs a judgment call per line, so read them, do not batch.
+   → **tier: medium**. The fold needs a judgment call per line, so read them, do not batch.
 3. 🟡 **the attention dashboard measures the wrong thing** (Lucas, INBOX 2026-08-13). It counts
    edits to the goal's **own `.md` file**, not work **on** the goal — so the 2026-08-13 compass
    rendered `workspace-os ░░░░░░░░░░ 1 touch` in the same fortnight that **29 of 29** workspace
@@ -220,7 +220,7 @@ spaghetti. I wanted things to be very clear here. very concise, precise."* The i
    remembering while doing the counting work: nothing was ever *miscounted* by it, which is why it
    survived — the output was wrong in a way that changed no number.
 
-   → **model: sonnet**. The plan is the three findings above; it used to point at a file in
+   → **tier: medium**. The plan is the three findings above; it used to point at a file in
    `~/.claude/plans/`, which `AGENTS.md` forbids — a plan lives in the ROADMAP of the thing it
    changes, not in harness-owned state no clone of this workspace would ever get.
 
@@ -247,7 +247,7 @@ spaghetti. I wanted things to be very clear here. very concise, precise."* The i
 1. 🟢 **safe — cheaper models where the work is mechanical.** Measured split (2026-08-16):
    opus-5 56.5%, opus-4.8 27.5%, fable 8.3%, sonnet 7.7%, haiku ~0%. Worth doing, but note the
    ceiling — routing cannot beat a 4x context multiplier, and the transition above already took the
-   larger win. → **model: sonnet**.
+   larger win. → **tier: medium**.
 5. 🔴 **give flows and agents a deliberate trial, then judge them.** Lucas, same capture: *"um aluno
    comentou que existem formas diretas de o claudecode delegar pra subagentes… temos skills e isso
    me parece suficiente, mas talvez não seja."*
@@ -263,7 +263,7 @@ spaghetti. I wanted things to be very clear here. very concise, precise."* The i
    layer never got one — reach was measured, worth was not. The work is **rounds of discussion and
    research**: what a flow is for, what an agent is for, whether a flow naming `agents:` in
    frontmatter is the right shape, and one deliberate run of each before anyone rules.
-   → **model: opus**, with Lucas — several sittings, not one pass.
+   → **tier: high**, with Lucas — several sittings, not one pass.
 7. 🟡 **show context growth continuously, not just at two thresholds.** Lucas, same capture:
    *"gostaria de ver o crescimento da janela de contexto em tempo real, o claude code no vs code
    não mostra. tem alguma forma barata de me mostrar isso?"*
@@ -272,7 +272,7 @@ spaghetti. I wanted things to be very clear here. very concise, precise."* The i
    them, and the cheapest honest answer is probably a statusline rather than more hook output,
    since the hook's whole design point is costing zero tokens until crossed. **Do not make it
    chatty every turn**; that trades the thing being measured for the measurement.
-   → **model: sonnet**.
+   → **tier: medium**.
 8. 🟡 **auto-continue when the session limit is hit.** Lucas, INBOX 2026-08-16: *"estudar uma forma
    de ativar um 'auto-continue' do claude code quando o limite das sessões é atingido."* Filed here
    rather than in `code/aiwbot` because the thing that must survive the interruption is this
@@ -288,7 +288,19 @@ spaghetti. I wanted things to be very clear here. very concise, precise."* The i
    - **It must offer, never fire.** Closing a session mid-thought against the user's intent costs
      more than the expensive turns it saves, and the cost argument only holds at the top of the
      staircase. Re-run `session/usage` rather than trusting a number here.
-   → **Lucas rules on offer-at-`CTX_LOUD`**; sonnet wires it.
+   **Ruled 2026-08-17 (Lucas), and the ruling reshaped the item.** The framing above was wrong on a
+   fact: the offer is *already there*, as prose aimed at the agent —
+   `message()` in `session/context-meter.py` ends with *"Run /roundup to close this session once the
+   current thread is done."* What is missing is not the offer, it is **who sees it and when**. It is
+   a `UserPromptSubmit` hook, so it lands in the agent's context at the *start* of a turn, and Lucas
+   never sees it at all.
+   His call: **show both crossings, to both of us, at the END of a response** — not at prompt
+   submit. *"it wouldn't interrupt your flow"*, and he stops missing it.
+   **The open question is mechanical and must be checked, not assumed**: which hook fires at end of
+   response in each harness, and whether its output can reach the user's terminal without also being
+   billed into the agent's context. **Measure the cost before wiring** — the current message is one
+   short line, at most once per threshold per session, but "probably free" is exactly the claim this
+   workspace keeps getting wrong. → **tier: medium**, after that check.
 9. 🟡 **the lever nobody has looked at: thinking is 65% of billed output and no instrument here can
    see it.** Its text is never written to the transcript, so every composition number we have
    describes the other 35%. This reopens what was closed once: Anthropic's guidance is that `effort`
@@ -302,7 +314,7 @@ spaghetti. I wanted things to be very clear here. very concise, precise."* The i
    touching it**: same arm shape as `caveman-cost.md` — one task at two effort levels, comparing
    billed output per turn *and* whether the work came out right. It needs a clean switch, so it runs
    on the feature registry, and it is the same instrument Front 14 needs. No behavior change until
-   the number exists. → **model: opus**, with Lucas on whether to act on it.
+   the number exists. → **tier: high**, with Lucas on whether to act on it.
 
 ---
 
@@ -363,7 +375,7 @@ and admitting a sixth is Lucas's ruling.
    the profile replaced by a placeholder on the way out. **The sync's allowlist is the deliverable**,
    not the copy: a path that is not on it does not travel, so adding a new top-level directory fails
    closed.
-   → **model: sonnet**.
+   → **tier: medium**.
 
 ---
 
@@ -396,7 +408,7 @@ and admitting a sixth is Lucas's ruling.
    the artefact, or the name grows back.** Four ROADMAP headers were *instructing every future
    session* to write one. And rejected-approach content is the single thing git cannot hold — save
    it to `ROADMAP.md § Rejected` before the file goes.
-   → **model: sonnet**.
+   → **tier: medium**.
 
 ---
 
@@ -446,7 +458,7 @@ and admitting a sixth is Lucas's ruling.
    Scope is the whole enforcement layer, not the `.md` corpus: hooks, skills, tools, `AGENTS.md`
    itself. The corpus drain is downstream — its verdicts are judgement calls today precisely because this
    instrument does not exist, and it says so rather than implying they are measured.
-   → **model: opus** for the design, sonnet to run it.
+   → **tier: high** for the design, medium to run it.
 
 ---
 
@@ -484,7 +496,7 @@ Three sub-questions, in the order they can be answered:
    `core/refs/REFS.md` (209 lines, tier-marked, and absent from the most-re-read list — nobody reads
    it). A third store is the failure named EDIT > CREATE, so resolving the collisions is the first
    work item, not a caveat.
-   → **model: opus**, with Lucas, in a session about this and nothing else.
+   → **tier: high**, with Lucas, in a session about this and nothing else.
 **Do not open this with a prompt rule.** That is the cheapest-looking move and the one the evidence
 above already rejects.
 
@@ -514,14 +526,14 @@ refiled there, and a finding worth keeping goes into the `SPECS.md` section that
    context growth per file from the transcripts, so this is mostly a longitudinal store plus a
    per-type rollup, not a new measurement. Results belong in
    [`core/experiments/`](core/experiments/CONTEXT.md), never in this file.
-   → **model: sonnet**.
+   → **tier: medium**.
 3. 🟡 **then reinforce the goal↔roadmap link, possibly enforced.** Same capture, and deliberately
    second: *"depois gostaria de reforçar a conexão entre os goals e os roadmaps, não sei se tem
    como, talvez até algo ENFORCED"*. Every goal file already carries an `>**owns**` block and every
    plan is supposed to live in a `ROADMAP.md`; what is missing is anything asserting the two agree.
    **Do not design this before item 2 reports** — if goal files turn out to be read rarely, the fix
    is not a stronger link to them.
-   → **model: sonnet**.
+   → **tier: medium**.
 
 ## Declared but unbuilt — a rule with a `SPECS.md` section and no implementation
 
@@ -537,27 +549,40 @@ the day its check runs; this section is deleted when the last one does.
    `wiki_link_hits`, so the finished-work half **reports and never blocks**. One import plus one
    call, **ratcheted to what a commit adds** like every other Tier 0 check — the standing queue is
    non-trivial and a gate that fails on the day it lands trains people to ignore it.
-   Declared: [`core/hooks/SPECS.md`](core/hooks/SPECS.md) § The next gate. → **model: sonnet**.
+   Declared: [`core/hooks/SPECS.md`](core/hooks/SPECS.md) § The next gate. → **tier: medium**.
 2. 🟢 **the `core/experiments/` and `REFS.md` discipline checks.** The two rules this workspace cites
    as proof it knows how to doubt — a runnable `## Method`, dated `Results`, `Limitations` never
    omitted; and `REFS.md`'s `[A]`/`[B]`/`[P]`/`[V]`/`[C]` tier markers — and **neither is verified by
    anything.** Both stores are small and closed, which is what makes them the obvious next Tier 0.
-   Declared: [`core/SPECS.md`](core/SPECS.md) § AD-16 band 1. → **model: sonnet**.
+   Declared: [`core/SPECS.md`](core/SPECS.md) § AD-16 band 1. → **tier: medium**.
 3. 🟢 **the loop-cap check: a step that declares a loop must declare its cap.** Greppable,
    deterministic, zero-token, and true of every flow rather than of one technique. It is the inverse
    of the shape under § Rejected — requiring the adversarial step creates the death loop, requiring
    the bound is what makes requiring the step safe.
-   Declared: [`core/flows/craft/SPECS.md`](core/flows/craft/SPECS.md). → **model: sonnet**.
+   Declared: [`core/flows/craft/SPECS.md`](core/flows/craft/SPECS.md). → **tier: medium**.
 4. 🟢 **roundup compares the declared model split against the actual one.** `core/tools/wos/roundup`
    already prints the per-session split at every close; what is missing is the plan **declaring its
    expected split** and roundup comparing. It forces nobody to delegate — it makes deviation visible
    and dated instead of invisible, and needs no new instrument.
-   Declared: [`core/SPECS.md`](core/SPECS.md) § AD-17. → **model: sonnet**.
+   Declared: [`core/SPECS.md`](core/SPECS.md) § AD-17. → **tier: medium**.
+0. 🟢 **the ledgers name vendor models where they should name tiers.** Lucas, 2026-08-17, reading a
+   step assignment: *"nothing in WOS should be tied to a specific vendor/company/model."* He was
+   right and it was wider than the one line he saw — 26 routing directives across both ledgers said
+   `model: sonnet` / `model: opus` where the workspace already has the abstraction: `/craft` routes
+   by **tier**, and [`core/flows/craft/routing.md`](core/flows/craft/routing.md) is the one file
+   holding which concrete model fills a tier per provider.
+   **The sweep is done; what is unbuilt is the guard.** Nothing stops the next session writing a
+   model name back in, which is the shape § Retired tokens exists for — except that a bare vendor
+   name is legitimate as *data* (a measured split, a quoted stale model id in a bug report) and
+   illegitimate as a *directive*, so a flat token ban would fire on the honest uses. The check has to
+   read position, not presence. Pairs with the `core/tier-map.json` extraction in
+   [`core/ROADMAP.md`](core/ROADMAP.md), which removes the last such name from source.
+   → **tier: medium**.
 5. 🟢 **import the auto-trigger.** `/craft` must be typed, which is the missing half of AD-17: the
    assignment is carried at plan time and no executor reads it outside the flow. The mechanism
    imports without the methodology — the rest of that repo stays under § Rejected.
    Declared: [`core/flows/craft/SPECS.md`](core/flows/craft/SPECS.md) § Judged against Superpowers.
-   → **model: sonnet**.
+   → **tier: medium**.
 
 **The generalising fix, flagged and deliberately not taken:** a Tier 0 check asserting that every
 check named in a `SPECS.md` § has an implementing file. It would enforce exactly the drift that
@@ -583,7 +608,7 @@ A row moves back up the moment its trigger fires. A row whose trigger never fire
   and `isoroll-module/src/render` and their siblings, plus the one file over `BLOCK_LINES`; writing
   into those checkouts from here is the mid-flight collision the git-integrity criterion exists to
   prevent. Then: add fanout to `core/hooks/checks/` beside the type gate and delete `BASELINE` from
-  `test_entropy_fanout.py` in the same commit. → **model: sonnet**, one repo at a time.
+  `test_entropy_fanout.py` in the same commit. → **tier: medium**, one repo at a time.
 
 - **The nested-repo majority of the first-line-comment queue.** Sized against
   [`entropy.md`](entropy.md), after re-running the generator — every marker drained so far was a file
@@ -610,18 +635,26 @@ A row moves back up the moment its trigger fires. A row whose trigger never fire
   workspace runs, so renaming one is a first import, not a move, and it arrives carrying tokens the
   corpus retired months ago.
   → **trigger: a session in `isoroll-module` / `dobra`.** Both are commits this repo cannot make.
-  → **model: sonnet**, one file per commit.
+  → **tier: medium**, one file per commit.
 
 - **The `.d.ts` half of the stub gap** — 203 files, all in nested repos, counted in
   [`entropy.md`](entropy.md) under the criterion-1 baseline rule.
   → **trigger: a session in each nested repo.**
+
+- **`gira` and `laplata` declare `goal: none` while their goal files exist.** The project ⟺ goal
+  link check blocks and all 14 projects declare line 3, but these two say `none` where
+  `startapps-gira` / `startapps-laplata` sit on disk — line 3 is *wrong*, not absent, which is
+  precisely what no check can catch. **Ruled 2026-08-17 (Lucas): yes, those projects serve those
+  goals — point line 3 at them.** So the judgement is spent and only the commit is left; the
+  attention counter starts seeing work on both goals instead of reading them as dead.
+  → **trigger: a session in `code/gira` / `code/laplata`.** One line each, in their own repos.
 
 - **What makes a stored fact go stale.** A hash-addressed store is only as good as its refresh rule;
   a confidently-served 2026-07 fact is the same failure with extra steps. Every fact needs a
   measured-on date and a claim about how fast its subject moves — harness behaviour ages in weeks, a
   published result in years.
   → **trigger: the knowledge-store sitting in Front 15 opening.** A refresh rule needs a store to
-  refresh. → **model: sonnet**, then.
+  refresh. → **tier: medium**, then.
 
 ## Parked — explicitly out of v1
 
@@ -704,17 +737,17 @@ capability living in several files stores them all and names the primary, or the
 something nobody removed whole.
 **Cheapest-first is safe now, and was not before.** Ordering by files-touched used to bury the rows
 the study names; all four gates Lucas named for measurement, plus `rtk-compaction`, are already
-wired, so nothing high-signal is left for that ordering to hide. → **model: sonnet**.
+wired, so nothing high-signal is left for that ordering to hide. → **tier: medium**.
 
 **Track B — the one hard chain, because each step is the next one's precondition.**
 1. The **public scaffold repo** at `code/wos/` and its one-way sync. It stopped being a neighbour of
    the ablation on 2026-08-17 and became its **hard precondition**: the experiment runs on variants
    built from the public repo, so no public repo means no arms to compare. Students needing a
    research-branch workspace makes it demand as well as precondition.
-2. The **ablation**, against whatever is switchable by then. Design is opus and belongs to the paper
-   twin; the run is sonnet.
+2. The **ablation**, against whatever is switchable by then. Design is high tier and belongs to the
+   paper twin; the run is medium.
 
-**Track C — unordered and mechanical, all sonnet.** Everything under § Declared but unbuilt, plus the
+**Track C — unordered and mechanical, all medium tier.** Everything under § Declared but unbuilt, plus the
 open rows in Fronts 3, 4, 8, 9 and 16 and the declaration-table rename to `.tsv`
 ([`core/SCHEMA.md`](core/SCHEMA.md) § The `.md` type system). Two of these are waiting on one word
 from Lucas rather than on work: whether `CTX_LOUD` should **offer** the session close, and whether
@@ -732,4 +765,5 @@ lists of the same set is the asymmetry; the count is only its symptom.**
 The canonical guide lives in the flow that produced this plan:
 **[`core/flows/research/scout.md`](core/flows/research/scout.md) → "Canonical model-switching guide"**
 (same-session `/model` · `/craft` autorouting · Agent-tool `model:` override · `/handoff`).
-Mapping: 🔴 → **Opus, same session**; 🟢/🟡 → **Sonnet via `/craft`** (mechanical parts drop to haiku).
+Mapping: 🔴 → **high tier, same session**; 🟢/🟡 → **medium via `/craft`** (mechanical parts drop to
+low). Which model fills each tier is data in that file, never in this one.

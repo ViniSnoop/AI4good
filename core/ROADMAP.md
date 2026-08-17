@@ -20,7 +20,7 @@ No flow is privileged — the exemplar is `flows/_template.md` (see [SCHEMA.md](
       reader to skip post-commit output, which is where the gates also speak. Likely fix: end the
       block at the first blank line. Add a case to the brain tests with a goal file whose `owns`
       block is followed by prose.
-      → **model: sonnet**.
+      → **tier: medium**.
 - [ ] **2b — craft-agent tier source + generator.** Create `core/agents/craft-{low,medium,high}.md`
       carrying `tier:`; extract the craft flow's tier→model map to `core/tier-map.json`; add a
       generator that emits `.claude/agents/craft-*.md` with `model:` resolved. Removes the last
@@ -104,7 +104,7 @@ stays a count of what is drainable now. Same discipline as [/ROADMAP.md](../ROAD
       § Naming records that two path sweeps have already happened and a third is not free.
       → **trigger: the next time something else opens `core/tools/` for a path change.** Pay one
       sweep instead of two. A rename with no other reason to touch those paths is the case SPECS
-      already rejected. → **model: sonnet**.
+      already rejected. → **tier: medium**.
 
 ## ablation-bench
 
