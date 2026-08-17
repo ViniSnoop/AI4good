@@ -11,16 +11,6 @@ No flow is privileged — the exemplar is `flows/_template.md` (see [SCHEMA.md](
 
 ## Open
 
-- [ ] **The `video/` family name now describes less than the family delivers.** It gained a page
-      fallback — a link with no media goes to `web/fetch` — so what it actually offers is *link →
-      navigable text*, and the directory name still says one medium. Captured by Lucas
-      (INBOX 2026-08-16) and routed here 2026-08-16; the asymmetry was written down deliberately
-      rather than renamed, because [`tools/SPECS.md`](tools/SPECS.md) § Naming records that two path
-      sweeps have already happened and a third is not free. **The item is the trigger, not the
-      decision**: settle it the next time something else opens `core/tools/` for a path change, and
-      pay one sweep instead of two. A rename with no other reason to touch those paths is the case
-      SPECS already rejected.
-      → **model: sonnet**.
 - [ ] **`parse_owns` swallows prose as declared paths.** In
       [`hooks/brain/brain_attention.py`](hooks/brain/brain_attention.py), the `>**owns**` block ends
       only at the next `>**field**` or a `##` heading, so a blank line followed by an ordinary
@@ -101,6 +91,20 @@ No flow is privileged — the exemplar is `flows/_template.md` (see [SCHEMA.md](
       `threejs-skills`, `gsap-skills`, `motion-design-skill` (Lottie), `design-dna` (extract a site's visual
       identity), `genjutsu` (UI system). Same DM-bait shape, names only, no links — ref in
       [refs/REFS.md](refs/REFS.md). Worth a look for `code/isoroll-*` and `code/apptime` if any is real.
+
+## Blocked — waiting on a trigger
+
+Open work whose own reasoning says *not yet*. Each line names the event that reopens it, so § Open
+stays a count of what is drainable now. Same discipline as [/ROADMAP.md](../ROADMAP.md) § Blocked.
+
+- [ ] **The `video/` family name describes less than the family delivers.** It gained a page fallback
+      — a link with no media goes to `web/fetch` — so what it offers is *link → navigable text*,
+      while the directory name still says one medium. Captured by Lucas (INBOX 2026-08-16); the
+      asymmetry was written down rather than renamed because [`tools/SPECS.md`](tools/SPECS.md)
+      § Naming records that two path sweeps have already happened and a third is not free.
+      → **trigger: the next time something else opens `core/tools/` for a path change.** Pay one
+      sweep instead of two. A rename with no other reason to touch those paths is the case SPECS
+      already rejected. → **model: sonnet**.
 
 ## ablation-bench
 

@@ -92,28 +92,11 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
 > the agent library has [core/SCHEMA.md](core/SCHEMA.md). Nothing yet governs the shape of the
 > workspace itself.
 
-1. 🟢 **Tier 0 — per-commit, zero-token, deterministic.** Live: `core/hooks/checks/type-gate.py` (ratchet, only
-   what a commit *adds*) + `schema_law.py` · `entropy_naming.py` · `entropy_ledger.py`, asserted by
-   35 tests in `verify-fast`. Every rule is **parsed from `core/SCHEMA.md`**, never restated in a
-   checker. Covered: type allowlist, hand-inventory, filename shape, directory case, type placement,
-   retired tokens, duplicate slugs, size-as-signal.
-   The **project ⟺ goal link** check went straight to blocking, no warn phase: the backfill turned
-   out to be already done, all 14 projects declaring line 3. Six declare `goal: none` — and two of
-   those, `gira` and `laplata`, **have** goal files (`startapps-gira`, `startapps-laplata`). A
-   content question for Lucas, not a check failure.
-   **Wiki-link resolution — decided 2026-07-30 (Lucas), and shipped.** A double-bracketed slug may
-   name a goal file *or* a bracketed item inside one: both are real pointers
-   (`spec-driven-development` is the file, `prompt-dsl` is an item in `craft-flows.md`) and both
-   resolve by scan. Vocabulary is 333 names. One dead link found and fixed — `dobra` is a project,
-   not a goal; its goal is `local-ai`. That closes pointer integrity, and Tier 0 with it.
-
-   Conventions the checks had to be taught, each because it is a law that outranks ours: snake_case
-   Python modules and `__init__`, PascalCase/camelCase in JS/TS, uppercase venue acronyms in
-   `academy/papers/<year>-<VENUE>-<slug>`, `_`-prefixed scaffolding, and **received documents keep
-   their names** — the 91 tracked paths with spaces and accents are all `.docx`/`.pdf` from the PPC
-   process, where the filename *is* the provenance. Decided the same way: `core/tools/*` CLI
-   entrypoints stay extensionless, which is the convention for anything meant to be run by name.
-   → **model: sonnet** · **switch: `/craft`.**
+1. 🟡 **two projects declare `goal: none` while their goal file exists.** The project ⟺ goal link
+   check blocks, and all 14 projects declare line 3 — but `gira` and `laplata` say `none` where
+   `startapps-gira` / `startapps-laplata` sit on disk. So line 3 is *wrong*, not absent, which no
+   check can catch: a content question, not a check failure.
+   → **Lucas rules** whether those two projects really serve those goals; sonnet edits two lines.
 2. 🟢 **finish the retired-word rename at the per-run state dir.** APPROVED 2026-07-29 (Lucas: *"we
    renamed loops to be flows but apparently this keeps coming back"*). It keeps coming back because
    it **was never a drift problem** — the rename stopped at the flow pool (`core/flows/`, flow
@@ -145,35 +128,13 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
    (retired tokens, duplicate slugs); where it is not, `test_entropy_naming.py` holds a named
    **baseline** so a new violation fails the build and a fixed one must leave the list.
 
-5. 🟡 **drain to zero, then flip fanout to a hard block** (Lucas 2026-07-31: hard block, no
-   grandfathering). The flip is coherent only at zero — the pre-commit hook is global
-   (`core.hooksPath`), so switching it on while nested repos are over the cap fails every commit in
-   those repos, including the commits that would fix it. Live lists in [`entropy.md`](entropy.md);
-   when they read Clean, add fanout to `core/hooks/checks/` beside the type gate and delete
-   `BASELINE` from `test_entropy_fanout.py` in the same commit.
-
-   **This repo, `code/aiwbot` and `code/flows` are drained.** What the draining taught is written
-   into [`code/SPECS.md`](code/SPECS.md) § Splitting an over-full directory — five rules, each of
-   which cost a session to find, and that is where a future repo will look for them rather than in
-   a ledger item that closes.
-
-   **Everything remaining lives in nested repos and is refiled there (2026-08-16)**, because a
-   workspace commit cannot touch those files and a pointer to another ROADMAP is a duplicate by
-   definition. `apptime` and `spacemantics` carry their own items now, on
-   `feature/workspace-drift-refile`. The isoroll pair — `isoroll-content/src/pipeline` and its
-   siblings, `isoroll-module/src/render` and its siblings, plus the one file over `BLOCK_LINES` —
-   were **not** refiled: both checkouts are held by the parallel isoroll session and writing into
-   them from here is the mid-flight collision the git-integrity criterion exists to prevent.
-   **That session refiles them**, and until it does, this repo cannot flip the gate.
-   → **model: sonnet**, one repo at a time.
-
-6. 🟢 **sweep the first-line-comment markers now that the gate is shut.** The hole is closed:
+6. 🟢 **sweep this repo's first-line-comment markers now that the gate is shut.** The hole is closed:
    `entropy_context.check_description` blocks at commit through the Tier 0 gate, ratcheted to what a
    commit adds, and asks the routing generator rather than a table of its own
    ([`core/hooks/SPECS.md`](core/hooks/SPECS.md) § First-line descriptions). What is left is the standing queue the ratchet deliberately does not
    charge anyone for. **Size it against [`entropy.md`](entropy.md), and re-run the generator before
    measuring** — every marker drained so far was a file the generator could already describe.
-   Most of the queue is nested-repo work, so it is one repo at a time. → **model: sonnet**.
+   **Scope here is this repo only**; the nested-repo majority is under § Blocked. → **model: sonnet**.
 
 ---
 
@@ -342,24 +303,6 @@ spaghetti. I wanted things to be very clear here. very concise, precise."* The i
    billed output per turn *and* whether the work came out right. It needs a clean switch, so it runs
    on the feature registry, and it is the same instrument Front 14 needs. No behavior change until
    the number exists. → **model: opus**, with Lucas on whether to act on it.
-10. 🟡 **compaction is Claude-only, and that is a provider-agnosticism hole.**
-   `core/hooks/compact/bash-compact-rewrite.py` hardcodes `rtk hook claude` in two places, so only
-   one vendor gets multi-line splitting; `.github/hooks/rtk-rewrite.json` runs `rtk hook copilot`
-   raw and carries the first-line-only behavior the shim exists to fix. `core/hooks/copilot/` exists
-   precisely to translate other vendors onto the canonical gates and has no equivalent here.
-   **Measured 2026-08-17, and the measurement says do not build it yet.** The counter the roundup
-   reads holds **2221 tracked Bash calls, 1119 rewritten — 50% adoption**, all of it Claude: **no
-   copilot session has ever run here.** So the hole is real in principle and costs exactly nothing
-   today, and a second shim would be built for zero users. Re-run the counter rather than trusting
-   these figures.
-   The instrument answered the question it was asked, and the answer was no: copilot carries **both**
-   a hook (`rtk hook copilot`) and an instruction (*"Always prefix shell commands with `rtk`"*), but
-   an instruction is INDUCED and cannot split a multi-line command — which is the exact behavior the
-   Claude shim exists to fix. **It does not substitute.**
-   Two things worth taking now: the 50% figure is unexplained — whether the other half is commands
-   not worth rewriting or a silent gap is **not** measured — and the upstream report to `rtk-ai/rtk`
-   is outward-facing and **stays yours**, never sent unilaterally.
-   → build **when a copilot session actually runs**; sonnet, one sitting.
 
 ---
 
@@ -444,31 +387,6 @@ row ([`core/SPECS.md`](core/SPECS.md) § AD-14).
    session* to write one. And rejected-approach content is the single thing git cannot hold — save
    it to `ROADMAP.md § Rejected` before the file goes.
    → **model: sonnet**.
-3. 🟢 **the transient initiative doc is `ROADMAP-<slug>.md` — ruled 2026-08-14, three renames left.**
-   The "fourth type" turned out not to be a type. Lucas's ruling was to unify by semantic symmetry
-   with zero conceptual intersection, and *"make sure as well that we do not create a new .md file
-   for each specific minor thing"* — and once asked that way the answer falls out of the type table:
-   a rollout is *intent, plan, and what we rejected*, scoped to one initiative, which is the ROADMAP
-   question exactly. It never needed a name, it needed a **scope suffix**, and `AGENTS.md` already
-   sanctions `ROADMAP-<slug>.md`. **Five differently-named files were the symptom of a missing
-   suffix, not of a missing type.** The law is rewritten in
-   [`core/SCHEMA.md`](core/SCHEMA.md) § *The one exception*, membership is closed at four, and
-   `test_type_gate.py` now asserts the exempt set by equality so a fifth name cannot appear quietly.
-
-   **Done:** the skill-suite migration report under `core/` is deleted — it opened with *"What was
-   done (2026-07-05)"*, an annotated corpse of a finished migration. Lucas called it *"very shady…
-   do we really need that one?"* and he was right. Its one durable paragraph (the convention for
-   skill `refs/` folders, plus the suite-folder rule) moved to `core/SCHEMA.md` § Layer: skill.
-
-   **Left, and both are nested-repo commits this repo cannot make:**
-   `code/isoroll-module/REFACTOR.md` → `ROADMAP-refactor.md`, and `code/dobra/DECISIONS.md`, which
-   is not a roadmap at all — decisions are *what must be true and why*, so it folds into that
-   project's `SPECS.md`.
-
-   **Sweep the file's own content, not just the references to it.** A file that was gitignored has
-   been exempt from every check the workspace runs, so a rename of one is a first import, not a
-   move — expect it to arrive carrying tokens the rest of the corpus retired months ago.
-   → **model: sonnet**, one file per commit.
 
 ---
 
@@ -557,11 +475,6 @@ Three sub-questions, in the order they can be answered:
    it). A third store is the failure named EDIT > CREATE, so resolving the collisions is the first
    work item, not a caveat.
    → **model: opus**, with Lucas, in a session about this and nothing else.
-2. 🟡 **What makes a stored fact go stale?** A hash-addressed store is only as good as its refresh
-   rule; a confidently-served 2026-07 fact is the same failure with extra steps. Every fact needs a
-   measured-on date and a claim about how fast its subject moves — harness behaviour ages in weeks,
-   a published result in years. → **model: sonnet**.
-
 **Do not open this with a prompt rule.** That is the cheapest-looking move and the one the evidence
 above already rejects.
 
@@ -569,10 +482,6 @@ above already rejects.
 
 The rule this cost six bugs to learn is [`core/SPECS.md`](core/SPECS.md) § Conventions: **a check
 that proves something *happened* beats one that proves it did not error.**
-
-Open, and per-repo drain work rather than a wos item: the `.d.ts` half of the stub gap — 203
-files, all in nested repos, now counted in [`entropy.md`](entropy.md) under the criterion-1
-baseline rule.
 
 ## Front 16 — post-v1, and the ledger is open again on purpose
 
@@ -603,6 +512,106 @@ refiled there, and a finding worth keeping goes into the `SPECS.md` section that
    **Do not design this before item 2 reports** — if goal files turn out to be read rarely, the fix
    is not a stronger link to them.
    → **model: sonnet**.
+
+## Declared but unbuilt — a rule with a `SPECS.md` section and no implementation
+
+Five checks were relocated out of this ledger on 2026-08-17, into the `SPECS.md` sections that
+declare them. **The relocation was right and the accounting was not.** A rule belongs beside the
+thing it governs, so the sections stay — but a `SPECS.md` states what must be true and cannot say
+whether anything enforces it yet, so the *build* was left with no home and the item count flattered
+the work state. **The declaring section is the spec; the row here is the work.** Each row is deleted
+the day its check runs; this section is deleted when the last one does.
+
+1. 🟢 **the finished-work prose gate.** `entropy/entropy_ledger.py` already carries the detector and
+   the dashboard counts it, but `checks/type-gate.py` imports only `goal_vocabulary` and
+   `wiki_link_hits`, so the finished-work half **reports and never blocks**. One import plus one
+   call, **ratcheted to what a commit adds** like every other Tier 0 check — the standing queue is
+   non-trivial and a gate that fails on the day it lands trains people to ignore it.
+   Declared: [`core/hooks/SPECS.md`](core/hooks/SPECS.md) § The next gate. → **model: sonnet**.
+2. 🟢 **the `core/experiments/` and `REFS.md` discipline checks.** The two rules this workspace cites
+   as proof it knows how to doubt — a runnable `## Method`, dated `Results`, `Limitations` never
+   omitted; and `REFS.md`'s `[A]`/`[B]`/`[P]`/`[V]`/`[C]` tier markers — and **neither is verified by
+   anything.** Both stores are small and closed, which is what makes them the obvious next Tier 0.
+   Declared: [`core/SPECS.md`](core/SPECS.md) § AD-16 band 1. → **model: sonnet**.
+3. 🟢 **the loop-cap check: a step that declares a loop must declare its cap.** Greppable,
+   deterministic, zero-token, and true of every flow rather than of one technique. It is the inverse
+   of the shape under § Rejected — requiring the adversarial step creates the death loop, requiring
+   the bound is what makes requiring the step safe.
+   Declared: [`core/flows/craft/SPECS.md`](core/flows/craft/SPECS.md). → **model: sonnet**.
+4. 🟢 **roundup compares the declared model split against the actual one.** `core/tools/wos/roundup`
+   already prints the per-session split at every close; what is missing is the plan **declaring its
+   expected split** and roundup comparing. It forces nobody to delegate — it makes deviation visible
+   and dated instead of invisible, and needs no new instrument.
+   Declared: [`core/SPECS.md`](core/SPECS.md) § AD-17. → **model: sonnet**.
+5. 🟢 **import the auto-trigger.** `/craft` must be typed, which is the missing half of AD-17: the
+   assignment is carried at plan time and no executor reads it outside the flow. The mechanism
+   imports without the methodology — the rest of that repo stays under § Rejected.
+   Declared: [`core/flows/craft/SPECS.md`](core/flows/craft/SPECS.md) § Judged against Superpowers.
+   → **model: sonnet**.
+
+**The generalising fix, flagged and deliberately not taken:** a Tier 0 check asserting that every
+check named in a `SPECS.md` § has an implementing file. It would enforce exactly the drift that
+produced this section — and it costs one more row, so it is Lucas's call rather than a decision made
+in passing while cleaning up.
+
+## Blocked — waiting on a trigger
+
+Open work this repo cannot advance today, either because another checkout owns the commit or because
+the thing that would justify it has not happened. **Each line names the event that reopens it**, so
+nothing here is measured against progress and § Open stays a true count of what is drainable now.
+A row moves back up the moment its trigger fires. A row whose trigger never fires is a candidate for
+§ Rejected, not a permanent resident — this section is not a second parking lot.
+
+- **Flip fanout to a hard block** (Lucas 2026-07-31: hard block, no grandfathering). Coherent only at
+  zero: the pre-commit hook is global (`core.hooksPath`), so switching it on while a nested repo is
+  over the cap fails every commit in that repo, **including the commits that would fix it**. This
+  repo, `code/aiwbot` and `code/flows` are drained; `apptime` and `spacemantics` carry their own
+  items on `feature/workspace-drift-refile`. What the draining taught is
+  [`code/SPECS.md`](code/SPECS.md) § Splitting an over-full directory — five rules, each of which
+  cost a session to find.
+  → **trigger: the parallel isoroll session refiles its own drift.** `isoroll-content/src/pipeline`
+  and `isoroll-module/src/render` and their siblings, plus the one file over `BLOCK_LINES`; writing
+  into those checkouts from here is the mid-flight collision the git-integrity criterion exists to
+  prevent. Then: add fanout to `core/hooks/checks/` beside the type gate and delete `BASELINE` from
+  `test_entropy_fanout.py` in the same commit. → **model: sonnet**, one repo at a time.
+
+- **The nested-repo majority of the first-line-comment queue.** Sized against
+  [`entropy.md`](entropy.md), after re-running the generator — every marker drained so far was a file
+  the generator could already describe.
+  → **trigger: a session in each nested repo.** This repo's half stays in Front 4.
+
+- **A second compaction shim, for copilot.** `core/hooks/compact/bash-compact-rewrite.py` hardcodes
+  `rtk hook claude` in two places, so only one vendor gets multi-line splitting;
+  `.github/hooks/rtk-rewrite.json` runs `rtk hook copilot` raw and keeps the first-line-only behavior
+  the shim exists to fix. An instruction does not substitute: copilot carries one (*"Always prefix
+  shell commands with `rtk`"*), but an instruction is INDUCED and cannot split a multi-line command,
+  which is the exact behavior the shim exists to fix.
+  → **trigger: a copilot session actually runs in this workspace.** Measured 2026-08-17 — every
+  tracked Bash call to date is Claude and no copilot session has ever run here, so a second shim
+  today is built for zero users. Re-run the counter, never quote it.
+  Two things this does not gate: the rewrite rate is **unexplained** (whether the unrewritten half is
+  commands not worth rewriting or a silent gap is not measured), and the upstream report to
+  `rtk-ai/rtk` is outward-facing and **stays Lucas's to send**, never sent unilaterally.
+
+- **The last two `ROADMAP-<slug>` renames.** `code/isoroll-module/REFACTOR.md` →
+  `ROADMAP-refactor.md`, and `code/dobra/DECISIONS.md`, which is not a roadmap at all — decisions are
+  *what must be true and why*, so it folds into that project's `SPECS.md`. **Sweep the file's own
+  content, not just the references to it**: a gitignored file has been exempt from every check the
+  workspace runs, so renaming one is a first import, not a move, and it arrives carrying tokens the
+  corpus retired months ago.
+  → **trigger: a session in `isoroll-module` / `dobra`.** Both are commits this repo cannot make.
+  → **model: sonnet**, one file per commit.
+
+- **The `.d.ts` half of the stub gap** — 203 files, all in nested repos, counted in
+  [`entropy.md`](entropy.md) under the criterion-1 baseline rule.
+  → **trigger: a session in each nested repo.**
+
+- **What makes a stored fact go stale.** A hash-addressed store is only as good as its refresh rule;
+  a confidently-served 2026-07 fact is the same failure with extra steps. Every fact needs a
+  measured-on date and a claim about how fast its subject moves — harness behaviour ages in weeks, a
+  published result in years.
+  → **trigger: the knowledge-store sitting in Front 15 opening.** A refresh rule needs a store to
+  refresh. → **model: sonnet**, then.
 
 ## Parked — explicitly out of v1
 
@@ -668,22 +677,40 @@ months anyway. Cheaper than a list nobody reads.
 [`brain/goals/workspace-os.md`](brain/goals/workspace-os.md) applies at full force: an item that does
 not earn its keep is a candidate for *Rejected*, not the backlog.
 
-The one ordered chain, because each step is the next one's precondition:
+**The plan is four tracks, named rather than numbered.** An item number is a moving target under a
+delete-on-completion policy, and this section is where the two-lists asymmetry has bitten twice — so
+it points at work by name and at people by mark, never by number.
 
-1. **wire the registry's findings** — one feature per commit, `feature_law.is_enabled()` where the
-   rule is enforced, then name that file in the `wired` column. The count lives in
-   `core/tools/wos/features --findings`, never here, and its target is zero.
-   **Cheapest-first is the right order only among features the ablation does not name**: ordering by
-   files-touched maximises rows closed per hour and leaves the study with nothing to measure.
-   `rtk-compaction` is the row that ordering would bury, and `core/tools/deps.txt` already prices its
-   absence at 60-90% of a session.
-2. **10.5** — the public scaffold repo at `code/wos/` and its one-way sync. It stopped being a
-   neighbour of the ablation on 2026-08-17 and became its **hard precondition**: the experiment runs
-   on variants built from the public repo, so no public repo means no arms to compare.
-3. **14.1** — the ablation, against whatever is switchable by then.
+**Track A — wire the registry to zero.** One feature per commit: call `feature_law.is_enabled()`
+where the rule is enforced, then name that file in the `wired` column. **`hooks`, `context-tree` and
+`brain` are one call site apiece**, mechanical. **`capabilities` needs a group seam first** — the
+shape to copy is `core/tools/wos/skills/mirror.sh`, which is what lets the whole skills group share
+one wiring point instead of paying a call site per row.
+Read the count from `core/tools/wos/features --findings`, never from here; its target is zero, and
+`n/a` rows are excluded because a switch cannot exist for them, never because wiring one is work.
+Per [`core/SPECS.md`](core/SPECS.md) § AD-14: honesty is a **behavioural probe**, not a grep — and a
+capability living in several files stores them all and names the primary, or the ablation measures
+something nobody removed whole.
+**Cheapest-first is safe now, and was not before.** Ordering by files-touched used to bury the rows
+the study names; all four gates Lucas named for measurement, plus `rtk-compaction`, are already
+wired, so nothing high-signal is left for that ordering to hide. → **model: sonnet**.
 
-Everything else is unordered and mechanical: **4.2**, **4.6**, **8.3**, **12.1**, plus the
-declaration-table rename to `.tsv` ([`core/SCHEMA.md`](core/SCHEMA.md) § The `.md` type system).
+**Track B — the one hard chain, because each step is the next one's precondition.**
+1. The **public scaffold repo** at `code/wos/` and its one-way sync. It stopped being a neighbour of
+   the ablation on 2026-08-17 and became its **hard precondition**: the experiment runs on variants
+   built from the public repo, so no public repo means no arms to compare. Students needing a
+   research-branch workspace makes it demand as well as precondition.
+2. The **ablation**, against whatever is switchable by then. Design is opus and belongs to the paper
+   twin; the run is sonnet.
+
+**Track C — unordered and mechanical, all sonnet.** Everything under § Declared but unbuilt, plus the
+open rows in Fronts 3, 4, 8, 9 and 16 and the declaration-table rename to `.tsv`
+([`core/SCHEMA.md`](core/SCHEMA.md) § The `.md` type system). Two of these are waiting on one word
+from Lucas rather than on work: whether `CTX_LOUD` should **offer** the session close, and whether
+frozen run records are exempt from the state-dir rename.
+
+**Track D — the sittings.** The 🔴 rows, plus the thinking-effort measurement, which additionally
+needs Track A finished because it runs on the registry.
 
 **Needing Lucas: the list is in § How to read this and only there.** It used to be restated here and
 the two copies named different threes, each missing a different item, both claiming three. **Two
