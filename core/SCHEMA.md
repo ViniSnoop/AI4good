@@ -126,6 +126,19 @@ name resolves without a decision meeting (decided 2026-07-30):
 | → `SPECS.md` | hand-authored **constraint** |
 | new type | answers a question **no type answers** — `SETUP.md` is the only one that ever qualified |
 
+**A generated file that is also a ratchet is tracked, at the root** (ruled 2026-08-17). `entropy.md`
+takes the first route and the case half of the question was never open: it is written by
+[`core/hooks/entropy/entropy-dashboard.py`](hooks/entropy/entropy-dashboard.py) and committed by
+[`core/tools/wos/roundup`](tools/wos/roundup), never authored, so it is lowercase like any other
+generated instance. What looked like an oversight is its **placement** — every other generated
+artifact lives beside its generator or under `outputs/`, and this one sits at the workspace root.
+It sits there because `outputs/` is gitignored and **a ratchet that is not tracked cannot ratchet**:
+the whole use of the number is being diffable commit over commit, which is what makes "the count
+must shrink" a check rather than a feeling. So the untracked route is not available to it, and of
+the tracked ones the root is right for the same reason `core/SCHEMA.md` sits at `core/` root rather
+than inside `core/hooks/` — it measures the whole workspace, and a file that measures everything
+does not live inside one of the things it measures.
+
 **A declaration table is a fifth thing, and it takes none of these routes** (ruled 2026-08-16).
 `core/features.txt` and `core/profile.txt` join `core/hooks/limits.env`, `core/tools/deps.txt`,
 `core/hooks/vendored.txt` and `core/hooks/extensionless.txt`: tab-separated or `key=value` data,

@@ -488,17 +488,6 @@ row ([`core/SPECS.md`](core/SPECS.md) § AD-14).
    session* to write one. And rejected-approach content is the single thing git cannot hold — save
    it to `ROADMAP.md § Rejected` before the file goes.
    → **model: sonnet**.
-2. 🟡 **does `entropy.md` sit in the right place, and should its name be uppercase?** Lucas, INBOX
-   2026-08-15. It is the one always-present report at the workspace root that is not on the type
-   allowlist, so the question is real rather than cosmetic. The evidence points at *lowercase, stays
-   put*: § The four disposal routes sends a **generated** file to a lowercase instance name (the
-   `LABELS` → `labels.md` precedent), and this file is written by
-   `core/hooks/entropy/entropy-dashboard.py` and committed by `core/tools/wos/roundup`, never
-   authored. What is genuinely open is whether the root is its place — every other generated
-   artifact lives beside its generator or under `outputs/`, and `outputs/` is untracked while this
-   one must be tracked to serve as the criterion-1 ratchet. Decide once and write the answer into
-   `core/SCHEMA.md` so it stops looking like an oversight.
-   → **model: opus** — one ruling, then at most a `git mv`.
 3. 🟢 **the transient initiative doc is `ROADMAP-<slug>.md` — ruled 2026-08-14, three renames left.**
    The "fourth type" turned out not to be a type. Lucas's ruling was to unify by semantic symmetry
    with zero conceptual intersection, and *"make sure as well that we do not create a new .md file
