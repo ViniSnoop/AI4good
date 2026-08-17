@@ -142,18 +142,22 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
    their names** — the 91 tracked paths with spaces and accents are all `.docx`/`.pdf` from the PPC
    process, where the filename *is* the provenance. Decided the same way: `core/tools/*` CLI
    entrypoints stay extensionless, which is the convention for anything meant to be run by name.
-   → **model: sonnet** · **switch: `/loops`.**
-2. 🟢 **finish the `loops` → `flows` rename at the generator.** APPROVED 2026-07-29 (Lucas: *"we
+   → **model: sonnet** · **switch: `/craft`.**
+2. 🟢 **finish the retired-word rename at the per-run state dir.** APPROVED 2026-07-29 (Lucas: *"we
    renamed loops to be flows but apparently this keeps coming back"*). It keeps coming back because
    it **was never a drift problem** — the rename stopped at the flow pool (`core/flows/`, flow
-   renamed `craft`) while three generators still emit the retired word *legitimately*, so no naming
-   check could ever flag it: (a) the skill is still `core/skills/loops.md` = `/loops`; (b)
-   `.loop/<slug>/` is the hardcoded per-run state dir in `craft.md`, `architect.md`, `runtimes.md`,
-   `routing.md` — 14 live dirs across `aiwbot`, `isoroll-content`, `isoroll-module`; (c) the
-   cross-run pattern library is `core/flows/.loop-skills/`. Retired `loop/*` git branches were the
-   visible symptom, already gone (11.2). Scope: `/loops` → `/craft`, `.loop/` → `.craft/`,
-   `.loop-skills/` → `.craft-skills/`, sweep the 74 doc mentions. **Keep "Loop 0..6" as step
-   names** — an iterative step really is a loop; that word is correct English, not the retired label.
+   renamed `craft`) while the generators still emit the retired word *legitimately*, so no naming
+   check could ever flag it. The skill half is closed — the command is `/craft`, the file is
+   `core/skills/craft.md`, and `core/SCHEMA.md` § Retired tokens guards the invocation shape.
+
+   What is left is the state dir, and it is the larger half: `.loop/<slug>/` is hardcoded in
+   `craft.md`, `architect.md`, `runtimes.md` and `routing.md`, with 14 live dirs across `aiwbot`,
+   `isoroll-content` and `isoroll-module`; the cross-run pattern library is
+   `core/flows/.loop-skills/`. Scope: `.loop/` → `.craft/`, `.loop-skills/` → `.craft-skills/`, and
+   the live dirs migrate with it. Add that token to § Retired tokens the day it lands — **not
+   before**, because a row that fails on the day it is written trains people to ignore the check.
+   **Keep "Loop 0..6" as step names** — an iterative step really is a loop; that word is correct
+   English, not the retired label.
    **The reusable lesson: an incomplete rename is indistinguishable from entropy at the leaves, and
    is only fixable at the generator.**
    → **model: sonnet**.
@@ -909,7 +913,7 @@ refiled there, and a finding worth keeping goes into the `SPECS.md` section that
    is not a stronger link to them.
    → **model: sonnet**.
 4. 🟡 **evaluate `obra/Superpowers` against our own craft flow.** Lucas, INBOX 2026-08-16: *"será
-   que eu deveria usar o superpowers?"* It is the same shape as `/loops` — spec from an interview,
+   que eu deveria usar o superpowers?"* It is the same shape as `/craft` — spec from an interview,
    plan written for a junior engineer, subagent-driven TDD — and it installs across 14 harnesses,
    so it is provider-agnostic the way we are. **The question is not whether it is good, it is
    whether it is better than the flow we already run**, and the answer has to name what it does
@@ -994,14 +998,11 @@ Alongside, in any order, all mechanical:
 
 - **11.2** the branch-drift warning and **11.1** the unmerged-branch signal — both cheap, both
   measure something currently invisible.
-- **4.2** the `loops`→`flows` generator rename; its retired tokens have an assertion waiting in
-  `core/SCHEMA.md` § Retired tokens.
-- **a registry slug and the file it governs carry the same name** (Lucas, 2026-08-17). Thirteen of
-  the fifteen skill rows disagree with their file, and the skill entrypoint is still `loops.md` —
-  so one capability wears three spellings: flow `craft`, file `loops`, slug `craft-flow`. Finishing
-  `loops`→`craft` is the load-bearing half; the other twelve are a suffix each. **Retire the
-  citation shape `/loops`, never the bare word** — `loops` is ordinary English and a bare-token row
-  fails on honest prose, the same limit § Retired tokens already records for `frente`.
+- **4.2** the `.loop/` → `.craft/` state-dir rename, all that survives of the July `loops`→`flows`
+  sweep now that the skill half has landed; its token joins `core/SCHEMA.md` § Retired tokens the
+  day it does, not before.
+- **a registry slug and the file it governs carry the same name** (Lucas, 2026-08-17) — the rule
+  now holds for every skill row, and `core/SCHEMA.md` § Retired tokens carries the guard.
 - **12.1** the `SPEC.md`→`SPECS.md` migration — one reviewed change across five enforcement points.
 - **4.6** the first-line-comment gate, **4.8** the `python_api` walk, **8.2**, **8.3**, **9.6**.
 
@@ -1015,5 +1016,5 @@ not two careful ones. 14.1 was the item they disagreed about and it is now 🟡:
 
 The canonical guide lives in the flow that produced this plan:
 **[`core/flows/research/scout.md`](core/flows/research/scout.md) → "Canonical model-switching guide"**
-(same-session `/model` · `/loops` autorouting · Agent-tool `model:` override · `/handoff`).
-Mapping: 🔴 → **Opus, same session**; 🟢/🟡 → **Sonnet via `/loops`** (mechanical parts drop to haiku).
+(same-session `/model` · `/craft` autorouting · Agent-tool `model:` override · `/handoff`).
+Mapping: 🔴 → **Opus, same session**; 🟢/🟡 → **Sonnet via `/craft`** (mechanical parts drop to haiku).

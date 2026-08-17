@@ -1,10 +1,10 @@
 # The Craft Tree
-> Canonical map of `/loops`: a router classifies each task and dispatches to a subtree whose step-sequence fits the work. Goals: [craft-flows](../../../brain/goals/craft-flows.md), [spec-driven-development](../../../brain/goals/spec-driven-development.md).
+> Canonical map of `/craft`: a router classifies each task and dispatches to a subtree whose step-sequence fits the work. Goals: [craft-flows](../../../brain/goals/craft-flows.md), [spec-driven-development](../../../brain/goals/spec-driven-development.md).
 
-`/loops` is not one pipeline — it is a **tree**. Different task *types* need different step *sequences*, so the trunk ([`route.md`](route.md)) classifies the task and hands off to the right subtree. This file is the map.
+`/craft` is not one pipeline — it is a **tree**. Different task *types* need different step *sequences*, so the trunk ([`route.md`](route.md)) classifies the task and hands off to the right subtree. This file is the map.
 
 ```
-/loops <task>
+/craft <task>
    └── route.md  ── classify by TYPE + criticality ──►
          ├── padaria       tiny, revertible change            → craft.md § Padaria shortcut
          ├── feature        build/change a module              → craft.md  (contract-first SDD)

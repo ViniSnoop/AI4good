@@ -11,7 +11,7 @@ concepts. This is **data, not a rule** — which is why it lives here and not in
 | Canonical | Also written |
 |-----------|--------------|
 | **workspace-os** | `wos` · `WOS` · `w-os` · `W-OS` |
-| **craft flow** | the `/loops` skill, `core/flows/craft/` (retired spellings: § Retired tokens) |
+| **craft flow** | the `/craft` skill, `core/flows/craft/` (retired spellings: § Retired tokens) |
 | **Front** | a top-level workstream in `ROADMAP.md` (retired spelling: `Frente`) |
 
 **Why `Front` and not `Workstream`** — ruled 2026-08-16 (Lucas). *"progress on several fronts"* is
@@ -43,6 +43,15 @@ this table holds the guard.
 | `loop-architecture` | `architect` | 2026-07-23 |
 | `LOOP-TREE` | `tree.md` | 2026-07-23 |
 | `KNOWN-BUGS` | `BUGS.md` | 2026-07-30 |
+| `/loops` | `/craft` | 2026-08-17 |
+
+**The skill rename is a shape, not a word, for the same reason `Frente` is.** `loops` is ordinary
+English — the corpus holds a thousand honest uses, from "file-relayed loops" to "execution loops"
+to "Loop 0..6" as step names — so a bare `loops` row would fail on correct prose the day it was
+written. What is retired is the **command**, so the row is the invocation shape `/loops`. The
+per-run state dir `.loop/<slug>/` is a *different* token on the same rename and is deliberately
+absent: it is still live in fourteen directories across three repos, and a row that fails today
+teaches people to ignore the check. It joins this table when that sweep lands.
 
 **`Frente`→`Front` (2026-08-16) is deliberately *not* a row here, and the reason is a limit of
 this table.** Every token above is a coined string that can only mean the thing it names, so a

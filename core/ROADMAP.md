@@ -35,24 +35,14 @@ No flow is privileged — the exemplar is `flows/_template.md` (see [SCHEMA.md](
       carrying `tier:`; extract the craft flow's tier→model map to `core/tier-map.json`; add a
       generator that emits `.claude/agents/craft-*.md` with `model:` resolved. Removes the last
       provider-name-in-source violation (`model: haiku`). Symmetric with the skills mirror.
-- [ ] **Skill `flow:` field — loops.md.** research.md done (`flow:` comma list, router shape).
-      loops.md needs `flow: craft` (or the router slug).
+- [ ] **Skill `flow:` field — craft.md.** research.md done (`flow:` comma list, router shape).
+      craft.md needs `flow: craft` (or the router slug).
 - [ ] **`engineering` is exempted by path, not typed — a privileged special case.** `flows/craft/`
       is skipped by `validate_flows` because the `type` enum has no `engineering` value, so the one
       cluster that does the most work is exactly the one that is not schema-checked. Symmetric fix:
       add `engineering` to the enum, give `craft`/`route`/`architect` real frontmatter (`type`,
       `confirm`, `agents`), delete the path exemption in `sync-skills`. The `uses:` DAG check already
       covers the cluster, so only the type layer is unguarded.
-- [ ] **Rename the skill `loops` → `craft` — ruled 2026-08-14 (Lucas).** `/loops` dispatches to
-      `flows/craft/craft.md`: one concept, two words at two layers. Renaming the skill restores the
-      location rule (`flows/<skill>/` ⟺ dispatcher skill name) instead of dragging the flow pool
-      backwards to `flows/loops/`. **Ship it inside the Front 4.2 sweep in
-      [/ROADMAP.md](../ROADMAP.md), not separately** — that sweep already renames `.loop/` → `.craft/`
-      and `.loop-skills/` → `.craft-skills/` across 14 live state dirs and 74 doc mentions, and this
-      skill is the generator-side half that made the rename keep coming back. Keep **"Loop 0..6"** as
-      step names: an iterative step really is a loop, and that word is correct English, not the
-      retired label. Add `loops` to `core/SCHEMA.md` § Retired tokens the moment it lands, so the
-      check proves the rename complete.
 - [ ] **The other three accounts have no `slides-write` grant.** `personal` was consented on
       2026-08-14 to prove remote editing works; `cin` and `ufrpe` still hold read-only slides
       tokens (and `personal`'s read token is dead, which no longer matters — a read now uses the
@@ -104,7 +94,7 @@ No flow is privileged — the exemplar is `flows/_template.md` (see [SCHEMA.md](
       concrete leads, both DM-bait posts that name skills without linking them, so both need a real
       search first: [five general Claude Code skills](https://www.instagram.com/reel/DavN_06t105/)
       (tool discovery, plan-before-code, cross-session project memory, frontend design, self-improvement
-      — the first three overlap what `AGENTS.md` + `/loops` + CONTEXT.md already do, so the question is
+      — the first three overlap what `AGENTS.md` + `/craft` + CONTEXT.md already do, so the question is
       overlap vs gap) and the NB-oriented pair captured in `code/isoroll-content/refs/REFS.md`.
       Lucas also asked for a general sweep for **game-asset-generation** skills while doing this.
       A third lead arrived twice (INBOX 2026-08-02, two posts, same list): an **animation/UI skill set** —

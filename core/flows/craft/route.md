@@ -1,5 +1,5 @@
 ---
-description: Loop router — classify a /loops task by TYPE and dispatch to the right subtree flow (padaria · feature/SDD · research · architecture). Thin: it classifies and hands off, it does not do the work.
+description: Loop router — classify a /craft task by TYPE and dispatch to the right subtree flow (padaria · feature/SDD · research · architecture). Thin: it classifies and hands off, it does not do the work.
 args: <task or feature request>
 ---
 ## Tool Discipline (Read First)
@@ -12,7 +12,7 @@ This is an execution request, not a request to explain the router. Classify, rec
 
 ## What this is
 
-`/loops` is a **tree**, not one pipeline. Different task *types* need different step *sequences*. This router is the trunk: it reads the task, runs a short classification (interview + heuristics), records the chosen subtree, and dispatches to that subtree's flow. It holds no work state beyond the classification — the subtree owns the run.
+`/craft` is a **tree**, not one pipeline. Different task *types* need different step *sequences*. This router is the trunk: it reads the task, runs a short classification (interview + heuristics), records the chosen subtree, and dispatches to that subtree's flow. It holds no work state beyond the classification — the subtree owns the run.
 
 Full map + rationale: [`tree.md`](tree.md).
 

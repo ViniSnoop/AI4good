@@ -4,11 +4,11 @@
 <!-- stats:start -->
 <!-- data:start -->
 ## attention dashboard  _(auto-updated on every commit)_
-last-updated: 2026-08-16 17:22
+last-updated: 2026-08-17 00:13
 
 >**areas** — last 14 days  
 ```
-health       ██████████   111 touches
+health       ██████████   125 touches
 career       █░░░░░░░░░   13 touches
 finances     ░░░░░░░░░░   8 touches
 fun          ░░░░░░░░░░   5 touches
@@ -25,13 +25,13 @@ craft-flows              ░░░░░░░░░░   11 touches
 cria                     ░░░░░░░░░░   3 touches
 dance                    ░░░░░░░░░░   1 touches
 ecovila                  ░░░░░░░░░░   3 touches
-exercise                 ░░░░░░░░░░   0 touches
+exercise                 ░░░░░░░░░░   1 touches
 finances                 ░░░░░░░░░░   0 touches
 guitar                   ░░░░░░░░░░   0 touches
 home-casinhas            ░░░░░░░░░░   6 touches
 instituto                ░░░░░░░░░░   1 touches
 lih-dd                   ░░░░░░░░░░   2 touches
-local-ai                 ░░░░░░░░░░   4 touches
+local-ai                 ░░░░░░░░░░   5 touches
 magic-places             ░░░░░░░░░░   0 touches
 make-in-time             ░░░░░░░░░░   0 touches
 pandeiro                 ░░░░░░░░░░   0 touches
@@ -67,7 +67,7 @@ teaching-materials       ░░░░░░░░░░   9 touches
 travel                   ░░░░░░░░░░   1 touches
 vipassana                ░░░░░░░░░░   0 touches
 voice                    ░░░░░░░░░░   0 touches
-workspace-os             ██████████   111 touches
+workspace-os             ██████████   125 touches
 yoga                     ░░░░░░░░░░   0 touches
 ```
 <!-- data:end -->

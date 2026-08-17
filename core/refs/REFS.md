@@ -75,12 +75,12 @@ because they are cheap per chain, not because the evidence endorses them.
 
 ## Model tier — small models, routing, cascades
 
-> Live constraint: the workspace must work on Sonnet-tier and on SLMs via `/loops` + `code/dobra`, not only on frontier models.
+> Live constraint: the workspace must work on Sonnet-tier and on SLMs via `/craft` + `code/dobra`, not only on frontier models.
 
 - `[P]` [Is Progressive Disclosure All You Need…](https://arxiv.org/abs/2607.17598) — *see above.* The harness-dependence result is the empirical basis for keeping instructions local and scattered when the driving model is weak.
 - `[A]` [STaD: Scaffolded Task Design for Identifying Compositional Skill Gaps in LLMs](https://aclanthology.org/2026.findings-acl.1977.pdf) (ACL Findings 2026) — scaffolding reveals and compensates capability gaps.
 - `[P]` [Small Language Models Fine-tuned to Coordinate Larger Language Models](https://arxiv.org/abs/2310.18338) — SLM-as-orchestrator pattern; relevant to dobra's inversion.
-- `[P]` [A Unified Approach to Routing and Cascading for LLMs](https://arxiv.org/abs/2410.10347) — theory for the tier map `/loops` uses.
+- `[P]` [A Unified Approach to Routing and Cascading for LLMs](https://arxiv.org/abs/2410.10347) — theory for the tier map `/craft` uses.
 - `[P]` [UCCI: Calibrated Uncertainty for Cost-Optimal LLM Cascade Routing](https://arxiv.org/abs/2605.18796) (2026) — escalate on calibrated uncertainty, not on task label.
 - `[C]` [three-lane model routing](https://www.instagram.com/reel/DbHHdF4gLWS/) — cheap model compresses all input, expensive model reads only the briefing. Also in `core/WATCHLIST.md`.
 
@@ -189,7 +189,7 @@ above are captured on their captions alone. **Nothing here is evidence about wha
 Lucas can open them in a browser and paste the content, which is the only path that currently works.
 
 ### Agent methodologies to evaluate against our own
-- `[C]` [obra/Superpowers](https://github.com/obra/Superpowers) — *"a complete software development methodology for your coding agents, built on top of a set of composable skills"*. Same shape as our craft flow: interview for intent → spec in readable chunks → implementation plan written for *"an enthusiastic junior engineer with poor taste, no judgement, no project context, and an aversion to testing"* → subagent-driven execution with red/green TDD, YAGNI, DRY. Installs per-harness across 14 agents (Claude Code, opencode, Pi, Copilot, Gemini, Cursor…), so it is provider-agnostic the same way we are. Lucas, INBOX 2026-08-16: *"será que eu deveria usar o superpowers?"* — the honest comparison is against `core/flows/craft/` and `/loops`, which already do this, and the question is whether theirs is better rather than whether it is good. Paired assessment item in /ROADMAP.md
+- `[C]` [obra/Superpowers](https://github.com/obra/Superpowers) — *"a complete software development methodology for your coding agents, built on top of a set of composable skills"*. Same shape as our craft flow: interview for intent → spec in readable chunks → implementation plan written for *"an enthusiastic junior engineer with poor taste, no judgement, no project context, and an aversion to testing"* → subagent-driven execution with red/green TDD, YAGNI, DRY. Installs per-harness across 14 agents (Claude Code, opencode, Pi, Copilot, Gemini, Cursor…), so it is provider-agnostic the same way we are. Lucas, INBOX 2026-08-16: *"será que eu deveria usar o superpowers?"* — the honest comparison is against `core/flows/craft/` and `/craft`, which already do this, and the question is whether theirs is better rather than whether it is good. Paired assessment item in /ROADMAP.md
 
 ### Offline resilience (parked, see /ROADMAP.md)
 - [Reticulum](https://github.com/markqvist/Reticulum) — E2E-encrypted network stack that keeps working with no internet or infrastructure

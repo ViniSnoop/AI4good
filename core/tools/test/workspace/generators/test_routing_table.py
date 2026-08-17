@@ -107,7 +107,7 @@ def test_a_shell_script_is_described_below_its_shebang(tmp_path) -> None:
 # being hoisted — but only from a *child's* CONTEXT.md into its parent's subdirectory table.
 
 def test_an_md_row_shows_its_blurb_not_its_heading(tmp_path) -> None:
-    table = _table(tmp_path, **{'tree.md': '# The Craft Tree\n> Canonical map of `/loops`.\n'})
+    table = _table(tmp_path, **{'tree.md': '# The Craft Tree\n> Canonical map of `/craft`.\n'})
     assert 'Canonical map' in table
     assert 'The Craft Tree' not in table
 

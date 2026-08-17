@@ -101,12 +101,12 @@ that the 🔴 steps are the discussions to have before any code.
 | Mechanism | When to use | Who acts |
 |-----------|-------------|----------|
 | **Same session, `/model`** | The next whole chunk needs a different tier. Cheapest for a sustained stretch at one tier. | **User** flips it; an agent cannot change its own session model. |
-| **`/loops` autorouting** | A codeable feature with mixed-tier steps. The loop plan assigns craft-low(haiku)/medium(sonnet)/high(opus) per step; no manual switch. | The flow spawns the right tier per loop. |
+| **`/craft` autorouting** | A codeable feature with mixed-tier steps. The loop plan assigns craft-low(haiku)/medium(sonnet)/high(opus) per step; no manual switch. | The flow spawns the right tier per loop. |
 | **Agent tool `model:` override** | One sub-task needs a different tier than the driver — especially eval, where the graded model must be the weak one. | The driving agent spawns a sonnet/haiku subagent inline; no session change. |
 | **Handoff (`/handoff`)** | A clean tier boundary + heavy context: finish the design phase at one tier, start a fresh session at another carrying only the resume prompt. | **User** starts the new session at the chosen model. |
 
 **Default mapping:** 🔴 decide-first steps → **Opus, same session** (judgment about shared
-behavior). 🟢/🟡 build steps → **Sonnet via `/loops`** (mechanical parts drop to haiku
+behavior). 🟢/🟡 build steps → **Sonnet via `/craft`** (mechanical parts drop to haiku
 automatically). Run **haiku deliberately** only where a weak model is the *subject under test*
 (e.g. behavioral eval gold tasks), spawned via the Agent-tool override.
 

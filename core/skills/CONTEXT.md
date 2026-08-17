@@ -22,6 +22,7 @@ mirroring, and the folder-shaped global-skill pattern (`caveman/`): [`SPECS.md`]
 | [`_template.md`](_template.md) | One-line summary of what this skill does and when to invoke it. Invoke with… |
 | [`calendar.md`](calendar.md) | List upcoming events and query date ranges from Google Calendar across all… |
 | [`compass.md`](compass.md) | Gentle strategic review of Brain: what has good wind, reorder by motivation… |
+| [`craft.md`](craft.md) | Run the craft flow: develop a feature in file-relayed loops with model… |
 | [`dedup.md`](dedup.md) | Semantic duplication audit for a code project: near-duplicate logic that the… |
 | [`drive.md`](drive.md) | List, search, and download files from Google Drive across all configured… |
 | [`foundry.md`](foundry.md) | Foundry VTT v14 module dev reference — router. Load relevant subfiles before… |
@@ -30,7 +31,6 @@ mirroring, and the folder-shaped global-skill pattern (`caveman/`): [`SPECS.md`]
 | [`inbox.md`](inbox.md) | Triage brain/INBOX.md — route each entry to a goal, task, reference, project… |
 | [`install.md`](install.md) | Install this workspace on the machine you are running on: probe every step in… |
 | [`iso-visual.md`](iso-visual.md) | Isoroll visual-semantics reference: image-to-text conventions, known model… |
-| [`loops.md`](loops.md) | Run the craft flow: develop a feature in file-relayed loops with model… |
 | [`prepare.md`](prepare.md) | Turn a raw task into an optimized agent prompt: interviews for intent… |
 | [`research.md`](research.md) | Execute a research workflow from the workspace Core research system. |
 | [`roundup.md`](roundup.md) | Full session-close ritual: drain the ledgers, route session knowledge to durable… |

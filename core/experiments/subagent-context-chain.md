@@ -13,7 +13,7 @@ never been in git.
 ## Method
 
 **Ablation (2026-07-23).** Two arms on a seeded race-condition bug in a toy project, `with-chain`
-(gate active) vs `without-chain` (`active: false`), each running the reduced `/loops` flow to a
+(gate active) vs `without-chain` (`active: false`), each running the reduced `/craft` flow to a
 commit. Metrics frozen before the run: `task_completed`, `race_committed`, `context_files_read`,
 `gate_blocks`, tokens, wall clock, subagents spawned. Operator: opencode + glm-5.2.
 

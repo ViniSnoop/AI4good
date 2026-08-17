@@ -11,7 +11,7 @@ As of 2026-07-06 Lucas is in the FINAL window of Fable 5 access, little quota le
 
 **Why:** Fable's edge is dense reasoning/architecture, not execution loops; workspace hooks add big fixed context cost per session, so long agentic Fable sessions waste quota.
 
-**How to apply:** Doctrine: **Fable decides, Opus writes, Sonnet executes.** The craft flow (`core/flows/craft/craft.md` + `/loops` + craft-low/medium/high agents) is the routing backbone — after the window closes, route all planning through `/loops` autorouting on Opus/Sonnet. If a Fable session drifts into grunt work, hand off to a cheaper model.
+**How to apply:** Doctrine: **Fable decides, Opus writes, Sonnet executes.** The craft flow (`core/flows/craft/craft.md` + `/craft` + craft-low/medium/high agents) is the routing backbone — after the window closes, route all planning through `/craft` autorouting on Opus/Sonnet. If a Fable session drifts into grunt work, hand off to a cheaper model.
 
 Status of prepared Fable prompts in `core/prompts/`:
 - `fable-multiview.md` — consumed; the prompt file no longer exists. The session's F1 procedural + multiview spine lives in `code/isoroll-content` (branch `feature/f1-procedural-spine`, on `develop` with postproc-tests + env-utility-repair; canonical plan `ROADMAP-content-gen.md`).
