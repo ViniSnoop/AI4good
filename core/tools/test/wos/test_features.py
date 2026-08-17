@@ -47,6 +47,22 @@ def test_every_dependency_feature_is_a_declared_feature():
         '\n  '.join(missing))
 
 
+def test_a_skill_slug_names_the_skill_file():
+    """A slug and the file it governs carry the same name (Lucas, 2026-08-17).
+
+    Only the skills group can be checked this way — a hook's slug names a behavior spread over
+    several files, not one path. The failure this catches is the one that produced it: the slug
+    was `craft-flow`, the file was `loops.md`, and the flow was `craft`, so nothing disagreed
+    with anything *adjacent* and the drift stayed legible at every single site.
+    """
+    skills = WORKSPACE_ROOT / 'core' / 'skills'
+    orphans = [r['slug'] for r in law.load_registry() if r['group'] == 'skills'
+               and not (skills / f"{r['slug']}.md").exists()
+               and not (skills / r['slug']).is_dir()]
+    assert not orphans, (
+        'these skill slugs name no file in core/skills/:\n  ' + '\n  '.join(orphans))
+
+
 def test_every_row_is_complete_and_in_its_closed_set():
     for row in law.load_registry():
         assert row['group'] in law.GROUPS, row

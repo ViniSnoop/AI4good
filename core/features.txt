@@ -17,6 +17,11 @@
 #
 # Tab-separated. Columns:
 #   slug         the feature's identity. Every `feature` in core/tools/deps.txt appears here.
+#                A SLUG AND THE FILE IT GOVERNS CARRY THE SAME NAME (Lucas, 2026-08-17), enforced
+#                for the skills group by test_features.py: `roundup` is core/skills/roundup.md.
+#                Descriptive suffixes read well in a registry and cost a lookup at every other
+#                site, which is how `craft-flow` came to name a file called loops.md whose flow
+#                was called craft — one capability, three spellings, none of them wrong alone.
 #   group        hooks | context-tree | brain | capabilities | skills — matches the tree, so a
 #                feature is findable. Nothing is both a hook and a skill; that is the symmetry test.
 #   install      the SETUP.md step that installs it, or - . Every `> feature:` slug in SETUP.md
@@ -82,17 +87,17 @@ latex	capabilities	latex	none	general	-	The toolchain academy/papers compiles wi
 codeburn	capabilities	codeburn	none	lucas	-	A periodic by-hand audit of token waste; wired into no gate on purpose
 apptime-verify	capabilities	-	blocks	lucas	-	flutter, without which code/apptime's verify cannot run at all and its commits are gated by nothing
 caveman	skills	caveman	none	lucas	core/skills/caveman/hooks/config.js	Compresses the agent's own prose by roughly 65% without touching technical content, and goes off with a sentence when precision matters
-craft-flow	skills	-	none	general	-	Develops a feature in file-relayed loops with model autorouting, so a plan carries its own model assignment instead of leaving routing to recall at execution time
-roundup-ritual	skills	-	none	general	-	Drains the session's ledgers into durable files and promotes the branch, so a session's knowledge survives it and no repo idles on an open branch
-handoff-prompt	skills	-	none	general	-	Writes the next session's opening prompt, and refuses when there is nothing open
-inbox-triage	skills	-	none	lucas	-	Routes every INBOX entry to a goal, task, reference or project doc, which is what makes capture free without making the queue permanent
-compass-review	skills	-	none	lucas	-	The strategic review: what has wind, what to reorder, what to ditch guilt-free
-research-flow	skills	-	none	general	-	The research workflow, from scouting sources to a written synthesis
-prepare-prompt	skills	-	none	general	-	Turns a raw task into an optimised agent prompt, recommending model and effort
-dedup-audit	skills	-	none	general	-	Semantic duplication audit for a code project: the near-duplicate logic the verbatim-clone gate misses
-install-skill	skills	-	none	general	-	Probes every step in SETUP.md on this machine, reports what is missing and executes it
-gmail-triage	skills	-	none	lucas	-	Triages Gmail across every configured account and writes the routes into brain/INBOX.md
-calendar-read	skills	-	none	lucas	-	Lists upcoming events and queries date ranges across every configured calendar account
-drive-read	skills	-	none	lucas	-	Lists, searches and downloads files from Google Drive across every configured account
-foundry-ref	skills	-	none	lucas	-	Foundry VTT module development reference, loaded only when that work is in front of us
+craft	skills	-	none	general	-	Develops a feature in file-relayed loops with model autorouting, so a plan carries its own model assignment instead of leaving routing to recall at execution time
+roundup	skills	-	none	general	-	Drains the session's ledgers into durable files and promotes the branch, so a session's knowledge survives it and no repo idles on an open branch
+handoff	skills	-	none	general	-	Writes the next session's opening prompt, and refuses when there is nothing open
+inbox	skills	-	none	lucas	-	Routes every INBOX entry to a goal, task, reference or project doc, which is what makes capture free without making the queue permanent
+compass	skills	-	none	lucas	-	The strategic review: what has wind, what to reorder, what to ditch guilt-free
+research	skills	-	none	general	-	The research workflow, from scouting sources to a written synthesis
+prepare	skills	-	none	general	-	Turns a raw task into an optimised agent prompt, recommending model and effort
+dedup	skills	-	none	general	-	Semantic duplication audit for a code project: the near-duplicate logic the verbatim-clone gate misses
+install	skills	-	none	general	-	Probes every step in SETUP.md on this machine, reports what is missing and executes it
+gmail	skills	-	none	lucas	-	Triages Gmail across every configured account and writes the routes into brain/INBOX.md
+calendar	skills	-	none	lucas	-	Lists upcoming events and queries date ranges across every configured calendar account
+drive	skills	-	none	lucas	-	Lists, searches and downloads files from Google Drive across every configured account
+foundry	skills	-	none	lucas	-	Foundry VTT module development reference, loaded only when that work is in front of us
 iso-visual	skills	-	none	lucas	-	The isoroll visual-semantics reference: image-to-text conventions and known model failure modes
