@@ -31,6 +31,10 @@ SECTIONS = (
      'a generator asked a question — answer it at the source, never by cutting the marker'),
     ('misplaced', 'Constraints trapped in a CONTEXT.md head',
      'the only enforced-read type — move the contract to a sibling SPECS.md'),
+    ('branches', 'Repos on an unmerged feature branch',
+     'promote when the work is green, or say which reason applies — /roundup Phase 5'),
+    ('remotes', 'Remote branches already merged into their base',
+     'safe to delete, and outward-facing — `git -C <repo> push origin --delete <branch>`, Lucas'),
 )
 
 

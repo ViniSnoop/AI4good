@@ -17,7 +17,10 @@ from pathlib import Path
 # The law (file_law, schema_law) lives one level up, at the root of the enforcement layer;
 # the checks below are siblings here in entropy/.
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+# git/ holds the one check here that reads git state instead of file content.
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'git'))
 
+from branch_debt import merged_remote_branches, unmerged_branches  # noqa: E402
 from entropy_context import check_goal_link, check_misplaced_answer  # noqa: E402
 from entropy_corpus import enforcement_paths, tracked_files, wiki_exempt_paths  # noqa: E402
 from entropy_fanout import fanout_signals  # noqa: E402
@@ -103,6 +106,8 @@ def collect(files: list) -> dict:
     findings['size'] = size_signals(files)
     findings['stubs'] = stub_signals(files)
     findings['fanout'] = fanout_signals(files, WORKSPACE_ROOT)
+    findings['branches'] = unmerged_branches(WORKSPACE_ROOT)
+    findings['remotes'] = merged_remote_branches(WORKSPACE_ROOT)
     findings['finished'] = finished_work_hits(files, exempt)
     findings['undescribed'] = unanswered_placeholders(files, exempt)
     # One directory-level finding is reported by every file under it; dedupe so a count

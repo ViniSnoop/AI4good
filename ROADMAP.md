@@ -603,36 +603,6 @@ tests** and `voti` was archived to a spec with its implementation deleted. The f
 `programacao1`, Lucas deleted during the same session. **A finding older than a week is a
 hypothesis; re-run it before spending a decision on it.**
 
-1. 🟢 **promotion is a decision the session must actually take, not one it may skip.** Lucas,
-   2026-08-13: *"this 'merging up to main' maneuver should be a decision taken by agents as part of
-   the roundup/handoff so we minimize the number of repos on open feature branches."* The skill
-   already has the mechanism — `/roundup` Phase 5 merges `feature/*` → `develop` → `main` — but it
-   fires only when the milestone "shipped this session", so the default outcome is a branch left
-   open, and open branches accumulate silently across repos. Two parts:
-   - **the ruling** (done, in `core/skills/roundup.md` Phase 5): promote whenever the work is green
-     and coherent, and when *not* promoting, say which of the three reasons applies. Silence is no
-     longer an option, because silence is what let branches idle.
-   - **the measurement** (open): the entropy dashboard counts files, lines and directories but has
-     no signal for *repos sitting on an unmerged feature branch* — so nobody can see the number
-     this task exists to reduce. Add it beside the other Tier 0 checks, warn-only, one line per
-     repo whose branch is ahead of `main`.
-
-   **State after the 2026-08-13 sweep: exactly two repos carry unmerged work**, `isoroll-content`
-   and `isoroll-module` (5 commits ahead each, both dirty). They belong to the parallel isoroll
-   session, so they are *reason 3*: do not promote them from another session. Every other nested
-   repo sits on its base branch — 11 fully-merged `feature/*` labels were deleted locally after
-   checking, per repo, that the branch was ahead of base by **zero** commits and that local `main`
-   was fully pushed. `branches/instituto` is on `master`, not `main`, which is why it reads `?`.
-
-   **The same 11 branches still exist on `origin`** — deleting a remote branch is an outward-facing
-   act and was left for Lucas: `git -C <repo> push origin --delete <branch>`, safe because every
-   commit on them is already in `origin/main`.
-
-   **The lesson: ahead-by-zero is the whole test, and it is cheap.** `git branch -d` refuses an
-   unmerged branch, so the sweep cannot silently drop work — which is what makes it safe to run
-   from a session that does not own those repos, as long as it skips the ones another session is
-   holding.
-   → **model: sonnet**.
 3. 🔴 **is spec-driven development resumed, rescoped, or killed?** Lucas, 2026-08-15: *"sobre SDD
    (SPEC DRIVEN DEVELOPMENT), sinto que começamos isso mas esquecemos completamente."* The ledger
    is [`code/ROADMAP-spec-drive.md`](code/ROADMAP-spec-drive.md) and it is **readable now** — it was
@@ -982,7 +952,6 @@ ablation has to eat through. Read it from `core/tools/wos/features --findings`, 
 
 Alongside, in any order, all mechanical:
 
-- **11.1** the unmerged-branch signal — cheap, and it measures something currently invisible.
 - **4.2** the `.loop/` → `.craft/` state-dir rename, all that survives of the July `loops`→`flows`
   sweep now that the skill half has landed; its token joins `core/SCHEMA.md` § Retired tokens the
   day it does, not before.
