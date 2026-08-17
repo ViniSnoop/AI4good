@@ -151,7 +151,7 @@ arch-review-supervised: <yes|no>           # human checks the arch review — de
 
 **Tier:** high. **Input:** `0-clarify.md`. **Output:** `1-plan.md`.
 
-Plan, then **adversarially review your own plan assuming smaller models will execute it**: every task row must be executable by its assigned tier from the row text + Carry block alone — no implied context, no "as discussed". Ambiguity that a medium-tier model would trip on is a FATAL. Fix or escalate row tiers until the review passes. Copy the final task rows into the Carry `tasks:` digest (later loops read only one file — this is how they see the plan). Add a line referencing this plan to the project's `ROADMAP.md` (workspace policy).
+Plan, then **adversarially review your own plan assuming smaller models will execute it**: every task row must be executable by its assigned tier from the row text + Carry block alone — no implied context, no "as discussed". Ambiguity that a medium-tier model would trip on is a FATAL. Fix or escalate row tiers, then re-review — **exit when a pass leaves zero unresolved FATALs; iteration cap: at most 3 passes.** At the cap, stop and carry the surviving FATALs into `## Plan Review` as `verdict: FAIL` with each one named — an adversary can always find something, so the bound is what keeps this a review instead of a hang (`core/flows/CONTEXT.md` § Rules that hold for every flow). Copy the final task rows into the Carry `tasks:` digest (later loops read only one file — this is how they see the plan). Add a line referencing this plan to the project's `ROADMAP.md` (workspace policy).
 
 ```markdown
 ## Carry

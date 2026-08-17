@@ -592,19 +592,6 @@ into `core/ROADMAP.md` or leave them in the INBOX. So v1 is a milestone, not a s
 **but the filter that got us here still applies to what enters**: an item another repo owns is
 refiled there, and a finding worth keeping goes into the `SPECS.md` section that owns the rule.
 
-1. 🟡 **adversarial review as a standard, possibly enforced.** Lucas, INBOX 2026-08-16: *"have
-   adversarials as our standards, maybe enforced… e.g., a plan that doesn't have any adversarial
-   steps is rejected"*. The natural home is the craft flow's plan step
-   ([`core/flows/craft/`](core/flows/craft/CONTEXT.md)), which already has a plan-review stage — so
-   the question is whether that stage becomes a *requirement with a shape a check can see*, the way
-   the citation gate matches `Frente <n>` rather than a word.
-
-   **Design against the failure the source itself names**: the practitioner who proposed this says
-   the technique *"can be a death loop"*. A gate that demands an adversarial step, on a plan whose
-   adversary always finds something, is a loop with no exit. Whatever ships needs a termination
-   rule before it needs a check. Refs and the two unread method docs: `core/refs/REFS.md`
-   § Adversarial review as a standard.
-   → **model: opus** for the shape, sonnet to wire it.
 2. 🟡 **measure which `UPPERCASE.md` files are actually read, and what they cost.** Lucas, INBOX
    2026-08-16: *"sinto que arquivos de objetivos (goals) são pouco usados. roadmaps são muito
    usados. gostaria de primeiro ter esse monitoramento de forma automática (zero-token) de quais
