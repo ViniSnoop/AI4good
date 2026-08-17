@@ -588,13 +588,7 @@ refiled there, and a finding worth keeping goes into the `SPECS.md` section that
    **Do not design this before item 2 reports** — if goal files turn out to be read rarely, the fix
    is not a stronger link to them.
    → **model: sonnet**.
-4. 🟡 **evaluate `obra/Superpowers` against our own craft flow.** Lucas, INBOX 2026-08-16: *"será
-   que eu deveria usar o superpowers?"* It is the same shape as `/craft` — spec from an interview,
-   plan written for a junior engineer, subagent-driven TDD — and it installs across 14 harnesses,
-   so it is provider-agnostic the way we are. **The question is not whether it is good, it is
-   whether it is better than the flow we already run**, and the answer has to name what it does
-   that `core/flows/craft/` does not. A real outcome here is deleting our own flow.
-   → **model: opus** — this is a judgement about our own work.
+
 ## Parked — explicitly out of v1
 
 - **`[gdrive-integration]` / `[courses-import]`** — content migration, large. Per-folder work lives in
