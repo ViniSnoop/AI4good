@@ -1,0 +1,69 @@
+#!/mnt/workspace/.venv/bin/python3
+# Usage: core/tools/wos/session/reads [--project <slug>] [--session <id>] [--top N] — which files a
+# session reads, how often, and how much each re-read cost. Reads the local transcripts; no network.
+#
+# The question is ours, not the harness's: `context-gate.py` demands a whole CONTEXT.md chain before
+# any file access in a subtree, and `pre-read.sh` redirects a source read to its stub. Both exist to
+# SAVE context and neither had ever been measured doing it. A chain re-read once per subtree per
+# session is the mechanism paying for itself; the same file served three times in one session is the
+# mechanism billing twice for a page nobody asked for again.
+#
+# Zero-token and no new capture: every Read is already in the transcript with its arguments, and its
+# result is the tool_result that follows. Same population as `usage` and `context`.
+import sys
+from collections import defaultdict
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from session_log import median
+from session_reads import PROJECT, file_reads, kind_of
+
+TOP = 12
+
+
+def _arg(flag: str, fallback: str = '') -> str:
+	return sys.argv[sys.argv.index(flag) + 1] if flag in sys.argv else fallback
+
+
+def main() -> int:
+	project = _arg('--project', PROJECT)
+	session = _arg('--session')
+	top = int(_arg('--top', str(TOP)))
+	files, sessions = file_reads(project, session)
+	if not files:
+		print('no reads found — check --project / --session')
+		return 1
+
+	served = sum(f['chars'] for f in files.values())
+	total = sum(f['count'] for f in files.values())
+	repeated = {p: f for p, f in files.items() if f['count'] > 1}
+	rechars = sum(f['chars'] - f['chars'] // f['count'] for f in repeated.values())
+
+	print(f'\n  {total} reads over {len(files)} distinct files · {len(sessions)} sessions '
+	      f'· {served / 1000:.0f}k chars served')
+	print(f'  re-reads: {total - len(files)} ({(total - len(files)) / total:.0%} of reads), '
+	      f'~{rechars / 1000:.0f}k chars ({rechars / served:.0%} of what was served)')
+	print(f'  median reads per file {median([f["count"] for f in files.values()]):.0f}\n')
+
+	by_kind: dict = defaultdict(lambda: [0, 0, 0])
+	for path, stat in files.items():
+		row = by_kind[kind_of(path)]
+		row[0] += 1
+		row[1] += stat['count']
+		row[2] += stat['chars']
+	print(f'  {"what was served":<22}{"files":>7}{"reads":>8}{"chars":>10}{"re-read":>9}')
+	for kind, (nfiles, count, chars) in sorted(by_kind.items(), key=lambda k: -k[1][2]):
+		print(f'  {kind:<22}{nfiles:>7}{count:>8}{chars / 1000:>9.0f}k{count / nfiles:>8.1f}x')
+
+	print(f'\n  most re-read files (a chain file once per session is the design; the rest is cost)')
+	worst = sorted(repeated.items(), key=lambda kv: -(kv[1]['chars'] - kv[1]['chars'] // kv[1]['count']))
+	for path, stat in worst[:top]:
+		per_session = stat['count'] / max(1, len(stat['sessions']))
+		print(f'  {stat["count"]:>4}x  {stat["chars"] / 1000:>6.0f}k  {per_session:>4.1f}/session  '
+		      f'{path}')
+	print()
+	return 0
+
+
+if __name__ == '__main__':
+	sys.exit(main())

@@ -363,27 +363,6 @@ feeling lost twice. **Mass is the disease and only deletion cures it.**
    Same treatment as Front 10.1: bring options and trade-offs, decide with Lucas, do not arrive
    with one answer.
    → **model: opus**, with Lucas in the loop — not a solo pass.
-6. 🟢 **measure whether our own gates make a session re-read the same file.** Lucas, INBOX
-   2026-08-15: *"does a session, due to our hooks/gates, re-read the same context file more than
-   once? can we have a report at the end of each session (maybe on the /roundup) that automatically
-   prints (zero-token) all the read and all the written files, and for each file how much of that
-   file was read and how many times as well."*
-
-   **This is the sharpest question anyone has asked about the enforcement layer, because it points
-   at a cost we impose rather than one we inherit.** `context-gate.py` demands a whole `CONTEXT.md`
-   chain before any file access in a subtree, and `pre-read.sh` redirects source reads to stubs —
-   both are designed to *save* context, and neither has ever been measured doing it. A chain
-   re-read once per subtree per session is the mechanism paying for itself; re-read per *file* is
-   the mechanism billing for the same page repeatedly, and the front's own rule applies: a number
-   nobody can re-run steers the work anyway.
-
-   The transcript already holds every `Read` with its offset and limit, and
-   [`core/tools/wos/session/usage`](core/tools/wos/session/usage) already replays transcripts — so
-   this is a second lens on data we have, zero-token, no new capture. Report per file: bytes read,
-   read count, and whether a stub or the source was served. Ships in the same roundup block as
-   item 4, and **feeds Front 14** — read amplification is exactly the kind of cost an ablation
-   needs an instrument for.
-   → **model: sonnet**.
 7. 🟡 **show context growth continuously, not just at two thresholds.** Lucas, same capture:
    *"gostaria de ver o crescimento da janela de contexto em tempo real, o claude code no vs code
    não mostra. tem alguma forma barata de me mostrar isso?"*
