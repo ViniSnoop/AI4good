@@ -8,9 +8,3 @@
 ---
 
 <!-- add entries below, newest first -->
-
-asymmetria: `core/tools/video/` agora também busca páginas (fallback pro `web/fetch` quando o link
-não tem mídia), então o nome da família descreve menos do que a capacidade entrega — "link → texto
-navegável" é o que ela faz. Escrito, não renomeado de propósito: `core/tools/SPECS.md` § Naming diz
-que duas varreduras de path já aconteceram e uma terceira não é de graça. Decidir se vale na próxima
-vez que alguém mexer em `core/tools/`.
