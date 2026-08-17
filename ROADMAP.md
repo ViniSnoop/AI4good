@@ -979,6 +979,13 @@ ablation has to eat through. Read it from `core/tools/wos/features --findings`, 
    `feature_law.is_enabled()` where the rule is enforced, then name that file in the `wired`
    column. **Front 14 cannot report on a feature whose row still reads `-`**, so this is the
    ablation's real precondition and the count lives in the tool, never copied here.
+
+   **Wire the four features 14.1 names before anything cheaper** (ruled 2026-08-17, Lucas). Facade
+   discipline, interface-first reads, the LOC cap and the fanout cap are the ablation's declared
+   scope, so wiring them is what makes a first run produce signal at all. Ordering the backlog by
+   *files touched per feature* instead maximises rows closed per hour and leaves the study with
+   nothing to measure — it had put two of the four last and one nowhere. **Cheapest-first is the
+   right order only among features the study does not name.**
 2. **10.5** — the public scaffold repo at `code/wos/` and its one-way sync. The allowlist is the
    deliverable, and `core/profile.txt` is the one file it replaces with a placeholder.
 3. **14.1** — the ablation, against whatever is switchable by then.
@@ -989,6 +996,12 @@ Alongside, in any order, all mechanical:
   measure something currently invisible.
 - **4.2** the `loops`→`flows` generator rename; its retired tokens have an assertion waiting in
   `core/SCHEMA.md` § Retired tokens.
+- **a registry slug and the file it governs carry the same name** (Lucas, 2026-08-17). Thirteen of
+  the fifteen skill rows disagree with their file, and the skill entrypoint is still `loops.md` —
+  so one capability wears three spellings: flow `craft`, file `loops`, slug `craft-flow`. Finishing
+  `loops`→`craft` is the load-bearing half; the other twelve are a suffix each. **Retire the
+  citation shape `/loops`, never the bare word** — `loops` is ordinary English and a bare-token row
+  fails on honest prose, the same limit § Retired tokens already records for `frente`.
 - **12.1** the `SPEC.md`→`SPECS.md` migration — one reviewed change across five enforcement points.
 - **4.6** the first-line-comment gate, **4.8** the `python_api` walk, **8.2**, **8.3**, **9.6**.
 
