@@ -27,7 +27,11 @@ ser pós-v1. O custo de oportunidade que motivou a queixa se resolve entregando,
 2. Item que não trava nada → **continua no backlog**, não vira `## Rejected`. Só vai pra Rejected o
    que for de fato morto, com uma linha dizendo por quê.
 3. Achado que vale guardar → seção do `SPECS.md`/`SCHEMA.md` dona da regra. Escrever a regra lá **é**
-   o que fechar um item significa.
+   o que fechar um item significa. **Caveat learned 2026-08-17: this route also relocates *unbuilt*
+   work.** Naming a gate that does not exist yet in a `SPECS.md` closes the roadmap row but not the
+   job — five such checks were named in one session. Legitimate (it is realocação), but the item
+   count then flatters the work state, so **say plainly how many unbuilt checks moved** whenever this
+   route is used in bulk.
 4. Pedido de "opções pra sessão" = ele quer **argumentos dos dois lados**, não uma recomendação
    pronta: *"assess and propose options BUT with arguments so I have a better base for the
    decision"*.
@@ -40,6 +44,15 @@ precisam dele, e as duas viraram *rounds de discussão e pesquisa*, não pergunt
 agents (ele recusou deletar com base em uso baixo — *"we did not work enough on these yet"*) e o
 knowledge graph (frente própria, sessão dedicada). Contagens vivas só por comando:
 `core/tools/wos/features --findings` e `wc -l ROADMAP.md`, nunca copiadas.
+
+**Drain strategy, chosen by Lucas 2026-08-17 and validated in one sitting: the count that matters is
+not total items, it is *opus-only* items.** Offered three session shapes, he picked an **opus-only
+judgement sweep** — no delegation, no parallelism — on the reasoning that the ~17 sonnet-tagged rows
+are drainable by cheap sessions any day, while the opus-tagged ones are drainable by nothing else.
+Result: total 28 → 21, but **opus-only 11 → 4**, which is the number that unblocks everyone else.
+So an opus session on this ledger should spend itself where opus is the scarce input and refuse the
+mechanical rows, even when they look faster. Corollary he supplied on the two items he owns: bring
+**verdict + evidence, item stays open** — study is agent work, ruling is his.
 
 Texto canônico do constraint em `brain/goals/workspace-os.md` § governing constraint.
 

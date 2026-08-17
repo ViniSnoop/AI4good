@@ -620,6 +620,8 @@ refiled there, and a finding worth keeping goes into the `SPECS.md` section that
 Kept only so a dead idea does not resurface looking new. Accepted price: some will resurface in
 months anyway. Cheaper than a list nobody reads.
 
+- **Adopting `obra/Superpowers` in place of our craft flow** — same arc, but its uniform subagent dispatch has no per-task tier/effort routing and no file-relayed Carry, the two mechanisms built for quota rather than developer time. Its *trigger* is imported instead (`core/flows/craft/SPECS.md`).
+- **Gating on the presence of an adversarial step** — the originally proposed shape; an adversary always finds something, so the gate is a loop with no exit. What is gated is the **bound** (exit condition + numeric cap), which is what makes requiring the step safe.
 - **INBOX provenance probe** — Front 1 shipped; the probe measures a threat model already ruled inert.
 - **SLM confirmation run** — depends on `dobra` maturity that does not exist; the preprint stays provisional, which is fine.
 - **Tier 1 periodic cheap-agent detectors** (gold tasks, scheduled `/dedup`, misplacement audit) — paid detection of what Tier 0 catches free.
