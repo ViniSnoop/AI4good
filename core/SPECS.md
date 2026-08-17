@@ -214,6 +214,32 @@ Três decisões que carregam o peso:
   uma rodada de ablação responde *quanto custa este workspace sem X*. Ligar algo é decisão
   versionada no profile, não variável de ambiente que some com o shell.
 
+**Nem toda linha do registro é ablatável, e o diagnóstico (2026-08-17) desmente o palpite que o
+abriu.** A suspeita era que dois grupos inteiros — os "fatos de instalação" e o grupo
+`capabilities` — não tinham significado de "desligado". Ao verificar linha por linha, a suspeita
+sobrevive em **cinco** linhas, não em dois grupos:
+
+- **Substrato, não chave** — `python-runtime`. É o `.venv` em que todo hook executa. Desligar não
+  ablaciona uma funcionalidade, ablaciona o instrumento: nenhum gate roda para responder.
+- **Ergonomia de invocação** — `tool-shebangs`. Desligado, chama-se `python3 core/tools/<x>` em vez
+  do nome. Nenhuma diferença de comportamento para medir.
+- **Toolchain de trabalho, não de scaffold** — `latex`, `google-auth`, `apptime-verify`. Desligar é
+  desinstalar. A ablação pergunta *quanto este workspace custa*; estes são dependências do trabalho
+  que o usuário faria de qualquer jeito.
+
+**O resto do palpite estava errado, e errado da forma cara.** `declared-deps` e `verify-suite` são
+avisos e gates comuns, plenamente desligáveis. E `rtk-compaction` — que o palpite jogou no balde de
+"capability não custa nada até ser chamada" — é provavelmente **o alvo mais valioso da lista
+inteira**: tem ponto de fiação pronto em `core/hooks/compact/bash-compact-rewrite.py`, roda em todo
+Bash, e `core/tools/deps.txt` já precifica sua ausência em *"the session just costs 60-90% more"*.
+Uma capability que reescreve toda saída de ferramenta antes do contexto não é passiva; a
+generalização por grupo é que era.
+
+**A lição, e é a mesma da coluna `wired`: o grupo não decide se algo é mensurável, o ponto de
+fiação decide.** Classificar por grupo teria descartado a linha de maior sinal do registro junto
+com quatro que realmente não têm chave. Só as cinco acima aguardam decisão do Lucas — se ganham um
+valor próprio na coluna `wired` ou se ficam como achado permanente.
+
 **A coluna `wired` guarda UM caminho, e algumas capacidades moram em vários** (achado 2026-08-17, ao
 ligar `facade-discipline`). A disciplina de fachada é dois arquivos — o bloqueio de import em
 `facade/check-facade-imports.py` e o gate de leitura em `facade/facade-gate.py` — e `context-chain`
