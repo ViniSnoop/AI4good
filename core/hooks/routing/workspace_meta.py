@@ -139,12 +139,22 @@ def _module_docstring(path: Path) -> str:
 def _is_api(name: str) -> bool:
     return not name.startswith('_') and not name.startswith('test_')
 
+_DEFS = (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)
+
+# Module top level and class bodies, never ast.walk: a walk reaches nested defs, so every
+# closure was advertised as importable API. It was masked by the [:5] cap and only showed on
+# modules exporting fewer than five names — hoist.py's `fix`, a closure inside rebase_links,
+# sitting in the routing table beside four real exports.
+# Top-level names fill the list first and methods only take what is left, because the cap makes
+# ordering load-bearing: appending each class's methods directly after it pushed real
+# module-level functions out of the column, trading one wrong entry for a missing right one.
 def python_api(path: Path) -> list:
     try: tree = ast.parse(path.read_text(encoding='utf-8', errors='ignore'))
     except SyntaxError: return []
-    return [n.name for n in ast.walk(tree)
-            if isinstance(n, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef))
-            and _is_api(n.name)][:5]
+    top     = [n.name for n in tree.body if isinstance(n, _DEFS) and _is_api(n.name)]
+    methods = [m.name for n in tree.body if isinstance(n, ast.ClassDef)
+               for m in n.body if isinstance(m, _DEFS[:2]) and _is_api(m.name)]
+    return (top + methods)[:5]
 
 def js_api(path: Path) -> list:
     text = path.read_text(encoding='utf-8', errors='ignore')

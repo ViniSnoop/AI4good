@@ -9,6 +9,10 @@
 
 <!-- add entries below, newest first -->
 
+https://www.instagram.com/reel/DbsJYiotcLj/?igsh=MWl0dzl5cHpiaXNjMA==
+pras minhas aulas de ai4good
+— via aiwbot · 2026-08-17
+
 WOS roadmap still gigantic. god. how can we ever end this. are we really deleting the done? what about the side ROADMAP-output-cost? 
 
 https://www.instagram.com/reel/DaI-joGAJ4z/?igsh=eHNzaTRtY3A2bWh1

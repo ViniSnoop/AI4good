@@ -253,16 +253,6 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
    `COMMENT_RE` before it deserves a sweep**.
    → **model: opus** for the gate, **sonnet** for the sweep behind it.
 
-8. 🟢 **`python_api` advertises nested closures as importable API.** Found 2026-08-15 by
-   reading the diff of the item above: `hoist.py`'s row listed `fix`, a closure inside
-   `rebase_links`, beside four real exports. `python_api` walks the whole AST, so any nested
-   `def` with a bare name is API; it has been masked until now by the `[:5]` cap, which means
-   the corpus is quietly showing this wherever a module exports fewer than five names. Worked
-   around at the call site by underscoring the closure — the convention already excludes `_`
-   names — but the generator is still wrong. The fix is to walk module top level plus class
-   bodies rather than `ast.walk`, and it will move API columns across the corpus, so measure
-   the churn before taking it.
-   → **model: sonnet**.
 ---
 
 ## Front 8 — The ledger discipline — **v1 criterion 2**
@@ -956,7 +946,7 @@ Alongside, in any order, all mechanical:
   sweep now that the skill half has landed; its token joins `core/SCHEMA.md` § Retired tokens the
   day it does, not before.
 - **12.1** the `SPEC.md`→`SPECS.md` migration — one reviewed change across five enforcement points.
-- **4.6** the first-line-comment gate, **4.8** the `python_api` walk, **8.3**, **9.6**.
+- **4.6** the first-line-comment gate, **8.3**, **9.6**.
 
 **Needing Lucas: the list is in § How to read this and only there.** It used to be restated here,
 and the two copies named different threes — each missing a different item, both claiming three.
