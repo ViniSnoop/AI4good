@@ -32,13 +32,14 @@ ser pós-v1. O custo de oportunidade que motivou a queixa se resolve entregando,
    pronta: *"assess and propose options BUT with arguments so I have a better base for the
    decision"*.
 
-**Estado 2026-08-16:** os 4 critérios do v1 estão METs. O registro de features shippou —
-`core/features.txt` + `core/profile.txt` + `core/hooks/feature_law.py` + `core/tools/wos/features`,
-regra em `core/SPECS.md` § AD-14. Sobram ~32 itens no ledger. Ainda precisam de decisão do Lucas:
-agents-vs-skills, SDD (retomar/rescopar/matar) e a knowledge base — a ablação saiu dessa lista por
-decisão dele (não precisa de ruling, só da precondição). Próximo gargalo real dela: 60 das 62
-features ainda não são desligáveis, e a lista viva está em `core/tools/wos/features --findings`,
-nunca copiada.
+**Estado 2026-08-17:** os 4 critérios do v1 estão METs. Duas das três decisões que travavam o ledger
+foram tomadas: **SDD retomado** com alvo *todo módulo tocado ganha spec*, ENFORCED (trabalho refilado
+pra `code/ROADMAP-spec-drive.md` § P5), e a **ablação roda FORA do WOS**, em variantes montadas do
+repo público — o que torna o repo público pré-requisito duro, não vizinho. Sobram **duas** que
+precisam dele, e as duas viraram *rounds de discussão e pesquisa*, não perguntas com opções: flows +
+agents (ele recusou deletar com base em uso baixo — *"we did not work enough on these yet"*) e o
+knowledge graph (frente própria, sessão dedicada). Contagens vivas só por comando:
+`core/tools/wos/features --findings` e `wc -l ROADMAP.md`, nunca copiadas.
 
 Texto canônico do constraint em `brain/goals/workspace-os.md` § governing constraint.
 
