@@ -2,6 +2,9 @@
 # Usage: Core/tools/paper/parse <file> [--pages N-M] — extract readable text from PDF, DOCX, PPTX, or plain text files; returns raw text
 import sys, json, pathlib, subprocess, argparse
 
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
+import tool_law  # noqa: E402
+
 def _run(cmd):
     r = subprocess.run(cmd, capture_output=True, text=True)
     return r.stdout if r.returncode == 0 else (None, r.stderr)
@@ -24,6 +27,10 @@ def _pandoc(path):
     return r.stdout, None
 
 def main():
+    tool_law.require('paper-tools')  # before argparse: off means off.
+    # One of four entrypoints this capability lives in; the registry names
+    # core/tools/paper/papers as primary. Guarding all four is what stops the
+    # ablation measuring a feature nobody removed whole (core/SPECS.md AD-14).
     p = argparse.ArgumentParser()
     p.add_argument('file')
     p.add_argument('--pages', metavar='N-M', help='page range for PDF (e.g. 1-5)')

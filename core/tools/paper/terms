@@ -4,6 +4,9 @@ from __future__ import annotations
 import argparse, re, sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import tool_law  # noqa: E402
+
 try:
     import yaml
 except ImportError:
@@ -62,6 +65,10 @@ def scan(paper: Path, terms: dict[str, list[str]], strict: bool) -> list[tuple[P
 
 
 def main() -> int:
+    tool_law.require('paper-tools')  # before argparse: off means off.
+    # One of four entrypoints this capability lives in; the registry names
+    # core/tools/paper/papers as primary. Guarding all four is what stops the
+    # ablation measuring a feature nobody removed whole (core/SPECS.md AD-14).
     ap = argparse.ArgumentParser(description="Scan .tex files for terminology inconsistencies.")
     ap.add_argument("paper", help="Path to paper root directory")
     ap.add_argument("--icase", action="store_true", help="Case-insensitive matching (default is case-sensitive)")

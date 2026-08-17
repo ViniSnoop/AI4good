@@ -88,7 +88,7 @@ web-search	capabilities	web-search	none	general	core/tools/web/search	One entryp
 google-auth	capabilities	google-auth	none	lucas	n/a	Shared OAuth2 for every Google-backed tool: mail, calendar, files and slides
 mail-triage	capabilities	-	none	lucas	-	Reads a mailbox and classifies it into workspace routes, so email arrives as INBOX entries rather than as a second queue
 notes-notion	capabilities	-	none	lucas	core/tools/notes/notion	Pages and note databases read as navigable text
-paper-tools	capabilities	-	none	general	-	Academic search and text extraction: paper search, PDF and docx parse, and the term-consistency check every paper commit runs through
+paper-tools	capabilities	-	none	general	core/tools/paper/papers	Academic search and text extraction: paper search, PDF and docx parse, and the term-consistency check every paper commit runs through
 video-text	capabilities	-	none	general	-	Turns a media link into navigable text through metadata, captions, transcript, OCR and visual captioning, which is what makes a link in the INBOX drainable
 asset-inspect	capabilities	-	none	general	-	Interface stubs for non-code assets, so an image or a CSV is readable without opening it
 latex	capabilities	latex	none	general	n/a	The toolchain academy/papers compiles with, so a paper builds and its interface stubs and label checks run on the same machine that writes it

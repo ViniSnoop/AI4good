@@ -1,6 +1,9 @@
 #!/mnt/workspace/.venv/bin/python3
 # Usage: core/tools/paper/papers <query> [--n N] [--cat CATEGORY] [--id ARXIV_ID] [--ss] [--min-cit N] [--reviewed] — search academic papers via arXiv (default) or Semantic Scholar (--ss, reports venue + peer_reviewed); returns JSON
-import argparse, json, sys, urllib.request, urllib.parse, xml.etree.ElementTree as ET
+import argparse, json, pathlib, sys, urllib.request, urllib.parse, xml.etree.ElementTree as ET
+
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
+import tool_law  # noqa: E402
 
 _NS = {'a': 'http://www.w3.org/2005/Atom'}
 
@@ -87,6 +90,7 @@ def _ss_search(query, n, min_cit, reviewed_only):
     return {'source': 'semantic_scholar', 'results': out}
 
 def main():
+    tool_law.require('paper-tools')  # before argparse: off means off
     p = argparse.ArgumentParser()
     p.add_argument('query', nargs='?', default='')
     p.add_argument('--n', type=int, default=10)
