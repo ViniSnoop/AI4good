@@ -4,8 +4,8 @@
 
 # ── 1a. Verification contract gate — every code/ project must declare + pass verify:fast ──
 # Discovery is stack-agnostic: npm script (package.json) or Makefile target — either
-# satisfies the contract. code/ projects with neither are hard-blocked (code/VERIFY.md G2);
-# a passing stub is enough until real coverage lands (code/VERIFY.md G5).
+# satisfies the contract. code/ projects with neither are hard-blocked (code/ROADMAP-verify.md G2);
+# a passing stub is enough until real coverage lands (code/ROADMAP-verify.md G5).
 TOPLEVEL=$(git rev-parse --show-toplevel 2>/dev/null || true)
 HAS_NPM_CONTRACT=0
 HAS_MAKE_CONTRACT=0
@@ -20,7 +20,7 @@ if [ -n "$CODE_STAGED" ]; then
       if [ "$HAS_NPM_CONTRACT" != "1" ] && [ "$HAS_MAKE_CONTRACT" != "1" ]; then
         printf "⛔ No verify:fast contract found — every code/ project needs one.\n"
         printf "   Declare package.json \"verify:fast\" (npm) or a Makefile \"verify-fast:\" target (any stack).\n"
-        printf "   No real tests yet? A passing stub is enough — see code/VERIFY.md G5.\n"
+        printf "   No real tests yet? A passing stub is enough — see code/ROADMAP-verify.md G5.\n"
         exit 1
       fi
       ;;

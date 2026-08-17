@@ -50,7 +50,7 @@ python -m pytest
 ```
 
 ## Verification Contract
-<!-- Required for all code projects — see code/VERIFY.md + core/tools/verify/CONTEXT.md.
+<!-- Required for all code projects — see code/ROADMAP-verify.md + core/tools/verify/CONTEXT.md.
      verify:fast (static + unit, seconds) is enforced by the global pre-commit gate: red blocks commits.
      verify:full (headless functional + goldens) runs pre-merge and at /roundup.
      Regression specs: test/**/b<N>-*.* — BUGS.md FIXED flips are hook-gated on these. -->
@@ -61,7 +61,7 @@ npm run verify:full   # or make verify-full
 ```
 
 TypeScript projects: include `tsc --noEmit` in `verify:fast` alongside lint+unit from day
-one — it's cheap to keep clean early, expensive to retrofit later (see code/VERIFY.md G7:
+one — it's cheap to keep clean early, expensive to retrofit later (see code/ROADMAP-verify.md G7:
 isoroll deferred this and accumulated 304 strict-mode errors before anyone noticed). If the
 project uses `@league-of-foundry-developers/foundry-vtt-types` or similar ambient-global
 type packages, set `"types": ["<package-name>"]` explicitly in tsconfig.json — don't rely

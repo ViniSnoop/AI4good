@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # Pre-commit duplication gate — jscpd over the repo; blocks when a clone involves a staged
-# file. No baseline: touching a file with a legacy clone means extracting it now (VERIFY.md W2).
+# file. No baseline: touching a file with a legacy clone means extracting it now (ROADMAP-verify.md W2).
 import json
 import shutil
 import subprocess

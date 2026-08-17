@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # PreToolUse: Edit|Write on BUGS.md — flipping a bug to FIXED requires a matching
-# regression spec (test/**/b<N>-*.*) in the same repo. See workspace VERIFY.md I2.
+# regression spec (test/**/b<N>-*.*) in the same repo. See workspace ROADMAP-verify.md I2.
 import re
 import subprocess
 import sys

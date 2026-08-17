@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # PreToolUse: Bash — close the cat/head/grep bypass: extract workspace file paths from the
 # command string and apply the same CONTEXT.md chain gate as context-gate.py.
-# Known residual hole: dynamically constructed paths escape. See VERIFY.md W1.
+# Known residual hole: dynamically constructed paths escape. See code/ROADMAP-verify.md W1.
 import sys
 from pathlib import Path
 

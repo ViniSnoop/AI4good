@@ -696,11 +696,10 @@ is no conceptual intersection."* Each type answers exactly one question.
    do we really need that one?"* and he was right. Its one durable paragraph (the convention for
    skill `refs/` folders, plus the suite-folder rule) moved to `core/SCHEMA.md` § Layer: skill.
 
-   **Left, one reviewed commit each:** `code/VERIFY.md` → `ROADMAP-verify.md` (24 inbound refs, 7 in
-   `core/hooks/*` comments — but they cite **anchor ids**, which a rename preserves; only paths
-   move), and `code/isoroll-module/REFACTOR.md` → `ROADMAP-refactor.md`, which is that repo's own
-   commit. `code/dobra/DECISIONS.md` is not a roadmap at all — decisions are *what must be true and
-   why*, so it folds into that project's `SPECS.md`, also in that repo.
+   **Left, and both are nested-repo commits this repo cannot make:**
+   `code/isoroll-module/REFACTOR.md` → `ROADMAP-refactor.md`, and `code/dobra/DECISIONS.md`, which
+   is not a roadmap at all — decisions are *what must be true and why*, so it folds into that
+   project's `SPECS.md`.
 
    **Sweep the file's own content, not just the references to it.** A file that was gitignored has
    been exempt from every check the workspace runs, so a rename of one is a first import, not a

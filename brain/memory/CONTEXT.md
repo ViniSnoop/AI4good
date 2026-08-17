@@ -53,7 +53,7 @@ enough to be worth folding was tested and **rejected on the numbers** —
 | [`project_instituto.md`](project_instituto.md) | Programa do instituto tem cockpit em branches/instituto/ — 5 núcleos de fluxo de… |
 | [`project_isoroll_scene.md`](project_isoroll_scene.md) | isoroll scene-creation program state — frozen renderer seam, MVP-first… |
 | [`project_spacemantics.md`](project_spacemantics.md) | spacemantics project — verifiable spatial DSL giving LLMs spatial capability; 4… |
-| [`project_verify_roadmap.md`](project_verify_roadmap.md) | Workspace verification/enforcement roadmap lives at code/VERIFY.md — check… |
+| [`project_verify_roadmap.md`](project_verify_roadmap.md) | Workspace verification/enforcement roadmap lives at code/ROADMAP-verify.md — check… |
 | [`project_wos_fanout_split.md`](project_wos_fanout_split.md) | core/hooks and core/tools split into families 2026-07-31 (every CLI path… |
 | [`project_wos_zero_roadmap.md`](project_wos_zero_roadmap.md) | Zerar o ROADMAP do WOS = SHIPPAR tudo, não deletar — pós-v1 Lucas rejeitou… |
 | [`reference_linuz90_bot.md`](reference_linuz90_bot.md) | linuz90/claude-telegram-bot source read — the reference design for aiwbot; how… |

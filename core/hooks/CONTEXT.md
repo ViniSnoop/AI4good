@@ -40,7 +40,7 @@ Python modules in a subdirectory reach the root law with
 path set once, from `core/tools/test/conftest.py`, derived by scanning this directory.
 
 Gate behavior and the agent-shim contract: [`SPECS.md`](SPECS.md). Why the `code/` gates
-exist: [`code/VERIFY.md`](../../code/VERIFY.md). Installing the toolchain they depend on:
+exist: [`code/ROADMAP-verify.md`](../../code/ROADMAP-verify.md). Installing the toolchain they depend on:
 [`SETUP.md`](../../SETUP.md).
 
 <!-- routing:start -->

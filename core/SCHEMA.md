@@ -265,21 +265,24 @@ intersection with ROADMAP disappears (there was one: both answer *what do we int
 type count does not grow. **Five differently-named files were the symptom of a missing suffix, not
 of a missing type.**
 
-Membership is **closed at four** and each has a route.
+Membership **only shrinks** and each survivor has a route.
 
 | File | Route | Why |
 |---|---|---|
-| `code/VERIFY.md` | → ROADMAP-verify.md | the rename is mechanical but not free — see below |
 | `code/ROADMAP-spec-drive.md` | → ROADMAP-spec-drive.md | same shape, no anchor citations |
-| `code/isoroll-module/REFACTOR.md` | → ROADMAP-refactor.md | project-local, cheapest of the four |
+| `code/isoroll-module/REFACTOR.md` | → ROADMAP-refactor.md | project-local, cheapest of the three |
 | `code/dobra/DECISIONS.md` | → that project's SPECS.md | **not a roadmap at all** — decisions are *what must be true and why*, which is the SPECS question. It sat in this list by naming accident |
 
-`VERIFY.md` is the expensive one: ~24 inbound references, 7 of them `core/hooks/*` source comments
-citing stable anchors (`VERIFY.md W1`, `W2`, `I2`, `G1`, `G3`, `G7`, `A1`). **A rename preserves every
-anchor id** — only the paths move — so this prices the work without changing the route. Do it as one
-reviewed commit, never piecemeal.
+**A rename preserves every anchor id**, so a doc cited by anchor from source comments (`W1`, `G5`,
+`I2`) costs only its paths. A row leaves this table the day its rename lands, because the suffix
+shape is recognised on its own by [`entropy_naming.py`](hooks/entropy/entropy_naming.py) — the
+exemption covers the *old* name and nothing else.
 
-Until each rename lands, these four stay exempt from the allowlist **and** carry an obligation: each
+**Every backticked `.md` name in this section is parsed as an exemption**, so naming a retired file
+here to explain its history puts it straight back on the list. Say the name without backticks, or
+leave it to git.
+
+Until each rename lands, these stay exempt from the allowlist **and** carry an obligation: each
 must state its own death condition on line 3, and be deleted when its rollout completes. They are the
 only `.md` files allowed to be temporary, so a stale one is the most expensive kind of clutter.
 

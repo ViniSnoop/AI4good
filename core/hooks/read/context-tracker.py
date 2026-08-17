@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # PostToolUse: Read — record CONTEXT.md/SPEC.md reads (consumed by context-gate.py /
 # bash-context-gate.py / spec-read-gate.py) and interface-file reads (consumed by pre-read.sh:
-# interface read unlocks its source). VERIFY.md W1.
+# interface read unlocks its source). ROADMAP-verify.md W1.
 import sys
 from pathlib import Path
 

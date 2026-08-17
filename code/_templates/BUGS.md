@@ -6,7 +6,7 @@
 
      RULE (enforced by bugs-gate hook): a bug flips to FIXED only when a matching
      regression spec exists at test/**/b<N>-*.* and passes. Open bugs may carry an xfail
-     spec that encodes the expected failure. See workspace VERIFY.md. -->
+     spec that encodes the expected failure. See workspace ROADMAP-verify.md. -->
 
 ## B1 — [Short symptom title]
 

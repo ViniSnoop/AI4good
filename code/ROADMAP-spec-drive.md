@@ -1,20 +1,20 @@
 # SPEC-DRIVE — Spec-Driven Development Rollout
 > Enforcement rollout making the spec the contract for `code/` modules: verifiable inputs/outputs/invariants that precede and govern the code. Goal: [spec-driven-development](../brain/goals/spec-driven-development.md).
 
-**Lifecycle: transient initiative doc** (VERIFY.md species — lives beside `code/CONTEXT.md`, not
+**Lifecycle: transient initiative doc** (ROADMAP-verify.md species — lives beside `code/CONTEXT.md`, not
 workspace structure). Endstate: once the ratchet has converted the modules that matter and the
 convention is durable in `code/SPECS.md` + `_templates/`, the surviving rules stay there and this file
-is deleted (git keeps it). Sibling: [`VERIFY.md`](VERIFY.md) (the test-discipline rollout this extends).
+is deleted (git keeps it). Sibling: [`ROADMAP-verify.md`](ROADMAP-verify.md) (the test-discipline rollout this extends).
 
 **Origin:** assessment session 2026-07-17. The workspace had ~80% of the machinery (working `exit 2`
 hook culture, mandatory `verify:fast`, spec-shaped Loop-0/3 artifacts, per-module contract idioms) but
 **zero gated spec artifacts** — nothing forced spec-before-code. User's constraint: *"if not enforced it
-will simply not happen"* = the workspace's own Principle 1 (VERIFY.md): **gate-or-injection, never
+will simply not happen"* = the workspace's own Principle 1 (ROADMAP-verify.md): **gate-or-injection, never
 induction.** So the spine is a hard-blocking hook, not a convention doc.
 
 ---
 
-## Principles (inherited from VERIFY.md + SDD-specific)
+## Principles (inherited from ROADMAP-verify.md + SDD-specific)
 
 1. **Gate or injection — never induction.** The spec contract is enforced by `exit 2`, not advice.
 2. **Spec precedes code.** A spec-locked module's SPEC.md is read before its code is edited; loop runs

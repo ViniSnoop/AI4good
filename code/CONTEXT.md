@@ -17,7 +17,7 @@ You are a SENIOR software architect, your code WILL be evaluated!
 
 **Git Flow**, the branch gate's scope, and the push policy: [SPECS.md](SPECS.md) § Git Branching.
 
-**Hooks block automatically** — each explains itself and names the fix when it fires, so only the numbers you need *while writing* are here: files warn at **150 lines**, hard-block at **200**. The rest (facade boundaries, missing first-line comments, duplicated blocks, the CONTEXT.md chain, interface stubs, `verify:fast` green, a BUGS FIXED flip needing a `test/**/b<N>-*` spec) surface at the moment they apply. Reasoning behind them: [VERIFY.md](VERIFY.md).
+**Hooks block automatically** — each explains itself and names the fix when it fires, so only the numbers you need *while writing* are here: files warn at **150 lines**, hard-block at **200**. The rest (facade boundaries, missing first-line comments, duplicated blocks, the CONTEXT.md chain, interface stubs, `verify:fast` green, a BUGS FIXED flip needing a `test/**/b<N>-*` spec) surface at the moment they apply. Reasoning behind them: [ROADMAP-verify.md](ROADMAP-verify.md).
 
 **New project**: needs `CONTEXT.md` + `README.md`. Templates: [`_templates/`](_templates/).
 
@@ -48,6 +48,6 @@ You are a SENIOR software architect, your code WILL be evaluated!
 | [`ROADMAP-spec-drive.md`](ROADMAP-spec-drive.md) | — | Enforcement rollout making the spec the contract for `code/` modules: verifiable… |
 | [`SETUP.md`](SETUP.md) | — | Per-language setup, facade templates, and project scaffolding reference |
 | [`SPECS.md`](SPECS.md) | — | Engineering conventions, architecture decisions, and process rules for all code/… |
-| [`VERIFY.md`](VERIFY.md) | — | Testing-discipline rollout for `code/` projects: make agents verify their own… |
+| [`ROADMAP-verify.md`](ROADMAP-verify.md) | — | Testing-discipline rollout for `code/` projects: make agents verify their own… |
 | [`eslint.shared.js`](eslint.shared.js) | `localPlugin`, `sharedRules`, `countCallsInSubtree`, `getChainDepth` | Shared ESLint rules for all TypeScript/JavaScript projects under code/ — R1-R6 style enforcement. |
 <!-- routing:end -->

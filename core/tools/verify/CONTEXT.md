@@ -30,7 +30,7 @@ the two scripts every `code/` project declares. The pre-commit gate blocks a mis
 
 `code/isoroll-module/test/` — `unit/` (T1, vitest+fast-check) and `e2e/` (T2, Playwright vs live
 Foundry) are the working shapes to copy; its own `CONTEXT.md` lays out the runner and the rules
-as this project applies them. Extraction here waits on a second consumer (`code/VERIFY.md` A1).
+as this project applies them. Extraction here waits on a second consumer (`code/ROADMAP-verify.md` A1).
 
 <!-- routing:start -->
 ## Routing

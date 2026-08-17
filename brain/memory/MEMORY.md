@@ -5,7 +5,7 @@
 - [Feedback: parallel sessions](feedback_parallel_sessions.md) — partition workspace by subtree across concurrent sessions; check git status AND the current branch right before committing; stage explicitly, commit often
 - [Core library schema](project_core_schema.md) — core/ agent library soundness: enforced per-layer frontmatter (core/SCHEMA.md), tier unified, sweep in core/ROADMAP.md
 - [Feedback: visual eyeball gate](feedback_visual_eyeball_gate.md) — image-producing steps need Lucas's visual OK (artifact board) before advancing; shortest path to visible content
-- [Verify Roadmap](project_verify_roadmap.md) — workspace verification/enforcement plan at code/VERIFY.md; read its status log before .hooks/tests/verification work
+- [Verify Roadmap](project_verify_roadmap.md) — workspace verification/enforcement plan at code/ROADMAP-verify.md; read its status log before .hooks/tests/verification work
 - [Fable Quota Strategy](fable_quota_strategy.md) — "Fable decides, Opus writes, Sonnet executes"; multiview is consumed, its F1 spine lives on develop; instituto prompt is in its final window
 - [Feedback: provider-agnostic naming](feedback_provider_agnostic_naming.md) — nunca nome de provider/modelo em arquivos/verbos/dirs; função no nome, provider como dado
 - [Project Dobra](project_dobra.md) — context folding + SLM runner (code/dobra) + paper twin (academy/papers/2027-ICLR-dobra); read code/dobra/CONTEXT.md before any dobra session
