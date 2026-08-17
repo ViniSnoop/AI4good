@@ -4,7 +4,9 @@ import sys, json, getpass, pathlib, argparse
 
 _HERE = pathlib.Path(__file__).resolve().parent
 sys.path.insert(0, str(_HERE))
+sys.path.insert(0, str(_HERE.parent))  # tools root: the shared feature switch
 import notion_auth, notion_core, notion_outline
+import tool_law
 
 
 def cmd_auth(alias: str) -> None:
@@ -70,6 +72,7 @@ def cmd_read(account: str, ident: str, depth: int, limit: int, as_json: bool,
 
 
 def main():
+    tool_law.require('notes-notion')  # before argparse: off means off, including --help
     p = argparse.ArgumentParser(prog="notion")
     sub = p.add_subparsers(dest="cmd")
 
