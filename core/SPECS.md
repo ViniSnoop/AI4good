@@ -269,6 +269,14 @@ compartilhados — três arquivos, um vocabulário só, cobrado por teste.
 
 ## Conventions
 
+- **Sequencie a proibição ANTES do rename, nunca depois** (achado 2026-08-16, e a ordem inversa
+  custaria um sweep de 50 arquivos). Proibir citar número de item e renomear `Frente`→`Front`
+  pareciam a mesma varredura. Não eram: **91 das 160 menções eram citações que a proibição deleta
+  de saída**, então fazer a proibição primeiro reduziu o rename a três arquivos. Na ordem inversa,
+  91 ponteiros teriam sido cuidadosamente movidos e depois apagados. Corolário do mesmo achado:
+  **uma regra que só um leitor cuidadoso aplica é uma regra que o corpus ultrapassa** — em quinze
+  dias de prosa, o corpus acumulou 91 citações numeradas, duas delas dentro dos próprios checks
+  cujo trabalho é achar ponteiro morto, e duas apontando para frentes que nunca existiram.
 - **Um achado com mais de uma semana é hipótese, não fato — re-rode antes de gastar uma decisão
   nele** (achado 2026-08-14, e o custo foi quase uma frente inteira de trabalho inventado). Uma
   auditoria de integridade git listou quatro problemas; re-checados quinze dias depois, **três dos

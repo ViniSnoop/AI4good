@@ -50,24 +50,10 @@ rule on alone is 🟡. Re-derive the count from the marks before quoting it.
 The whole Front 10 chain came off this list on 2026-08-16 — six 🔴 items closed in one sitting,
 because they were one decision wearing six numbers and none of them could be taken alone.
 
-**Never cite an item number from code or from a test — now ENFORCED**, by
-[`core/hooks/checks/citation-gate.py`](core/hooks/checks/citation-gate.py) on every commit. A closed
-item is *deleted*, so every `Front N.M` in a comment becomes a dead pointer the day the work lands.
-Point at the `SPECS.md` or `SCHEMA.md` section that owns the rule instead; those are durable, and
-writing the rule there is what closing an item is *for*. Numbering is legal inside `ROADMAP.md` and
-`ROADMAP-<slug>.md`, and in a commit message, which git keeps.
-
-**What the sweep found, and it is the argument for gating rather than asking** (2026-08-16). This
-rule was prose for a fortnight and the corpus reached **91 numbered citations across ~50 files** —
-including pointers to *Fronts 2 and 6, which have never existed*, cited from the `.gitignore`
-self-heal and the pointer-integrity test. Two of the checks whose job is catching dead pointers were
-themselves carrying them. **A rule that only a careful reader applies is a rule the corpus grows
-past.**
-
-**Sequence a ban before a rename, never after.** Renaming `Frente`→`Front` looked like it shared a
-sweep with this ban. It did not: 91 of the 160 mentions were citations the ban deletes outright, so
-doing the ban first cut the rename from a 50-file sweep to three files. The reverse order would have
-carefully moved 91 pointers and then deleted them.
+**Never cite an item number outside this file** — enforced on every commit by
+`checks/citation-gate.py` ([`core/hooks/SPECS.md`](core/hooks/SPECS.md) § Git pre-commit). Completion
+is deletion, so a cited number is a pointer to nothing the day the item lands; point at the section
+that owns the rule instead.
 
 Measurements never live here. The instrument is
 [`core/tools/wos/session/context`](core/tools/wos/session/context); results live in
@@ -758,46 +744,27 @@ months anyway. Cheaper than a list nobody reads.
 
 ## Sequencing
 
-**All four v1 criteria are met as of 2026-08-16.** What remains in Front 10 is past v1, and the
-governing constraint in [`brain/goals/workspace-os.md`](brain/goals/workspace-os.md) applies at full
-force to it: an item that does not earn its keep is a candidate for *Rejected*, not the backlog.
+**All four v1 criteria are met.** Everything left is past v1, so the governing constraint in
+[`brain/goals/workspace-os.md`](brain/goals/workspace-os.md) applies at full force: an item that does
+not earn its keep is a candidate for *Rejected*, not the backlog.
 
-**14.1 is no longer waiting on an instrument — it waits on a backlog.** The registry exists; what
-it reports is that 60 of 62 capabilities still cannot be switched off, and that list is what an
-ablation has to eat through. Read it from `core/tools/wos/features --findings`, never from here.
+The one ordered chain, because each step is the next one's precondition:
 
-1. **wire the registry's findings** — the mechanical follow-on, one feature per commit: call
-   `feature_law.is_enabled()` where the rule is enforced, then name that file in the `wired`
-   column. **Front 14 cannot report on a feature whose row still reads `-`**, so this is the
-   ablation's real precondition and the count lives in the tool, never copied here.
-
-   **The four features 14.1 names are wired, so the study has a scope it can run on.** What ordered
-   them first is the rule for whatever is picked next: **cheapest-first is the right order only
-   among features the study does not name.** Ordering by *files touched per feature* maximises rows
-   closed per hour and leaves the study with nothing to measure — it had put two of the four last
-   and one nowhere. `rtk-compaction` is the next row that ordering would bury: it runs on every Bash
-   call and `core/tools/deps.txt` already prices its absence at 60-90% of a session.
-
-   Five rows await a ruling before they can be counted at all —
-   [`core/SPECS.md`](core/SPECS.md) § AD-14 says which, and why the other two groups it was
-   suspected of sharing turned out to be ordinary.
-2. **10.5** — the public scaffold repo at `code/wos/` and its one-way sync. The allowlist is the
-   deliverable, and `core/profile.txt` is the one file it replaces with a placeholder.
+1. **wire the registry's findings** — one feature per commit, `feature_law.is_enabled()` where the
+   rule is enforced, then name that file in the `wired` column. The count lives in
+   `core/tools/wos/features --findings`, never here.
+   **Cheapest-first is the right order only among features the ablation does not name**: ordering by
+   files-touched maximises rows closed per hour and leaves the study with nothing to measure.
+   `rtk-compaction` is the row that ordering would bury, and `core/tools/deps.txt` already prices its
+   absence at 60-90% of a session.
+2. **10.5** — the public scaffold repo at `code/wos/` and its one-way sync.
 3. **14.1** — the ablation, against whatever is switchable by then.
 
-Alongside, in any order, all mechanical:
+Everything else is unordered and mechanical: **4.2**, **4.6**, **8.3**, **12.1**.
 
-- **4.2** the `.loop/` → `.craft/` state-dir rename, all that survives of the July `loops`→`flows`
-  sweep now that the skill half has landed; its token joins `core/SCHEMA.md` § Retired tokens the
-  day it does, not before.
-- **12.1** the `SPEC.md`→`SPECS.md` migration — one reviewed change across five enforcement points.
-- **4.6** the first-line-comment gate, **8.3**, **9.6**.
-
-**Needing Lucas: the list is in § How to read this and only there.** It used to be restated here,
-and the two copies named different threes — each missing a different item, both claiming three.
-**Two lists of the same set is the asymmetry; the count is the symptom**, so the cure is one list,
-not two careful ones. 14.1 was the item they disagreed about and it is now 🟡: Lucas ruled
-2026-08-16 that it needs no ruling, only its precondition.
+**Needing Lucas: the list is in § How to read this and only there.** It used to be restated here and
+the two copies named different threes, each missing a different item, both claiming three. **Two
+lists of the same set is the asymmetry; the count is only its symptom.**
 
 ## Model-switching guide
 
