@@ -287,30 +287,6 @@ spaghetti. I wanted things to be very clear here. very concise, precise."* The i
    opus-5 56.5%, opus-4.8 27.5%, fable 8.3%, sonnet 7.7%, haiku ~0%. Worth doing, but note the
    ceiling — routing cannot beat a 4x context multiplier, and the transition above already took the
    larger win. → **model: sonnet**.
-3. 🟡 **make delegation happen, instead of hoping for it.** Lucas, INBOX 2026-08-15: *"só tenho
-   confiado no opus. mas gostaria que ele delegasse mais ao sonnet pra economizar quando fosse
-   pertinente. não sei como fazer isso, seria ótimo se tivesse uma forma mais garantida de fazer
-   isso acontecer."* Item 1 says routing is *worth doing* and measures the split at opus 84% /
-   sonnet 7.7%; this item is why that split has not moved. **A per-item `→ model:` line in this
-   file is advice an agent may skip, and mostly does** — same class of defect as Front 4.6's
-   first-line comment, where a rule existed and the number still grew.
-
-   His proposed trigger is the concrete part: *"talvez se toda vez que o modo plan fosse utilizado
-   ou toda vez que o prompt pedisse para montar um plano para cada tarefa do plano o modelo
-   definisse qual modelo/agente deveria executar aquela tarefa… seria bom ter a delegação como
-   parte de uma política natural mas o plano poderia ser um gatilho mais evidente."* Planning is
-   already the moment the work is cut into tasks, so it is the one point where per-task routing is
-   free to decide and cheap to record. Make the plan *carry* the assignment rather than leaving it
-   to recall at execution time.
-
-   **Its feedback loop is already wired**: [`core/tools/wos/roundup`](core/tools/wos/roundup) prints
-   the per-session model split at every close, so whether this item moves the opus/sonnet ratio is
-   readable without new instrumentation. A delegation policy nobody measures per session would be
-   unenforced advice one more time.
-   **Partly demonstrated 2026-08-16**: this session's own plan carried a `model:` per task, which is
-   the mechanism in its cheapest form — the plan *is* the assignment record. What is unbuilt is
-   anything that makes it non-optional.
-   → **model: opus** for the mechanism, sonnet to wire it.
 5. 🔴 **give flows and agents a deliberate trial, then judge them.** Lucas, same capture: *"um aluno
    comentou que existem formas diretas de o claudecode delegar pra subagentes… temos skills e isso
    me parece suficiente, mas talvez não seja."*

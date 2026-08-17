@@ -360,6 +360,37 @@ afirmação sobre a nossa própria camada de enforcement se checa no ponto de ch
 `wiki_link_hits` — quem parasse em *"o módulo tem o check"* apagaria de `AGENTS.md` uma regra que na
 prática não é cobrada por ninguém. Ter o detector e cobrar o detector são fatos diferentes.
 
+### AD-17 — Delegação já é obrigatória onde um executor lê a atribuição; fora dali é conselho (2026-08-17)
+
+O pedido: *"gostaria que ele delegasse mais ao sonnet pra economizar… seria ótimo se tivesse uma
+forma mais garantida"*, com o gatilho proposto sendo o **plano** — o momento em que o trabalho é
+cortado em tarefas é o ponto barato para decidir quem executa cada uma.
+
+**Esse gatilho já está construído, em dois lugares.** A tabela de plano do Loop 1 em
+`core/flows/craft/craft.md` tem colunas `tier` e `effort` **por linha de tarefa**, e a revisão
+adversarial do mesmo loop cobra que cada linha seja executável pelo tier atribuído. O `ROADMAP.md`
+carrega `→ model:` por item. Fazer *o plano carregar a atribuição* não é o que falta.
+
+**O que falta é um executor que leia a atribuição.** Dentro do `/craft` existe um: `runtimes.md`
+spawna por tier, e a medição mostra o efeito — dos 37 spawns em
+[`experiments/delegation.md`](experiments/delegation.md), **9 são os mirrors `craft-*`**, os únicos
+estruturais; o resto é builtin ad-hoc. Fora do `/craft` nada lê a tag, então ela é conselho — mesma
+classe de defeito do comentário de primeira linha, onde a regra existia e o número crescia mesmo
+assim. **Daí a leitura do split opus-pesado: ele mede quanto do trabalho passa por fora do fluxo que
+roteia**, não uma falta de disciplina por tarefa. A alavanca é rotear mais trabalho pelo `/craft`,
+não construir um segundo mecanismo de roteamento ao lado.
+
+**Delegar ≠ paralelizar, e confundir os dois é o que faz a proposta parecer arriscada.** Oferecido um
+formato com workers paralelos, Lucas escolheu **sem paralelismo** (2026-08-17) — e recusar workers
+concorrentes no mesmo checkout não é recusar modelo mais barato por tarefa. O caso comum, e o que
+move o split, é delegação **sequencial**.
+
+**A metade cobrável, e é barata:** `core/tools/wos/roundup` já imprime o split por sessão a cada
+fechamento. Faça o plano **declarar o split esperado** e o roundup comparar declarado × real no
+fecho. Não força ninguém a delegar; torna o desvio **visível e datado** em vez de invisível — que é
+o que virou as outras frentes. É banda 1 → 2 da AD-16, e o loop de feedback não precisa de
+instrumento novo.
+
 ## Conventions
 
 - **Um arquivo não-rastreado não apenas fica sem backup — ele opta por sair de todo check que o
