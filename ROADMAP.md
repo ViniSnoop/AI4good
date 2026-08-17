@@ -350,21 +350,17 @@ spaghetti. I wanted things to be very clear here. very concise, precise."* The i
    comentou que existem formas diretas de o claudecode delegar pra subagentes… temos skills e isso
    me parece suficiente, mas talvez não seja."*
 
-   **The fact this item rested on was wrong, and wrong the way Front 15 describes.** It claimed
-   nothing had ever been delegated here; that came from scanning the flat project directory, while a
-   worker's transcript lives under `<session>/subagents/`. Numbers and the hand-check are in
-   [`core/experiments/delegation.md`](core/experiments/delegation.md) — re-run it, never quote it.
-   What survives the correction is sharper than the error: delegation does happen, and **no
-   workspace-authored agent has ever been spawned**. Every spawn is a harness builtin or a `craft-*`
-   mirror; `core/agents/` is at zero and `/research`, its only entrypoint, appears in no transcript.
+   The claim this item rested on — that nothing had ever been delegated — was an artifact of
+   scanning the wrong directory. Corrected, with the hand-check, in
+   [`core/experiments/delegation.md`](core/experiments/delegation.md): delegation happens, and **no
+   workspace-authored agent has ever been spawned.**
 
    **Ruled 2026-08-17 (Lucas): do not delete on that.** *"low usage doesn't mean they don't have
    value… we did not work enough on these yet. IF we employ effort, do our best, and even then we do
-   not use those, then it makes sense to delete."* The delete-weak-features rule assumes a fair
-   trial, and this layer never got one — reach was measured, worth was not. So the work is **rounds
-   of discussion and research**, not a verdict: what a flow is for, what an agent is for, whether a
-   flow naming `agents:` in frontmatter is the right shape at all, and one deliberate real run of
-   each before anyone rules. Delete only if it loses after that.
+   not use those, then it makes sense to delete."* Delete-weak-features assumes a fair trial and this
+   layer never got one — reach was measured, worth was not. The work is **rounds of discussion and
+   research**: what a flow is for, what an agent is for, whether a flow naming `agents:` in
+   frontmatter is the right shape, and one deliberate run of each before anyone rules.
    → **model: opus**, with Lucas — several sittings, not one pass.
 7. 🟡 **show context growth continuously, not just at two thresholds.** Lucas, same capture:
    *"gostaria de ver o crescimento da janela de contexto em tempo real, o claude code no vs code
@@ -603,22 +599,19 @@ is **what a confidence check looks like as a gate**, not as a paragraph.
 
 Three sub-questions, in the order they can be answered:
 
-1. 🔴 **What is the store, and what earns a row? — POSTPONED 2026-08-17 (Lucas), and the postponement
-   is the ruling.** Asked to choose between a new structure and a query layer over what exists, he
-   declined the frame: *"are we talking about the knowledge graph? this is an entirely new front in
-   my view. yes, there are some conceptual collisions, redundancies and ambiguities we must solve.
-   also, building it is not simple, a lot of content tells me we have to be extra careful on this
-   design."* So it is **a knowledge graph, it is its own front, and it does not get decided as a
-   side question inside a drain session** — it opens with research and a design discussion or it
-   does not open.
+1. 🔴 **What is the store, and what earns a row? — POSTPONED 2026-08-17, and the postponement is the
+   ruling.** Asked to pick between a new structure and a query layer over what exists, Lucas declined
+   the frame: *"are we talking about the knowledge graph? this is an entirely new front in my view…
+   there are some conceptual collisions, redundancies and ambiguities we must solve. also, building
+   it is not simple… we have to be extra careful on this design."* It opens with research and a
+   design sitting of its own, or it does not open.
 
-   What the next session inherits, so it does not restart from zero: the two existing stores are
-   [`brain/memory/`](brain/memory/CONTEXT.md) (26 files, wikilinked, folded into every system prompt)
-   and `core/refs/REFS.md` (209 lines, tier-marked, and absent from the most-re-read list in
-   [`core/experiments/read-amplification.md`](core/experiments/read-amplification.md) — nobody reads
-   it). A third store would be the failure this workspace names EDIT > CREATE, so *"conceptual
-   collisions, redundancies and ambiguities"* is the first work item, not a caveat.
-   → **model: opus**, with Lucas, in a session that is about this and nothing else.
+   Inherited, so the next session starts warm: the two live stores are
+   [`brain/memory/`](brain/memory/CONTEXT.md) (26 files, wikilinked, in every system prompt) and
+   `core/refs/REFS.md` (209 lines, tier-marked, and absent from the most-re-read list — nobody reads
+   it). A third store is the failure named EDIT > CREATE, so resolving the collisions is the first
+   work item, not a caveat.
+   → **model: opus**, with Lucas, in a session about this and nothing else.
 2. 🟡 **What makes a stored fact go stale?** A hash-addressed store is only as good as its refresh
    rule; a confidently-served 2026-07 fact is the same failure with extra steps. Every fact needs a
    measured-on date and a claim about how fast its subject moves — harness behaviour ages in weeks,
