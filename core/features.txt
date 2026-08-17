@@ -84,7 +84,7 @@ context-meter	hooks	-	advises	general	-	Says once per threshold what the next tu
 precompact-wipe	hooks	-	none	general	-	Clears the CONTEXT.md seen-markers before a compaction, so the chain is re-read by a session that no longer remembers reading it
 entropy-dashboard	hooks	-	none	general	-	Naming, placement, pointer integrity, fanout and size run as deterministic checks over this repo and every nested one, giving a number that must shrink instead of a feeling that the repo is messy
 rtk-compaction	capabilities	rtk-compaction	none	general	core/hooks/compact/bash-compact-rewrite.py	Compresses tool output before it reaches the context by 60-90%, transparently, with nothing to type
-web-search	capabilities	web-search	none	general	-	One entrypoint every agent calls for search, resolving its own backend, so picking a search CLI is a maintenance burden inside one script instead of in every agent's prompt
+web-search	capabilities	web-search	none	general	core/tools/web/search	One entrypoint every agent calls for search, resolving its own backend, so picking a search CLI is a maintenance burden inside one script instead of in every agent's prompt
 google-auth	capabilities	google-auth	none	lucas	n/a	Shared OAuth2 for every Google-backed tool: mail, calendar, files and slides
 mail-triage	capabilities	-	none	lucas	-	Reads a mailbox and classifies it into workspace routes, so email arrives as INBOX entries rather than as a second queue
 notes-notion	capabilities	-	none	lucas	-	Pages and note databases read as navigable text

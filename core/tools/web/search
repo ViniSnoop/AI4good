@@ -8,6 +8,9 @@
 # of falling back). See SETUP.md §12.
 import argparse, json, os, shutil, subprocess, sys, urllib.request, urllib.error, pathlib
 
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
+import tool_law  # noqa: E402
+
 EXA_CFG = pathlib.Path.home() / '.feynman' / 'web-search.json'
 
 
@@ -83,6 +86,7 @@ def _ddgr(query, n, region):
 
 
 def main():
+    tool_law.require('web-search')  # before argparse: off means off, including --help
     p = argparse.ArgumentParser()
     p.add_argument('query')
     p.add_argument('--n', type=int, default=10)

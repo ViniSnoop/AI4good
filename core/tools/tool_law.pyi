@@ -1,0 +1,3 @@
+OFF_EXIT: int
+
+def require(slug: str) -> None: ...

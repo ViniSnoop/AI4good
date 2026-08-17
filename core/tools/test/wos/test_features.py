@@ -149,15 +149,50 @@ def test_the_cli_agrees_with_this_file():
     assert out.returncode == 0, out.stdout + out.stderr
 
 
+TOOL_LAW = 'core/tools/tool_law.py'
+
+
 def test_the_wired_gates_actually_consult_the_law():
     """Both seams, end to end: a shell gate and a node hook reach the same law module.
 
     They are in different languages on purpose — the `--enabled` CLI arm is what lets a third
-    harness wire a gate without a second implementation of the registry.
+    harness wire a gate without a second implementation of the registry. A `core/tools`
+    capability reaches the law through `tool_law`, which carries the sys.path hop; that hop is
+    asserted itself, or the indirection becomes a place for the chain to go quietly dead.
     """
+    assert 'feature_law' in (WORKSPACE_ROOT / TOOL_LAW).read_text(encoding='utf-8'), (
+        f'{TOOL_LAW} is the capabilities hop and must reach feature_law itself')
     for row in law.load_registry():
         if not law.is_wired(row):
             continue
         body = (WORKSPACE_ROOT / row['wired']).read_text(encoding='utf-8')
-        assert 'feature_law' in body, (
+        assert 'feature_law' in body or 'tool_law' in body, (
             f"{row['wired']} names {row['slug']} but never asks feature_law whether it is on")
+
+
+def test_a_switched_off_capability_refuses_to_run():
+    """A capability CLI stops at invocation, with its own exit code.
+
+    AD-14 files skills and capabilities together as the rows with nowhere to put a call. True of
+    a skill — markdown, switched off only by the mirror declining to publish it. A capability is
+    a CLI this workspace owns, so it has a moment of its own, and this probe answers per row
+    where a shared publisher answers once for the group. `OFF_EXIT` is asserted rather than
+    "non-zero": every tool exits 1 on a real failure, so any-non-zero would pass on a broken one.
+    """
+    import tool_law
+    probed = []
+    for row in law.load_registry():
+        # Scoped by wiring point, not by group. `rtk-compaction` is a capability wired to a
+        # hook, whose observable is what it rewrites; the skills mirror is a sourced fragment
+        # probed above. AD-14 exactly — the wiring point decides how a row is probed.
+        if not law.is_wired(row) or row['wired'] == SKILL_MIRROR or not row['wired'].startswith('core/tools/'):
+            continue
+        entry = WORKSPACE_ROOT / row['wired']
+        out = subprocess.run([str(entry)], capture_output=True, text=True, cwd=WORKSPACE_ROOT,
+                             env={**os.environ, law.OFF_ENV: row['slug']})
+        assert out.returncode == tool_law.OFF_EXIT, (
+            f"{row['slug']}: exits {out.returncode} under {law.OFF_ENV}, so the switch does not "
+            f"stop {row['wired']}")
+        assert row['slug'] in out.stderr, f'{row["slug"]} stops without naming itself'
+        probed.append(row['slug'])
+    assert probed, 'no capability is wired to an entrypoint yet — this probe proves nothing'
