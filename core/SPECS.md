@@ -288,108 +288,108 @@ O join é o que impede um terceiro vocabulário: `SETUP.md` declara um slug por 
 (coluna `install`), `core/tools/deps.txt` um slug por dependência (coluna `slug`). Treze cada, quatro
 compartilhados — três arquivos, um vocabulário só, cobrado por teste.
 
-### AD-15 — O que uma regra sempre-carregada precisa provar para ficar (2026-08-17)
+### AD-15 — What an always-loaded rule must prove to keep its place (2026-08-17)
 
-Vale para todo texto que entra em toda sessão: `AGENTS.md`, cabeça de `CONTEXT.md`, skill sempre
-listada. A pergunta **não é tamanho**. É: *isto poderia ser um parâmetro de ferramenta, um enum, ou a
-mensagem de erro de um hook, em vez de prosa?* O que sobrevive a essa pergunta é prosa que se paga.
-Três colunas por regra:
+Applies to text loaded in **every session**: `AGENTS.md`, `CONTEXT.md` heads, always-listed skills.
+The question is **not length**. It is: *could this be a tool parameter, an enum, or a hook's error
+message instead of prose?* What survives that question is prose that pays for itself. Three columns
+per rule:
 
-| coluna | quando | o que acontece |
+| column | when | what happens |
 |---|---|---|
-| **delete** | um gate **bloqueante e catracado** já aplica a regra | sai da prosa; o hook é a regra |
-| **move** | um check *poderia* aplicá-la, mas nenhum aplica hoje | **fica na prosa** até o gate bloquear |
-| **keep** | julgamento que check nenhum segura | fica, e a razão fica junto |
+| **delete** | a **blocking, ratcheted** gate already applies it | leaves the prose; the hook is the rule |
+| **move** | a check *could* apply it, but none does today | **stays in the prose** until a gate blocks |
+| **keep** | judgment no check can hold | stays, and its reason stays with it |
 
-**O discriminador entre `delete` e `move` é bloqueio, não existência de detector** — foi o que separou
-duas linhas vizinhas de `AGENTS.md` nesta passada. `UPPERCASE.md = tipo` saiu porque
-`checks/type-gate.py` barra o commit. `DONE WORK IS DELETED` ficou: `entropy/entropy_ledger.py` tem o
-detector de prosa-de-obra-feita, mas `type-gate.py` importa dele só a metade de wiki-links, então a
-regra é **relatada e nunca barrada** — apagar a prosa com base num relatório é trocar enforcement por
-nada. Um detector existente e desligado é a coluna `move`, não a `delete`.
+**The discriminator between `delete` and `move` is blocking, not the existence of a detector** — it
+is what separated two neighbouring `AGENTS.md` lines in this pass. `UPPERCASE.md = a type` left
+because `checks/type-gate.py` stops the commit. `DONE WORK IS DELETED` stayed:
+`entropy/entropy_ledger.py` owns the finished-work detector, but `type-gate.py` imports only its
+wiki-link half, so the rule is **reported and never blocked** — deleting prose on the strength of a
+report trades enforcement for nothing. An existing, unwired detector is the `move` column.
 
-**Contrapesos, porque a poda indiscriminada é o único jeito de a auditoria piorar as coisas**
-(keep-list do método `prompt-audit`): contexto nunca é cruft; cruft ≠ comprimento; **nenhuma remoção
-se justifica por contagem de caracteres sozinha**. Auditoria que não acha nada não muda nada.
+**Counterweights, because indiscriminate pruning is the one way this audit makes things worse** (the
+`prompt-audit` keep-list): context is never cruft; cruft ≠ length; **no deletion is justified by
+character count alone**. An audit that finds nothing changes nothing.
 
-**Nota de escopo:** isto vale para texto **sempre carregado**. Prosa em `SPECS.md`, lida sob demanda,
-não paga esse pedágio e não está sob esta regra.
+**Scope note:** this governs **always-loaded** text. Prose in a `SPECS.md`, read on demand, does not
+pay that toll and is not under this rule.
 
-**E isto não é item de custo.** `AGENTS.md` é uma fração de um dígito do turno 1
-([`core/experiments/context-window.md`](experiments/context-window.md) — releia, não cite daqui):
-cortá-lo pela metade não economiza nada mensurável, e vender isso como economia repete o erro que a
-frente de custo levou três semanas para desfazer. O ganho é enforcement, não tokens.
+**And this is not a cost item.** `AGENTS.md` is a single-digit fraction of turn 1
+([`core/experiments/context-window.md`](experiments/context-window.md) — re-run it, never quote from
+here): halving it saves nothing measurable, and selling that as savings repeats the error the cost
+front spent three weeks undoing. The gain is enforcement, not tokens.
 
-A moldura veio de um post de prática (`[C]`, `core/refs/REFS.md`) que afirma corte de **>80%** do
-system prompt do Claude Code. **O número é auto-relatado, sem benchmark publicado — não é citável.** O
-que é testável, e é todo o valor, é a moldura: nossos próprios hooks já provam a metade mecânica dela
-— a mensagem de erro de um hook é uma instrução de custo zero que chega exatamente quando se aplica.
+The frame came from a practitioner post (`[C]`, `core/refs/REFS.md`) claiming a **>80%** cut to
+Claude Code's system prompt. **That number is self-reported with no published benchmark — not
+citable.** What is testable, and is the whole value, is the frame: our own hooks already prove its
+mechanical half — a hook's error message is a zero-token instruction arriving exactly when it applies.
 
-### AD-16 — Dúvida não se cobra na hora de afirmar; cobra-se na hora de guardar (2026-08-17)
+### AD-16 — Doubt is not charged when asserting; it is charged when storing (2026-08-17)
 
-O pedido era um jeito de impedir que a IA seja confiante e errada. **Pedir dúvida em prosa é a metade
-barata e já foi tentada**: o workspace é grosso de *re-execute, nunca cite* e isso não impediu nem o
-número errado que guiou uma frente por três semanas nem quatro explicações do hook rtk afirmadas e
-retiradas. Então a pergunta não é como pedir cautela, é **onde ela vira gate**. Três faixas, e a
-primeira contradiz a premissa de onde este item nasceu:
+The ask was a way to stop the agent being confidently wrong. **Asking for doubt in prose is the cheap
+half and has already been tried**: this workspace is thick with *re-run it, never quote it*, and that
+prevented neither the wrong number that steered a front for three weeks nor four asserted-then-
+retracted explanations of the rtk hook. So the question is not how to request caution, it is **where
+caution becomes a gate**. Three bands, and the first contradicts the premise this item was filed
+under:
 
-**1. Regra escrita, checker nenhum — é aqui que está o ganho barato, e inclui a nossa própria.** A
-disciplina do `core/experiments/` (`Method` executável, `Results` datado, `Limitations` nunca
-omitido) e os marcadores de tier do `core/refs/REFS.md` (`[A]`/`[B]`/`[P]`/`[V]`/`[C]`) são as duas
-regras que este workspace cita como prova de que sabe duvidar — e **nenhuma das duas é verificada por
-nada**: nenhum teste exige `## Method`, nenhum check de entropia varre `core/experiments/`. Elas
-funcionaram porque poucas sessões cuidadosas as seguiram, não porque algo cobra. É INDUCED se
-passando por ENFORCED, que é exatamente o defeito que esta frente existe para pegar. Ambas são
-fechadas, pequenas e mecanicamente checáveis: é a próxima Tier 0 óbvia.
+**1. Rule written, nothing checking — the cheap win, and it includes our own.** The
+`core/experiments/` discipline (runnable `Method`, dated `Results`, `Limitations` never omitted) and
+`core/refs/REFS.md`'s tier markers (`[A]`/`[B]`/`[P]`/`[V]`/`[C]`) are the two rules this workspace
+cites as proof it knows how to doubt — and **neither is verified by anything**: no test asserts a
+`## Method`, no entropy check reads `core/experiments/`. They held because a few careful sessions
+followed them, not because anything charges for them. That is INDUCED wearing ENFORCED's costume,
+the exact defect this front exists to catch. Both stores are small and closed: the obvious next Tier 0.
 
-**2. Enforced por construção — o mecanismo que já funciona e ninguém tinha nomeado assim.** Escreva a
-afirmação **onde algum parser já lê**, e ela passa a ser auditada a cada commit de graça. É o que a
-lei-em-dado faz (`core/SCHEMA.md` é parseado, nunca reescrito num checker), e por isso *"checker que
-reescreve a lei é a deriva que os checkers pegam"* é, no fundo, uma regra de dúvida. Provado em
-flagrante ao escrever a AD-15: uma frase minha em § The one exception adicionou dois tipos falsos ao
-allowlist, e `test_law_comes_from_schema` derrubou o commit — o teste não avaliou minha confiança,
-avaliou o artefato.
+**2. Enforced by construction — the mechanism that already works, never named as one.** Write the
+claim **where a parser already reads**, and it is audited on every commit for free. That is what
+law-in-data does (`core/SCHEMA.md` is parsed, never restated in a checker), which makes *"a checker
+that restates the law is the drift checkers exist to catch"* a doubt rule at heart. Proved in the act
+of writing AD-15: one sentence of mine in § The one exception added two false types to the allowlist,
+and `test_law_comes_from_schema` failed the commit — the test weighed no confidence, it read the
+artifact.
 
-**3. Não é cobrável — pare de tentar.** A verdade de uma afirmação técnica nova, dita num turno. Gate
-nenhum segura isso. O que o workspace faz em vez disso é **baratear o erro e acelerar a descoberta**,
-que é o que os testes fizeram acima.
+**3. Not chargeable — stop trying.** The truth of a fresh technical claim, spoken in a turn. No gate
+holds that. What the workspace does instead is **make the error cheap and its discovery fast**, which
+is what the tests did above.
 
-**Corolário que esta sessão pagou, irmão do *build the instrument, then check the instrument*:
-afirmação sobre a nossa própria camada de enforcement se checa no ponto de chamada, nunca no módulo.**
-`entropy_ledger.py` tem o detector de prosa-de-obra-feita, mas `type-gate.py` importa dele só
-`wiki_link_hits` — quem parasse em *"o módulo tem o check"* apagaria de `AGENTS.md` uma regra que na
-prática não é cobrada por ninguém. Ter o detector e cobrar o detector são fatos diferentes.
+**Corollary this session paid for, sibling to *build the instrument, then check the instrument*: a
+claim about our own enforcement layer is checked at the call site, never at the module.**
+`entropy_ledger.py` owns the finished-work detector, but `type-gate.py` imports only `wiki_link_hits`
+— anyone stopping at *"the module has the check"* would have deleted an `AGENTS.md` rule that nothing
+in practice enforces. Owning a detector and charging for it are separate facts.
 
-### AD-17 — Delegação já é obrigatória onde um executor lê a atribuição; fora dali é conselho (2026-08-17)
+### AD-17 — Delegation is already mandatory where an executor reads the assignment; elsewhere it is advice (2026-08-17)
 
-O pedido: *"gostaria que ele delegasse mais ao sonnet pra economizar… seria ótimo se tivesse uma
-forma mais garantida"*, com o gatilho proposto sendo o **plano** — o momento em que o trabalho é
-cortado em tarefas é o ponto barato para decidir quem executa cada uma.
+The ask: *"gostaria que ele delegasse mais ao sonnet pra economizar… seria ótimo se tivesse uma forma
+mais garantida"*, with the **plan** as the proposed trigger — the moment work is cut into tasks is
+the cheap point to decide who executes each one.
 
-**Esse gatilho já está construído, em dois lugares.** A tabela de plano do Loop 1 em
-`core/flows/craft/craft.md` tem colunas `tier` e `effort` **por linha de tarefa**, e a revisão
-adversarial do mesmo loop cobra que cada linha seja executável pelo tier atribuído. O `ROADMAP.md`
-carrega `→ model:` por item. Fazer *o plano carregar a atribuição* não é o que falta.
+**That trigger is already built, in two places.** The Loop 1 plan table in
+`core/flows/craft/craft.md` carries `tier` and `effort` columns **per task row**, and the same loop's
+adversarial review charges that each row be executable by its assigned tier. `ROADMAP.md` carries a
+`model` line per item. Making *the plan carry the assignment* is not what is missing.
 
-**O que falta é um executor que leia a atribuição.** Dentro do `/craft` existe um: `runtimes.md`
-spawna por tier, e a medição mostra o efeito — dos 37 spawns em
-[`experiments/delegation.md`](experiments/delegation.md), **9 são os mirrors `craft-*`**, os únicos
-estruturais; o resto é builtin ad-hoc. Fora do `/craft` nada lê a tag, então ela é conselho — mesma
-classe de defeito do comentário de primeira linha, onde a regra existia e o número crescia mesmo
-assim. **Daí a leitura do split opus-pesado: ele mede quanto do trabalho passa por fora do fluxo que
-roteia**, não uma falta de disciplina por tarefa. A alavanca é rotear mais trabalho pelo `/craft`,
-não construir um segundo mecanismo de roteamento ao lado.
+**What is missing is an executor that reads it.** Inside `/craft` there is one: `runtimes.md` spawns
+per tier, and the measurement shows the effect — of 37 spawns in
+[`experiments/delegation.md`](experiments/delegation.md), **9 are the `craft-*` mirrors**, the only
+structural ones; the rest are ad-hoc builtins. Outside `/craft` nothing reads the tag, so it is
+advice — the same defect class as the first-line comment, where the rule existed and the number grew
+anyway. **Hence the reading of the opus-heavy split: it measures how much work bypasses the flow that
+routes**, not per-task indiscipline. The lever is routing more work through `/craft`, not building a
+second router beside it.
 
-**Delegar ≠ paralelizar, e confundir os dois é o que faz a proposta parecer arriscada.** Oferecido um
-formato com workers paralelos, Lucas escolheu **sem paralelismo** (2026-08-17) — e recusar workers
-concorrentes no mesmo checkout não é recusar modelo mais barato por tarefa. O caso comum, e o que
-move o split, é delegação **sequencial**.
+**Delegating ≠ parallelising, and conflating them is what makes the proposal feel risky.** Offered a
+shape with parallel workers, Lucas chose **no parallelism** (2026-08-17) — and refusing concurrent
+workers in one checkout is not refusing a cheaper model per task. The common case, and the one that
+moves the split, is **sequential** delegation.
 
-**A metade cobrável, e é barata:** `core/tools/wos/roundup` já imprime o split por sessão a cada
-fechamento. Faça o plano **declarar o split esperado** e o roundup comparar declarado × real no
-fecho. Não força ninguém a delegar; torna o desvio **visível e datado** em vez de invisível — que é
-o que virou as outras frentes. É banda 1 → 2 da AD-16, e o loop de feedback não precisa de
-instrumento novo.
+**The chargeable half, and it is cheap:** `core/tools/wos/roundup` already prints the per-session
+split at every close. Have the plan **declare its expected split** and roundup compare declared
+against actual. It forces nobody to delegate; it makes deviation **visible and dated** instead of
+invisible — which is what turned the other fronts. That is band 1 → 2 of AD-16, and the feedback loop
+needs no new instrument.
 
 ## Conventions
 
