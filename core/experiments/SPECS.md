@@ -8,6 +8,18 @@ quoted from memory — a ledger of stored numbers is in direct tension with that
 carries the command that produced it. That is why `Method` is a runnable line and not prose. A row
 whose command no longer runs is a dead row: delete it, do not annotate it.
 
+## The corollary the cost work paid for twice: build the instrument, then check the instrument
+
+**A number nobody can re-run steers the work anyway — and building the instrument is not the same as
+checking it.** The output-cost front learned this in both halves. Its first framing came from a
+single 24 h window and was wrong in every claim. Its second came from a tool, was re-runnable, and
+was *still* wrong by 2x for three weeks, because the tool agreed with the one-off script it replaced
+and the agreement read as confirmation — both summed transcript records rather than API responses.
+**Two implementations of the same misunderstanding are one measurement.**
+
+So: **a new instrument owes one hand-check against raw data before anything is quoted from it**, and
+a stored number its own tool can no longer reproduce is **deleted, not softened**.
+
 ## The format
 
 | Section | Holds |

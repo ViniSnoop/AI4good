@@ -111,6 +111,24 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
    it could be a **tool parameter, an enum, or a hook message** instead of prose. Whatever survives that
    question is prose that earns its place. Feeds directly into 3.2's MOVE OUT and the skills audit.
    → **model: opus** for the judgement pass, sonnet for the rewrites.
+2. 🟡 **the `AGENTS.md` pass — and say plainly that it is not a cost item.** Lucas asked for it as
+   one (*"o AGENTS.md voltou a parecer meio grande… avaliar ele com bastante carinho"*), but it is
+   **754 tokens, 2.7% of turn 1** ([`core/experiments/context-window.md`](core/experiments/context-window.md)):
+   halving it saves nothing measurable, and selling it as savings repeats the error Front 9 spent
+   three weeks inside. Run it as a real audit with the `claude-api` skill's `shared/prompt-audit.md`
+   method and, more importantly, **its keep-list** — *context is never cruft; cruft ≠ length; never
+   justify a deletion by character count alone*. Deliver a three-column verdict per rule: **delete**
+   (a hook already enforces it), **move** (a hook could), **keep** (judgment no check can hold).
+
+   Two findings already in hand. `UPPERCASE.md = a type, lowercase.md = an instance` is enforced by
+   `type-gate.py` and `schema_law.py` off `core/SCHEMA.md` — prose restating a live check is the
+   drift the checks exist to catch. And **`PLANS LIVE IN ROADMAPS` is contradicted live**: the
+   harness requires a planning session to write its plan to `~/.claude/plans/`, a path no clone of
+   this workspace would ever get. Either the rule gains an exception for harness-imposed paths or
+   the plan is copied into the target ROADMAP at exit — **that half is Lucas's call**; the rest is
+   agent work. Ours is small against the AIware 2026 baseline (`core/refs/REFS.md` § Output cost),
+   and what is unusual is how much has already moved out of it into hooks. **Propose, do not swing.**
+   → **model: opus**.
 
 ---
 
@@ -283,16 +301,6 @@ feeling lost twice. **Mass is the disease and only deletion cures it.**
    goes to a goal backlog — no third place, no boundary to police. This is the *delete weak features*
    rule applied to our own scaffold instead of to code.
    → **model: sonnet**. The fold needs a judgment call per line, so read them, do not batch.
-2. 🟡 **is `ROADMAP-output-cost.md` still live, or is it mass?** Lucas, INBOX 2026-08-17: *"WOS
-   roadmap still gigantic. god. how can we ever end this. are we really deleting the done? what
-   about the side ROADMAP-output-cost?"* The deleting **is** happening — five items and 73 lines
-   left this file on 2026-08-17 alone — so the question that survives is the second one: a
-   265-line side roadmap with 6 open items is a fifth of the wos ledger's mass sitting where the
-   count in § Sequencing does not see it. Read its six items against
-   [`core/experiments/output-cost.md`](core/experiments/output-cost.md), which was re-measured
-   after that plan was written: an item whose premise the re-measurement voided is *Rejected*, not
-   backlog. Whatever survives folds back into Front 9 as ordinary items and the file dies.
-   → **model: sonnet**.
 3. 🟡 **the attention dashboard measures the wrong thing** (Lucas, INBOX 2026-08-13). It counts
    edits to the goal's **own `.md` file**, not work **on** the goal — so the 2026-08-13 compass
    rendered `workspace-os ░░░░░░░░░░ 1 touch` in the same fortnight that **29 of 29** workspace
@@ -345,72 +353,21 @@ feeling lost twice. **Mass is the disease and only deletion cures it.**
 
 ## Front 9 — Cost & model routing
 
-> **The output-cost plan is [`ROADMAP-output-cost.md`](ROADMAP-output-cost.md)**; the measurement it
-> may not contradict is [`core/experiments/output-cost.md`](core/experiments/output-cost.md).
-> Output is **~13% of spend at sticker and ~25% once re-reads are counted** — a mean turn is ~12%
-> self-authored, and one written token costs **1.9x** list. Only **35%** of billed output tokens are
-> logged and re-read; the other 65% is thinking, paid once. `usage` prints all of it and `roundup`
-> prints the per-session line plus compaction adoption, so these regenerate instead of being quoted.
-
-**Why — re-measured 2026-08-16, and the old numbers were wrong twice over.** The first framing came
-from a single 24 h window. The second came from `usage` itself, which summed transcript *records*
-rather than API responses (1.97x) and charged thinking the re-read multiplier — so the numbers this
-section carried until 2026-08-16 were inflated by the tool built to make them trustworthy. Re-run it
-yourself: [`core/tools/wos/session/usage`](core/tools/wos/session/usage). Over
-**141 sessions · 11,381 turns**:
-
-> **Trust the ratios, not the dollar total.** Absolute spend is list price and has never been checked
-> against a bill. Quote percentages and $/turn.
-
-| Claim | Verdict |
-|---|---|
-| "59% of usage from subagent-heavy sessions" | **Unmeasured, and the retirement was wrong too.** The audit searched for `Task`; the tool is named **`Agent`**, and it ran **56 times across 12 sessions**. Subagent turns are also absent from the parent transcript by design — they live in `<session>/subagents/*.jsonl`, 48 files this audit never opened. Re-measure with `context` before any claim here. |
-| "55% from >150k-context sessions" | **Understated.** **72%** of spend is paid above 150k of context; **41%** above 250k. |
-| "25% from `/roundup`" (step 1 said ~7%) | **~7% was right; 25% was not.** 24 of 119 sessions invoked it; the tail after invocation is **~10%**. |
-
-**The real driver is context size — and the curve is a staircase, not a ramp.** Cost of one turn by
-the context it carried, and what each band adds over the one below it:
-
-| band | $/turn | vs. band below | | band | $/turn | vs. band below |
-|---|---|---|---|---|---|---|
-| <50k | 0.077 | — | | 200-250k | 0.167 | +13% |
-| 50-100k | 0.085 | +10% | | 250-300k | 0.195 | +17% |
-| 100-150k | 0.116 | **+36%** ← bend | | 300-400k | 0.244 | +25% |
-| 150-200k | 0.148 | +28% | | >400k | 0.326 | +34% |
-
-Flat below 100k, then a climb that never stops — **4.2x from the cheapest band to the dearest**.
-**88% of spend is paid above 100k, 56% above 200k.** The mechanism is that every turn re-reads the
-whole thread: **2.2 Gtok** of cache reads. Long sessions therefore cost super-linearly in their own
-length, and the **top decile of sessions is ~46% of total spend.**
-
-The old reading of this table claimed a *plateau* at 200-300k (+5%, +8%) and set `CTX_LOUD` where the
-climb was thought to finish. The plateau was an artifact of the record-duplication bug: bands whose
-turns carry more content blocks were counted more times. The corrected curve has no plateau, which
-strengthens the thresholds rather than moving them — 100k is still where the bend starts, and past
-200k there is no point at which one more turn stops getting dearer.
-
-Two facts that decide where a threshold can usefully sit. **Most sessions cross the bend** — median
-peak context **136k**, p75 **248k** — so firing at 100k rather than 150k costs almost no extra noise
-(52% of sessions against 48%). And **there is runway to act**: after crossing 100k the median session
-still has **~85 turns** ahead, enough for a hand-off to repay its re-grounding cost. Warning early
-does not cost precision work; that fear priced a session about to end, and at these thresholds the
-session is not about to end.
-
-Both halves of the session transition are live. The size signal is
-[`core/hooks/session/context-meter.py`](core/hooks/session/context-meter.py) on `UserPromptSubmit`:
-it reads the size the API already reported and announces `CTX_WARN` / `CTX_LOUD` once each, costing
-zero tokens until crossed and never blocking. **The session cannot see its own size**, which is why
-the hand-off decision is made late without it — a hook is the only thing that can see it *and* speak
-at the moment it applies. The close itself is [`core/tools/wos/roundup`](core/tools/wos/roundup) plus
-the two skills; every decision behind that split, and why no session spawns its own successor, is
-[`core/SPECS.md`](core/SPECS.md) § AD-09.
-
-**The lesson this front cost the most to learn, twice: a number nobody can re-run steers the work
-anyway — and building the instrument is not the same as checking it.** The first framing came from a
-single 24 h window wrong in every claim. The second came from a tool, was re-runnable, and was still
-wrong by 2x for three weeks because nobody re-derived its output by hand. So: a number in this file
-that [`core/tools/wos/session/usage`](core/tools/wos/session/usage) cannot reproduce should be
-**deleted, not softened** — and a new instrument owes one hand-check before anything is quoted from it.
+> **Every number this front used to carry now lives in
+> [`core/experiments/output-cost.md`](core/experiments/output-cost.md)** — the composition of output,
+> the $/turn staircase by context band, and the three claims the audit retired. Re-run it, never
+> quote it: [`core/tools/wos/session/usage`](core/tools/wos/session/usage). What the front holds is
+> what is still *intended*.
+>
+> The two findings that decide the items below: **context size is the driver, not output volume**
+> (4.2x from the cheapest band to the dearest, 88% of spend above 100k), and **65% of billed output
+> is unlogged thinking** — invisible to every instrument here, and the largest single slice. The
+> discipline that cost the most to learn is now
+> [`core/experiments/SPECS.md`](core/experiments/SPECS.md) § build the instrument, then check it.
+>
+> Both halves of the session transition are already live: `context-meter.py` announces the crossings
+> at zero token cost, `core/tools/wos/roundup` closes the session, and the split is
+> [`core/SPECS.md`](core/SPECS.md) § AD-09.
 
 1. 🟢 **safe — cheaper models where the work is mechanical.** Measured split (2026-08-16):
    opus-5 56.5%, opus-4.8 27.5%, fable 8.3%, sonnet 7.7%, haiku ~0%. Worth doing, but note the
@@ -492,8 +449,32 @@ that [`core/tools/wos/session/usage`](core/tools/wos/session/usage) cannot repro
    **Study before building** — the honest first question is what the harness actually does at the
    limit and what state survives it, and the second is whether resuming is even right: a session
    that hit the limit is a session at maximum context, where `/roundup` plus a fresh start is
-   cheaper per turn than continuing (see the band table above). The likely answer is *auto-close,
-   not auto-continue*. → **model: sonnet** to study, Lucas to rule.
+   cheaper per turn than continuing (the staircase is in the experiment file). The likely answer is
+   *auto-close, not auto-continue*. → **model: sonnet** to study, Lucas to rule.
+9. 🟡 **the lever nobody has looked at: thinking is 65% of billed output and no instrument here can
+   see it.** Its text is never written to the transcript, so every composition number we have
+   describes the other 35%. This reopens what was closed once: Anthropic's guidance is that `effort`
+   is not a *length* lever — it moves thinking volume, not reliably visible output — which was read
+   as *not a cost lever* and dropped. But thinking volume **is** billed at output rates, and is the
+   biggest slice of it. The guidance and the rejection never actually agreed.
+
+   **Not claimed: that lowering effort is free.** Thinking is where the reasoning happens, and ACL
+   Findings 2025 (a wrong budget degrades the answer, `core/refs/REFS.md` § Output cost) bites harder
+   here than anywhere, because this budget buys correctness rather than brevity. So **measure before
+   touching it**: same arm shape as `caveman-cost.md` — one task at two effort levels, comparing
+   billed output per turn *and* whether the work came out right. It needs a clean switch, so it runs
+   on the feature registry, and it is the same instrument Front 14 needs. No behavior change until
+   the number exists. → **model: opus**, with Lucas on whether to act on it.
+10. 🟡 **compaction is Claude-only, and that is a provider-agnosticism hole.**
+   `core/hooks/compact/bash-compact-rewrite.py` hardcodes `rtk hook claude` in two places, so only
+   one vendor gets multi-line splitting; `.github/hooks/rtk-rewrite.json` runs `rtk hook copilot`
+   raw and carries the first-line-only behavior the shim exists to fix. `core/hooks/copilot/` exists
+   precisely to translate other vendors onto the canonical gates and has no equivalent here.
+   **Measure before building**: `roundup` already prints compaction adoption, so it can answer
+   whether copilot's "always prefix with `rtk`" instruction already covers this before a second shim
+   is written. One outward-facing follow-on, Lucas's call: report the line-1-only decline upstream to
+   `rtk-ai/rtk` with the four-shape table in
+   [`core/hooks/compact/SPECS.md`](core/hooks/compact/SPECS.md). → **model: sonnet**.
 
 ---
 
@@ -918,6 +899,12 @@ months anyway. Cheaper than a list nobody reads.
 - **Commit the `.claude/commands/{drive,calendar}.md` symlinks** — done inline rather than tracked.
 - **`/caveman compress` on workspace docs** — piloted on the worst offender: 8571 → 8552 chars, **0.22%**, for one full quota call. The docs have no lexical fat, so placement beats phrasing and compression stays the last step on an already-reduced surface (core/SCHEMA.md § Placement).
 - **A media-host allowlist for INBOX link extraction** — deciding which links the video tool runs from a list of known hosts (instagram/youtube/tiktok/…) is faster, and the list rots into exactly the silent skip the batch fix exists to kill. Every link is attempted; one with no media falls back to `core/tools/web/fetch`.
+- **A `Write`-over-an-open-path gate** — its case was cost, and the cost is ~1% of spend once the re-read multiplier was corrected from 5.8x to 1.9x. The heredoc half shipped, on the governance grounds it never lost.
+- **Lowering `effort` to shorten output** — rejected as a *length* lever (it does not reliably move visible output) and that still holds. It is **not** rejected as a cost lever; that is Front 9.9.
+- **A global terseness rule** — a wrong token budget degrades the answer (ACL Findings 2025).
+- **LLMLingua-style prompt compression** — it compresses a request before sending, and the harness owns our request.
+- **A "match deliverable length to the task" rule in `AGENTS.md`** — `Write` arguments are 25.3% of *logged* output, which is 35% of billed output, which is 12.9% of spend: **~1% of the bill**, bought with one more always-loaded paragraph asking for restraint. INDUCED loses to ENFORCED, and this front already paid to learn it.
+- **The "delete verification scaffolding" prompt sweep** — audited 2026-08-17 and the corpus is already clean: every `verify`/`confirm` in `AGENTS.md`, `core/skills/` and `core/agents/` names a specific probe (`install.md`'s Verify step, `lead.md`'s file-exists check), not the generic self-checking Opus 5 over-runs on.
 - **The ~8% unexplained spend gap between `usage` and the one-off script** — the premise is void. Both summed transcript records instead of API responses, so they agreed on shares while being 1.97x wrong together, and the agreement is what stopped anyone looking. Absolute spend is list price and has never been checked against a bill; that is the only caveat left.
 
 ## Sequencing

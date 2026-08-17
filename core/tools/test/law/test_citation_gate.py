@@ -54,7 +54,7 @@ def test_a_roadmap_may_number_its_own_items(tmp_path):
 
 def test_a_scoped_roadmap_may_too(tmp_path):
     """ROADMAP-<slug>.md is the same type wearing a scope suffix, so it carries the same right."""
-    ledger = tmp_path / 'ROADMAP-output-cost.md'
+    ledger = tmp_path / 'ROADMAP-verify.md'
     ledger.write_text('Advances Front 3.1.\n', encoding='utf-8')
     assert entropy_citations.citation_hits([ledger], set()) == []
 
