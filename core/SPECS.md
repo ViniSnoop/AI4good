@@ -262,8 +262,29 @@ Cobertura parcial continua sendo trabalho de quem fia, não do teste.
 
 **As 57 linhas não são 57 tarefas, e o teste de honestidade é o que decide isso.** Os grupos
 `hooks`, `context-tree` e `brain` têm um arquivo de enforcement cada — uma chamada por linha,
-mecânico. Mas `skills` (14) e `capabilities` (11) não têm onde pôr uma: uma skill é markdown e não
-chama função nenhuma, e o único desligamento real dela é o mirror recusar-se a publicá-la.
+mecânico. Já `skills` (14) não tem onde pôr uma: uma skill é markdown, não chama função nenhuma, e o
+único desligamento real dela é o mirror recusar-se a publicá-la.
+
+**Corrigido 2026-08-17, ao fiar o grupo: `capabilities` NÃO é o par de `skills`, e juntar os dois foi
+erro.** O raciocínio acima vale para skill e só para skill. Uma capability é uma **CLI que este
+workspace escreve**, então ela tem um momento próprio — o momento em que é invocada — e recusar ali é
+observável mais forte do que qualquer publicador compartilhado ofereceria: a sonda de comportamento
+passa a responder **por linha**, não uma resposta só para o grupo inteiro. A costura é
+`core/tools/tool_law.py`, que carrega o pulo de `sys.path` e nada mais, e o guard é a primeira
+instrução do `main`, antes do argparse — desligado vale inclusive para `--help`, e invocar sem
+argumento vira sonda determinística. Sai com `EX_UNAVAILABLE` (69), deliberadamente não 1: um braço de
+ablação precisa distinguir *desligado* de *rodou e falhou*, e toda ferramenta daqui já sai 1 em erro
+real.
+
+**A lição repete a do palpite que abriu esta AD, um nível acima: o grupo não decide nada.** Foi o
+ponto de fiação que decidiu antes (`rtk-compaction` era o alvo de maior sinal do registro e o palpite
+por grupo o descartaria) e é o ponto de fiação que decide agora. `rtk-compaction` continua provando
+isso: é uma capability fiada num **hook**, cujo observável é o que ele reescreve e não um código de
+saída, então a sonda das CLIs é escopada por caminho de fiação — nunca por grupo.
+
+**Fica um achado aberto, e de propósito:** `codeburn` é binário npm instalado por fora, sem wrapper
+nosso onde pôr guard. Ele **não** foi marcado `n/a` de passagem — esta AD fecha esse conjunto em
+cinco, e admitir um sexto é decisão do Lucas, não faxina de quem estava fiando.
 
 **Decidido 2026-08-17: o teste de honestidade faz UMA pergunta — desligar isto mudaria alguma
 coisa? — e a responde do jeito mais forte que cada linha permite.** A versão antiga procurava o slug

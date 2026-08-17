@@ -320,9 +320,19 @@ whose `wired` column reads `-` cannot be switched off, so **the ablation cannot 
 Wiring one is calling `feature_law.is_enabled()` where the rule is enforced and naming that file in
 the column. Read the count from `core/tools/wos/features --findings`, never from here — and the
 target is zero, because a row with no in-process switch now carries `n/a` and a reason rather than
-sitting in the findings forever. The design question that used to be open here is ruled: the honesty
-test is a behavioural probe, so a group shares one wiring point instead of paying a call site per
-row ([`core/SPECS.md`](core/SPECS.md) § AD-14).
+sitting in the findings forever.
+
+**The `skills` and `capabilities` groups are done, and doing them corrected the design**
+([`core/SPECS.md`](core/SPECS.md) § AD-14). Skills share one wiring point in the mirror, because a
+skill is markdown and the only real switch is the mirror declining to publish it. Capabilities were
+filed alongside them and should not have been: a capability is a **CLI this workspace writes**, so it
+has a moment of its own and guards at invocation, which buys a per-row behavioural answer instead of
+one answer for the group. What is left is `hooks`, `context-tree` and `brain` — **one enforcement
+file apiece, one call per row, mechanical**.
+
+**One open finding, deliberately not cleaned up:** `codeburn` is an externally installed npm binary
+with no wrapper of ours to guard. It is **not** quietly marked `n/a` — AD-14 closes that set at five,
+and admitting a sixth is Lucas's ruling.
 
 5. 🟡 **the public scaffold repo and its one-way sync.** A **separate public repository**, not a
    branch — personal history never leaves this repo, where a branch would carry every commit that
