@@ -3,6 +3,8 @@
 # If interface is newer-or-equal: hard block (exit 2), must read interface first.
 # If source is newer: interface is stale, warn and allow.
 
+HOOKS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+
 stdin_json="$(cat)"
 file=$(python3 -c \
 	"import sys,json; d=json.load(sys.stdin); ti=d.get('tool_input'); ti=ti if isinstance(ti,dict) else d; print(ti.get('file_path',''))" 2>/dev/null \
@@ -37,6 +39,13 @@ else
 	iface_marker="/tmp/claude_iface_seen_${sid}.txt"
 	iface_real=$(readlink -f "$iface" 2>/dev/null || echo "$iface")
 	if grep -qxF "$iface_real" "$iface_marker" 2>/dev/null || grep -qxF "$iface" "$iface_marker" 2>/dev/null; then
+		exit 0
+	fi
+	# interface-first-reads, one of the four features the ablation names. The law is consulted
+	# on the branch that is about to block, not at the top of the script: this hook fires on
+	# every Read, so a check up there would spend a subprocess per read to answer a question
+	# that only matters on the rare read a block would stop.
+	if ! python3 "$HOOKS_DIR/feature_law.py" --enabled interface-first-reads; then
 		exit 0
 	fi
 	printf "⛔ READ INTERFACE FIRST — %s\n   Interface is current. Read it instead of the source:\n   %s\n   It has all public signatures without implementation noise.\n   (Reading the interface unlocks the source for this session.)\n" "$file" "$iface" >&2
