@@ -212,9 +212,19 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
 
 ## Front 8 — The ledger discipline — **v1 criterion 2**
 
-Collapsed 2026-07-29 (four ledgers → one) and cut 2026-07-30 (52 open steps → 17). The collapse made
-the ledger honest but not smaller — items went 158 → 123 while mass stayed flat, and Lucas reported
-feeling lost twice. **Mass is the disease and only deletion cures it.**
+**Mass is the disease and only deletion cures it.** Collapsing four ledgers into one made this file
+honest but not smaller — items went 158 → 123 while mass stayed flat, and Lucas reported feeling
+lost twice more after it.
+
+**And the cost of mass is now measured, not argued** (2026-08-17,
+[`core/experiments/read-amplification.md`](core/experiments/read-amplification.md)): this file is the
+single most re-read file in the workspace, **3.0 reads per session, 877k chars over 80 sessions** —
+more than the whole `CONTEXT.md` chain costs per session, and the chain is what gets blamed. **A line
+deleted here is not deleted once; it is deleted three times per session, forever.** That is the
+answer to Lucas, INBOX 2026-08-17: *"I am not trusting Opus and WOS itself regarding the
+size/entropy of the WOS, feeling maybe things are being scattered, entangled, an increasing
+spaghetti. I wanted things to be very clear here. very concise, precise."* The instrument is
+`core/tools/wos/session/reads`; re-run it rather than trusting this paragraph.
 
 1. 🟢 **`TODO.md` dies as a type — fold its content into goals, then delete the file.** Ruled
    2026-08-14. Lucas reported twice, unprompted, *"sinto que o TODO.md simplesmente não tá sendo

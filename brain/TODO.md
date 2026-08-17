@@ -22,6 +22,7 @@
 - [ ] [community] responder o desafio público do Jake Van Clief com nossas ideias/visão — ele julga os 3 comentários mais curtidos, então tem janela curta ([reel](https://www.instagram.com/reel/DbWA6VOxVq-/), INBOX 2026-07-28)
 - [ ] [ai4good] investigar o caso por trás do reel "this feels like a book burning" e decidir se entra nas aulas de ai4good — ref em `academy/refs/REFS.md` (INBOX 2026-07-28)
 - [ ] [wos] checkup de rotina do workspace (INBOX 2026-07-30) — está funcionando como planejado? Rodar `core/tools/test/verify-fast`, ler `entropy.md` (contagem, nunca uma cópia dela), e auditar os 4 critérios de v1 no `/ROADMAP.md` contra o que é verdade hoje. Sessão de leitura + medição; o que virar trabalho vira item de lá, não daqui. **E o checkup precisa de um método** (INBOX 2026-08-13: *"tô com bastante vontade de testar as nossas features do wos. tem que ver uma forma válida de fazer isso"*) — usar as features de verdade, não só verificar que passam; a forma de exercitá-las é parte do que essa sessão tem que descobrir
+- [ ] [ai4good] assistir o reel "pacing the frontier" e decidir se entra nas aulas — ref em `academy/refs/REFS.md`; a extração só trouxe a legenda, então o conteúdo ainda é desconhecido (INBOX 2026-08-17)
 - [ ] [pandeiro / show-up] confirm Pandeirada time, show up Saturday
 - [ ] [sleep / streak-3] 3 consecutive nights in bed by 00:30
 - [ ] [ic-ufrpe] bolsa IC — NÃO submetido. Bloqueado por 2 pré-requisitos: (1) projeto de pesquisa aprovado no CTA, (2) nomes dos alunos candidatos. Só faz sentido mexer depois disso (2026-07-23)
