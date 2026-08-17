@@ -293,9 +293,6 @@ feeling lost twice. **Mass is the disease and only deletion cures it.**
    goes to a goal backlog — no third place, no boundary to police. This is the *delete weak features*
    rule applied to our own scaffold instead of to code.
    → **model: sonnet**. The fold needs a judgment call per line, so read them, do not batch.
-2. 🟢 **safe — `/inbox` refreshes the goals dashboard.** Run `brain_stats.py` as `/inbox`'s last
-   step, not only on commit, so the dashboard never goes stale between commits.
-   → **model: haiku**.
 3. 🟡 **the attention dashboard measures the wrong thing** (Lucas, INBOX 2026-08-13). It counts
    edits to the goal's **own `.md` file**, not work **on** the goal — so the 2026-08-13 compass
    rendered `workspace-os ░░░░░░░░░░ 1 touch` in the same fortnight that **29 of 29** workspace
@@ -1017,7 +1014,7 @@ Alongside, in any order, all mechanical:
   sweep now that the skill half has landed; its token joins `core/SCHEMA.md` § Retired tokens the
   day it does, not before.
 - **12.1** the `SPEC.md`→`SPECS.md` migration — one reviewed change across five enforcement points.
-- **4.6** the first-line-comment gate, **4.8** the `python_api` walk, **8.2**, **8.3**, **9.6**.
+- **4.6** the first-line-comment gate, **4.8** the `python_api` walk, **8.3**, **9.6**.
 
 **Needing Lucas: the list is in § How to read this and only there.** It used to be restated here,
 and the two copies named different threes — each missing a different item, both claiming three.

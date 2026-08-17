@@ -4,12 +4,12 @@
 <!-- stats:start -->
 <!-- data:start -->
 ## attention dashboard  _(auto-updated on every commit)_
-last-updated: 2026-08-17 00:13
+last-updated: 2026-08-17 00:42
 
 >**areas** — last 14 days  
 ```
-health       ██████████   125 touches
-career       █░░░░░░░░░   13 touches
+health       ██████████   134 touches
+career       █░░░░░░░░░   14 touches
 finances     ░░░░░░░░░░   8 touches
 fun          ░░░░░░░░░░   5 touches
 spiritual    ░░░░░░░░░░   0 touches
@@ -21,7 +21,7 @@ CONTEXT                  ░░░░░░░░░░   3 touches
 burocracia-academica     ░░░░░░░░░░   4 touches
 career-ufrpe             ░░░░░░░░░░   0 touches
 corporal-expressiveness  ░░░░░░░░░░   0 touches
-craft-flows              ░░░░░░░░░░   11 touches
+craft-flows              ░░░░░░░░░░   12 touches
 cria                     ░░░░░░░░░░   3 touches
 dance                    ░░░░░░░░░░   1 touches
 ecovila                  ░░░░░░░░░░   3 touches
@@ -31,14 +31,14 @@ guitar                   ░░░░░░░░░░   0 touches
 home-casinhas            ░░░░░░░░░░   6 touches
 instituto                ░░░░░░░░░░   1 touches
 lih-dd                   ░░░░░░░░░░   2 touches
-local-ai                 ░░░░░░░░░░   5 touches
+local-ai                 ░░░░░░░░░░   6 touches
 magic-places             ░░░░░░░░░░   0 touches
 make-in-time             ░░░░░░░░░░   0 touches
 pandeiro                 ░░░░░░░░░░   0 touches
 paper-jarbinhas          ░░░░░░░░░░   0 touches
 paper-megatruth          ░░░░░░░░░░   0 touches
 paper-scattercode        ░░░░░░░░░░   0 touches
-prompt-opt-automation    ░░░░░░░░░░   0 touches
+prompt-opt-automation    ░░░░░░░░░░   1 touches
 reading                  ░░░░░░░░░░   0 touches
 rpg-isoroll              ░░░░░░░░░░   3 touches
 sleep-regularity         ░░░░░░░░░░   0 touches
@@ -67,7 +67,7 @@ teaching-materials       ░░░░░░░░░░   9 touches
 travel                   ░░░░░░░░░░   1 touches
 vipassana                ░░░░░░░░░░   0 touches
 voice                    ░░░░░░░░░░   0 touches
-workspace-os             ██████████   125 touches
+workspace-os             ██████████   134 touches
 yoga                     ░░░░░░░░░░   0 touches
 ```
 <!-- data:end -->

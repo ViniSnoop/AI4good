@@ -158,3 +158,7 @@ For each entry:
 - Append project ideas/bugs to `code/<proj>/ROADMAP.md` / `BUGS.md` — leave **staged**, report repos
 - Create draft files in `branches/writing/drafts/[slug].md` with a title and blank body
 - Clear confirmed entries from `brain/INBOX.md` — leave unconfirmed entries untouched
+- **Last, always:** `python3 core/hooks/brain/brain_stats.py` — refreshes the `GOALS.md` dashboard
+  and stages it. The commit hook runs this only when a `brain/goals/` file is already staged
+  (`core/hooks/generators/prepare.sh`), so a drain that appends a backlog item leaves the dashboard
+  describing the state before the drain until some later commit happens to touch a goal file.
