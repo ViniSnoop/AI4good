@@ -633,32 +633,6 @@ hypothesis; re-run it before spending a decision on it.**
    from a session that does not own those repos, as long as it skips the ones another session is
    holding.
    → **model: sonnet**.
-2. 🟢 **HEAD is shared mutable state, and nothing warns — decided 2026-08-14, build it.** Observed 2026-08-14: a
-   session began on `feature/wos-typeset`, a parallel session switched the shared checkout to
-   `feature/brain-attention` mid-flight, and the first session's commit landed on *their* branch and
-   was auto-pushed there by [`core/hooks/post-commit`](core/hooks/post-commit). It was caught only
-   because that hook happens to print the branch it pushed. **The branch read correct at session
-   start** — which is exactly why a start-of-session check cannot catch this.
-
-   Recovery is non-destructive and worth keeping: `git merge-base --is-ancestor <your-branch> <sha>`
-   to confirm a fast-forward, then `git branch -f <your-branch> <sha>` and push **yours**. Never
-   reset or force-push theirs, and never `git checkout` your branch back — that just yanks HEAD out
-   from under them, which is the same defect pointed the other way.
-
-   **Ruled 2026-08-14 (Lucas): the pre-commit warning, not worktrees.** Record the branch at session
-   start; `pre-commit` warns when HEAD no longer matches it. It is ~30 lines, costs nothing to adopt,
-   and fires at the exact moment damage would land. One worktree per session removes the shared HEAD
-   entirely and is the better end state, but every session has to adopt it before it protects
-   anything, and a checked-out worktree makes `git branch -d` refuse — which fights the branch sweep
-   in step 1. Keep worktrees as a later opt-in, piloted on one parallel pair, not as the fix for this.
-
-   Build notes: the start-of-session branch needs somewhere to live — `core/hooks/session/` already
-   owns session lifecycle state and is where a `SessionStart` hook can write it. Warn, never block: a
-   deliberate mid-session branch switch is legitimate and common. `core/tools/wos/roundup
-   --leave-dirty` already refuses to move HEAD for a diverged promotion, so the promotion path is
-   covered; **ordinary commits are the gap.**
-   → **model: sonnet**.
-
 3. 🔴 **is spec-driven development resumed, rescoped, or killed?** Lucas, 2026-08-15: *"sobre SDD
    (SPEC DRIVEN DEVELOPMENT), sinto que começamos isso mas esquecemos completamente."* The ledger
    is [`code/ROADMAP-spec-drive.md`](code/ROADMAP-spec-drive.md) and it is **readable now** — it was
@@ -1008,8 +982,7 @@ ablation has to eat through. Read it from `core/tools/wos/features --findings`, 
 
 Alongside, in any order, all mechanical:
 
-- **11.2** the branch-drift warning and **11.1** the unmerged-branch signal — both cheap, both
-  measure something currently invisible.
+- **11.1** the unmerged-branch signal — cheap, and it measures something currently invisible.
 - **4.2** the `.loop/` → `.craft/` state-dir rename, all that survives of the July `loops`→`flows`
   sweep now that the skill half has landed; its token joins `core/SCHEMA.md` § Retired tokens the
   day it does, not before.

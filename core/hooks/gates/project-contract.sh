@@ -89,6 +89,11 @@ if [ -x /mnt/workspace/core/hooks/git/gitflow-gate.sh ]; then
   /mnt/workspace/core/hooks/git/gitflow-gate.sh || exit 1
 fi
 
+# ── 1e2. Branch drift — HEAD moved since this session started (warn, never block) ──
+if [ -x /mnt/workspace/core/hooks/git/branch-marker.sh ]; then
+  /mnt/workspace/core/hooks/git/branch-marker.sh check
+fi
+
 # ── 1g. Tier 0 type gate — .md type allowlist + CONTEXT.md hand-inventory ─────
 # Ratchet/boy-scout, same shape as 1c/1d: fires only on files this commit ADDS, so a
 # repo that inherited violations is not blocked on every commit. The allowlist is

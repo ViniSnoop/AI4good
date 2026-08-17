@@ -65,6 +65,36 @@ this workspace.
   `Frente`→`Front` rename by matching the citation *shape* rather than the word, because
   `frente` is ordinary Portuguese and a bare-word retired token fired on honest prose.
 
+### Branch drift
+
+**HEAD is shared mutable state between parallel sessions, and until this existed nothing said so.**
+Observed 2026-08-14: a session began on one branch, a parallel session switched the shared checkout
+mid-flight, and the first session's commit landed on *their* branch and was auto-pushed there by
+[`post-commit`](post-commit). It was caught only because that hook happens to print the branch it
+pushed. **The branch read correct at session start**, which is why no start-of-session check can
+catch it.
+
+[`git/branch-marker.sh`](git/branch-marker.sh) records the branch at `SessionStart` and the
+pre-commit path warns when HEAD no longer matches. Three properties carry the design:
+
+- **Warn, never block.** A deliberate mid-session switch is legitimate and common.
+- **Warn once per divergence.** The check re-records after warning, so the session that switched
+  branches on purpose does not eat the same warning on every subsequent commit — a warning that
+  repeats after being understood is one people learn to skip.
+- **One marker per repo, not per session.** `record` runs where only the repo is known and `check`
+  runs inside a git hook, which has no session id to pair with. A repo with no marker is silent,
+  so nested repos and non-agent commits are unaffected.
+
+Recovery is non-destructive and the warning prints it: confirm a fast-forward with
+`git merge-base --is-ancestor <your-branch> HEAD`, then `git branch -f <your-branch> HEAD` and push
+**yours**. Never reset or force-push theirs, and never `git checkout` your branch back — that yanks
+HEAD out from under them, which is the same defect pointed the other way.
+
+One worktree per session removes the shared HEAD entirely and is the better end state, but every
+session must adopt it before it protects anything, and a checked-out worktree makes `git branch -d`
+refuse — which fights the branch sweep in `core/skills/roundup.md` Phase 5. Ruled 2026-08-14
+(Lucas): the warning now, worktrees as a later opt-in piloted on one parallel pair.
+
 **No exemptions for vendored third-party code.** Anything brought into the workspace complies with
 the same gates as our own code. A `.vendor` marker that switched them off was tried and rejected
 (2026-07-23, Lucas: *"even thirdparty solutions, once brought to our w-os should comply with our

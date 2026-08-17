@@ -135,6 +135,10 @@
           },
           {
             "type": "command",
+            "command": "bash /mnt/workspace/core/hooks/git/branch-marker.sh record"
+          },
+          {
+            "type": "command",
             "command": "python3 /mnt/workspace/core/hooks/session/inbox-nudge.py"
           },
           {
