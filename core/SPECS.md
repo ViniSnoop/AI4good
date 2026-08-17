@@ -214,6 +214,15 @@ Três decisões que carregam o peso:
   uma rodada de ablação responde *quanto custa este workspace sem X*. Ligar algo é decisão
   versionada no profile, não variável de ambiente que some com o shell.
 
+**A coluna `wired` guarda UM caminho, e algumas capacidades moram em vários** (achado 2026-08-17, ao
+ligar `facade-discipline`). A disciplina de fachada é dois arquivos — o bloqueio de import em
+`facade/check-facade-imports.py` e o gate de leitura em `facade/facade-gate.py` — e `context-chain`
+é três. Guardar só o arquivo nomeado deixaria a funcionalidade **meio desligada**, e uma ablação
+mediria o custo de algo que ninguém removeu inteiro: o mesmo fracasso silencioso que a coluna
+existe para evitar, um nível abaixo. Regra: **guarde todos os arquivos, nomeie o primário**, e cada
+arquivo não-nomeado cita no comentário quem é o primário. O teste de honestidade continua cobrando
+só o caminho nomeado — ele prova que a linha não mente, não que a cobertura é completa.
+
 O join é o que impede um terceiro vocabulário: `SETUP.md` declara um slug por passo de instalação
 (coluna `install`), `core/tools/deps.txt` um slug por dependência (coluna `slug`). Treze cada, quatro
 compartilhados — três arquivos, um vocabulário só, cobrado por teste.

@@ -3,6 +3,9 @@
 import sys, re
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import feature_law  # noqa: E402
+
 # Test files, facade files themselves, and generated dirs are exempt.
 EXEMPT_RE = re.compile(
     r'(?:^|/)[^/]*\.(?:test|spec)\.[tj]sx?$'           # TS/JS: *.test.ts, *.spec.ts
@@ -77,6 +80,12 @@ def check(f: str) -> list[str]:
 
 
 if __name__ == '__main__':
+    # facade-discipline, one of the four features the ablation names. It spans two files —
+    # this import block and facade/facade-gate.py's read gate — and the registry's `wired`
+    # column holds one path, so both are guarded and this one is named. Guarding only one
+    # would leave the feature half-off and make the ablation price a cost nobody removed.
+    if not feature_law.is_enabled('facade-discipline'):
+        sys.exit(0)
     files = sys.argv[1:] or [ln.strip() for ln in sys.stdin if ln.strip()]
     violations = [v for f in files for v in check(f)]
     if violations:

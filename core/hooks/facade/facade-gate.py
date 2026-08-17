@@ -5,6 +5,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import feature_law
 from hook_input import parse_stdin
 
 WORKSPACE    = Path('/mnt/workspace')
@@ -38,6 +39,10 @@ def find_nearest_facade(path: Path) -> Path | None:
 
 
 def main() -> int:
+	# The read-gate half of facade-discipline; the import-block half is
+	# facade/check-facade-imports.py, which is the path the registry names.
+	if not feature_law.is_enabled('facade-discipline'):
+		return 0
 	_, tool, tool_input, session_id, _ = parse_stdin()
 	if tool not in ('Edit', 'Write'):
 		return 0
