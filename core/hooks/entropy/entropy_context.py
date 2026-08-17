@@ -109,11 +109,8 @@ def check_misplaced_answer(path: Path, head_warn: int) -> str | None:
 def check_description(path: Path) -> str | None:
     """A file the routing table will list must give it something to write.
 
-    The oracle is the GENERATOR, never a second pattern table: `file_description()` is the
-    same call whose empty return writes `← add first-line comment` into the row, and
-    `is_scanned()` is the same predicate that decides the row exists at all. When those two
-    were allowed to disagree — `.sh` and `.jsx` scanned with no comment pattern — 59
-    well-commented files were marked undescribable, one of them inside core/hooks itself.
+    Asks the generator, never a second pattern table — why, and what it cost the one time the
+    two were allowed to disagree: core/hooks/SPECS.md § First-line descriptions.
     """
     if not is_scanned(path) or is_generated_mirror(path) or is_vendored(path, WORKSPACE_ROOT):
         return None
