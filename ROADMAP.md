@@ -158,6 +158,17 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
    before**, because a row that fails on the day it is written trains people to ignore the check.
    **Keep "Loop 0..6" as step names** — an iterative step really is a loop; that word is correct
    English, not the retired label.
+   **`git grep` cannot verify a workspace-wide rename, and that is how this one was declared done
+   twice** (2026-08-17). The skill sweep was checked with `git grep` from the root, which reads
+   *this* repo only — every `code/` project is a separate git repo and is invisible to it. Adding
+   the `/loops` row immediately surfaced four survivors the sweep had reported clean:
+   `code/cria/ROADMAP.md`, `code/dobra/CONTEXT.md`, and two `.loop/` run files in
+   `isoroll-content`. The entropy dashboard walks nested repos and `git grep` does not, so
+   **`make entropy` is the verification for a rename; `git grep` only finds where to start.**
+   Two of the four sit inside frozen `.loop/` run records, which raises a real question for the
+   state-dir sweep: a chain file records what was *run* that day, so rewriting it makes the record
+   lie. Decide whether run artifacts are exempt before touching them.
+
    **The reusable lesson: an incomplete rename is indistinguishable from entropy at the leaves, and
    is only fixable at the generator.**
    → **model: sonnet**.
