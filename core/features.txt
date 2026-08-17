@@ -29,11 +29,19 @@
 #   enforcement  blocks | warns | generates | advises | none — how hard it pushes.
 #   scope        general | lucas . This column is the general/Lucas-specific line: it is not a
 #                document, it is what the public sync is allowed to copy.
-#   wired        path of the file that calls feature_law.is_enabled(), or - .
+#   wired        path of the file that calls feature_law.is_enabled(), or `n/a <reason>`, or - .
 #                A `-` IS A FINDING, counted by `core/tools/wos/features --findings`: a capability
 #                that cannot be switched off is entangled with the scaffold rather than sitting on
-#                it. Do not hide the count by claiming a row is wired when it is not; the honesty
-#                test in test_features.py greps the named path for the slug.
+#                it, and the target for that count is ZERO.
+#                `n/a` means NO IN-PROCESS SWITCH, never "exempt" — the feature is still ablatable,
+#                by building a clone variant without it, which is the route the ablation harness
+#                uses for the .venv itself (core/SPECS.md § AD-14). Five rows qualify and no more:
+#                a row is n/a only because a switch cannot exist, never because wiring one is work.
+#                Do not hide the count by claiming a row is wired when it is not. The honesty test
+#                in test_features.py is a BEHAVIOURAL PROBE: it runs the feature both ways and
+#                fails unless the observable changes. A grep for the slug would pass on a guard in
+#                an unreachable branch, and would force one call site per row — which is why the
+#                whole skills group shares one wiring point in the mirror.
 #   buys         one sentence: what it is for and what it buys you. Required, because nobody
 #                accepts an enforcement layer they cannot see the value of, and writing this
 #                sentence per feature is itself an audit of whether the feature earns its place.
@@ -64,8 +72,8 @@ gitlink-gate	hooks	git-hooks	blocks	general	-	Blocks committing an undeclared ne
 gitignore-self-heal	hooks	git-hooks	generates	general	-	The .gitignore allowlist repairs itself, so a new subtree cannot go untracked and thereby opt out of every check the workspace runs
 lint-typescript	hooks	lint-typescript	blocks	general	-	ESLint and Prettier over staged TypeScript, run last because it needs the .d.ts the generators just wrote
 declared-deps	hooks	declared-deps	warns	general	-	Every external dependency is declared with what installs it and what its absence breaks, so a fresh clone loses a capability loudly instead of silently
-python-runtime	hooks	python-runtime	none	general	-	The .venv every hook and tool executes on; without it the enforcement layer cannot run at all
-tool-shebangs	hooks	tool-shebangs	none	general	-	core/tools CLIs are executable by name, which is what lets any agent call a capability through bash instead of through per-agent wiring
+python-runtime	hooks	python-runtime	none	general	n/a	The .venv every hook and tool executes on; without it the enforcement layer cannot run at all
+tool-shebangs	hooks	tool-shebangs	none	general	n/a	core/tools CLIs are executable by name, which is what lets any agent call a capability through bash instead of through per-agent wiring
 opencode-plugin	hooks	-	none	general	-	The provider shim that lets a second harness run the same canonical gates, which is what keeps the enforcement layer provider-agnostic in fact and not just in intent
 brain-dashboard	brain	-	generates	lucas	-	GOALS.md renders its own attention bars and active-goal table, so the dashboard cannot drift from the goal files it summarises
 brain-attention	brain	-	none	lucas	-	Counts the commits that actually touched each goal's declared paths, across every repo in the workspace, instead of counting edits to the goal file
@@ -75,29 +83,29 @@ telegram-capture	brain	telegram-capture	none	lucas	-	An away-from-PC front door 
 context-meter	hooks	-	advises	general	-	Says once per threshold what the next turn costs, so a session crosses into an expensive band knowingly rather than by drift
 precompact-wipe	hooks	-	none	general	-	Clears the CONTEXT.md seen-markers before a compaction, so the chain is re-read by a session that no longer remembers reading it
 entropy-dashboard	hooks	-	none	general	-	Naming, placement, pointer integrity, fanout and size run as deterministic checks over this repo and every nested one, giving a number that must shrink instead of a feeling that the repo is messy
-rtk-compaction	capabilities	rtk-compaction	none	general	-	Compresses tool output before it reaches the context by 60-90%, transparently, with nothing to type
+rtk-compaction	capabilities	rtk-compaction	none	general	core/hooks/compact/bash-compact-rewrite.py	Compresses tool output before it reaches the context by 60-90%, transparently, with nothing to type
 web-search	capabilities	web-search	none	general	-	One entrypoint every agent calls for search, resolving its own backend, so picking a search CLI is a maintenance burden inside one script instead of in every agent's prompt
-google-auth	capabilities	google-auth	none	lucas	-	Shared OAuth2 for every Google-backed tool: mail, calendar, files and slides
+google-auth	capabilities	google-auth	none	lucas	n/a	Shared OAuth2 for every Google-backed tool: mail, calendar, files and slides
 mail-triage	capabilities	-	none	lucas	-	Reads a mailbox and classifies it into workspace routes, so email arrives as INBOX entries rather than as a second queue
 notes-notion	capabilities	-	none	lucas	-	Pages and note databases read as navigable text
 paper-tools	capabilities	-	none	general	-	Academic search and text extraction: paper search, PDF and docx parse, and the term-consistency check every paper commit runs through
 video-text	capabilities	-	none	general	-	Turns a media link into navigable text through metadata, captions, transcript, OCR and visual captioning, which is what makes a link in the INBOX drainable
 asset-inspect	capabilities	-	none	general	-	Interface stubs for non-code assets, so an image or a CSV is readable without opening it
-latex	capabilities	latex	none	general	-	The toolchain academy/papers compiles with, so a paper builds and its interface stubs and label checks run on the same machine that writes it
+latex	capabilities	latex	none	general	n/a	The toolchain academy/papers compiles with, so a paper builds and its interface stubs and label checks run on the same machine that writes it
 codeburn	capabilities	codeburn	none	lucas	-	A periodic by-hand audit of token waste; wired into no gate on purpose
-apptime-verify	capabilities	-	blocks	lucas	-	flutter, without which code/apptime's verify cannot run at all and its commits are gated by nothing
+apptime-verify	capabilities	-	blocks	lucas	n/a	flutter, without which code/apptime's verify cannot run at all and its commits are gated by nothing
 caveman	skills	caveman	none	lucas	core/skills/caveman/hooks/config.js	Compresses the agent's own prose by roughly 65% without touching technical content, and goes off with a sentence when precision matters
-craft	skills	-	none	general	-	Develops a feature in file-relayed loops with model autorouting, so a plan carries its own model assignment instead of leaving routing to recall at execution time
-roundup	skills	-	none	general	-	Drains the session's ledgers into durable files and promotes the branch, so a session's knowledge survives it and no repo idles on an open branch
-handoff	skills	-	none	general	-	Writes the next session's opening prompt, and refuses when there is nothing open
-inbox	skills	-	none	lucas	-	Routes every INBOX entry to a goal, task, reference or project doc, which is what makes capture free without making the queue permanent
-compass	skills	-	none	lucas	-	The strategic review: what has wind, what to reorder, what to ditch guilt-free
-research	skills	-	none	general	-	The research workflow, from scouting sources to a written synthesis
-prepare	skills	-	none	general	-	Turns a raw task into an optimised agent prompt, recommending model and effort
-dedup	skills	-	none	general	-	Semantic duplication audit for a code project: the near-duplicate logic the verbatim-clone gate misses
-install	skills	-	none	general	-	Probes every step in SETUP.md on this machine, reports what is missing and executes it
-gmail	skills	-	none	lucas	-	Triages Gmail across every configured account and writes the routes into brain/INBOX.md
-calendar	skills	-	none	lucas	-	Lists upcoming events and queries date ranges across every configured calendar account
-drive	skills	-	none	lucas	-	Lists, searches and downloads files from Google Drive across every configured account
-foundry	skills	-	none	lucas	-	Foundry VTT module development reference, loaded only when that work is in front of us
-iso-visual	skills	-	none	lucas	-	The isoroll visual-semantics reference: image-to-text conventions and known model failure modes
+craft	skills	-	none	general	core/tools/wos/skills/mirror.sh	Develops a feature in file-relayed loops with model autorouting, so a plan carries its own model assignment instead of leaving routing to recall at execution time
+roundup	skills	-	none	general	core/tools/wos/skills/mirror.sh	Drains the session's ledgers into durable files and promotes the branch, so a session's knowledge survives it and no repo idles on an open branch
+handoff	skills	-	none	general	core/tools/wos/skills/mirror.sh	Writes the next session's opening prompt, and refuses when there is nothing open
+inbox	skills	-	none	lucas	core/tools/wos/skills/mirror.sh	Routes every INBOX entry to a goal, task, reference or project doc, which is what makes capture free without making the queue permanent
+compass	skills	-	none	lucas	core/tools/wos/skills/mirror.sh	The strategic review: what has wind, what to reorder, what to ditch guilt-free
+research	skills	-	none	general	core/tools/wos/skills/mirror.sh	The research workflow, from scouting sources to a written synthesis
+prepare	skills	-	none	general	core/tools/wos/skills/mirror.sh	Turns a raw task into an optimised agent prompt, recommending model and effort
+dedup	skills	-	none	general	core/tools/wos/skills/mirror.sh	Semantic duplication audit for a code project: the near-duplicate logic the verbatim-clone gate misses
+install	skills	-	none	general	core/tools/wos/skills/mirror.sh	Probes every step in SETUP.md on this machine, reports what is missing and executes it
+gmail	skills	-	none	lucas	core/tools/wos/skills/mirror.sh	Triages Gmail across every configured account and writes the routes into brain/INBOX.md
+calendar	skills	-	none	lucas	core/tools/wos/skills/mirror.sh	Lists upcoming events and queries date ranges across every configured calendar account
+drive	skills	-	none	lucas	core/tools/wos/skills/mirror.sh	Lists, searches and downloads files from Google Drive across every configured account
+foundry	skills	-	none	lucas	core/tools/wos/skills/mirror.sh	Foundry VTT module development reference, loaded only when that work is in front of us
+iso-visual	skills	-	none	lucas	core/tools/wos/skills/mirror.sh	The isoroll visual-semantics reference: image-to-text conventions and known model failure modes

@@ -421,11 +421,13 @@ spaghetti. I wanted things to be very clear here. very concise, precise."* The i
 > [`core/SPECS.md`](core/SPECS.md) § AD-14.
 
 **Criterion 4 is met and the registry is live.** What remains is one mechanical backlog: a capability
-whose `wired` column reads `-` cannot be switched off, so **Front 14 cannot report on it**. Wiring one
-is calling `feature_law.is_enabled()` where the rule is enforced and naming that file in the column.
-Read the count from `core/tools/wos/features --findings`, never from here. The open design question
-— whether the honesty test stays a literal grep, which forces one call site per row — is
-[`core/SPECS.md`](core/SPECS.md) § AD-14, last paragraphs.
+whose `wired` column reads `-` cannot be switched off, so **the ablation cannot report on it**.
+Wiring one is calling `feature_law.is_enabled()` where the rule is enforced and naming that file in
+the column. Read the count from `core/tools/wos/features --findings`, never from here — and the
+target is zero, because a row with no in-process switch now carries `n/a` and a reason rather than
+sitting in the findings forever. The design question that used to be open here is ruled: the honesty
+test is a behavioural probe, so a group shares one wiring point instead of paying a call site per
+row ([`core/SPECS.md`](core/SPECS.md) § AD-14).
 
 5. 🟡 **the public scaffold repo and its one-way sync.** A **separate public repository**, not a
    branch — personal history never leaves this repo, where a branch would carry every commit that
@@ -547,12 +549,22 @@ Read the count from `core/tools/wos/features --findings`, never from here. The o
    compensate for model failures; a stronger model may not need the compensation, and every rule
    that outlives its failure is pure cost. The claim cuts at the whole scaffold, not just the docs.
 
-   **Precondition, and it is the reason the last attempt produced nothing.**
+   **It runs OUTSIDE this workspace, and that is a correction, not a detail** (Lucas, 2026-08-17:
+   *"the ablation test WILL NOT be done INSIDE the WOS. we can't do that. this will be an
+   experiment!"*). A system cannot run the experiment on itself. The harness builds **variants** of
+   a checkout — one feature off in each — and runs one task suite against all of them. The variants
+   come from the **public repo** (his call), which has two consequences taken deliberately: the
+   public scaffold is a **hard precondition** of this item, and the task suite must be **synthetic**,
+   since that scaffold ships `brain/` as empty structure by design. Designing the suite is study
+   work and belongs to the paper twin.
+
+   **The other precondition is the reason the last attempt produced nothing.**
    [`core/ROADMAP.md`](core/ROADMAP.md) § ablation-bench ran once and yielded no signal for exactly
-   one reason: there was no clean way to turn a single feature off. So the toggle registry in
-   Front 10.4 is not a sibling of this item, it is its instrument — *"it also would ease ablation
-   tests so we can indeed see the impacts of each option"* (Lucas, 2026-08-14). Building the bench
-   before the switch repeats the failure.
+   one reason: there was no clean way to turn a single feature off. The toggle registry is not a
+   sibling of this item, it is its instrument — *"it also would ease ablation tests so we can indeed
+   see the impacts of each option"* (Lucas, 2026-08-14). Building the bench before the switch
+   repeats the failure. Two ways a feature goes off, and the registry only knows the first:
+   an in-process switch, or a variant built without it — [`core/SPECS.md`](core/SPECS.md) § AD-14.
 
    **Named for measurement by Lucas (INBOX 2026-08-16), and the list is the scope:** *"incluir na
    nossa medição do estudo de ablação as funcionalidades da fachada, das interfaces, do limite de
@@ -745,15 +757,18 @@ The one ordered chain, because each step is the next one's precondition:
 
 1. **wire the registry's findings** — one feature per commit, `feature_law.is_enabled()` where the
    rule is enforced, then name that file in the `wired` column. The count lives in
-   `core/tools/wos/features --findings`, never here.
+   `core/tools/wos/features --findings`, never here, and its target is zero.
    **Cheapest-first is the right order only among features the ablation does not name**: ordering by
    files-touched maximises rows closed per hour and leaves the study with nothing to measure.
    `rtk-compaction` is the row that ordering would bury, and `core/tools/deps.txt` already prices its
    absence at 60-90% of a session.
-2. **10.5** — the public scaffold repo at `code/wos/` and its one-way sync.
+2. **10.5** — the public scaffold repo at `code/wos/` and its one-way sync. It stopped being a
+   neighbour of the ablation on 2026-08-17 and became its **hard precondition**: the experiment runs
+   on variants built from the public repo, so no public repo means no arms to compare.
 3. **14.1** — the ablation, against whatever is switchable by then.
 
-Everything else is unordered and mechanical: **4.2**, **4.6**, **8.3**, **12.1**.
+Everything else is unordered and mechanical: **4.2**, **4.6**, **8.3**, **12.1**, plus the
+declaration-table rename to `.tsv` ([`core/SCHEMA.md`](core/SCHEMA.md) § The `.md` type system).
 
 **Needing Lucas: the list is in § How to read this and only there.** It used to be restated here and
 the two copies named different threes, each missing a different item, both claiming three. **Two

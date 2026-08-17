@@ -205,8 +205,8 @@ Três decisões que carregam o peso:
 - **A coluna `wired` é honesta ou não serve.** Ela nomeia o arquivo que chama `is_enabled()`, e um
   `-` é contado por `core/tools/wos/features --findings`. Linha que se diz ligada sem estar faria a
   ablação relatar "sem efeito" para algo que nunca foi desligado — o mesmo fracasso silencioso que
-  custou o sinal da primeira rodada. `test_features.py` lê o arquivo citado e cobra o slug lá
-  dentro.
+  custou o sinal da primeira rodada. Quem cobra isso é a sonda de comportamento em
+  `test_features.py`, descrita adiante: a linha só é honesta se desligá-la mudar o observável.
 - **`is_enabled` falha ABERTO em slug desconhecido.** Um gate nunca pode parar de enforcar porque
   alguém errou uma linha de dados. Isso é o que torna seguro ligar qualquer gate ao registro: na
   pior hipótese ele se comporta como antes de o módulo existir.
@@ -214,31 +214,41 @@ Três decisões que carregam o peso:
   uma rodada de ablação responde *quanto custa este workspace sem X*. Ligar algo é decisão
   versionada no profile, não variável de ambiente que some com o shell.
 
-**Nem toda linha do registro é ablatável, e o diagnóstico (2026-08-17) desmente o palpite que o
-abriu.** A suspeita era que dois grupos inteiros — os "fatos de instalação" e o grupo
-`capabilities` — não tinham significado de "desligado". Ao verificar linha por linha, a suspeita
-sobrevive em **cinco** linhas, não em dois grupos:
+**A ablação roda FORA do WOS, e isso muda o que "desligável" quer dizer** (Lucas, 2026-08-17). Um
+sistema não roda o experimento sobre si mesmo. O harness monta **variantes** de um checkout — uma
+funcionalidade a menos em cada — e roda a mesma suíte de tarefas contra todas. As variantes saem do
+repositório público (`code/wos/`), o que torna o repo público **pré-requisito duro** da ablação e
+obriga a suíte de tarefas a ser sintética, já que o scaffold público leva `brain/` como estrutura
+vazia de propósito.
 
-- **Substrato, não chave** — `python-runtime`. É o `.venv` em que todo hook executa. Desligar não
-  ablaciona uma funcionalidade, ablaciona o instrumento: nenhum gate roda para responder.
-- **Ergonomia de invocação** — `tool-shebangs`. Desligado, chama-se `python3 core/tools/<x>` em vez
-  do nome. Nenhuma diferença de comportamento para medir.
-- **Toolchain de trabalho, não de scaffold** — `latex`, `google-auth`, `apptime-verify`. Desligar é
-  desinstalar. A ablação pergunta *quanto este workspace custa*; estes são dependências do trabalho
-  que o usuário faria de qualquer jeito.
+Daí saem **duas rotas de desligamento**, e a coluna `wired` só conhece a primeira:
 
-**O resto do palpite estava errado, e errado da forma cara.** `declared-deps` e `verify-suite` são
-avisos e gates comuns, plenamente desligáveis. E `rtk-compaction` — que o palpite jogou no balde de
-"capability não custa nada até ser chamada" — é provavelmente **o alvo mais valioso da lista
-inteira**: tem ponto de fiação pronto em `core/hooks/compact/bash-compact-rewrite.py`, roda em todo
-Bash, e `core/tools/deps.txt` já precifica sua ausência em *"the session just costs 60-90% more"*.
-Uma capability que reescreve toda saída de ferramenta antes do contexto não é passiva; a
-generalização por grupo é que era.
+| rota | como se desliga | quem usa |
+|---|---|---|
+| chave em processo | `is_enabled()` no arquivo que aplica a regra | `WOS_FEATURES_OFF`, o profile, todo gate |
+| variante de clone | a variante é montada sem aquilo | só o harness de ablação |
 
-**A lição, e é a mesma da coluna `wired`: o grupo não decide se algo é mensurável, o ponto de
-fiação decide.** Classificar por grupo teria descartado a linha de maior sinal do registro junto
-com quatro que realmente não têm chave. Só as cinco acima aguardam decisão do Lucas — se ganham um
-valor próprio na coluna `wired` ou se ficam como achado permanente.
+**Toda capacidade é ablatável; nem toda tem chave em processo** (Lucas: *"ALL features of the WOS
+should be toggleable"*). Cinco linhas só têm a segunda rota — `python-runtime` (o `.venv` em que
+todo hook executa: desligar não ablaciona a funcionalidade, ablaciona o instrumento, e nenhum gate
+sobra para responder), `tool-shebangs` (ergonomia de invocação, sem observável para medir), e
+`latex` / `google-auth` / `apptime-verify` (desligar é desinstalar um toolchain de trabalho que o
+usuário faria de qualquer jeito). Elas levam **`n/a` na coluna `wired`, com o motivo na própria
+linha**, e `n/a` quer dizer *"sem chave em processo; ablacionada por variante de clone"* — nunca
+*"isenta"*. `--findings` para de contá-las, e por isso o alvo do contador é **zero**, honestamente.
+
+**O palpite que abriu isto estava errado, e errado da forma cara.** A suspeita era que dois grupos
+inteiros — os "fatos de instalação" e `capabilities` — não tinham significado de desligado.
+`declared-deps` e `verify-suite` são avisos e gates comuns, plenamente desligáveis. E
+`rtk-compaction` — que o palpite jogou no balde de "capability não custa nada até ser chamada" — é
+**o alvo mais valioso da lista inteira**: tem ponto de fiação pronto em
+`core/hooks/compact/bash-compact-rewrite.py`, roda em todo Bash, e `core/tools/deps.txt` já
+precifica sua ausência em *"the session just costs 60-90% more"*. Uma capability que reescreve toda
+saída de ferramenta antes do contexto não é passiva.
+
+**A lição: o grupo não decide se algo é mensurável, o ponto de fiação decide.** Classificar por
+grupo teria descartado a linha de maior sinal do registro junto com quatro que de fato só têm a
+segunda rota.
 
 **A coluna `wired` guarda UM caminho, e algumas capacidades moram em vários** (achado 2026-08-17, ao
 ligar `facade-discipline`). A disciplina de fachada é dois arquivos — o bloqueio de import em
@@ -246,22 +256,33 @@ ligar `facade-discipline`). A disciplina de fachada é dois arquivos — o bloqu
 é três. Guardar só o arquivo nomeado deixaria a funcionalidade **meio desligada**, e uma ablação
 mediria o custo de algo que ninguém removeu inteiro: o mesmo fracasso silencioso que a coluna
 existe para evitar, um nível abaixo. Regra: **guarde todos os arquivos, nomeie o primário**, e cada
-arquivo não-nomeado cita no comentário quem é o primário. O teste de honestidade continua cobrando
-só o caminho nomeado — ele prova que a linha não mente, não que a cobertura é completa.
+arquivo não-nomeado cita no comentário quem é o primário. A sonda de comportamento não fecha esse
+buraco sozinha: ela prova que desligar a linha muda **alguma** coisa, não que mudou tudo que devia.
+Cobertura parcial continua sendo trabalho de quem fia, não do teste.
 
-**As 57 linhas não são 57 tarefas, e o teste de honestidade é o que decide isso** (achado
-2026-08-17, aguardando decisão do Lucas). Os grupos `hooks`, `context-tree` e `brain` têm um arquivo
-de enforcement cada — três linhas por linha, mecânico. Mas `skills` (14) e `capabilities` (11) não
-têm onde pôr uma chamada: uma skill é markdown e não chama função nenhuma, e o único desligamento
-real dela é o mirror recusar-se a publicá-la. Um despachante genérico serviria o grupo inteiro,
-**mas `test_a_row_claiming_to_be_wired_really_is` faz grep do slug literal no arquivo citado**, então
-só passa quem tem um ponto de chamada por linha.
+**As 57 linhas não são 57 tarefas, e o teste de honestidade é o que decide isso.** Os grupos
+`hooks`, `context-tree` e `brain` têm um arquivo de enforcement cada — uma chamada por linha,
+mecânico. Mas `skills` (14) e `capabilities` (11) não têm onde pôr uma: uma skill é markdown e não
+chama função nenhuma, e o único desligamento real dela é o mirror recusar-se a publicá-la.
 
-O mesmo teste já é reconhecidamente fraco — uma guarda em ramo inalcançável passa nele, e a prova que
-valeu foi rodar cada gate com e sem `WOS_FEATURES_OFF`. Então a escolha é: pagar 57 pontos de chamada
-e inventar um lugar para 25 que não têm, **ou** trocar o grep por uma sonda de comportamento (roda os
-dois lados, exige que o observável mude) e deixar cada grupo compartilhar um ponto de fiação. A
-segunda é mais barata e é um teste mais forte; é decisão do Lucas porque muda o contrato da coluna.
+**Decidido 2026-08-17: o teste de honestidade faz UMA pergunta — desligar isto mudaria alguma
+coisa? — e a responde do jeito mais forte que cada linha permite.** A versão antiga procurava o slug
+literal dentro do arquivo citado, o que **força um ponto de chamada por linha** e não tinha onde
+aterrissar para 25 delas.
+
+- **Grupo com costura invocável → sonda de comportamento.** Roda os dois lados, normal e sob
+  `WOS_FEATURES_OFF=<slug>`, e falha se o observável não mudar. É isso que **torna legal um ponto de
+  fiação compartilhado**: o mirror publica ou não publica a skill, e catorze linhas passam a ter
+  prova sem catorze chamadas. É também estritamente mais forte que o grep, que passa numa guarda em
+  ramo inalcançável.
+- **Linha com ponto de chamada próprio → o arquivo citado nomeia o slug e consulta a lei.** Continua
+  valendo porque ali é verdade: um arquivo, uma chamada, o nome está lá.
+
+Os dois mecanismos não são duas listas em sincronia — são a mesma pergunta com evidências
+diferentes, e a escolha entre eles é lida da própria linha, não mantida à mão. Inventar 25 pontos de
+chamada para uniformizar teria comprado um teste pior. Verificado ao escrever a sonda: com o filtro
+do mirror removido, ela falha em `calendar` (*"is still published with `WOS_FEATURES_OFF=calendar`"*)
+— um teste que não se viu falhar não é um teste.
 
 O join é o que impede um terceiro vocabulário: `SETUP.md` declara um slug por passo de instalação
 (coluna `install`), `core/tools/deps.txt` um slug por dependência (coluna `slug`). Treze cada, quatro

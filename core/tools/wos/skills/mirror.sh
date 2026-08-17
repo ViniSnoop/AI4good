@@ -28,11 +28,26 @@ is_command() {
   return 0
 }
 
+# The whole `skills` group's wiring point (core/SPECS.md § AD-14). A skill is markdown and calls
+# no function, so its only real "off" is the mirror declining to publish it — which means one
+# filter here switches all fourteen rows, and the honesty test is a behavioural probe rather than
+# a grep for a call site that could not exist. Queried once, not once per skill: `--disabled` is
+# one subprocess where a loop over `--enabled` would be fourteen.
+_WOS_OFF=
+_WOS_OFF_LOADED=
+skill_disabled() {
+  if [[ -z "$_WOS_OFF_LOADED" ]]; then
+    _WOS_OFF="$(python3 "$WORKSPACE/core/hooks/feature_law.py" --disabled 2>/dev/null)"
+    _WOS_OFF_LOADED=1
+  fi
+  [[ -n "$_WOS_OFF" ]] && grep -qxF "$1" <<<"$_WOS_OFF"
+}
+
 list_skills() {
   local f name
   for f in "$SRC"/*.md; do
     name="$(basename "$f" .md)"
-    if is_skill "$name"; then
+    if is_skill "$name" && ! skill_disabled "$name"; then
       printf '%s\n' "$name"
     fi
   done
@@ -141,7 +156,9 @@ orphans() {
     for d in "$mirror"/*/; do
       [[ -d "$d" ]] || continue
       name="$(basename "$d")"
-      if ! is_skill "$name" || [[ ! -f "$SRC/$name.md" ]]; then
+      # A switched-off skill's leftover mirror is an orphan too: publishing is the only thing
+      # "off" means here, so a stale link would leave the feature half-disabled.
+      if ! is_skill "$name" || [[ ! -f "$SRC/$name.md" ]] || skill_disabled "$name"; then
         if [[ "$action" == prune ]]; then rm -rf "$d"; echo "pruned orphan mirror: $d"
         else echo "ORPHAN mirror (no source skill): $d"; rc=1; fi
       fi
@@ -150,7 +167,7 @@ orphans() {
   for c in "$COMMANDS_DIR"/*.md; do
     [[ -f "$c" ]] || continue
     name="$(basename "$c" .md)"
-    if [[ ! -f "$SRC/$name.md" ]] || ! is_command "$name"; then
+    if [[ ! -f "$SRC/$name.md" ]] || ! is_command "$name" || skill_disabled "$name"; then
       if [[ "$action" == prune ]]; then rm -f "$c"; echo "pruned orphan command: $c"
       else echo "ORPHAN command (no source skill): $c"; rc=1; fi
     fi

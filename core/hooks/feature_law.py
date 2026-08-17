@@ -86,22 +86,50 @@ def setting(key: str, default: str = '') -> str:
     return load_profile()['setting'].get(key, default)
 
 
+def is_wired(row: dict) -> bool:
+    """Does this row have an in-process switch?
+
+    `n/a` says one cannot exist — the .venv every hook runs on cannot disable itself and still
+    leave a gate running to answer. Those rows are NOT findings and are NOT probed: they are
+    ablated by building a clone variant without them, which is the harness's job and not this
+    module's (core/SPECS.md § AD-14). Everything else either names a file or is a finding.
+    """
+    return row.get('wired', '-').split()[:1] not in ([], ['-'], ['n/a'])
+
+
 def findings() -> list:
-    """Rows that declare no wiring: capabilities that cannot be switched off.
+    """Rows with no switch and no reason: capabilities that cannot be turned off at all.
 
     This is the audit, not a warning list. A capability entangled with the scaffold rather than
     sitting on it is invisible to an ablation, so the count is the number the ablation study has
-    to drive down before it can measure anything (core/SPECS.md § AD-14).
+    to drive down before it can measure anything (core/SPECS.md § AD-14). Its target is zero,
+    which is only honest because `n/a` carries the rows where a switch cannot exist.
     """
-    return [r for r in load_registry() if r.get('wired', '-') in ('-', '')]
+    return [r for r in load_registry()
+            if not is_wired(r) and r.get('wired', '-').split()[:1] != ['n/a']]
+
+
+def disabled() -> list:
+    """Every declared slug that is currently off, in file order.
+
+    The set form exists so a group dispatcher pays ONE subprocess instead of one per row: the
+    skills mirror filters fourteen rows through a single call. Asking `--enabled` in a loop is the
+    same answer at fourteen times the cost, and a loop over a hot path is how a switch acquires a
+    reputation for being slow to consult.
+    """
+    return [r['slug'] for r in load_registry() if not is_enabled(r['slug'])]
 
 
 def main() -> int:
     """`--enabled <slug>` exits 0 when live, 1 when off — so a shell gate or a node hook shares
-    this law instead of reimplementing it. Same arm, same reason, as file_law.py --filter-code."""
+    this law instead of reimplementing it. Same arm, same reason, as file_law.py --filter-code.
+    `--disabled` prints the off slugs for a caller that filters a whole group at once."""
     if len(sys.argv) == 3 and sys.argv[1] == '--enabled':
         return 0 if is_enabled(sys.argv[2]) else 1
-    print('usage: feature_law.py --enabled <slug>', file=sys.stderr)
+    if len(sys.argv) == 2 and sys.argv[1] == '--disabled':
+        print('\n'.join(disabled()))
+        return 0
+    print('usage: feature_law.py --enabled <slug> | --disabled', file=sys.stderr)
     return 2
 
 

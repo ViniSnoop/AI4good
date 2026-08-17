@@ -12,6 +12,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import feature_law
 from hook_input import parse_stdin
 
 # Bound the subprocess fan-out: one rtk call per line, so a huge payload delegates instead.
@@ -22,8 +23,8 @@ BLOCK_KEYWORD = re.compile(r'^\s*(if|then|else|elif|fi|for|while|until|do|done|c
 CONTINUES = re.compile(r'(\\|\||&&|;)\s*$')
 
 
-def rtk_rewrite(command: str) -> str | None:
-	"""How rtk would rewrite one command. None when it declines, errors, or is not installed."""
+def ask_rtk(command: str) -> str | None:
+	"""rtk's raw stdout. Three states the callers all need: None = unrunnable, '' = silent, str = verdict."""
 	payload = json.dumps({
 		'hook_event_name': 'PreToolUse',
 		'tool_name': 'Bash',
@@ -36,38 +37,34 @@ def rtk_rewrite(command: str) -> str | None:
 		)
 	except (OSError, subprocess.SubprocessError):
 		return None
-	if not done.stdout.strip():
-		return None
+	return done.stdout if done.stdout.strip() else ''
+
+
+def rewritten_command(out: str) -> str | None:
+	"""The command rtk put in its verdict, or None if the shape is not what we expect."""
 	try:
-		got = json.loads(done.stdout)['hookSpecificOutput']['updatedInput']['command']
+		got = json.loads(out)['hookSpecificOutput']['updatedInput']['command']
 	except (ValueError, KeyError, TypeError):
 		return None
-	return got if isinstance(got, str) and got != command else None
+	return got if isinstance(got, str) else None
+
+
+def rtk_rewrite(command: str) -> str | None:
+	"""How rtk would rewrite one command. None when it declines, errors, or is not installed."""
+	out = ask_rtk(command)
+	got = rewritten_command(out) if out else None
+	return got if got is not None and got != command else None
 
 
 def delegate(command: str) -> str:
-	"""Hand the untouched payload to rtk and pass its verdict through unchanged.
-	Returns the verdict for the counter; the caller has nothing else to do with it."""
-	payload = json.dumps({
-		'hook_event_name': 'PreToolUse',
-		'tool_name': 'Bash',
-		'tool_input': {'command': command},
-	})
-	try:
-		done = subprocess.run(
-			['rtk', 'hook', 'claude'], input=payload,
-			capture_output=True, text=True, timeout=10,
-		)
-	except (OSError, subprocess.SubprocessError):
+	"""Hand the payload to rtk untouched and pass its verdict through. Returns the counter's label."""
+	out = ask_rtk(command)
+	if out is None:
 		return 'no-rtk'
-	if not done.stdout.strip():
+	if not out:
 		return 'delegated-noop'
-	sys.stdout.write(done.stdout)
-	try:
-		json.loads(done.stdout)['hookSpecificOutput']['updatedInput']['command']
-	except (ValueError, KeyError, TypeError):
-		return 'delegated-noop'
-	return 'delegated-rewrote'
+	sys.stdout.write(out)
+	return 'delegated-noop' if rewritten_command(out) is None else 'delegated-rewrote'
 
 
 def record(session_id: str, verdict: str, lines: int) -> None:
@@ -107,6 +104,10 @@ def main() -> int:
 	if not command:
 		return 0
 	lines = command.split('\n')
+	# Its own verdict, never folded into 'no-rtk': switched off and absent are different silences.
+	if not feature_law.is_enabled('rtk-compaction'):
+		record(session_id, 'off', len(lines))
+		return 0
 	# Checked once, up front: rtk_rewrite() cannot tell "declined" from "not installed", so
 	# without this the split path files a missing binary as `split-noop` — an idle shim and an
 	# absent one would read identically, which is the exact ambiguity the counter exists to kill.

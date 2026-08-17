@@ -136,6 +136,21 @@ reader are there for the same reason `core/SCHEMA.md` is: they are read by `core
 govern the whole workspace, and a file that governs everything does not live inside one of the
 things it governs.
 
+**The extension names the shape** (ruled 2026-08-17, Lucas: *"`.txt` seems too naive"*). The class
+is one idea but not one format, and `.txt` was carrying three jobs while saying "unstructured text"
+about a file with a closed seven-column header:
+
+| shape | extension | files |
+|---|---|---|
+| tab-separated table with a header row | `.tsv` | `core/features.tsv`, `core/profile.tsv`, `core/tools/deps.tsv` |
+| one value per line, no columns | `.txt` | `core/hooks/vendored.txt`, `extensionless.txt`, `gitignore-exceptions.txt` |
+| `key=value` | `.env` | `core/hooks/limits.env` |
+
+`.tsv` is a registered media type (`text/tab-separated-values`), so this buys editor and diff
+support as well as honesty. The rule is what makes the two that did **not** move right *by the
+rule* rather than by accident, which is the half worth keeping: a one-value list genuinely is plain
+text, and only the tables were mislabelled.
+
 `SPEC.md` is **not** a type: it collapses into `SPECS.md` (decided 2026-07-30, Lucas). The
 singular/plural pair was the sharpest asymmetry in the corpus — two spellings, one meaning — and it
 had leaked into enforcement, so the `> spec:` convention, `core/hooks/pre-commit` §1d,

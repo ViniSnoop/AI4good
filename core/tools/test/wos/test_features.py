@@ -5,6 +5,7 @@
 # a time. A row claiming to be wired while nothing reads the switch would make the ablation report
 # "no effect" for a feature that was never disabled — the exact silent failure that cost the first
 # ablation run its whole signal. So `wired` is checked against the file it names, not trusted.
+import os
 import re
 import subprocess
 import sys
@@ -81,20 +82,57 @@ def test_every_declared_feature_has_an_answer():
         f'answered but undeclared: {sorted(answered - declared)}')
 
 
+SKILL_MIRROR = 'core/tools/wos/skills/mirror.sh'
+
+
+def _published_skills(off: str = '') -> set:
+    """What the skills mirror would publish right now — the group's one observable.
+
+    Sourced rather than imported because the dispatcher is a shell fragment; the caller's
+    variables are exactly what `core/tools/wos/sync-skills` supplies.
+    """
+    script = (f'WORKSPACE={WORKSPACE_ROOT}; SRC=$WORKSPACE/core/skills; '
+              f'COMMANDS_DIR=$WORKSPACE/.claude/commands; MIRRORS=(); '
+              f'source {WORKSPACE_ROOT / SKILL_MIRROR}; list_skills')
+    env = {**os.environ, law.OFF_ENV: off} if off else os.environ
+    out = subprocess.run(['bash', '-c', script], capture_output=True, text=True, env=env)
+    assert out.returncode == 0, out.stderr
+    return set(out.stdout.split())
+
+
 def test_a_row_claiming_to_be_wired_really_is():
-    """The honesty check. `wired` names a file; that file must exist and consult this slug."""
+    """The honesty check, and it asks one question: would turning this off change anything?
+
+    It is answered the strongest way each row allows, which is the whole reason a group may share
+    a wiring point. Where a group has an invocable seam, the feature is switched off for real and
+    the observable must move — a probe a guard on an unreachable branch cannot pass. Where a row
+    owns its own call site, the named file must name the slug and consult the law.
+
+    `n/a` rows are skipped rather than failed: they have no in-process switch by ruling, and the
+    ablation reaches them by building a clone variant instead (core/SPECS.md § AD-14).
+    """
     broken = []
     for row in law.load_registry():
-        target = row['wired']
-        if target in ('-', ''):
+        if not law.is_wired(row):
             continue
+        target = row['wired']
         path = WORKSPACE_ROOT / target
         if not path.exists():
             broken.append(f"{row['slug']}: {target} does not exist")
-        elif row['slug'] not in path.read_text(encoding='utf-8'):
+        elif target != SKILL_MIRROR and row['slug'] not in path.read_text(encoding='utf-8'):
             broken.append(f"{row['slug']}: {target} never mentions the slug")
     assert not broken, (
         'these rows claim to be switchable and are not:\n  ' + '\n  '.join(broken))
+
+    group = {r['slug'] for r in law.load_registry() if r['wired'] == SKILL_MIRROR}
+    live = _published_skills()
+    assert group <= live, (
+        f'the mirror does not publish {sorted(group - live)}, so switching them off proves '
+        f'nothing — the registry and core/skills/ disagree about what exists')
+    for slug in sorted(group):
+        assert slug not in _published_skills(off=slug), (
+            f'{slug} is still published with {law.OFF_ENV}={slug}: the row names {SKILL_MIRROR} '
+            f'but the switch changes nothing there')
 
 
 def test_an_unknown_slug_fails_open():
@@ -125,7 +163,7 @@ def test_the_wired_gates_actually_consult_the_law():
     harness wire a gate without a second implementation of the registry.
     """
     for row in law.load_registry():
-        if row['wired'] in ('-', ''):
+        if not law.is_wired(row):
             continue
         body = (WORKSPACE_ROOT / row['wired']).read_text(encoding='utf-8')
         assert 'feature_law' in body, (
