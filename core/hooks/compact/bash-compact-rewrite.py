@@ -51,8 +51,7 @@ def rewritten_command(out: str) -> str | None:
 
 def rtk_rewrite(command: str) -> str | None:
 	"""How rtk would rewrite one command. None when it declines, errors, or is not installed."""
-	out = ask_rtk(command)
-	got = rewritten_command(out) if out else None
+	got = rewritten_command(ask_rtk(command) or '')
 	return got if got is not None and got != command else None
 
 

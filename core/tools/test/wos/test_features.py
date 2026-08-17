@@ -86,11 +86,8 @@ SKILL_MIRROR = 'core/tools/wos/skills/mirror.sh'
 
 
 def _published_skills(off: str = '') -> set:
-    """What the skills mirror would publish right now — the group's one observable.
-
-    Sourced rather than imported because the dispatcher is a shell fragment; the caller's
-    variables are exactly what `core/tools/wos/sync-skills` supplies.
-    """
+    """What the mirror would publish — the skills group's one observable. Sourced, not imported:
+    the dispatcher is a shell fragment, and these are the variables `sync-skills` supplies."""
     script = (f'WORKSPACE={WORKSPACE_ROOT}; SRC=$WORKSPACE/core/skills; '
               f'COMMANDS_DIR=$WORKSPACE/.claude/commands; MIRRORS=(); '
               f'source {WORKSPACE_ROOT / SKILL_MIRROR}; list_skills')
@@ -101,15 +98,11 @@ def _published_skills(off: str = '') -> set:
 
 
 def test_a_row_claiming_to_be_wired_really_is():
-    """The honesty check, and it asks one question: would turning this off change anything?
-
-    It is answered the strongest way each row allows, which is the whole reason a group may share
-    a wiring point. Where a group has an invocable seam, the feature is switched off for real and
-    the observable must move — a probe a guard on an unreachable branch cannot pass. Where a row
-    owns its own call site, the named file must name the slug and consult the law.
-
-    `n/a` rows are skipped rather than failed: they have no in-process switch by ruling, and the
-    ablation reaches them by building a clone variant instead (core/SPECS.md § AD-14).
+    """The honesty check: would turning this off change anything? Answered the strongest way each
+    row allows, which is what lets a group share one wiring point. A group with an invocable seam
+    is switched off for real and its observable must move — which a guard on an unreachable branch
+    cannot fake. A row owning its call site must name the slug there. `n/a` rows are skipped: they
+    have no in-process switch by ruling, and the ablation reaches them by clone variant instead.
     """
     broken = []
     for row in law.load_registry():
