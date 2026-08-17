@@ -16,6 +16,11 @@ Lucas runs several sessions on `/mnt/workspace` in parallel. The tree is a share
 - **Partition by subtree.** One session owns `core/`, another `code/`, another `brain/`. Never two sessions in `.hooks/` or `.gitignore` at once.
 - **Before refactoring a file, check `git status`** — if it's already `M` (dirty from another session), it's contended; don't rewrite it, coordinate or defer.
 - **Stage explicitly, never `git add -A`.** List your own files so you don't sweep a parallel session's work into your commit.
+- **A parallel writer can be a bot, not a session, and it writes while you work.** Incident
+  2026-08-17: `git add -A` before a rename commit staged a fresh `brain/INBOX.md` capture the
+  aiwbot Telegram frontend had appended minutes earlier. Caught by reading the staged diff, not by
+  `git status` at session start — the file was clean when the session began. **`brain/INBOX.md` is
+  append-at-any-moment; treat it as never yours to stage unless the INBOX is the work.**
 - **Staging explicitly is not enough — `git commit` commits the whole index, not what you just
   added.** Incident 2026-08-13: `git add ROADMAP.md entropy.md` followed by `git commit` swept in
   nine files (`brain/GOALS.md`, `brain/TODO.md`, `branches/ecovila/*`, `core/*`) that were already

@@ -984,12 +984,16 @@ ablation has to eat through. Read it from `core/tools/wos/features --findings`, 
    column. **Front 14 cannot report on a feature whose row still reads `-`**, so this is the
    ablation's real precondition and the count lives in the tool, never copied here.
 
-   **Wire the four features 14.1 names before anything cheaper** (ruled 2026-08-17, Lucas). Facade
-   discipline, interface-first reads, the LOC cap and the fanout cap are the ablation's declared
-   scope, so wiring them is what makes a first run produce signal at all. Ordering the backlog by
-   *files touched per feature* instead maximises rows closed per hour and leaves the study with
-   nothing to measure — it had put two of the four last and one nowhere. **Cheapest-first is the
-   right order only among features the study does not name.**
+   **The four features 14.1 names are wired, so the study has a scope it can run on.** What ordered
+   them first is the rule for whatever is picked next: **cheapest-first is the right order only
+   among features the study does not name.** Ordering by *files touched per feature* maximises rows
+   closed per hour and leaves the study with nothing to measure — it had put two of the four last
+   and one nowhere. `rtk-compaction` is the next row that ordering would bury: it runs on every Bash
+   call and `core/tools/deps.txt` already prices its absence at 60-90% of a session.
+
+   Five rows await a ruling before they can be counted at all —
+   [`core/SPECS.md`](core/SPECS.md) § AD-14 says which, and why the other two groups it was
+   suspected of sharing turned out to be ordinary.
 2. **10.5** — the public scaffold repo at `code/wos/` and its one-way sync. The allowlist is the
    deliverable, and `core/profile.txt` is the one file it replaces with a placeholder.
 3. **14.1** — the ablation, against whatever is switchable by then.
@@ -1001,8 +1005,6 @@ Alongside, in any order, all mechanical:
 - **4.2** the `.loop/` → `.craft/` state-dir rename, all that survives of the July `loops`→`flows`
   sweep now that the skill half has landed; its token joins `core/SCHEMA.md` § Retired tokens the
   day it does, not before.
-- **a registry slug and the file it governs carry the same name** (Lucas, 2026-08-17) — the rule
-  now holds for every skill row, and `core/SCHEMA.md` § Retired tokens carries the guard.
 - **12.1** the `SPEC.md`→`SPECS.md` migration — one reviewed change across five enforcement points.
 - **4.6** the first-line-comment gate, **4.8** the `python_api` walk, **8.2**, **8.3**, **9.6**.
 
