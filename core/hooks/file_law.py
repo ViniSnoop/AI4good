@@ -26,6 +26,21 @@ CODE_EXTS = {'.js', '.jsx', '.ts', '.tsx', '.py', '.dart', '.sh',
 # A stub is generated FROM its source and rides in the routing table's Interface column.
 GENERATED = ('.pyi', '.d.ts', '.dart.api', '.texif')
 
+# How a file of each kind declares what it is. One home, because it used to have three —
+# pre-edit.py held two dicts and gates/source-quality.sh a shell case-list, and only the
+# shell one ran at commit time, only as a warning, and only over code extensions.
+EXAMPLE_COMMENT = {
+    '.py': '# Short description',      '.js': '// Short description',
+    '.ts': '// Short description',     '.tsx': '// Short description',
+    '.jsx': '// Short description',    '.dart': '// Short description',
+    '.sh': '# Short description',      '.css': '/* Short description */',
+    '.scss': '/* Short description */', '.html': '<!-- Short description -->',
+    '.yaml': '# Short description',    '.yml': '# Short description',
+    '.toml': '# Short description',    '.env': '# Short description',
+    '.txt': '# Short description',     '.tex': '% Short description of this section',
+    '.md': '# Title of this document',
+}
+
 
 def is_code_file(path: Path) -> bool:
     """One definition. Extension, or an extensionless file carrying a shebang.

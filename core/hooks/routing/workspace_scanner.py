@@ -25,12 +25,20 @@ def _is_exec_script(path: Path) -> bool:
     except OSError:
         return False
 
+def is_scanned(path: Path) -> bool:
+    """True if this file gets a row in its directory's routing table.
+
+    The commit-time description gate asks this before demanding a first-line comment, so
+    the gate and the generator can never disagree about who owes one — that disagreement
+    is what put a placeholder inside the enforcement directory itself.
+    """
+    return (path.is_file()
+            and path.name not in ('CONTEXT.md', 'WORKSPACE.md', 'AGENTS.md')
+            and not path.name.endswith(('.d.ts', '.pyi'))
+            and (path.suffix in ALL_EXTS or _is_exec_script(path)))
+
 def code_files(directory: Path) -> list:
-    return sorted(p for p in directory.iterdir()
-                  if p.is_file()
-                  and p.name not in ('CONTEXT.md', 'WORKSPACE.md', 'AGENTS.md')
-                  and not p.name.endswith(('.d.ts', '.pyi'))
-                  and (p.suffix in ALL_EXTS or _is_exec_script(p)))
+    return sorted(p for p in directory.iterdir() if is_scanned(p))
 
 def has_code_content(directory: Path) -> bool:
     if code_files(directory): return True

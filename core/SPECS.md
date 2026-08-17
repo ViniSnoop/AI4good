@@ -269,6 +269,28 @@ compartilhados — três arquivos, um vocabulário só, cobrado por teste.
 
 ## Conventions
 
+- **Um achado com mais de uma semana é hipótese, não fato — re-rode antes de gastar uma decisão
+  nele** (achado 2026-08-14, e o custo foi quase uma frente inteira de trabalho inventado). Uma
+  auditoria de integridade git listou quatro problemas; re-checados quinze dias depois, **três dos
+  quatro tinham se resolvido sozinhos** — o `Makefile` estava não-rastreado em *zero* repos (os três
+  citados haviam ido para `.Trash-1000`), a árvore duplicada do `shortvid` foi junto, e dos dois
+  repos ditos RED um passa 225 testes e o outro virou spec com a implementação deletada. O quarto o
+  Lucas deletou na mesma sessão. **Os achados de uma auditoria apodrecem mais rápido que o ledger que
+  os guarda**, então o ledger guarda o comando que os produziu, nunca a lista.
+- **`make entropy` é o que verifica um rename; `git grep` só encontra por onde começar** (achado
+  2026-08-17, e foi assim que um rename foi declarado pronto **duas vezes**). `git grep` da raiz lê
+  *este* repo apenas — cada projeto em `code/` é um repo git separado e é invisível para ele. O
+  dashboard de entropia caminha nos repos aninhados; o `git grep` não. Corolário que generaliza:
+  **um rename incompleto é indistinguível de entropia nas folhas, e só é consertável no gerador.**
+- **Um check que prova que algo *aconteceu* vence um que prova que não deu erro** (achado 2026-08-14,
+  sobre seis bugs drenados de uma vez). **Todos os seis eram silenciosos**: saíam com status 0,
+  bloqueavam sem mensagem, ou escreviam um arquivo que ninguém relia — o caminho de declaração JS não
+  emitia nada *havia anos*, `pre-edit.py` recusava edições sem dizer por quê, o stubgen escrevia
+  dentro de um espelho do próprio caminho. Um bug que se anuncia é consertado no dia em que nasce, então
+  **o que sobrevive num tree é selecionado por ser mudo**, e o único detector era o olho do Lucas. Ao
+  caçar o próximo, pergunte *"o que isto produz, e está lá?"* antes de ler o código atrás de uma
+  exceção — e prefira o check transversal ao check de um arquivo só (nenhum stub gerado dentro de um
+  caminho duplicado; nenhum gate que bloqueia sem escrever em stderr).
 - **Um comando cujo status é um gate nunca vai para dentro de um pipe** (achado 2026-08-13, custou um falso "main pushed"). Em `a | tail && b`, o status é o do `tail`, não o do `a` — então `git merge --ff-only x 2>&1 | tail -1 && git push` executa o push mesmo com o merge abortado, e a sessão reporta sucesso de algo que não aconteceu. Para sequências onde cada passo autoriza o próximo: `set -e` e sem pipes, ou capturar o status explicitamente. Filtrar saída é para inspeção, não para decisão.
 - **Seção de `.md` se cita pelo nome, nunca pelo número** (achado 2026-08-15, custou 8 ponteiros
   quebrados em 6 arquivos). Um número é um ponteiro que envelhece na primeira seção inserida, e

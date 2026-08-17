@@ -255,10 +255,25 @@ it would lose text nothing else carries.
 
 ### First-line descriptions
 
-Every code file begins with a one-line description comment, because `context_synchronizer.py` reads
-it as the canonical description and writes it into `CONTEXT.md`. It is enforced three times, each
-weaker than the last: **Write** is blocked outright, **Edit** gets an in-session reminder, and
-**commit** warns.
+Every scanned file begins with a one-line description, because `context_synchronizer.py` reads it as
+the canonical description and writes it into `CONTEXT.md`. Enforced at **Write** (`pre-edit.py`
+blocks), at **Edit** (a reminder prints, the edit stands), and at **commit** —
+`entropy_context.check_description`, run by `checks/type-gate.py` over the files the commit adds.
+
+**The commit gate is the load-bearing one, and it was the missing one.** `pre-edit.py` only fires
+under `if not os.path.exists(file_path)`, so it covers creation through Edit/Write and nothing else:
+a file written by a generator, a shell heredoc, `git checkout`, or an agent not running our hooks
+was never asked. 150 markers across 54 `CONTEXT.md` accumulated under a rule that was already in
+force — **an edit-time check only covers the harness path; the staged set is what covers everyone.**
+
+**The check asks the generator, never its own pattern table.** `check_description` calls
+`workspace_meta.file_description()` — the same call whose empty return makes the generator write
+`← add first-line comment` — and `workspace_scanner.is_scanned()` to decide who is even asked, so
+the gate's scope and the table's scope are one definition. The alternative was tried by accident and
+cost a session: `ALL_EXTS` and `COMMENT_RE` disagreed, `.sh` and `.jsx` were scanned with no comment
+pattern, and 59 well-commented files were marked undescribable — one of them inside this directory,
+which was read as proof of a discipline hole until the generator was asked. **A marker is not
+evidence of a discipline problem until the generator has been asked whether it can answer it.**
 
 ## What a working install looks like
 
@@ -272,5 +287,6 @@ against. The commands that check the toolchain itself are in [`SETUP.md`](../../
 - grow a code file past 200 lines → the edit is blocked
 - create a new file with no first-line comment → the Write is blocked
 - edit a file already missing that comment → a reminder prints, the edit stands
+- commit a new file the routing table could not describe → the commit is rejected
 - commit a 200+ line code file → the commit is rejected
 - commit any staged code file → its `CONTEXT.md` routing block is updated and staged

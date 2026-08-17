@@ -15,25 +15,9 @@ if [ -n "$CODE_FILES" ]; then
   rm -f /tmp/workspace-line-counts.$$
 fi
 
-# ── 2. Missing first-line description comment (new files only) ─────────────────
-NEW_CODE=$(git diff --cached --name-only --diff-filter=A 2>/dev/null \
-  | python3 "$HOOKS_DIR/file_law.py" --filter-code || true)
-if [ -n "$NEW_CODE" ]; then
-  while IFS= read -r f; do
-    [ -f "$f" ] || continue
-    first=$(head -1 "$f")
-    case "$f" in
-      *.py)   echo "$first" | grep -qE '^\s*(#|"""|'"''')" || \
-                printf "⚠  No first-line description: $f\n   Add: # Short description of this module\n\n" ;;
-      *.js|*.ts|*.tsx|*.dart) echo "$first" | grep -qE '^\s*//' || \
-                printf "⚠  No first-line description: $f\n   Add: // Short description of this module\n\n" ;;
-      *.css|*.scss) echo "$first" | grep -qE '^\s*/\*' || \
-                printf "⚠  No first-line description: $f\n   Add: /* Short description of this stylesheet */\n\n" ;;
-      *.html) echo "$first" | grep -qE '^\s*<!--' || \
-                printf "⚠  No first-line description: $f\n   Add: <!-- Short description of this template -->\n\n" ;;
-      *.tex) echo "$first" | grep -qE '^\s*%' || \
-                printf "⚠  No first-line description: $f\n   Add: %% Short description of this section\n\n" ;;
-    esac
-  done <<< "$NEW_CODE"
-fi
+# ── 2. Missing first-line description comment ─────────────────────────────────
+# Moved into the Tier 0 gate (checks/type-gate.py, via entropy_context.check_description),
+# which already runs over exactly this commit's added files from gates/project-contract.sh.
+# What was here was a shell case-list that only warned, only over code extensions, and was a
+# third copy of a table now living once in file_law.py.
 

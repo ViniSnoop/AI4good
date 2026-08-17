@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # Tier 0 gate (core/SCHEMA.md § The .md type system): a staged file must be a known .md type or a
-# well-shaped instance, must sit where its type is allowed to live, and a CONTEXT.md must
-# not hand-list files. Zero-token, deterministic, no LLM.
+# well-shaped instance, must sit where its type is allowed to live, must give the routing table
+# something to write about it, and a CONTEXT.md must not hand-list files. Zero-token, no LLM.
 #
 # The law is PARSED from core/SCHEMA.md by schema_law.py, never restated here. It was
 # already duplicated across three files before this gate existed, which is the exact drift
@@ -13,7 +13,6 @@
 # (entropy-dashboard.py), not by failing every commit in a repo that
 # inherited them.
 import re
-import subprocess
 import sys
 from pathlib import Path
 
@@ -22,8 +21,10 @@ _HOOKS = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(_HOOKS))
 sys.path.insert(0, str(_HOOKS / 'entropy'))
 
-from entropy_context import check_goal_link, check_inventory  # noqa: E402
-from entropy_corpus import enforcement_paths, wiki_exempt_paths  # noqa: E402
+from entropy_context import (check_description, check_goal_link,  # noqa: E402
+                             check_inventory)
+from entropy_corpus import (enforcement_paths, staged_added_files,  # noqa: E402
+                            wiki_exempt_paths)
 from entropy_ledger import goal_vocabulary, wiki_link_hits  # noqa: E402
 from entropy_naming import check_dirs, check_placement, check_shape  # noqa: E402
 from schema_law import SCHEMA, WORKSPACE_ROOT, load_law, load_scopes  # noqa: E402
@@ -46,17 +47,11 @@ def check_name(path: Path, allowed: set, exempt: set) -> str | None:
             f"   allowlist in core/SCHEMA.md § The `.md` type system if you mean it.")
 
 
-def staged_added_files() -> list:
-    """Only files this commit ADDS — the ratchet. Renames count as adds of the new name."""
-    out = subprocess.run(['git', 'diff', '--cached', '--name-only', '--diff-filter=AR'],
-                         capture_output=True, text=True).stdout
-    return [Path(line) for line in out.splitlines()]
-
-
 def failures_for(path: Path, allowed: set, exempt: set, scopes: dict,
                  vocabulary: set) -> list:
     found = [f for f in (check_name(path, allowed, exempt),
                          check_inventory(path) if path.name == 'CONTEXT.md' else None,
+                         check_description(path),
                          check_goal_link(path),
                          check_shape(path, allowed),
                          check_dirs(path, WORKSPACE_ROOT),

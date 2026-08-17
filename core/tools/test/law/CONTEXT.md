@@ -17,6 +17,7 @@ one answers *what the tree actually contains*.
 |------|-----------|-------------|
 | [`test_citation_gate.py`](test_citation_gate.py) | [`test_citation_gate.pyi`](test_citation_gate.pyi) | T0 roadmap item numbers may not be cited outside a roadmap. Zero-token, runs in verify-fast. |
 | [`test_context_meter.py`](test_context_meter.py) | [`test_context_meter.pyi`](test_context_meter.pyi) | T0 context meter (core/SPECS.md § AD-09): the session-size signal that decides when to hand off. |
+| [`test_description_gate.py`](test_description_gate.py) | [`test_description_gate.pyi`](test_description_gate.pyi) | T0 description check: a file this commit adds must be able to describe itself. Zero-token, verify-fast. |
 | [`test_file_law.py`](test_file_law.py) | [`test_file_law.pyi`](test_file_law.pyi) | T0 file law (core/hooks/SPECS.md). Zero-token, runs in verify-fast. |
 | [`test_type_gate.py`](test_type_gate.py) | [`test_type_gate.pyi`](test_type_gate.pyi) | T0 type gate (Tier 0, law in core/SCHEMA.md): the uppercase allowlist. Zero-token, runs in verify-fast. |
 <!-- routing:end -->

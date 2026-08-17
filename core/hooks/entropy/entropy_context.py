@@ -5,9 +5,21 @@
 # check: type-gate.py is the ratchet that decides WHEN to run a check, these are the
 # rules about what a CONTEXT.md must and must not say.
 import re
+import sys
 from pathlib import Path
 
 from entropy_corpus import is_generated_mirror
+
+# The routing generator is one directory over, and it is deliberately the source of truth for
+# what "describable" means — see check_description below.
+_HOOKS = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(_HOOKS / 'routing'))
+
+from file_law import EXAMPLE_COMMENT, is_vendored  # noqa: E402
+from workspace_meta import PLACEHOLDER, file_description  # noqa: E402
+from workspace_scanner import is_scanned  # noqa: E402
+
+WORKSPACE_ROOT = _HOOKS.parents[1]
 
 # core/SCHEMA.md § Boundaries where types nearly touch: CONTEXT never hand-lists files.
 ROUTING_START = '<!-- routing:start -->'
@@ -92,6 +104,25 @@ def check_misplaced_answer(path: Path, head_warn: int) -> str | None:
             f'   CONTEXT.md is the only enforced-read type, so this is charged to every\n'
             f'   session in the subtree. {verb} sibling SPECS.md and leave one pointer\n'
             f'   (core/SCHEMA.md § Placement, REDIRECT).')
+
+
+def check_description(path: Path) -> str | None:
+    """A file the routing table will list must give it something to write.
+
+    The oracle is the GENERATOR, never a second pattern table: `file_description()` is the
+    same call whose empty return writes `← add first-line comment` into the row, and
+    `is_scanned()` is the same predicate that decides the row exists at all. When those two
+    were allowed to disagree — `.sh` and `.jsx` scanned with no comment pattern — 59
+    well-commented files were marked undescribable, one of them inside core/hooks itself.
+    """
+    if not is_scanned(path) or is_generated_mirror(path) or is_vendored(path, WORKSPACE_ROOT):
+        return None
+    if file_description(path).strip():
+        return None
+    example = EXAMPLE_COMMENT.get(path.suffix, '# Short description')
+    return (f'{path}: nothing to put in the routing table.\n'
+            f"   Its CONTEXT.md row would read '{PLACEHOLDER}'.\n"
+            f'   Give it a first line: {example}')
 
 
 def is_project(path: Path) -> bool:

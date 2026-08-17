@@ -4,7 +4,7 @@ import os, re, sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from file_law import CODE_EXTS, is_code_file, is_vendored, load_limits
+from file_law import CODE_EXTS, EXAMPLE_COMMENT, is_code_file, is_vendored, load_limits
 from hook_input import parse_stdin
 
 CONTENT_EXTS = {'.md', '.yaml', '.yml', '.toml'}
@@ -23,16 +23,6 @@ FIRST_LINE_COMMENT = {
 	'.scss': r'^\s*/\*', '.html': r'^\s*<!--',
 	'.yaml': r'^\s*#', '.yml':  r'^\s*#', '.toml': r'^\s*#',
 	'.tex': r'^\s*%',  '.md':   r'^\s*(#|---\s*$)',  # md: title or YAML frontmatter (skills)
-}
-
-EXAMPLE_COMMENT = {
-	'.py': '# Short description',   '.js':   '// Short description',
-	'.ts': '// Short description',  '.tsx':  '// Short description',
-	'.dart': '// Short description', '.css': '/* Short description */',
-	'.scss': '/* Short description */', '.html': '<!-- Short description -->',
-	'.yaml': '# Short description', '.yml':  '# Short description',
-	'.toml': '# Short description', '.tex': '% Short description of this section',
-	'.md': '# Title of this document',
 }
 
 def block(*lines):

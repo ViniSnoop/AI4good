@@ -14,6 +14,19 @@ SKIP_DIRS = {'.venv', 'node_modules', '.mypy_cache', '.pytest_cache', '.Trash-10
              '$RECYCLE.BIN', 'System Volume Information', 'outputs', 'tmp', 'models',
              'Downloads'}
 
+def staged_added_files() -> list:
+    """Only files this commit ADDS — the ratchet every Tier 0 gate shares.
+
+    Renames count as adds of the new name: a file arriving under a new name is arriving,
+    and the gates that read this all ask about the name and the content it lands with.
+    Lives here rather than in a checker because three gates need it and the third copy is
+    where the definitions start to disagree.
+    """
+    out = subprocess.run(['git', 'diff', '--cached', '--name-only', '--diff-filter=AR'],
+                         capture_output=True, text=True).stdout
+    return [Path(line) for line in out.splitlines()]
+
+
 def tracked_files(root: Path, nested: bool = False) -> list:
     """Text files git tracks, relative to root. git is the inventory; find is not.
 

@@ -7,6 +7,7 @@ VENDORED_FILE: Incomplete
 EXTENSIONLESS_FILE: Incomplete
 CODE_EXTS: Incomplete
 GENERATED: Incomplete
+EXAMPLE_COMMENT: Incomplete
 
 def is_code_file(path: Path) -> bool: ...
 def load_limits() -> dict: ...

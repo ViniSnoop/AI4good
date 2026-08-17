@@ -176,19 +176,10 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
    before**, because a row that fails on the day it is written trains people to ignore the check.
    **Keep "Loop 0..6" as step names** — an iterative step really is a loop; that word is correct
    English, not the retired label.
-   **`git grep` cannot verify a workspace-wide rename, and that is how this one was declared done
-   twice** (2026-08-17). The skill sweep was checked with `git grep` from the root, which reads
-   *this* repo only — every `code/` project is a separate git repo and is invisible to it. Adding
-   the retired-command row immediately surfaced four survivors the sweep had reported clean:
-   `code/cria/ROADMAP.md`, `code/dobra/CONTEXT.md`, and two `.loop/` run files in
-   `isoroll-content`. The entropy dashboard walks nested repos and `git grep` does not, so
-   **`make entropy` is the verification for a rename; `git grep` only finds where to start.**
-   Two of the four sit inside frozen `.loop/` run records, which raises a real question for the
-   state-dir sweep: a chain file records what was *run* that day, so rewriting it makes the record
-   lie. Decide whether run artifacts are exempt before touching them.
-
-   **The reusable lesson: an incomplete rename is indistinguishable from entropy at the leaves, and
-   is only fixable at the generator.**
+   **Verify with `make entropy`, not `git grep`** ([`core/SPECS.md`](core/SPECS.md) § Conventions —
+   it is how this rename was declared done twice). Four survivors surfaced that way, and two of them
+   sit inside frozen `.loop/` run records: a chain file records what was *run* that day, so rewriting
+   it makes the record lie. **Decide whether run artifacts are exempt before touching them.**
    → **model: sonnet**.
 3. 🟢 **drain the entropy dashboard.** `make entropy` → [`entropy.md`](entropy.md), the whole
    workspace and its nested repos in seconds. Read the report; never re-scan the tree. **Never copy
@@ -223,53 +214,13 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
    them**, and until it does, this repo cannot flip the gate.
    → **model: sonnet**, one repo at a time.
 
-6. 🟡 **close the first-line-comment hole, then sweep — in that order, because sweeping first
-   just refills.** Each marker is a routing-table row that describes nothing, in the workspace's
-   only enforced-read type.
-
-   **Re-counted 2026-08-15 after the item-7 generator fixes: 150 markers in 54 `CONTEXT.md`,
-   down from 204 in 77.** Not one was answered by hand — the drain is entirely files the
-   generator could already describe and was not reading (`.sh`, `.env`/`.txt`, multi-line
-   docstrings) plus the six hand-written inventories item 7 removed. **Three of the four
-   markers left in the wos repo are in nested-repo-shaped directories or genuinely
-   undocumented files; the queue that remains is nested-repo work.** Size any sweep against
-   150, and re-run the generator before measuring again — that is the cheap half, and it is
-   now spent.
-
-   **The frequency is the finding, and Lucas named it as such** (2026-08-15: *"this is an issue
-   that should not be so frequent so it is a warning for us that we may find out a more
-   enforced/guaranteed solution"*). A gate for this already exists and is why the number should
-   have been near zero: [`pre-edit.py`](core/hooks/checks/pre-edit.py) checks the first line
-   against a per-type pattern — **but only under `if not os.path.exists(file_path)`, so it fires
-   on creation through `Edit`/`Write` and never again.** Everything else is uncovered: files that
-   predate the gate, files written by a generator, by a shell heredoc, by `git checkout`, or by
-   any agent not running our hooks. `core/hooks/checks/check-line-counts.sh` carries a marker
-   **inside the enforcement directory itself**, which is the tell that the hole is structural and
-   not a lapse of discipline.
-
-   The guaranteed shape is the one the rest of Tier 0 already uses: a **commit-time check over
-   staged files**, where a generator's output and a stranger's file both have to pass, rather than
-   an edit-time check that only the harness path reaches. Ratchet it like the type gate — only
-   what a commit *adds* — so the 204 do not have to be paid before it turns on.
-
-   **Re-scope before building: a slice of this queue was never a discipline problem.** Found
-   2026-08-15 while draining the corpus. `ALL_EXTS` and `COMMENT_RE` in
-   [`core/hooks/routing/workspace_meta.py`](core/hooks/routing/workspace_meta.py) are two lists that
-   have to agree, and nothing checked that they did: `.sh` (30 files) and `.jsx` (29) were scanned
-   with no comment pattern, so `file_description()` returned `''` and the generator wrote the
-   marker **no matter how well the file was commented**. `core/hooks/post-edit.sh` carrying one
-   *inside the enforcement directory* was read above as proof the hole is structural — it is, but
-   the structure was a missing dict key, not a lapse of discipline. Fixed, guarded by
-   `test_every_scanned_extension_can_be_described`.
-
-   The re-sync that this note called for is **done** (2026-08-15), and it is what the recount
-   above measures. What it settles: **a marker is not evidence of a discipline problem until
-   the generator has been asked whether it can answer it.** Four times out of four, it could.
-   That does not remove the need for the gate — a commit-time check over staged files is still
-   the only thing that covers a stranger's file — but it does mean the gate should be built
-   against a queue of 150, not 204, and that **the next new marker deserves a look at
-   `COMMENT_RE` before it deserves a sweep**.
-   → **model: opus** for the gate, **sonnet** for the sweep behind it.
+6. 🟢 **sweep the first-line-comment markers now that the gate is shut.** The hole is closed:
+   `entropy_context.check_description` blocks at commit through the Tier 0 gate, ratcheted to what a
+   commit adds, and asks the routing generator rather than a table of its own
+   ([`core/hooks/SPECS.md`](core/hooks/SPECS.md) § First-line descriptions). What is left is the standing queue the ratchet deliberately does not
+   charge anyone for. **Size it against [`entropy.md`](entropy.md), and re-run the generator before
+   measuring** — every marker drained so far was a file the generator could already describe.
+   Most of the queue is nested-repo work, so it is one repo at a time. → **model: sonnet**.
 
 ---
 
@@ -480,52 +431,19 @@ feeling lost twice. **Mass is the disease and only deletion cures it.**
 
 ## Front 10 — Portability & clonability — **v1 criterion 4**
 
-> **Ruled 2026-08-16 (Lucas). The whole decide-first chain is closed; what is left is build work.**
->
-> **The harness is the installer.** *"the user opens up a harness and points it to the git repo. all
-> the rest is done intermediated by the harness the user is using. so our job is not to provide an
-> all-in-one installer but rather guidance (in the best way we can, with maybe tools to automate the
-> installation of parts etc) for the harness that is being used."* This kills the 2026-07-30
-> "executable installer" ruling and every idiom that was compared against it — `curl | sh` exists to
-> deliver a binary you do not have, and whoever installs WOS has already cloned the repo. **The
-> newcomer's own agent performs the install**, which is the only shape that is harness-agnostic by
-> construction rather than by porting.
->
-> **`SETUP.md` lives, and is the deliverable** (closes the 2026-07-30 contradiction with
-> `core/SCHEMA.md`, which now records the ruling). It stops being prose an installer would replace
-> and becomes prose an agent *executes*. `code/SETUP.md` and `academy/SETUP.md` answer a question no
-> WOS installer covers, so the type keeps its row and nine files stay legal.
->
-> **Features: one grouping, everything else a column.** Grouping is Lucas's own sketch — hooks ·
-> the `AGENTS.md`/`CONTEXT.md` tree + routing · brain · per-area capabilities · skills — because it
-> matches the tree, so a feature is findable. The other three candidate axes become **columns** on
-> the row: installability, enforcement strength (blocks/warns/generates/advises), and scope
-> (general vs Lucas-specific). *"levels of features"* described a column, not a set of boxes. The
-> symmetry test passes: nothing is both a hook and a skill.
->
-> **This repo is Lucas's and tracks its own profile.** *"our current repo is mine… I want to use it
-> on more machines. so I envision both tracked in the repo. BUT the shareable version of WOS will be
-> placed on a different repo, a public one… the profile part on that repo will be just a
-> placeholder."* So the registry **and** the answers are versioned here, and step 5's sync replaces
-> the profile with a placeholder on the way out. That also settles the old step 3: the
-> general/Lucas-specific line is not a document, it is **what the sync script is allowed to copy**.
+> **Ruled 2026-08-16 (Lucas); every ruling is recorded where it is enforced, not here.** The harness
+> is the installer and `SETUP.md` is the prose it executes — [`core/SCHEMA.md`](core/SCHEMA.md)
+> § The `.md` type system. The registry's grouping, its columns, and the fact that `scope` **is** the
+> general/Lucas-specific line (a column the sync reads, not a document) are declared in the header of
+> [`core/features.txt`](core/features.txt) itself; the rule behind it is
+> [`core/SPECS.md`](core/SPECS.md) § AD-14.
 
-**The install itself is done (2026-08-16) and criterion 4 is met.** The feature slugs `SETUP.md`
-declares per step are the registry's keys, already written — step 4 below supplies the answers, not
-the vocabulary. One dependency is still genuinely missing on this machine and `core/tools/wos/deps`
-says so on every run: **`flutter`**, without which `code/apptime`'s verify cannot run at all.
-
-**The registry is live and the profile answers it.** `core/features.txt` declares 62 capabilities,
-`core/profile.txt` holds this machine's answers, `core/hooks/feature_law.py` reads both, and
-`core/tools/wos/features` is the CLI. The rule is [`core/SPECS.md`](core/SPECS.md) § AD-14; the
-placement is [`core/SCHEMA.md`](core/SCHEMA.md) § The four disposal routes. Step 5 inherits one
-file to replace with a placeholder, which is the sync's simplest possible case.
-
-**Sixty of the 62 are not switchable, and that number is the work** — `features --findings` prints
-it, so it is never copied here. Wiring one is mechanical: call `feature_law.is_enabled()` in the
-file that enforces the rule, then name that file in the `wired` column. Two are wired as the
-proof, one per seam — a shell gate and a node hook, both through the same `--enabled` arm.
-**Front 14 cannot report on a feature whose row still reads `-`.**
+**Criterion 4 is met and the registry is live.** What remains is one mechanical backlog: a capability
+whose `wired` column reads `-` cannot be switched off, so **Front 14 cannot report on it**. Wiring one
+is calling `feature_law.is_enabled()` where the rule is enforced and naming that file in the column.
+Read the count from `core/tools/wos/features --findings`, never from here. The open design question
+— whether the honesty test stays a literal grep, which forces one call site per row — is
+[`core/SPECS.md`](core/SPECS.md) § AD-14, last paragraphs.
 
 5. 🟡 **the public scaffold repo and its one-way sync.** A **separate public repository**, not a
    branch — personal history never leaves this repo, where a branch would carry every commit that
@@ -562,27 +480,10 @@ proof, one per seam — a shell gate and a node hook, both through the same `--e
 
 ## Front 11 — Git & sync integrity — **v1 criterion 3 — ✅ MET 2026-08-14**
 
-**The criterion holds as of 2026-08-14**, re-audited across every repo in the tree: each has a
-remote, each sits on `main`/`master`/`feature/*`, and the only unpushed commits are one apiece in
-`isoroll-content` and `isoroll-module` — the parallel isoroll session's in-flight work, which
-`core/hooks/post-commit` pushes on its own. Re-run the audit rather than trusting this line; it is
-one loop over `find . -name .git` and it is how the two stale claims below were caught.
-
-**What closed it: `branches/casinhas`.** `modelo/sketchup-referencia/volume-lucas-v04.skp` was
-208 MB, over GitHub's hard 100 MB object limit, and was the single reason the repo had no remote.
-Lucas ruled the study obsolete (2026-08-14), so it was dropped from history with `filter-branch`
-rather than moved to LFS — `.git` went **193 M → 128 K** and the repo pushed clean. `*.skp` now sits
-in that repo's `.gitignore` beside the other heavy binaries, so the next SketchUp export cannot
-recreate the block.
-
-**The lesson, and it is the same one Front 9 paid for: an audit's findings rot faster than the
-ledger holding them.** Every item of the old step 1 was re-checked on 2026-08-14 and **three of
-four had resolved themselves** in a fortnight — the `Makefile` was untracked in **zero** repos (the
-three named repos that still showed it had been moved to `.Trash-1000`), `shortvid`'s duplicated
-source tree went with them, and of the two repos said to verify RED, `flows` now passes **225
-tests** and `voti` was archived to a spec with its implementation deleted. The fourth,
-`programacao1`, Lucas deleted during the same session. **A finding older than a week is a
-hypothesis; re-run it before spending a decision on it.**
+**The criterion holds, and it is re-run rather than trusted** — one loop over `find . -name .git`
+asserting a remote and a legal branch per repo. The rule that came out of closing it is
+[`core/SPECS.md`](core/SPECS.md) § Conventions, first bullet: a finding older than a week is a
+hypothesis.
 
 3. 🔴 **is spec-driven development resumed, rescoped, or killed?** Lucas, 2026-08-15: *"sobre SDD
    (SPEC DRIVEN DEVELOPMENT), sinto que começamos isso mas esquecemos completamente."* The ledger
@@ -613,29 +514,10 @@ hypothesis; re-run it before spending a decision on it.**
 
 ## Front 12 — The `.md` type system (decided 2026-07-30)
 
-**Why.** Lucas: *"all I want is to delimit precisely where one file ends and another begins, so there
-is no conceptual intersection."* Each type answers exactly one question.
-
-| Type | The one question it answers | Absorbs |
-|---|---|---|
-| `AGENTS.md` | What rules always apply, and where do I start? | — |
-| `CONTEXT.md` | What is *this directory*, and where inside it do I go? | `tree.md` |
-| `ROADMAP.md` | What do we intend to do — and what did we reject and why? | `ARCHIVE`, `HISTORY` |
-| `SPECS.md` | What must be true of this thing, and *why*? | `FOUNDATIONS` |
-| `BUGS.md` | What is currently **untrue** that we know about? | — |
-| `README.md` | I just cloned this. What is it and how do I run it? | `SETUP` prose |
-| `REFS.md` | What external material exists and what did we conclude? | `WATCHLIST` |
-| `SKILL.md` | What procedure does the agent follow when invoked? | — |
-| `GOALS.md` / `goals/<slug>.md` | Which goals have wind / why does this one matter? | — |
-| `TODO.md` · `INBOX.md` · `USER.md` | Life tasks · raw capture · who Lucas is and how he fails | — |
-
-**Three residual conflicts, with the resolving rule:**
-
-| Conflict | Rule |
-|---|---|
-| CONTEXT vs its own routing block | CONTEXT never hand-lists files; the generator owns inventory |
-| CONTEXT vs SPECS | rules that *constrain code* → SPECS; what the dir *is* → CONTEXT |
-| ROADMAP vs BUGS | BUGS owns the text; ROADMAP references by id and never restates it |
+> **The law is [`core/SCHEMA.md`](core/SCHEMA.md)** — § The `.md` type system holds the allowlist and
+> the one question each type answers, § Boundaries where types nearly touch holds the three conflicts
+> and their resolving rules, § Retired tokens holds what each rename retired. This front holds only
+> the migrations that have not landed.
 
 1. 🟢 **the `SPEC.md` → `SPECS.md` migration — the one part of retyping that is still wos work.**
    `core/hooks/checks/type-gate.py` stops *new* off-allowlist names; the existing ones are
@@ -783,20 +665,8 @@ above already rejects.
 
 ## Silent failure is the failure mode this workspace actually has
 
-Batch B is drained (2026-08-14). The recap is git's; this is the part that changes how the next
-bug hunt starts.
-
-**All six were silent.** Not one failed loudly — they exited 0, blocked with no message, or wrote
-a file nobody re-read. The JS declaration path had emitted nothing *for years*; `pre-edit.py`
-refused edits without a reason attached; stubgen wrote into a mirror of its own path. A bug that
-announces itself gets fixed the day it lands, so what survives here is selected for muteness, and
-the only detector was Lucas's eye. Two of the six were already fixed and the ledger did not know.
-
-So a check that a thing *happened* beats a check that it did not error, and three of the tests
-added are cross-cutting rather than one-file: no generated stub inside a doubled path, no
-blocking gate off stderr, no `jsconfig.json` carrying emit keys. **When hunting the next one,
-prefer asking "what does this produce, and is it there?" over reading the code for a raised
-exception.**
+The rule this cost six bugs to learn is [`core/SPECS.md`](core/SPECS.md) § Conventions: **a check
+that proves something *happened* beats one that proves it did not error.**
 
 Open, and per-repo drain work rather than a wos item: the `.d.ts` half of the stub gap — 203
 files, all in nested repos, now counted in [`entropy.md`](entropy.md) under the criterion-1
