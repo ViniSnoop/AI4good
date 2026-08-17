@@ -269,6 +269,14 @@ compartilhados — três arquivos, um vocabulário só, cobrado por teste.
 
 ## Conventions
 
+- **Um arquivo não-rastreado não apenas fica sem backup — ele opta por sair de todo check que o
+  workspace tem** (achado 2026-08-15). `code/ROADMAP-spec-drive.md` caía na regra `code/*` do
+  `.gitignore`, então cada edição ficou presa numa máquina só e ninguém viu que o rollout tinha
+  parado de andar. No instante em que entrou no corpus, falhou `verify-fast` em três tokens
+  retirados no rename `loops`→`flows` de julho: a varredura da época passou por todos os outros
+  arquivos e não podia enxergar este. Por um mês ele seguiu mandando o leitor para um arquivo de
+  flow que já tinha outro nome. **Um arquivo invisível continua dando instruções enquanto apodrece**
+  — é exatamente isso que a disciplina de allowlist no `.gitignore` compra.
 - **Sequencie a proibição ANTES do rename, nunca depois** (achado 2026-08-16, e a ordem inversa
   custaria um sweep de 50 arquivos). Proibir citar número de item e renomear `Frente`→`Front`
   pareciam a mesma varredura. Não eram: **91 das 160 menções eram citações que a proibição deleta

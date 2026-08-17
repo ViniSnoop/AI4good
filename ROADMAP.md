@@ -25,7 +25,7 @@ Four criteria. Nothing else gates v1.
 |---|-----------|-------|-------|
 | 1 | **verify-fast green + Tier 0 live** — naming, placement, pointer integrity, size-as-signal deterministic; **this repo** clean, every nested repo on a shrinking baseline | Front 4 | checks live · **read [`entropy.md`](entropy.md) for the count, never a copy of it** |
 | 2 | **One ledger, no duplicates** — this file is the sole wos ledger, verified by scan not eyeball | Front 8 | ✅ **MET 2026-07-30** — `test_no_item_lives_in_two_ledgers` |
-| 3 | **Everything pushed, gitflow-shaped** — every `code/` repo on `main`/`feature/*`, zero unpushed, no repo without a remote | Front 11 | ✅ **MET 2026-08-14** — re-audited across every repo |
+| 3 | **Everything pushed, gitflow-shaped** — every `code/` repo on `main`/`feature/*`, zero unpushed, no repo without a remote | — | ✅ **MET 2026-08-14** — re-run, never trusted: one loop over `find . -name .git` asserting a remote and a legal branch per repo |
 | 4 | **Clonable by a student** — fresh clone gets every capability; deps declared, no undocumented hand-installs | Front 10 | ✅ **MET 2026-08-16** — `SETUP.md` is an executed procedure, every dep declared in `core/tools/deps.txt`, both enforced by `verify-fast` |
 
 Post-v1 validation is `[mvp-validate]`: use the system daily for 30 days, then assess whether it
@@ -36,8 +36,10 @@ reduced mental load. That is the real test and it can only run after v1.
 Per-step `model` = the tier that is *enough* (a floor, not a ceiling).
 🔴 needs Lucas · 🟡 pilot on one subtree first · 🟢 mechanical.
 
-**Three open steps need Lucas's own judgment: 9.5, 11.3, 15.1** — the single list, quoted here and
-nowhere else. Everything else is agent work.
+**Two open steps need Lucas's own judgment: 9.5, 15.1** — the single list, quoted here and
+nowhere else. Everything else is agent work. Both are now *research-and-discussion* items rather
+than questions with options attached, which is what he asked for on 2026-08-17 in both cases: a
+capability nobody gave a fair trial, and a front too big to decide as a side question.
 Stating that number is part of the cure for feeling lost, so **keep it true** — it has been wrong
 three times: once claiming one while five were live; once (2026-08-16) carrying four items marked 🔴
 whose own `→ model:` line said sonnet; and once holding *two* lists of the same set, here and in
@@ -196,8 +198,8 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
    `feature/workspace-drift-refile`. The isoroll pair — `isoroll-content/src/pipeline` and its
    siblings, `isoroll-module/src/render` and its siblings, plus the one file over `BLOCK_LINES` —
    were **not** refiled: both checkouts are held by the parallel isoroll session and writing into
-   them from here is the mid-flight collision Front 11 exists to prevent. **That session refiles
-   them**, and until it does, this repo cannot flip the gate.
+   them from here is the mid-flight collision the git-integrity criterion exists to prevent.
+   **That session refiles them**, and until it does, this repo cannot flip the gate.
    → **model: sonnet**, one repo at a time.
 
 6. 🟢 **sweep the first-line-comment markers now that the gate is shut.** The hole is closed:
@@ -344,21 +346,26 @@ spaghetti. I wanted things to be very clear here. very concise, precise."* The i
    the mechanism in its cheapest form — the plan *is* the assignment record. What is unbuilt is
    anything that makes it non-optional.
    → **model: opus** for the mechanism, sonnet to wire it.
-5. 🔴 **discuss — should this workspace have agents, or are skills enough?** Lucas, same capture,
-   and flagged by him as a discussion rather than a task: *"um aluno comentou que existem formas
-   diretas de o claudecode delegar pra subagentes, ele falou acho que com @. é fato que não temos
-   agentes no workspace, me pergunto se deveríamos. temos skills e isso me parece suficiente, mas
-   talvez não seja. esse é um ponto que merece discussão ao meu ver."*
+5. 🔴 **give flows and agents a deliberate trial, then judge them.** Lucas, same capture: *"um aluno
+   comentou que existem formas diretas de o claudecode delegar pra subagentes… temos skills e isso
+   me parece suficiente, mas talvez não seja."*
 
-   Two facts to put on the table before opinions. `core/agents/` **does** exist — lead, researcher,
-   writer, verifier, reviewer, ported from Feynman — so the claim "não temos agentes" is about them
-   being unused, not absent; find out which is true before designing anything. And the measured
-   fact from this front: *zero* sidechain messages across 328 transcripts, which is why the
-   "59% from subagent-heavy sessions" claim was retired. **Nothing has ever been delegated here**,
-   so this is a question about a capability with no usage data at all, not a tuning question.
-   Same treatment as Front 10.1: bring options and trade-offs, decide with Lucas, do not arrive
-   with one answer.
-   → **model: opus**, with Lucas in the loop — not a solo pass.
+   **The fact this item rested on was wrong, and wrong the way Front 15 describes.** It claimed
+   nothing had ever been delegated here; that came from scanning the flat project directory, while a
+   worker's transcript lives under `<session>/subagents/`. Numbers and the hand-check are in
+   [`core/experiments/delegation.md`](core/experiments/delegation.md) — re-run it, never quote it.
+   What survives the correction is sharper than the error: delegation does happen, and **no
+   workspace-authored agent has ever been spawned**. Every spawn is a harness builtin or a `craft-*`
+   mirror; `core/agents/` is at zero and `/research`, its only entrypoint, appears in no transcript.
+
+   **Ruled 2026-08-17 (Lucas): do not delete on that.** *"low usage doesn't mean they don't have
+   value… we did not work enough on these yet. IF we employ effort, do our best, and even then we do
+   not use those, then it makes sense to delete."* The delete-weak-features rule assumes a fair
+   trial, and this layer never got one — reach was measured, worth was not. So the work is **rounds
+   of discussion and research**, not a verdict: what a flow is for, what an agent is for, whether a
+   flow naming `agents:` in frontmatter is the right shape at all, and one deliberate real run of
+   each before anyone rules. Delete only if it loses after that.
+   → **model: opus**, with Lucas — several sittings, not one pass.
 7. 🟡 **show context growth continuously, not just at two thresholds.** Lucas, same capture:
    *"gostaria de ver o crescimento da janela de contexto em tempo real, o claude code no vs code
    não mostra. tem alguma forma barata de me mostrar isso?"*
@@ -450,40 +457,6 @@ Read the count from `core/tools/wos/features --findings`, never from here. The o
    not the copy: a path that is not on it does not travel, so adding a new top-level directory fails
    closed.
    → **model: sonnet**.
-
----
-
-## Front 11 — Git & sync integrity — **v1 criterion 3 — ✅ MET 2026-08-14**
-
-**The criterion holds, and it is re-run rather than trusted** — one loop over `find . -name .git`
-asserting a remote and a legal branch per repo. The rule that came out of closing it is
-[`core/SPECS.md`](core/SPECS.md) § Conventions, first bullet: a finding older than a week is a
-hypothesis.
-
-3. 🔴 **is spec-driven development resumed, rescoped, or killed?** Lucas, 2026-08-15: *"sobre SDD
-   (SPEC DRIVEN DEVELOPMENT), sinto que começamos isso mas esquecemos completamente."* The ledger
-   is [`code/ROADMAP-spec-drive.md`](code/ROADMAP-spec-drive.md) and it is **readable now** — it was
-   gitignored by the `code/*` rule, so every edit stayed on one machine, which is a sufficient
-   explanation for the forgetting on its own.
-
-   **The decision cannot be deferred cheaply, because the gates are live either way.** `pre-commit`
-   §1d and `read/spec-read-gate.py` fire on every session regardless of whether anyone is still
-   rolling this out, which makes an *abandoned* rollout more expensive than a dead one. Read the
-   file's own Open items with fresh eyes and rule.
-
-   **What tracking it immediately revealed, and it is the argument for the whole `.gitignore`
-   allowlist discipline:** the moment the file entered the corpus it failed `verify-fast` on three
-   retired tokens from the July `loops`→`flows` rename. Every other file was swept then. This one
-   could not be seen, so for a month it kept pointing readers at a flow file that had been renamed,
-   **An untracked file does not merely lack backup — it opts out of every
-   check the workspace has**, and goes on giving instructions while it rots.
-
-   **Read [`github/spec-kit`](https://github.com/github/spec-kit) before ruling** (ref in
-   [`core/refs/REFS.md`](core/refs/REFS.md); Lucas, INBOX 2026-08-16: *"vale a pena pesquisar bem
-   pra não pegar a primeira opção sem pensar"*). It is input to the decision, not a replacement for
-   it — ours is already wired into five enforcement points, so the honest question is what spec-kit
-   does that those do not, and whether adopting it would mean deleting our gates or feeding them.
-   → **model: opus**, with Lucas.
 
 ---
 
@@ -618,12 +591,22 @@ is **what a confidence check looks like as a gate**, not as a paragraph.
 
 Three sub-questions, in the order they can be answered:
 
-1. 🔴 **What is the store, and what earns a row?** The wikilinked memory store
-   ([`brain/memory/`](brain/memory/CONTEXT.md)) and `core/refs/REFS.md` already exist and already
-   hold curated facts — a third store is the failure
-   this workspace names EDIT > CREATE. Establish first whether the graph Lucas wants is a **new
-   structure** or a **query layer and a freshness field** over what is there. → **model: opus**,
-   with Lucas.
+1. 🔴 **What is the store, and what earns a row? — POSTPONED 2026-08-17 (Lucas), and the postponement
+   is the ruling.** Asked to choose between a new structure and a query layer over what exists, he
+   declined the frame: *"are we talking about the knowledge graph? this is an entirely new front in
+   my view. yes, there are some conceptual collisions, redundancies and ambiguities we must solve.
+   also, building it is not simple, a lot of content tells me we have to be extra careful on this
+   design."* So it is **a knowledge graph, it is its own front, and it does not get decided as a
+   side question inside a drain session** — it opens with research and a design discussion or it
+   does not open.
+
+   What the next session inherits, so it does not restart from zero: the two existing stores are
+   [`brain/memory/`](brain/memory/CONTEXT.md) (26 files, wikilinked, folded into every system prompt)
+   and `core/refs/REFS.md` (209 lines, tier-marked, and absent from the most-re-read list in
+   [`core/experiments/read-amplification.md`](core/experiments/read-amplification.md) — nobody reads
+   it). A third store would be the failure this workspace names EDIT > CREATE, so *"conceptual
+   collisions, redundancies and ambiguities"* is the first work item, not a caveat.
+   → **model: opus**, with Lucas, in a session that is about this and nothing else.
 2. 🟡 **What makes a stored fact go stale?** A hash-addressed store is only as good as its refresh
    rule; a confidently-served 2026-07 fact is the same failure with extra steps. Every fact needs a
    measured-on date and a claim about how fast its subject moves — harness behaviour ages in weeks,

@@ -32,18 +32,18 @@ live in goal files (AGENTS.md).
 > scaffold is a means. Time spent on it past v1 is time not spent on the work it exists to serve.
 
 **ease-start**  
-The gate is two rows from done and **one of them is a decision, not work — yours, and nobody else can
-make it.** Open [/ROADMAP.md](../../ROADMAP.md) § Git & sync integrity and read the one paragraph about
-`branches/casinhas`: `modelo/sketchup-referencia/volume-lucas-v04.skp` is **199 MB**, over GitHub's
-hard 100 MB limit, so the push is rejected outright. Three ways out, and you only have to point at one:
+**All four v1 criteria are green, and nothing in the ledger is waiting on you.** The drain is agent
+work now: the remaining items carry their own model tier and none of them is blocked on a decision.
+So the easy start is not a decision to make — it is a session to hand off.
 
-1. **Git LFS** for `*.skp` — keeps the file in the repo, needs `git lfs migrate import`, rewrites history.
-2. **Drop the binary from history**, keep it local via `.gitignore` — also rewrites history.
-3. **Leave the repo local** and carve criterion 3 to exclude it deliberately — no rewrite, and the
-   criterion stays honest because the exclusion is written down rather than assumed.
+Two items do want you, and both are **conversations to schedule, not questions to answer in five
+minutes** (you said so yourself on 2026-08-17, in both cases): giving flows and agents a fair trial
+before judging them, and the knowledge graph, which is its own front and needs research plus a design
+sitting. Neither belongs at the end of a drain session. Put one on the calendar; do not squeeze it.
 
-Read the paragraph, say a number. **5 minutes, zero typing.** Criterion 3 goes green mechanically
-after that, and criterion 4 (clonability — SETUP split + declared deps) is sonnet-tier from there.
+The genuinely free move, when you want the number to fall without spending judgment: open
+[/ROADMAP.md](../../ROADMAP.md) § Sequencing, take the mechanical list, and hand it to a sonnet
+session. The ledger's length is the measure, and those items shorten it without you in the loop.
 
 **Known risk — dataset with no live backup:** `datasets/relativistic_raytracer` (5.8 GB) is the sole
 surviving copy of its data — Zenodo record 20240662 returns HTTP 410 ("personal-data"), gone since
@@ -79,14 +79,14 @@ fallback · iterate — MVP can always be extended*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-16  ·  trend: advancing
+last-touch: 2026-08-17  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |     202 |
-| trimester   |     246 |
-| semester    |     261 |
-| year        |     261 |
-| 2-year      |     261 |
-| 4-year      |     261 |
+| month       |     240 |
+| trimester   |     285 |
+| semester    |     302 |
+| year        |     302 |
+| 2-year      |     302 |
+| 4-year      |     302 |
 <!-- stats:end -->

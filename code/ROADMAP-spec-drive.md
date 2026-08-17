@@ -95,17 +95,54 @@ Git Flow is enforced alongside (`.hooks/gitflow-gate.sh`, pre-commit 1e; see `SP
   at rollout: **1/88 locked** (spacemantics/dsl), 87 grandfathered.
 - Hook table + coverage table rows (ENFORCED) — now `core/hooks/SPECS.md`.
 
-## Open items
+### P5 — SPEC v1 and enforcement on contact — **ruled 2026-08-17 (Lucas), the rollout is RESUMED**
 
-- Run `core/tools/spec-scan` in `/roundup` so coverage is visible each session.
-- P2 extractor (`core/tools/spec-examples`) when a spec first embeds literal example pairs.
-- Next lock candidates (highest signal): `isoroll-content` (has a Current-Workflow-Contract already),
-  `spacemantics/checker` (once built — the natural home for the DSL's executable conformance).
-- Consider extending the model to `core/flows` module dirs (SDD goal names them) — deferred: they have
-  no `verify:fast` concept, so the conformance half needs separate design.
+The question put to him was resume / rescope / kill, with the evidence that coverage moved 1/88 →
+9/125 in a month and that all eight new locks were `aiwbot/frontend` and its submodules, arriving
+through one `/craft` run. His answer: *"SDD is a MUST for our near future… I want to ensure it works
+in near future"*, and the target is **"every module touched gets a spec" — ENFORCE**, chosen over
+new-work-only with the blocking cost stated.
+
+**Two halves, and the contract comes first.** Arming the block against the v0 skeleton would spend
+116 modules' worth of authoring on a format we already know is thin.
+
+**P5a — SPEC v1, the contract.** Lucas, same ruling: *"each spec must follow what the state of the
+art on industry says, it MUST have a WHAT and WHY. the rounds of discussion and validation as well,
+maybe a hint of what the result may look like (in visuals, diagrams, or text). we may look into
+existing libs, and do some research (on academy [not only arxiv but also acknowledged venues] and
+industry)."* So v1 adds, over the v0 five sections:
+
+- **WHAT and WHY as named, required sections.** v0 has Inputs/Outputs/Invariants/Examples — all
+  *what*, no *why*. A spec that cannot say why the module exists cannot outlive the person who wrote it.
+- **The discussion and validation rounds are part of the artifact**, not a step that happened once
+  offscreen. What was considered and rejected is the single thing git cannot reconstruct.
+- **An expected-result sketch** — a diagram, a mock, or a paragraph — so the spec is checkable
+  against something before code exists.
+
+Precondition: a real research pass, **industry and academia**, acknowledged venues and not arXiv
+alone, plus existing libraries and formats. Captures go to `core/refs/REFS.md` with tier markers.
+`github/spec-kit` is one input and is **not** the answer on its own — it is guidance-only, with no
+hooks, gates or CI, while ours is enforced at five points; adopting it wholesale would trade
+ENFORCED for INDUCED. Read what its `constitution` / `clarify` / `converge` steps do that our
+Loop 3.5 does not, and steal only that. → **model: opus** for the contract, with Lucas.
+
+**P5b — arm the block, once v1 exists.** `spec-read-gate.py` today blocks editing a *locked* module;
+P5b extends the block to **any** `code/` module on contact — edit it, and it needs a spec. Ship it
+through the workspace's own rollout discipline: a dated **warn** phase first, then the flip, so the
+first commit after the change is not a wall of failures. A gate written to fail on day one is how
+readers learn to ignore a gate ([`../core/SPECS.md`](../core/SPECS.md) § Conventions).
+Sequence the 116 grandfathered modules by contact frequency, not by directory order.
+
+### Carried forward from P2/P4
+
+- Run `core/tools/wos/spec-scan` in `/roundup` so coverage is visible each session.
+- P2 extractor (`core/tools/wos/spec-examples`) when a spec first embeds literal example pairs.
+- `core/flows` module dirs have no `verify:fast` concept, so their conformance half needs its own
+  design. Decide it inside P5a rather than deferring again.
 
 ## Status log
 
 | Date | Event |
 |------|-------|
 | 2026-07-17 | Plan approved (ratchet enforcement, spacemantics/dsl pilot). P0+P1+P3+P4 shipped; P2 convention set, extractor deferred. Gates live + tested in 3 runtimes. Baseline coverage 1/88. |
+| 2026-08-17 | **Resumed by ruling, not drifted into.** Coverage 9/125 (7%), all growth from one `/craft` run on `aiwbot/frontend`. Target set to enforce-on-contact; P5a (SPEC v1: WHAT/WHY, rounds, result sketch, research pass) gates P5b (arm the block). The wos ledger's decision item is closed and deleted — this file owns the work now. |
