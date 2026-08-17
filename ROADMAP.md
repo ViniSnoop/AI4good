@@ -316,11 +316,18 @@ spaghetti. I wanted things to be very clear here. very concise, precise."* The i
    de ativar um 'auto-continue' do claude code quando o limite das sessões é atingido."* Filed here
    rather than in `code/aiwbot` because the thing that must survive the interruption is this
    workspace's session ritual, not a bot's transport.
-   **Study before building** — the honest first question is what the harness actually does at the
-   limit and what state survives it, and the second is whether resuming is even right: a session
-   that hit the limit is a session at maximum context, where `/roundup` plus a fresh start is
-   cheaper per turn than continuing (the staircase is in the experiment file). The likely answer is
-   *auto-close, not auto-continue*. → **model: sonnet** to study, Lucas to rule.
+   **Studied 2026-08-17; the verdict is yours to take.** *Auto-close, not auto-continue* — and the
+   study moved it further than expected: **every piece already exists and only the link is missing.**
+   `session/context-meter.py` announces the crossings at zero token cost, and
+   `core/tools/wos/roundup` is the close. What is unbuilt is `CTX_LOUD` **offering** the close.
+   Two findings decide the shape:
+   - **A quota limit ends the session; there is nothing to continue into.** Resuming means a *new*
+     session, which is exactly roundup + fresh start. That is why *"triggers after a limit window
+     renews"* already sits under § Rejected — the live case is covered.
+   - **It must offer, never fire.** Closing a session mid-thought against the user's intent costs
+     more than the expensive turns it saves, and the cost argument only holds at the top of the
+     staircase. Re-run `session/usage` rather than trusting a number here.
+   → **Lucas rules on offer-at-`CTX_LOUD`**; sonnet wires it.
 9. 🟡 **the lever nobody has looked at: thinking is 65% of billed output and no instrument here can
    see it.** Its text is never written to the transcript, so every composition number we have
    describes the other 35%. This reopens what was closed once: Anthropic's guidance is that `effort`
@@ -340,11 +347,19 @@ spaghetti. I wanted things to be very clear here. very concise, precise."* The i
    one vendor gets multi-line splitting; `.github/hooks/rtk-rewrite.json` runs `rtk hook copilot`
    raw and carries the first-line-only behavior the shim exists to fix. `core/hooks/copilot/` exists
    precisely to translate other vendors onto the canonical gates and has no equivalent here.
-   **Measure before building**: `roundup` already prints compaction adoption, so it can answer
-   whether copilot's "always prefix with `rtk`" instruction already covers this before a second shim
-   is written. One outward-facing follow-on, Lucas's call: report the line-1-only decline upstream to
-   `rtk-ai/rtk` with the four-shape table in
-   [`core/hooks/compact/SPECS.md`](core/hooks/compact/SPECS.md). → **model: sonnet**.
+   **Measured 2026-08-17, and the measurement says do not build it yet.** The counter the roundup
+   reads holds **2221 tracked Bash calls, 1119 rewritten — 50% adoption**, all of it Claude: **no
+   copilot session has ever run here.** So the hole is real in principle and costs exactly nothing
+   today, and a second shim would be built for zero users. Re-run the counter rather than trusting
+   these figures.
+   The instrument answered the question it was asked, and the answer was no: copilot carries **both**
+   a hook (`rtk hook copilot`) and an instruction (*"Always prefix shell commands with `rtk`"*), but
+   an instruction is INDUCED and cannot split a multi-line command — which is the exact behavior the
+   Claude shim exists to fix. **It does not substitute.**
+   Two things worth taking now: the 50% figure is unexplained — whether the other half is commands
+   not worth rewriting or a silent gap is **not** measured — and the upstream report to `rtk-ai/rtk`
+   is outward-facing and **stays yours**, never sent unilaterally.
+   → build **when a copilot session actually runs**; sonnet, one sitting.
 
 ---
 
