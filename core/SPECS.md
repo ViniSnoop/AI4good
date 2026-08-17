@@ -249,6 +249,20 @@ existe para evitar, um nível abaixo. Regra: **guarde todos os arquivos, nomeie 
 arquivo não-nomeado cita no comentário quem é o primário. O teste de honestidade continua cobrando
 só o caminho nomeado — ele prova que a linha não mente, não que a cobertura é completa.
 
+**As 57 linhas não são 57 tarefas, e o teste de honestidade é o que decide isso** (achado
+2026-08-17, aguardando decisão do Lucas). Os grupos `hooks`, `context-tree` e `brain` têm um arquivo
+de enforcement cada — três linhas por linha, mecânico. Mas `skills` (14) e `capabilities` (11) não
+têm onde pôr uma chamada: uma skill é markdown e não chama função nenhuma, e o único desligamento
+real dela é o mirror recusar-se a publicá-la. Um despachante genérico serviria o grupo inteiro,
+**mas `test_a_row_claiming_to_be_wired_really_is` faz grep do slug literal no arquivo citado**, então
+só passa quem tem um ponto de chamada por linha.
+
+O mesmo teste já é reconhecidamente fraco — uma guarda em ramo inalcançável passa nele, e a prova que
+valeu foi rodar cada gate com e sem `WOS_FEATURES_OFF`. Então a escolha é: pagar 57 pontos de chamada
+e inventar um lugar para 25 que não têm, **ou** trocar o grep por uma sonda de comportamento (roda os
+dois lados, exige que o observável mude) e deixar cada grupo compartilhar um ponto de fiação. A
+segunda é mais barata e é um teste mais forte; é decisão do Lucas porque muda o contrato da coluna.
+
 O join é o que impede um terceiro vocabulário: `SETUP.md` declara um slug por passo de instalação
 (coluna `install`), `core/tools/deps.txt` um slug por dependência (coluna `slug`). Treze cada, quatro
 compartilhados — três arquivos, um vocabulário só, cobrado por teste.

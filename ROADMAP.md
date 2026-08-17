@@ -283,6 +283,16 @@ feeling lost twice. **Mass is the disease and only deletion cures it.**
    goes to a goal backlog — no third place, no boundary to police. This is the *delete weak features*
    rule applied to our own scaffold instead of to code.
    → **model: sonnet**. The fold needs a judgment call per line, so read them, do not batch.
+2. 🟡 **is `ROADMAP-output-cost.md` still live, or is it mass?** Lucas, INBOX 2026-08-17: *"WOS
+   roadmap still gigantic. god. how can we ever end this. are we really deleting the done? what
+   about the side ROADMAP-output-cost?"* The deleting **is** happening — five items and 73 lines
+   left this file on 2026-08-17 alone — so the question that survives is the second one: a
+   265-line side roadmap with 6 open items is a fifth of the wos ledger's mass sitting where the
+   count in § Sequencing does not see it. Read its six items against
+   [`core/experiments/output-cost.md`](core/experiments/output-cost.md), which was re-measured
+   after that plan was written: an item whose premise the re-measurement voided is *Rejected*, not
+   backlog. Whatever survives folds back into Front 9 as ordinary items and the file dies.
+   → **model: sonnet**.
 3. 🟡 **the attention dashboard measures the wrong thing** (Lucas, INBOX 2026-08-13). It counts
    edits to the goal's **own `.md` file**, not work **on** the goal — so the 2026-08-13 compass
    rendered `workspace-os ░░░░░░░░░░ 1 touch` in the same fortnight that **29 of 29** workspace
