@@ -17,6 +17,7 @@
 - [Feedback: background bash reliability](feedback_background_bash_reliability.md) — backgrounded Bash chains can die silently across a ScheduleWakeup pause; prefer foreground or unchained calls for sweeps the user is waiting on
 - [Project aiwbot](project_aiwbot.md) — provider-agnostic bot driving swappable coding agents (claude/opencode/copilot) via one AgentBackend seam; code/aiwbot, Phase A proven; official Remote Control/Channels rejected as Claude-Code lock-in
 - [Feedback: delete weak features](feedback_delete_weak_features.md) — sinal fraco = deletar por completo (código, docs, deps, menções), deixando só uma nota curta de rejeição; nunca manter rebaixado a "dica"
+- [Feedback: explore before cutting](feedback_explore_before_cutting.md) — enquanto a decisão de design está aberta, manter todas as variantes; cortar só depois do veredito de Lucas
 - [Reference linuz90 bot](reference_linuz90_bot.md) — linuz90/claude-telegram-bot source read: SDK plain-resume single-lineage design + UX feature set; the aiwbot reference
 - [Feedback: full-workflow thinking](feedback_full_workflow_thinking.md) — plan from the user workflow not artifacts; loose ends are isoroll's recurring failure; convert every eye-catch into a code invariant
 - [Feedback: inbox ref→task pairing](feedback_inbox_ref_task_pairing.md) — actionable refs must spawn a paired assessment task, never land ref-only; policy in core/skills/inbox.md
