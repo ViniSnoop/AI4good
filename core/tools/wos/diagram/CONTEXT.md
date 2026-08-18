@@ -1,20 +1,26 @@
 # diagram
 > The workspace drawn from its own declarations: one generated HTML picture, zero tokens, no model.
 
-`architecture` writes [`ARCHITECTURE.html`](../../../../ARCHITECTURE.html) at the workspace root —
-three views of the same workspace, from three sources that already exist:
+`architecture` writes [`ARCHITECTURE.html`](../../../../ARCHITECTURE.html) at the workspace root.
+Everything above the tab strip answers *is it well tied, what is loose*; the tabs hold the detail
+that answers *where exactly*. Every view reads a source that already exists:
 
 | View | Renders | Read from |
 |------|---------|-----------|
+| summary | each declared layer against how hard it pushes, plus the findings and their targets | [`core/features.txt`](../../../features.txt) |
+| lifecycle | which features fire at which moment of a session, in order | the hook registrations, via [`core/hooks/trigger/`](../../../hooks/trigger/CONTEXT.md) |
+| fan-in | how many features one switch point carries | [`core/features.txt`](../../../features.txt) § wired |
 | enforcement | every feature against every site that enforces it | [`core/features.txt`](../../../features.txt) |
 | routing | the chain an agent walks, three levels deep | the generated routing blocks |
 | mass | tracked bytes per directory | `git ls-files` |
 
 **A hand-drawn map is the rot the routing tables exist to prevent**, so nothing here is drawn by
 hand and no model runs at render time. The picture can be no more wrong than its sources: a wrong
-edge means a wrong routing table, and fixing the drawing means fixing the source. The one thing it
-cannot read is *when a hook fires* — no machine-readable trigger registry exists yet, so those are
-derived from directory convention and labelled `inferred` in the page.
+edge means a wrong routing table, and fixing the drawing means fixing the source. **Nothing on the
+page is inferred, as of 2026-08-18** — *when a hook fires* was the last exception, guessed from
+directory convention until [`trigger_law.py`](../../../hooks/trigger/trigger_law.py) started reading
+it out of the registrations. What the registrations cannot place is counted as a gap rather than
+guessed at.
 
 Total and fail-loud: every run prints `parsed N of M routing blocks`, and a block it cannot slice
 is named rather than skipped — a picture that quietly drops a subtree is worse than no picture.

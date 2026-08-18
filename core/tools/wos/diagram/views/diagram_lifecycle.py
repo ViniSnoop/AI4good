@@ -5,7 +5,7 @@
 # only one that says WHEN, and a session read top to bottom is the shape a person actually lives.
 #
 # It could not be drawn honestly until 2026-08-18, when the firing moment stopped being guessed from
-# directory convention (core/hooks/trigger_law.py). Half its bands would have been hatched, and the
+# directory convention (core/hooks/trigger/trigger_law.py). Half its bands would have been hatched, and the
 # norms would have sat on the wrong one.
 #
 # ORDER AND LENGTH CARRY THE QUANTITIES, per views/CONTEXT.md: a band's bar is as long as the

@@ -112,7 +112,7 @@ def findings(rows: list, coverage: dict, root: Path = WORKSPACE_ROOT) -> list:
            'the routing blocks, against git ls-files'),
         _f(len(unplaced), len(rows) - len(on_demand), 0,
            'automatic features have no firing moment declared anywhere in this repo',
-           'core/hooks/trigger_law.py, against every registration'),
+           'core/hooks/trigger/trigger_law.py, against every registration'),
         _f(len(empty), len(declared), None,
            'declared layers hold no feature at all', 'core/features.txt § group'),
         _f(len(feature_law.findings()), len(rows), 0,

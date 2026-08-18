@@ -69,6 +69,28 @@ svg.treemap rect { stroke:var(--bg); stroke-width:1; }
 .band .who { color:var(--dim); font-size:11px; overflow:hidden; text-overflow:ellipsis;
   white-space:nowrap; }
 .band.empty .who { font-style:italic; }
+svg.fanin text { font-size:11.5px; fill:var(--fg); }
+svg.fanin text.feat { text-anchor:end; fill:var(--dim); }
+svg.fanin text.hub { font-size:12.5px; }
+svg.fanin text.hub .cnt { fill:var(--accent); font-weight:600; }
+svg.fanin text.tail { fill:var(--dim); font-style:italic; }
+svg.fanin text.loose { fill:#c0392b; font-style:italic; }
+svg.fanin circle { fill:var(--accent); }
+svg.fanin .link { fill:none; stroke:var(--line); stroke-width:1.1; }
+.fbars { margin:0 0 8px; }
+.fbars .bar { display:grid; grid-template-columns:262px auto 28px; align-items:center; gap:10px;
+  font-size:12.5px; padding:2px 0; }
+.fbars .pt { color:var(--fg); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.fbars .run { display:inline-block; height:11px; border-radius:2px; background:var(--accent);
+  opacity:.85; }
+.fbars .tail .pt, .fbars .tail .n { color:var(--dim); font-style:italic; }
+.fbars .tail .run { background:var(--line); }
+.fbars .loose .pt, .fbars .loose .n { color:#c0392b; }
+.fbars .loose .run { background:transparent; }
+.fbars .n { color:var(--dim); font-variant-numeric:tabular-nums; text-align:right; }
+.shapes { display:flex; gap:30px; flex-wrap:wrap; align-items:flex-start; }
+.shapes > div { min-width:290px; }
+.shapes h3 { font-size:12.5px; margin:0 0 6px; font-weight:600; }
 .aside { border:1px dashed var(--line); border-radius:10px; padding:10px 13px; margin:0 0 6px;
   background:var(--card); }
 .aside h3 { font-size:12.5px; margin:0 0 2px; font-weight:600; }
@@ -98,13 +120,13 @@ def _panel(key: str, heading: str, body: str) -> str:
 
 
 def render(panels: dict, coverage: dict, scope: dict, summary: str = '',
-           sequence: str = '') -> str:
-    """One page: the summary, the session sequence, then three drawings of the same workspace.
+           sequence: str = '', fanin: str = '') -> str:
+    """One page: the summary, the session sequence, the wiring fan-in, then the detail tabs.
 
-    `summary` and `sequence` render ABOVE the tab strip and outside it, deliberately — a tab is a
-    click, and the page's whole defect was that its most-asked questions were the ones needing a
-    hunt. `panels` maps a tab key to its rendered body plus the prose under it; nothing here
-    computes anything about the workspace.
+    `summary`, `sequence` and `fanin` render ABOVE the tab strip and outside it, deliberately — a
+    tab is a click, and the page's whole defect was that its most-asked questions were the ones
+    needing a hunt. `panels` maps a tab key to its rendered body plus the prose under it; nothing
+    here computes anything about the workspace.
     """
     body = [_tab_inputs()]
     for key, _label, _hint in TABS:
@@ -128,6 +150,7 @@ def render(panels: dict, coverage: dict, scope: dict, summary: str = '',
         'stale the day after it is drawn.</p>',
         summary,
         sequence,
+        fanin,
         '<h2>the detail underneath</h2>',
         '<div class="tabs">',
         '\n'.join(body),
@@ -148,7 +171,7 @@ def _footer(coverage: dict, scope: dict) -> str:
         'it are drawn as directories and no deeper: each is its own repository and will earn its '
         'own document.</p>',
         '<p><b>what is inferred</b> nothing, as of 2026-08-18. Every edge above renders declared '
-        'or generated data, the firing moment included: <code>core/hooks/trigger_law.py</code> '
+        'or generated data, the firing moment included: <code>core/hooks/trigger/trigger_law.py</code> '
         'reads it from the registrations, the pre-commit dispatcher\'s own stage order and the '
         'install steps. What the registrations cannot place is counted as a gap instead of '
         'guessed at.</p>',

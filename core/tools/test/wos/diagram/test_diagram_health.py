@@ -9,6 +9,7 @@
 import subprocess
 
 import diagram_data as data
+import diagram_fanin as fanin_form
 import diagram_health as health
 import diagram_overview as overview_form
 import feature_law as law
@@ -76,7 +77,7 @@ def test_every_finding_is_a_gap_rather_than_a_shape():
 def test_every_finding_carries_a_target_and_says_when_nobody_set_one():
     """A count with no target cannot read as good or bad, which is how this list once opened with a
     number that was not a defect at all. Replaced the `inferred` check on 2026-08-18: the firing
-    moment stopped being guessed from directory convention that day (core/hooks/trigger_law.py), so
+    moment stopped being guessed from directory convention that day (core/hooks/trigger/trigger_law.py), so
     the region this file used to guard for honest labelling is now simply declared.
 
     An UNDECIDED target must print as undecided. Rendering nothing would let it pass for a met one,
@@ -90,12 +91,47 @@ def test_every_finding_carries_a_target_and_says_when_nobody_set_one():
     assert 'undecided' in overview_form.render(*_grids(rows), items)
 
 
+def test_the_fan_in_reaches_every_feature_the_matrix_does():
+    """The fan-in is the matrix's own relation re-read, so it must hold the same features.
+
+    A feature spanning layers is at two points on purpose — `latex` is a gate and the tool family
+    that gate calls — so the pair count is checked against the declared paths rather than against
+    the row count, and both grains are checked: the directory grain collapses two paths in one
+    directory, and only set membership can be asserted of it.
+    """
+    rows = data.features()
+    for grain in ('path', 'area'):
+        points, dangling = data.fan_in(rows, grain)
+        seen = {slug for _point, slugs in points for slug in slugs}
+        assert seen | set(dangling) == law.slugs(), (
+            f'the {grain} fan-in loses {sorted(law.slugs() - seen - set(dangling))}')
+    points, dangling = data.fan_in(rows)
+    assert sum(len(slugs) for _p, slugs in points) == sum(len(r['wired_paths']) for r in rows)
+    assert dangling == [row['slug'] for row in data.unwired(rows)]
+
+
+def test_the_collapsed_tail_hides_no_point():
+    """The 43 one-to-one points are collapsed to a count, which is only honest if the count is
+    right. A collapse that silently dropped a point would make the drawing say the workspace is
+    more concentrated than it is — the exact claim this view exists to make."""
+    points, dangling = data.fan_in(data.features())
+    hubs, tail = fanin_form._split(points)
+    assert len(hubs) + tail == len(points)
+    assert all(len(slugs) >= fanin_form.HUB_MIN for _p, slugs in hubs)
+    assert str(tail) in fanin_form.render_graph(points, dangling)
+
+
 def test_the_summary_needs_no_click(tmp_path):
     """The page's whole defect was that its two most-asked questions were behind detail. The
-    summary renders outside the tab strip, so it is on screen before any interaction."""
+    summary, the sequence and all three fan-in shapes render outside the tab strip, so they are on
+    screen before any interaction — the fan-in shapes especially, since Lucas cuts two of the three
+    by looking at them and a shape behind a click does not get looked at."""
     out = tmp_path / 'ARCHITECTURE.html'
     result = subprocess.run([str(TOOL), '--out', str(out)], capture_output=True, text=True,
                             cwd=WORKSPACE_ROOT)
     assert result.returncode == 0, result.stdout + result.stderr
     html = out.read_text(encoding='utf-8')
-    assert html.index('class="heat"') < html.index('<div class="tabs">')
+    tabs = html.index('<div class="tabs">')
+    assert html.index('class="heat"') < tabs
+    assert html.index('class="fanin"') < tabs
+    assert html.count('class="fbars"') == 2 and html.index('class="fbars"') < tabs

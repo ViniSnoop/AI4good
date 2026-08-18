@@ -5,8 +5,8 @@
 # routing blocks — never from prose and never from a guess. That is what makes the picture no more
 # wrong than its sources: a wrong edge is a real defect in the source, made visible instead of
 # staying hidden. The firing moment was the one exception until 2026-08-18, guessed from directory
-# convention and labelled `inferred` everywhere; core/hooks/trigger_law.py reads it out of the
-# registrations instead, so the exception is gone and this module has none.
+# convention and labelled `inferred` everywhere; core/hooks/trigger/trigger_law.py reads it out
+# of the registrations instead, so the exception is gone and this module has none.
 import sys
 from pathlib import Path
 
@@ -99,6 +99,24 @@ def matrix(rows: list) -> tuple:
             cells[(row['slug'], area)] = row['enforcement']
     columns = sorted({area for row in rows for area in row['areas']})
     return rows, columns, cells
+
+
+def fan_in(rows: list, by: str = 'path') -> tuple:
+    """([(point, [slug]) busiest first], [slug nothing switches]) — where the switches concentrate.
+
+    The matrix draws this same relation as a grid and spends most of its cells on the points that
+    carry exactly one feature — 43 of the 47. Read as fan-in instead, the shape arrives at once:
+    two files switch off a third of the workspace. `by` picks the grain — 'path' is the file that
+    reads the law, 'area' is its directory, the two the matrix and `area_of` already use. Ties
+    break on the point's name, so the drawing is byte-identical run to run and --check still means
+    something.
+    """
+    points: dict = {}
+    for row in rows:
+        for key in (row['areas'] if by == 'area' else row['wired_paths']):
+            points.setdefault(key, []).append(row['slug'])
+    ranked = sorted(points.items(), key=lambda kv: (-len(kv[1]), kv[0]))
+    return [(point, sorted(slugs)) for point, slugs in ranked], [r['slug'] for r in unwired(rows)]
 
 
 def unwired(rows: list) -> list:

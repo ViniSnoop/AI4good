@@ -64,6 +64,28 @@ svg.treemap rect { stroke:var(--bg); stroke-width:1; }
 .band .who { color:var(--dim); font-size:11px; overflow:hidden; text-overflow:ellipsis;
   white-space:nowrap; }
 .band.empty .who { font-style:italic; }
+svg.fanin text { font-size:11.5px; fill:var(--fg); }
+svg.fanin text.feat { text-anchor:end; fill:var(--dim); }
+svg.fanin text.hub { font-size:12.5px; }
+svg.fanin text.hub .cnt { fill:var(--accent); font-weight:600; }
+svg.fanin text.tail { fill:var(--dim); font-style:italic; }
+svg.fanin text.loose { fill:#c0392b; font-style:italic; }
+svg.fanin circle { fill:var(--accent); }
+svg.fanin .link { fill:none; stroke:var(--line); stroke-width:1.1; }
+.fbars { margin:0 0 8px; }
+.fbars .bar { display:grid; grid-template-columns:262px auto 28px; align-items:center; gap:10px;
+  font-size:12.5px; padding:2px 0; }
+.fbars .pt { color:var(--fg); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.fbars .run { display:inline-block; height:11px; border-radius:2px; background:var(--accent);
+  opacity:.85; }
+.fbars .tail .pt, .fbars .tail .n { color:var(--dim); font-style:italic; }
+.fbars .tail .run { background:var(--line); }
+.fbars .loose .pt, .fbars .loose .n { color:#c0392b; }
+.fbars .loose .run { background:transparent; }
+.fbars .n { color:var(--dim); font-variant-numeric:tabular-nums; text-align:right; }
+.shapes { display:flex; gap:30px; flex-wrap:wrap; align-items:flex-start; }
+.shapes > div { min-width:290px; }
+.shapes h3 { font-size:12.5px; margin:0 0 6px; font-weight:600; }
 .aside { border:1px dashed var(--line); border-radius:10px; padding:10px 13px; margin:0 0 6px;
   background:var(--card); }
 .aside h3 { font-size:12.5px; margin:0 0 2px; font-weight:600; }
@@ -97,7 +119,7 @@ table.heat td.z { color:var(--dim); opacity:.4; }
 <section class="ov"><h2>how it is tied</h2><p class="q">declared layer against how hard each feature pushes, split by what starts it. Darkness is how many, on one scale across both grids; a row of dots is a layer that was declared and never built.</p><div class="pair"><div><h3>automatic · 43</h3><p class="q">fires without being asked, so it has a moment</p><table class="heat"><tr><th></th><th>blocks</th><th>warns</th><th>generates</th><th>advises</th><th>none</th><th></th></tr><tr><th class="l">hooks</th><td class="" style="background:rgba(192,57,43,0.720)" title="16 hooks blocks">16</td><td class="" style="background:rgba(192,57,43,0.045)" title="1 hooks warns">1</td><td class="" style="background:rgba(192,57,43,0.180)" title="4 hooks generates">4</td><td class="" style="background:rgba(192,57,43,0.180)" title="4 hooks advises">4</td><td class="" style="background:rgba(192,57,43,0.270)" title="6 hooks none">6</td><th class="l">31</th></tr><tr><th class="l">norms</th><td class="z" style="background:rgba(192,57,43,0.000)" title="0 norms blocks">·</td><td class="z" style="background:rgba(192,57,43,0.000)" title="0 norms warns">·</td><td class="z" style="background:rgba(192,57,43,0.000)" title="0 norms generates">·</td><td class="" style="background:rgba(192,57,43,0.450)" title="10 norms advises">10</td><td class="z" style="background:rgba(192,57,43,0.000)" title="0 norms none">·</td><th class="l">10</th></tr><tr><th class="l">skills</th><td class="z" style="background:rgba(192,57,43,0.000)" title="0 skills blocks">·</td><td class="z" style="background:rgba(192,57,43,0.000)" title="0 skills warns">·</td><td class="z" style="background:rgba(192,57,43,0.000)" title="0 skills generates">·</td><td class="z" style="background:rgba(192,57,43,0.000)" title="0 skills advises">·</td><td class="" style="background:rgba(192,57,43,0.045)" title="1 skills none">1</td><th class="l">1</th></tr><tr><th class="l">tools</th><td class="" style="background:rgba(192,57,43,0.045)" title="1 tools blocks">1</td><td class="z" style="background:rgba(192,57,43,0.000)" title="0 tools warns">·</td><td class="z" style="background:rgba(192,57,43,0.000)" title="0 tools generates">·</td><td class="z" style="background:rgba(192,57,43,0.000)" title="0 tools advises">·</td><td class="z" style="background:rgba(192,57,43,0.000)" title="0 tools none">·</td><th class="l">1</th></tr><tr><th class="l">agents</th><td class="z" style="background:rgba(192,57,43,0.000)" title="0 agents blocks">·</td><td class="z" style="background:rgba(192,57,43,0.000)" title="0 agents warns">·</td><td class="z" style="background:rgba(192,57,43,0.000)" title="0 agents generates">·</td><td class="z" style="background:rgba(192,57,43,0.000)" title="0 agents advises">·</td><td class="z" style="background:rgba(192,57,43,0.000)" title="0 agents none">·</td><th class="l">·</th></tr><tr><th class="l">flows</th><td class="z" style="background:rgba(192,57,43,0.000)" title="0 flows blocks">·</td><td class="z" style="background:rgba(192,57,43,0.000)" title="0 flows warns">·</td><td class="z" style="background:rgba(192,57,43,0.000)" title="0 flows generates">·</td><td class="z" style="background:rgba(192,57,43,0.000)" title="0 flows advises">·</td><td class="z" style="background:rgba(192,57,43,0.000)" title="0 flows none">·</td><th class="l">·</th></tr></table></div><div><h3>on-demand · 27</h3><p class="q">waits to be called, so it has none</p><table class="heat"><tr><th></th><th>blocks</th><th>warns</th><th>generates</th><th>advises</th><th>none</th><th></th></tr><tr><th class="l">skills</th><td class="z" style="background:rgba(192,57,43,0.000)" title="0 skills blocks">·</td><td class="z" style="background:rgba(192,57,43,0.000)" title="0 skills warns">·</td><td class="z" style="background:rgba(192,57,43,0.000)" title="0 skills generates">·</td><td class="z" style="background:rgba(192,57,43,0.000)" title="0 skills advises">·</td><td class="" style="background:rgba(192,57,43,0.630)" title="14 skills none">14</td><th class="l">14</th></tr><tr><th class="l">tools</th><td class="z" style="background:rgba(192,57,43,0.000)" title="0 tools blocks">·</td><td class="z" style="background:rgba(192,57,43,0.000)" title="0 tools warns">·</td><td class="" style="background:rgba(192,57,43,0.045)" title="1 tools generates">1</td><td class="z" style="background:rgba(192,57,43,0.000)" title="0 tools advises">·</td><td class="" style="background:rgba(192,57,43,0.315)" title="7 tools none">7</td><th class="l">8</th></tr><tr><th class="l">hooks</th><td class="z" style="background:rgba(192,57,43,0.000)" title="0 hooks blocks">·</td><td class="" style="background:rgba(192,57,43,0.180)" title="4 hooks warns">4</td><td class="z" style="background:rgba(192,57,43,0.000)" title="0 hooks generates">·</td><td class="z" style="background:rgba(192,57,43,0.000)" title="0 hooks advises">·</td><td class="" style="background:rgba(192,57,43,0.045)" title="1 hooks none">1</td><th class="l">5</th></tr><tr><th class="l">agents</th><td class="z" style="background:rgba(192,57,43,0.000)" title="0 agents blocks">·</td><td class="z" style="background:rgba(192,57,43,0.000)" title="0 agents warns">·</td><td class="z" style="background:rgba(192,57,43,0.000)" title="0 agents generates">·</td><td class="z" style="background:rgba(192,57,43,0.000)" title="0 agents advises">·</td><td class="z" style="background:rgba(192,57,43,0.000)" title="0 agents none">·</td><th class="l">·</th></tr><tr><th class="l">flows</th><td class="z" style="background:rgba(192,57,43,0.000)" title="0 flows blocks">·</td><td class="z" style="background:rgba(192,57,43,0.000)" title="0 flows warns">·</td><td class="z" style="background:rgba(192,57,43,0.000)" title="0 flows generates">·</td><td class="z" style="background:rgba(192,57,43,0.000)" title="0 flows advises">·</td><td class="z" style="background:rgba(192,57,43,0.000)" title="0 flows none">·</td><th class="l">·</th></tr><tr><th class="l">norms</th><td class="z" style="background:rgba(192,57,43,0.000)" title="0 norms blocks">·</td><td class="z" style="background:rgba(192,57,43,0.000)" title="0 norms warns">·</td><td class="z" style="background:rgba(192,57,43,0.000)" title="0 norms generates">·</td><td class="z" style="background:rgba(192,57,43,0.000)" title="0 norms advises">·</td><td class="z" style="background:rgba(192,57,43,0.000)" title="0 norms none">·</td><th class="l">·</th></tr></table></div></div><p class="note">The two are independent, which is why they are two columns in <code>core/features.txt</code> and not one: eleven features cross. Six fire by themselves and push on nobody — they compress, record, wipe, count. Five you invoke by hand and they still push.</p></section><section class="ov"><h2>what is loose or missing</h2><p class="q">derived from the same declarations, so every row is a fact about the workspace rather than a judgement about it</p><ul class="finds">
 <li class=""><span class="cnt">7</span><span class="txt">directories hold tracked files that no routing block points at<small>the routing blocks, against git ls-files · <b>target 0</b></small></span></li>
 <li class=""><span class="cnt">2<span class="of"> of 6</span></span><span class="txt">declared layers hold no feature at all<small>core/features.txt § group · <b>undecided</b></small></span></li>
-<li class=""><span class="cnt">1<span class="of"> of 42</span></span><span class="txt">automatic features have no firing moment declared anywhere in this repo<small>core/hooks/trigger_law.py, against every registration · <b>target 0</b></small></span></li>
+<li class=""><span class="cnt">1<span class="of"> of 42</span></span><span class="txt">automatic features have no firing moment declared anywhere in this repo<small>core/hooks/trigger/trigger_law.py, against every registration · <b>target 0</b></small></span></li>
 <li class=""><span class="cnt">1<span class="of"> of 69</span></span><span class="txt">features cannot be switched off at all<small>core/features.txt § wired · <b>target 0</b></small></span></li>
 <li class="zero"><span class="cnt">0<span class="of"> of 85</span></span><span class="txt">routing blocks could not be read<small>the routing sentinels · <b>target 0 · met</b></small></span></li>
 </ul></section>
@@ -113,6 +135,65 @@ table.heat td.z { color:var(--dim); opacity:.4; }
 <div class="band"><span class="mom">on compact</span><span class="run" style="width:15px" title="precompact-wipe"></span><span class="n">1</span><span class="who">precompact-wipe</span></div>
 <div class="band"><span class="mom">pre-commit</span><span class="run" style="width:255px" title="brain-attention, brain-dashboard, citation-gate, duplication-gate, facade-discipline, gitflow-gate, gitignore-self-heal, gitlink-gate, interface-stubs, line-limit, lint-typescript, project-contract, routing-tables, type-gate, verify-contract, verify-suite, latex"></span><span class="n">17</span><span class="who">brain-attention, brain-dashboard, citation-gate, duplication-gate, facade-discipline, gitflow-gate, gitignore-self-heal, gitlink-gate, interface-stubs, line-limit, lint-typescript, project-contract, routing-tables, type-gate, verify-contract, verify-suite, latex</span></div>
 <div class="band"><span class="mom">post-commit</span><span class="run" style="width:15px" title="auto-push"></span><span class="n">1</span><span class="who">auto-push</span></div></div><div class="aside"><h3>on-demand · 27</h3><p class="q">no moment, by declaration: you call these. Drawn beside the chain rather than on it.</p><p class="calls">asset-inspect, calendar, compass, context-head-budget, craft, declared-deps, dedup, diagram, drive, entropy-dashboard, fanout-limit, first-line-comment, foundry, gmail, google-auth, handoff, inbox, install, iso-visual, mail-triage, notes-notion, prepare, research, roundup, telegram-capture, video-text, web-search</p></div><p class="note"><b>1 automatic feature sit on no band at all</b> — nothing in this repo declares when it fires: <code>opencode-plugin</code>.</p><p class="note">Every band is read from a registration this repo holds — a harness settings file, the pre-commit dispatcher's own stage order, or the install step that registers what must live outside the repo. Nothing here is inferred from where a file sits: that guess put the norms on <code>on save</code> when a norm is loaded with AGENTS.md at every moment there is. A feature appears on every band it fires at, so the counts sum to more than the registry — <code>context-chain</code> alone is three.</p></section>
+<section class="ov"><h2>where the switches concentrate</h2><p class="q">how many features one switch point carries — the relation the enforcement grid spends most of its cells hiding. <b>Three shapes of one drawing, until one is picked and the other two are deleted.</b></p><svg class="fanin" viewBox="0 0 583 616" width="583" height="616" role="img" aria-label="wiring fan-in"><path class="link" d="M168 20.0 C211.2 20.0 220.8 124.0 264 124.0" />
+<path class="link" d="M168 36.0 C211.2 36.0 220.8 124.0 264 124.0" />
+<path class="link" d="M168 52.0 C211.2 52.0 220.8 124.0 264 124.0" />
+<path class="link" d="M168 68.0 C211.2 68.0 220.8 124.0 264 124.0" />
+<path class="link" d="M168 84.0 C211.2 84.0 220.8 124.0 264 124.0" />
+<path class="link" d="M168 100.0 C211.2 100.0 220.8 124.0 264 124.0" />
+<path class="link" d="M168 116.0 C211.2 116.0 220.8 124.0 264 124.0" />
+<path class="link" d="M168 132.0 C211.2 132.0 220.8 124.0 264 124.0" />
+<path class="link" d="M168 148.0 C211.2 148.0 220.8 124.0 264 124.0" />
+<path class="link" d="M168 164.0 C211.2 164.0 220.8 124.0 264 124.0" />
+<path class="link" d="M168 180.0 C211.2 180.0 220.8 124.0 264 124.0" />
+<path class="link" d="M168 196.0 C211.2 196.0 220.8 124.0 264 124.0" />
+<path class="link" d="M168 212.0 C211.2 212.0 220.8 124.0 264 124.0" />
+<path class="link" d="M168 228.0 C211.2 228.0 220.8 124.0 264 124.0" />
+<text class="feat" x="160" y="24.0">calendar</text>
+<text class="feat" x="160" y="40.0">compass</text>
+<text class="feat" x="160" y="56.0">craft</text>
+<text class="feat" x="160" y="72.0">dedup</text>
+<text class="feat" x="160" y="88.0">drive</text>
+<text class="feat" x="160" y="104.0">foundry</text>
+<text class="feat" x="160" y="120.0">gmail</text>
+<text class="feat" x="160" y="136.0">handoff</text>
+<text class="feat" x="160" y="152.0">inbox</text>
+<text class="feat" x="160" y="168.0">install</text>
+<text class="feat" x="160" y="184.0">iso-visual</text>
+<text class="feat" x="160" y="200.0">prepare</text>
+<text class="feat" x="160" y="216.0">research</text>
+<text class="feat" x="160" y="232.0">roundup</text>
+<g class="hub"><title>core/tools/wos/skills/mirror.sh</title><circle cx="264" cy="124.0" r="6.7"/><text class="hub" x="276" y="128.0">core/tools/wos/skills/mirror.sh <tspan class="cnt">14</tspan></text></g><path class="link" d="M168 264.0 C211.2 264.0 220.8 336.0 264 336.0" />
+<path class="link" d="M168 280.0 C211.2 280.0 220.8 336.0 264 336.0" />
+<path class="link" d="M168 296.0 C211.2 296.0 220.8 336.0 264 336.0" />
+<path class="link" d="M168 312.0 C211.2 312.0 220.8 336.0 264 336.0" />
+<path class="link" d="M168 328.0 C211.2 328.0 220.8 336.0 264 336.0" />
+<path class="link" d="M168 344.0 C211.2 344.0 220.8 336.0 264 336.0" />
+<path class="link" d="M168 360.0 C211.2 360.0 220.8 336.0 264 336.0" />
+<path class="link" d="M168 376.0 C211.2 376.0 220.8 336.0 264 336.0" />
+<path class="link" d="M168 392.0 C211.2 392.0 220.8 336.0 264 336.0" />
+<path class="link" d="M168 408.0 C211.2 408.0 220.8 336.0 264 336.0" />
+<text class="feat" x="160" y="268.0">acronyms</text>
+<text class="feat" x="160" y="284.0">deletion</text>
+<text class="feat" x="160" y="300.0">dogfood</text>
+<text class="feat" x="160" y="316.0">edit</text>
+<text class="feat" x="160" y="332.0">filesystem</text>
+<text class="feat" x="160" y="348.0">improve</text>
+<text class="feat" x="160" y="364.0">interview</text>
+<text class="feat" x="160" y="380.0">one-action</text>
+<text class="feat" x="160" y="396.0">storage</text>
+<text class="feat" x="160" y="412.0">symmetry</text>
+<g class="hub"><title>core/hooks/routing/norms.py</title><circle cx="264" cy="336.0" r="6.2"/><text class="hub" x="276" y="340.0">core/hooks/routing/norms.py <tspan class="cnt">10</tspan></text></g><path class="link" d="M168 444.0 C211.2 444.0 220.8 460.0 264 460.0" />
+<path class="link" d="M168 460.0 C211.2 460.0 220.8 460.0 264 460.0" />
+<path class="link" d="M168 476.0 C211.2 476.0 220.8 460.0 264 460.0" />
+<text class="feat" x="160" y="448.0">project-contract</text>
+<text class="feat" x="160" y="464.0">verify-contract</text>
+<text class="feat" x="160" y="480.0">verify-suite</text>
+<g class="hub"><title>core/hooks/gates/project-contract.sh</title><circle cx="264" cy="460.0" r="4.7"/><text class="hub" x="276" y="464.0">core/hooks/gates/project-contract.sh <tspan class="cnt">3</tspan></text></g><path class="link" d="M168 512.0 C211.2 512.0 220.8 520.0 264 520.0" />
+<path class="link" d="M168 528.0 C211.2 528.0 220.8 520.0 264 520.0" />
+<text class="feat" x="160" y="516.0">context-head-budget</text>
+<text class="feat" x="160" y="532.0">first-line-comment</text>
+<g class="hub"><title>core/hooks/entropy/entropy_context.py</title><circle cx="264" cy="520.0" r="4.4"/><text class="hub" x="276" y="524.0">core/hooks/entropy/entropy_context.py <tspan class="cnt">2</tspan></text></g><text class="tail" x="12" y="567.0">43 further points, one feature each</text><text class="loose" x="12" y="591.0">1 feature switched by nothing at all: telegram-capture</text></svg><div class="shapes"><div><h3>by file · 47 points</h3><div class="fbars"><div class="bar"><span class="pt">core/tools/wos/skills/mirror.sh</span><span class="run" style="width:210px" title="calendar, compass, craft, dedup, drive, foundry, gmail, handoff, inbox, install, iso-visual, prepare, research, roundup"></span><span class="n">14</span></div><div class="bar"><span class="pt">core/hooks/routing/norms.py</span><span class="run" style="width:150px" title="acronyms, deletion, dogfood, edit, filesystem, improve, interview, one-action, storage, symmetry"></span><span class="n">10</span></div><div class="bar"><span class="pt">core/hooks/gates/project-contract.sh</span><span class="run" style="width:45px" title="project-contract, verify-contract, verify-suite"></span><span class="n">3</span></div><div class="bar"><span class="pt">core/hooks/entropy/entropy_context.py</span><span class="run" style="width:30px" title="context-head-budget, first-line-comment"></span><span class="n">2</span></div><div class="bar tail"><span class="pt">43 further files</span><span class="run" style="width:15px" title="one feature each"></span><span class="n">1</span></div><div class="bar loose"><span class="pt">telegram-capture</span><span class="run" style="width:2px" title="no switch point at all"></span><span class="n">✗</span></div></div></div><div><h3>by directory · 25 points</h3><div class="fbars"><div class="bar"><span class="pt">core/tools/wos/skills</span><span class="run" style="width:210px" title="calendar, compass, craft, dedup, drive, foundry, gmail, handoff, inbox, install, iso-visual, prepare, research, roundup"></span><span class="n">14</span></div><div class="bar"><span class="pt">core/hooks/routing</span><span class="run" style="width:165px" title="acronyms, deletion, dogfood, edit, filesystem, improve, interview, one-action, routing-tables, storage, symmetry"></span><span class="n">11</span></div><div class="bar"><span class="pt">core/hooks/checks</span><span class="run" style="width:90px" title="bugs-gate, citation-gate, duplication-gate, heredoc-gate, line-limit, type-gate"></span><span class="n">6</span></div><div class="bar"><span class="pt">core/hooks/gates</span><span class="run" style="width:75px" title="latex, lint-typescript, project-contract, verify-contract, verify-suite"></span><span class="n">5</span></div><div class="bar"><span class="pt">core/hooks/read</span><span class="run" style="width:75px" title="agent-context-brief, context-chain, interface-first-reads, spec-read-gate, subtree-read-tracking"></span><span class="n">5</span></div><div class="bar"><span class="pt">core/hooks/entropy</span><span class="run" style="width:60px" title="context-head-budget, entropy-dashboard, fanout-limit, first-line-comment"></span><span class="n">4</span></div><div class="bar"><span class="pt">core/hooks/session</span><span class="run" style="width:60px" title="compass-nudge, context-meter, inbox-nudge, precompact-wipe"></span><span class="n">4</span></div><div class="bar"><span class="pt">core/hooks/git</span><span class="run" style="width:45px" title="gitflow-gate, gitignore-self-heal, gitlink-gate"></span><span class="n">3</span></div><div class="bar"><span class="pt">core/hooks/brain</span><span class="run" style="width:30px" title="brain-attention, brain-dashboard"></span><span class="n">2</span></div><div class="bar"><span class="pt">core/hooks/postedit</span><span class="run" style="width:30px" title="interface-stubs, lint-typescript"></span><span class="n">2</span></div><div class="bar tail"><span class="pt">15 further directorys</span><span class="run" style="width:15px" title="one feature each"></span><span class="n">1</span></div><div class="bar loose"><span class="pt">telegram-capture</span><span class="run" style="width:2px" title="no switch point at all"></span><span class="n">✗</span></div></div></div></div><p class="note">A point is a file that calls <code>feature_law.is_enabled()</code>, read from <code>core/features.txt</code> § wired — so a wrong edge here is a wrong registry row. <b>Two points carry a third of the workspace</b>: switching off <code>mirror.sh</code> takes fourteen skills with it and <code>norms.py</code> ten norms, which is deliberate — a group with one publisher is switchable at all, and the alternative was fourteen call sites. It is still the concentration to know about before the ablation runs, because those two rows can never be ablated apart.</p></section>
 <h2>the detail underneath</h2>
 <div class="tabs">
 <input type="radio" name="tab" id="t-matrix" checked><label for="t-matrix" title="what is wired where">enforcement</label>
@@ -220,7 +301,7 @@ table.heat td.z { color:var(--dim); opacity:.4; }
 <tr><th class="rowhead" title="">telegram-capture <span class="unwired">unwired</span></th><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td></tr>
 <tr><th class="rowhead" title="">video-text</th><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="none" title="video-text at core/tools/video — wired, enforces nothing">·</td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td></tr>
 <tr><th class="rowhead" title="">web-search</th><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="none" title="web-search at core/tools/web — wired, enforces nothing">·</td><td class="empty"></td><td class="empty"></td><td class="empty"></td></tr>
-</tbody></table></div><p class="legend"><span class="key"><b>■</b> blocks the commit</span><span class="key"><b>▲</b> warns, never blocks</span><span class="key"><b>●</b> writes a file</span><span class="key"><b>○</b> advice to the agent</span><span class="key"><b>·</b> wired, enforces nothing</span></p><p class="note">Rows and columns both come from <code>core/features.txt</code>. An empty column is a site that enforces nothing — a finding about the workspace, not about the drawing. Column tooltips carry the firing moment, read from the registrations themselves by <code>core/hooks/trigger_law.py</code>; a site marked <span class="inf">no moment</span> is one nothing in this repo registers.</p></section>
+</tbody></table></div><p class="legend"><span class="key"><b>■</b> blocks the commit</span><span class="key"><b>▲</b> warns, never blocks</span><span class="key"><b>●</b> writes a file</span><span class="key"><b>○</b> advice to the agent</span><span class="key"><b>·</b> wired, enforces nothing</span></p><p class="note">Rows and columns both come from <code>core/features.txt</code>. An empty column is a site that enforces nothing — a finding about the workspace, not about the drawing. Column tooltips carry the firing moment, read from the registrations themselves by <code>core/hooks/trigger/trigger_law.py</code>; a site marked <span class="inf">no moment</span> is one nothing in this repo registers.</p></section>
 <section class="panel p-spine"><h2>the routing chain, three levels deep</h2><div class="scroll"><svg class="spine" viewBox="0 0 414 2008" width="414" height="2008" role="img" aria-label="routing spine">
 <path class="link" d="M14 25 V47 H40" />
 <path class="link" d="M40 47 V69 H66" />
@@ -404,107 +485,107 @@ table.heat td.z { color:var(--dim); opacity:.4; }
 </svg>
 <p class="note">20 directories sit deeper than level 3 and are not drawn. They are reached by the same chain, one hop at a time — which is the point of the spine rather than a gap in it.</p></div><p class="note">Every edge is read from a generated routing block — the same table an agent follows. Nothing here is drawn by hand, so a wrong edge is a wrong routing table, and fixing the picture means fixing the source. Parsed 85 of 85 blocks.</p></section>
 <section class="panel p-mass"><h2>tracked bytes per directory</h2><div class="scroll"><svg class="treemap" viewBox="0 0 960 520" width="100%" preserveAspectRatio="xMidYMid meet" role="img" aria-label="folder mass">
-<g class="cell c1"><title>core/tools — 138 tracked files, 560 KB, 22.8% of tracked mass</title><rect x="0.0" y="0.0" width="347.6" height="324.9" />
+<g class="cell c1"><title>core/tools — 138 tracked files, 567 KB, 22.9% of tracked mass</title><rect x="0.0" y="0.0" width="349.0" height="326.3" />
 <text x="6.0" y="17.0">core/tools</text><text class="sub" x="6.0" y="32.0">138 files</text>
 </g>
-<g class="cell c1"><title>core/hooks — 95 tracked files, 333 KB, 13.6% of tracked mass</title><rect x="0.0" y="325.9" width="347.6" height="193.1" />
-<text x="6.0" y="342.9">core/hooks</text><text class="sub" x="6.0" y="357.9">95 files</text>
+<g class="cell c1"><title>core/hooks — 95 tracked files, 333 KB, 13.5% of tracked mass</title><rect x="0.0" y="327.3" width="349.0" height="191.7" />
+<text x="6.0" y="344.3">core/hooks</text><text class="sub" x="6.0" y="359.3">95 files</text>
 </g>
-<g class="cell c5"><title>academy/administration — 23 tracked files, 274 KB, 11.2% of tracked mass</title><rect x="348.6" y="0.0" width="190.5" height="289.7" />
-<text x="354.6" y="17.0">academy/administration</text><text class="sub" x="354.6" y="32.0">23 files</text>
+<g class="cell c5"><title>academy/administration — 23 tracked files, 274 KB, 11.1% of tracked mass</title><rect x="350.0" y="0.0" width="189.9" height="289.7" />
+<text x="356.0" y="17.0">academy/administration</text><text class="sub" x="356.0" y="32.0">23 files</text>
 </g>
-<g class="cell c1"><title>core/skills — 69 tracked files, 216 KB, 8.8% of tracked mass</title><rect x="348.6" y="290.7" width="190.5" height="228.3" />
-<text x="354.6" y="307.7">core/skills</text><text class="sub" x="354.6" y="322.7">69 files</text>
+<g class="cell c1"><title>core/skills — 69 tracked files, 216 KB, 8.8% of tracked mass</title><rect x="350.0" y="290.7" width="189.9" height="228.3" />
+<text x="356.0" y="307.7">core/skills</text><text class="sub" x="356.0" y="322.7">69 files</text>
 </g>
-<g class="cell c0"><title>(root) — 12 tracked files, 177 KB, 7.2% of tracked mass</title><rect x="540.2" y="0.0" width="235.7" height="150.7" />
-<text x="546.2" y="17.0">(root)</text><text class="sub" x="546.2" y="32.0">12 files</text>
+<g class="cell c0"><title>(root) — 12 tracked files, 177 KB, 7.2% of tracked mass</title><rect x="540.9" y="0.0" width="235.3" height="150.5" />
+<text x="546.9" y="17.0">(root)</text><text class="sub" x="546.9" y="32.0">12 files</text>
 </g>
-<g class="cell c6"><title>brain/goals — 53 tracked files, 137 KB, 5.6% of tracked mass</title><rect x="776.9" y="0.0" width="182.1" height="150.7" />
-<text x="782.9" y="17.0">brain/goals</text><text class="sub" x="782.9" y="32.0">53 files</text>
+<g class="cell c6"><title>brain/goals — 53 tracked files, 137 KB, 5.5% of tracked mass</title><rect x="777.2" y="0.0" width="181.8" height="150.5" />
+<text x="783.2" y="17.0">brain/goals</text><text class="sub" x="783.2" y="32.0">53 files</text>
 </g>
-<g class="cell c1"><title>core/flows — 25 tracked files, 132 KB, 5.4% of tracked mass</title><rect x="540.2" y="151.7" width="121.9" height="216.7" />
-<text x="546.2" y="168.7">core/flows</text><text class="sub" x="546.2" y="183.7">25 files</text>
+<g class="cell c1"><title>core/flows — 25 tracked files, 132 KB, 5.3% of tracked mass</title><rect x="540.9" y="151.5" width="121.5" height="216.8" />
+<text x="546.9" y="168.5">core/flows</text><text class="sub" x="546.9" y="183.5">25 files</text>
 </g>
-<g class="cell c1"><title>core — 4 tracked files, 91 KB, 3.7% of tracked mass</title><rect x="540.2" y="369.3" width="121.9" height="149.7" />
-<text x="546.2" y="386.3">core</text><text class="sub" x="546.2" y="401.3">4 files</text>
+<g class="cell c1"><title>core — 4 tracked files, 91 KB, 3.7% of tracked mass</title><rect x="540.9" y="369.2" width="121.5" height="149.8" />
+<text x="546.9" y="386.2">core</text><text class="sub" x="546.9" y="401.2">4 files</text>
 </g>
-<g class="cell c6"><title>brain/memory — 28 tracked files, 64 KB, 2.6% of tracked mass</title><rect x="663.1" y="151.7" width="106.8" height="121.0" />
-<text x="669.1" y="168.7">brain/memory</text><text class="sub" x="669.1" y="183.7">28 files</text>
+<g class="cell c6"><title>brain/memory — 28 tracked files, 64 KB, 2.6% of tracked mass</title><rect x="663.4" y="151.5" width="106.7" height="120.7" />
+<text x="669.4" y="168.5">brain/memory</text><text class="sub" x="669.4" y="183.5">28 files</text>
 </g>
-<g class="cell c3"><title>.opencode/skills — 17 tracked files, 59 KB, 2.4% of tracked mass</title><rect x="770.9" y="151.7" width="97.1" height="121.0" />
-<text x="776.9" y="168.7">.opencode/sk…</text><text class="sub" x="776.9" y="183.7">17 files</text>
+<g class="cell c3"><title>.opencode/skills — 17 tracked files, 59 KB, 2.4% of tracked mass</title><rect x="771.1" y="151.5" width="96.9" height="120.7" />
+<text x="777.1" y="168.5">.opencode/sk…</text><text class="sub" x="777.1" y="183.5">17 files</text>
 </g>
-<g class="cell c1"><title>.claude/commands — 14 tracked files, 54 KB, 2.2% of tracked mass</title><rect x="868.9" y="151.7" width="90.1" height="121.0" />
-<text x="874.9" y="168.7">.claude/co…</text><text class="sub" x="874.9" y="183.7">14 files</text>
+<g class="cell c1"><title>.claude/commands — 14 tracked files, 54 KB, 2.2% of tracked mass</title><rect x="869.0" y="151.5" width="90.0" height="120.7" />
+<text x="875.0" y="168.5">.claude/co…</text><text class="sub" x="875.0" y="183.5">14 files</text>
 </g>
-<g class="cell c1"><title>.claude/skills — 14 tracked files, 54 KB, 2.2% of tracked mass</title><rect x="663.1" y="273.6" width="88.7" height="122.5" />
-<text x="669.1" y="290.6">.claude/sk…</text><text class="sub" x="669.1" y="305.6">14 files</text>
+<g class="cell c1"><title>.claude/skills — 14 tracked files, 54 KB, 2.2% of tracked mass</title><rect x="663.4" y="273.2" width="88.3" height="122.7" />
+<text x="669.4" y="290.2">.claude/sk…</text><text class="sub" x="669.4" y="305.2">14 files</text>
 </g>
-<g class="cell c0"><title>code — 6 tracked files, 54 KB, 2.2% of tracked mass</title><rect x="663.1" y="397.1" width="88.7" height="121.9" />
-<text x="669.1" y="414.1">code</text><text class="sub" x="669.1" y="429.1">6 files</text>
+<g class="cell c0"><title>code — 6 tracked files, 54 KB, 2.2% of tracked mass</title><rect x="663.4" y="396.8" width="88.3" height="122.2" />
+<text x="669.4" y="413.8">code</text><text class="sub" x="669.4" y="428.8">6 files</text>
 </g>
-<g class="cell c1"><title>core/refs — 3 tracked files, 43 KB, 1.7% of tracked mass</title><rect x="752.8" y="273.6" width="105.8" height="80.7" />
-<text x="758.8" y="290.6">core/refs</text><text class="sub" x="758.8" y="305.6">3 files</text>
+<g class="cell c1"><title>core/refs — 3 tracked files, 43 KB, 1.7% of tracked mass</title><rect x="752.7" y="273.2" width="104.8" height="81.2" />
+<text x="758.7" y="290.2">core/refs</text><text class="sub" x="758.7" y="305.2">3 files</text>
 </g>
-<g class="cell c6"><title>brain — 6 tracked files, 40 KB, 1.6% of tracked mass</title><rect x="859.6" y="273.6" width="99.4" height="80.7" />
-<text x="865.6" y="290.6">brain</text><text class="sub" x="865.6" y="305.6">6 files</text>
+<g class="cell c6"><title>brain — 6 tracked files, 41 KB, 1.7% of tracked mass</title><rect x="858.5" y="273.2" width="100.5" height="81.2" />
+<text x="864.5" y="290.2">brain</text><text class="sub" x="864.5" y="305.2">6 files</text>
 </g>
-<g class="cell c1"><title>core/experiments — 8 tracked files, 36 KB, 1.5% of tracked mass</title><rect x="752.8" y="355.3" width="76.7" height="94.2" />
-<text x="758.8" y="372.3">core/exp…</text><text class="sub" x="758.8" y="387.3">8 files</text>
+<g class="cell c1"><title>core/experiments — 8 tracked files, 36 KB, 1.5% of tracked mass</title><rect x="752.7" y="355.3" width="76.5" height="94.2" />
+<text x="758.7" y="372.3">core/exp…</text><text class="sub" x="758.7" y="387.3">8 files</text>
 </g>
-<g class="cell c1"><title>core/agents — 7 tracked files, 26 KB, 1.1% of tracked mass</title><rect x="752.8" y="450.5" width="76.7" height="68.5" />
-<text x="758.8" y="467.5">core/age…</text><text class="sub" x="758.8" y="482.5">7 files</text>
+<g class="cell c1"><title>core/agents — 7 tracked files, 26 KB, 1.1% of tracked mass</title><rect x="752.7" y="450.5" width="76.5" height="68.5" />
+<text x="758.7" y="467.5">core/age…</text><text class="sub" x="758.7" y="482.5">7 files</text>
 </g>
-<g class="cell c6"><title>brain/attachments — 2 tracked files, 16 KB, 0.7% of tracked mass</title><rect x="830.6" y="355.3" width="65.2" height="49.3" />
+<g class="cell c6"><title>brain/attachments — 2 tracked files, 16 KB, 0.7% of tracked mass</title><rect x="830.2" y="355.3" width="65.4" height="49.0" />
 </g>
-<g class="cell c5"><title>academy/reviews — 10 tracked files, 15 KB, 0.6% of tracked mass</title><rect x="896.8" y="355.3" width="62.2" height="49.3" />
+<g class="cell c5"><title>academy/reviews — 10 tracked files, 15 KB, 0.6% of tracked mass</title><rect x="896.6" y="355.3" width="62.4" height="49.0" />
 </g>
-<g class="cell c3"><title>.opencode — 5 tracked files, 13 KB, 0.6% of tracked mass</title><rect x="830.6" y="405.6" width="42.3" height="62.5" />
+<g class="cell c3"><title>.opencode — 5 tracked files, 13 KB, 0.5% of tracked mass</title><rect x="830.2" y="405.3" width="42.1" height="62.7" />
 </g>
-<g class="cell c0"><title>code/_templates — 7 tracked files, 10 KB, 0.4% of tracked mass</title><rect x="830.6" y="469.2" width="42.3" height="49.8" />
+<g class="cell c0"><title>code/_templates — 7 tracked files, 10 KB, 0.4% of tracked mass</title><rect x="830.2" y="469.0" width="42.1" height="50.0" />
 </g>
-<g class="cell c5"><title>academy/papers — 3 tracked files, 9 KB, 0.4% of tracked mass</title><rect x="873.9" y="405.6" width="45.5" height="41.7" />
+<g class="cell c5"><title>academy/papers — 3 tracked files, 9 KB, 0.4% of tracked mass</title><rect x="873.2" y="405.3" width="45.8" height="41.2" />
 </g>
-<g class="cell c3"><title>.opencode/plugins — 3 tracked files, 8 KB, 0.3% of tracked mass</title><rect x="920.4" y="405.6" width="38.6" height="41.7" />
+<g class="cell c3"><title>.opencode/plugins — 3 tracked files, 8 KB, 0.3% of tracked mass</title><rect x="920.1" y="405.3" width="38.9" height="41.2" />
 </g>
-<g class="cell c1"><title>core/norms — 11 tracked files, 4 KB, 0.2% of tracked mass</title><rect x="873.9" y="448.3" width="23.8" height="38.1" />
+<g class="cell c1"><title>core/norms — 11 tracked files, 4 KB, 0.2% of tracked mass</title><rect x="873.2" y="447.6" width="34.3" height="26.4" />
 </g>
-<g class="cell c1"><title>.claude — 1 tracked files, 3 KB, 0.2% of tracked mass</title><rect x="873.9" y="487.5" width="23.8" height="31.5" />
+<g class="cell c1"><title>.claude — 1 tracked files, 3 KB, 0.2% of tracked mass</title><rect x="873.2" y="475.0" width="34.3" height="21.8" />
 </g>
-<g class="cell c5"><title>academy/refs — 2 tracked files, 3 KB, 0.2% of tracked mass</title><rect x="898.7" y="448.3" width="33.7" height="21.6" />
+<g class="cell c5"><title>academy/refs — 2 tracked files, 3 KB, 0.2% of tracked mass</title><rect x="873.2" y="497.8" width="34.3" height="21.2" />
 </g>
-<g class="cell c1"><title>.claude/agents — 3 tracked files, 2 KB, 0.1% of tracked mass</title><rect x="933.4" y="448.3" width="25.6" height="21.6" />
+<g class="cell c1"><title>.claude/agents — 3 tracked files, 2 KB, 0.1% of tracked mass</title><rect x="908.5" y="447.6" width="25.0" height="22.1" />
 </g>
-<g class="cell c3"><title>.opencode/agents — 3 tracked files, 2 KB, 0.1% of tracked mass</title><rect x="898.7" y="471.0" width="22.0" height="24.7" />
+<g class="cell c3"><title>.opencode/agents — 3 tracked files, 2 KB, 0.1% of tracked mass</title><rect x="934.5" y="447.6" width="24.5" height="22.1" />
 </g>
-<g class="cell c7"><title>branches/ecovila — 4 tracked files, 2 KB, 0.1% of tracked mass</title><rect x="898.7" y="496.7" width="22.0" height="22.3" />
+<g class="cell c7"><title>branches/ecovila — 4 tracked files, 2 KB, 0.1% of tracked mass</title><rect x="908.5" y="470.6" width="18.3" height="26.7" />
 </g>
-<g class="cell c5"><title>academy/talks — 3 tracked files, 2 KB, 0.1% of tracked mass</title><rect x="921.7" y="471.0" width="18.6" height="20.4" />
+<g class="cell c5"><title>academy/talks — 3 tracked files, 2 KB, 0.1% of tracked mass</title><rect x="908.5" y="498.3" width="18.3" height="20.7" />
 </g>
-<g class="cell c5"><title>academy — 2 tracked files, 1 KB, 0.1% of tracked mass</title><rect x="941.3" y="471.0" width="17.7" height="20.4" />
+<g class="cell c5"><title>academy — 2 tracked files, 1 KB, 0.1% of tracked mass</title><rect x="927.8" y="470.6" width="17.5" height="20.7" />
 </g>
-<g class="cell c4"><title>.vscode — 2 tracked files, 1 KB, 0.1% of tracked mass</title><rect x="921.7" y="492.4" width="17.6" height="15.0" />
+<g class="cell c4"><title>.vscode — 2 tracked files, 1 KB, 0.1% of tracked mass</title><rect x="946.3" y="470.6" width="12.7" height="20.7" />
 </g>
-<g class="cell c2"><title>.github/hooks — 2 tracked files, 1 KB, 0.0% of tracked mass</title><rect x="921.7" y="508.4" width="17.6" height="10.6" />
+<g class="cell c2"><title>.github/hooks — 2 tracked files, 1 KB, 0.0% of tracked mass</title><rect x="927.8" y="492.3" width="12.9" height="14.4" />
 </g>
-<g class="cell c2"><title>.github — 1 tracked files, 0 KB, 0.0% of tracked mass</title><rect x="940.3" y="492.4" width="10.0" height="14.6" />
+<g class="cell c2"><title>.github — 1 tracked files, 0 KB, 0.0% of tracked mass</title><rect x="927.8" y="507.8" width="12.9" height="11.2" />
 </g>
-<g class="cell c7"><title>branches — 1 tracked files, 0 KB, 0.0% of tracked mass</title><rect x="951.3" y="492.4" width="7.7" height="14.6" />
+<g class="cell c5"><title>academy/teaching — 1 tracked files, 0 KB, 0.0% of tracked mass</title><rect x="941.8" y="492.3" width="9.0" height="15.5" />
 </g>
-<g class="cell c7"><title>branches/writing — 1 tracked files, 0 KB, 0.0% of tracked mass</title><rect x="940.3" y="508.0" width="8.3" height="11.0" />
+<g class="cell c7"><title>branches — 1 tracked files, 0 KB, 0.0% of tracked mass</title><rect x="951.8" y="492.3" width="7.2" height="15.5" />
 </g>
-<g class="cell c1"><title>core/prompts — 1 tracked files, 0 KB, 0.0% of tracked mass</title><rect x="949.6" y="508.0" width="9.4" height="5.2" />
+<g class="cell c7"><title>branches/writing — 1 tracked files, 0 KB, 0.0% of tracked mass</title><rect x="941.8" y="508.8" width="9.0" height="10.2" />
 </g>
-<g class="cell c5"><title>academy/teaching — 1 tracked files, 0 KB, 0.0% of tracked mass</title><rect x="949.6" y="514.2" width="4.5" height="4.8" />
+<g class="cell c1"><title>core/prompts — 1 tracked files, 0 KB, 0.0% of tracked mass</title><rect x="951.8" y="508.8" width="7.2" height="6.7" />
 </g>
-<g class="cell c2"><title>models — 1 tracked files, 0 KB, 0.0% of tracked mass</title><rect x="955.2" y="514.2" width="3.8" height="4.8" />
+<g class="cell c2"><title>models — 1 tracked files, 0 KB, 0.0% of tracked mass</title><rect x="951.8" y="516.6" width="7.2" height="2.4" />
 </g>
-</svg></div><p class="note">591 tracked files, 2463 KB, folded to two levels. The inventory is <code>git ls-files</code> and never a directory walk — which is what keeps <code>.venv</code>, <code>Downloads/</code> and the trash out of a picture of the workspace, three directories that would otherwise dwarf everything real.</p></section>
+</svg></div><p class="note">591 tracked files, 2471 KB, folded to two levels. The inventory is <code>git ls-files</code> and never a directory walk — which is what keeps <code>.venv</code>, <code>Downloads/</code> and the trash out of a picture of the workspace, three directories that would otherwise dwarf everything real.</p></section>
 </div>
 <footer>
 <p><b>coverage</b> parsed 85 of 85 routing blocks · none unparsed</p>
 <p><b>scope</b> the workspace repository. 25 repositories nested inside it are drawn as directories and no deeper: each is its own repository and will earn its own document.</p>
-<p><b>what is inferred</b> nothing, as of 2026-08-18. Every edge above renders declared or generated data, the firing moment included: <code>core/hooks/trigger_law.py</code> reads it from the registrations, the pre-commit dispatcher's own stage order and the install steps. What the registrations cannot place is counted as a gap instead of guessed at.</p>
+<p><b>what is inferred</b> nothing, as of 2026-08-18. Every edge above renders declared or generated data, the firing moment included: <code>core/hooks/trigger/trigger_law.py</code> reads it from the registrations, the pre-commit dispatcher's own stage order and the install steps. What the registrations cannot place is counted as a gap instead of guessed at.</p>
 <p><b>how to change it</b> edit the source, not this file: <code>core/features.txt</code> for the matrix, a directory's <code>CONTEXT.md</code> for the spine. Regenerated and committed by <code>/roundup</code> at every session close, so a stale picture is a bug in the close, not a fact of life.</p>
 </footer>
 </body></html>

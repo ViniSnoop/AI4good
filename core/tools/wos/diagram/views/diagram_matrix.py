@@ -69,5 +69,5 @@ def legend() -> str:
             '<p class="note">Rows and columns both come from <code>core/features.txt</code>. '
             'An empty column is a site that enforces nothing — a finding about the workspace, '
             'not about the drawing. Column tooltips carry the firing moment, read from the '
-            'registrations themselves by <code>core/hooks/trigger_law.py</code>; a site marked '
+            'registrations themselves by <code>core/hooks/trigger/trigger_law.py</code>; a site marked '
             '<span class="inf">no moment</span> is one nothing in this repo registers.</p>')
