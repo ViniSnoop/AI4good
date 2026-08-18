@@ -78,3 +78,13 @@ toggle	calendar	on
 toggle	drive	on
 toggle	foundry	on
 toggle	iso-visual	on
+toggle	filesystem	on
+toggle	storage	on
+toggle	improve	on
+toggle	interview	on
+toggle	acronyms	on
+toggle	edit	on
+toggle	symmetry	on
+toggle	deletion	on
+toggle	dogfood	on
+toggle	one-action	on

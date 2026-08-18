@@ -28,6 +28,15 @@ if [ -n "$CTX_DIRTY" ]; then
   unset _ctx_synced
 fi
 
+# ── 4b. Norms → the AGENTS.md rule block ──────────────────────────────────────
+# Runs on a staged core/norms/ change OR a staged registry change: the registry decides both
+# WHICH norms publish and in WHAT ORDER, so a reordered features.txt with no norm edit still
+# moves the always-loaded file. The generator holds the group's feature switch itself.
+if echo "$STAGED" | grep -qE '^(core/norms/|core/features\.txt$|core/profile\.txt$)'; then
+  python3 /mnt/workspace/core/hooks/routing/norms.py \
+    && git add /mnt/workspace/AGENTS.md 2>/dev/null || true
+fi
+
 # ── 5b. TeX → .texif interfaces ───────────────────────────────────────────────
 TEX_FILES=$(echo "$STAGED" | grep '\.tex$' || true)
 if [ -n "$TEX_FILES" ]; then

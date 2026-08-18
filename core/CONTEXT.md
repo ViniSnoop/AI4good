@@ -21,6 +21,7 @@ Ported from Feynman (https://github.com/companion-inc/feynman), adapted for prov
 | [`experiments/`](experiments/CONTEXT.md) | What we measured about this workspace, when, and what changed because of it. One… |
 | [`flows/`](flows/CONTEXT.md) | Workflow protocols; each names the agents and steps to execute. |
 | [`hooks/`](hooks/CONTEXT.md) | The enforcement layer: git hooks, agent lifecycle hooks, and the Tier 0 checks… |
+| [`norms/`](norms/CONTEXT.md) | Rules obeyed rather than enforced. One file each; `AGENTS.md`'s rule block is… |
 | [`prompts/`](prompts/CONTEXT.md) | Prepared session prompts — copy-paste into parallel agent sessions. Each file… |
 | [`refs/`](refs/CONTEXT.md) | Captured references for the agent library / workspace-os scaffold — tier-1 links… |
 | [`skills/`](skills/CONTEXT.md) | Agent skills — provider-agnostic workflows invoked as slash commands or by… |

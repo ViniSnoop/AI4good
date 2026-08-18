@@ -414,6 +414,27 @@ are read from source, and drop the parent's prefix from their filenames (`foundr
 no generator**, so keep each mirror's `model:` in sync with its source `tier:` by hand.
 **No `thinking:` and no `model:` in `core/agents/` source.**
 
+## Layer: norm — `core/norms/<name>.md`
+
+| field | req | value |
+|-------|-----|-------|
+| `name` | ✅ | kebab-case, matches filename |
+| `description` | ✅ | one line: what obeying the rule buys. Feeds the routing table, never `AGENTS.md` |
+
+**The body is the published rule, verbatim.** Everything after the frontmatter is written into
+`AGENTS.md` as one bullet by [`hooks/routing/norms.py`](hooks/routing/norms.py) — no rendering, no
+wrapping. `AGENTS.md` is always loaded, so a norm's body is its entire cost: a rule needing a
+paragraph of rationale is a `SPECS.md` section plus a pointer, not a longer norm.
+
+**Order comes from [`features.txt`](features.txt), not from the directory listing.** Order matters in
+a prompt, and two ordered lists of one set is the asymmetry this workspace keeps paying for — so
+moving a rule up the prompt means moving its registry row. That generator is also the group's single
+feature switch, the same shape as the skills mirror: a norm switched off is never written, so the
+ablation removes it from every session's prompt instead of marking it inactive.
+
+A norm that acquires a checker **stops being a norm and becomes a hook** — move the file, move the
+registry row's group, and let the guard live where the check runs.
+
 ## Layer: flow — `core/flows/[<skill>/]<name>.md`
 
 **Location rule.** A flow owned by a dispatcher skill lives in `core/flows/<skill>/` and its

@@ -1,5 +1,9 @@
+from _typeshed import Incomplete
+
 SKILL_MIRROR: str
+NORMS_GENERATOR: str
 TOOL_LAW: str
+GROUP_PUBLISHERS: Incomplete
 
 def test_a_row_claiming_to_be_wired_really_is() -> None: ...
 def test_an_unknown_slug_fails_open() -> None: ...

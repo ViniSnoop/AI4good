@@ -34,6 +34,7 @@ workspace.
 | [`test_deps.py`](test_deps.py) | [`test_deps.pyi`](test_deps.pyi) | T0 declared dependencies (core/tools/SPECS.md § Declared dependencies): a third-party import the |
 | [`test_features.py`](test_features.py) | [`test_features.pyi`](test_features.pyi) | T0 the feature registry's declaration half (core/SPECS.md § AD-14): every feature is declared, |
 | [`test_features_wiring.py`](test_features_wiring.py) | [`test_features_wiring.pyi`](test_features_wiring.pyi) | T0 the feature registry's honesty half (core/SPECS.md § AD-14): a row claiming a switch must |
+| [`test_norms.py`](test_norms.py) | [`test_norms.pyi`](test_norms.pyi) | T0 the norms layer (core/SCHEMA.md § Layer: norm): the always-loaded rule block is generated, |
 | [`test_roundup.py`](test_roundup.py) | [`test_roundup.pyi`](test_roundup.pyi) | T1 roundup tool (core/SPECS.md § AD-09): the deterministic half of the session-close ritual. |
 | [`test_roundup_skills.py`](test_roundup_skills.py) | [`test_roundup_skills.pyi`](test_roundup_skills.pyi) | T0 the session-close skills (core/SPECS.md § AD-09): what bash cannot assert about the other layer. |
 <!-- routing:end -->

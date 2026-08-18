@@ -13,7 +13,15 @@ import feature_law as law
 from conftest import WORKSPACE_ROOT
 
 SKILL_MIRROR = 'core/tools/wos/skills/mirror.sh'
+NORMS_GENERATOR = 'core/hooks/routing/norms.py'
 TOOL_LAW = 'core/tools/tool_law.py'
+
+# A whole group can share one publisher, and then no row can name itself there: the mirror
+# cannot spell fourteen skill slugs and the generator cannot spell ten norm slugs. Those rows
+# are held honest by a BEHAVIOURAL probe instead — below for skills, test_norms.py for norms.
+# `symmetry` passed the grep by accident, on the word "asymmetry" in a comment, which is the
+# whole argument against a grep in one line.
+GROUP_PUBLISHERS = {SKILL_MIRROR, NORMS_GENERATOR}
 
 
 def _published_skills(off: str = '') -> set:
@@ -44,7 +52,7 @@ def test_a_row_claiming_to_be_wired_really_is():
             path = WORKSPACE_ROOT / target
             if not path.exists():
                 broken.append(f"{row['slug']}: {target} does not exist")
-            elif target != SKILL_MIRROR and row['slug'] not in path.read_text(encoding='utf-8'):
+            elif target not in GROUP_PUBLISHERS and row['slug'] not in path.read_text(encoding='utf-8'):
                 broken.append(f"{row['slug']}: {target} never mentions the slug")
     assert not broken, (
         'these rows claim to be switchable and are not:\n  ' + '\n  '.join(broken))
