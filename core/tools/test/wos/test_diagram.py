@@ -9,7 +9,9 @@
 import subprocess
 
 import diagram_data as data
+import diagram_health as health
 import diagram_matrix as matrix_form
+import diagram_overview as overview_form
 import diagram_spine as spine_form
 import diagram_treemap as mass_form
 import feature_law as law
@@ -128,3 +130,65 @@ def test_the_spine_stops_at_its_depth_and_says_so():
     nodes, edges, _coverage = data.containment()
     html = spine_form.render(nodes, edges, max_depth=1)
     assert 'sit deeper than level 1' in html
+
+
+def test_the_summary_counts_the_same_workspace_the_matrix_does():
+    """One source of truth. The summary aggregates the matrix's own rows rather than counting the
+    registry a second time — two counts of one thing are free to disagree, and the day they do the
+    page contradicts itself in the two places a reader compares first."""
+    rows, _columns, _cells = data.matrix(data.features())
+    layered = sum(total for _layer, _strength, total in health.by_layer(rows))
+    assert layered == sum(len(law.groups(row)) for row in rows)
+    assert {layer for layer, _s, _t in health.by_layer(rows)} == law.GROUPS
+
+
+def test_a_declared_layer_holding_nothing_is_still_drawn():
+    """`agents` and `flows` are declared layers with no feature in them. A grid built from what
+    exists cannot show what does not, so the rows come from the declared set."""
+    rows, _columns, _cells = data.matrix(data.features())
+    layers = health.by_layer(rows)
+    empty = [layer for layer, _s, total in layers if not total]
+    assert empty, 'expected at least one declared-but-unbuilt layer'
+    html = overview_form.render(layers, [])
+    for layer in empty:
+        assert layer in html
+
+
+def test_a_harness_mirror_is_excluded_by_rule_not_by_a_list():
+    """A provider's mirrored tree is not this workspace's rot to fix. The rule is "top-level dotted
+    directory", so a harness nobody has heard of yet is covered the day it lands — a hardcoded list
+    would start reporting it as an orphan instead."""
+    assert health.harness_owned('.some-future-harness/skills')
+    assert not health.harness_owned('core/tools/wos')
+    assert not any(d.startswith('.') for d, _n in health.orphans())
+
+
+def test_every_finding_is_a_gap_rather_than_a_shape():
+    """The regression for the mistake this list was born with. "28 of 68 features enforce nothing"
+    counted 15 skills, 7 tools and 6 recording hooks — features that serve when called instead of
+    pushing — and reported the capability half of the workspace as dead weight. A findings list
+    whose biggest number is not a problem teaches its reader to stop believing the rest of it."""
+    rows, _columns, _cells = data.matrix(data.features())
+    _nodes, _edges, coverage = data.containment()
+    texts = ' '.join(f['text'] for f in health.findings(rows, coverage))
+    assert 'enforce nothing' not in texts
+    assert 'exactly one feature' not in texts
+
+
+def test_a_finding_standing_on_convention_is_labelled_inferred():
+    """Same rule the matrix already keeps: the hook firing moments are the one region no file
+    declares, and a summary is exactly where an inferred number would be mistaken for a measured
+    one."""
+    rows, _columns, _cells = data.matrix(data.features())
+    _nodes, _edges, coverage = data.containment()
+    items = health.findings(rows, coverage)
+    inferred = [f for f in items if f['inferred']]
+    assert len(inferred) == 1 and 'firing' in inferred[0]['text']
+    assert 'inferred' in overview_form.render(health.by_layer(rows), items)
+
+
+def test_the_summary_needs_no_click(tmp_path):
+    """The page's whole defect was that its two most-asked questions were behind detail. The
+    summary renders outside the tab strip, so it is on screen before any interaction."""
+    html, _stdout = _page(tmp_path)
+    assert html.index('class="heat"') < html.index('<div class="tabs">')

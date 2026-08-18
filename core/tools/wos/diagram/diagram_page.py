@@ -6,6 +6,8 @@
 # fail silently in a viewer, and the file stays readable as text.
 from html import escape
 
+import diagram_overview as overview
+
 STYLE = """
 :root { --bg:#fbfbf9; --fg:#1b1b1a; --dim:#6b6b66; --line:#dcdcd6; --card:#fff; --accent:#2b6cb0; }
 @media (prefers-color-scheme: dark) {
@@ -77,9 +79,14 @@ def _panel(key: str, heading: str, body: str) -> str:
             f'<div class="scroll">{body}</div>')
 
 
-def render(panels: dict, coverage: dict, scope: dict) -> str:
-    """One page, three drawings of the same workspace. `panels` maps a tab key to its rendered
-    body plus the prose under it; nothing here computes anything about the workspace."""
+def render(panels: dict, coverage: dict, scope: dict, summary: str = '') -> str:
+    """One page: the summary, then three drawings of the same workspace beneath it.
+
+    `summary` renders ABOVE the tab strip and outside it, deliberately — a tab is a click, and the
+    page's whole defect was that its two most-asked questions were the ones needing a hunt. `panels`
+    maps a tab key to its rendered body plus the prose under it; nothing here computes anything
+    about the workspace.
+    """
     body = [_tab_inputs()]
     for key, _label, _hint in TABS:
         drawing, prose = panels[key]
@@ -95,11 +102,13 @@ def render(panels: dict, coverage: dict, scope: dict) -> str:
         '<html lang="en"><head><meta charset="utf-8">',
         '<meta name="viewport" content="width=device-width,initial-scale=1">',
         '<title>workspace architecture</title>',
-        f'<style>{STYLE}</style></head><body>',
+        f'<style>{STYLE}{overview.STYLE}</style></head><body>',
         '<h1>the workspace as it is</h1>',
-        '<p class="lede">Three drawings of one workspace, generated from the files that already '
-        'declare it. Nothing here is drawn by hand — a hand-drawn map is the rot the routing '
-        'tables exist to prevent, and it goes stale the day after it is drawn.</p>',
+        '<p class="lede">Generated from the files that already declare it. Nothing here is drawn '
+        'by hand — a hand-drawn map is the rot the routing tables exist to prevent, and it goes '
+        'stale the day after it is drawn.</p>',
+        summary,
+        '<h2>the detail underneath</h2>',
         '<div class="tabs">',
         '\n'.join(body),
         '</div>',

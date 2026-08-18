@@ -32,12 +32,14 @@ timestamp, no commit sha, so the file changes only when the workspace did.
 <!-- routing:start -->
 ## Routing
 
+| Subdirectory | Description |
+|--------------|-------------|
+| [`views/`](views/CONTEXT.md) | One drawing per file. A view renders data it is handed and computes nothing… |
+
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
 | [`architecture`](architecture) | — | — | draw the workspace as it is (enforcement matrix, routing spine, folder mass) into one self-contained ARCHITECTURE.html; --check exits 1 when the committed file is stale |
 | [`diagram_data.py`](diagram_data.py) | [`diagram_data.pyi`](diagram_data.pyi) | `area_of`, `trigger_of`, `features`, `matrix`, `unwired` | The canonical data behind ARCHITECTURE.html: what the workspace declares, what contains what, |
-| [`diagram_matrix.py`](diagram_matrix.py) | [`diagram_matrix.pyi`](diagram_matrix.pyi) | `render`, `legend` | The enforcement matrix: every declared feature against every site that enforces it. |
+| [`diagram_health.py`](diagram_health.py) | [`diagram_health.pyi`](diagram_health.pyi) | `harness_owned`, `orphans`, `by_layer`, `findings`, `detail` | What the workspace's declarations say about its HEALTH, as opposed to its contents. |
 | [`diagram_page.py`](diagram_page.py) | [`diagram_page.pyi`](diagram_page.pyi) | `render` | The page the three drawings live in: one self-contained HTML file, no script, no asset it does |
-| [`diagram_spine.py`](diagram_spine.py) | [`diagram_spine.pyi`](diagram_spine.pyi) | `render`, `legend` | The routing spine: which directory routes to which, drawn from the auto-synced routing blocks. |
-| [`diagram_treemap.py`](diagram_treemap.py) | [`diagram_treemap.pyi`](diagram_treemap.pyi) | `render`, `legend` | Folder mass: how much of the workspace each directory actually is, by tracked bytes. |
 <!-- routing:end -->

@@ -1,0 +1,29 @@
+# views
+> One drawing per file. A view renders data it is handed and computes nothing about the workspace.
+
+Split from [`../`](../CONTEXT.md) 2026-08-18, at the moment a fourth drawing landed and the
+directory passed the fanout signal. The line was already in the code and only ever informal: every
+module here takes values computed by [`diagram_data.py`](../diagram_data.py) or
+[`diagram_health.py`](../diagram_health.py) and returns HTML. **A view that reads a file has
+crossed the line** — it would become a second place the workspace is measured, free to disagree
+with the first, which is the exact failure the picture exists to make visible.
+
+Each exports the same pair: `render(...)` for the drawing and `legend(...)` for the prose beneath
+it. [`../diagram_page.py`](../diagram_page.py) composes them into the one self-contained document
+and owns the shared stylesheet, so a view ships markup and class names, never a `<style>` block.
+
+**Encoding is an evidence question here, not a taste one.** Position and length beat area, which
+beats colour and density ([`core/refs/REFS.md`](../../../../refs/REFS.md) § The health shelf), so a
+view that renders a quantity as a glyph to be counted is choosing the weakest channel available and
+needs a reason.
+
+<!-- routing:start -->
+## Routing
+
+| File | Interface | API | Description |
+|------|-----------|-----|-------------|
+| [`diagram_matrix.py`](diagram_matrix.py) | [`diagram_matrix.pyi`](diagram_matrix.pyi) | `render`, `legend` | The enforcement matrix: every declared feature against every site that enforces it. |
+| [`diagram_overview.py`](diagram_overview.py) | [`diagram_overview.pyi`](diagram_overview.pyi) | `render` | The summary layer: the two questions answered before any detail arrives. |
+| [`diagram_spine.py`](diagram_spine.py) | [`diagram_spine.pyi`](diagram_spine.pyi) | `render`, `legend` | The routing spine: which directory routes to which, drawn from the auto-synced routing blocks. |
+| [`diagram_treemap.py`](diagram_treemap.py) | [`diagram_treemap.pyi`](diagram_treemap.pyi) | `render`, `legend` | Folder mass: how much of the workspace each directory actually is, by tracked bytes. |
+<!-- routing:end -->
