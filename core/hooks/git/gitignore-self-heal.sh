@@ -12,6 +12,10 @@
 # Usage: gitignore-self-heal.sh [workspace-root]   (default: cwd — a git hook's cwd is repo root)
 set -euo pipefail
 
+# Switched off: the allowlist stops repairing itself. A generator that is disabled writes
+# nothing rather than writing an empty artifact, which would be worse than not running.
+python3 /mnt/workspace/core/hooks/feature_law.py --enabled gitignore-self-heal || exit 0
+
 # Scoped to the workspace repo — this hook file is wired globally (core.hooksPath), but the
 # domain-denylist .gitignore pattern only exists at /mnt/workspace. Nested project repos
 # (code/*, academy/papers/*, ...) have their own unrelated .gitignore; skip them.

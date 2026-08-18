@@ -83,19 +83,19 @@ heredoc-gate	hooks	-	warns	general	core/hooks/checks/heredoc-gate.py	Warns when 
 verify-suite	hooks	-	blocks	general	-	make verify-fast is what the pre-commit gate checks against; without it the gate has nothing to run
 verify-contract	hooks	-	blocks	general	-	A project declaring verify:fast must be green to commit, discovered by convention, so a new project opts in by naming a script rather than by wiring anything
 project-contract	hooks	-	blocks	general	-	What a code/ project must declare before it can commit: verify contract, goal link, spec, branch shape, .md type and gitlink
-gitflow-gate	hooks	git-hooks	blocks	general	-	Blocks direct commits to main / master / develop and requires feature|release|hotfix, so a shared branch only ever moves by promotion
-gitlink-gate	hooks	git-hooks	blocks	general	-	Blocks committing an undeclared nested gitlink, which is how a nested repo silently becomes a pointer nobody can clone
-gitignore-self-heal	hooks	git-hooks	generates	general	-	The .gitignore allowlist repairs itself, so a new subtree cannot go untracked and thereby opt out of every check the workspace runs
+gitflow-gate	hooks	git-hooks	blocks	general	core/hooks/git/gitflow-gate.sh	Blocks direct commits to main / master / develop and requires feature|release|hotfix, so a shared branch only ever moves by promotion
+gitlink-gate	hooks	git-hooks	blocks	general	core/hooks/git/nested-gitlink-gate.sh	Blocks committing an undeclared nested gitlink, which is how a nested repo silently becomes a pointer nobody can clone
+gitignore-self-heal	hooks	git-hooks	generates	general	core/hooks/git/gitignore-self-heal.sh	The .gitignore allowlist repairs itself, so a new subtree cannot go untracked and thereby opt out of every check the workspace runs
 lint-typescript	hooks	lint-typescript	blocks	general	-	ESLint and Prettier over staged TypeScript, run last because it needs the .d.ts the generators just wrote
 declared-deps	hooks	declared-deps	warns	general	-	Every external dependency is declared with what installs it and what its absence breaks, so a fresh clone loses a capability loudly instead of silently
 opencode-plugin	hooks	-	none	general	-	The provider shim that lets a second harness run the same canonical gates, which is what keeps the enforcement layer provider-agnostic in fact and not just in intent
 brain-dashboard	hooks	-	generates	lucas	-	GOALS.md renders its own attention bars and active-goal table, so the dashboard cannot drift from the goal files it summarises
 brain-attention	hooks	-	none	lucas	-	Counts the commits that actually touched each goal's declared paths, across every repo in the workspace, instead of counting edits to the goal file
-inbox-nudge	hooks	-	advises	lucas	-	Says at session start when brain/INBOX.md has piled past a threshold, so capture stays free without the queue quietly going unread
-compass-nudge	hooks	-	advises	lucas	-	A soft, ignorable reminder that the strategic review has not run in a while
+inbox-nudge	hooks	-	advises	lucas	core/hooks/session/inbox-nudge.py	Says at session start when brain/INBOX.md has piled past a threshold, so capture stays free without the queue quietly going unread
+compass-nudge	hooks	-	advises	lucas	core/hooks/session/compass-nudge.py	A soft, ignorable reminder that the strategic review has not run in a while
 telegram-capture	tools	telegram-capture	none	lucas	-	An away-from-PC front door into brain/INBOX.md, so a thought lands in the workspace instead of in a chat app
-context-meter	hooks	-	advises	general	-	Says once per threshold what the next turn costs, so a session crosses into an expensive band knowingly rather than by drift
-precompact-wipe	hooks	-	none	general	-	Clears the CONTEXT.md seen-markers before a compaction, so the chain is re-read by a session that no longer remembers reading it
+context-meter	hooks	-	advises	general	core/hooks/session/context-meter.py	Says once per threshold what the next turn costs, so a session crosses into an expensive band knowingly rather than by drift
+precompact-wipe	hooks	-	none	general	core/hooks/session/precompact-wipe.sh	Clears the CONTEXT.md seen-markers before a compaction, so the chain is re-read by a session that no longer remembers reading it
 entropy-dashboard	hooks	-	none	general	-	Naming, placement, pointer integrity, fanout and size run as deterministic checks over this repo and every nested one, giving a number that must shrink instead of a feeling that the repo is messy
 rtk-compaction	hooks	rtk-compaction	none	general	core/hooks/compact/bash-compact-rewrite.py	Compresses tool output before it reaches the context by 60-90%, transparently, with nothing to type
 web-search	tools	web-search	none	general	core/tools/web/search	One entrypoint every agent calls for search, resolving its own backend, so picking a search CLI is a maintenance burden inside one script instead of in every agent's prompt

@@ -12,6 +12,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
+import feature_law  # noqa: E402
 from file_law import load_limits  # noqa: E402
 from hook_input import parse_stdin  # noqa: E402
 
@@ -90,6 +91,8 @@ def message(ctx: int, crossed: int, loud: int) -> str:
 
 
 def main() -> None:
+	if not feature_law.is_enabled('context-meter'):
+		return  # switched off: the session crosses its bands without being told
 	raw, _tool, _tool_input, session_id, cwd = parse_stdin()
 	path = find_transcript(raw, session_id, cwd)
 	if not path:

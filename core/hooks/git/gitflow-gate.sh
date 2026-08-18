@@ -4,6 +4,10 @@
 # Paper repos (academy/papers/*) and any other nested repo are exempt.
 # Called from core/hooks/pre-commit. Convention: AGENTS.md (workspace) / code/SPECS.md § Git Flow (projects).
 
+# Switched off: a disabled gate does not block, and does not pretend it ran. The CLI arm of
+# feature_law is used rather than a second reading of the registry — same law, one parser.
+python3 /mnt/workspace/core/hooks/feature_law.py --enabled gitflow-gate || exit 0
+
 TOPLEVEL=$(git rev-parse --show-toplevel 2>/dev/null || true)
 case "$TOPLEVEL" in
   /mnt/workspace/code/*) : ;;   # code project repos: enforce

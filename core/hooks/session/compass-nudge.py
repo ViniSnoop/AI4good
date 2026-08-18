@@ -6,12 +6,18 @@
 import os
 import sys
 from datetime import date
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import feature_law  # noqa: E402
 
 COMPASS_LOG = '/mnt/workspace/brain/.log/compass-last.txt'
 STALE_DAYS = 14  # ~2x/month rhythm; below this, stay silent
 
 
 def main():
+    if not feature_law.is_enabled('compass-nudge'):
+        return 0  # switched off: the strategic review goes unmentioned rather than unmentionable
     if not os.path.exists(COMPASS_LOG):
         return 0
     try:
