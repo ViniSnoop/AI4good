@@ -38,14 +38,17 @@ fills a tier is data and lives in [`core/flows/craft/routing.md`](core/flows/cra
 never here** — a ledger that names a vendor's model goes stale the day that model does.
 🔴 needs Lucas · 🟡 pilot on one subtree first · 🟢 mechanical.
 
-**Two open steps need Lucas's own judgment: 9.5, 15.1** — the single list, quoted here and
-nowhere else. Everything else is agent work. Both are now *research-and-discussion* items rather
-than questions with options attached, which is what he asked for on 2026-08-17 in both cases: a
-capability nobody gave a fair trial, and a front too big to decide as a side question.
+**Four open steps need Lucas's own judgment: 9.5, 12.2, 15.1, 17.1** — the single list, quoted here
+and nowhere else. Everything else is agent work. All four are *research-and-discussion* items rather
+than questions with options attached, which is what he asked for on 2026-08-17 in every case: a
+capability nobody gave a fair trial, a file whose type the root does not allow, a store nobody has
+scoped, and a front too big to decide as a side question.
 Stating that number is part of the cure for feeling lost, so **keep it true** — it has been wrong
-three times: once claiming one while five were live; once (2026-08-16) carrying four items marked 🔴
-whose own `→ tier:` line said medium; and once holding *two* lists of the same set, here and in
-§ Sequencing, which named different threes and so were both wrong. **Derive it from the 🔴 marks.**
+four times: once claiming one while five were live; once (2026-08-16) carrying four items marked 🔴
+whose own `→ tier:` line said medium; once holding *two* lists of the same set, here and in
+§ Sequencing, which named different threes and so were both wrong; and once (2026-08-17) still
+saying *two* on the day Front 17 opened as the third — the count went stale the moment the front
+that exists to catch stale self-description was added. **Derive it from the 🔴 marks.**
 **This is the only list; § Sequencing points here rather than restating it.** Two lists of the same
 set is the asymmetry, and the count is only ever its symptom, so the cure is one list rather than
 two kept in sync. **🔴 means Lucas decides, not "this is hard"**; an item a high-tier agent can
@@ -93,6 +96,30 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
 > **Structure is a spec; drift is a test failure.** `code/` already has this (the `> spec:` gate);
 > the agent library has [core/SCHEMA.md](core/SCHEMA.md). Nothing yet governs the shape of the
 > workspace itself.
+
+1. 🟡 **entropy is reported "flat" every session and has roughly quadrupled in four days.** Lucas
+   (INBOX 2026-08-17): *"sessions keep saying entropy is flat but on the last week it went from 270
+   I think up to more than 400."* He is right and the real curve is steeper than his memory of it —
+   re-derived from the file's own history, one command, which is the point:
+
+   ```bash
+   for c in $(git log --format=%h --since="12 days ago" -- entropy.md); do
+     printf '%s  ' "$(git log -1 --format=%ad --date=short $c)"
+     git show $c:entropy.md | grep -m1 -oE '[0-9]+ findings'
+   done | sort -u
+   ```
+
+   `~94` (08-13) → `297` (08-14) → `402`…`435` (08-15) → `440` (08-17). **Every session compared
+   itself only to the session before it, where the delta really is ±1, and wrote "flat" into the
+   hand-off** — which the next session then inherited as fact. A true statement at one time scale,
+   false at the one that matters, repeated because nothing re-checks the baseline. Front 17's shape
+   with a number attached, and the cheapest possible fix: the dashboard should print a **trend
+   against a dated baseline**, not a bare count, so "flat" becomes unwriteable when it is false.
+
+   **Do not treat the 94 → 297 jump as rot until it is checked** — it lands on the day the scan
+   went `nested=True` and new checks were added, so part of that step is almost certainly scope, not
+   drift. Separating the two is the first task, and the answer decides whether this is a reporting
+   bug or a real cleanup. → **tier: medium**.
 
 2. 🟢 **finish the retired-word rename at the per-run state dir.** APPROVED 2026-07-29 (Lucas: *"we
    renamed loops to be flows but apparently this keeps coming back"*). It keeps coming back because
@@ -354,56 +381,27 @@ spaghetti. I wanted things to be very clear here. very concise, precise."* The i
 whose `wired` column reads `-` cannot be switched off, so **the ablation cannot report on it**.
 Wiring one is calling `feature_law.is_enabled()` where the rule is enforced and naming that file in
 the column. Read the count from `core/tools/wos/features --findings`, never from here — and the
-target is zero, because a row with no in-process switch now carries `n/a` and a reason rather than
-sitting in the findings forever.
+target is zero with **no exceptions left**: the `n/a` column is empty, because the rows that carried
+it were category errors rather than hard cases (`core/SPECS.md` § AD-14).
 
-**The `skills` and `capabilities` groups are done, and doing them corrected the design**
-([`core/SPECS.md`](core/SPECS.md) § AD-14). Skills share one wiring point in the mirror, because a
-skill is markdown and the only real switch is the mirror declining to publish it. Capabilities were
-filed alongside them and should not have been: a capability is a **CLI this workspace writes**, so it
-has a moment of its own and guards at invocation, which buys a per-row behavioural answer instead of
-one answer for the group. What is left is `hooks`, `context-tree` and `brain` — **one enforcement
-file apiece, one call per row, mechanical**.
+`skills` share one wiring point in the mirror, because a skill is markdown and the only real switch
+is the mirror declining to publish it; a **tool** is a CLI this workspace writes, so it has a moment
+of its own and guards at invocation, which buys a per-row behavioural answer instead of one answer
+for the group.
 
-6. 🟢 **`core/features.txt` declares five groups and they are not this workspace's five layers.**
-   Lucas, 2026-08-17: *"the design we had (at least in my head) was hooks, tools, skills, agents,
-   flows. is there something else that doesn't fit on those?"* — and separately, that **"registry"
-   should just be called Features**, since that is the filename and the rest was jargon layered on
-   top. Both hold up when checked against all 56 rows.
+**What is left is mechanical and one enforcement file apiece** — the count is in `--findings`, and
+its shape is: the two `brain/` modules (no `main()`, so their entry point has to be found first),
+the two `generators/` (each has two candidate files, post-edit vs pre-commit — pick the one that is
+the real seam, not both), the two `entropy_context.py` rules, the four in `gates/`, and the three
+tools plus `opencode-plugin`. **`gates/project-contract.sh` hosts three features in one file**, so
+the slug-names-the-file rule cannot apply there; that is a finding, not a rename to force.
 
-   **What the groups actually are.** `capabilities` is 7 tools + 1 hook + 2 third-party toolchains.
-   `context-tree` and `brain` name no directory at all — every wired row in both points into
-   `core/hooks/`; they are *themes over hooks*. The file's own header claims the group column
-   *"matches the tree, so a feature is findable"* and that the file *"does not invent a third
-   vocabulary."* **Neither survives `ls core/`.** That is the finding, and it is one shell command
-   deep, which is the part worth remembering.
-
-   **The target vocabulary is the one already in the tree**: `hooks · tools · skills · agents ·
-   flows · norms`. A feature is one of those or a **combination** — `caveman` is a skill plus a
-   hook, `context-chain` is three hook files. `norms` is the new sixth: rules that exist only as
-   written words and are obeyed rather than enforced. It pairs with `file_law.py` / `schema_law.py`
-   / `feature_law.py`, which hold the ENFORCED half — **law versus norm is exactly the
-   ENFORCED/INDUCED line**, so the contrast documents itself.
-
-   **Three rows fit none of the six** — `python-runtime` (the .venv), `tool-shebangs`,
-   `apptime-verify`: third-party machine state this workspace does not author, which is the
-   codeburn ruling exactly, so it applies unchanged: a `SETUP.md` step and a `deps.txt` dependency,
-   not a feature. **Dropping them empties the `n/a` column, and the target of zero stops having
-   exceptions.** Both remaining `n/a` rows were misfiled rather than hard, and one `grep` says so:
-   `core/tools/auth/gauth.py` is ours, so `google-auth` is a tool; and **`latex` was two things
-   wearing one slug** — the third-party `pdflatex` toolchain, and our own paper capability
-   (`hooks/stubgen/tex-*`, `tex_interface_parser.py`, `paper-scaffold.py`, the `core/tools/paper/`
-   family, `.texif` in `file_law.py`). The claim written here that *all* four were unauthored by us
-   was false, and it is a Front 17 specimen of exactly the shape that front names: a structural
-   claim about our own tree, durable, with no probe attached.
-
-   **Two of the six have no rows at all today** — `agents` and `flows` are undeclared, unswitchable
-   and invisible to the ablation — and `norms` has none either, so every INDUCED rule in `AGENTS.md`
-   is currently unregistered. That last gap is what blocks Front 14's stated intent to ablate
-   `AGENTS.md` itself, so this is its precondition and not a tidy-up.
-   Touches `core/features.txt`, `core/profile.txt`, `feature_law.py`'s `GROUPS`, `test_features.py`,
-   `SETUP.md`, and `core/SCHEMA.md` § Vocabulary — which defines three terms today and neither
-   *feature* nor *norm*. → **tier: medium**, one group per commit.
+**Two of the six layers still have no rows** — `agents` and `flows` are undeclared and invisible to
+the ablation, and `norms` has none either, so every INDUCED rule in `AGENTS.md` is unregistered.
+Agents and flows are markdown read by path with **no publisher**, which is exactly why they are
+unswitchable; the seam that already works is the skills mirror, extended to both. `norms` needs a
+real design and is the precondition for ablating `AGENTS.md` itself. → **tier: medium**, and the
+`norms` seam is 🟡 — it changes how the always-loaded root file is produced.
 
 5. 🟡 **the public scaffold repo and its one-way sync.** A **separate public repository**, not a
    branch — personal history never leaves this repo, where a branch would carry every commit that
@@ -453,6 +451,17 @@ file apiece, one call per row, mechanical**.
 > the one question each type answers, § Boundaries where types nearly touch holds the three conflicts
 > and their resolving rules, § Retired tokens holds what each rename retired. This front holds only
 > the migrations that have not landed.
+
+2. 🔴 **`entropy.md` is a lowercase `.md` at the workspace root, and the type system says that is an
+   instance.** Lucas (INBOX 2026-08-17): *"it is a bit strange to have a lowercase.md file on the
+   root... I want to discuss it with opus a bit."* The rule he is reacting to is real and this file
+   is the exception to it: `UPPERCASE.md` is a **type**, `lowercase.md` is an **instance**, and the
+   root holds types only — `AGENTS.md`, `README.md`, `ROADMAP.md`, `SETUP.md`, `CLAUDE.md`. So
+   `entropy.md` is either mis-typed or it is a genuine fourth kind — a **generated report**, which
+   no current type covers and which `entropy.md` is the only instance of. That is the question, and
+   it is his because the answer either renames a file every session writes or adds a type to the
+   allowlist. Pairs with Front 4's trend item: if the report starts carrying a dated baseline, what
+   it *is* changes too. → **tier: medium**, with Lucas.
 
 1. 🟢 **the `SPEC.md` → `SPECS.md` migration — the one part of retyping that is still wos work.**
    `core/hooks/checks/type-gate.py` stops *new* off-allowlist names; the existing ones are
@@ -620,6 +629,15 @@ message string; `core/features.txt`'s header asserted its groups match the tree.
 then inherited by a later session as settled fact. A fifth, mine, in the same hour: four consecutive
 reports that a token had not been written, made by checking a directory the tool does not write to,
 while the tool printed its real path on its own last line.
+
+**Three more specimens, 2026-08-17, and all three died to a probe that cost one command.** The
+registry called `latex` third-party machine state we do not author — one `grep` finds
+`hooks/stubgen/tex-*` and `core/tools/paper/`, ours. `heredoc-gate`'s row claimed `blocks`; running
+it both ways shows it prints a warning and returns 0, so it **warns**. And § How to read this said
+*two* items need Lucas while three were marked 🔴 — the count went stale the day this front opened
+as the third. **The pattern is now dated and repeatable: every false claim this session was about
+our own tree, was written into a durable file, and was refuted by one `grep`, one `ls`, or one run.**
+None needed judgment; they needed anyone to check. That is the evidence this front asked for.
 
 **The asymmetry that makes this tractable.** This workspace already has the discipline — for
 *numbers*. *"Re-run it, never quote it"* is everywhere and it works; `entropy.md`, `session/usage`
