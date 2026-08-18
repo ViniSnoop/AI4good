@@ -38,11 +38,11 @@ fills a tier is data and lives in [`core/flows/craft/routing.md`](core/flows/cra
 never here** — a ledger that names a vendor's model goes stale the day that model does.
 🔴 needs Lucas · 🟡 pilot on one subtree first · 🟢 mechanical.
 
-**Four open steps need Lucas's own judgment: 9.5, 12.2, 15.1, 17.1** — the single list, quoted here
-and nowhere else. Everything else is agent work. All four are *research-and-discussion* items rather
-than questions with options attached, which is what he asked for on 2026-08-17 in every case: a
-capability nobody gave a fair trial, a file whose type the root does not allow, a store nobody has
-scoped, and a front too big to decide as a side question.
+**Five open steps need Lucas's own judgment: 9.5, 10.6, 12.2, 15.1, 17.1** — the single list, quoted
+here and nowhere else. Everything else is agent work. All five are *research-and-discussion* items
+rather than questions with options attached, which is what he asked for on 2026-08-17 in every case:
+a feature nobody gave a fair trial, a repo that may belong inside this one, a file whose type the
+root does not allow, a store nobody has scoped, and a front too big to decide as a side question.
 Stating that number is part of the cure for feeling lost, so **keep it true** — it has been wrong
 four times: once claiming one while five were live; once (2026-08-16) carrying four items marked 🔴
 whose own `→ tier:` line said medium; once holding *two* lists of the same set, here and in
@@ -55,7 +55,9 @@ two kept in sync. **🔴 means Lucas decides, not "this is hard"**; an item a hi
 rule on alone is 🟡. Re-derive the count from the marks before quoting it.
 
 The whole Front 10 chain came off this list on 2026-08-16 — six 🔴 items closed in one sitting,
-because they were one decision wearing six numbers and none of them could be taken alone.
+because they were one decision wearing six numbers and none of them could be taken alone. It is back
+with one (10.6), and that is the shape to expect: draining a front to the bottom is what surfaces the
+row whose blocker was never the work.
 
 **Never cite an item number outside this file** — enforced on every commit by
 `checks/citation-gate.py` ([`core/hooks/SPECS.md`](core/hooks/SPECS.md) § Git pre-commit). Completion
@@ -179,6 +181,23 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
    because matching a file's existing language beat mixing two inside one section. Convert whole
    files or whole ADs, never half of one. Quoted Lucas is his own words and **stays Portuguese**.
    → **tier: medium**.
+10. 🟢 **one program should generate a stub, and two fragments should call it.**
+    `generators/interfaces.sh` and `postedit/interfaces.sh` carry three near-identical
+    `tsc --declaration --emitDeclarationOnly` invocations plus two copies of the stubgen call, which
+    is why `interface-stubs` is the one feature needing two wired paths where `routing-tables` needs
+    none — the latter's two moments already share `context_synchronizer.py`.
+
+    **Both triggers are real and both stay.** Post-edit keeps the stub current *within* a session, and
+    losing it does not merely delay a stub: `read/pre-read.sh` blocks a source read only while the
+    stub beside it is current, so a stale stub makes the interface-first gate **silently stop
+    enforcing**. Pre-commit stages the stub into the commit and sweeps stubless siblings, which is the
+    only thing that ever catches a file entering outside Edit/Write. What is duplicated is the
+    *invocation*, not the trigger: extract `core/hooks/stubgen/stub_one.sh <file>`, call it from both,
+    and the feature collapses to a single wired path.
+
+    **Not a rush job** (Lucas, 2026-08-18): *"my tendency is to refactor to one shared seam first but
+    I do not want to do this in a rush and risk these features to be hindered."* The guard went in
+    first precisely so the refactor is not carrying two jobs at once. → **tier: medium**.
 
 ---
 
@@ -377,24 +396,28 @@ spaghetti. I wanted things to be very clear here. very concise, precise."* The i
 > [`core/features.txt`](core/features.txt) itself; the rule behind it is
 > [`core/SPECS.md`](core/SPECS.md) § AD-14.
 
-**Criterion 4 is met and the registry is live.** What remains is one mechanical backlog: a capability
-whose `wired` column reads `-` cannot be switched off, so **the ablation cannot report on it**.
-Wiring one is calling `feature_law.is_enabled()` where the rule is enforced and naming that file in
-the column. Read the count from `core/tools/wos/features --findings`, never from here — and the
-target is zero with **no exceptions left**: the `n/a` column is empty, because the rows that carried
-it were category errors rather than hard cases (`core/SPECS.md` § AD-14).
+**Criterion 4 is met and the registry is live.** A feature whose `wired` column reads `-` cannot be
+switched off, so **the ablation cannot report on it**. Wiring one is calling
+`feature_law.is_enabled()` where the rule is enforced and naming that file in the column. Read the
+count from `core/tools/wos/features --findings`, never from here — and the target is zero with **no
+exceptions left**: the `n/a` column is empty, because the rows that carried it were category errors
+rather than hard cases (`core/SPECS.md` § AD-14).
+
+**The backlog is down to `telegram-capture`, and it is not mechanical** — it is item 6 below. Every
+other row's guard was verified by running the feature both ways, never by grepping for the slug.
 
 `skills` share one wiring point in the mirror, because a skill is markdown and the only real switch
 is the mirror declining to publish it; a **tool** is a CLI this workspace writes, so it has a moment
 of its own and guards at invocation, which buys a per-row behavioural answer instead of one answer
 for the group.
 
-**What is left is mechanical and one enforcement file apiece** — the count is in `--findings`, and
-its shape is: the two `brain/` modules (no `main()`, so their entry point has to be found first),
-the two `generators/` (each has two candidate files, post-edit vs pre-commit — pick the one that is
-the real seam, not both), the two `entropy_context.py` rules, the four in `gates/`, and the three
-tools plus `opencode-plugin`. **`gates/project-contract.sh` hosts three features in one file**, so
-the slug-names-the-file rule cannot apply there; that is a finding, not a rename to force.
+**A feature that fires at two moments takes two paths, and the exception proves the rule.** Where the
+two moments already share a program the guard goes in the program and one path is honest —
+`routing-tables` is `context_synchronizer.py`, reached from both pre-commit and post-edit. Where they
+do not, both fragments are named: `interface-stubs` and `lint-typescript` each keep a commit-time
+half that stages or blocks and an edit-time half that keeps the artifact current, and guarding one
+leaves the other writing. **`gates/project-contract.sh` hosts three features in one file**, so the
+slug-names-the-file rule cannot apply there; that is a finding, not a rename to force.
 
 **Two of the six layers still have no rows** — `agents` and `flows` are undeclared and invisible to
 the ablation, and `norms` has none either, so every INDUCED rule in `AGENTS.md` is unregistered.
@@ -442,6 +465,29 @@ real design and is the precondition for ablating `AGENTS.md` itself. → **tier:
    not the copy: a path that is not on it does not travel, so adding a new top-level directory fails
    closed.
    → **tier: medium**.
+
+6. 🔴 **`code/aiwbot` lives in its own repo and that is why one feature cannot be switched off.**
+   `telegram-capture` is the last row reading `-`, and every wiring available today is wrong rather
+   than merely awkward: a `code/aiwbot/...` path in the column makes this repo's Tier 0 test assert
+   on a nested repo's content, which Front 4 forbids for a reason this repo cannot fix; reopening
+   `n/a` contradicts the ruling that the column is empty. So the row is blocked on a question about
+   where the code lives, not on wiring effort.
+
+   Lucas, 2026-08-18: *"aiwbot is part of WOS, it is deeply entangled, it is not meant for general
+   purpose bots… maybe we could version it inside the WOS repo and delete the aiwbot repo."*
+
+   **For absorbing it:** the seam becomes an ordinary in-process guard; the gates already fire there
+   through the global `core.hooksPath`, so nothing is lost; one less repo to keep on a legal branch
+   and pushed; and the registry reaches zero without an exception.
+   **Against:** the public scaffold sync would have to exclude it by allowlist rather than by it
+   living elsewhere, which moves a boundary that currently cannot be got wrong; a bot token and a
+   systemd unit are machine state, and `SETUP.md` already carries them; and aiwbot has its own verify
+   suite, its own history and its own `AgentBackend` seam, which is exactly the shape `code/*` is for.
+
+   **The tie-breaker to settle first is the public repo**, not the wiring: if the scaffold ships the
+   research and paper-writing subset, whether a Telegram bridge is inside the workspace or beside it
+   is answered by what a student clones. Decide that, and this row decides itself.
+   → **tier: high**, one sitting.
 
 ---
 
