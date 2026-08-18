@@ -141,7 +141,7 @@ name resolves without a decision meeting (decided 2026-07-30):
 
 **A generated file that is also a ratchet is tracked, at the root** (ruled 2026-08-17). `entropy.md`
 takes the first route and the case half of the question was never open: it is written by
-[`core/hooks/entropy/entropy-dashboard.py`](hooks/entropy/entropy-dashboard.py) and committed by
+[`core/hooks/entropy/dashboard/entropy-dashboard.py`](hooks/entropy/dashboard/entropy-dashboard.py) and committed by
 [`core/tools/wos/roundup`](tools/wos/roundup), never authored, so it is lowercase like any other
 generated instance. What looked like an oversight is its **placement** — every other generated
 artifact lives beside its generator or under `outputs/`, and this one sits at the workspace root.

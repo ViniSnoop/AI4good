@@ -1023,11 +1023,6 @@ whether anything enforces it yet, so the *build* was left with no home and the i
 the work state. **The declaring section is the spec; the row here is the work.** Each row is deleted
 the day its check runs; this section is deleted when the last one does.
 
-2. 🟢 **the `core/experiments/` and `REFS.md` discipline checks.** The two rules this workspace cites
-   as proof it knows how to doubt — a runnable `## Method`, dated `Results`, `Limitations` never
-   omitted; and `REFS.md`'s `[A]`/`[B]`/`[P]`/`[V]`/`[C]` tier markers — and **neither is verified by
-   anything.** Both stores are small and closed, which is what makes them the obvious next Tier 0.
-   Declared: [`core/SPECS.md`](core/SPECS.md) § AD-16 band 1. → **tier: medium**.
 4. 🟢 **roundup compares the declared model split against the actual one.** `core/tools/wos/roundup`
    already prints the per-session split at every close; what is missing is the plan **declaring its
    expected split** and roundup comparing. It forces nobody to delegate — it makes deviation visible

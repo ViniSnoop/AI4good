@@ -371,13 +371,14 @@ retracted explanations of the rtk hook. So the question is not how to request ca
 caution becomes a gate**. Three bands, and the first contradicts the premise this item was filed
 under:
 
-**1. Rule written, nothing checking — the cheap win, and it includes our own.** The
+**1. Rule written, nothing checking — the cheap win, and it included our own.** The
 `core/experiments/` discipline (runnable `Method`, dated `Results`, `Limitations` never omitted) and
 `core/refs/REFS.md`'s tier markers (`[A]`/`[B]`/`[P]`/`[V]`/`[C]`) are the two rules this workspace
-cites as proof it knows how to doubt — and **neither is verified by anything**: no test asserts a
-`## Method`, no entropy check reads `core/experiments/`. They held because a few careful sessions
-followed them, not because anything charges for them. That is INDUCED wearing ENFORCED's costume,
-the exact defect this front exists to catch. Both stores are small and closed: the obvious next Tier 0.
+cites as proof it knows how to doubt, and for months nothing verified either: they held because a few
+careful sessions followed them, not because anything charged for them — INDUCED wearing ENFORCED's
+costume. `core/hooks/entropy/entropy_stores.py` charges for them now, in the commit gate and on the
+dashboard. Both stores are small, closed and clean, so the check went in **total rather than
+ratcheted**: the ratchet exists for an inherited backlog, and there was none to inherit.
 
 **2. Enforced by construction — the mechanism that already works, never named as one.** Write the
 claim **where a parser already reads**, and it is audited on every commit for free. That is what

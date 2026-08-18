@@ -14,11 +14,11 @@ import sys
 from importlib.util import module_from_spec, spec_from_file_location
 from pathlib import Path
 
-# The law (file_law, schema_law) lives one level up, at the root of the enforcement layer;
-# the checks below are siblings here in entropy/.
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-# git/ holds the one check here that reads git state instead of file content.
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'git'))
+# The checks are one level up in entropy/; the law (file_law, schema_law) is two, at the root of
+# the enforcement layer; git/ holds the one check that reads git state instead of file content.
+_ENTROPY = Path(__file__).resolve().parents[1]
+for _dir in (_ENTROPY, _ENTROPY.parent, _ENTROPY.parent / 'git'):
+    sys.path.insert(0, str(_dir))
 
 import feature_law  # noqa: E402
 from branch_debt import merged_remote_branches, unmerged_branches  # noqa: E402
@@ -30,6 +30,7 @@ from entropy_ledger import (duplicate_slugs, finished_work_hits,  # noqa: E402
                             unanswered_placeholders, wiki_link_hits)
 from entropy_naming import check_dirs, check_placement, check_shape  # noqa: E402
 from entropy_report import SECTIONS, render  # noqa: E402
+from entropy_stores import experiment_hits, ref_tier_hits  # noqa: E402
 from file_law import (is_authored, is_generated_artifact,  # noqa: E402
                       is_vendored, load_limits)
 from schema_law import (SCHEMA, WORKSPACE_ROOT, load_law,  # noqa: E402
@@ -112,6 +113,7 @@ def collect(files: list) -> dict:
     findings['remotes'] = merged_remote_branches(WORKSPACE_ROOT)
     findings['finished'] = finished_work_hits(files, exempt)
     findings['undescribed'] = unanswered_placeholders(files, exempt)
+    findings['stores'] = experiment_hits(files) + ref_tier_hits(files)
     # One directory-level finding is reported by every file under it; dedupe so a count
     # means "things to fix", not "files touched by a thing to fix".
     findings['naming'] = sorted(set(findings['naming']))

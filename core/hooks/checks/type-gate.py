@@ -29,6 +29,7 @@ from entropy_corpus import (enforcement_paths, staged_added_files,  # noqa: E402
 from entropy_ledger import (finished_work_hits, goal_vocabulary,  # noqa: E402
                             wiki_link_hits)
 from entropy_naming import check_dirs, check_placement, check_shape  # noqa: E402
+from entropy_stores import experiment_hits, ref_tier_hits  # noqa: E402
 from schema_law import SCHEMA, WORKSPACE_ROOT, load_law, load_scopes  # noqa: E402
 
 # CLAUDE.md is mandated by the harness, not chosen by us; a gate cannot un-invent it.
@@ -64,7 +65,11 @@ def failures_for(path: Path, allowed: set, exempt: set, scopes: dict,
             # and enforced by nobody. Ratcheted like everything else here: a file this commit ADDS
             # may not arrive already describing work that landed. The inherited queue stays the
             # dashboard's, on the ceiling in test_corpus_ratchet.py.
-            + finished_work_hits([path], enforcement_paths(WORKSPACE_ROOT)))
+            + finished_work_hits([path], enforcement_paths(WORKSPACE_ROOT))
+            # The two doubt stores are small, closed and clean today, so this one goes in total
+            # rather than on a ratchet: a new experiment or a newly judged reference arrives with
+            # the discipline or does not arrive (core/SPECS.md § AD-16 band 1).
+            + experiment_hits([path]) + ref_tier_hits([path]))
 
 
 def main() -> int:

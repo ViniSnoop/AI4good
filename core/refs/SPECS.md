@@ -21,3 +21,9 @@ preprint — prefer that URL.
 
 A preprint that later gets accepted keeps its arXiv id: upgrade the tier marker in place when you
 notice it, rather than adding a second line.
+
+**The marker itself is enforced**, by
+[`core/hooks/entropy/entropy_stores.py`](../hooks/entropy/entropy_stores.py): a bullet carrying a
+link opens with a tier or the commit is rejected. The `Unjudged` section is exempt by name, read
+from the heading rather than from a list — capture stays free, and the tier is what promotion buys.
+Which tier a line deserves is a judgement no check makes.
