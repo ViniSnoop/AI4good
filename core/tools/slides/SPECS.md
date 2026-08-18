@@ -16,6 +16,14 @@ split as [`../files/`](../files/CONTEXT.md). A read prefers the write token when
 one — the edit consent already contains the read consent, so demanding a second browser trip
 would buy no safety and just create two tokens that can die independently.
 
+**The two grants live in two directories, and the write one is easy to miss.** A read token is
+`~/.config/workspace-slides/<alias>.token.json`; a write token is
+`~/.config/workspace-slides-**write**/<alias>.token.json` — the grant name *is* the directory
+suffix, via `gauth.config_dir(kind)`. Checking the read directory to see whether a write grant
+landed answers **no** forever, no matter how many times the consent succeeds. That failure ran four
+times in one session on 2026-08-17, while `gslides auth` printed the real path on its own last line
+each time. **Read the tool's output, not a directory you inferred the name of.**
+
 ## Geometry
 
 - **Slide dimensions: `9144000 × 5143500` EMU** (standard 16:9). `slides_geom.py` reports every

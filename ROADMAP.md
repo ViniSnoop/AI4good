@@ -135,6 +135,23 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
    charge anyone for. **Size it against [`entropy.md`](entropy.md), and re-run the generator before
    measuring** — every marker drained so far was a file the generator could already describe.
    **Scope here is this repo only**; the nested-repo majority is under § Blocked. → **tier: medium**.
+7. 🟢 **the bash context gate reads paths out of a commit message body.** Lucas (INBOX 2026-08-17)
+   and **reproduced twice in this session**: a heredoc `git commit -F -` whose *message* names
+   `core/tools/web/fetch` is treated as a command touching that subtree, so the gate demands the
+   CONTEXT.md before letting the commit through. The gate should read the command, not the text the
+   command carries. `core/hooks/read/bash-context-gate.py`. → **tier: medium**.
+8. 🟡 **`core/SPECS.md` crossed the size signal and mixes seven concerns.** Lucas (INBOX
+   2026-08-17), at 451 lines and 17 ADs; it is past 470 now. It holds tools, auth, flows, features,
+   always-loaded prose, doubt and delegation. **Decide the split axis before cutting** — that is why
+   it was not split mid-session, and the reason still stands: a split made in passing scatters
+   instead of organising. → **tier: medium**, axis first.
+9. 🟢 **the corpus is half Portuguese and the rule is English.** Lucas (INBOX 2026-08-17): *"somente
+   o meu texto é em português, as conversas nas sessões, mas o resto, os docs, tudo em inglês
+   inclusive pra economizar tokens."* `AD-15/16/17` were written in English; **`AD-01`–`AD-14` and
+   the rest of the Portuguese corpus were not**, and AD-14 gained more Portuguese this session
+   because matching a file's existing language beat mixing two inside one section. Convert whole
+   files or whole ADs, never half of one. Quoted Lucas is his own words and **stays Portuguese**.
+   → **tier: medium**.
 
 ---
 
@@ -296,6 +313,12 @@ spaghetti. I wanted things to be very clear here. very concise, precise."* The i
    never sees it at all.
    His call: **show both crossings, to both of us, at the END of a response** — not at prompt
    submit. *"it wouldn't interrupt your flow"*, and he stops missing it.
+   **The same gap, reported independently** (Lucas, INBOX 2026-08-17): *"algumas vezes o agente pede
+   para eu autenticar no gmail ou gdrive mas é no meio de uma conversa longa e eu não vi a
+   solicitação."* Confirmed live this session — a consent request sat unclicked through four
+   exchanges. So this is not only the meter: **anything the agent needs Lucas to physically do is
+   currently said in the middle of agent-facing prose and missed.** One mechanism serves both, which
+   is why they are one row.
    **The open question is mechanical and must be checked, not assumed**: which hook fires at end of
    response in each harness, and whether its output can reach the user's terminal without also being
    billed into the agent's context. **Measure the cost before wiring** — the current message is one
@@ -402,7 +425,16 @@ file apiece, one call per row, mechanical**.
      globally and fires in every nested repo. Mechanically free — `code/wos` joins the `code/*`
      ignore list like `aiwbot` and `apptime`, so no gitlink forms.
 
-   The registry (step 4) ships as scaffold — it is the thing that makes a subset installable — with
+   **It has real users now, and they change the shape** (Lucas, INBOX 2026-08-17): *"tive algumas
+   reuniões com alunos hoje, quero que todos eles usem algum setup com HARNESS + uma versão desse
+   workspace que contemple pelo menos o ramo da pesquisa e produção de artigos."* So the public repo
+   stops being only the ablation's precondition and becomes a deliverable with a deadline shaped by
+   his teaching. It also names the **minimum useful subset**: the research and paper-writing branch,
+   not the whole scaffold. Second, separable deliverable: a **prompt in Portuguese** for students to
+   paste into whichever harness they use, letting them and the harness decide what to adopt — his
+   words, so it stays Portuguese, and it is the one artifact here that is not English by rule.
+
+   The features file (step 4) ships as scaffold — it is the thing that makes a subset installable — with
    the profile replaced by a placeholder on the way out. **The sync's allowlist is the deliverable**,
    not the copy: a path that is not on it does not travel, so adding a new top-level directory fails
    closed.
