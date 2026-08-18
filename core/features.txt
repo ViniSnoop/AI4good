@@ -31,9 +31,25 @@
 #                groups matched the tree died to one `ls core/`. `norms` is the only layer with
 #                no code: rules obeyed rather than enforced, the INDUCED half of the line whose
 #                ENFORCED half is file_law.py / schema_law.py / feature_law.py.
+#   runs         automatic | on-demand — WHO STARTS IT. An automatic feature fires unbidden and so
+#                has a moment; an on-demand one waits to be called and has none. Added 2026-08-18
+#                because this file carried one column where it had two facts: `enforcement: none`
+#                meant BOTH "fires by itself and applies no pressure" and "you call it", and that
+#                ambiguity made a reader of this very registry report the capability half of the
+#                workspace as dead weight. DO NOT DERIVE IT FROM `enforcement` — eleven rows cross,
+#                and they are the reason the column exists: six are automatic and enforce nothing
+#                (rtk-compaction, subtree-read-tracking, precompact-wipe, brain-attention,
+#                opencode-plugin, and caveman, which activates itself from a SessionStart hook);
+#                five are on-demand and still push (fanout-limit, context-head-budget,
+#                first-line-comment, declared-deps, diagram). The subcategory of an on-demand
+#                feature is its `group` and no third column is needed: a skill is typed as /name,
+#                a tool is called by path. Named `automatic`/`on-demand` rather than
+#                `passive`/`active` because this registry's other job is saying which features are
+#                switched ON, and "an active feature" would be ambiguous at every other site.
 #   install      the SETUP.md step that installs it, or - . Every `> feature:` slug in SETUP.md
 #                appears in this column. THIS IS THE JOIN: three files, one vocabulary.
-#   enforcement  blocks | warns | generates | advises | none — how hard it pushes.
+#   enforcement  blocks | warns | generates | advises | none — how hard it pushes, once something
+#                has started it. Orthogonal to `runs` above, which says what starts it.
 #   scope        general | lucas . This column is the general/Lucas-specific line: it is not a
 #                document, it is what the public sync is allowed to copy.
 #   wired        path of the file that calls feature_law.is_enabled(), or `n/a <reason>`, or - .
@@ -62,72 +78,72 @@
 #                accepts an enforcement layer they cannot see the value of, and writing this
 #                sentence per feature is itself an audit of whether the feature earns its place.
 #
-slug	group	install	enforcement	scope	wired	buys
-context-chain	hooks	-	blocks	general	core/hooks/read/context-gate.py,core/hooks/read/bash-context-gate.py	An agent cannot touch a file in a subtree it has not oriented in, including through cat and grep, so it arrives knowing the neighbourhood instead of guessing from a filename
-interface-first-reads	hooks	interface-stubs	blocks	general	core/hooks/read/pre-read.sh	Reading a source file is blocked while its generated stub is current, so the agent reads 30 lines of signatures instead of 200 lines of body
-interface-stubs	hooks	interface-stubs	generates	general	core/hooks/generators/interfaces.sh,core/hooks/postedit/interfaces.sh	The .pyi / .d.ts / .dart.api / .texif stubs regenerate on every save, so the interface-first read can never serve a stale summary
-routing-tables	hooks	-	generates	general	core/hooks/routing/context_synchronizer.py	Each directory's file list writes itself from first-line comments; nobody maintains an index, and an index nobody maintains is the one that lies
-agent-context-brief	hooks	-	advises	general	core/hooks/read/agent-context.py	A spawned subagent is handed its subtree's CONTEXT.md chain instead of being gated on it, so briefing a worker stops being a discipline the orchestrator has to remember
-subtree-read-tracking	hooks	-	none	general	core/hooks/read/context-tracker.py	Records which CONTEXT.md a session has already read, which is what lets the chain gate fire once per subtree instead of once per file
-line-limit	hooks	-	blocks	general	core/hooks/checks/check-line-counts.sh	Forces graph-shaped design: small single-responsibility files with explicit imports, because an agent that cannot grow a file has to actually decompose it
-fanout-limit	hooks	-	warns	general	core/hooks/entropy/entropy_fanout.py	Counts how many files one directory asks a reader to hold at once; a split costs one routing hop, so the warn sits where that hop starts to pay for itself
-context-head-budget	hooks	-	warns	general	core/hooks/entropy/entropy_context.py	A token in a CONTEXT.md head is paid by every session that touches the subtree, so the head is asked to justify its length rather than capped
-first-line-comment	hooks	-	warns	general	core/hooks/entropy/entropy_context.py	Every code file opens with a line saying what it is, and that line is what the routing generator publishes, so the index writes itself
-duplication-gate	hooks	declared-deps	blocks	general	core/hooks/checks/check-duplication.py	jscpd blocks a commit whose staged files clone existing logic; copy-paste is the failure mode agents are fastest at
-facade-discipline	hooks	-	blocks	general	core/hooks/facade/check-facade-imports.py	Cross-module imports that reach around index / __init__ are blocked, so module boundaries stay real and a rename does not become an archaeology project
-type-gate	hooks	-	blocks	general	core/hooks/checks/type-gate.py	UPPERCASE.md names are a closed allowlist, ratcheted on what a commit adds, so inventing a file type is a deliberate act instead of an accident
-citation-gate	hooks	-	blocks	general	core/hooks/checks/citation-gate.py	A roadmap item number is not a citable identifier outside the roadmap family, because a closed item is deleted and every citation of it becomes a dead pointer
-bugs-gate	hooks	-	blocks	general	core/hooks/checks/bugs-gate.py	A bug cannot be flipped to FIXED without a matching regression test, so "it works now" stops being a claim and becomes a file
-spec-read-gate	hooks	-	blocks	general	core/hooks/read/spec-read-gate.py	Editing a module with a locked contract requires having read that contract this session
-heredoc-gate	hooks	-	warns	general	core/hooks/checks/heredoc-gate.py	Warns when a file is written through a bash heredoc, which is the one path that bypasses every edit-time gate
-verify-suite	hooks	-	blocks	general	core/hooks/gates/project-contract.sh	make verify-fast is what the pre-commit gate checks against; without it the gate has nothing to run
-verify-contract	hooks	-	blocks	general	core/hooks/gates/project-contract.sh	A project declaring verify:fast must be green to commit, discovered by convention, so a new project opts in by naming a script rather than by wiring anything
-project-contract	hooks	-	blocks	general	core/hooks/gates/project-contract.sh	What a code/ project must declare before it can commit: verify contract, goal link, spec, branch shape, .md type and gitlink
-gitflow-gate	hooks	git-hooks	blocks	general	core/hooks/git/gitflow-gate.sh	Blocks direct commits to main / master / develop and requires feature|release|hotfix, so a shared branch only ever moves by promotion
-gitlink-gate	hooks	git-hooks	blocks	general	core/hooks/git/nested-gitlink-gate.sh	Blocks committing an undeclared nested gitlink, which is how a nested repo silently becomes a pointer nobody can clone
-gitignore-self-heal	hooks	git-hooks	generates	general	core/hooks/git/gitignore-self-heal.sh	The .gitignore allowlist repairs itself, so a new subtree cannot go untracked and thereby opt out of every check the workspace runs
-lint-typescript	hooks	lint-typescript	blocks	general	core/hooks/gates/lint.sh,core/hooks/postedit/lint.sh	ESLint and Prettier over staged TypeScript, run last because it needs the .d.ts the generators just wrote
-declared-deps	hooks	declared-deps	warns	general	core/tools/wos/deps	Every external dependency is declared with what installs it and what its absence breaks, so a fresh clone loses a feature loudly instead of silently
-opencode-plugin	hooks	-	none	general	.opencode/plugins/workspace-policy.js	The provider shim that lets a second harness run the same canonical gates, which is what keeps the enforcement layer provider-agnostic in fact and not just in intent
-brain-dashboard	hooks	-	generates	lucas	core/hooks/brain/brain_stats.py	GOALS.md renders its own attention bars and active-goal table, so the dashboard cannot drift from the goal files it summarises
-brain-attention	hooks	-	none	lucas	core/hooks/brain/brain_attention.py	Counts the commits that actually touched each goal's declared paths, across every repo in the workspace, instead of counting edits to the goal file
-inbox-nudge	hooks	-	advises	lucas	core/hooks/session/inbox-nudge.py	Says at session start when brain/INBOX.md has piled past a threshold, so capture stays free without the queue quietly going unread
-compass-nudge	hooks	-	advises	lucas	core/hooks/session/compass-nudge.py	A soft, ignorable reminder that the strategic review has not run in a while
-telegram-capture	tools	telegram-capture	none	lucas	-	An away-from-PC front door into brain/INBOX.md, so a thought lands in the workspace instead of in a chat app
-context-meter	hooks	-	advises	general	core/hooks/session/context-meter.py	Says once per threshold what the next turn costs, so a session crosses into an expensive band knowingly rather than by drift
-precompact-wipe	hooks	-	none	general	core/hooks/session/precompact-wipe.sh	Clears the CONTEXT.md seen-markers before a compaction, so the chain is re-read by a session that no longer remembers reading it
-entropy-dashboard	hooks	-	none	general	core/hooks/entropy/entropy-dashboard.py	Naming, placement, pointer integrity, fanout and size run as deterministic checks over this repo and every nested one, giving a number that must shrink instead of a feeling that the repo is messy
-diagram	tools	-	generates	general	core/tools/wos/diagram/architecture	The workspace draws itself from its own declarations — one committed HTML picture of what enforces what, what routes where and how much of it there is, regenerated at every session close so the map cannot drift from the tree
-rtk-compaction	hooks	rtk-compaction	none	general	core/hooks/compact/bash-compact-rewrite.py	Compresses tool output before it reaches the context by 60-90%, transparently, with nothing to type
-web-search	tools	web-search	none	general	core/tools/web/search	One entrypoint every agent calls for search, resolving its own backend, so picking a search CLI is a maintenance burden inside one script instead of in every agent's prompt
-google-auth	tools	google-auth	none	lucas	core/tools/auth/gauth.py	Shared OAuth2 for every Google-backed tool: mail, calendar, files and slides
-mail-triage	tools	-	none	lucas	core/tools/mail/gmail	Reads a mailbox and classifies it into workspace routes, so email arrives as INBOX entries rather than as a second queue
-notes-notion	tools	-	none	lucas	core/tools/notes/notion	Pages and note databases read as navigable text
-latex	hooks+tools	latex	blocks	general	core/hooks/gates/duplication-and-terms.sh,core/tools/paper/papers	Everything this workspace does with a paper: search and text extraction, the .texif scaffolding, and the term-consistency check that blocks a paper commit whose vocabulary drifted
-video-text	tools	-	none	general	core/tools/video/video	Turns a media link into navigable text through metadata, captions, transcript, OCR and visual captioning, which is what makes a link in the INBOX drainable
-asset-inspect	tools	-	none	general	core/tools/assets/inspect	Interface stubs for non-code assets, so an image or a CSV is readable without opening it
-caveman	skills	caveman	none	lucas	core/skills/caveman/hooks/config.js	Compresses the agent's own prose by roughly 65% without touching technical content, and goes off with a sentence when precision matters
-craft	skills	-	none	general	core/tools/wos/skills/mirror.sh	Develops a feature in file-relayed loops with model autorouting, so a plan carries its own model assignment instead of leaving routing to recall at execution time
-roundup	skills	-	none	general	core/tools/wos/skills/mirror.sh	Drains the session's ledgers into durable files and promotes the branch, so a session's knowledge survives it and no repo idles on an open branch
-handoff	skills	-	none	general	core/tools/wos/skills/mirror.sh	Writes the next session's opening prompt, and refuses when there is nothing open
-inbox	skills	-	none	lucas	core/tools/wos/skills/mirror.sh	Routes every INBOX entry to a goal, task, reference or project doc, which is what makes capture free without making the queue permanent
-compass	skills	-	none	lucas	core/tools/wos/skills/mirror.sh	The strategic review: what has wind, what to reorder, what to ditch guilt-free
-research	skills	-	none	general	core/tools/wos/skills/mirror.sh	The research workflow, from scouting sources to a written synthesis
-prepare	skills	-	none	general	core/tools/wos/skills/mirror.sh	Turns a raw task into an optimised agent prompt, recommending model and effort
-dedup	skills	-	none	general	core/tools/wos/skills/mirror.sh	Semantic duplication audit for a code project: the near-duplicate logic the verbatim-clone gate misses
-install	skills	-	none	general	core/tools/wos/skills/mirror.sh	Probes every step in SETUP.md on this machine, reports what is missing and executes it
-gmail	skills	-	none	lucas	core/tools/wos/skills/mirror.sh	Triages Gmail across every configured account and writes the routes into brain/INBOX.md
-calendar	skills	-	none	lucas	core/tools/wos/skills/mirror.sh	Lists upcoming events and queries date ranges across every configured calendar account
-drive	skills	-	none	lucas	core/tools/wos/skills/mirror.sh	Lists, searches and downloads files from Google Drive across every configured account
-foundry	skills	-	none	lucas	core/tools/wos/skills/mirror.sh	Foundry VTT module development reference, loaded only when that work is in front of us
-iso-visual	skills	-	none	lucas	core/tools/wos/skills/mirror.sh	The isoroll visual-semantics reference: image-to-text conventions and known model failure modes
-filesystem	norms	-	advises	general	core/hooks/routing/norms.py	An agent answers from the tree in front of it instead of from what it remembers, which is what makes a stale belief impossible to act on
-storage	norms	-	advises	general	core/hooks/routing/norms.py	Nothing that matters is written into a vendor directory, so the workspace stays portable across harnesses instead of hostage to one
-improve	norms	-	advises	general	core/hooks/routing/norms.py	A session that notices a defect either fixes it or files it, so a finding never dies with the session that found it
-interview	norms	-	advises	general	core/hooks/routing/norms.py	Doubt about intent costs one question instead of a session of work in the wrong direction
-acronyms	norms	-	advises	general	core/hooks/routing/norms.py	A reader is never left decoding, which is what keeps a durable file readable by the next session rather than only by its author
-edit	norms	-	advises	general	core/hooks/routing/norms.py	Refining an existing file beats adding one, so the tree stops scattering and the same idea stops living in three places
-symmetry	norms	-	advises	general	core/hooks/routing/norms.py	An asymmetry that is written down gets fixed; one that is merely noticed becomes the next category error
-deletion	norms	-	advises	general	core/hooks/routing/norms.py	A ledger holds only what is still open, so its length is a real measure of remaining work
-dogfood	norms	-	advises	general	core/hooks/routing/norms.py	Our own tools get used and therefore get good, instead of decaying beside a hand-rolled alternative
-one-action	norms	-	advises	general	core/hooks/routing/norms.py	Agent-facing text names the one action to take, because it is read mid-thread and every extra noun is a decision the agent may improvise against
+slug	group	runs	install	enforcement	scope	wired	buys
+context-chain	hooks	automatic	-	blocks	general	core/hooks/read/context-gate.py,core/hooks/read/bash-context-gate.py	An agent cannot touch a file in a subtree it has not oriented in, including through cat and grep, so it arrives knowing the neighbourhood instead of guessing from a filename
+interface-first-reads	hooks	automatic	interface-stubs	blocks	general	core/hooks/read/pre-read.sh	Reading a source file is blocked while its generated stub is current, so the agent reads 30 lines of signatures instead of 200 lines of body
+interface-stubs	hooks	automatic	interface-stubs	generates	general	core/hooks/generators/interfaces.sh,core/hooks/postedit/interfaces.sh	The .pyi / .d.ts / .dart.api / .texif stubs regenerate on every save, so the interface-first read can never serve a stale summary
+routing-tables	hooks	automatic	-	generates	general	core/hooks/routing/context_synchronizer.py	Each directory's file list writes itself from first-line comments; nobody maintains an index, and an index nobody maintains is the one that lies
+agent-context-brief	hooks	automatic	-	advises	general	core/hooks/read/agent-context.py	A spawned subagent is handed its subtree's CONTEXT.md chain instead of being gated on it, so briefing a worker stops being a discipline the orchestrator has to remember
+subtree-read-tracking	hooks	automatic	-	none	general	core/hooks/read/context-tracker.py	Records which CONTEXT.md a session has already read, which is what lets the chain gate fire once per subtree instead of once per file
+line-limit	hooks	automatic	-	blocks	general	core/hooks/checks/check-line-counts.sh	Forces graph-shaped design: small single-responsibility files with explicit imports, because an agent that cannot grow a file has to actually decompose it
+fanout-limit	hooks	on-demand	-	warns	general	core/hooks/entropy/entropy_fanout.py	Counts how many files one directory asks a reader to hold at once; a split costs one routing hop, so the warn sits where that hop starts to pay for itself
+context-head-budget	hooks	on-demand	-	warns	general	core/hooks/entropy/entropy_context.py	A token in a CONTEXT.md head is paid by every session that touches the subtree, so the head is asked to justify its length rather than capped
+first-line-comment	hooks	on-demand	-	warns	general	core/hooks/entropy/entropy_context.py	Every code file opens with a line saying what it is, and that line is what the routing generator publishes, so the index writes itself
+duplication-gate	hooks	automatic	declared-deps	blocks	general	core/hooks/checks/check-duplication.py	jscpd blocks a commit whose staged files clone existing logic; copy-paste is the failure mode agents are fastest at
+facade-discipline	hooks	automatic	-	blocks	general	core/hooks/facade/check-facade-imports.py	Cross-module imports that reach around index / __init__ are blocked, so module boundaries stay real and a rename does not become an archaeology project
+type-gate	hooks	automatic	-	blocks	general	core/hooks/checks/type-gate.py	UPPERCASE.md names are a closed allowlist, ratcheted on what a commit adds, so inventing a file type is a deliberate act instead of an accident
+citation-gate	hooks	automatic	-	blocks	general	core/hooks/checks/citation-gate.py	A roadmap item number is not a citable identifier outside the roadmap family, because a closed item is deleted and every citation of it becomes a dead pointer
+bugs-gate	hooks	automatic	-	blocks	general	core/hooks/checks/bugs-gate.py	A bug cannot be flipped to FIXED without a matching regression test, so "it works now" stops being a claim and becomes a file
+spec-read-gate	hooks	automatic	-	blocks	general	core/hooks/read/spec-read-gate.py	Editing a module with a locked contract requires having read that contract this session
+heredoc-gate	hooks	automatic	-	warns	general	core/hooks/checks/heredoc-gate.py	Warns when a file is written through a bash heredoc, which is the one path that bypasses every edit-time gate
+verify-suite	hooks	automatic	-	blocks	general	core/hooks/gates/project-contract.sh	make verify-fast is what the pre-commit gate checks against; without it the gate has nothing to run
+verify-contract	hooks	automatic	-	blocks	general	core/hooks/gates/project-contract.sh	A project declaring verify:fast must be green to commit, discovered by convention, so a new project opts in by naming a script rather than by wiring anything
+project-contract	hooks	automatic	-	blocks	general	core/hooks/gates/project-contract.sh	What a code/ project must declare before it can commit: verify contract, goal link, spec, branch shape, .md type and gitlink
+gitflow-gate	hooks	automatic	git-hooks	blocks	general	core/hooks/git/gitflow-gate.sh	Blocks direct commits to main / master / develop and requires feature|release|hotfix, so a shared branch only ever moves by promotion
+gitlink-gate	hooks	automatic	git-hooks	blocks	general	core/hooks/git/nested-gitlink-gate.sh	Blocks committing an undeclared nested gitlink, which is how a nested repo silently becomes a pointer nobody can clone
+gitignore-self-heal	hooks	automatic	git-hooks	generates	general	core/hooks/git/gitignore-self-heal.sh	The .gitignore allowlist repairs itself, so a new subtree cannot go untracked and thereby opt out of every check the workspace runs
+lint-typescript	hooks	automatic	lint-typescript	blocks	general	core/hooks/gates/lint.sh,core/hooks/postedit/lint.sh	ESLint and Prettier over staged TypeScript, run last because it needs the .d.ts the generators just wrote
+declared-deps	hooks	on-demand	declared-deps	warns	general	core/tools/wos/deps	Every external dependency is declared with what installs it and what its absence breaks, so a fresh clone loses a feature loudly instead of silently
+opencode-plugin	hooks	automatic	-	none	general	.opencode/plugins/workspace-policy.js	The provider shim that lets a second harness run the same canonical gates, which is what keeps the enforcement layer provider-agnostic in fact and not just in intent
+brain-dashboard	hooks	automatic	-	generates	lucas	core/hooks/brain/brain_stats.py	GOALS.md renders its own attention bars and active-goal table, so the dashboard cannot drift from the goal files it summarises
+brain-attention	hooks	automatic	-	none	lucas	core/hooks/brain/brain_attention.py	Counts the commits that actually touched each goal's declared paths, across every repo in the workspace, instead of counting edits to the goal file
+inbox-nudge	hooks	automatic	-	advises	lucas	core/hooks/session/inbox-nudge.py	Says at session start when brain/INBOX.md has piled past a threshold, so capture stays free without the queue quietly going unread
+compass-nudge	hooks	automatic	-	advises	lucas	core/hooks/session/compass-nudge.py	A soft, ignorable reminder that the strategic review has not run in a while
+telegram-capture	tools	on-demand	telegram-capture	none	lucas	-	An away-from-PC front door into brain/INBOX.md, so a thought lands in the workspace instead of in a chat app
+context-meter	hooks	automatic	-	advises	general	core/hooks/session/context-meter.py	Says once per threshold what the next turn costs, so a session crosses into an expensive band knowingly rather than by drift
+precompact-wipe	hooks	automatic	-	none	general	core/hooks/session/precompact-wipe.sh	Clears the CONTEXT.md seen-markers before a compaction, so the chain is re-read by a session that no longer remembers reading it
+entropy-dashboard	hooks	on-demand	-	none	general	core/hooks/entropy/entropy-dashboard.py	Naming, placement, pointer integrity, fanout and size run as deterministic checks over this repo and every nested one, giving a number that must shrink instead of a feeling that the repo is messy
+diagram	tools	on-demand	-	generates	general	core/tools/wos/diagram/architecture	The workspace draws itself from its own declarations — one committed HTML picture of what enforces what, what routes where and how much of it there is, regenerated at every session close so the map cannot drift from the tree
+rtk-compaction	hooks	automatic	rtk-compaction	none	general	core/hooks/compact/bash-compact-rewrite.py	Compresses tool output before it reaches the context by 60-90%, transparently, with nothing to type
+web-search	tools	on-demand	web-search	none	general	core/tools/web/search	One entrypoint every agent calls for search, resolving its own backend, so picking a search CLI is a maintenance burden inside one script instead of in every agent's prompt
+google-auth	tools	on-demand	google-auth	none	lucas	core/tools/auth/gauth.py	Shared OAuth2 for every Google-backed tool: mail, calendar, files and slides
+mail-triage	tools	on-demand	-	none	lucas	core/tools/mail/gmail	Reads a mailbox and classifies it into workspace routes, so email arrives as INBOX entries rather than as a second queue
+notes-notion	tools	on-demand	-	none	lucas	core/tools/notes/notion	Pages and note databases read as navigable text
+latex	hooks+tools	automatic	latex	blocks	general	core/hooks/gates/duplication-and-terms.sh,core/tools/paper/papers	Everything this workspace does with a paper: search and text extraction, the .texif scaffolding, and the term-consistency check that blocks a paper commit whose vocabulary drifted
+video-text	tools	on-demand	-	none	general	core/tools/video/video	Turns a media link into navigable text through metadata, captions, transcript, OCR and visual captioning, which is what makes a link in the INBOX drainable
+asset-inspect	tools	on-demand	-	none	general	core/tools/assets/inspect	Interface stubs for non-code assets, so an image or a CSV is readable without opening it
+caveman	skills	automatic	caveman	none	lucas	core/skills/caveman/hooks/config.js	Compresses the agent's own prose by roughly 65% without touching technical content, and goes off with a sentence when precision matters
+craft	skills	on-demand	-	none	general	core/tools/wos/skills/mirror.sh	Develops a feature in file-relayed loops with model autorouting, so a plan carries its own model assignment instead of leaving routing to recall at execution time
+roundup	skills	on-demand	-	none	general	core/tools/wos/skills/mirror.sh	Drains the session's ledgers into durable files and promotes the branch, so a session's knowledge survives it and no repo idles on an open branch
+handoff	skills	on-demand	-	none	general	core/tools/wos/skills/mirror.sh	Writes the next session's opening prompt, and refuses when there is nothing open
+inbox	skills	on-demand	-	none	lucas	core/tools/wos/skills/mirror.sh	Routes every INBOX entry to a goal, task, reference or project doc, which is what makes capture free without making the queue permanent
+compass	skills	on-demand	-	none	lucas	core/tools/wos/skills/mirror.sh	The strategic review: what has wind, what to reorder, what to ditch guilt-free
+research	skills	on-demand	-	none	general	core/tools/wos/skills/mirror.sh	The research workflow, from scouting sources to a written synthesis
+prepare	skills	on-demand	-	none	general	core/tools/wos/skills/mirror.sh	Turns a raw task into an optimised agent prompt, recommending model and effort
+dedup	skills	on-demand	-	none	general	core/tools/wos/skills/mirror.sh	Semantic duplication audit for a code project: the near-duplicate logic the verbatim-clone gate misses
+install	skills	on-demand	-	none	general	core/tools/wos/skills/mirror.sh	Probes every step in SETUP.md on this machine, reports what is missing and executes it
+gmail	skills	on-demand	-	none	lucas	core/tools/wos/skills/mirror.sh	Triages Gmail across every configured account and writes the routes into brain/INBOX.md
+calendar	skills	on-demand	-	none	lucas	core/tools/wos/skills/mirror.sh	Lists upcoming events and queries date ranges across every configured calendar account
+drive	skills	on-demand	-	none	lucas	core/tools/wos/skills/mirror.sh	Lists, searches and downloads files from Google Drive across every configured account
+foundry	skills	on-demand	-	none	lucas	core/tools/wos/skills/mirror.sh	Foundry VTT module development reference, loaded only when that work is in front of us
+iso-visual	skills	on-demand	-	none	lucas	core/tools/wos/skills/mirror.sh	The isoroll visual-semantics reference: image-to-text conventions and known model failure modes
+filesystem	norms	automatic	-	advises	general	core/hooks/routing/norms.py	An agent answers from the tree in front of it instead of from what it remembers, which is what makes a stale belief impossible to act on
+storage	norms	automatic	-	advises	general	core/hooks/routing/norms.py	Nothing that matters is written into a vendor directory, so the workspace stays portable across harnesses instead of hostage to one
+improve	norms	automatic	-	advises	general	core/hooks/routing/norms.py	A session that notices a defect either fixes it or files it, so a finding never dies with the session that found it
+interview	norms	automatic	-	advises	general	core/hooks/routing/norms.py	Doubt about intent costs one question instead of a session of work in the wrong direction
+acronyms	norms	automatic	-	advises	general	core/hooks/routing/norms.py	A reader is never left decoding, which is what keeps a durable file readable by the next session rather than only by its author
+edit	norms	automatic	-	advises	general	core/hooks/routing/norms.py	Refining an existing file beats adding one, so the tree stops scattering and the same idea stops living in three places
+symmetry	norms	automatic	-	advises	general	core/hooks/routing/norms.py	An asymmetry that is written down gets fixed; one that is merely noticed becomes the next category error
+deletion	norms	automatic	-	advises	general	core/hooks/routing/norms.py	A ledger holds only what is still open, so its length is a real measure of remaining work
+dogfood	norms	automatic	-	advises	general	core/hooks/routing/norms.py	Our own tools get used and therefore get good, instead of decaying beside a hand-rolled alternative
+one-action	norms	automatic	-	advises	general	core/hooks/routing/norms.py	Agent-facing text names the one action to take, because it is read mid-thread and every extra noun is a decision the agent may improvise against

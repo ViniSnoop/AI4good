@@ -38,7 +38,8 @@ def build() -> tuple:
         'spine': (spine_form.render(nodes, edges, SPINE_DEPTH), spine_form.legend(coverage)),
         'mass': (mass_form.render(mass), mass_form.legend(mass)),
     }
-    summary = overview_form.render(health.by_layer(rows),
+    summary = overview_form.render(health.by_layer(rows, 'automatic'),
+                                   health.by_layer(rows, 'on-demand'),
                                    health.findings(rows, coverage))
     counts = {'features': len(rows), 'directories': len(nodes)}
     return page.render(panels, coverage, data.scope(), summary), coverage, counts

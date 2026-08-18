@@ -38,6 +38,9 @@ table.heat th { color:var(--dim); font-weight:500; padding:4px 9px; }
 table.heat th.l { text-align:right; }
 table.heat td { border:1px solid var(--line); padding:5px 11px; text-align:center; min-width:52px; }
 table.heat td.z { color:var(--dim); opacity:.4; }
+.pair { display:flex; gap:34px; flex-wrap:wrap; align-items:flex-start; }
+.pair h3 { font-size:12.5px; margin:0 0 2px; font-weight:600; }
+.pair .q { margin:0 0 8px; }
 """
 
 
@@ -59,14 +62,23 @@ def _findings(items: list) -> str:
     return '\n'.join(out + ['</ul>'])
 
 
-def _grid(layers: list) -> str:
-    """Every declared layer against every enforcement strength: the workspace in thirty cells.
+def _peak(*grids: list) -> int:
+    """The busiest cell across EVERY grid drawn, so two grids side by side stay comparable.
 
-    Density is computed against the single busiest cell rather than per row. A per-row scale would
-    make every layer look equally enforced — `norms` is ten out of ten `advises` and would render
-    as solid as the sixteen commit-blocking hooks, which is the opposite of the truth.
+    Scaling each one to its own maximum would draw the fifteen skills that enforce nothing as dark
+    as the sixteen hooks that block a commit, and the whole point of putting them side by side is
+    that those are not the same size of fact.
     """
-    peak = max((max(s.values(), default=0) for _l, s, _t in layers), default=1) or 1
+    return max((max(s.values(), default=0) for g in grids for _l, s, _t in g), default=1) or 1
+
+
+def _grid(layers: list, peak: int) -> str:
+    """One declared layer per row, one enforcement strength per column.
+
+    Density is per cell against `peak` rather than per row. A per-row scale would make every layer
+    look equally enforced — `norms` is ten out of ten `advises` and would render as solid as the
+    sixteen commit-blocking hooks, which is the opposite of the truth.
+    """
     head = ''.join(f'<th>{escape(k)}</th>' for k in STRENGTHS)
     body = []
     for layer, strength, total in layers:
@@ -76,17 +88,36 @@ def _grid(layers: list) -> str:
             f'title="{strength.get(k, 0)} {escape(layer)} {escape(k)}">'
             f'{strength.get(k, 0) or "·"}</td>' for k in STRENGTHS)
         body.append(f'<tr><th class="l">{escape(layer)}</th>{cells}'
-                    f'<th class="l">{total or "nothing"}</th></tr>')
+                    f'<th class="l">{total or "·"}</th></tr>')
     return f'<table class="heat"><tr><th></th>{head}<th></th></tr>{"".join(body)}</table>'
 
 
-def render(layers: list, items: list) -> str:
-    """The summary layer: how the workspace is tied, then what is loose or missing."""
+def render(automatic: list, on_demand: list, items: list) -> str:
+    """The summary layer: how the workspace is tied, then what is loose or missing.
+
+    TWO grids rather than one, split by what starts a feature. Merged, the workspace reads as
+    though a third of it enforces nothing and is therefore dead weight — which is exactly the
+    misreading that produced this split. Apart, the left grid is the whole enforcement story and
+    the right one is a capability layer that was never supposed to push on anybody.
+    """
+    peak = _peak(automatic, on_demand)
+    auto_n = sum(total for _l, _s, total in automatic)
+    called_n = sum(total for _l, _s, total in on_demand)
     return (f'<section class="ov"><h2>how it is tied</h2>'
-            f'<p class="q">every declared layer against how hard its features push. Darkness is '
-            f'how many; a row of dots is a layer that was declared and never built. The '
-            f'<b>none</b> column is not a failure — it is the half of this workspace that serves '
-            f'when called instead of pushing on its own.</p>{_grid(layers)}</section>'
+            f'<p class="q">declared layer against how hard each feature pushes, split by what '
+            f'starts it. Darkness is how many, on one scale across both grids; a row of dots is a '
+            f'layer that was declared and never built.</p>'
+            f'<div class="pair">'
+            f'<div><h3>automatic · {auto_n}</h3>'
+            f'<p class="q">fires without being asked, so it has a moment</p>'
+            f'{_grid(automatic, peak)}</div>'
+            f'<div><h3>on-demand · {called_n}</h3>'
+            f'<p class="q">waits to be called, so it has none</p>'
+            f'{_grid(on_demand, peak)}</div></div>'
+            f'<p class="note">The two are independent, which is why they are two columns in '
+            f'<code>core/features.txt</code> and not one: eleven features cross. Six fire by '
+            f'themselves and push on nobody — they compress, record, wipe, count. Five you invoke '
+            f'by hand and they still push.</p></section>'
             f'<section class="ov"><h2>what is loose or missing</h2>'
             f'<p class="q">derived from the same declarations, so every row is a fact about the '
             f'workspace rather than a judgement about it</p>{_findings(items)}</section>')

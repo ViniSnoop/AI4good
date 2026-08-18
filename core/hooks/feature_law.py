@@ -26,6 +26,15 @@ PROFILE_FILE = CORE / 'profile.txt'
 # core/`. `norms` is the sixth and the only one without code: rules obeyed rather than enforced,
 # the INDUCED half of the line whose ENFORCED half is file_law / schema_law / feature_law.
 GROUPS = {'hooks', 'tools', 'skills', 'agents', 'flows', 'norms'}
+# WHO STARTS IT, and it is NOT recoverable from ENFORCEMENT (2026-08-18). The registry carried one
+# column where it had two facts, and `none` was doing duty for both "fires by itself and applies no
+# pressure" and "you call it" — which misled a careful reader of its own data into reporting the
+# capability half of this workspace as dead weight. Eleven rows cross: six are automatic and enforce
+# nothing (rtk-compaction, subtree-read-tracking, precompact-wipe, brain-attention, opencode-plugin,
+# caveman), five are on-demand and do push (the entropy scan's three checks, declared-deps, diagram).
+# `automatic` rather than `passive`, `on-demand` rather than `active`: this registry's other job is
+# saying which features are switched ON, so "an active feature" would be ambiguous at every site.
+RUNS = {'automatic', 'on-demand'}
 ENFORCEMENT = {'blocks', 'warns', 'generates', 'advises', 'none'}
 SCOPES = {'general', 'lucas'}
 

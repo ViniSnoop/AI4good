@@ -67,11 +67,27 @@ def test_every_row_is_complete_and_in_its_closed_set():
         assert law.groups(row), f"{row['slug']} names no layer"
         for group in law.groups(row):
             assert group in law.GROUPS, row
+        assert row['runs'] in law.RUNS, row
         assert row['enforcement'] in law.ENFORCEMENT, row
         assert row['scope'] in law.SCOPES, row
         assert len(row['buys'].split()) >= 8, (
             f"{row['slug']}'s `buys` must say what the feature buys you, not restate its name — "
             'nobody accepts an enforcement layer whose value they cannot see')
+
+
+def test_runs_is_not_recoverable_from_enforcement():
+    """The column exists because the two axes cross, and a later tidy-up would collapse them back.
+
+    Both crossing sets must stay populated: features that fire by themselves and push on nobody
+    (a compactor, a recorder), and features you invoke by hand that still push (the entropy scan's
+    checks). Collapse either one and `enforcement: none` goes back to meaning two things, which is
+    the ambiguity that made a reader of this registry report its capability layer as dead weight.
+    """
+    rows = law.load_registry()
+    quiet = [r['slug'] for r in rows if r['runs'] == 'automatic' and r['enforcement'] == 'none']
+    called = [r['slug'] for r in rows if r['runs'] == 'on-demand' and r['enforcement'] != 'none']
+    assert quiet, 'no automatic feature enforces nothing — did `runs` get derived from enforcement?'
+    assert called, 'no on-demand feature pushes — did `runs` get derived from enforcement?'
 
 
 def test_every_declared_feature_has_an_answer():

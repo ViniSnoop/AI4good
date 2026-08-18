@@ -55,8 +55,14 @@ def _layers(rows: list) -> tuple:
     return sorted(feature_law.GROUPS), sorted(feature_law.GROUPS & held)
 
 
-def by_layer(rows: list) -> list:
+def by_layer(rows: list, runs: str = '') -> list:
     """[(layer, {enforcement: count}, total)] — every DECLARED layer, biggest first.
+
+    `runs` narrows to one half of the second axis ('automatic' or 'on-demand'); empty counts all.
+    Splitting on it is what makes the grid honest: 28 features enforce nothing, and reading that as
+    one number says the workspace is a third dead weight. Split, it says 22 features wait to be
+    called — which is a capability layer — and 6 fire by themselves without pushing, which is a
+    much smaller and much more interesting claim.
 
     A layer holding nothing is kept with a total of zero rather than dropped, and that is the
     whole point of iterating the declared set instead of the observed one: `agents` and `flows`
@@ -65,6 +71,8 @@ def by_layer(rows: list) -> list:
     """
     counts: dict = {layer: {} for layer in feature_law.GROUPS}
     for row in rows:
+        if runs and row['runs'] != runs:
+            continue
         for layer in feature_law.groups(row):
             strength = counts.setdefault(layer, {})
             strength[row['enforcement']] = strength.get(row['enforcement'], 0) + 1
