@@ -539,7 +539,9 @@ agents first, flows after the pointer question is answered.
    than merely awkward: a `code/aiwbot/...` path in the column makes this repo's Tier 0 test assert
    on a nested repo's content, which Front 4 forbids for a reason this repo cannot fix; reopening
    `n/a` contradicts the ruling that the column is empty. So the row is blocked on a question about
-   where the code lives, not on wiring effort.
+   where the code lives, not on wiring effort. **`core/features.txt` now says exactly that in its
+   own header** — it claimed the opposite for a day, and the page reading `1 of 69` beside a header
+   claiming no exceptions left is what caught it.
 
    Lucas, 2026-08-18: *"aiwbot is part of WOS, it is deeply entangled, it is not meant for general
    purpose bots… maybe we could version it inside the WOS repo and delete the aiwbot repo."*
@@ -867,9 +869,8 @@ person who owns it, and the place to route the next *"when was that decided?"*
 
    **The 2026-08-18 sitting ran the diagram half:** 18.3's shape is ruled below, 18.2's criterion is
    refined, and 18.4 is reshaped by the decision-record finding. What the front still owes its own
-   session: the **jargon audit** (18.2's internal replacement work), the **one-root test** above, and
-   the **hook-trigger registry** (18.3) — all deferred here deliberately, none cheap enough to fold
-   into a mixed session.
+   session: the **jargon audit** (18.2's internal replacement work) and the **one-root test** above —
+   both deferred here deliberately, neither cheap enough to fold into a mixed session.
    → **tier: high**, with Lucas, its own session about this and nothing else.
 
 2. 🟡 **Replace the words that need a glossary to be read.** A definition is a patch; the fix is the
@@ -918,35 +919,25 @@ person who owns it, and the place to route the next *"when was that decided?"*
    health says what is loose, what is dead weight, what is absent. All three original drawings are
    inventories, which is the deeper reason none of them landed.
 
-   **Two shapes are queued and neither is drawn**, both answering Lucas's standing want — *"I am
-   missing seeing some trees, graphs… sequences of thing1 → thing2 → thing3… how things are
-   connected or not."* Where a graph pays is settled by evidence rather than taste: Ghoniem says
-   matrices beat node-link past ~20 nodes ([`core/refs/REFS.md`](core/refs/REFS.md) § Workspace
-   visualization), so the 107-node routing tree is far past it and reads as wallpaper — but:
+   **Both queued shapes are drawn, so the cut is now the whole of this row.** They answer Lucas's
+   standing want — *"I am missing seeing some trees, graphs… sequences of thing1 → thing2 → thing3…
+   how things are connected or not"* — and both sit above the tab strip. Where a graph pays is
+   settled by evidence rather than taste: Ghoniem says matrices beat node-link past ~20 nodes
+   ([`core/refs/REFS.md`](core/refs/REFS.md) § Workspace visualization), which is why the 107-node
+   routing tree reads as wallpaper and a six-node fan-in does not.
 
-   - **the lifecycle sequence — BUILT 2026-08-18**, `views/diagram_lifecycle.py`, one band per
-     session moment with its features on it and the on-demand ones drawn detached beside the chain.
-     It renders above the tab strip, not behind a click. **It waits on Lucas's eye**: does it answer
-     *is WOS well tied, where are the loose ends* at a glance, or is it a fourth inventory?
-   - **the wiring fan-in**, ~8 interesting nodes. 68 features resolve to 46 distinct wiring points
-     and two carry 24 of them — `core/tools/wos/skills/mirror.sh` (14) and
-     `core/hooks/routing/norms.py` (10). Architecture the enforcement grid spends 600 cells hiding.
+   - **the lifecycle sequence — KEPT (Lucas, 2026-08-18).** One band per session moment, the
+     on-demand features detached beside the chain. It passed the health read at a glance, so it
+     stays and every shape beside it is judged against it.
+   - **the wiring fan-in — drawn in THREE shapes, and two of them die at Lucas's next look.**
+     `views/diagram_fanin.py` holds a converging node-link plus a bars renderer called at both
+     grains, because he asked to compare rendered output rather than a mockup. 69 features resolve
+     to 47 wiring points and two carry 24 of them. `views/CONTEXT.md` carries the cut condition so
+     the rack cannot outlive the decision. → **tier: low**, one look and two deletions.
 
-   The fan-in takes **the last of the two view slots** in `core/tools/wos/diagram/views/` before the
-   fanout signal fires; the lifecycle spent the first. → **tier: medium**.
-
-   **A target per finding — RULED (Lucas) and BUILT 2026-08-18.** Every finding carries one, read
-   off a declaration rather than chosen: zero for orphan directories, unswitchable features,
-   unreadable routing blocks and features with no declared moment. The one nobody has decided —
-   *are declared layers holding no feature a defect?* — prints `undecided` rather than blank, so an
-   undecided target cannot pass for a met one. Pinned by `test_diagram_health.py`.
-
-   **Two findings the declared moments surfaced, neither chased:** `core/features.txt` states the
-   unswitchable count has a target of zero *with no exceptions left*, and the page now reads **1 of
-   68** — so either a row lost its switch or the claim in that header is stale. And the
-   **`post-commit` band is empty**: `core/hooks/post-commit` auto-pushes `feature/*`, which is
-   behaviour no feature in the registry governs and therefore nothing can switch off. Both are
-   registry questions rather than drawing ones. → **tier: low** each.
+   Every finding on the page carries a target read off a declaration, and the one nobody has
+   decided — *are declared layers holding no feature a defect?* — prints `undecided` so it cannot
+   pass for a met one. Pinned by `test_diagram_health.py`. → **tier: medium** for the row.
 
    **The picture's boundary — DEFERRED by Lucas, 2026-08-18**, after the worry was measured:
    *"to respect the context tree I think we may leave as it is now… let's not overcomplicate this
@@ -959,13 +950,10 @@ person who owns it, and the place to route the next *"when was that decided?"*
    children are instances rather than structure stops at its own name — and the declared signal
    for "instance" already exists, since every one of them is its own git repo.
 
-   **Two rulings still Lucas's, both raised by an outside critique of the page and neither taken
-   alone.** First, **no number on the page has a target beside it**, so nothing can read as good or
-   bad — that is the deeper reason this session's own findings list opened with a number that was
-   not a defect. A target per finding makes the list judgeable, and two of the targets are
-   undecided, which is itself a finding. Second, `core/features.txt` opens by saying **no feature
-   in this workspace has ever been measured**, and the diagram of the workspace's self-knowledge
-   never says so; that is Front 14's subject and belongs to it rather than here.
+   **One ruling still Lucas's**, raised by an outside critique of the page: `core/features.txt`
+   opens by saying **no feature in this workspace has ever been measured**, and the diagram of the
+   workspace's self-knowledge never says so. That is the ablation front's subject and belongs to it
+   rather than here, so what is open is only whether the page should carry the sentence at all.
 
    **The cut list is collected and deliberately unspent**, per the pacing above: the treemap
    answers neither question, the routing spine is 107 nodes to say two numbers, and the tab
@@ -994,21 +982,13 @@ person who owns it, and the place to route the next *"when was that decided?"*
    [`core/refs/REFS.md`](core/refs/REFS.md) § The health shelf). So the summary goes *above* the
    enforcement matrix, and the standing proposal to cut that matrix is dead on evidence.
 
-   **Nothing on the page is inferred any more, as of 2026-08-18** — and the registry this row asked
-   for was never written, because the answer was already declared in three places nobody had read
-   together: a harness `settings.json`, the `pre-commit` dispatcher's own stage order, and the
-   SETUP.md install step that registers what must live outside the repo.
-   [`core/hooks/trigger/trigger_law.py`](core/hooks/trigger/trigger_law.py) is the fourth law module and
-   [`core/hooks/trigger/hook_reach.py`](core/hooks/trigger/hook_reach.py) its walk. Inferred firing moments went
-   **13 → 1**. **The transferable finding is that a registry asked to be authored turned out to be
-   derivable**, which is the same shape as the `runs` column the session before: look for the
-   declaration before writing a new one.
-
-   Three precision bugs were caught by disbelieving the first output, and each had invented edges: a
-   name in a **comment** is not a call, a name in a **docstring** is not either, and a bare module
-   stem like `norms`, `compress` or `detect` is an ordinary English word — that one alone put ten
-   session moments on `norms.py` and on four caveman scripts. A stem now counts only inside import
-   syntax. → **tier: medium** for *becoming*; *goal* needs Lucas's intent before it can be drawn.
+   **Nothing on the page is inferred**, so the next two pictures inherit a page with no
+   apologies on it: [`core/hooks/trigger/`](core/hooks/trigger/CONTEXT.md) reads the firing moment
+   out of the registrations, and what it cannot place is counted as a gap. **The transferable
+   finding is that a registry asked to be authored turned out to be derivable** — the same shape as
+   the `runs` column the session before, and the rule the next picture should carry into git
+   history too: look for the declaration before writing a new one.
+   → **tier: medium** for *becoming*; *goal* needs Lucas's intent before it can be drawn.
 
 5. 🔴 **Which sectors deserve an `ARCHITECTURE.html`, and what does each one need that the
    workspace document does not?** Lucas, 2026-08-18, on seeing the first one: *"I envision an
