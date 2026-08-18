@@ -1028,11 +1028,6 @@ the day its check runs; this section is deleted when the last one does.
    omitted; and `REFS.md`'s `[A]`/`[B]`/`[P]`/`[V]`/`[C]` tier markers — and **neither is verified by
    anything.** Both stores are small and closed, which is what makes them the obvious next Tier 0.
    Declared: [`core/SPECS.md`](core/SPECS.md) § AD-16 band 1. → **tier: medium**.
-3. 🟢 **the loop-cap check: a step that declares a loop must declare its cap.** Greppable,
-   deterministic, zero-token, and true of every flow rather than of one technique. It is the inverse
-   of the shape under § Rejected — requiring the adversarial step creates the death loop, requiring
-   the bound is what makes requiring the step safe.
-   Declared: [`core/flows/craft/SPECS.md`](core/flows/craft/SPECS.md). → **tier: medium**.
 4. 🟢 **roundup compares the declared model split against the actual one.** `core/tools/wos/roundup`
    already prints the per-session split at every close; what is missing is the plan **declaring its
    expected split** and roundup comparing. It forces nobody to delegate — it makes deviation visible

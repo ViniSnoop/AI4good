@@ -53,10 +53,32 @@ validate_flows() {
   return $rc
 }
 
+# Execution loops (core/flows/CONTEXT.md § Rules that hold for every flow): a step that declares a
+# loop must declare its numeric cap. The inverse of the gate that was proposed and rejected — see
+# core/flows/craft/SPECS.md: requiring an adversarial step on a plan whose adversary always finds
+# something is a loop with no exit, and requiring the BOUND is what makes requiring the step safe.
+#
+# Whole-file, not per-step, and that is deliberate: a cap stated once governs the flow, and a
+# per-step scan would have to guess where a step ends in prose. CONTEXT.md and SPECS.md are skipped
+# because they STATE the rule — the file declaring a law names its own words and is not running one.
+validate_flow_loops() {
+  local rc=0 f name
+  while IFS= read -r f; do
+    name="$(basename "$f")"
+    case "$name" in
+      CONTEXT.md|SPECS.md) continue ;;
+    esac
+    grep -qEi '^#+[[:space:]].*execution loops|iteration cap|^[*# ]*Loop [0-9]|\biterations?\b|\brepeat until\b' "$f" || continue
+    grep -qEi '(iteration cap|round cap|at most|maximum([[:space:]]+of)?|max[A-Za-z]*)[^.]{0,40}[0-9]' "$f" && continue
+    echo "INVALID flow (declares a loop with no numeric cap — an unbounded loop is a hang, see core/flows/CONTEXT.md): $f"
+    rc=1
+  done < <(find "$WORKSPACE/core/flows" -name '*.md')
+  return $rc
+}
+
 # Composition layer (core/SCHEMA.md § Composition and cycles): the `uses:` graph must be a DAG.
 # A definitional cycle never bottoms out — expanding it is infinite. This is the *definition-time*
-# guard only; execution loops (a flow retrying its own step) are legal and are bounded by the
-# runtime iteration cap declared in the flow, never by this check.
+# guard only; execution loops are legal and bounded by validate_flow_loops above.
 validate_flow_dag() {
   local rc=0 f name fm uses u
   declare -A USES=() KNOWN=() COLOR=()

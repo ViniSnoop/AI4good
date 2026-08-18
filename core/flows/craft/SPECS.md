@@ -31,8 +31,10 @@ FATALs carried as `verdict: FAIL`.
 So the checkable shape is the inverse of the one proposed: **a step that declares a loop must declare
 its cap** — greppable, deterministic, zero-token, and true of every flow rather than of one technique.
 Requiring the adversarial step is what creates the death loop; requiring the bound is what makes
-requiring the step safe. That check is unbuilt, and it is band 1 of
-[`core/SPECS.md`](../../SPECS.md) § AD-16: a rule written with nothing verifying it.
+requiring the step safe. `validate_flow_loops` in
+[`core/tools/wos/skills/validate.sh`](../../tools/wos/skills/validate.sh) enforces it over every
+file under `core/flows`, and rejects the commit through `sync-skills --check`. Whole-file rather
+than per-step: one cap governs the flow, and finding where a step ends in prose would be a guess.
 
 **Evidence limit, stated rather than papered over:** both practitioner method docs behind this are
 **unread** — `WebFetch` refuses claude.ai artifacts and `core/tools/web/fetch` gets only the
