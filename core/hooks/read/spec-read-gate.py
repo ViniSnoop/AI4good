@@ -8,6 +8,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import feature_law  # noqa: E402
 from hook_input import load_seen, parse_stdin
 
 WORKSPACE = Path('/mnt/workspace')
@@ -61,6 +62,8 @@ def nudge() -> None:
 
 
 def main() -> int:
+	if not feature_law.is_enabled('spec-read-gate'):
+		return 0  # switched off: a disabled gate does not block, and does not pretend it ran
 	_, tool, tool_input, session_id, _ = parse_stdin()
 	result = 0
 	if tool in GATED_TOOLS:

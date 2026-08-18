@@ -21,6 +21,7 @@ _HOOKS = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(_HOOKS))
 sys.path.insert(0, str(_HOOKS / 'entropy'))
 
+import feature_law  # noqa: E402
 from entropy_context import (check_description, check_goal_link,  # noqa: E402
                              check_inventory)
 from entropy_corpus import (enforcement_paths, staged_added_files,  # noqa: E402
@@ -60,6 +61,8 @@ def failures_for(path: Path, allowed: set, exempt: set, scopes: dict,
 
 
 def main() -> int:
+    if not feature_law.is_enabled('type-gate'):
+        return 0  # switched off: a disabled gate does not block, and does not pretend it ran
     if not SCHEMA.exists():
         return 0  # not the workspace repo; nothing to enforce against
     allowed, exempt = load_law(SCHEMA)

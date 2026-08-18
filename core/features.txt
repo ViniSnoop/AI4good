@@ -73,13 +73,13 @@ line-limit	hooks	-	blocks	general	core/hooks/checks/check-line-counts.sh	Forces 
 fanout-limit	hooks	-	warns	general	core/hooks/entropy/entropy_fanout.py	Counts how many files one directory asks a reader to hold at once; a split costs one routing hop, so the warn sits where that hop starts to pay for itself
 context-head-budget	hooks	-	warns	general	-	A token in a CONTEXT.md head is paid by every session that touches the subtree, so the head is asked to justify its length rather than capped
 first-line-comment	hooks	-	warns	general	-	Every code file opens with a line saying what it is, and that line is what the routing generator publishes, so the index writes itself
-duplication-gate	hooks	declared-deps	blocks	general	-	jscpd blocks a commit whose staged files clone existing logic; copy-paste is the failure mode agents are fastest at
+duplication-gate	hooks	declared-deps	blocks	general	core/hooks/checks/check-duplication.py	jscpd blocks a commit whose staged files clone existing logic; copy-paste is the failure mode agents are fastest at
 facade-discipline	hooks	-	blocks	general	core/hooks/facade/check-facade-imports.py	Cross-module imports that reach around index / __init__ are blocked, so module boundaries stay real and a rename does not become an archaeology project
-type-gate	hooks	-	blocks	general	-	UPPERCASE.md names are a closed allowlist, ratcheted on what a commit adds, so inventing a file type is a deliberate act instead of an accident
-citation-gate	hooks	-	blocks	general	-	A roadmap item number is not a citable identifier outside the roadmap family, because a closed item is deleted and every citation of it becomes a dead pointer
-bugs-gate	hooks	-	blocks	general	-	A bug cannot be flipped to FIXED without a matching regression test, so "it works now" stops being a claim and becomes a file
-spec-read-gate	hooks	-	blocks	general	-	Editing a module with a locked contract requires having read that contract this session
-heredoc-gate	hooks	-	blocks	general	-	Blocks writing a file through a bash heredoc, which is the one path that bypasses every edit-time gate
+type-gate	hooks	-	blocks	general	core/hooks/checks/type-gate.py	UPPERCASE.md names are a closed allowlist, ratcheted on what a commit adds, so inventing a file type is a deliberate act instead of an accident
+citation-gate	hooks	-	blocks	general	core/hooks/checks/citation-gate.py	A roadmap item number is not a citable identifier outside the roadmap family, because a closed item is deleted and every citation of it becomes a dead pointer
+bugs-gate	hooks	-	blocks	general	core/hooks/checks/bugs-gate.py	A bug cannot be flipped to FIXED without a matching regression test, so "it works now" stops being a claim and becomes a file
+spec-read-gate	hooks	-	blocks	general	core/hooks/read/spec-read-gate.py	Editing a module with a locked contract requires having read that contract this session
+heredoc-gate	hooks	-	warns	general	core/hooks/checks/heredoc-gate.py	Warns when a file is written through a bash heredoc, which is the one path that bypasses every edit-time gate
 verify-suite	hooks	-	blocks	general	-	make verify-fast is what the pre-commit gate checks against; without it the gate has nothing to run
 verify-contract	hooks	-	blocks	general	-	A project declaring verify:fast must be green to commit, discovered by convention, so a new project opts in by naming a script rather than by wiring anything
 project-contract	hooks	-	blocks	general	-	What a code/ project must declare before it can commit: verify contract, goal link, spec, branch shape, .md type and gitlink

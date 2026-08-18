@@ -8,6 +8,9 @@ import sys
 import tempfile
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import feature_law  # noqa: E402
+
 MIN_TOKENS = '75'
 MIN_LINES = '10'
 FORMATS = 'typescript,tsx,javascript,jsx,python,dart'
@@ -18,6 +21,8 @@ IGNORE = ','.join([
 
 
 def main() -> int:
+	if not feature_law.is_enabled('duplication-gate'):
+		return 0  # switched off: a disabled gate does not block, and does not pretend it ran
 	staged = {line.strip() for line in sys.stdin if line.strip()}
 	if not staged:
 		return 0

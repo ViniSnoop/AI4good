@@ -21,6 +21,9 @@ import subprocess
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import feature_law  # noqa: E402
+
 # `Front 9`, `Front 4.1`, `Front 10.1b` — the bare form is the larger half of the corpus and
 # the one a decimals-only pattern misses. Hyphen and word boundaries both count, so
 # `Front 4`-in-a-compound is caught the same way a retired token is.
@@ -101,6 +104,8 @@ def citation_hits(files: list, exempt: set) -> list:
 
 
 def main() -> int:
+    if not feature_law.is_enabled('citation-gate'):
+        return 0  # switched off: a disabled gate does not block, and does not pretend it ran
     if not (WORKSPACE_ROOT / 'core/SCHEMA.md').exists():
         return 0  # not the workspace repo; nothing to enforce against
     staged = [p for p in staged_files() if p.exists()]

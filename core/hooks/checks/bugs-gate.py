@@ -7,6 +7,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import feature_law  # noqa: E402
 from hook_input import parse_stdin
 
 FIXED_RE = re.compile(r'##\s*B(\d+)\b[^\n]*\bFIXED\b', re.IGNORECASE)
@@ -32,6 +33,8 @@ def has_spec(root: Path, bug_id: str) -> bool:
 
 
 def main() -> int:
+	if not feature_law.is_enabled('bugs-gate'):
+		return 0  # switched off: a disabled gate does not block, and does not pretend it ran
 	_, tool, tool_input, _, _ = parse_stdin()
 	if tool not in ('Edit', 'Write'):
 		return 0

@@ -16,6 +16,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import feature_law  # noqa: E402
 from hook_input import parse_stdin
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[3]
@@ -72,6 +73,8 @@ def written_paths(command: str, cwd: str) -> list:
 
 
 def main() -> int:
+	if not feature_law.is_enabled('heredoc-gate'):
+		return 0  # switched off: a disabled gate does not block, and does not pretend it ran
 	_raw, tool, tool_input, _session, cwd = parse_stdin()
 	if tool and tool != 'Bash':
 		return 0
