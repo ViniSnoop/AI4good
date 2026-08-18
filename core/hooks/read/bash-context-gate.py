@@ -6,11 +6,15 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import feature_law  # noqa: E402
 from chain import context_chain, paths_in
 from hook_input import is_subagent, load_seen, parse_stdin
 
 
 def main() -> int:
+	# The other half of context-chain; see the note in context-gate.py.
+	if not feature_law.is_enabled('context-chain'):
+		return 0
 	raw, tool, tool_input, session_id, cwd = parse_stdin()
 	if tool and tool != 'Bash':
 		return 0

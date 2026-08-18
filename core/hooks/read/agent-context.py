@@ -22,6 +22,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import feature_law  # noqa: E402
 from chain import context_chain, paths_in, summary_of
 
 MAX_LINES = 12  # a briefing, not a corpus
@@ -70,6 +71,8 @@ def inject(data: dict) -> int:
 
 
 def main() -> int:
+	if not feature_law.is_enabled('agent-context-brief'):
+		return 0  # switched off: briefing a worker goes back to being the orchestrator's discipline
 	try:
 		data = json.load(sys.stdin)
 	except Exception:

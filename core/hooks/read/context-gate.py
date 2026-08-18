@@ -6,6 +6,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import feature_law  # noqa: E402
 from chain import EXEMPT_NAMES, SKIP_PARTS, WORKSPACE, context_chain
 from hook_input import is_subagent, load_seen, parse_stdin
 
@@ -21,6 +22,11 @@ def target_path(tool: str, tool_input: dict) -> str:
 
 
 def main() -> int:
+	# context-chain is TWO files — this one and bash-context-gate.py, which closes the
+	# cat/grep bypass. Both consult the law, or switching the feature off would leave half
+	# the gate standing and an ablation would measure a cost nobody removed.
+	if not feature_law.is_enabled('context-chain'):
+		return 0
 	raw, tool, tool_input, session_id, _ = parse_stdin()
 	if tool not in GATED_TOOLS:
 		return 0

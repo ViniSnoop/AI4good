@@ -20,6 +20,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 # git/ holds the one check here that reads git state instead of file content.
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'git'))
 
+import feature_law  # noqa: E402
 from branch_debt import merged_remote_branches, unmerged_branches  # noqa: E402
 from entropy_context import check_goal_link, check_misplaced_answer  # noqa: E402
 from entropy_corpus import enforcement_paths, tracked_files, wiki_exempt_paths  # noqa: E402
@@ -159,6 +160,8 @@ def stub_signals(files: list) -> list:
 
 
 def main() -> int:
+    if not feature_law.is_enabled('entropy-dashboard'):
+        return 0  # switched off: no report is written, so the number stops existing rather than lying
     files = tracked_files(WORKSPACE_ROOT, nested=True)
     findings = collect(files)
     REPORT.write_text(render(findings, len(files), WORKSPACE_ROOT), encoding="utf-8")

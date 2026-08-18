@@ -6,6 +6,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import feature_law  # noqa: E402
 from hook_input import load_seen, mark_seen, parse_stdin
 
 IFACE_SUFFIXES = ('.d.ts', '.pyi', '.dart.api', '.texif', '.csvif')
@@ -23,6 +24,8 @@ def _record_iface(session_id: str, path: str) -> None:
 
 
 def main() -> int:
+	if not feature_law.is_enabled('subtree-read-tracking'):
+		return 0  # switched off: nothing is recorded, so the chain gate fires per file again
 	_, tool, tool_input, session_id, _ = parse_stdin()
 	if tool and tool != 'Read':
 		return 0
