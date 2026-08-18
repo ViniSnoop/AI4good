@@ -17,11 +17,14 @@ Two facts make the fix bigger than a pathspec swap:
 
 import re
 import subprocess
+import sys
 from collections import defaultdict
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-from brain_common import GOALS_DIR, GOALS_FILE, WORKSPACE, workspace_rel
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import feature_law  # noqa: E402
+from brain_common import GOALS_DIR, GOALS_FILE, WORKSPACE, workspace_rel  # noqa: E402
 
 # The deepest window any caller asks for (brain_common.PERIODS tops out at 4 years). One
 # harvest at this depth serves every period, so history is read once per repo per commit.
@@ -107,7 +110,14 @@ def harvest(repo):
 
     Merges emit no --name-only output and drop out here, which is what we want: the
     develop/main promotions in core/tools/wos/roundup add no authorship of their own.
+
+    The `brain-attention` seam (core/SPECS.md § AD-14). This module has no main(); every
+    path into it — Attention.__init__, and through it brain_stats and the dashboard —
+    reaches history through this one call, so switching it off here leaves every caller
+    intact with nothing harvested, rather than raising somewhere up the chain.
     """
+    if not feature_law.is_enabled('brain-attention'):
+        return {}
     out = subprocess.run(
         ["git", "-C", str(repo), "log", f"--since={MAX_DAYS} days ago",
          "--no-merges", "--format=%x00%H %cI", "--name-only"],

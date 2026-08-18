@@ -1,7 +1,17 @@
 #!/mnt/workspace/.venv/bin/python3
 # gauth.py — Google's leaf of the auth family: shared OAuth2 for every Google-backed tool
 import json, pathlib, sys
-from google.oauth2.credentials import Credentials
+
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
+import tool_law  # noqa: E402
+
+# Guarded at IMPORT, not in a main(): this is a library with no entrypoint of its own, and
+# the feature is the shared OAuth2 itself. Every Google-backed tool — mail, calendar, files,
+# slides — reaches credentials through this module, so one refusal here is what "google-auth
+# is off" honestly means. A per-tool guard would leave the others still authenticating.
+tool_law.require('google-auth')
+
+from google.oauth2.credentials import Credentials  # noqa: E402
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 from google.auth.exceptions import RefreshError

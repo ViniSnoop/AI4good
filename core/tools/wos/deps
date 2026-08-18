@@ -10,6 +10,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 DECLARED = ROOT / 'core' / 'tools' / 'deps.txt'
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import tool_law  # noqa: E402
+
 INSTALL = {
     'pip': '.venv/bin/pip install {name}',
     'apt': 'sudo apt-get install -y {name}',
@@ -37,6 +40,7 @@ def probe(cmd: str) -> bool:
 
 
 def main() -> int:
+    tool_law.require('declared-deps')  # before argparse: off means off, including --help
     ap = argparse.ArgumentParser(add_help=True)
     ap.add_argument('--check', action='store_true', help='exit 1 if anything is missing')
     ap.add_argument('--feature', help='probe only the deps owned by one feature slug')

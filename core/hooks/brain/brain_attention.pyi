@@ -1,6 +1,5 @@
 from _typeshed import Incomplete
 from collections import defaultdict as defaultdict
-from pathlib import Path as Path
 
 MAX_DAYS: int
 

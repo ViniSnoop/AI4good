@@ -26,6 +26,7 @@
 // Full event->script mapping, stdin-vs-env schema, and the warning-surfacing
 // limitation are documented in ../CONTEXT.md.
 
+import { spawnSync } from "node:child_process"
 import { HOOKS, TOOL_MAP, buildPayloads, run, warn } from "../index.js"
 
 function blockMsg(r, fallback) {
@@ -33,6 +34,14 @@ function blockMsg(r, fallback) {
 }
 
 export const WorkspacePolicy = async ({ client }) => {
+  // The `opencode-plugin` switch (core/SPECS.md § AD-14). Asked through
+  // feature_law.py's --enabled arm, which exists so a second harness reaches the same
+  // registry without a second implementation of it. Off = register no hooks at all,
+  // which is the honest observable: opencode runs with none of the canonical gates.
+  const on = spawnSync("python3", [`${HOOKS}/feature_law.py`, "--enabled", "opencode-plugin"], {
+    encoding: "utf8",
+  })
+  if (on.status !== 0) return {}
   return {
     "tool.execute.before": async (input, output) => {
       // Bash — CONTEXT.md chain gate on any workspace file the command touches.
@@ -40,7 +49,7 @@ export const WorkspacePolicy = async ({ client }) => {
       if (input.tool === "bash") {
         const command = (output.args && (output.args.command || output.args.cmd)) || ""
         if (!command) return
-        const r = run(`${HOOKS}/bash-context-gate.py`, { command }, "Bash", { stdin: true })
+        const r = run(`${HOOKS}/read/bash-context-gate.py`, { command }, "Bash", { stdin: true })
         if (r.status === 2) throw new Error(blockMsg(r, "CONTEXT GATE (Bash)"))
         if (r.stdout && r.stdout.trim()) await warn(client, r.stdout)
         return
@@ -54,11 +63,11 @@ export const WorkspacePolicy = async ({ client }) => {
       if (m.group === "read") {
         for (const p of payloads) {
           // 1. context-gate.py — force CONTEXT.md chain read before the file itself.
-          const g = run(`${HOOKS}/context-gate.py`, p, "Read", { stdin: true })
+          const g = run(`${HOOKS}/read/context-gate.py`, p, "Read", { stdin: true })
           if (g.status === 2) throw new Error(blockMsg(g, "CONTEXT GATE"))
           if (g.stdout && g.stdout.trim()) await warn(client, g.stdout)
           // 2. pre-read.sh — interface-first source gate.
-          const r = run(`${HOOKS}/pre-read.sh`, p, "Read", { stdin: true })
+          const r = run(`${HOOKS}/read/pre-read.sh`, p, "Read", { stdin: true })
           if (r.status === 2) throw new Error(blockMsg(r, "READ INTERFACE FIRST"))
           if (r.stdout && r.stdout.trim()) await warn(client, r.stdout)
         }
@@ -68,33 +77,33 @@ export const WorkspacePolicy = async ({ client }) => {
       // edit/write/apply_patch — Edit|Write matcher, pre-hooks in order.
       for (const p of payloads) {
         // 1. context-gate.py — force CONTEXT.md chain read before editing.
-        const g = run(`${HOOKS}/context-gate.py`, p, m.canonical, { stdin: true })
+        const g = run(`${HOOKS}/read/context-gate.py`, p, m.canonical, { stdin: true })
         if (g.status === 2) throw new Error(blockMsg(g, "CONTEXT GATE"))
         if (g.stdout && g.stdout.trim()) await warn(client, g.stdout)
         // 2. pre-edit.py — size + first-line + CONTEXT.md line-2.
         //    Skipped for apply_patch: no content/old/new fields in patchText.
         if (input.tool !== "apply_patch") {
-          const r = run(`${HOOKS}/pre-edit.py`, p, m.canonical, { stdin: true })
+          const r = run(`${HOOKS}/checks/pre-edit.py`, p, m.canonical, { stdin: true })
           if (r.status === 2) throw new Error(blockMsg(r, "pre-edit blocked"))
           if (r.stdout && r.stdout.trim()) await warn(client, r.stdout)
         }
         // 3. facade-scan.py — Write only; inform about existing facade exports.
         //    Never blocks (exit 0 only); guarded anyway.
         if (m.canonical === "Write") {
-          const r = run(`${HOOKS}/facade-scan.py`, p, "Write", { stdin: true })
+          const r = run(`${HOOKS}/facade/facade-scan.py`, p, "Write", { stdin: true })
           if (r.stdout && r.stdout.trim()) await warn(client, r.stdout)
           if (r.status === 2) throw new Error(blockMsg(r, "facade-scan blocked"))
         }
         // 4. facade-gate.py — block Code/ edits until facade read this session.
-        const r = run(`${HOOKS}/facade-gate.py`, p, m.canonical, { stdin: true })
+        const r = run(`${HOOKS}/facade/facade-gate.py`, p, m.canonical, { stdin: true })
         if (r.status === 2) throw new Error(blockMsg(r, "READ FACADE FIRST"))
         if (r.stdout && r.stdout.trim()) await warn(client, r.stdout)
         // 5. bugs-gate.py — BUGS.md FIXED flips need a regression spec.
-        const k = run(`${HOOKS}/bugs-gate.py`, p, m.canonical, { stdin: true })
+        const k = run(`${HOOKS}/checks/bugs-gate.py`, p, m.canonical, { stdin: true })
         if (k.status === 2) throw new Error(blockMsg(k, "BUGS GATE"))
         if (k.stdout && k.stdout.trim()) await warn(client, k.stdout)
         // 6. spec-read-gate.py — spec-locked module edits need its SPEC.md read first.
-        const s = run(`${HOOKS}/spec-read-gate.py`, p, m.canonical, { stdin: true })
+        const s = run(`${HOOKS}/read/spec-read-gate.py`, p, m.canonical, { stdin: true })
         if (s.status === 2) throw new Error(blockMsg(s, "SPEC GATE"))
         if (s.stdout && s.stdout.trim()) await warn(client, s.stdout)
       }
@@ -110,9 +119,9 @@ export const WorkspacePolicy = async ({ client }) => {
       const msgs = []
       if (m.group === "read") {
         for (const p of payloads) {
-          const r = run(`${HOOKS}/facade-tracker.py`, p, "Read", { stdin: false })
+          const r = run(`${HOOKS}/facade/facade-tracker.py`, p, "Read", { stdin: false })
           if (r.stdout && r.stdout.trim()) msgs.push(r.stdout.trim())
-          const c = run(`${HOOKS}/context-tracker.py`, p, "Read", { stdin: false })
+          const c = run(`${HOOKS}/read/context-tracker.py`, p, "Read", { stdin: false })
           if (c.stdout && c.stdout.trim()) msgs.push(c.stdout.trim())
         }
       } else {
