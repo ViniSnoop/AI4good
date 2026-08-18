@@ -342,9 +342,40 @@ has a moment of its own and guards at invocation, which buys a per-row behaviour
 one answer for the group. What is left is `hooks`, `context-tree` and `brain` — **one enforcement
 file apiece, one call per row, mechanical**.
 
-**One open finding, deliberately not cleaned up:** `codeburn` is an externally installed npm binary
-with no wrapper of ours to guard. It is **not** quietly marked `n/a` — AD-14 closes that set at five,
-and admitting a sixth is Lucas's ruling.
+6. 🟢 **`core/features.txt` declares five groups and they are not this workspace's five layers.**
+   Lucas, 2026-08-17: *"the design we had (at least in my head) was hooks, tools, skills, agents,
+   flows. is there something else that doesn't fit on those?"* — and separately, that **"registry"
+   should just be called Features**, since that is the filename and the rest was jargon layered on
+   top. Both hold up when checked against all 56 rows.
+
+   **What the groups actually are.** `capabilities` is 7 tools + 1 hook + 2 third-party toolchains.
+   `context-tree` and `brain` name no directory at all — every wired row in both points into
+   `core/hooks/`; they are *themes over hooks*. The file's own header claims the group column
+   *"matches the tree, so a feature is findable"* and that the file *"does not invent a third
+   vocabulary."* **Neither survives `ls core/`.** That is the finding, and it is one shell command
+   deep, which is the part worth remembering.
+
+   **The target vocabulary is the one already in the tree**: `hooks · tools · skills · agents ·
+   flows · norms`. A feature is one of those or a **combination** — `caveman` is a skill plus a
+   hook, `context-chain` is three hook files. `norms` is the new sixth: rules that exist only as
+   written words and are obeyed rather than enforced. It pairs with `file_law.py` / `schema_law.py`
+   / `feature_law.py`, which hold the ENFORCED half — **law versus norm is exactly the
+   ENFORCED/INDUCED line**, so the contrast documents itself.
+
+   **Four rows fit none of the six, and they are the same four already carrying `n/a`**:
+   `python-runtime` (the .venv), `tool-shebangs`, `latex`, `apptime-verify`. All are third-party
+   machine state this workspace does not author — which is the codeburn ruling exactly, so it
+   applies unchanged: a `SETUP.md` step and a `deps.txt` dependency, not a feature. **Dropping them
+   empties the `n/a` column, and the target of zero stops having exceptions.** `google-auth` is the
+   one `n/a` that stays and becomes wirable: `core/tools/auth/gauth.py` is ours, so it is a tool.
+
+   **Two of the six have no rows at all today** — `agents` and `flows` are undeclared, unswitchable
+   and invisible to the ablation — and `norms` has none either, so every INDUCED rule in `AGENTS.md`
+   is currently unregistered. That last gap is what blocks Front 14's stated intent to ablate
+   `AGENTS.md` itself, so this is its precondition and not a tidy-up.
+   Touches `core/features.txt`, `core/profile.txt`, `feature_law.py`'s `GROUPS`, `test_features.py`,
+   `SETUP.md`, and `core/SCHEMA.md` § Vocabulary — which defines three terms today and neither
+   *feature* nor *norm*. → **tier: medium**, one group per commit.
 
 5. 🟡 **the public scaffold repo and its one-way sync.** A **separate public repository**, not a
    branch — personal history never leaves this repo, where a branch would carry every commit that
@@ -534,6 +565,46 @@ refiled there, and a finding worth keeping goes into the `SPECS.md` section that
    **Do not design this before item 2 reports** — if goal files turn out to be read rarely, the fix
    is not a stronger link to them.
    → **tier: medium**.
+
+## Front 17 — the workspace describes itself wrongly, and the description is what we build on
+
+Lucas, 2026-08-17, after the fourth correction in one session: *"I am quite tired of phrases like
+'the roadmap item was factually wrong'… all we do here are Opus sessions, we have verifications and
+other guards, and yet these appear more often than not. I am WARNING us that this is shady and WE
+MUST find a way to avoid this… it is taking away all my confidence that we are actually making
+progress."* His diagnosis, which is the sharper half: *"you, the model, infer and decide tons of
+directions from just a wind of thought, making it a hard truth."*
+
+**Four specimens from that one session, and they share a shape.** The handoff asserted a group seam
+was needed where none was; AD-14 asserted capabilities had nowhere to put a call, reasoning from
+skills and generalising; the context-meter item asserted an offer was unbuilt while it sat in the
+message string; `core/features.txt`'s header asserted its groups match the tree. Every one is a
+**claim about our own codebase, written into a durable file, with no probe attached** — and each was
+then inherited by a later session as settled fact. A fifth, mine, in the same hour: four consecutive
+reports that a token had not been written, made by checking a directory the tool does not write to,
+while the tool printed its real path on its own last line.
+
+**The asymmetry that makes this tractable.** This workspace already has the discipline — for
+*numbers*. *"Re-run it, never quote it"* is everywhere and it works; `entropy.md`, `session/usage`
+and `--findings` are all quoted-from-nowhere by rule. There is **no equivalent for structural
+claims**: *"nothing calls X"*, *"there is nowhere to put Y"*, *"Z is unbuilt"*, *"these groups match
+the tree"*. Those are strictly **cheaper** to verify than any number — one `grep`, one `ls`, one run
+— and nothing asks anyone to. Guarded the expensive claims, left the cheap ones open.
+
+**This is not Front 15 and the difference is load-bearing.** That front is about technical opinions
+on the *outside world*, where the fix is search and a knowledge store. This is **self-description**,
+where the answer is already on disk and simply was not read.
+
+1. 🔴 **Open with a research and design sitting, and build nothing before it.** Ruled 2026-08-17: it
+   gets its own front and its own session. Candidate mechanisms, none chosen — picking one from a
+   wind of thought would be the same failure the front exists to name: a structural claim must carry
+   the command that falsifies it; handoffs may not restate a claim without its probe (the handoff is
+   the *amplifier* — it is how the seam claim reached today's session pre-loaded as fact); an
+   adversarial step in the flows; a defined vocabulary, since several of these were category errors
+   a glossary prevents at source (`core/SCHEMA.md` § Vocabulary defines three terms).
+   **Bring evidence, not intuition**: the specimens above are dated and re-checkable, and the first
+   work is deciding what a *provable* claim about our own code looks like.
+   → **tier: high**, with Lucas, in a session about this and nothing else.
 
 ## Declared but unbuilt — a rule with a `SPECS.md` section and no implementation
 

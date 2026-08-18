@@ -33,12 +33,6 @@ No flow is privileged — the exemplar is `flows/_template.md` (see [SCHEMA.md](
       add `engineering` to the enum, give `craft`/`route`/`architect` real frontmatter (`type`,
       `confirm`, `agents`), delete the path exemption in `sync-skills`. The `uses:` DAG check already
       covers the cluster, so only the type layer is unguarded.
-- [ ] **The other three accounts have no `slides-write` grant.** `personal` was consented on
-      2026-08-14 to prove remote editing works; `cin` and `ufrpe` still hold read-only slides
-      tokens (and `personal`'s read token is dead, which no longer matters — a read now uses the
-      write grant when the alias has one). Run `core/tools/slides/gslides auth <alias> --write`
-      for the other two **when a deck on that account actually needs editing**, not before: each
-      one costs Lucas a consent screen, and the account it must be is in the message.
 - [ ] **Slides motion — the capability question is answered; what is left is a `frames` command.**
       Measured 2026-08-14: per-object motion tweens are **not** in the API surface, but the fallback
       Lucas named *is* — `duplicateObject` (with an `objectIds` map) plus
