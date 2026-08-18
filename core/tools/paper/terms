@@ -65,7 +65,7 @@ def scan(paper: Path, terms: dict[str, list[str]], strict: bool) -> list[tuple[P
 
 
 def main() -> int:
-    tool_law.require('paper-tools')  # before argparse: off means off.
+    tool_law.require('latex')  # before argparse: off means off.
     # One of four entrypoints this capability lives in; the registry names
     # core/tools/paper/papers as primary. Guarding all four is what stops the
     # ablation measuring a feature nobody removed whole (core/SPECS.md AD-14).

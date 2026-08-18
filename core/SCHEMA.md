@@ -14,6 +14,19 @@ concepts. This is **data, not a rule** — which is why it lives here and not in
 | **craft flow** | the `/craft` skill, `core/flows/craft/` (retired spellings: § Retired tokens) |
 | **Front** | a top-level workstream in `ROADMAP.md` (retired spelling: `Frente`) |
 
+### Terms with one meaning
+
+The table above resolves two spellings to one concept. These resolve one word to one **definition**,
+and they were added (2026-08-17) because their absence produced category errors that survived weeks:
+the registry filed a TeX toolchain and a `.venv` as features, and no word existed for a rule that is
+written down and obeyed but never enforced.
+
+| Term | Definition |
+|------|------------|
+| **feature** | A capability **this workspace authors** that can be switched off in-process, declared in [`features.txt`](features.txt). Third-party machine state is not a feature — it is a `SETUP.md` step plus a `core/tools/deps.txt` line. The test: if switching it off leaves nothing running to observe the difference, it is substrate, not a feature |
+| **layer** | One of `hooks · tools · skills · agents · flows · norms` — each names a directory under `core/`, except `norms`. A feature is one layer or a combination of them |
+| **norm** | A rule that exists only as written words and is obeyed rather than enforced — the INDUCED half of the line whose ENFORCED half is `file_law.py` / `schema_law.py` / `feature_law.py`. A norm that acquires a checker stops being a norm and becomes a hook |
+
 **Why `Front` and not `Workstream`** — ruled 2026-08-16 (Lucas). *"progress on several fronts"* is
 ordinary English for parallel areas of effort, which is exactly what these are, so the word carries
 the meaning without the military or meteorological reading a bare *front* invites. It also keeps the

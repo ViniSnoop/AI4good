@@ -46,8 +46,6 @@ toggle	gitlink-gate	on
 toggle	gitignore-self-heal	on
 toggle	lint-typescript	on
 toggle	declared-deps	on
-toggle	python-runtime	on
-toggle	tool-shebangs	on
 toggle	opencode-plugin	on
 toggle	brain-dashboard	on
 toggle	brain-attention	on
@@ -62,11 +60,9 @@ toggle	web-search	on
 toggle	google-auth	on
 toggle	mail-triage	on
 toggle	notes-notion	on
-toggle	paper-tools	on
 toggle	video-text	on
 toggle	asset-inspect	on
 toggle	latex	on
-toggle	apptime-verify	on
 toggle	caveman	on
 toggle	craft	on
 toggle	roundup	on

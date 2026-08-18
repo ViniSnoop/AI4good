@@ -26,10 +26,19 @@ def test_the_steps_region_exists():
 
 
 def test_every_step_declares_its_feature():
-    """The join to the feature registry: skip a step, lose exactly the capability it names."""
+    """The join to the feature registry: skip a step, lose exactly the capability it names.
+
+    `> substrate: yes` is the one alternative, and it is a ruling rather than an escape hatch
+    (2026-08-17): the venv and the absolute shebang install what every capability RUNS ON, so
+    they have no registry row to join to — switching off the interpreter the switch itself
+    executes on cannot produce an ablation signal. Anything else must name its capability.
+    """
     for name, body in _steps():
-        marker = re.search(r'^> feature: `([a-z0-9-]+)` · agent: (yes|no)$', body, flags=re.M)
-        assert marker, f'step "{name}" has no `> feature: ... · agent: yes|no` line'
+        marker = re.search(r'^> (?:feature: `[a-z0-9-]+`|substrate: yes) · agent: (yes|no)$',
+                           body, flags=re.M)
+        assert marker, (
+            f'step "{name}" has no `> feature: ... · agent: yes|no` line '
+            f'(or `> substrate: yes` if it installs no capability)')
 
 
 def test_an_agent_runnable_step_has_all_three_parts():

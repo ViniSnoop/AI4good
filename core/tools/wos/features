@@ -35,10 +35,15 @@ def _write_toggle(slug: str, value: str) -> int:
 
 
 def _listing(rows: list) -> int:
-    """Grouped, because the grouping is what makes a feature findable in a tree this size."""
+    """Grouped, because the grouping is what makes a feature findable in a tree this size.
+
+    A feature spanning layers is listed under EACH of them. Findability is the whole point of the
+    column, and someone opening core/hooks/ looking for what guards a paper commit should find
+    `latex` there as surely as someone opening core/tools/.
+    """
     toggles = law.load_profile()['toggle']
-    for group in sorted({r['group'] for r in rows}):
-        members = [r for r in rows if r['group'] == group]
+    for group in sorted({g for r in rows for g in law.groups(r)}):
+        members = [r for r in rows if group in law.groups(r)]
         print(f'\n{group}  ({len(members)})')
         for r in members:
             state = MARK.get(toggles.get(r['slug'], 'on'), 'on ')
@@ -68,7 +73,7 @@ def _check() -> int:
     problems += [f'answered but undeclared: {s}' for s in sorted(set(toggles) - declared)]
     problems += [f"{r['slug']}: bad value in a closed column"
                  for r in registry
-                 if r['group'] not in law.GROUPS
+                 if not set(law.groups(r)) <= law.GROUPS or not law.groups(r)
                  or r['enforcement'] not in law.ENFORCEMENT
                  or r['scope'] not in law.SCOPES]
     problems += [f'{s}: answer is neither on nor off' for s, v in sorted(toggles.items())
@@ -99,7 +104,7 @@ def main() -> int:
 
     rows = law.load_registry()
     if args.group:
-        rows = [r for r in rows if r['group'] == args.group]
+        rows = [r for r in rows if args.group in law.groups(r)]
         if not rows:
             print(f'no such group: {args.group!r} — one of {sorted(law.GROUPS)}', file=sys.stderr)
             return 1

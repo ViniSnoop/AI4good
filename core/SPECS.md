@@ -229,13 +229,21 @@ Daí saem **duas rotas de desligamento**, e a coluna `wired` só conhece a prime
 | variante de clone | a variante é montada sem aquilo | só o harness de ablação |
 
 **Toda capacidade é ablatável; nem toda tem chave em processo** (Lucas: *"ALL features of the WOS
-should be toggleable"*). Cinco linhas só têm a segunda rota — `python-runtime` (o `.venv` em que
-todo hook executa: desligar não ablaciona a funcionalidade, ablaciona o instrumento, e nenhum gate
-sobra para responder), `tool-shebangs` (ergonomia de invocação, sem observável para medir), e
-`latex` / `google-auth` / `apptime-verify` (desligar é desinstalar um toolchain de trabalho que o
-usuário faria de qualquer jeito). Elas levam **`n/a` na coluna `wired`, com o motivo na própria
-linha**, e `n/a` quer dizer *"sem chave em processo; ablacionada por variante de clone"* — nunca
-*"isenta"*. `--findings` para de contá-las, e por isso o alvo do contador é **zero**, honestamente.
+should be toggleable"*). `n/a` na coluna `wired` quer dizer *"sem chave em processo; ablacionada por
+variante de clone"* — nunca *"isenta"* — e `--findings` para de contá-las, o que é o que torna o
+alvo **zero** honesto.
+
+**A coluna `n/a` está VAZIA desde 2026-08-17, e o alvo zero deixou de ter exceções.** As cinco
+linhas que a carregavam não eram casos difíceis; eram **erros de categoria** que a palavra
+*feature* não tinha definição para pegar (agora tem: [`SCHEMA.md`](SCHEMA.md) § Termos com um
+significado). Três — `python-runtime`, `tool-shebangs`, `apptime-verify` — são estado de máquina de
+terceiros que este workspace **não autora**: viraram passo de `SETUP.md` (marcados `> substrate:
+yes`) mais linha de `core/tools/deps.txt`, que é a regra do codeburn aplicada sem alteração. As
+outras duas estavam **mal arquivadas**, e o teste que as pegou é de uma linha de `grep`:
+`core/tools/auth/gauth.py` é nosso, logo `google-auth` é um tool com momento próprio; e `latex` era
+duas coisas com um slug só — o toolchain `pdflatex` (de terceiros) e a nossa capacidade de papers
+(`hooks/stubgen/tex-*` mais a família `core/tools/paper/`), que é uma feature comum e agora é a
+linha `latex`, grupo `hooks+tools`.
 
 **O palpite que abriu isto estava errado, e errado da forma cara.** A suspeita era que dois grupos
 inteiros — os "fatos de instalação" e `capabilities` — não tinham significado de desligado.
@@ -258,6 +266,14 @@ mediria o custo de algo que ninguém removeu inteiro: o mesmo fracasso silencios
 existe para evitar, um nível abaixo. Regra: **guarde todos os arquivos, nomeie o primário**, e cada
 arquivo não-nomeado cita no comentário quem é o primário. A sonda de comportamento não fecha esse
 buraco sozinha: ela prova que desligar a linha muda **alguma** coisa, não que mudou tudo que devia.
+
+**Corrigido 2026-08-17: a coluna agora guarda TODOS os caminhos, separados por vírgula**, e a sonda
+percorre cada um — *nomear o primário* deixava o resto sem verificação nenhuma, que é exatamente o
+buraco descrito acima. O caso que forçou a mudança prova que não é arrumação: `latex` é um gate de
+pre-commit **mais** a família de tools que esse gate chama, então uma chave que parasse só o tool
+faria `core/hooks/gates/duplication-and-terms.sh` ler a recusa do tool (exit 69) como violação de
+terminologia e **bloquear justamente o commit que o desligamento existia para liberar**. Uma feature
+que atravessa camadas só é honesta quando toda camada consulta a lei.
 Cobertura parcial continua sendo trabalho de quem fia, não do teste.
 
 **As 57 linhas não são 57 tarefas, e o teste de honestidade é o que decide isso.** Os grupos

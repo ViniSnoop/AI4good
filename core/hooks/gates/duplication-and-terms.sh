@@ -19,7 +19,15 @@ if [ -n "$FACADE_FILES" ]; then
 fi
 
 # ── 3. Term consistency check (papers with terms.yaml) ────────────────────────
+# The `latex` feature's hooks half. It MUST be guarded, and not as bookkeeping: the tool this
+# section calls carries the same switch, so without this check a disabled `latex` would make
+# core/tools/paper/terms exit 69 and the `if !` below would read that refusal as a terminology
+# violation — blocking the very commit the switch was thrown to relax. A feature spanning two
+# layers is only honest when both layers consult the law (core/SPECS.md § AD-14).
 TEX_STAGED=$(echo "$STAGED" | grep '\.tex$' || true)
+if ! python3 /mnt/workspace/core/hooks/feature_law.py --enabled latex; then
+  TEX_STAGED=""
+fi
 if [ -n "$TEX_STAGED" ]; then
   PAPER_ROOTS=$(echo "$TEX_STAGED" | xargs -I{} dirname {} | sort -u | while read -r d; do
     # Walk up to the directory that contains terms.yaml

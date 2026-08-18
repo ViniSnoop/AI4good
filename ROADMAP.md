@@ -385,12 +385,17 @@ file apiece, one call per row, mechanical**.
    / `feature_law.py`, which hold the ENFORCED half — **law versus norm is exactly the
    ENFORCED/INDUCED line**, so the contrast documents itself.
 
-   **Four rows fit none of the six, and they are the same four already carrying `n/a`**:
-   `python-runtime` (the .venv), `tool-shebangs`, `latex`, `apptime-verify`. All are third-party
-   machine state this workspace does not author — which is the codeburn ruling exactly, so it
-   applies unchanged: a `SETUP.md` step and a `deps.txt` dependency, not a feature. **Dropping them
-   empties the `n/a` column, and the target of zero stops having exceptions.** `google-auth` is the
-   one `n/a` that stays and becomes wirable: `core/tools/auth/gauth.py` is ours, so it is a tool.
+   **Three rows fit none of the six** — `python-runtime` (the .venv), `tool-shebangs`,
+   `apptime-verify`: third-party machine state this workspace does not author, which is the
+   codeburn ruling exactly, so it applies unchanged: a `SETUP.md` step and a `deps.txt` dependency,
+   not a feature. **Dropping them empties the `n/a` column, and the target of zero stops having
+   exceptions.** Both remaining `n/a` rows were misfiled rather than hard, and one `grep` says so:
+   `core/tools/auth/gauth.py` is ours, so `google-auth` is a tool; and **`latex` was two things
+   wearing one slug** — the third-party `pdflatex` toolchain, and our own paper capability
+   (`hooks/stubgen/tex-*`, `tex_interface_parser.py`, `paper-scaffold.py`, the `core/tools/paper/`
+   family, `.texif` in `file_law.py`). The claim written here that *all* four were unauthored by us
+   was false, and it is a Front 17 specimen of exactly the shape that front names: a structural
+   claim about our own tree, durable, with no probe attached.
 
    **Two of the six have no rows at all today** — `agents` and `flows` are undeclared, unswitchable
    and invisible to the ablation — and `norms` has none either, so every INDUCED rule in `AGENTS.md`

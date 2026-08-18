@@ -6,14 +6,16 @@
 import json
 import subprocess
 import sys
-from pathlib import Path
 
 import pytest
 
 import session_turns
+from conftest import WORKSPACE_ROOT
 from session_turns import CHARS_PER_TOKEN, turns
 
-USAGE = Path(__file__).resolve().parents[3] / 'tools' / 'wos' / 'session' / 'usage'
+# From conftest, not from parents[n]: a hop count is a second copy of where things are, and it
+# broke silently the day this file moved one directory deeper (2026-08-17).
+USAGE = WORKSPACE_ROOT / 'core' / 'tools' / 'wos' / 'session' / 'usage'
 
 
 def response(context: int, out: int, blocks: list, request: str = 'r1') -> dict:

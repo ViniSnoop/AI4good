@@ -19,7 +19,13 @@ PROFILE_FILE = CORE / 'profile.txt'
 # The closed sets the registry's columns may draw from. Kept here rather than in the data file for
 # the same reason limits.env holds numbers and file_law.py holds the extension list: the values are
 # data, the vocabulary is law.
-GROUPS = {'hooks', 'context-tree', 'brain', 'capabilities', 'skills'}
+#
+# THE SIX ARE THE TREE'S OWN LAYERS (2026-08-17). The previous five named `capabilities`,
+# `context-tree` and `brain`, none of which is a directory — every wired row in the latter two
+# pointed into core/hooks/, so the header's claim that the groups "match the tree" died to `ls
+# core/`. `norms` is the sixth and the only one without code: rules obeyed rather than enforced,
+# the INDUCED half of the line whose ENFORCED half is file_law / schema_law / feature_law.
+GROUPS = {'hooks', 'tools', 'skills', 'agents', 'flows', 'norms'}
 ENFORCEMENT = {'blocks', 'warns', 'generates', 'advises', 'none'}
 SCOPES = {'general', 'lucas'}
 
@@ -86,6 +92,16 @@ def setting(key: str, default: str = '') -> str:
     return load_profile()['setting'].get(key, default)
 
 
+def groups(row: dict) -> list:
+    """The layers this feature is built from — one, or several joined by `+`.
+
+    A feature is a layer or a COMBINATION of them: `caveman` is a skill plus a hook, `latex` is a
+    pre-commit gate plus a tool family. Every part still names a directory, which is the property
+    the group column exists to give and the old five-group set could not keep.
+    """
+    return [g for g in row.get('group', '').split('+') if g]
+
+
 def is_wired(row: dict) -> bool:
     """Does this row have an in-process switch?
 
@@ -95,6 +111,19 @@ def is_wired(row: dict) -> bool:
     module's (core/SPECS.md § AD-14). Everything else either names a file or is a finding.
     """
     return row.get('wired', '-').split()[:1] not in ([], ['-'], ['n/a'])
+
+
+def wired_paths(row: dict) -> list:
+    """Every file that switches this feature off, in declaration order.
+
+    Several when the feature spans layers, and the plural is load-bearing rather than tidy:
+    `latex` is a pre-commit gate AND the tool family that gate calls, so a switch that stopped only
+    the tool would leave the gate treating the tool's refusal as a violation and BLOCK the commit
+    it was meant to relax. A row is honest only when every point that enforces it consults the law.
+    """
+    if not is_wired(row):
+        return []
+    return [p for p in (s.strip() for s in row['wired'].split(',')) if p]
 
 
 def findings() -> list:

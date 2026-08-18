@@ -16,12 +16,19 @@ this file for agents that support skills; it adds nothing, and this file never d
 | Part | Contract |
 |---|---|
 | `> feature:` | which capability the step installs. Skip the step, lose exactly that capability |
+| `> substrate: yes` | installs no capability — it installs what every capability *runs on*. Skip it and nothing works, so there is nothing to ablate and no registry row |
 | **Precondition** | a command that says whether the step is *already done*. Run it first, always |
 | **Install** | idempotent. Running it twice must be a no-op, never a second copy |
 | **Verify** | a command proving the thing works. **A step is done when its probe passes, never when its config looks right** |
 
 `agent: no` marks the short list an agent cannot finish alone — an API key, a consent screen, a
 device pairing. Each says exactly what to ask for. Everything else, run without asking.
+
+**Two steps are `substrate`, and the distinction is the ablation's, not bookkeeping** (2026-08-17):
+the venv and the absolute `#!` line every `core/tools/` CLI carries. Both were registry rows until
+they were read properly — switching off the interpreter that the switch itself runs on produces no
+signal, and a shebang a clone rewrites once is repair, not a toggle. Third-party machine state this
+workspace does not author is a step here plus a `core/tools/deps.txt` line, never a feature.
 
 **Sections are named, never numbered** — a number is a pointer that goes stale the first time a
 step is added, and two of them already had.
@@ -63,7 +70,7 @@ line made executable: the `scope` column says which rows are personal.
 <!-- steps:start -->
 
 ## Workspace path
-> feature: `tool-shebangs` · agent: yes
+> substrate: yes · agent: yes
 
 Every tool under `core/tools/` runs on `#!/mnt/workspace/.venv/bin/python3`, because the venv holds
 the declared dependencies and the system interpreter holds none of them. A shebang cannot resolve a
@@ -91,7 +98,7 @@ for f in $(find core/tools -type f ! -name "*.*"); do head -1 "$f"; done | sort 
 Substitute your real path for `/mnt/workspace` in every command below, too.
 
 ## The venv
-> feature: `python-runtime` · agent: yes
+> substrate: yes · agent: yes
 
 One virtualenv at the workspace root, shared by every tool and the test suite. Nothing here is
 per-project — `code/*` repos own their own environments.

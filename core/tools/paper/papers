@@ -90,7 +90,7 @@ def _ss_search(query, n, min_cit, reviewed_only):
     return {'source': 'semantic_scholar', 'results': out}
 
 def main():
-    tool_law.require('paper-tools')  # before argparse: off means off
+    tool_law.require('latex')  # before argparse: off means off
     p = argparse.ArgumentParser()
     p.add_argument('query', nargs='?', default='')
     p.add_argument('--n', type=int, default=10)
