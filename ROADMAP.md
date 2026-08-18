@@ -38,11 +38,16 @@ fills a tier is data and lives in [`core/flows/craft/routing.md`](core/flows/cra
 never here** — a ledger that names a vendor's model goes stale the day that model does.
 🔴 needs Lucas · 🟡 pilot on one subtree first · 🟢 mechanical.
 
-**Five open steps need Lucas's own judgment: 9.5, 10.6, 12.2, 15.1, 17.1** — the single list, quoted
-here and nowhere else. Everything else is agent work. All five are *research-and-discussion* items
-rather than questions with options attached, which is what he asked for on 2026-08-17 in every case:
-a feature nobody gave a fair trial, a repo that may belong inside this one, a file whose type the
-root does not allow, a store nobody has scoped, and a front too big to decide as a side question.
+**Nine open steps need Lucas's own judgment: 4.11, 4.12, 9.5, 10.6, 12.2, 15.1, 15.2, 17.1, 18.1** —
+the single list, quoted here and nowhere else. Everything else is agent work, and all nine are
+*research-and-discussion* items rather than questions with options attached, which is what he has
+asked for in every case.
+
+**It went 5 → 9 on 2026-08-18, and the jump is the point rather than a backlog failure.** Lucas:
+*"sometimes the WOS is growing with decisions I didn't recall making… I want to understand those
+better and aid on the decision process."* Four items moved to 🔴 that morning because he asked to be
+in them, not because they got harder. **Take 18.1 first** — it is the sitting about how these
+decisions get made at all, and it may well change what the other eight look like.
 Stating that number is part of the cure for feeling lost, so **keep it true** — it has been wrong
 four times: once claiming one while five were live; once (2026-08-16) carrying four items marked 🔴
 whose own `→ tier:` line said medium; once holding *two* lists of the same set, here and in
@@ -198,6 +203,28 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
     **Not a rush job** (Lucas, 2026-08-18): *"my tendency is to refactor to one shared seam first but
     I do not want to do this in a rush and risk these features to be hindered."* The guard went in
     first precisely so the refactor is not carrying two jobs at once. → **tier: medium**.
+
+11. 🔴 **the opencode shim was dead for weeks and no check could have noticed.** All eleven of its
+    gate spawns pointed at `core/hooks/<script>` after those scripts moved into `read/`, `checks/`
+    and `facade/` in the 2026-07-31 split. Repointed 2026-08-18, but the paths were only found by
+    reading them: **nothing asserts that a shim's script paths resolve**, so the second harness's
+    gate coverage is claimed rather than known. Lucas had the same item in the INBOX the same day
+    (*"fully recover / adjust opencode wiring"*), which is the confirmation that repointing was not
+    the whole ask.
+    The decision is not how to write the check — it is whether opencode is still a runtime we
+    support, because the answer sets how much this is worth. **Lucas asked (2026-08-18) to be walked
+    through this rather than have it decided for him.** → **tier: medium** once decided.
+
+12. 🔴 **a new top-level directory silently costs two commits.** `core/norms/` could not be staged
+    until the pre-commit `.gitignore` self-heal added its allowlist line, and the heal runs *inside*
+    the commit that needs it — so the commit that added the generated `AGENTS.md` shipped without the
+    files it was generated from, and a clone at that commit regenerates an empty rule block. It
+    self-corrected one commit later and nothing was lost, which is exactly why it will keep
+    happening.
+    Two ways out and they are not equivalent: heal *before* staging so one commit always suffices,
+    or leave the behaviour and document it as the cost of a fail-closed allowlist. **Lucas asked
+    (2026-08-18) to be walked through this rather than have it decided for him.**
+    → **tier: medium** once decided.
 
 ---
 
@@ -644,6 +671,22 @@ Three sub-questions, in the order they can be answered:
    it). A third store is the failure named EDIT > CREATE, so resolving the collisions is the first
    work item, not a caveat.
    → **tier: high**, with Lucas, in a session about this and nothing else.
+
+2. 🔴 **a check that greps for a name is not evidence, and one of ours proved it by passing wrongly.**
+   `test_features_wiring.py` asked whether a row claiming a switch really had one by checking that
+   the feature's slug appeared somewhere in the named file. On 2026-08-18 the `symmetry` norm
+   **passed that check by accident** — on the word *asymmetry*, in an unrelated comment, in a file
+   that never mentioned the norm at all. The registry would have reported the rule as switchable
+   while nothing switched it: the exact silent pass this front exists for, inside the test written
+   to prevent it.
+
+   Fixed where it was found — that file's grep is now scoped and the real work is done by
+   behavioural checks that run the feature both ways. What is **not** done is the sweep: **how many
+   other checks in this repo prove a name is present rather than that a behaviour happened**, which
+   is [`core/SPECS.md`](core/SPECS.md) § Conventions applied to our own suite for the first time.
+   **Lucas asked (2026-08-18) to be walked through this rather than have it decided for him.**
+   → **tier: medium**, and it is the cheapest item in this front by a wide margin.
+
 **Do not open this with a prompt rule.** That is the cheapest-looking move and the one the evidence
 above already rejects.
 
@@ -730,6 +773,64 @@ where the answer is already on disk and simply was not read.
    **Bring evidence, not intuition**: the specimens above are dated and re-checkable, and the first
    work is deciding what a *provable* claim about our own code looks like.
    → **tier: high**, with Lucas, in a session about this and nothing else.
+
+## Front 18 — Lucas can no longer read his own workspace, and that is the root cause
+
+Lucas, 2026-08-18, closing the session that drained the feature registry: *"sometimes the WOS is
+growing with decisions I didn't recall making… some words that are hard for me to instantly
+understand are ledger, seam, probe… I feel sometimes things are growing and I am losing the
+understanding of what is happening in WOS. this whole renaming / wiring of features, hooks, tools,
+etc, was due to that in my opinion."*
+
+**That last clause is the finding.** The feature registry, the group rename, the `capability` sweep —
+weeks of work — were all downstream attempts to fix a legibility problem nobody had named. Treating
+them as separate cleanups is why each one only helped for a while. His two rules, in his words:
+
+1. **Language is the thing.** *"this whole WOS is meant for LLMs, language IS the thing"* — so a
+   word chosen badly is not a documentation defect, it is a defect in the system itself. Semantic
+   symmetry is part of it: one idea, one word, everywhere.
+2. **Simpler, better organised, more often than not.** *"our language choices can be simpler… this
+   would help me and you (harness+model)."* Both readers, not just the human.
+
+This front never closes. It is the standing check that the workspace stays understandable to the
+person who owns it, and the place to route the next *"when was that decided?"*
+
+1. 🔴 **Open with a sitting: what is this front, and is it a front at all.** Lucas: *"not sure if
+   this is a new front, or a standalone task."* Filed as a front because it is standing rather than
+   finishable, and because it has three separate halves below — but that is a ruling to confirm, not
+   a decision to inherit. Bring the three halves and decide which are real.
+   → **tier: high**, with Lucas, first.
+
+2. 🟡 **Replace the words that need a glossary to be read.** A definition is a patch; the fix is the
+   plain word. Named by Lucas: **ledger**, **seam**, **probe**. Found beside them in one pass over
+   our own prose: **ratchet**, **corpus**, **substrate**, **fanout**, **hop**, **shim**, **spine**,
+   **surface**, **law**, **drift**, **honesty test**, **boy-scout**. Some earn their keep and some
+   are showing off, and telling those apart is the work — *gate* is worth its definition, *seam*
+   almost certainly is not (it means "the place the switch goes").
+
+   Two products, in order: a **plain-word replacement** per term that survives the cut, applied
+   across the corpus the way `capability` → `feature` was; and the survivors defined in **one place**
+   — [`core/SCHEMA.md`](core/SCHEMA.md) § Vocabulary already holds three definitions and is the home,
+   so nothing new gets built for this. **A word is only allowed to survive if a sentence using it
+   reads worse without it.** → **tier: medium**, after the sitting.
+
+3. 🟡 **Draw the workspace, and generate the drawing.** Lucas: *"I would love to see diagrams,
+   charts, graphs maybe, whatever best represents how WOS is today and how it is changing."* Two
+   different pictures and they should not be one file: **what it is** (the layers, what enforces
+   what, what reads what) and **what it is becoming** (what changed, at what rate).
+
+   **Generate it from the tree, never draw it by hand** — a hand-drawn map is the exact failure
+   `CONTEXT.md` routing tables exist to prevent, and it would be wrong within a week. The data is
+   already there: `core/features.txt` says what exists and what enforces it, the `CONTEXT.md` chain
+   says what contains what, `entropy.md` says what is drifting. Publish it where Lucas can actually
+   look at it rather than as a file he has to open a viewer for. → **tier: medium**.
+
+4. 🟡 **A session must not decide things quietly.** The complaint under all of the above is
+   *"decisions I didn't recall making."* Cheapest honest fix, and it costs one section: the hand-off
+   names **what this session decided without asking**, separately from what it did. A decision that
+   cannot be stated in one line was too big to take alone, which makes the section a filter as well
+   as a record. [`core/skills/handoff.md`](core/skills/handoff.md), and the shape of the rule belongs
+   in [`core/SPECS.md`](core/SPECS.md) § AD-09 beside the rest of the ritual. → **tier: medium**.
 
 ## Declared but unbuilt — a rule with a `SPECS.md` section and no implementation
 

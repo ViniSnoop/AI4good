@@ -9,6 +9,10 @@
 
 <!-- add entries below, newest first -->
 
+https://www.instagram.com/reel/Db1fYnbyoAX/?igsh=Zng0Y2I2ZXZzMmZq
+será que vale um teste?
+— via aiwbot · 2026-08-18
+
 https://www.instagram.com/reel/DcJ3PUDyIvS/?utm_source=ig_web_copy_link&igsh=NTc4MTIwNjQ2YQ==
 interessado especialmente nos casos em que podemos rodar algo localmente
 — via aiwbot · 2026-08-17
