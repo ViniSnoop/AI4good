@@ -1,7 +1,5 @@
 #!/mnt/workspace/.venv/bin/python3
-# Usage: core/tools/wos/diagram/architecture [--out <path>] [--check] — render the workspace as it
-# is (enforcement matrix, routing spine, folder mass) into one self-contained ARCHITECTURE.html;
-# --check exits 1 when the committed file no longer matches the tree
+# Usage: core/tools/wos/diagram/architecture [--out <path>] [--check] — draw the workspace as it is (enforcement matrix, routing spine, folder mass) into one self-contained ARCHITECTURE.html; --check exits 1 when the committed file is stale
 #
 # Zero-token and deterministic: no model runs, and the output carries no timestamp and no commit
 # sha. That is what makes --check meaningful — the file changes when the WORKSPACE changed, and
