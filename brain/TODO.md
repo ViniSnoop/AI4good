@@ -24,6 +24,7 @@
 - [ ] [wos] checkup de rotina do workspace (INBOX 2026-07-30) — está funcionando como planejado? Rodar `core/tools/test/verify-fast`, ler `entropy.md` (contagem, nunca uma cópia dela), e auditar os 4 critérios de v1 no `/ROADMAP.md` contra o que é verdade hoje. Sessão de leitura + medição; o que virar trabalho vira item de lá, não daqui. **E o checkup precisa de um método** (INBOX 2026-08-13: *"tô com bastante vontade de testar as nossas features do wos. tem que ver uma forma válida de fazer isso"*) — usar as features de verdade, não só verificar que passam; a forma de exercitá-las é parte do que essa sessão tem que descobrir
 - [ ] [ai4good] assistir o reel "pacing the frontier" e decidir se entra nas aulas — ref em `academy/refs/REFS.md`; a extração só trouxe a legenda, então o conteúdo ainda é desconhecido (INBOX 2026-08-17)
 - [ ] [academy] achar e testar o **arXiv Visuals** (paper → explainer animado; link é comment-gated, então achar por fora) — ref em `academy/refs/REFS.md`. Teste honesto: rodar num paper que você conhece a fundo e ver se a ordem "conceito mais difícil primeiro" se sustenta ou se é sumarização com narração. Se sustentar, decide dois usos separados: leitura própria e material de aula (INBOX 2026-08-17, *"this IS for me"*)
+- [ ] [google-migration] mudar a conta Google padrão do Brave para lsf.cin@gmail.com (INBOX 2026-08-18) — primeiro passo da migração abaixo, e o único que não depende de decidir nada
 - [ ] [pandeiro / show-up] confirm Pandeirada time, show up Saturday
 - [ ] [sleep / streak-3] 3 consecutive nights in bed by 00:30
 - [ ] [ic-ufrpe] bolsa IC — NÃO submetido. Bloqueado por 2 pré-requisitos: (1) projeto de pesquisa aprovado no CTA, (2) nomes dos alunos candidatos. Só faz sentido mexer depois disso (2026-07-23)
@@ -39,6 +40,8 @@
 - [ ] [billing] confirmar se o crédito Fable (100 usd até setembro) ainda consome do limite por turno/semanal, ou se é isento (INBOX 2026-07-24)
 - [ ] [isoroll-content] testar geração de imagem via opencode + chave NVIDIA — nanobanana com a key falhou algumas vezes; validar esse caminho alternativo (INBOX 2026-07-24)
 - [ ] [sbc-cotas] checar isenção e prazos — email andreza.leite@ufrpe.br
+- [ ] [google-migration] migrar o calendar de lsf@cin.ufpe.br para lsf.cin@gmail.com (INBOX 2026-08-18) — `core/tools/calendar/gcalendar` já lê as três contas, então a migração é de dados e de conta padrão, não de ferramenta
+- [ ] [ensino] mapear a parte de ensino da vida dentro do WOS e migrá-la inteira para lsf.cin@gmail.com (INBOX 2026-08-18) — o mapa vem antes da migração: hoje o ensino está espalhado entre `academy/classes/`, a fila de download em § drive migration e a conta do cin. Decidir onde ensino mora no WOS, depois mover; senão a migração só reproduz o espalhamento numa conta nova
 
 ## drive migration (cin → local workspace)
 

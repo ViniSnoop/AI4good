@@ -754,6 +754,16 @@ refiled there, and a finding worth keeping goes into the `SPECS.md` section that
    per-type rollup, not a new measurement. Results belong in
    [`core/experiments/`](core/experiments/CONTEXT.md), never in this file.
    → **tier: medium**.
+4. 🟢 **a `forms` tool family, provider leaf `gforms`.** Lucas, INBOX 2026-08-18: *"adicionar o
+   gforms ao WOS."* The shape is already dictated by
+   [`core/tools/SPECS.md`](core/tools/SPECS.md) — a family directory is the feature and the tool
+   inside it is the provider, so this is `core/tools/forms/gforms` beside `calendar/gcalendar` and
+   `files/gdrive`, reusing [`core/tools/auth/gauth.py`](core/tools/auth/gauth.py) rather than
+   minting a second Google credential path. It lands as a row in `core/features.txt` (group
+   `tools`, `runs: on-demand`), a `deps.txt` line and a `SETUP.md` step, which is the whole join.
+   **What is not decided is what it reads** — a form's responses are the useful half and the
+   question is whether that is a new capability or a `files/` download in disguise.
+   → **tier: low**.
 3. 🟡 **then reinforce the goal↔roadmap link, possibly enforced.** Same capture, and deliberately
    second: *"depois gostaria de reforçar a conexão entre os goals e os roadmaps, não sei se tem
    como, talvez até algo ENFORCED"*. Every goal file already carries an `>**owns**` block and every
@@ -878,6 +888,16 @@ person who owns it, and the place to route the next *"when was that decided?"*
    economy, clarity a hard constraint — [`core/refs/REFS.md`](core/refs/REFS.md) § Legibility prior
    art), so the rule is confirmed, not invented.
 
+   **First case run, and it changed what the audit is looking for.** Lucas, 2026-08-18, on the
+   registry's `enforcement: none`: *"what is none… that it does nothing? is none the best word?"*
+   The word was fine; it was carrying **two facts** — "fires by itself and applies no pressure" and
+   "you call it" — and that ambiguity had already made a session report the workspace's capability
+   layer as its largest block of dead weight. The fix was a second column (`runs: automatic |
+   on-demand`), not a better word. **So the audit's first question is whether a confusing term is
+   underspecified rather than badly named**; a rename would have buried the defect under a nicer
+   label. Rejected on the way: `serves` as a replacement value, and `passive`/`active` as the new
+   column's values — `active` collides with "switched on", which this registry declares everywhere.
+
    **A word list beats asking a model, and Lucas proved it while naming the diagram tool** — he
    went to a thesaurus, came back with *architect / blueprint / diagram / scheme*, and picked one.
    So the audit gets an instrument: a small `core/tools/web/thesaurus` over an open synonym API
@@ -885,30 +905,59 @@ person who owns it, and the place to route the next *"when was that decided?"*
    offers candidates; the criterion above still decides. → **tier: low** to build, before the audit
    runs, not blocking it. → **tier: medium** for the audit itself, after the sitting.
 
-3. 🟡 **Draw the workspace — the *is* picture exists and does not yet earn its read.** Lucas, on
-   seeing the first one (2026-08-18): *"right now I am not confident it helps me (with enough impact
-   and easiness) to understand the 1. structure, 2. the strengths, and 3. the gaps. it is not
-   visually informative yet."*
+3. 🟡 **Keep trying shapes for the *is* picture until Lucas can read it, then cut.** The summary
+   layer shipped 2026-08-18 — a heat grid above the tab strip, split by what starts a feature,
+   with five findings under it. **What is open is not "build a summary" but "which drawings earn
+   their place"**, and Lucas set the pace: *"we are still at the level of trying different
+   visualizations to cut it later, so no rush in discarding anything yet."*
 
-   **That is the next work, ahead of the other two pictures**, and it names its own acceptance test:
-   three questions the page must answer at a glance, without study.
+   **The question was restated and it is not the one this row used to hold.** Lucas: *"1) in a
+   glance see if WOS is well tied, if it has loose ends, if it has too much noise, discardable
+   things, see the value in a glance, 2) spot the GAPS, what is missing."* That is a **health**
+   read, not the inventory read the first version answered — an inventory says what is there,
+   health says what is loose, what is dead weight, what is absent. All three original drawings are
+   inventories, which is the deeper reason none of them landed.
 
-   | Must answer | What is there now | What is missing |
-   |---|---|---|
-   | **structure** — what is this workspace made of | a 67 × 23 grid, a 107-node indented tree, a treemap | no *shape* to see: three inventories, none of them a summary. Nothing says "six layers, this is how they stack" before the detail arrives |
-   | **strengths** — what is solid | enforcement strength as a mark per cell | never aggregated: no way to see that a region is *densely* enforced, or that the hard `blocks` gates cluster in two directories |
-   | **gaps** — what is missing or weak | `unwired` flags, an `inferred` label, a coverage line | present as small marks inside dense tables, so the reader has to hunt for the thing they most need to find |
+   **Two shapes are queued and neither is drawn**, both answering Lucas's standing want — *"I am
+   missing seeing some trees, graphs… sequences of thing1 → thing2 → thing3… how things are
+   connected or not."* Where a graph pays is settled by evidence rather than taste: Ghoniem says
+   matrices beat node-link past ~20 nodes ([`core/refs/REFS.md`](core/refs/REFS.md) § Workspace
+   visualization), so the 107-node routing tree is far past it and reads as wallpaper — but:
 
-   **The likely shape of the fix** (not ruled — the next session designs it against the three
-   questions, ideally with Lucas looking): a *summary layer above the detail*, since overview-first is
-   the whole mantra and this page currently opens on maximum detail. Candidates: a layer diagram of
-   the six declared groups as the landing view; per-region strength and gap counts rendered as
-   magnitude rather than as marks to be counted; a gaps view that is a **short list of findings**
-   instead of absences to be spotted; colour carrying enforcement strength so density is visible
-   without reading. **Impact and easiness are the bar** — a picture that needs a legend and two
-   minutes has failed on Lucas's own criterion, whatever it renders.
+   - **the lifecycle sequence**, 10 steps, one band per session moment with its features on it and
+     the on-demand ones drawn detached beside the chain. Its precondition landed with the `runs`
+     column: an automatic feature has a *moment*, an on-demand one has none.
+   - **the wiring fan-in**, ~8 interesting nodes. 68 features resolve to 46 distinct wiring points
+     and two carry 24 of them — `core/tools/wos/skills/mirror.sh` (14) and
+     `core/hooks/routing/norms.py` (10). Architecture the enforcement grid spends 600 cells hiding.
 
-   **Then** the remaining two pictures.
+   Both land in `core/tools/wos/diagram/views/`, **which has room for exactly two more code files
+   before the fanout signal fires**. → **tier: medium**.
+
+   **The picture draws more than the workspace should claim.** Lucas, INBOX 2026-08-18, on seeing
+   it: *"it seems there is too much on WOS, at least according to ARCHITECTURE.html. somehow the
+   specific folder of each paper appears there. in my opinion it should not. WOS is a personal
+   thing but even in this repo it should have some boundaries."* He is reading a real defect and it
+   is the drawing's, not the tree's: the spine renders three levels deep, so `academy/papers/<one
+   paper>` lands on it beside `core/hooks`, and one paper is not a layer of this workspace. The
+   same question the footer already answers for nested repos — *drawn as directories and no
+   deeper* — has never been asked about **content** subtrees. **Decide what the picture's boundary
+   is before adding views to it**, since every new view inherits the answer; the candidate rule is
+   that a directory whose children are instances rather than structure stops at its own name.
+
+   **Two rulings still Lucas's, both raised by an outside critique of the page and neither taken
+   alone.** First, **no number on the page has a target beside it**, so nothing can read as good or
+   bad — that is the deeper reason this session's own findings list opened with a number that was
+   not a defect. A target per finding makes the list judgeable, and two of the targets are
+   undecided, which is itself a finding. Second, `core/features.txt` opens by saying **no feature
+   in this workspace has ever been measured**, and the diagram of the workspace's self-knowledge
+   never says so; that is Front 14's subject and belongs to it rather than here.
+
+   **The cut list is collected and deliberately unspent**, per the pacing above: the treemap
+   answers neither question, the routing spine is 107 nodes to say two numbers, and the tab
+   mechanism hides two thirds of the page from the diff and the printed artifact. **Do not act on
+   it** until the new shapes have been seen — and one candidate is already dead on evidence, see
+   the row below.
 
 4. 🟡 **The other two pictures — *becoming* and *goal*.** *Becoming* is generated from git history;
    *goal* is authored intent, the only one of the three not tree-derived, since the future is not on
@@ -923,10 +972,20 @@ person who owns it, and the place to route the next *"when was that decided?"*
    declared data or is labelled *inferred*; total and fail-loud, printing `parsed N of M` and naming
    what it could not read.
 
+   **A summary does not replace the detail, and that is now measured rather than assumed.** In a
+   41-subject controlled experiment across three countries, an overview beat a state-of-the-practice
+   table by +24% correctness and −12% time, concentrated on exactly the *spread* and *impact*
+   questions Lucas is asking — **but the table stayed faster for precise lookups and the authors
+   conclude the two complement each other** (Wettel, Lanza & Robbes, ICSE 2011,
+   [`core/refs/REFS.md`](core/refs/REFS.md) § The health shelf). So the summary goes *above* the
+   enforcement matrix, and the standing proposal to cut that matrix is dead on evidence.
+
    **The one region still inferred:** there is no machine-readable *hook → when it fires → what it
-   blocks* table, so the firing moment comes from directory convention and the page says so.
-   Building that registry would make the picture fully honest and feed the verification front too —
-   Lucas wants to design it jointly, so it is a candidate for its own sitting.
+   blocks* table, so the firing moment comes from directory convention and the page says so — and
+   it is demonstrably wrong for the norms, which are always-loaded rather than the "on save" their
+   wiring directory implies. Building that registry would make the picture fully honest, is what
+   the lifecycle sequence above needs to stop hatching half its bands, and feeds the verification
+   front too — Lucas wants to design it jointly, so it is a candidate for its own sitting.
    → **tier: medium** for *becoming*; *goal* needs Lucas's intent as input before it can be drawn.
 
 5. 🔴 **Which sectors deserve an `ARCHITECTURE.html`, and what does each one need that the
