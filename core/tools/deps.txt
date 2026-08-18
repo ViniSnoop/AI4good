@@ -1,7 +1,7 @@
 # Every external dependency the core/tools surface needs, declared: what installs it, what probes it, and what its absence breaks. Read by core/tools/wos/deps
 # (the probe runner) and by core/tools/test/wos/test_deps.py (the class check).
 #
-# WHY THIS FILE EXISTS: four capabilities were installed straight into .venv to unblock a tool and
+# WHY THIS FILE EXISTS: four features were installed straight into .venv to unblock a tool and
 # never written down, so a fresh clone lost them SILENTLY — the tool did not crash, it returned a
 # worse answer or a misleading error. The `breaks` column is the cure: it says what the failure
 # LOOKS like, because the expensive case (secretstorage) reads like bad credentials.

@@ -26,7 +26,7 @@ Four criteria. Nothing else gates v1.
 | 1 | **verify-fast green + Tier 0 live** — naming, placement, pointer integrity, size-as-signal deterministic; **this repo** clean, every nested repo on a shrinking baseline | Front 4 | checks live · **read [`entropy.md`](entropy.md) for the count, never a copy of it** |
 | 2 | **One ledger, no duplicates** — this file is the sole wos ledger, verified by scan not eyeball | Front 8 | ✅ **MET 2026-07-30** — `test_no_item_lives_in_two_ledgers` |
 | 3 | **Everything pushed, gitflow-shaped** — every `code/` repo on `main`/`feature/*`, zero unpushed, no repo without a remote | — | ✅ **MET 2026-08-14** — re-run, never trusted: one loop over `find . -name .git` asserting a remote and a legal branch per repo |
-| 4 | **Clonable by a student** — fresh clone gets every capability; deps declared, no undocumented hand-installs | Front 10 | ✅ **MET 2026-08-16** — `SETUP.md` is an executed procedure, every dep declared in `core/tools/deps.txt`, both enforced by `verify-fast` |
+| 4 | **Clonable by a student** — fresh clone gets every feature; deps declared, no undocumented hand-installs | Front 10 | ✅ **MET 2026-08-16** — `SETUP.md` is an executed procedure, every dep declared in `core/tools/deps.txt`, both enforced by `verify-fast` |
 
 Post-v1 validation is `[mvp-validate]`: use the system daily for 30 days, then assess whether it
 reduced mental load. That is the real test and it can only run after v1.
@@ -668,7 +668,7 @@ progress."* His diagnosis, which is the sharper half: *"you, the model, infer an
 directions from just a wind of thought, making it a hard truth."*
 
 **Four specimens from that one session, and they share a shape.** The handoff asserted a group seam
-was needed where none was; AD-14 asserted capabilities had nowhere to put a call, reasoning from
+was needed where none was; AD-14 asserted tools had nowhere to put a call, reasoning from
 skills and generalising; the context-meter item asserted an offer was unbuilt while it sat in the
 message string; `core/features.txt`'s header asserted its groups match the tree. Every one is a
 **claim about our own codebase, written into a durable file, with no probe attached** — and each was
@@ -861,7 +861,7 @@ months anyway. Cheaper than a list nobody reads.
 - **`[task-metric]` closed-vs-created instrument** — measuring the ledger is more ledger; the honest signal is Lucas saying he feels lost, and he does say it.
 - **Retroactive ref→task pairing** — the policy holds going forward; old unpaired refs can rot.
 - **Scaffold update log** (`core/SCAFFOLD-LOG.md`) — the paper thread; git plus this file already carry trigger→change. Revisit only if a paper is actually written.
-- **Shipping `codeburn` as a workspace capability** — an external npm binary we do not author, wired into no gate, run by hand. Ruled 2026-08-17: the registry names what this workspace can switch off in order to measure it, and there is no rule of ours to disable. Deleted from `SETUP.md`, `core/features.txt` and `core/profile.txt` together, which keeps the step ⟺ feature join intact. Install it as a personal tool if you want it.
+- **Shipping `codeburn` as a workspace feature** — an external npm binary we do not author, wired into no gate, run by hand. Ruled 2026-08-17: the registry names what this workspace can switch off in order to measure it, and there is no rule of ours to disable. Deleted from `SETUP.md`, `core/features.txt` and `core/profile.txt` together, which keeps the step ⟺ feature join intact. Install it as a personal tool if you want it.
 - **Downloads unification across devices** — cross-device config, life logistics, not scaffold.
 - **Dated `GOALS.md` attention re-check** — a calendar reminder for 2026-08-06, not a ledger row. Verified *not* a live bug; the 14-day window washes the old history out on its own.
 - **opencode + copilot parity** — aiwbot's own premise; lives in `code/aiwbot/ROADMAP.md`.
@@ -897,19 +897,9 @@ not earn its keep is a candidate for *Rejected*, not the backlog.
 delete-on-completion policy, and this section is where the two-lists asymmetry has bitten twice — so
 it points at work by name and at people by mark, never by number.
 
-**Track A — wire the registry to zero.** One feature per commit: call `feature_law.is_enabled()`
-where the rule is enforced, then name that file in the `wired` column. **`hooks`, `context-tree` and
-`brain` are one call site apiece**, mechanical. **`capabilities` needs a group seam first** — the
-shape to copy is `core/tools/wos/skills/mirror.sh`, which is what lets the whole skills group share
-one wiring point instead of paying a call site per row.
-Read the count from `core/tools/wos/features --findings`, never from here; its target is zero, and
-`n/a` rows are excluded because a switch cannot exist for them, never because wiring one is work.
-Per [`core/SPECS.md`](core/SPECS.md) § AD-14: honesty is a **behavioural probe**, not a grep — and a
-capability living in several files stores them all and names the primary, or the ablation measures
-something nobody removed whole.
-**Cheapest-first is safe now, and was not before.** Ordering by files-touched used to bury the rows
-the study names; all four gates Lucas named for measurement, plus `rtk-compaction`, are already
-wired, so nothing high-signal is left for that ordering to hide. → **tier: medium**.
+**Track A — wire the registry to zero.** Drained 2026-08-18 down to one row, whose blocker is a
+decision rather than work; what is left of the track is Front 10 and needs no separate plan. The
+three layers with no rows at all — `agents`, `flows`, `norms` — are named there too.
 
 **Track B — the one hard chain, because each step is the next one's precondition.**
 1. The **public scaffold repo** at `code/wos/` and its one-way sync. It stopped being a neighbour of

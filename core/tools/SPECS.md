@@ -1,5 +1,5 @@
 # Tools — Specs
-> What must be true of a `core/tools/` capability, and why: how a family is named, what a
+> What must be true of a `core/tools/` feature, and why: how a family is named, what a
 > failure has to hand back, and what work is the agent's rather than Lucas's.
 
 Companion to [`CONTEXT.md`](CONTEXT.md), which says what this directory *is* and routes into it.
@@ -7,9 +7,9 @@ These are the constraints. They live here rather than in the head because `CONTE
 enforced-read type — every session touching this subtree pays for its head, while this file is read
 on demand (core/SCHEMA.md § Placement).
 
-## Naming: the directory is the capability, the file is the provider
+## Naming: the directory is the feature, the file is the provider
 
-**A family directory is a capability; the tool inside it is the provider.** `mail/gmail`,
+**A family directory is the feature; the tool inside it is the provider.** `mail/gmail`,
 `calendar/gcalendar`, `files/gdrive` — swapping a provider changes a leaf, never a family. This is
 the workspace's provider-agnostic rule applied to the path: function in the directory, vendor at the
 file.
@@ -52,7 +52,7 @@ printf '%s\n' '<secret>' | core/tools/<family>/<tool> auth <alias>
 
 ## Adding a tool
 
-1. Name the file for its **provider**, and put it in the directory named for the **capability** it
+1. Name the file for its **provider**, and put it in the directory named for the **feature** it
    delivers. Never a file at this root.
 2. Create the family directory only when the tool actually lands in it — no empty `sheets/`,
    `docs/`, `maps/` waiting for a someday tool.
@@ -72,7 +72,7 @@ what probes it, which feature owns it, and **what its absence looks like**. `cor
 runs the probes; `core/tools/test/wos/test_deps.py` fails on any third-party import missing a row.
 
 **Why the `breaks` column is the point.** These deps were found because four of them had been
-installed by hand into `.venv` and never written down, so a fresh clone lost the capability
+installed by hand into `.venv` and never written down, so a fresh clone lost the feature
 *silently* — the tool did not crash, it returned a worse answer. The expensive one cost a full
 session: without `secretstorage`, yt-dlp fails with `failed to decrypt cookie (AES-CBC) ... Possibly
 the key is wrong?`, which reads like a wrong password and is a missing module. A dependency list

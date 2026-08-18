@@ -1,7 +1,7 @@
 # Tools
 > CLI tools callable via bash, one directory per family; routing block auto-synced on save.
 
-**A family directory is a capability; the tool inside it is the provider.** `mail/gmail`,
+**A family directory is the feature; the tool inside it is the provider.** `mail/gmail`,
 `calendar/gcalendar`, `files/gdrive` — swapping a provider changes a leaf, never a family.
 
 Naming rules, the auth-failure protocol, and how to add a tool: [`SPECS.md`](SPECS.md).
@@ -17,7 +17,7 @@ core/tools/files/gdrive search --account personal "aula"
 
 ## Subagent tool
 
-The `subagent` capability is runtime-specific and has no CLI wrapper:
+The `subagent` feature is runtime-specific and has no CLI wrapper:
 
 | Runtime | How to spawn a worker agent |
 |---------|----------------------------|
@@ -44,9 +44,9 @@ The `subagent` capability is runtime-specific and has no CLI wrapper:
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
-| [`SPECS.md`](SPECS.md) | — | — | What must be true of a `core/tools/` capability, and why: how a family is named… |
+| [`SPECS.md`](SPECS.md) | — | — | What must be true of a `core/tools/` feature, and why: how a family is named… |
 | [`attachments_util.py`](attachments_util.py) | [`attachments_util.pyi`](attachments_util.pyi) | `safe_name`, `month_dir`, `unique_path` | attachments_util.py — shared filename/dir helpers for Core/tools attachment downloaders (gmail, telegram) |
 | [`auth/gauth.py`](auth/gauth.py) | [`auth/gauth.pyi`](auth/gauth.pyi) | `config_dir`, `get_accounts`, `primary_aliases`, `resolve_alias`, `AuthExpired` | gauth.py — Google's leaf of the auth family: shared OAuth2 for every Google-backed tool |
 | [`deps.txt`](deps.txt) | — | — | Every external dependency the core/tools surface needs, declared: what installs it, what probes it, and what its absence breaks. Read by core/tools/wos/deps |
-| [`tool_law.py`](tool_law.py) | [`tool_law.pyi`](tool_law.pyi) | `require` | tool_law.py — the feature switch for core/tools capabilities: the one guard every CLI entrypoint calls |
+| [`tool_law.py`](tool_law.py) | [`tool_law.pyi`](tool_law.pyi) | `require` | tool_law.py — the feature switch for core/tools features: the one guard every CLI entrypoint calls |
 <!-- routing:end -->

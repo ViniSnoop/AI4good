@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # What is switched ON. The third law module: file_law.py says what a file IS, schema_law.py says
-# what a name MAY BE, this one says which capabilities are live. Like schema_law.py it reads its
+# what a name MAY BE, this one says which features are live. Like schema_law.py it reads its
 # answer out of core/ rather than holding one — the registry is core/features.txt, the answers are
 # core/profile.txt, and neither is restated here.
 #
@@ -76,7 +76,7 @@ def _off_by_env() -> set:
 
 
 def is_enabled(slug: str) -> bool:
-    """Is this capability live right now?
+    """Is this feature live right now?
 
     Fail-open on an unknown slug, and that is the load-bearing choice: a gate must never stop
     enforcing because someone mistyped a row. A feature nobody declared behaves exactly as it did
@@ -127,9 +127,9 @@ def wired_paths(row: dict) -> list:
 
 
 def findings() -> list:
-    """Rows with no switch and no reason: capabilities that cannot be turned off at all.
+    """Rows with no switch and no reason: features that cannot be turned off at all.
 
-    This is the audit, not a warning list. A capability entangled with the scaffold rather than
+    This is the audit, not a warning list. A feature entangled with the scaffold rather than
     sitting on it is invisible to an ablation, so the count is the number the ablation study has
     to drive down before it can measure anything (core/SPECS.md § AD-14). Its target is zero,
     which is only honest because `n/a` carries the rows where a switch cannot exist.

@@ -11,7 +11,7 @@
 | File | Description |
 |------|-------------|
 | [`deps`](deps) | probe every dependency declared in core/tools/deps.txt, reporting what each miss breaks; --check exits 1 on any miss |
-| [`features`](features) | list every toggleable capability from core/features.txt with its answer in core/profile.txt; --findings counts what cannot be switched off; --check exits 1 on any registry/profile disagreement |
+| [`features`](features) | list every toggleable feature from core/features.txt with its answer in core/profile.txt; --findings counts what cannot be switched off; --check exits 1 on any registry/profile disagreement |
 | [`roundup`](roundup) | the deterministic half of the /roundup ritual |
 | [`skills/mirror.sh`](skills/mirror.sh) | Mirror generation for the skill library: listing, symlink mirrors, command-file |
 | [`skills/validate.sh`](skills/validate.sh) | Frontmatter validation for every layer of the agent library — skills, flows, the |

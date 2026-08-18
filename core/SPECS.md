@@ -248,10 +248,10 @@ linha `latex`, grupo `hooks+tools`.
 **O palpite que abriu isto estava errado, e errado da forma cara.** A suspeita era que dois grupos
 inteiros — os "fatos de instalação" e `capabilities` — não tinham significado de desligado.
 `declared-deps` e `verify-suite` são avisos e gates comuns, plenamente desligáveis. E
-`rtk-compaction` — que o palpite jogou no balde de "capability não custa nada até ser chamada" — é
+`rtk-compaction` — que o palpite jogou no balde de "`capabilities` não custa nada até ser chamada" — é
 **o alvo mais valioso da lista inteira**: tem ponto de fiação pronto em
 `core/hooks/compact/bash-compact-rewrite.py`, roda em todo Bash, e `core/tools/deps.txt` já
-precifica sua ausência em *"the session just costs 60-90% more"*. Uma capability que reescreve toda
+precifica sua ausência em *"the session just costs 60-90% more"*. Uma feature que reescreve toda
 saída de ferramenta antes do contexto não é passiva.
 
 **A lição: o grupo não decide se algo é mensurável, o ponto de fiação decide.** Classificar por
@@ -282,7 +282,7 @@ mecânico. Já `skills` (14) não tem onde pôr uma: uma skill é markdown, não
 único desligamento real dela é o mirror recusar-se a publicá-la.
 
 **Corrigido 2026-08-17, ao fiar o grupo: `capabilities` NÃO é o par de `skills`, e juntar os dois foi
-erro.** O raciocínio acima vale para skill e só para skill. Uma capability é uma **CLI que este
+erro.** O raciocínio acima vale para skill e só para skill. Um tool é uma **CLI que este
 workspace escreve**, então ela tem um momento próprio — o momento em que é invocada — e recusar ali é
 observável mais forte do que qualquer publicador compartilhado ofereceria: a sonda de comportamento
 passa a responder **por linha**, não uma resposta só para o grupo inteiro. A costura é
@@ -295,7 +295,7 @@ real.
 **A lição repete a do palpite que abriu esta AD, um nível acima: o grupo não decide nada.** Foi o
 ponto de fiação que decidiu antes (`rtk-compaction` era o alvo de maior sinal do registro e o palpite
 por grupo o descartaria) e é o ponto de fiação que decide agora. `rtk-compaction` continua provando
-isso: é uma capability fiada num **hook**, cujo observável é o que ele reescreve e não um código de
+isso: é uma feature fiada num **hook**, cujo observável é o que ele reescreve e não um código de
 saída, então a sonda das CLIs é escopada por caminho de fiação — nunca por grupo.
 
 **Fica um achado aberto, e de propósito:** `codeburn` é binário npm instalado por fora, sem wrapper

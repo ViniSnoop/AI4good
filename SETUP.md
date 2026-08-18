@@ -1,7 +1,7 @@
 # Workspace Setup
 > How to make this environment work on a new machine: toolchain install and per-machine config.
 
-What the workspace *is* and what each capability buys you: [`README.md`](README.md). What the gates
+What the workspace *is* and what each feature buys you: [`README.md`](README.md). What the gates
 enforce and what a new agent's shim must satisfy: [`core/hooks/SPECS.md`](core/hooks/SPECS.md).
 This file is only the install.
 
@@ -15,8 +15,8 @@ this file for agents that support skills; it adds nothing, and this file never d
 
 | Part | Contract |
 |---|---|
-| `> feature:` | which capability the step installs. Skip the step, lose exactly that capability |
-| `> substrate: yes` | installs no capability — it installs what every capability *runs on*. Skip it and nothing works, so there is nothing to ablate and no registry row |
+| `> feature:` | which feature the step installs. Skip the step, lose exactly that feature |
+| `> substrate: yes` | installs no feature — it installs what every feature *runs on*. Skip it and nothing works, so there is nothing to ablate and no registry row |
 | **Precondition** | a command that says whether the step is *already done*. Run it first, always |
 | **Install** | idempotent. Running it twice must be a no-op, never a second copy |
 | **Verify** | a command proving the thing works. **A step is done when its probe passes, never when its config looks right** |
@@ -44,7 +44,7 @@ config lives only in machine state.
 These are versioned and activate on their own after a clone. They are listed so a newcomer knows
 not to go looking for an install step. They are not steps and have no probes of their own.
 
-| Capability | Why nothing is needed |
+| Feature | Why nothing is needed |
 |---|---|
 | Claude Code hooks | `.claude/settings.json` is in the repo; Claude Code reads it when the workspace is opened, and `core/hooks/` activates immediately |
 | opencode policy plugin | `.opencode/plugins/workspace-policy.js` is a project-level plugin, auto-loaded on startup from the workspace root. Helpers live in `.opencode/wp-helpers.js`, outside `plugins/` so opencode does not load them as a second plugin |
@@ -57,11 +57,11 @@ is why § RTK is a step.
 **Before running the steps below, read your profile** — it decides which of them you need:
 
 ```bash
-core/tools/wos/features                 # every capability, grouped, with your answer
+core/tools/wos/features                 # every feature, grouped, with your answer
 core/tools/wos/features --off <slug>    # one you do not want; its install step is then moot
 ```
 
-`core/features.txt` declares what each capability is for and what it buys you, so a step you are
+`core/features.txt` declares what each feature is for and what it buys you, so a step you are
 about to run can be judged before it is run rather than after. That is the general/Lucas-specific
 line made executable: the `scope` column says which rows are personal.
 
@@ -126,7 +126,7 @@ python3 -m venv .venv              # no-op if .venv already exists
 Every external dependency the tool surface needs is declared in
 [`core/tools/deps.txt`](core/tools/deps.txt) with its install command, its probe, and **what its
 absence looks like**. That last column exists because these were found the expensive way: four
-were installed by hand into `.venv` and never written down, so a fresh clone lost the capability
+were installed by hand into `.venv` and never written down, so a fresh clone lost the feature
 *silently* — the tool returned a worse answer instead of an error. One cost a full session.
 
 **Precondition** — this is the whole step's precondition, install plan, and probe in one command:

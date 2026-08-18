@@ -1,4 +1,4 @@
-# Which capabilities are switched on for THIS machine, and the settings that are not switches.
+# Which features are switched on for THIS machine, and the settings that are not switches.
 # The registry is core/features.txt; this file holds only the answers. Read by
 # core/hooks/feature_law.py, edited through `core/tools/wos/features --on|--off <slug>`.
 #

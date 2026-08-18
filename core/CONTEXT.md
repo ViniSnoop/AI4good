@@ -31,6 +31,6 @@ Ported from Feynman (https://github.com/companion-inc/feynman), adapted for prov
 | [`ROADMAP.md`](ROADMAP.md) | Making the agent library sound: one enforced frontmatter contract per layer… |
 | [`SCHEMA.md`](SCHEMA.md) | The enforced frontmatter contract for skills, flows, and agents, plus the… |
 | [`SPECS.md`](SPECS.md) | Architecture decisions and conventions for the Core agent library. |
-| [`features.txt`](features.txt) | Every toggleable capability this workspace has, declared: what group it belongs to, how hard it |
-| [`profile.txt`](profile.txt) | Which capabilities are switched on for THIS machine, and the settings that are not switches. |
+| [`features.txt`](features.txt) | Every toggleable feature this workspace has, declared: what group it belongs to, how hard it |
+| [`profile.txt`](profile.txt) | Which features are switched on for THIS machine, and the settings that are not switches. |
 <!-- routing:end -->

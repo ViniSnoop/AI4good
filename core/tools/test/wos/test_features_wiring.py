@@ -79,11 +79,11 @@ def test_the_wired_gates_actually_consult_the_law():
 
     They are in different languages on purpose — the `--enabled` CLI arm is what lets a third
     harness wire a gate without a second implementation of the registry. A `core/tools`
-    capability reaches the law through `tool_law`, which carries the sys.path hop; that hop is
+    tool reaches the law through `tool_law`, which carries the sys.path hop; that hop is
     asserted itself, or the indirection becomes a place for the chain to go quietly dead.
     """
     assert 'feature_law' in (WORKSPACE_ROOT / TOOL_LAW).read_text(encoding='utf-8'), (
-        f'{TOOL_LAW} is the capabilities hop and must reach feature_law itself')
+        f'{TOOL_LAW} is the tools-layer hop and must reach feature_law itself')
     for row in law.load_registry():
         for target in law.wired_paths(row):
             body = (WORKSPACE_ROOT / target).read_text(encoding='utf-8')
@@ -91,11 +91,11 @@ def test_the_wired_gates_actually_consult_the_law():
                 f"{target} names {row['slug']} but never asks feature_law whether it is on")
 
 
-def test_a_switched_off_capability_refuses_to_run():
-    """A capability CLI stops at invocation, with its own exit code.
+def test_a_switched_off_tool_refuses_to_run():
+    """A tool stops at invocation, with its own exit code.
 
-    AD-14 files skills and capabilities together as the rows with nowhere to put a call. True of
-    a skill — markdown, switched off only by the mirror declining to publish it. A capability is
+    AD-14 files skills and tools together as the rows with nowhere to put a call. True of
+    a skill — markdown, switched off only by the mirror declining to publish it. A tool is
     a CLI this workspace owns, so it has a moment of its own, and this probe answers per row
     where a shared publisher answers once for the group. `OFF_EXIT` is asserted rather than
     "non-zero": every tool exits 1 on a real failure, so any-non-zero would pass on a broken one.
@@ -117,4 +117,4 @@ def test_a_switched_off_capability_refuses_to_run():
                 f"not stop {target}")
             assert row['slug'] in out.stderr, f'{row["slug"]} stops without naming itself'
             probed.append(row['slug'])
-    assert probed, 'no capability is wired to an entrypoint yet — this probe proves nothing'
+    assert probed, 'no tool is wired to an entrypoint yet — this probe proves nothing'

@@ -23,7 +23,7 @@ written down and obeyed but never enforced.
 
 | Term | Definition |
 |------|------------|
-| **feature** | A capability **this workspace authors** that can be switched off in-process, declared in [`features.txt`](features.txt). Third-party machine state is not a feature — it is a `SETUP.md` step plus a `core/tools/deps.txt` line. The test: if switching it off leaves nothing running to observe the difference, it is substrate, not a feature |
+| **feature** | Something **this workspace authors** that can be switched off in-process, declared in [`features.txt`](features.txt). One layer or a combination of them — a hook, a tool, a skill, an agent, a flow, a norm, or several at once. Third-party machine state is not a feature — it is a `SETUP.md` step plus a `core/tools/deps.txt` line. The test: if switching it off leaves nothing running to observe the difference, it is substrate, not a feature |
 | **layer** | One of `hooks · tools · skills · agents · flows · norms` — each names a directory under `core/`, except `norms`. A feature is one layer or a combination of them |
 | **norm** | A rule that exists only as written words and is obeyed rather than enforced — the INDUCED half of the line whose ENFORCED half is `file_law.py` / `schema_law.py` / `feature_law.py`. A norm that acquires a checker stops being a norm and becomes a hook |
 

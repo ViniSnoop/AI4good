@@ -1,4 +1,4 @@
-# Every toggleable capability this workspace has, declared: what group it belongs to, how hard it
+# Every toggleable feature this workspace has, declared: what group it belongs to, how hard it
 # enforces, whether it is general or Lucas-specific, and whether it can actually be switched off.
 # Read by core/hooks/feature_law.py; the answers live in core/profile.txt.
 #
@@ -21,7 +21,7 @@
 #                for the skills group by test_features.py: `roundup` is core/skills/roundup.md.
 #                Descriptive suffixes read well in a registry and cost a lookup at every other
 #                site, which is how `craft-flow` came to name a file called loops.md whose flow
-#                was called craft — one capability, three spellings, none of them wrong alone.
+#                was called craft — one feature, three spellings, none of them wrong alone.
 #   group        hooks | tools | skills | agents | flows | norms — the tree's own layers, so a
 #                feature is findable by opening a directory. A feature may be a COMBINATION,
 #                written with `+`: `latex` is a pre-commit gate plus the tool family that gate
@@ -41,7 +41,7 @@
 #                rather than tidy: `latex` is a pre-commit gate AND the tool family that gate
 #                calls, so a switch that stopped only the tool would leave the gate reading the
 #                tool's refusal as a violation and BLOCK the commit it was meant to relax.
-#                A `-` IS A FINDING, counted by `core/tools/wos/features --findings`: a capability
+#                A `-` IS A FINDING, counted by `core/tools/wos/features --findings`: a feature
 #                that cannot be switched off is entangled with the scaffold rather than sitting on
 #                it, and the target for that count is ZERO.
 #                `n/a` means NO IN-PROCESS SWITCH, never "exempt" — the feature is still ablatable,
@@ -87,7 +87,7 @@ gitflow-gate	hooks	git-hooks	blocks	general	core/hooks/git/gitflow-gate.sh	Block
 gitlink-gate	hooks	git-hooks	blocks	general	core/hooks/git/nested-gitlink-gate.sh	Blocks committing an undeclared nested gitlink, which is how a nested repo silently becomes a pointer nobody can clone
 gitignore-self-heal	hooks	git-hooks	generates	general	core/hooks/git/gitignore-self-heal.sh	The .gitignore allowlist repairs itself, so a new subtree cannot go untracked and thereby opt out of every check the workspace runs
 lint-typescript	hooks	lint-typescript	blocks	general	core/hooks/gates/lint.sh,core/hooks/postedit/lint.sh	ESLint and Prettier over staged TypeScript, run last because it needs the .d.ts the generators just wrote
-declared-deps	hooks	declared-deps	warns	general	core/tools/wos/deps	Every external dependency is declared with what installs it and what its absence breaks, so a fresh clone loses a capability loudly instead of silently
+declared-deps	hooks	declared-deps	warns	general	core/tools/wos/deps	Every external dependency is declared with what installs it and what its absence breaks, so a fresh clone loses a feature loudly instead of silently
 opencode-plugin	hooks	-	none	general	.opencode/plugins/workspace-policy.js	The provider shim that lets a second harness run the same canonical gates, which is what keeps the enforcement layer provider-agnostic in fact and not just in intent
 brain-dashboard	hooks	-	generates	lucas	core/hooks/brain/brain_stats.py	GOALS.md renders its own attention bars and active-goal table, so the dashboard cannot drift from the goal files it summarises
 brain-attention	hooks	-	none	lucas	core/hooks/brain/brain_attention.py	Counts the commits that actually touched each goal's declared paths, across every repo in the workspace, instead of counting edits to the goal file

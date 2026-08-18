@@ -1,15 +1,15 @@
 #!/mnt/workspace/.venv/bin/python3
-# tool_law.py — the feature switch for core/tools capabilities: the one guard every CLI entrypoint calls
+# tool_law.py — the feature switch for core/tools features: the one guard every CLI entrypoint calls
 #
 # Shares the tools root with attachments_util.py for the same reason: more than one family
 # imports it. It adds nothing to feature_law and restates no rule — it only carries the
-# sys.path hop from a tool to core/hooks, so a capability's entrypoint spends one line on
+# sys.path hop from a tool to core/hooks, so a tool's entrypoint spends one line on
 # being switchable instead of six.
 #
-# WHY A CAPABILITY GUARDS AT ITS ENTRYPOINT. core/SPECS.md § AD-14 groups skills and
-# capabilities together as the rows with nowhere to put a call, and for skills that is
+# WHY A TOOL GUARDS AT ITS ENTRYPOINT. core/SPECS.md § AD-14 groups skills and
+# tools together as the rows with nowhere to put a call, and for skills that is
 # exactly true: a skill is markdown, calls no function, and the only real way to switch it
-# off is the mirror refusing to publish it. A capability is not markdown. It is a CLI this
+# off is the mirror refusing to publish it. A tool is not markdown. It is a CLI this
 # workspace owns, so it HAS a moment of its own — the moment it is invoked — and refusing
 # there is a stronger observable than anything a shared publisher could offer. So these
 # rows take a guard per family rather than a group seam, and the behavioural probe in
@@ -26,11 +26,11 @@ OFF_EXIT = 69
 
 
 def require(slug: str) -> None:
-    """Stop the tool when its capability is switched off, naming the slug and the way back.
+    """Stop the tool when its feature is switched off, naming the slug and the way back.
 
     Called at the top of a CLI entrypoint, before any work. `feature_law.is_enabled` fails
     OPEN on an unknown slug, so a typo here leaves the tool behaving exactly as it did
-    before this module existed — a capability is never lost to a bad line of data.
+    before this module existed — a feature is never lost to a bad line of data.
     """
     if feature_law.is_enabled(slug):
         return

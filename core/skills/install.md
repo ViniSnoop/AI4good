@@ -7,7 +7,7 @@ description: >
 
 # Install
 
-Arguments: $ARGUMENTS — a feature slug to install just one capability, or empty for all of them.
+Arguments: $ARGUMENTS — a feature slug to install just one feature, or empty for all of them.
 
 ---
 

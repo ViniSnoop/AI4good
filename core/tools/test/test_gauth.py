@@ -67,7 +67,7 @@ TOOLS_ROOT = pathlib.Path(__file__).resolve().parents[1]
 def _gauth_clis():
     """Every CLI that authenticates through gauth — found by scan, never by list.
 
-    The list form went stale the moment the tools moved onto the capability axis, which is
+    The list form went stale the moment the tools moved onto the feature axis, which is
     exactly the move this guard has to survive.
     """
     for path in sorted(TOOLS_ROOT.rglob("*")):

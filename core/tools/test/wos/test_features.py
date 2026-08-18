@@ -1,4 +1,4 @@
-# T0 the feature registry's declaration half (core/SPECS.md § AD-14): every capability is declared,
+# T0 the feature registry's declaration half (core/SPECS.md § AD-14): every feature is declared,
 # answered, and inside the closed sets its columns may draw from.
 #
 # The other half — whether a row that CLAIMS a switch really has one — is behaviour, not data, and
@@ -30,7 +30,7 @@ def test_every_setup_step_maps_to_a_declared_feature():
     """SETUP.md's slugs are install-shaped, so they join on the `install` column.
 
     This is half of what keeps three files one vocabulary instead of three. Adding an install step
-    with a new slug fails here until the registry says which capability that step installs.
+    with a new slug fails here until the registry says which feature that step installs.
     """
     installs = {r['install'] for r in law.load_registry()} - {'-', ''}
     missing = sorted(_setup_slugs() - installs)
@@ -39,7 +39,7 @@ def test_every_setup_step_maps_to_a_declared_feature():
 
 
 def test_every_dependency_feature_is_a_declared_feature():
-    """deps.txt's slugs are breakage-shaped: each names a capability, so they join on `slug`."""
+    """deps.txt's slugs are breakage-shaped: each names a feature, so they join on `slug`."""
     missing = sorted(_deps_slugs() - law.slugs())
     assert not missing, (
         'core/tools/deps.txt names features absent from core/features.txt:\n  ' +

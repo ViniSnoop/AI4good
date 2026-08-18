@@ -46,7 +46,7 @@ a rule that gets switched off.
 
 **Navigation — so a big repo does not cost a big context.**
 
-| Capability | What it buys you |
+| Feature | What it buys you |
 |---|---|
 | `CONTEXT.md` chain gate | An agent cannot touch a file in a subtree it has not oriented in — including through `cat` and `grep`, which is where the bypass used to be. It arrives knowing the neighbourhood instead of guessing from a filename |
 | Interface-first reads | Reading a source file is blocked while its generated stub is current, so the agent reads 30 lines of signatures instead of 200 lines of body. The stubs regenerate on every save, so they cannot go quietly stale |
@@ -55,7 +55,7 @@ a rule that gets switched off.
 
 **Restraint — so the codebase does not rot at agent speed.**
 
-| Capability | What it buys you |
+| Feature | What it buys you |
 |---|---|
 | Size limits (warn 150, block 200) | Forces graph-shaped design: small single-responsibility files with explicit imports. An agent that cannot grow a file has to actually decompose it |
 | Duplication gate | jscpd blocks a commit whose staged files clone existing logic. Copy-paste is the failure mode agents are fastest at |
@@ -65,7 +65,7 @@ a rule that gets switched off.
 
 **Drift control — so entropy is counted, not felt.**
 
-| Capability | What it buys you |
+| Feature | What it buys you |
 |---|---|
 | The `.md` type system | `UPPERCASE.md` names are a closed allowlist and each answers exactly one question, so there is one place a given fact belongs and inventing a file is a deliberate act. Rules in [`core/SCHEMA.md`](core/SCHEMA.md) |
 | Entropy dashboard | Naming, placement, pointer integrity, fanout and size run as deterministic checks over this repo and every nested one, into [`entropy.md`](entropy.md). A number that must shrink, instead of a feeling that the repo is messy |
@@ -73,16 +73,16 @@ a rule that gets switched off.
 
 **Cost — so long sessions stay affordable.**
 
-| Capability | What it buys you |
+| Feature | What it buys you |
 |---|---|
 | [Caveman](core/skills/caveman/CONTEXT.md) | Compresses the agent's own prose ~65% without touching technical content. Off with a sentence when precision matters |
 | [rtk](https://github.com/rtk-ai/rtk) | Compresses *tool* output — git, test runners — before it reaches the context. 60-90%, transparent, nothing to type |
 | Session close ritual | `/roundup` drains the session's ledgers into durable files and promotes the branch; `/handoff` writes the next session's opening prompt, and refuses when there is nothing open |
 
-## Capabilities beyond the repo
+## Features beyond the repo
 
 [`core/tools/`](core/tools/CONTEXT.md) holds CLI tools callable from any agent's bash — no MCP, no
-per-agent wiring. **The directory is the capability, the file is the provider**, so swapping a
+per-agent wiring. **The directory is the feature, the file is the provider**, so swapping a
 vendor changes a leaf and never a family: `mail/gmail`, `calendar/gcalendar`, `files/gdrive`,
 `slides/gslides`, `notes/notion`, `web/search`, `paper/papers`, `video/video`.
 

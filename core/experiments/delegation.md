@@ -41,7 +41,7 @@ Two readings, and the second is the one that matters:
 ## What changed
 
 The false claim was cut from the wos ledger's agents item and replaced with a pointer here. The
-item itself was **not** closed on this number: a capability that was never given a deliberate trial
+item itself was **not** closed on this number: a feature that was never given a deliberate trial
 is not the same as one that was tried and refused (Lucas, 2026-08-17), and this measurement cannot
 tell the two apart — see Limitations.
 
@@ -50,7 +50,7 @@ tell the two apart — see Limitations.
 - **Scoped to one project directory** (`-mnt-workspace`). Sessions run from another root are not counted.
 - **Usage is not value.** Zero spawns of `core/agents/` measures reach and discovery, not worth. The
   research *tools* those flows wrap are heavily used over the same window — `core/tools/web/search`
-  319, `video/` 771, `notes/` 325, `paper/parse` 163, `paper/papers` 160 — so the capability is
+  319, `video/` 771, `notes/` 325, `paper/parse` 163, `paper/papers` 160 — so the feature is
   exercised daily while the orchestration around it is not. That gap is the finding; its cause is
   not measured here.
 - **`subagent_type` is absent on a spawn that names no type**, and every spawn in this window carried
