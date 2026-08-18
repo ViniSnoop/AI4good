@@ -6,6 +6,10 @@
 
 GITDIR=$(git rev-parse --git-dir 2>/dev/null) || exit 0
 
+# The switch, read through feature_law rather than a second reading of the registry — same law,
+# one parser, same seam as core/hooks/git/gitflow-gate.sh. Off means the commit simply stays local.
+python3 /mnt/workspace/core/hooks/feature_law.py --enabled auto-push || exit 0
+
 # Mid-rebase / mid-cherry-pick: pushing per replayed commit is noise and often rejected.
 if [ -d "$GITDIR/rebase-merge" ] || [ -d "$GITDIR/rebase-apply" ]; then
   exit 0

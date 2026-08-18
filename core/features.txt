@@ -61,13 +61,23 @@
 #                that cannot be switched off is entangled with the scaffold rather than sitting on
 #                it, and the target for that count is ZERO.
 #                `n/a` means NO IN-PROCESS SWITCH, never "exempt" — the feature is still ablatable,
-#                by building a clone variant without it (core/SPECS.md § AD-14). THE COLUMN IS
-#                EMPTY as of 2026-08-17, so the target of zero has no exceptions left. The four
-#                rows that carried it were third-party machine state this workspace does not
-#                author — the .venv, the absolute shebang, flutter — and left as a SETUP.md step
-#                plus a deps.txt line, which is the codeburn ruling applied unchanged. The fifth,
-#                google-auth, was misfiled: core/tools/auth/gauth.py is ours, so it is a tool with
-#                a moment of its own.
+#                by building a clone variant without it (core/SPECS.md § AD-14). NO ROW USES `n/a`
+#                as of 2026-08-17. The four that carried it were third-party machine state this
+#                workspace does not author — the .venv, the absolute shebang, flutter — and left as
+#                a SETUP.md step plus a deps.txt line, which is the codeburn ruling applied
+#                unchanged. The fifth, google-auth, was misfiled: core/tools/auth/gauth.py is ours,
+#                so it is a tool with a moment of its own.
+#                THE TARGET OF ZERO IS NOT MET, and saying so here is the point: `telegram-capture`
+#                reads `-`. Its code moved to code/aiwbot, a repo this one does not version, so
+#                every wiring available today is wrong rather than merely unwritten — a
+#                code/aiwbot path in this column makes a Tier 0 test of THIS repo assert on a
+#                nested repo's content. The row is blocked on where that code lives — the
+#                portability-and-clonability question in ROADMAP.md — not on wiring effort, and not
+#                on this file. Until then the count stands at one and is printed rather than
+#                explained away. This paragraph claimed the opposite for a day (2026-08-18): the
+#                `n/a` column being empty is not the same fact as the target being met, and
+#                conflating them made this registry the newest instance of the workspace describing
+#                itself wrongly.
 #                A row is n/a only because a switch CANNOT exist, never because wiring one is work.
 #                Do not hide the count by claiming a row is wired when it is not. The honesty test
 #                in test_features.py is a BEHAVIOURAL PROBE: it runs the feature both ways and
@@ -102,6 +112,7 @@ project-contract	hooks	automatic	-	blocks	general	core/hooks/gates/project-contr
 gitflow-gate	hooks	automatic	git-hooks	blocks	general	core/hooks/git/gitflow-gate.sh	Blocks direct commits to main / master / develop and requires feature|release|hotfix, so a shared branch only ever moves by promotion
 gitlink-gate	hooks	automatic	git-hooks	blocks	general	core/hooks/git/nested-gitlink-gate.sh	Blocks committing an undeclared nested gitlink, which is how a nested repo silently becomes a pointer nobody can clone
 gitignore-self-heal	hooks	automatic	git-hooks	generates	general	core/hooks/git/gitignore-self-heal.sh	The .gitignore allowlist repairs itself, so a new subtree cannot go untracked and thereby opt out of every check the workspace runs
+auto-push	hooks	automatic	git-hooks	none	general	core/hooks/post-commit	Every commit on a feature branch reaches the remote by itself, so a dead session or a switch of machine never strands work that was already made
 lint-typescript	hooks	automatic	lint-typescript	blocks	general	core/hooks/gates/lint.sh,core/hooks/postedit/lint.sh	ESLint and Prettier over staged TypeScript, run last because it needs the .d.ts the generators just wrote
 declared-deps	hooks	on-demand	declared-deps	warns	general	core/tools/wos/deps	Every external dependency is declared with what installs it and what its absence breaks, so a fresh clone loses a feature loudly instead of silently
 opencode-plugin	hooks	automatic	-	none	general	.opencode/plugins/workspace-policy.js	The provider shim that lets a second harness run the same canonical gates, which is what keeps the enforcement layer provider-agnostic in fact and not just in intent

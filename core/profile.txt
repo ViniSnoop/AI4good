@@ -44,6 +44,7 @@ toggle	project-contract	on
 toggle	gitflow-gate	on
 toggle	gitlink-gate	on
 toggle	gitignore-self-heal	on
+toggle	auto-push	on
 toggle	lint-typescript	on
 toggle	declared-deps	on
 toggle	opencode-plugin	on
