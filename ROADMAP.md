@@ -38,20 +38,21 @@ fills a tier is data and lives in [`core/flows/craft/routing.md`](core/flows/cra
 never here** — a ledger that names a vendor's model goes stale the day that model does.
 🔴 needs Lucas · 🟡 pilot on one subtree first · 🟢 mechanical.
 
-**Eleven open steps need Lucas's own judgment: 4.11, 4.12, 4.13, 9.5, 10.6, 12.2, 15.1, 15.2, 17.1,
-18.1, 18.4** — the single list, quoted here and nowhere else. Everything else is agent work, and all nine are
+**Twelve open steps need Lucas's own judgment: 4.11, 4.12, 4.13, 9.5, 10.6, 12.2, 15.1, 15.2, 15.3,
+17.1, 18.1, 18.5** — the single list, quoted here and nowhere else. Everything else is agent work, and all nine are
 *research-and-discussion* items rather than questions with options attached, which is what he has
 asked for in every case.
 
-**It went 5 → 9 → 11 on 2026-08-18, and the jump is the point rather than a backlog failure.** Lucas:
+**It went 5 → 9 → 12 on 2026-08-18, and the jump is the point rather than a backlog failure.** Lucas:
 *"sometimes the WOS is growing with decisions I didn't recall making… I want to understand those
 better and aid on the decision process."* Four items moved to 🔴 that morning because he asked to be
 in them, not because they got harder. **18.1 had its opening sitting on 2026-08-18** — ruled a
 standing front with three real halves — and is now the *deep* sitting it revealed, which may still
 reshape what the other eight look like. It stays first and stays 🔴. **The two added that evening came out of the first
-thing 18.3 built:** seeing `ARCHITECTURE.html` raised *which sectors get one* (18.4) and, with it,
+thing 18.3 built:** seeing `ARCHITECTURE.html` raised *which sectors get one* (18.5) and, with it,
 whether `entropy.md` should scatter per repo the same way (4.13) — one artifact, two questions about
-where an instrument belongs, both Lucas's to answer.
+where an instrument belongs, both Lucas's to answer. **15.3 was routed out of the INBOX the same
+evening**, on his ruling that confirmation bias in a plan is this front seen from the decision side.
 Stating that number is part of the cure for feeling lost, so **keep it true** — it has been wrong
 four times: once claiming one while five were live; once (2026-08-16) carrying four items marked 🔴
 whose own `→ tier:` line said medium; once holding *two* lists of the same set, here and in
@@ -703,6 +704,26 @@ Three sub-questions, in the order they can be answered:
    **Lucas asked (2026-08-18) to be walked through this rather than have it decided for him.**
    → **tier: medium**, and it is the cheapest item in this front by a wide margin.
 
+3. 🔴 **The agent agrees with the frame it was handed, and nothing catches that either.** Lucas
+   (INBOX 2026-08-18, routed here 2026-08-18 by his ruling — it is this front seen from the decision
+   side rather than the assertion side): *"resolver de forma definitiva o viés de confirmação dos
+   modelos (e dos harness). pelo menos no PLAN mode. ou em todos os casos de tomada de decisão."*
+
+   His own three-part shape, and the third part is the constraint: **first** a mechanism to notice
+   that a decision is being taken at all; **second** *"não quero transformar os agentes em críticos
+   ferrenhos e cegos"* — the cure must not be a contrarian reflex, which is the same failure with
+   the sign flipped; **third** a method — detect the decision, grade its criticality, research it,
+   investigate impacts, then ground the pros and cons (adversarial shapes, flows, SDD are candidates
+   he named and explicitly did **not** pick). His words on scope: *"não quero também definir COMO
+   resolver esse problema agora… esse é um problema grande que deve ser resolvido com pesquisa."*
+
+   **Why it sits here rather than opening a front:** this front already says the agent emits
+   confident claims nothing checks. A plan the agent produced by agreeing with the premise it was
+   handed is one of those claims, and PLAN mode is where it is most expensive — the whole session
+   downstream is built on it. **Do not open this with a prompt rule** either, for the reason stated
+   directly above.
+   → **tier: high**, with Lucas, research first and its own sitting.
+
 **Do not open this with a prompt rule.** That is the cheapest-looking move and the one the evidence
 above already rejects.
 
@@ -864,12 +885,35 @@ person who owns it, and the place to route the next *"when was that decided?"*
    offers candidates; the criterion above still decides. → **tier: low** to build, before the audit
    runs, not blocking it. → **tier: medium** for the audit itself, after the sitting.
 
-3. 🟡 **Draw the workspace — two of the three pictures are still unbuilt.** The *is* picture is
-   live: [`core/tools/wos/diagram/architecture`](core/tools/wos/diagram/CONTEXT.md) writes
-   [`ARCHITECTURE.html`](ARCHITECTURE.html) — matrix, routing spine and treemap of one workspace —
-   and `/roundup` regenerates and commits it at every session close. **What is left is *becoming*
-   (generated from git history) and *goal* (authored intent, the only one not tree-derived).** Goal
-   is the one that pays: **goal − is = the roadmap made visible**, what is left to build seen rather
+3. 🟡 **Draw the workspace — the *is* picture exists and does not yet earn its read.** Lucas, on
+   seeing the first one (2026-08-18): *"right now I am not confident it helps me (with enough impact
+   and easiness) to understand the 1. structure, 2. the strengths, and 3. the gaps. it is not
+   visually informative yet."*
+
+   **That is the next work, ahead of the other two pictures**, and it names its own acceptance test:
+   three questions the page must answer at a glance, without study.
+
+   | Must answer | What is there now | What is missing |
+   |---|---|---|
+   | **structure** — what is this workspace made of | a 67 × 23 grid, a 107-node indented tree, a treemap | no *shape* to see: three inventories, none of them a summary. Nothing says "six layers, this is how they stack" before the detail arrives |
+   | **strengths** — what is solid | enforcement strength as a mark per cell | never aggregated: no way to see that a region is *densely* enforced, or that the hard `blocks` gates cluster in two directories |
+   | **gaps** — what is missing or weak | `unwired` flags, an `inferred` label, a coverage line | present as small marks inside dense tables, so the reader has to hunt for the thing they most need to find |
+
+   **The likely shape of the fix** (not ruled — the next session designs it against the three
+   questions, ideally with Lucas looking): a *summary layer above the detail*, since overview-first is
+   the whole mantra and this page currently opens on maximum detail. Candidates: a layer diagram of
+   the six declared groups as the landing view; per-region strength and gap counts rendered as
+   magnitude rather than as marks to be counted; a gaps view that is a **short list of findings**
+   instead of absences to be spotted; colour carrying enforcement strength so density is visible
+   without reading. **Impact and easiness are the bar** — a picture that needs a legend and two
+   minutes has failed on Lucas's own criterion, whatever it renders.
+
+   **Then** the remaining two pictures.
+
+4. 🟡 **The other two pictures — *becoming* and *goal*.** *Becoming* is generated from git history;
+   *goal* is authored intent, the only one of the three not tree-derived, since the future is not on
+   disk. **Both wait on the row above** — a second and third picture that cannot be read at a glance
+   multiplies the problem rather than the value. Goal is the one that pays: **goal − is = the roadmap made visible**, what is left to build seen rather
    than listed. The data for *becoming* is proven and waiting — per-nested-repo `git log` via
    `nested_repos()` + [`core/hooks/git/branch_debt.py`](core/hooks/git/branch_debt.py).
 
@@ -885,7 +929,7 @@ person who owns it, and the place to route the next *"when was that decided?"*
    Lucas wants to design it jointly, so it is a candidate for its own sitting.
    → **tier: medium** for *becoming*; *goal* needs Lucas's intent as input before it can be drawn.
 
-4. 🔴 **Which sectors deserve an `ARCHITECTURE.html`, and what does each one need that the
+5. 🔴 **Which sectors deserve an `ARCHITECTURE.html`, and what does each one need that the
    workspace document does not?** Lucas, 2026-08-18, on seeing the first one: *"I envision an
    ARCHITECTURE.html file for each code project… maybe an ARCHITECTURE.html file even for papers, we
    have to think this through, which sectors of the WOS deserve one and which are the
@@ -896,7 +940,7 @@ person who owns it, and the place to route the next *"when was that decided?"*
    work; generating one document per repo before answering it would produce twenty-five drawings
    nobody reads. → **tier: high**, with Lucas, before any second document is generated.
 
-5. 🟡 **A session must not decide things quietly, and the record of *why* must survive.** The
+6. 🟡 **A session must not decide things quietly, and the record of *why* must survive.** The
    complaint under all of the above is *"decisions I didn't recall making."* Two shapes, the second
    reshaped by the research (seed, not yet ruled — [`core/refs/REFS.md`](core/refs/REFS.md)
    § Legibility prior art): the hand-off names **what this session decided without asking**, separate

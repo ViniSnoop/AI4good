@@ -11,6 +11,23 @@ No flow is privileged — the exemplar is `flows/_template.md` (see [SCHEMA.md](
 
 ## Open
 
+- [ ] **Every skill is invisible to a session started outside the workspace.** Lucas (INBOX
+      2026-08-18): *"/roundup and maybe other skills are not registered on claude code terminal (and
+      maybe other harnesses e.g., opencode terminal and desktop)."* Reproduced 2026-08-18: the
+      mirror is healthy — `.claude/commands/` holds all fourteen — but that directory is **project
+      scoped**, so a session whose project directory is `$HOME` (a terminal opened outside
+      `/mnt/workspace`, the desktop app, a background job) loads none of them and has to read
+      `core/skills/<name>.md` by hand. `~/.claude/commands/` is empty; the only globally exposed
+      skill is `caveman`, and it gets there through
+      [`tools/wos/sync-global-skills`](tools/wos/sync-global-skills), which handles folder-shaped
+      skills and not the flat command mirror.
+      Two ways, and they are not equivalent: extend the global sync to link the command mirror into
+      `~/.claude/commands/` (every skill everywhere, and a workspace skill fires in a repo it knows
+      nothing about), or keep project scope and make the failure loud instead of silent. The second
+      is smaller and the first is what Lucas asked for; the trade is real enough to name before
+      building.
+      → **tier: medium**.
+
 - [ ] **`parse_owns` swallows prose as declared paths.** In
       [`hooks/brain/brain_attention.py`](hooks/brain/brain_attention.py), the `>**owns**` block ends
       only at the next `>**field**` or a `##` heading, so a blank line followed by an ordinary

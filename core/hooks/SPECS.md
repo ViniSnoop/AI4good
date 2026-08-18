@@ -221,6 +221,27 @@ per-project config.
 **To bypass the size gate temporarily**, edit `BLOCK_LINES` in [`limits.env`](limits.env), do the
 operation, revert. Both `checks/pre-edit.py` and `checks/check-line-counts.sh` read it immediately.
 
+### A file a tool writes is not a file anyone authored
+
+`ARCHITECTURE.html` forced the third answer (2026-08-18). Until then a file was either **ours and
+authored** — every size, shape and first-line rule applies — or **vendored**, listed in
+[`vendored.txt`](vendored.txt) and exempt because upstream chose its layout. A generated page is
+neither: `.html` is in `CODE_EXTS`, so the 200-line cap blocked the commit that first carried it,
+and filing our own output under "third-party we did not author" would have bought the exemption with
+a lie that misleads every later reader of both lists.
+
+So [`generated.txt`](generated.txt) declares what our tools write, on the same contract as its
+sibling — a **named, reviewed glob list, never a heuristic**, each entry naming its generator — and
+`file_law.is_authored()` is now the one question every size and shape gate asks: code, ours, and
+written by a person. It replaced the same condition spelled out at four call sites
+(`checks/pre-edit.py`, `entropy/entropy-dashboard.py`, `entropy/entropy_fanout.py`, and
+`file_law.py --filter-code`, which is how the shell gate inherits it), which is where the three
+answers would otherwise have started disagreeing.
+
+**Why the exemption is safe here and not in general:** the artifact has a test that its generator
+can reproduce it byte for byte (`--check`), so nothing hides behind the exemption. An entry without
+that property is a hand-edited file wearing a generated file's coat.
+
 ### The `CONTEXT.md` routing block
 
 `routing/context_synchronizer.py` runs on every edit (via `post-edit.sh`, which also re-syncs the
