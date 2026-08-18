@@ -1,0 +1,79 @@
+#!/mnt/workspace/.venv/bin/python3
+# Usage: core/tools/wos/diagram/architecture [--out <path>] [--check] — render the workspace as it
+# is (enforcement matrix, routing spine, folder mass) into one self-contained ARCHITECTURE.html;
+# --check exits 1 when the committed file no longer matches the tree
+#
+# Zero-token and deterministic: no model runs, and the output carries no timestamp and no commit
+# sha. That is what makes --check meaningful — the file changes when the WORKSPACE changed, and
+# never merely because it was regenerated.
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+
+import diagram_data as data
+import diagram_matrix as matrix_form
+import diagram_page as page
+import diagram_spine as spine_form
+import diagram_treemap as mass_form
+import tool_law
+from diagram_data import WORKSPACE_ROOT
+
+OUTPUT = WORKSPACE_ROOT / 'ARCHITECTURE.html'
+SPINE_DEPTH = 3
+
+
+def build() -> tuple:
+    """(html, coverage, counts). Every source is read exactly once here, so a file that cannot be
+    read is reported once, loudly, instead of thinning the picture silently."""
+    rows, columns, cells = data.matrix(data.features())
+    nodes, edges, coverage = data.containment()
+    mass = data.mass()
+
+    panels = {
+        'matrix': (matrix_form.render(rows, columns, cells, data.trigger_of),
+                   matrix_form.legend()),
+        'spine': (spine_form.render(nodes, edges, SPINE_DEPTH), spine_form.legend(coverage)),
+        'mass': (mass_form.render(mass), mass_form.legend(mass)),
+    }
+    counts = {'features': len(rows), 'directories': len(nodes)}
+    return page.render(panels, coverage, data.scope()), coverage, counts
+
+
+def report(coverage: dict, counts: dict) -> None:
+    """The coverage line. Printed on every run, including the clean one: a generator that only
+    speaks up when something breaks teaches its reader to assume silence means complete."""
+    unparsed = coverage['unparsed']
+    print(f'  parsed {coverage["parsed"]} of {coverage["total"]} routing blocks '
+          f'· {counts["features"]} features · {counts["directories"]} directories')
+    if unparsed:
+        print(f'  {len(unparsed)} UNPARSED: ' + ', '.join(unparsed))
+        print('  those subtrees are missing from the spine — fix the routing block, then re-run.')
+
+
+def main() -> int:
+    tool_law.require('diagram')  # before anything is read: off means no picture, not a stale one
+
+    args = sys.argv[1:]
+    out = Path(args[args.index('--out') + 1]) if '--out' in args else OUTPUT
+    html, coverage, counts = build()
+
+    if '--check' in args:
+        current = out.read_text(encoding='utf-8') if out.exists() else ''
+        if current == html:
+            report(coverage, counts)
+            print(f'  {out.name} is current')
+            return 0
+        print(f'  {out.name} is STALE — run core/tools/wos/diagram/architecture')
+        return 1
+
+    out.write_text(html, encoding='utf-8')
+    report(coverage, counts)
+    print(f'  wrote {out.relative_to(WORKSPACE_ROOT) if out.is_relative_to(WORKSPACE_ROOT) else out}'
+          f' ({len(html) // 1024} KB)')
+    return 1 if coverage['unparsed'] else 0
+
+
+if __name__ == '__main__':
+    sys.exit(main())

@@ -16,7 +16,7 @@ _HOOKS = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(_HOOKS / 'routing'))
 
 import feature_law  # noqa: E402
-from file_law import EXAMPLE_COMMENT, is_vendored  # noqa: E402
+from file_law import EXAMPLE_COMMENT, is_generated_artifact, is_vendored  # noqa: E402
 from workspace_meta import PLACEHOLDER, file_description  # noqa: E402
 from workspace_scanner import is_scanned  # noqa: E402
 
@@ -117,7 +117,8 @@ def check_description(path: Path) -> str | None:
     """
     if not feature_law.is_enabled('first-line-comment'):
         return None
-    if not is_scanned(path) or is_generated_mirror(path) or is_vendored(path, WORKSPACE_ROOT):
+    if not is_scanned(path) or is_generated_mirror(path) or \
+            is_vendored(path, WORKSPACE_ROOT) or is_generated_artifact(path, WORKSPACE_ROOT):
         return None
     if file_description(path).strip():
         return None

@@ -38,17 +38,20 @@ fills a tier is data and lives in [`core/flows/craft/routing.md`](core/flows/cra
 never here** — a ledger that names a vendor's model goes stale the day that model does.
 🔴 needs Lucas · 🟡 pilot on one subtree first · 🟢 mechanical.
 
-**Nine open steps need Lucas's own judgment: 4.11, 4.12, 9.5, 10.6, 12.2, 15.1, 15.2, 17.1, 18.1** —
-the single list, quoted here and nowhere else. Everything else is agent work, and all nine are
+**Eleven open steps need Lucas's own judgment: 4.11, 4.12, 4.13, 9.5, 10.6, 12.2, 15.1, 15.2, 17.1,
+18.1, 18.4** — the single list, quoted here and nowhere else. Everything else is agent work, and all nine are
 *research-and-discussion* items rather than questions with options attached, which is what he has
 asked for in every case.
 
-**It went 5 → 9 on 2026-08-18, and the jump is the point rather than a backlog failure.** Lucas:
+**It went 5 → 9 → 11 on 2026-08-18, and the jump is the point rather than a backlog failure.** Lucas:
 *"sometimes the WOS is growing with decisions I didn't recall making… I want to understand those
 better and aid on the decision process."* Four items moved to 🔴 that morning because he asked to be
 in them, not because they got harder. **18.1 had its opening sitting on 2026-08-18** — ruled a
 standing front with three real halves — and is now the *deep* sitting it revealed, which may still
-reshape what the other eight look like. It stays first and stays 🔴.
+reshape what the other eight look like. It stays first and stays 🔴. **The two added that evening came out of the first
+thing 18.3 built:** seeing `ARCHITECTURE.html` raised *which sectors get one* (18.4) and, with it,
+whether `entropy.md` should scatter per repo the same way (4.13) — one artifact, two questions about
+where an instrument belongs, both Lucas's to answer.
 Stating that number is part of the cure for feeling lost, so **keep it true** — it has been wrong
 four times: once claiming one while five were live; once (2026-08-16) carrying four items marked 🔴
 whose own `→ tier:` line said medium; once holding *two* lists of the same set, here and in
@@ -226,6 +229,18 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
     or leave the behaviour and document it as the cost of a fail-closed allowlist. **Lucas asked
     (2026-08-18) to be walked through this rather than have it decided for him.**
     → **tier: medium** once decided.
+
+13. 🔴 **Should entropy be scattered across the nested repos instead of pooled at the root?** Lucas,
+    2026-08-18: *"entropy maybe should be scattered as well across each individual repo (maybe this
+    is a task that deserves to be written somewhere, so we can DISCUSS this point in depth)."* Today
+    one [`entropy.md`](entropy.md) at the workspace root counts this repo **and** all 25 nested ones,
+    which is why a finding in `code/aiwbot` is read by a session working on the workspace and by
+    nobody working on aiwbot. The pull the other way is real and is why this is a discussion rather
+    than a task: the root file is a **ratchet**, and a number that must shrink only works while it is
+    one number in one diff. Twenty-six ratchets is twenty-six baselines nobody watches. The same
+    question is now open for the picture — `ARCHITECTURE.html` faces the identical split — so the two
+    should be ruled together rather than drifting apart.
+    → **tier: high**, with Lucas, its own sitting.
 
 ---
 
@@ -840,40 +855,48 @@ person who owns it, and the place to route the next *"when was that decided?"*
    word wins, and simpler breaks the tie** — he will learn a new word if it is genuinely the best one,
    and drop a word that is only showing off. Mature terminology practice says the same (precision over
    economy, clarity a hard constraint — [`core/refs/REFS.md`](core/refs/REFS.md) § Legibility prior
-   art), so the rule is confirmed, not invented. → **tier: medium**, after the sitting.
+   art), so the rule is confirmed, not invented.
 
-3. 🟡 **Draw the workspace, and generate the drawing.** Lucas: *"I would love to see diagrams,
-   charts, graphs… whatever best represents how WOS is today and how it is changing."* **Shape ruled
-   2026-08-18** (research in [`core/refs/REFS.md`](core/refs/REFS.md) § Workspace visualization).
+   **A word list beats asking a model, and Lucas proved it while naming the diagram tool** — he
+   went to a thesaurus, came back with *architect / blueprint / diagram / scheme*, and picked one.
+   So the audit gets an instrument: a small `core/tools/web/thesaurus` over an open synonym API
+   (Datamuse needs no key), zero tokens per lookup against a model asked to free-associate. It
+   offers candidates; the criterion above still decides. → **tier: low** to build, before the audit
+   runs, not blocking it. → **tier: medium** for the audit itself, after the sitting.
 
-   **Three pictures, not two:** *is* (generated from the tree), *becoming* (generated from git
-   history), and *goal* (authored intent — the only one not tree-derived, since the future is not on
-   disk). The third pays off as **goal − is = the roadmap made visible**: what is left to build, seen
-   rather than listed. **Three renderable forms, so Lucas picks by experimenting:** a matrix (the
-   dense enforcement relation — a grid beats a node-link graph past the few-dozen-node mark, which is
-   where WOS already sits), a shallow node-link spine (the routing chain), and a treemap (folder
-   mass). Overview first, detail on demand — never a whole-tree hairball.
+3. 🟡 **Draw the workspace — two of the three pictures are still unbuilt.** The *is* picture is
+   live: [`core/tools/wos/diagram/architecture`](core/tools/wos/diagram/CONTEXT.md) writes
+   [`ARCHITECTURE.html`](ARCHITECTURE.html) — matrix, routing spine and treemap of one workspace —
+   and `/roundup` regenerates and commits it at every session close. **What is left is *becoming*
+   (generated from git history) and *goal* (authored intent, the only one not tree-derived).** Goal
+   is the one that pays: **goal − is = the roadmap made visible**, what is left to build seen rather
+   than listed. The data for *becoming* is proven and waiting — per-nested-repo `git log` via
+   `nested_repos()` + [`core/hooks/git/branch_debt.py`](core/hooks/git/branch_debt.py).
 
-   **Generate from the tree, never draw by hand** — a hand-drawn map is the rot `CONTEXT.md` routing
-   tables exist to prevent. A **zero-token deterministic generator** in `core/tools/wos/`, sibling of
-   the entropy and routing generators; no model at render time. **Output is one self-contained HTML
-   file, provider-agnostic, committed in-tree** (Lucas: an asset inside the workspace, no external
-   publish).
+   **The standing rules the built half already keeps, and the next two inherit:** generated from the
+   tree and never drawn by hand; zero-token and deterministic (no timestamp, no sha, so `--check`
+   means something); one self-contained HTML file committed in-tree; every edge either renders
+   declared data or is labelled *inferred*; total and fail-loud, printing `parsed N of M` and naming
+   what it could not read.
 
-   **The picture may not lie — Front 17 in drawn form:** every edge either renders canonical data
-   (`core/features.txt`, the routing blocks — it cannot be more wrong than its source, and a wrong
-   edge exposes a real routing bug) or is labelled *inferred*. The generator is total and fail-loud —
-   it prints coverage (parsed N of M, the unparsed listed) and never silently drops a node. **Data:**
-   `core/features.txt` (layers, enforcement, wiring), the auto-generated routing blocks in the
-   CONTEXT.md chain (containment), and per-nested-repo `git log` via the proven `nested_repos()` +
-   `core/hooks/git/branch_debt.py` pattern (becoming).
+   **The one region still inferred:** there is no machine-readable *hook → when it fires → what it
+   blocks* table, so the firing moment comes from directory convention and the page says so.
+   Building that registry would make the picture fully honest and feed the verification front too —
+   Lucas wants to design it jointly, so it is a candidate for its own sitting.
+   → **tier: medium** for *becoming*; *goal* needs Lucas's intent as input before it can be drawn.
 
-   **One region cannot be rendered faithfully yet:** there is no machine-readable *hook → when it
-   fires → what it blocks* table, so those edges would be inferred. Building that registry would make
-   the picture fully honest and feed the verification front too — Lucas wants to design it jointly, so
-   it is a candidate for its own sitting, not forced here. → **tier: medium** to build, deferred.
+4. 🔴 **Which sectors deserve an `ARCHITECTURE.html`, and what does each one need that the
+   workspace document does not?** Lucas, 2026-08-18, on seeing the first one: *"I envision an
+   ARCHITECTURE.html file for each code project… maybe an ARCHITECTURE.html file even for papers, we
+   have to think this through, which sectors of the WOS deserve one and which are the
+   particularities."* The renderers are already reusable and `core/hooks/generated.txt` already
+   globs `*/ARCHITECTURE.html`, so the build is not the hard part — **the question is what each
+   sector's picture is *of*.** A code project has properties the workspace does not: call structure,
+   sequence over time, module dependency. A paper has others again. Answering that per sector is the
+   work; generating one document per repo before answering it would produce twenty-five drawings
+   nobody reads. → **tier: high**, with Lucas, before any second document is generated.
 
-4. 🟡 **A session must not decide things quietly, and the record of *why* must survive.** The
+5. 🟡 **A session must not decide things quietly, and the record of *why* must survive.** The
    complaint under all of the above is *"decisions I didn't recall making."* Two shapes, the second
    reshaped by the research (seed, not yet ruled — [`core/refs/REFS.md`](core/refs/REFS.md)
    § Legibility prior art): the hand-off names **what this session decided without asking**, separate

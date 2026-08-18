@@ -30,7 +30,8 @@ from entropy_ledger import (duplicate_slugs, finished_work_hits,  # noqa: E402
                             unanswered_placeholders, wiki_link_hits)
 from entropy_naming import check_dirs, check_placement, check_shape  # noqa: E402
 from entropy_report import SECTIONS, render  # noqa: E402
-from file_law import is_code_file, is_vendored, load_limits  # noqa: E402
+from file_law import (is_authored, is_generated_artifact,  # noqa: E402
+                      is_vendored, load_limits)
 from schema_law import (SCHEMA, WORKSPACE_ROOT, load_law,  # noqa: E402
                         load_retired, load_scopes)
 
@@ -121,7 +122,7 @@ def size_signals(files: list) -> list:
     block = _block_lines()
     signals = []
     for path in files:
-        code = is_code_file(path) and not is_vendored(path, WORKSPACE_ROOT)
+        code = is_authored(path, WORKSPACE_ROOT)
         if not code and path.suffix != '.md':
             continue
         try:
@@ -150,7 +151,8 @@ def stub_signals(files: list) -> list:
     signals = []
     for path in files:
         stub = _STUB_FOR.get(path.suffix)
-        if not stub or is_vendored(path, WORKSPACE_ROOT):
+        if not stub or is_vendored(path, WORKSPACE_ROOT) or \
+                is_generated_artifact(path, WORKSPACE_ROOT):
             continue
         if path.name.endswith('.d.ts') or '__pycache__' in path.parts:
             continue

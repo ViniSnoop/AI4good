@@ -15,6 +15,7 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 LIMITS_FILE = HERE / 'limits.env'
 VENDORED_FILE = HERE / 'vendored.txt'
+GENERATED_FILE = HERE / 'generated.txt'
 EXTENSIONLESS_FILE = HERE / 'extensionless.txt'
 
 # Things the line cap and the fanout signal apply to. Prose types (.md, .yaml, .toml) are
@@ -82,6 +83,10 @@ def _patterns() -> list:
     return _lines(VENDORED_FILE)
 
 
+def _generated_patterns() -> list:
+    return _lines(GENERATED_FILE)
+
+
 def allowed_extensionless() -> set:
     """Basenames an external tool dictates, so they cannot carry an extension."""
     return set(_lines(EXTENSIONLESS_FILE))
@@ -102,6 +107,30 @@ def is_vendored(path: Path, root: Path) -> bool:
     return any(fnmatch.fnmatch(rel, pattern) for pattern in _patterns())
 
 
+def is_generated_artifact(path: Path, root: Path) -> bool:
+    """True for a file one of OUR tools writes — see core/hooks/generated.txt.
+
+    A generated artifact is code by extension and authored by nobody, so the authoring rules
+    read it as a violation the moment it is staged: ARCHITECTURE.html is 400-odd lines of HTML
+    and the line cap would block the commit that first carried it. The cap is right and the file
+    is right; what was missing was the third answer, that a tool wrote it. Kept separate from
+    is_vendored on purpose — that list is about provenance we do not own, this one is about
+    provenance we do.
+    """
+    try:
+        rel = str(path.resolve().relative_to(root))
+    except ValueError:
+        return False
+    return any(fnmatch.fnmatch(rel, pattern) for pattern in _generated_patterns())
+
+
+def is_authored(path: Path, root: Path) -> bool:
+    """True when our authoring rules apply: code, ours, and written by a person. The one question
+    every size and shape gate actually asks, so they ask it in one place."""
+    return (is_code_file(path) and not is_vendored(path, root)
+            and not is_generated_artifact(path, root))
+
+
 def main() -> int:
     """`--filter-code` keeps stdin paths that are code, so the shell gate shares this law."""
     if '--filter-code' not in sys.argv:
@@ -113,7 +142,7 @@ def main() -> int:
         if not line.strip():
             continue
         full = candidate if candidate.is_absolute() else root / candidate
-        if is_code_file(full) and not is_vendored(full, root):
+        if is_authored(full, root):
             print(line.strip())
     return 0
 

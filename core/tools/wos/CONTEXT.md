@@ -6,6 +6,7 @@
 
 | Subdirectory | Description |
 |--------------|-------------|
+| [`diagram/`](diagram/CONTEXT.md) | The workspace drawn from its own declarations: one generated HTML picture, zero… |
 | [`session/`](session/CONTEXT.md) | What a session costs and what fills it, read from the local transcripts. No… |
 
 | File | Description |

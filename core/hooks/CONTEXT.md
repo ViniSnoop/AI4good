@@ -68,7 +68,8 @@ exist: [`code/ROADMAP-verify.md`](../../code/ROADMAP-verify.md). Installing the 
 | [`SPECS.md`](SPECS.md) | — | — | What must be true of the enforcement layer, and why: what each gate blocks, and… |
 | [`extensionless.txt`](extensionless.txt) | — | — | Files allowed to have no extension because something OUTSIDE this workspace dictates the |
 | [`feature_law.py`](feature_law.py) | [`feature_law.pyi`](feature_law.pyi) | `load_registry`, `slugs`, `load_profile`, `is_enabled`, `setting` | What is switched ON. The third law module: file_law.py says what a file IS, schema_law.py says |
-| [`file_law.py`](file_law.py) | [`file_law.pyi`](file_law.pyi) | `is_code_file`, `load_limits`, `allowed_extensionless`, `is_vendored`, `main` | What a file IS, and which rules apply to it. The numeric-law sibling of schema_law.py: |
+| [`file_law.py`](file_law.py) | [`file_law.pyi`](file_law.pyi) | `is_code_file`, `load_limits`, `allowed_extensionless`, `is_vendored`, `is_generated_artifact` | What a file IS, and which rules apply to it. The numeric-law sibling of schema_law.py: |
+| [`generated.txt`](generated.txt) | — | — | Files this workspace GENERATES. Excluded from the line cap, the fanout signal and the size |
 | [`gitignore-exceptions.txt`](gitignore-exceptions.txt) | — | — | One "<domain>/<dir>" per line: a CONTEXT.md-bearing subdir Lucas deliberately wants left |
 | [`hook_input.py`](hook_input.py) | [`hook_input.pyi`](hook_input.pyi) | `parse_stdin`, `is_subagent`, `seen_file`, `load_seen`, `mark_seen` | Shared parser for Claude Code hook stdin JSON — nested (current) and flat (legacy shim) schemas. |
 | [`limits.env`](limits.env) | — | — | Every numeric limit in the workspace, in one file. Read by core/hooks/file_law.py |

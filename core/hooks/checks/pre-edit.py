@@ -4,7 +4,7 @@ import os, re, sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from file_law import CODE_EXTS, EXAMPLE_COMMENT, is_code_file, is_vendored, load_limits
+from file_law import CODE_EXTS, EXAMPLE_COMMENT, is_authored, load_limits
 from hook_input import parse_stdin
 
 CONTENT_EXTS = {'.md', '.yaml', '.yml', '.toml'}
@@ -53,7 +53,7 @@ if basename == 'CONTEXT.md' and tool == 'Write' and not os.path.exists(file_path
 
 _, ext = os.path.splitext(file_path)
 _path      = Path(file_path)
-is_code    = is_code_file(_path) and not is_vendored(_path, WORKSPACE_ROOT)
+is_code    = is_authored(_path, WORKSPACE_ROOT)
 is_content = ext in CONTENT_EXTS and basename != 'CONTEXT.md'
 
 if not is_code and not is_content:

@@ -1,0 +1,167 @@
+# The canonical data behind ARCHITECTURE.html: what the workspace declares, what contains what,
+# and how much of it there is.
+#
+# Every fact here is read from a DECLARED or GENERATED file — core/features.txt and the auto-synced
+# routing blocks — never from prose and never from a guess. That is what makes the picture no more
+# wrong than its sources: a wrong edge is a real defect in the source, made visible instead of
+# staying hidden. The single exception is the hook TRIGGER, which no machine-readable file states
+# yet; it is derived from directory convention and every consumer must label it `inferred`.
+import sys
+from pathlib import Path
+
+HOOKS = Path(__file__).resolve().parents[3] / 'hooks'
+for _dir in (HOOKS, HOOKS / 'routing', HOOKS / 'entropy'):
+    sys.path.insert(0, str(_dir))
+
+import feature_law  # noqa: E402
+from context_synchronizer import RE as ROUTING_END  # noqa: E402
+from context_synchronizer import RS as ROUTING_START  # noqa: E402
+from entropy_corpus import nested_repos, tracked_files  # noqa: E402
+from schema_law import WORKSPACE_ROOT  # noqa: E402
+from workspace_scanner import parse_preserved_subs  # noqa: E402
+
+# The workspace root's routing block lives in AGENTS.md — every other directory keeps its own in
+# CONTEXT.md. Missing that one would drop the whole first level of the tree.
+ROOT_BLOCK = 'AGENTS.md'
+
+# No file states WHEN a hook fires: the hook-trigger registry is not built. Until it
+# exists these come from directory convention, and `trigger_of` reports them as inferred so the
+# page can label them. Never present one of these as canonical.
+INFERRED_TRIGGER = {
+    'core/hooks/checks': 'pre-edit / pre-commit',
+    'core/hooks/gates': 'pre-commit',
+    'core/hooks/git': 'pre-commit',
+    'core/hooks/routing': 'on save',
+    'core/hooks/stubgen': 'on save',
+    'core/hooks/postedit': 'after edit',
+    'core/hooks/read': 'before read',
+    'core/hooks/session': 'session start / close',
+    'core/hooks/compact': 'on compact',
+    'core/hooks/entropy': 'on demand',
+    'core/hooks/brain': 'session close',
+    'core/hooks/facade': 'before edit',
+    'core/hooks/generators': 'on save',
+}
+
+
+def area_of(path: str) -> str:
+    """The directory a wired path lands in — the matrix's column.
+
+    Two features wired into the same directory share a column on purpose: the column is the
+    enforcement SITE, not the file, and reading which sites carry which features is the whole
+    question the matrix answers.
+    """
+    path = path.strip()
+    if not path or path == '-':
+        return ''
+    return str(Path(path).parent)
+
+
+def trigger_of(area: str) -> tuple:
+    """(when it fires, inferred?). Always inferred today — see INFERRED_TRIGGER."""
+    return INFERRED_TRIGGER.get(area, 'unknown'), True
+
+
+def features() -> list:
+    """Every declared feature, in registry order, with its wiring collapsed to enforcement sites."""
+    rows = []
+    for row in feature_law.load_registry():
+        areas = sorted({a for a in (area_of(p) for p in feature_law.wired_paths(row)) if a})
+        rows.append({**row, 'areas': areas, 'wired_paths': feature_law.wired_paths(row)})
+    return rows
+
+
+def matrix(rows: list) -> tuple:
+    """(row labels, column labels, cells) for the enforcement matrix.
+
+    Rows are features, columns are enforcement sites, and a cell holds the enforcement strength
+    the registry declares. Both axes come from core/features.txt alone, so the matrix cannot say
+    anything the registry does not — an empty column means nothing is wired there, which is a
+    finding about the workspace rather than about the drawing.
+    """
+    cells = {}
+    # Grouped, then alphabetical. Registry order is declaration order and interleaves the layers,
+    # which printed the same group heading five times — a table that makes a reader re-find the
+    # section they are already in.
+    rows = sorted(rows, key=lambda r: (r['group'], r['slug']))
+    for row in rows:
+        for area in row['areas']:
+            cells[(row['slug'], area)] = row['enforcement']
+    columns = sorted({area for row in rows for area in row['areas']})
+    return rows, columns, cells
+
+
+def unwired(rows: list) -> list:
+    """Features no file switches off. `core/tools/wos/features --findings` counts these; the
+    picture shows them, because a feature entangled with the scaffold is invisible in a diagram
+    of wiring and that invisibility is the finding."""
+    return [row for row in rows if not row['areas']]
+
+
+def _routing_inner(text: str):
+    """The rows between the routing sentinels, or None when the block cannot be sliced."""
+    if ROUTING_START not in text or ROUTING_END not in text:
+        return None
+    return text.split(ROUTING_START, 1)[1].split(ROUTING_END, 1)[0]
+
+
+def _routing_files(root: Path) -> list:
+    """Every file carrying a routing block: the root's AGENTS.md, then every tracked CONTEXT.md.
+    git is the inventory, so an untracked scratch copy never enters the picture."""
+    files = [root / ROOT_BLOCK] if (root / ROOT_BLOCK).exists() else []
+    return files + sorted(p for p in tracked_files(root) if p.name == 'CONTEXT.md')
+
+
+def _rel_dir(path: Path, root: Path) -> str:
+    rel = str(path.parent.relative_to(root))
+    return '' if rel == '.' else rel
+
+
+def containment(root: Path = WORKSPACE_ROOT) -> tuple:
+    """(nodes, edges, coverage) — the routing chain, parent directory to child directory.
+
+    Total and fail-loud: a routing block that cannot be sliced is COUNTED and NAMED in `coverage`,
+    never skipped. A picture that silently drops a subtree is exactly the rot the routing tables
+    exist to prevent, so the generator refuses to produce one quietly.
+    """
+    nodes, edges, unparsed = {'': 0}, [], []
+    files = _routing_files(root)
+    for path in files:
+        inner = _routing_inner(path.read_text(encoding='utf-8', errors='replace'))
+        if inner is None:
+            unparsed.append(str(path.relative_to(root)))
+            continue
+        parent = _rel_dir(path, root)
+        for name in sorted(parse_preserved_subs(inner)):
+            child = f'{parent}/{name}' if parent else name
+            nodes.setdefault(child, child.count('/') + 1)
+            edges.append((parent, child))
+    for parent, _child in edges:
+        nodes.setdefault(parent, parent.count('/') + 1 if parent else 0)
+    coverage = {'total': len(files), 'parsed': len(files) - len(unparsed), 'unparsed': unparsed}
+    return nodes, edges, coverage
+
+
+def mass(root: Path = WORKSPACE_ROOT, depth: int = 2) -> list:
+    """Tracked-file mass per directory, folded to `depth` levels: [(dir, files, bytes)].
+
+    git ls-files is the inventory rather than a walk, which is what keeps .venv, Downloads/ and
+    the trash out of a picture of the workspace — three directories that dwarf everything real.
+    """
+    totals: dict = {}
+    for path in tracked_files(root):
+        parts = path.relative_to(root).parts[:-1]
+        key = '/'.join(parts[:depth]) if parts else '(root)'
+        files, size = totals.get(key, (0, 0))
+        try:
+            totals[key] = (files + 1, size + path.stat().st_size)
+        except OSError:
+            totals[key] = (files + 1, size)
+    return sorted(((k, v[0], v[1]) for k, v in totals.items()), key=lambda r: -r[2])
+
+
+def scope(root: Path = WORKSPACE_ROOT) -> dict:
+    """What the document covers. Repos nested inside the workspace are COUNTED and drawn as
+    directories, never walked into: each is its own repository with its own history, and folding
+    one into this picture would claim an authority over it that this repo does not have."""
+    return {'nested': len(nested_repos(root))}

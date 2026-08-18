@@ -18,7 +18,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import feature_law  # noqa: E402
-from file_law import is_code_file, is_vendored, load_limits  # noqa: E402
+from file_law import is_authored, load_limits  # noqa: E402
 
 
 def fanout_counts(files: list, root: Path) -> Counter:
@@ -31,7 +31,7 @@ def fanout_counts(files: list, root: Path) -> Counter:
     """
     counts = Counter()
     for path in files:
-        if is_code_file(path) and not is_vendored(path, root):
+        if is_authored(path, root):
             counts[path.parent] += 1
     return counts
 

@@ -154,7 +154,8 @@ does not live inside one of the things it measures.
 
 **A declaration table is a fifth thing, and it takes none of these routes** (ruled 2026-08-16).
 `core/features.txt` and `core/profile.txt` join `core/hooks/limits.env`, `core/tools/deps.txt`,
-`core/hooks/vendored.txt` and `core/hooks/extensionless.txt`: tab-separated or `key=value` data,
+`core/hooks/vendored.txt`, `core/hooks/generated.txt` and `core/hooks/extensionless.txt`:
+tab-separated or `key=value` data,
 authored by hand, read by exactly one law module, and **never prose**. It is not an
 `UPPERCASE.md` awaiting classification — the type allowlist stays closed and untouched, which is
 the whole reason the shape is worth naming. The two at `core/` root rather than beside their
@@ -169,7 +170,7 @@ about a file with a closed seven-column header:
 | shape | extension | files |
 |---|---|---|
 | tab-separated table with a header row | `.tsv` | `core/features.tsv`, `core/profile.tsv`, `core/tools/deps.tsv` |
-| one value per line, no columns | `.txt` | `core/hooks/vendored.txt`, `extensionless.txt`, `gitignore-exceptions.txt` |
+| one value per line, no columns | `.txt` | `core/hooks/vendored.txt`, `generated.txt`, `extensionless.txt`, `gitignore-exceptions.txt` |
 | `key=value` | `.env` | `core/hooks/limits.env` |
 
 `.tsv` is a registered media type (`text/tab-separated-values`), so this buys editor and diff

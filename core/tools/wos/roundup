@@ -83,6 +83,28 @@ if [ "$ROOT" = "$WORKSPACE" ]; then
   fi
 fi
 
+# ── The workspace picture. Same scope and same shape as the entropy step above: workspace repo
+#    only, regenerate then commit, and under --leave-dirty report without writing into another
+#    session's tree. Deterministic output is what makes this safe to run every close — the file
+#    moves when the WORKSPACE moved, never merely because it was regenerated.
+DIAGRAM=""
+if [ "$ROOT" = "$WORKSPACE" ]; then
+  WAS_CLEAN=0; git diff --quiet ARCHITECTURE.html 2>/dev/null && WAS_CLEAN=1
+  if DIAGRAM_OUT="$("$SCRIPT_DIR/diagram/architecture" 2>&1)"; then
+    DIAGRAM="$(printf '%s' "$DIAGRAM_OUT" | grep -oE 'parsed [0-9]+ of [0-9]+ routing blocks.*' | head -1)"
+  else
+    DIAGRAM="regen incomplete · $(printf '%s' "$DIAGRAM_OUT" | grep -c UNPARSED) unparsed routing block(s)"
+  fi
+  if ! git diff --quiet ARCHITECTURE.html 2>/dev/null; then
+    if [ -n "$LEAVE_DIRTY" ]; then
+      [ "$WAS_CLEAN" = 1 ] && git checkout -q -- ARCHITECTURE.html 2>/dev/null
+      DIAGRAM="$DIAGRAM · reported only, not committed (tree holds another session's work)"
+    elif ! { git add ARCHITECTURE.html && git commit -q -m "chore(diagram): regenerate at session close"; }; then
+      DIAGRAM="$DIAGRAM · commit failed, ARCHITECTURE.html left dirty"
+    fi
+  fi
+fi
+
 # ── Branch promotion. Same scope as core/hooks/git/gitflow-gate.sh: the workspace repo and
 #    code/* project repos promote; every other nested repo just pushes its current branch.
 case "$ROOT" in
@@ -168,6 +190,7 @@ fi
 
 printf 'verify: %s\n' "$VERIFY"
 [ -n "$ENTROPY" ] && printf 'entropy: %s\n' "$ENTROPY"
+[ -n "$DIAGRAM" ] && printf 'diagram: %s\n' "$DIAGRAM"
 printf 'sync: %s\n' "$SYNC"
 [ -n "$COST" ] && printf '%s\n' "$COST"
 [ -n "$COMPACT" ] && printf 'compaction: %s\n' "$COMPACT"
