@@ -145,7 +145,7 @@ Clean.
 
 *a signal for review, never a cap — do not summarize to fit*
 
-- ROADMAP.md — 1056 lines (doc signal, review the delta)
+- ROADMAP.md — 1110 lines (doc signal, review the delta)
 - SETUP.md — 628 lines (doc signal, review the delta)
 - academy/papers/2026-JBCS-relativistic_raytracer/outputs/iq-fix-roadmap.md — 372 lines (doc signal, review the delta)
 - code/aiwbot/SPECS.md — 710 lines (doc signal, review the delta)
@@ -519,7 +519,7 @@ Clean.
 
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
-- . — feature/roadmap-drain is 9 ahead of main
+- . — feature/front18-diagram-ruling is 1 ahead of main
 - code/aiwbot — feature/resume-lineage-question is 2 ahead of main
 - code/apptime — feature/workspace-drift-refile is 1 ahead of main
 - code/isoroll-content — feature/playable-seam is 5 ahead of main
@@ -530,7 +530,7 @@ Clean.
 
 *safe to delete, and outward-facing — `git -C <repo> push origin --delete <branch>`, Lucas*
 
-- . — 21 merged into main: git -C . push origin --delete feature/brain-attention feature/craft-flows feature/drive-core-write feature/feature-registry feature/flows-pool-reorg feature/hooks-deoverengineer feature/inbox-link-batch feature/inbox-triage-2026-07-26 feature/roundup-2026-07-23 feature/roundup-2026-07-28 feature/roundup-2026-07-29 feature/roundup-craft-flows feature/roundup-inbox-drain feature/sync-goal-todo-docs feature/sync-strategy feature/workspace-robustness-plan feature/wos-decisions-sprint feature/wos-install feature/wos-ledger-truthup feature/wos-push-sweep feature/wos-typeset
+- . — 22 merged into main: git -C . push origin --delete feature/brain-attention feature/craft-flows feature/drive-core-write feature/feature-registry feature/flows-pool-reorg feature/hooks-deoverengineer feature/inbox-link-batch feature/inbox-triage-2026-07-26 feature/roadmap-drain feature/roundup-2026-07-23 feature/roundup-2026-07-28 feature/roundup-2026-07-29 feature/roundup-craft-flows feature/roundup-inbox-drain feature/sync-goal-todo-docs feature/sync-strategy feature/workspace-robustness-plan feature/wos-decisions-sprint feature/wos-install feature/wos-ledger-truthup feature/wos-push-sweep feature/wos-typeset
 - branches/casinhas — 1 merged into main: git -C branches/casinhas push origin --delete feature/routing-row-rebase
 - code/aiwbot — 26 merged into main: git -C code/aiwbot push origin --delete feature/audio-in-out feature/b3-context-pct feature/f3c-button-latency feature/f4-ask feature/f4-streaming feature/f5-answer-shape feature/f6-interview-shape feature/f6-resilience feature/fanout-drain feature/finish-plan feature/inbox-provenance-tagging feature/inbox-triage-2026-07-26 feature/known-bugs-b2 feature/model-order-sonnet-first feature/opencode-parity feature/opencode-parity-audit feature/p2-panel-grid feature/p2-target-selection feature/panel-back-nav feature/panel-four-per-row feature/panel-recency feature/roadmap-transcript-echo feature/roundup-0724 feature/roundup-2026-07-29 feature/routing-table-trim hotfix/stt-cpu-device
 - code/apptime — 2 merged into main: git -C code/apptime push origin --delete feature/routing-row-rebase feature/stub-backfill
