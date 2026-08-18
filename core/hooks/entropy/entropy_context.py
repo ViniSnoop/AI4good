@@ -15,6 +15,7 @@ from entropy_corpus import is_generated_mirror
 _HOOKS = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(_HOOKS / 'routing'))
 
+import feature_law  # noqa: E402
 from file_law import EXAMPLE_COMMENT, is_vendored  # noqa: E402
 from workspace_meta import PLACEHOLDER, file_description  # noqa: E402
 from workspace_scanner import is_scanned  # noqa: E402
@@ -92,6 +93,8 @@ def check_misplaced_answer(path: Path, head_warn: int) -> str | None:
     navigation — so this fires only where an over-size head is also *shaped* like a
     contract. The sibling's existence decides whether the fix is a move or a create.
     """
+    if not feature_law.is_enabled('context-head-budget'):
+        return None
     if path.name != 'CONTEXT.md' or is_generated_mirror(path):
         return None
     head = context_head(path)
@@ -112,6 +115,8 @@ def check_description(path: Path) -> str | None:
     Asks the generator, never a second pattern table — why, and what it cost the one time the
     two were allowed to disagree: core/hooks/SPECS.md § First-line descriptions.
     """
+    if not feature_law.is_enabled('first-line-comment'):
+        return None
     if not is_scanned(path) or is_generated_mirror(path) or is_vendored(path, WORKSPACE_ROOT):
         return None
     if file_description(path).strip():

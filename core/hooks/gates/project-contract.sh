@@ -2,6 +2,18 @@
 # Sourced by core/hooks/pre-commit — a FRAGMENT, not a standalone script:
 # it shares $STAGED and may `exit` to reject the commit. Order is fixed by the dispatcher.
 
+# ── Feature switches (core/SPECS.md § AD-14) ──────────────────────────────────
+# THREE features live in this one file — verify-contract, verify-suite, project-contract —
+# so the slug-names-the-file rule cannot apply here and three registry rows name this path.
+# Asked ONCE at the top, never per call site, and read as a flag rather than acted on: a
+# sourced fragment must skip its own section, never `exit`, or a switched-off feature would
+# silently take the sections after it down with it.
+# 1e (gitflow) and 1f (gitlink) delegate to scripts carrying their own guards — left alone.
+PC_VERIFY_CONTRACT=0; PC_VERIFY_SUITE=0; PC_PROJECT_CONTRACT=0
+python3 /mnt/workspace/core/hooks/feature_law.py --enabled verify-contract && PC_VERIFY_CONTRACT=1
+python3 /mnt/workspace/core/hooks/feature_law.py --enabled verify-suite && PC_VERIFY_SUITE=1
+python3 /mnt/workspace/core/hooks/feature_law.py --enabled project-contract && PC_PROJECT_CONTRACT=1
+
 # ── 1a. Verification contract gate — every code/ project must declare + pass verify:fast ──
 # Discovery is stack-agnostic: npm script (package.json) or Makefile target — either
 # satisfies the contract. code/ projects with neither are hard-blocked (code/ROADMAP-verify.md G2);
@@ -17,7 +29,8 @@ CODE_STAGED=$(echo "$STAGED" | grep -E '\.(js|jsx|ts|tsx|py|dart)$' | grep -v '\
 if [ -n "$CODE_STAGED" ]; then
   case "$TOPLEVEL" in
     /mnt/workspace/code/*)
-      if [ "$HAS_NPM_CONTRACT" != "1" ] && [ "$HAS_MAKE_CONTRACT" != "1" ]; then
+      if [ "$PC_VERIFY_CONTRACT" = "1" ] \
+         && [ "$HAS_NPM_CONTRACT" != "1" ] && [ "$HAS_MAKE_CONTRACT" != "1" ]; then
         printf "⛔ No verify:fast contract found — every code/ project needs one.\n"
         printf "   Declare package.json \"verify:fast\" (npm) or a Makefile \"verify-fast:\" target (any stack).\n"
         printf "   No real tests yet? A passing stub is enough — see code/ROADMAP-verify.md G5.\n"
@@ -26,7 +39,8 @@ if [ -n "$CODE_STAGED" ]; then
       ;;
   esac
 
-  if [ "$HAS_NPM_CONTRACT" = "1" ] || [ "$HAS_MAKE_CONTRACT" = "1" ]; then
+  if [ "$PC_VERIFY_SUITE" = "1" ] \
+     && { [ "$HAS_NPM_CONTRACT" = "1" ] || [ "$HAS_MAKE_CONTRACT" = "1" ]; }; then
     printf "→ verify:fast…\n"
     if [ "$HAS_NPM_CONTRACT" = "1" ]; then RUN_CMD="npm run --silent verify:fast"; else RUN_CMD="make verify-fast"; fi
     if ! $RUN_CMD >/tmp/verify-fast.$$ 2>&1; then
@@ -43,7 +57,7 @@ fi
 # ── 1c. CONTEXT.md project-goal-link gate — code/<proj>/CONTEXT.md line 3 ─────
 case "$TOPLEVEL" in
   /mnt/workspace/code/*)
-    if echo "$STAGED" | grep -qx 'CONTEXT.md'; then
+    if [ "$PC_PROJECT_CONTRACT" = "1" ] && echo "$STAGED" | grep -qx 'CONTEXT.md'; then
       GOAL_LINE3=$(sed -n '3p' "CONTEXT.md" 2>/dev/null)
       if ! printf '%s' "$GOAL_LINE3" | grep -qE '^>\s*goal:\s*(\[[^]]+\]\([^)]+\)|none)\s*$'; then
         printf "⛔ %s/CONTEXT.md missing '> goal:' link on line 3.\n" "$(basename "$TOPLEVEL")"
@@ -61,7 +75,7 @@ esac
 case "$TOPLEVEL" in
   /mnt/workspace/code/*)
     NEW_CONTEXTS=$(git diff --cached --name-only --diff-filter=A 2>/dev/null | grep -E '(^|/)CONTEXT\.md$' || true)
-    if [ -n "$NEW_CONTEXTS" ]; then
+    if [ "$PC_PROJECT_CONTRACT" = "1" ] && [ -n "$NEW_CONTEXTS" ]; then
       while IFS= read -r ctx; do
         [ -f "$ctx" ] || continue
         SPEC_DECL=$(grep -m1 -E '^>\s*spec:\s*\S' "$ctx" 2>/dev/null | sed -E 's/^>[[:space:]]*spec:[[:space:]]*//' | tr -d '\r' | xargs)
@@ -98,12 +112,16 @@ fi
 # Ratchet/boy-scout, same shape as 1c/1d: fires only on files this commit ADDS, so a
 # repo that inherited violations is not blocked on every commit. The allowlist is
 # parsed from core/SCHEMA.md, never restated. See core/hooks/SPECS.md.
-python3 /mnt/workspace/core/hooks/checks/type-gate.py || exit 1
+if [ "$PC_PROJECT_CONTRACT" = "1" ]; then
+  python3 /mnt/workspace/core/hooks/checks/type-gate.py || exit 1
+fi
 
 # ── 1h. Tier 0 citation gate — roadmap item numbers cited outside a roadmap ───
 # NOT a ratchet: the corpus was swept to zero, so every staged file is checked, not only
 # the ones a commit adds. A closed item is deleted, so its number becomes a dead pointer.
-python3 /mnt/workspace/core/hooks/checks/citation-gate.py || exit 1
+if [ "$PC_PROJECT_CONTRACT" = "1" ]; then
+  python3 /mnt/workspace/core/hooks/checks/citation-gate.py || exit 1
+fi
 
 # ── 1f. Nested-gitlink gate (workspace repo) ──────────────────────────────────
 if [ -x /mnt/workspace/core/hooks/git/nested-gitlink-gate.sh ]; then
