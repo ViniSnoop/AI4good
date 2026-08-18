@@ -419,12 +419,36 @@ half that stages or blocks and an edit-time half that keeps the artifact current
 leaves the other writing. **`gates/project-contract.sh` hosts three features in one file**, so the
 slug-names-the-file rule cannot apply there; that is a finding, not a rename to force.
 
-**Two of the six layers still have no rows** — `agents` and `flows` are undeclared and invisible to
-the ablation, and `norms` has none either, so every INDUCED rule in `AGENTS.md` is unregistered.
-Agents and flows are markdown read by path with **no publisher**, which is exactly why they are
-unswitchable; the seam that already works is the skills mirror, extended to both. `norms` needs a
-real design and is the precondition for ablating `AGENTS.md` itself. → **tier: medium**, and the
-`norms` seam is 🟡 — it changes how the always-loaded root file is produced.
+**`norms` is live** — `core/norms/<slug>.md`, published into `AGENTS.md`'s generated rule block by
+`core/hooks/routing/norms.py`, which is also the group's one switch. Rule order comes from the
+registry, so moving a rule up the prompt means moving its row. Contract:
+[`core/SCHEMA.md`](core/SCHEMA.md) § Layer: norm.
+
+**`agents` and `flows` still have no rows**, and the seam is a *rendering* mirror rather than the
+symlink one skills use. Ruled 2026-08-18 (Lucas): extend the mirror, not the read gate. Grounding
+found the layer carries a **double asymmetry** the extension has to resolve first:
+
+- `core/agents/` holds five research agents (`lead`, `researcher`, `writer`, `verifier`, `reviewer`)
+  mirrored **nowhere** — they are file contents pasted as a system prompt, not spawnable agent types.
+- `.claude/agents/craft-{high,medium,low}.md` and `.opencode/agents/craft-*.md` are hand-written
+  **twice with no source in `core/`**, while [`core/SCHEMA.md`](core/SCHEMA.md) § Layer: agent calls
+  them mirrors and states *"There is no generator, so keep each mirror's `model:` in sync with its
+  source `tier:` by hand."*
+
+**The two mirrors diverge on purpose**, which is why a symlink cannot serve: Claude Code's carries
+`model: opus`, opencode's carries **no** `model:` line (stripped per the agnostic principle) plus
+`mode: subagent`. So the work is one source per agent carrying `tier:`, and a generator resolving
+`tier` → per-runtime frontmatter from [`core/flows/craft/routing.md`](core/flows/craft/routing.md) —
+which deletes a documented hand-sync hazard as a side effect, and makes the five research agents
+spawnable for the first time.
+
+**Flows have no mirror location at all**, and that is the open question, not an oversight: a skill
+names `core/flows/craft/*.md` by literal path, so publishing flows means moving where every skill
+points. Decide that before building, because the pointer rewrite is the whole cost.
+
+**Not built at the tail of the drain session it was scoped in** — it sits on `/craft`'s live spawn
+path, and a frontmatter mistake breaks spawning until something catches it. → **tier: medium**,
+agents first, flows after the pointer question is answered.
 
 5. 🟡 **the public scaffold repo and its one-way sync.** A **separate public repository**, not a
    branch — personal history never leaves this repo, where a branch would carry every commit that
