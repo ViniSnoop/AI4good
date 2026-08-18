@@ -1,6 +1,12 @@
 # Regenerate the interface next to the file just edited — .pyi, .d.ts, .dart.api, .texif.
 # Sourced by core/hooks/post-edit.sh — a FRAGMENT, not a standalone script:
 # it relies on $file, $dir, $TSC and find_tsconfig from the caller.
+#
+# The second of `interface-stubs`' two paths (core/SPECS.md § AD-14). This half is what
+# keeps the stub current WITHIN a session; generators/interfaces.sh is what stages it into
+# the commit. Switch off only one and read/pre-read.sh silently stops enforcing, because it
+# blocks a source read only while the stub beside it is current.
+if python3 /mnt/workspace/core/hooks/feature_law.py --enabled interface-stubs; then
 
 # ── Interface regeneration ──────────────────────────────────────────────────────
 case "$file" in
@@ -96,3 +102,5 @@ EOF
 		python3 /mnt/workspace/core/hooks/stubgen/tex-interface-gen.py --bib-check "$file" 2>/dev/null
 		;;
 esac
+
+fi  # interface-stubs

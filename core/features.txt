@@ -65,8 +65,8 @@
 slug	group	install	enforcement	scope	wired	buys
 context-chain	hooks	-	blocks	general	core/hooks/read/context-gate.py,core/hooks/read/bash-context-gate.py	An agent cannot touch a file in a subtree it has not oriented in, including through cat and grep, so it arrives knowing the neighbourhood instead of guessing from a filename
 interface-first-reads	hooks	interface-stubs	blocks	general	core/hooks/read/pre-read.sh	Reading a source file is blocked while its generated stub is current, so the agent reads 30 lines of signatures instead of 200 lines of body
-interface-stubs	hooks	interface-stubs	generates	general	-	The .pyi / .d.ts / .dart.api / .texif stubs regenerate on every save, so the interface-first read can never serve a stale summary
-routing-tables	hooks	-	generates	general	-	Each directory's file list writes itself from first-line comments; nobody maintains an index, and an index nobody maintains is the one that lies
+interface-stubs	hooks	interface-stubs	generates	general	core/hooks/generators/interfaces.sh,core/hooks/postedit/interfaces.sh	The .pyi / .d.ts / .dart.api / .texif stubs regenerate on every save, so the interface-first read can never serve a stale summary
+routing-tables	hooks	-	generates	general	core/hooks/routing/context_synchronizer.py	Each directory's file list writes itself from first-line comments; nobody maintains an index, and an index nobody maintains is the one that lies
 agent-context-brief	hooks	-	advises	general	core/hooks/read/agent-context.py	A spawned subagent is handed its subtree's CONTEXT.md chain instead of being gated on it, so briefing a worker stops being a discipline the orchestrator has to remember
 subtree-read-tracking	hooks	-	none	general	core/hooks/read/context-tracker.py	Records which CONTEXT.md a session has already read, which is what lets the chain gate fire once per subtree instead of once per file
 line-limit	hooks	-	blocks	general	core/hooks/checks/check-line-counts.sh	Forces graph-shaped design: small single-responsibility files with explicit imports, because an agent that cannot grow a file has to actually decompose it
@@ -86,7 +86,7 @@ project-contract	hooks	-	blocks	general	core/hooks/gates/project-contract.sh	Wha
 gitflow-gate	hooks	git-hooks	blocks	general	core/hooks/git/gitflow-gate.sh	Blocks direct commits to main / master / develop and requires feature|release|hotfix, so a shared branch only ever moves by promotion
 gitlink-gate	hooks	git-hooks	blocks	general	core/hooks/git/nested-gitlink-gate.sh	Blocks committing an undeclared nested gitlink, which is how a nested repo silently becomes a pointer nobody can clone
 gitignore-self-heal	hooks	git-hooks	generates	general	core/hooks/git/gitignore-self-heal.sh	The .gitignore allowlist repairs itself, so a new subtree cannot go untracked and thereby opt out of every check the workspace runs
-lint-typescript	hooks	lint-typescript	blocks	general	-	ESLint and Prettier over staged TypeScript, run last because it needs the .d.ts the generators just wrote
+lint-typescript	hooks	lint-typescript	blocks	general	core/hooks/gates/lint.sh,core/hooks/postedit/lint.sh	ESLint and Prettier over staged TypeScript, run last because it needs the .d.ts the generators just wrote
 declared-deps	hooks	declared-deps	warns	general	-	Every external dependency is declared with what installs it and what its absence breaks, so a fresh clone loses a capability loudly instead of silently
 opencode-plugin	hooks	-	none	general	-	The provider shim that lets a second harness run the same canonical gates, which is what keeps the enforcement layer provider-agnostic in fact and not just in intent
 brain-dashboard	hooks	-	generates	lucas	-	GOALS.md renders its own attention bars and active-goal table, so the dashboard cannot drift from the goal files it summarises

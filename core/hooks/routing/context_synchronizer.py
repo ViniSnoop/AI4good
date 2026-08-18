@@ -4,6 +4,7 @@ import re
 import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import feature_law
 from file_law import is_code_file
 from workspace_scanner import (
     SPLIT_THRESHOLD,
@@ -105,6 +106,13 @@ def _drop_unsentineled_routing(text: str) -> str:
 
 
 def sync(target: Path):
+    # The one seam for `routing-tables` (core/SPECS.md § AD-14): pre-commit
+    # (generators/routing.sh) and post-edit (postedit/sync.sh) both arrive here, so one
+    # guard switches both moments off. The two fragments keep separate call sites because
+    # only the pre-commit one stages the result — a difference in what they do with the
+    # block, not in whether the block gets written.
+    if not feature_law.is_enabled('routing-tables'):
+        return
     directory = target if target.is_dir() else target.parent
 
     ctx = directory / 'CONTEXT.md'

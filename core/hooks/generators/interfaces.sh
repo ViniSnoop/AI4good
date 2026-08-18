@@ -1,6 +1,12 @@
 # Generate: language interface stubs — .pyi, .d.ts (js + ts), .dart.api.
 # Sourced by core/hooks/pre-commit — a FRAGMENT, not a standalone script:
 # it shares $STAGED and may `exit` to reject the commit. Order is fixed by the dispatcher.
+#
+# `interface-stubs` names TWO paths in core/features.txt — this one and postedit/interfaces.sh
+# (core/SPECS.md § AD-14). Not a duplicate trigger: this one stages the stub into the commit
+# and sweeps stubless siblings, post-edit keeps the stub current inside the session so
+# read/pre-read.sh never serves a stale interface. Guarding one would leave the other writing.
+if python3 /mnt/workspace/core/hooks/feature_law.py --enabled interface-stubs; then
 
 # ── 6. Python → .pyi stubs (mypy stubgen) ─────────────────────────────────────
 # Staged files, PLUS any stubless sibling in the same directories. A .py that entered the
@@ -119,4 +125,6 @@ if [ -n "$DART_FILES" ]; then
     fi
   done <<< "$DART_FILES"
 fi
+
+fi  # interface-stubs
 
