@@ -905,11 +905,11 @@ person who owns it, and the place to route the next *"when was that decided?"*
    offers candidates; the criterion above still decides. → **tier: low** to build, before the audit
    runs, not blocking it. → **tier: medium** for the audit itself, after the sitting.
 
-3. 🟡 **Keep trying shapes for the *is* picture until Lucas can read it, then cut.** The summary
-   layer shipped 2026-08-18 — a heat grid above the tab strip, split by what starts a feature,
-   with five findings under it. **What is open is not "build a summary" but "which drawings earn
-   their place"**, and Lucas set the pace: *"we are still at the level of trying different
-   visualizations to cut it later, so no rush in discarding anything yet."*
+3. 🟡 **Keep trying shapes for the *is* picture until Lucas can read it, then cut.** The page opens
+   on a heat grid split by what starts a feature, with five findings under it, above the detail
+   tabs. **What is open is not "build a summary" but "which drawings earn their place"**, and Lucas
+   sets the pace: *"we are still at the level of trying different visualizations to cut it later,
+   so no rush in discarding anything yet."*
 
    **The question was restated and it is not the one this row used to hold.** Lucas: *"1) in a
    glance see if WOS is well tied, if it has loose ends, if it has too much noise, discardable
