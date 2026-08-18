@@ -26,7 +26,8 @@ from entropy_context import (check_description, check_goal_link,  # noqa: E402
                              check_inventory)
 from entropy_corpus import (enforcement_paths, staged_added_files,  # noqa: E402
                             wiki_exempt_paths)
-from entropy_ledger import goal_vocabulary, wiki_link_hits  # noqa: E402
+from entropy_ledger import (finished_work_hits, goal_vocabulary,  # noqa: E402
+                            wiki_link_hits)
 from entropy_naming import check_dirs, check_placement, check_shape  # noqa: E402
 from schema_law import SCHEMA, WORKSPACE_ROOT, load_law, load_scopes  # noqa: E402
 
@@ -57,7 +58,13 @@ def failures_for(path: Path, allowed: set, exempt: set, scopes: dict,
                          check_shape(path, allowed),
                          check_dirs(path, WORKSPACE_ROOT),
                          check_placement(path, scopes, WORKSPACE_ROOT)) if f]
-    return found + wiki_link_hits([path], vocabulary, wiki_exempt_paths(WORKSPACE_ROOT))
+    return (found
+            + wiki_link_hits([path], vocabulary, wiki_exempt_paths(WORKSPACE_ROOT))
+            # Completion is deletion, and until this line the rule was detected by the dashboard
+            # and enforced by nobody. Ratcheted like everything else here: a file this commit ADDS
+            # may not arrive already describing work that landed. The inherited queue stays the
+            # dashboard's, on the ceiling in test_corpus_ratchet.py.
+            + finished_work_hits([path], enforcement_paths(WORKSPACE_ROOT)))
 
 
 def main() -> int:

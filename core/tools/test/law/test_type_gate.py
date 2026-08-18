@@ -86,3 +86,32 @@ def test_harness_mandated_name_is_exempt(tmp_path):
     target = tmp_path / 'CLAUDE.md'
     target.write_text('# c\n', encoding='utf-8')
     assert type_gate.check_name(target, allowed, exempt) is None
+
+
+def test_prose_describing_finished_work_blocks_a_file_the_commit_adds(tmp_path):
+    """Detected by the dashboard since the rule was written, enforced only from 2026-08-18.
+
+    Completion is deletion, and a detector nobody blocks on is what let the corpse queue grow to
+    nineteen. Ratcheted like every other check this gate runs: it fires on what a commit ADDS, so
+    the inherited queue stays the dashboard's and the gate does not fail on the day it lands.
+    """
+    allowed, exempt = type_gate.load_law(SCHEMA)
+    target = tmp_path / 'SPECS.md'
+    target.write_text('# s\n> one line about it.\n\nThe old gate was ~~cut~~ and replaced.\n',
+                      encoding='utf-8')
+    failures = type_gate.failures_for(target, allowed, exempt, {}, set())
+    assert any('finished work' in failure for failure in failures), failures
+
+
+def test_present_tense_state_is_not_a_corpse(tmp_path):
+    """The rule is about prose describing work that landed, not about mentioning the past.
+
+    Without this the gate would be a ban on dates, and the guidance it prints — rewrite the line
+    as present-tense state — would have nothing to rewrite into.
+    """
+    allowed, exempt = type_gate.load_law(SCHEMA)
+    target = tmp_path / 'SPECS.md'
+    target.write_text('# s\n> one line about it.\n\nThe gate blocks a staged clone.\n',
+                      encoding='utf-8')
+    failures = type_gate.failures_for(target, allowed, exempt, {}, set())
+    assert not any('finished work' in failure for failure in failures), failures

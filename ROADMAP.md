@@ -1023,12 +1023,6 @@ whether anything enforces it yet, so the *build* was left with no home and the i
 the work state. **The declaring section is the spec; the row here is the work.** Each row is deleted
 the day its check runs; this section is deleted when the last one does.
 
-1. 🟢 **the finished-work prose gate.** `entropy/entropy_ledger.py` already carries the detector and
-   the dashboard counts it, but `checks/type-gate.py` imports only `goal_vocabulary` and
-   `wiki_link_hits`, so the finished-work half **reports and never blocks**. One import plus one
-   call, **ratcheted to what a commit adds** like every other Tier 0 check — the standing queue is
-   non-trivial and a gate that fails on the day it lands trains people to ignore it.
-   Declared: [`core/hooks/SPECS.md`](core/hooks/SPECS.md) § The next gate. → **tier: medium**.
 2. 🟢 **the `core/experiments/` and `REFS.md` discipline checks.** The two rules this workspace cites
    as proof it knows how to doubt — a runnable `## Method`, dated `Results`, `Limitations` never
    omitted; and `REFS.md`'s `[A]`/`[B]`/`[P]`/`[V]`/`[C]` tier markers — and **neither is verified by

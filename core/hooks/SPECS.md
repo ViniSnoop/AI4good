@@ -296,19 +296,18 @@ pattern, and 59 well-commented files were marked undescribable — one of them i
 which was read as proof of a discipline hole until the generator was asked. **A marker is not
 evidence of a discipline problem until the generator has been asked whether it can answer it.**
 
-### The next gate: finished-work prose is detected but never blocked
+### Finished-work prose is blocked on what a commit adds
 
-`entropy/entropy_ledger.py` carries the detector for prose describing work that already landed, and
-the dashboard counts it — but `checks/type-gate.py` imports only `goal_vocabulary` and
-`wiki_link_hits` from that module, so the finished-work half **reports and never blocks**. It is the
-same shape as the first-line hole above: a rule already in force, with an edit-time cost of zero and
-no staged-set gate, accumulating a standing queue nobody is charged for.
+`entropy/entropy_ledger.py` carries the detector — strikethrough, a dated completion report, a
+settled-marker, and a ticked item inside a ledger — and `checks/type-gate.py` calls it on
+`staged_added_files()`. So a file **arriving** with a corpse in it is rejected, while the inherited
+queue stays the dashboard's and rides the ceiling in `test_corpus_ratchet.py` instead of failing
+every commit. That split is the rule for every Tier 0 check here, not a concession to this one:
+a gate that fails on the day it lands trains its reader to ignore it.
 
-Wiring it is one import plus one call in the commit gate, and it must go in **ratcheted to what a
-commit adds**, like every other Tier 0 check — the open queue is non-trivial, and a gate that fails
-on the day it lands trains people to ignore it. Until it blocks, the rule stays written in
-`AGENTS.md`: [`core/SPECS.md`](../SPECS.md) § AD-15 makes blocking, not the mere existence of a
-detector, the thing that licenses deleting the prose.
+Completion is deletion (`core/SCHEMA.md` § No archive types), and
+[`core/SPECS.md`](../SPECS.md) § AD-15 makes blocking — not the mere existence of a detector —
+what licenses deleting the prose.
 
 ## What a working install looks like
 
