@@ -924,26 +924,40 @@ person who owns it, and the place to route the next *"when was that decided?"*
    matrices beat node-link past ~20 nodes ([`core/refs/REFS.md`](core/refs/REFS.md) § Workspace
    visualization), so the 107-node routing tree is far past it and reads as wallpaper — but:
 
-   - **the lifecycle sequence**, 10 steps, one band per session moment with its features on it and
-     the on-demand ones drawn detached beside the chain. Its precondition landed with the `runs`
-     column: an automatic feature has a *moment*, an on-demand one has none.
+   - **the lifecycle sequence — BUILT 2026-08-18**, `views/diagram_lifecycle.py`, one band per
+     session moment with its features on it and the on-demand ones drawn detached beside the chain.
+     It renders above the tab strip, not behind a click. **It waits on Lucas's eye**: does it answer
+     *is WOS well tied, where are the loose ends* at a glance, or is it a fourth inventory?
    - **the wiring fan-in**, ~8 interesting nodes. 68 features resolve to 46 distinct wiring points
      and two carry 24 of them — `core/tools/wos/skills/mirror.sh` (14) and
      `core/hooks/routing/norms.py` (10). Architecture the enforcement grid spends 600 cells hiding.
 
-   Both land in `core/tools/wos/diagram/views/`, **which has room for exactly two more code files
-   before the fanout signal fires**. → **tier: medium**.
+   The fan-in takes **the last of the two view slots** in `core/tools/wos/diagram/views/` before the
+   fanout signal fires; the lifecycle spent the first. → **tier: medium**.
 
-   **The picture draws more than the workspace should claim.** Lucas, INBOX 2026-08-18, on seeing
-   it: *"it seems there is too much on WOS, at least according to ARCHITECTURE.html. somehow the
-   specific folder of each paper appears there. in my opinion it should not. WOS is a personal
-   thing but even in this repo it should have some boundaries."* He is reading a real defect and it
-   is the drawing's, not the tree's: the spine renders three levels deep, so `academy/papers/<one
-   paper>` lands on it beside `core/hooks`, and one paper is not a layer of this workspace. The
-   same question the footer already answers for nested repos — *drawn as directories and no
-   deeper* — has never been asked about **content** subtrees. **Decide what the picture's boundary
-   is before adding views to it**, since every new view inherits the answer; the candidate rule is
-   that a directory whose children are instances rather than structure stops at its own name.
+   **A target per finding — RULED (Lucas) and BUILT 2026-08-18.** Every finding carries one, read
+   off a declaration rather than chosen: zero for orphan directories, unswitchable features,
+   unreadable routing blocks and features with no declared moment. The one nobody has decided —
+   *are declared layers holding no feature a defect?* — prints `undecided` rather than blank, so an
+   undecided target cannot pass for a met one. Pinned by `test_diagram_health.py`.
+
+   **Two findings the declared moments surfaced, neither chased:** `core/features.txt` states the
+   unswitchable count has a target of zero *with no exceptions left*, and the page now reads **1 of
+   68** — so either a row lost its switch or the claim in that header is stale. And the
+   **`post-commit` band is empty**: `core/hooks/post-commit` auto-pushes `feature/*`, which is
+   behaviour no feature in the registry governs and therefore nothing can switch off. Both are
+   registry questions rather than drawing ones. → **tier: low** each.
+
+   **The picture's boundary — DEFERRED by Lucas, 2026-08-18**, after the worry was measured:
+   *"to respect the context tree I think we may leave as it is now… let's not overcomplicate this
+   for now, we have bigger priorities."* What settles it is that **WOS versions nothing at all
+   inside a nested repo** — `git ls-files academy/papers/2027-ICLR-dobra` returns zero files, and
+   the same holds for `code/dobra` and `branches/casinhas`. Each paper and project owns every one
+   of its own files in its own repository. What reaches the picture is the paper's **name**, from
+   the routing table in `academy/papers/CONTEXT.md`, so the leak is one row of a parent's index
+   rather than versioned content. The candidate rule if it is ever taken up: a directory whose
+   children are instances rather than structure stops at its own name — and the declared signal
+   for "instance" already exists, since every one of them is its own git repo.
 
    **Two rulings still Lucas's, both raised by an outside critique of the page and neither taken
    alone.** First, **no number on the page has a target beside it**, so nothing can read as good or
@@ -980,13 +994,21 @@ person who owns it, and the place to route the next *"when was that decided?"*
    [`core/refs/REFS.md`](core/refs/REFS.md) § The health shelf). So the summary goes *above* the
    enforcement matrix, and the standing proposal to cut that matrix is dead on evidence.
 
-   **The one region still inferred:** there is no machine-readable *hook → when it fires → what it
-   blocks* table, so the firing moment comes from directory convention and the page says so — and
-   it is demonstrably wrong for the norms, which are always-loaded rather than the "on save" their
-   wiring directory implies. Building that registry would make the picture fully honest, is what
-   the lifecycle sequence above needs to stop hatching half its bands, and feeds the verification
-   front too — Lucas wants to design it jointly, so it is a candidate for its own sitting.
-   → **tier: medium** for *becoming*; *goal* needs Lucas's intent as input before it can be drawn.
+   **Nothing on the page is inferred any more, as of 2026-08-18** — and the registry this row asked
+   for was never written, because the answer was already declared in three places nobody had read
+   together: a harness `settings.json`, the `pre-commit` dispatcher's own stage order, and the
+   SETUP.md install step that registers what must live outside the repo.
+   [`core/hooks/trigger/trigger_law.py`](core/hooks/trigger/trigger_law.py) is the fourth law module and
+   [`core/hooks/trigger/hook_reach.py`](core/hooks/trigger/hook_reach.py) its walk. Inferred firing moments went
+   **13 → 1**. **The transferable finding is that a registry asked to be authored turned out to be
+   derivable**, which is the same shape as the `runs` column the session before: look for the
+   declaration before writing a new one.
+
+   Three precision bugs were caught by disbelieving the first output, and each had invented edges: a
+   name in a **comment** is not a call, a name in a **docstring** is not either, and a bare module
+   stem like `norms`, `compress` or `detect` is an ordinary English word — that one alone put ten
+   session moments on `norms.py` and on four caveman scripts. A stem now counts only inside import
+   syntax. → **tier: medium** for *becoming*; *goal* needs Lucas's intent before it can be drawn.
 
 5. 🔴 **Which sectors deserve an `ARCHITECTURE.html`, and what does each one need that the
    workspace document does not?** Lucas, 2026-08-18, on seeing the first one: *"I envision an

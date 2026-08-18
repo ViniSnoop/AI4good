@@ -81,12 +81,18 @@ def by_layer(rows: list, runs: str = '') -> list:
 
 
 def findings(rows: list, coverage: dict, root: Path = WORKSPACE_ROOT) -> list:
-    """Every health finding, biggest first: [{count, of, text, where, inferred}].
+    """Every health finding, biggest first: [{count, of, target, text, where}].
 
     `of` is the population the count is out of, or None when the finding has no denominator — it
     is what turns "7 directories" into "2 OF 6 layers", which is the difference between a number
-    and a proportion a reader can judge. `inferred` marks a finding standing on convention rather
-    than on a declaration, so the page can label it exactly like every other inferred edge.
+    and a proportion a reader can judge.
+
+    `target` is what the count SHOULD be, and every row carries one (Lucas, 2026-08-18): without it
+    no number on the page can read as good or bad, which is how a session came to open its findings
+    list with a number that was not a defect. None means nobody has decided yet — printed as
+    `undecided` rather than left blank, because an undecided target is itself a finding and hiding
+    it would restore the exact ambiguity this column exists to remove. Every target here is read
+    off a declaration, never chosen in this file.
 
     EVERY ROW HERE IS A GAP, and two candidates were cut on 2026-08-18 for failing that test.
     "28 of 68 features enforce nothing" reads as dead weight and is nothing of the kind: those 28
@@ -99,25 +105,26 @@ def findings(rows: list, coverage: dict, root: Path = WORKSPACE_ROOT) -> list:
     declared, held = _layers(rows)
     empty = [layer for layer in declared if layer not in held]
     loose = orphans(root)
+    _bands, on_demand, unplaced = data.lifecycle(rows)
     out = [
-        _f(len(loose), None,
+        _f(len(loose), None, 0,
            'directories hold tracked files that no routing block points at',
            'the routing blocks, against git ls-files'),
-        _f(len(data.INFERRED_TRIGGER), None,
-           'hook firing moments are inferred — no registry declares them',
-           'core/hooks/, by directory convention', inferred=True),
-        _f(len(empty), len(declared),
+        _f(len(unplaced), len(rows) - len(on_demand), 0,
+           'automatic features have no firing moment declared anywhere in this repo',
+           'core/hooks/trigger_law.py, against every registration'),
+        _f(len(empty), len(declared), None,
            'declared layers hold no feature at all', 'core/features.txt § group'),
-        _f(len(feature_law.findings()), len(rows),
+        _f(len(feature_law.findings()), len(rows), 0,
            'features cannot be switched off at all', 'core/features.txt § wired'),
-        _f(len(coverage['unparsed']), coverage['total'],
+        _f(len(coverage['unparsed']), coverage['total'], 0,
            'routing blocks could not be read', 'the routing sentinels'),
     ]
     return sorted(out, key=lambda f: -f['count'])
 
 
-def _f(count: int, of, text: str, where: str, inferred: bool = False) -> dict:
-    return {'count': count, 'of': of, 'text': text, 'where': where, 'inferred': inferred}
+def _f(count: int, of, target, text: str, where: str) -> dict:
+    return {'count': count, 'of': of, 'target': target, 'text': text, 'where': where}
 
 
 def detail(rows: list, root: Path = WORKSPACE_ROOT) -> dict:
@@ -127,8 +134,10 @@ def detail(rows: list, root: Path = WORKSPACE_ROOT) -> dict:
     are listed — naming 28 features would rebuild the dense table this view exists to summarise.
     """
     declared, held = _layers(rows)
+    _bands, _on_demand, unplaced = data.lifecycle(rows)
     return {
         'empty layers': [layer for layer in declared if layer not in held],
         'unswitchable': [row['slug'] for row in feature_law.findings()],
+        'no declared moment': [row['slug'] for row in unplaced],
         'orphan directories': [d for d, _n in orphans(root)],
     }

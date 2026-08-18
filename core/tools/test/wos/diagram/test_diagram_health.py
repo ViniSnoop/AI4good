@@ -73,16 +73,21 @@ def test_every_finding_is_a_gap_rather_than_a_shape():
     assert 'exactly one feature' not in texts
 
 
-def test_a_finding_standing_on_convention_is_labelled_inferred():
-    """Same rule the matrix already keeps: the hook firing moments are the one region no file
-    declares, and a summary is exactly where an inferred number would be mistaken for a measured
-    one."""
+def test_every_finding_carries_a_target_and_says_when_nobody_set_one():
+    """A count with no target cannot read as good or bad, which is how this list once opened with a
+    number that was not a defect at all. Replaced the `inferred` check on 2026-08-18: the firing
+    moment stopped being guessed from directory convention that day (core/hooks/trigger_law.py), so
+    the region this file used to guard for honest labelling is now simply declared.
+
+    An UNDECIDED target must print as undecided. Rendering nothing would let it pass for a met one,
+    which is the same silence the column exists to break.
+    """
     rows, _columns, _cells = data.matrix(data.features())
     _nodes, _edges, coverage = data.containment()
     items = health.findings(rows, coverage)
-    inferred = [f for f in items if f['inferred']]
-    assert len(inferred) == 1 and 'firing' in inferred[0]['text']
-    assert 'inferred' in overview_form.render(*_grids(rows), items)
+    assert all('target' in f for f in items)
+    assert any(f['target'] is None for f in items), 'the undecided target is itself a finding'
+    assert 'undecided' in overview_form.render(*_grids(rows), items)
 
 
 def test_the_summary_needs_no_click(tmp_path):

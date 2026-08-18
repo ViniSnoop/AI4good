@@ -13,6 +13,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 import diagram_data as data
 import diagram_health as health
+import diagram_lifecycle as lifecycle_form
 import diagram_matrix as matrix_form
 import diagram_overview as overview_form
 import diagram_page as page
@@ -41,8 +42,13 @@ def build() -> tuple:
     summary = overview_form.render(health.by_layer(rows, 'automatic'),
                                    health.by_layer(rows, 'on-demand'),
                                    health.findings(rows, coverage))
+    sequence = ('<section class="ov"><h2>when it fires</h2>'
+                '<p class="q">the session from first moment to last, with the features that run at '
+                'each one — read from the registrations, not from where a file sits</p>'
+                + lifecycle_form.render(*data.lifecycle(rows)) + lifecycle_form.legend()
+                + '</section>')
     counts = {'features': len(rows), 'directories': len(nodes)}
-    return page.render(panels, coverage, data.scope(), summary), coverage, counts
+    return page.render(panels, coverage, data.scope(), summary, sequence), coverage, counts
 
 
 def report(coverage: dict, counts: dict) -> None:

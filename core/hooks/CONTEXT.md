@@ -13,6 +13,9 @@ is **switched on** — and each reads its answer out of a data file rather than 
 numbers, the vendored trees, the extensionless names, the `.gitignore` exceptions, and (like
 `schema_law.py`, one level up in `core/`) the feature registry and its profile.
 
+A fourth question — **when** a switched-on feature fires — is answered the same way one directory
+down, in [`trigger/`](trigger/CONTEXT.md).
+
 Which gates consult `feature_law`, and why a row that does not is a finding:
 [`core/SPECS.md`](../SPECS.md) § AD-14.
 
@@ -62,6 +65,7 @@ exist: [`code/ROADMAP-verify.md`](../../code/ROADMAP-verify.md). Installing the 
 | [`routing/`](routing/CONTEXT.md) | The CONTEXT.md routing-table generator. |
 | [`session/`](session/CONTEXT.md) | Session lifecycle: start, prune, precompact wipe, and the SessionStart nudges. |
 | [`stubgen/`](stubgen/CONTEXT.md) | Interface stubs and paper scaffolding, generated on save and on commit. |
+| [`trigger/`](trigger/CONTEXT.md) | When a feature fires, read from the registrations rather than from where its… |
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|

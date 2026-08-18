@@ -45,20 +45,26 @@ table.heat td.z { color:var(--dim); opacity:.4; }
 
 
 def _findings(items: list) -> str:
-    """The gaps, as sentences with a magnitude — never as absences to be spotted.
+    """The gaps, as sentences with a magnitude and a target — never as absences to be spotted.
 
     A count with no denominator is a number; `28 of 68` is a proportion a reader can judge without
     knowing this workspace. A finding at zero stays on the list, dimmed: a list that hides its
     clean rows cannot be read as coverage.
+
+    THE TARGET IS WHAT MAKES THE COUNT JUDGEABLE, and a row whose target nobody has decided says so
+    out loud. Printing nothing there would let an undecided target pass for a met one, which is the
+    same silence the whole list exists to break.
     """
     out = ['<ul class="finds">']
     for f in items:
         of = f'<span class="of"> of {f["of"]}</span>' if f['of'] is not None else ''
-        inf = ' <span class="inf">inferred</span>' if f['inferred'] else ''
-        out.append(f'<li class="{"zero" if not f["count"] else ""}">'
+        met = f['target'] is not None and f['count'] == f['target']
+        target = ('undecided' if f['target'] is None else
+                  f'target {f["target"]}' + (' · met' if met else ''))
+        out.append(f'<li class="{"zero" if met else ""}">'
                    f'<span class="cnt">{f["count"]}{of}</span>'
-                   f'<span class="txt">{escape(f["text"])}{inf}'
-                   f'<small>{escape(f["where"])}</small></span></li>')
+                   f'<span class="txt">{escape(f["text"])}'
+                   f'<small>{escape(f["where"])} · <b>{target}</b></small></span></li>')
     return '\n'.join(out + ['</ul>'])
 
 

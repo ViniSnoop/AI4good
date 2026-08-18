@@ -41,6 +41,8 @@
 - [ ] [isoroll-content] testar geração de imagem via opencode + chave NVIDIA — nanobanana com a key falhou algumas vezes; validar esse caminho alternativo (INBOX 2026-07-24)
 - [ ] [sbc-cotas] checar isenção e prazos — email andreza.leite@ufrpe.br
 - [ ] [google-migration] migrar o calendar de lsf@cin.ufpe.br para lsf.cin@gmail.com (INBOX 2026-08-18) — `core/tools/calendar/gcalendar` já lê as três contas, então a migração é de dados e de conta padrão, não de ferramenta
+- [ ] [ensino] baixar o calendário acadêmico da UFRPE para ajudar no planejamento das aulas (INBOX 2026-08-18)
+- [ ] [ensino / drive] decidir a forma de sincronizar a pasta local com o gdrive na parte acadêmica, principalmente das aulas (INBOX 2026-08-18) — a hipótese do Lucas é instalar o próprio cliente do gdrive e deixar ele sincronizar, *"funcionaria como um git com commits automatizados?"*. Checar a viabilidade: o cliente sincroniza estado, não histórico, então a pergunta real é se o versionamento nativo do Drive basta ou se a pasta precisa ser um repo de verdade. Casa com § drive migration abaixo, que hoje pressupõe download manual
 - [ ] [ensino] mapear a parte de ensino da vida dentro do WOS e migrá-la inteira para lsf.cin@gmail.com (INBOX 2026-08-18) — o mapa vem antes da migração: hoje o ensino está espalhado entre `academy/classes/`, a fila de download em § drive migration e a conta do cin. Decidir onde ensino mora no WOS, depois mover; senão a migração só reproduz o espalhamento numa conta nova
 
 ## drive migration (cin → local workspace)

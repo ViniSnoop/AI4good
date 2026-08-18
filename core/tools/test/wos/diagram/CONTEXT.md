@@ -22,6 +22,6 @@ believing the rest of it**, so the regression is pinned here rather than left to
 
 | File | Interface | Description |
 |------|-----------|-------------|
-| [`test_diagram.py`](test_diagram.py) | — | T1 the workspace picture: the generator behind ARCHITECTURE.html. |
+| [`test_diagram.py`](test_diagram.py) | [`test_diagram.pyi`](test_diagram.pyi) | T1 the workspace picture: the generator behind ARCHITECTURE.html. |
 | [`test_diagram_health.py`](test_diagram_health.py) | [`test_diagram_health.pyi`](test_diagram_health.pyi) | T1 the workspace's health reading: the findings behind the summary layer, and the grid that draws |
 <!-- routing:end -->

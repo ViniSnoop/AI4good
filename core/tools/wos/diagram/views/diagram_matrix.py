@@ -30,9 +30,9 @@ def render(rows: list, columns: list, cells: dict, trigger_of) -> str:
     that grouping is itself declared (core/features.txt § group) rather than invented here."""
     out = ['<table class="matrix">', '<thead><tr><th class="rowhead">feature</th>']
     for area in columns:
-        when, inferred = trigger_of(area)
-        mark = ' <span class="inf">inferred</span>' if inferred and when != 'unknown' else ''
-        out.append(f'<th title="{escape(area)} — fires: {escape(when)} (inferred)">'
+        when, declared = trigger_of(area)
+        mark = '' if declared else ' <span class="inf">no moment</span>'
+        out.append(f'<th title="{escape(area)} — fires: {escape(when)}">'
                    f'<span class="vert">{escape(_column_label(area))}</span>{mark}</th>')
     out.append('</tr></thead><tbody>')
 
@@ -68,6 +68,6 @@ def legend() -> str:
     return (f'<p class="legend">{items}</p>'
             '<p class="note">Rows and columns both come from <code>core/features.txt</code>. '
             'An empty column is a site that enforces nothing — a finding about the workspace, '
-            'not about the drawing. Column tooltips carry the firing moment, which is '
-            '<span class="inf">inferred</span> from directory convention: no machine-readable '
-            'hook-trigger registry exists yet.</p>')
+            'not about the drawing. Column tooltips carry the firing moment, read from the '
+            'registrations themselves by <code>core/hooks/trigger_law.py</code>; a site marked '
+            '<span class="inf">no moment</span> is one nothing in this repo registers.</p>')

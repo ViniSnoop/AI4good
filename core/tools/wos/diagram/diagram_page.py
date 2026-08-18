@@ -55,6 +55,24 @@ svg.treemap text.sub { font-size:10px; font-weight:400; opacity:.8; }
 svg.treemap rect { stroke:var(--bg); stroke-width:1; }
 .c0 rect{fill:#2b6cb0} .c1 rect{fill:#2f855a} .c2 rect{fill:#975a16} .c3 rect{fill:#805ad5}
 .c4 rect{fill:#c05621} .c5 rect{fill:#2c7a7b} .c6 rect{fill:#b83280} .c7 rect{fill:#4a5568}
+.life { border-left:2px solid var(--line); margin:0 0 14px; }
+.band { display:grid; grid-template-columns:132px auto 26px 1fr; align-items:center; gap:9px;
+  padding:2px 0 2px 12px; font-size:12.5px; position:relative; }
+.band::before { content:""; position:absolute; left:-5px; top:50%; width:8px; height:8px;
+  margin-top:-4px; border-radius:50%; background:var(--accent); }
+.band.empty::before { background:var(--line); }
+.band .mom { color:var(--fg); white-space:nowrap; }
+.band .run { display:inline-block; height:11px; border-radius:2px; background:var(--accent);
+  opacity:.85; }
+.band.empty .run { background:var(--line); }
+.band .n { color:var(--dim); font-variant-numeric:tabular-nums; text-align:right; }
+.band .who { color:var(--dim); font-size:11px; overflow:hidden; text-overflow:ellipsis;
+  white-space:nowrap; }
+.band.empty .who { font-style:italic; }
+.aside { border:1px dashed var(--line); border-radius:10px; padding:10px 13px; margin:0 0 6px;
+  background:var(--card); }
+.aside h3 { font-size:12.5px; margin:0 0 2px; font-weight:600; }
+.aside .calls { color:var(--dim); font-size:11.5px; margin:6px 0 0; line-height:1.5; }
 footer { margin-top:34px; padding-top:14px; border-top:1px solid var(--line); color:var(--dim);
   font-size:12px; }
 footer b { color:var(--fg); font-weight:600; }
@@ -79,13 +97,14 @@ def _panel(key: str, heading: str, body: str) -> str:
             f'<div class="scroll">{body}</div>')
 
 
-def render(panels: dict, coverage: dict, scope: dict, summary: str = '') -> str:
-    """One page: the summary, then three drawings of the same workspace beneath it.
+def render(panels: dict, coverage: dict, scope: dict, summary: str = '',
+           sequence: str = '') -> str:
+    """One page: the summary, the session sequence, then three drawings of the same workspace.
 
-    `summary` renders ABOVE the tab strip and outside it, deliberately — a tab is a click, and the
-    page's whole defect was that its two most-asked questions were the ones needing a hunt. `panels`
-    maps a tab key to its rendered body plus the prose under it; nothing here computes anything
-    about the workspace.
+    `summary` and `sequence` render ABOVE the tab strip and outside it, deliberately — a tab is a
+    click, and the page's whole defect was that its most-asked questions were the ones needing a
+    hunt. `panels` maps a tab key to its rendered body plus the prose under it; nothing here
+    computes anything about the workspace.
     """
     body = [_tab_inputs()]
     for key, _label, _hint in TABS:
@@ -108,6 +127,7 @@ def render(panels: dict, coverage: dict, scope: dict, summary: str = '') -> str:
         'by hand — a hand-drawn map is the rot the routing tables exist to prevent, and it goes '
         'stale the day after it is drawn.</p>',
         summary,
+        sequence,
         '<h2>the detail underneath</h2>',
         '<div class="tabs">',
         '\n'.join(body),
@@ -127,10 +147,11 @@ def _footer(coverage: dict, scope: dict) -> str:
         f'<p><b>scope</b> the workspace repository. {scope["nested"]} repositories nested inside '
         'it are drawn as directories and no deeper: each is its own repository and will earn its '
         'own document.</p>',
-        '<p><b>what is inferred</b> every edge above renders declared or generated data except '
-        'the firing moment of a hook, which is inferred from directory convention. No '
-        'machine-readable hook-trigger registry exists yet, and until it does this page marks '
-        'those and claims nothing more.</p>',
+        '<p><b>what is inferred</b> nothing, as of 2026-08-18. Every edge above renders declared '
+        'or generated data, the firing moment included: <code>core/hooks/trigger_law.py</code> '
+        'reads it from the registrations, the pre-commit dispatcher\'s own stage order and the '
+        'install steps. What the registrations cannot place is counted as a gap instead of '
+        'guessed at.</p>',
         '<p><b>how to change it</b> edit the source, not this file: '
         '<code>core/features.txt</code> for the matrix, a directory\'s <code>CONTEXT.md</code> '
         'for the spine. Regenerated and committed by <code>/roundup</code> at every session '

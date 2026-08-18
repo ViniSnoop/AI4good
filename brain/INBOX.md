@@ -9,6 +9,8 @@
 
 <!-- add entries below, newest first -->
 
+WOS roadmap voltou a crescer, bastante! então sugiro voltarmos a investir energia para fechar ele. tá gigante agora.
+
 https://www.instagram.com/p/DcL8ma9DaRs/
 sem dúvidas é útil pra gente
 — via aiwbot · 2026-08-18

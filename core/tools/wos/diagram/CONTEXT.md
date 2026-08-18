@@ -39,7 +39,7 @@ timestamp, no commit sha, so the file changes only when the workspace did.
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
 | [`architecture`](architecture) | — | — | draw the workspace as it is (enforcement matrix, routing spine, folder mass) into one self-contained ARCHITECTURE.html; --check exits 1 when the committed file is stale |
-| [`diagram_data.py`](diagram_data.py) | [`diagram_data.pyi`](diagram_data.pyi) | `area_of`, `trigger_of`, `features`, `matrix`, `unwired` | The canonical data behind ARCHITECTURE.html: what the workspace declares, what contains what, |
+| [`diagram_data.py`](diagram_data.py) | [`diagram_data.pyi`](diagram_data.pyi) | `area_of`, `trigger_of`, `lifecycle`, `features`, `matrix` | The canonical data behind ARCHITECTURE.html: what the workspace declares, what contains what, |
 | [`diagram_health.py`](diagram_health.py) | [`diagram_health.pyi`](diagram_health.pyi) | `harness_owned`, `orphans`, `by_layer`, `findings`, `detail` | What the workspace's declarations say about its HEALTH, as opposed to its contents. |
 | [`diagram_page.py`](diagram_page.py) | [`diagram_page.pyi`](diagram_page.pyi) | `render` | The page the three drawings live in: one self-contained HTML file, no script, no asset it does |
 <!-- routing:end -->
