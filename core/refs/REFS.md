@@ -134,6 +134,28 @@ because they are cheap per chain, not because the evidence endorses them.
 - `[A]` [From Conversation to Human-AI Common Ground: Extracting Cognitive Workflows for Reuse](https://programs.sigchi.org/chi/2026/program/content/222599) (CHI 2026) — reusable workflow extraction from sessions; adjacent to `/roundup`.
 - `[P]` [One Is Not Enough: How People Use Multiple AI Models in Everyday Life](https://arxiv.org/abs/2603.26107) (2026) — multi-model practice; supports the provider-agnostic stance.
 
+## Workspace visualization (diagrams generated from the tree)
+
+> Evidence behind the workspace-visualization work in [/ROADMAP.md](../../ROADMAP.md). Captured 2026-08-18.
+
+- `[A]` [Ghoniem, Fekete & Castagliola — readability of node-link vs matrix graphs](https://journals.sagepub.com/doi/10.1057/palgrave.ivs.9500092) (Information Visualization 2005) — controlled experiment: **matrix representations beat node-link once a graph passes ~20 vertices** on most tasks, losing only on path-following. The basis for drawing WOS's dense "what enforces what" relation as a grid, not a graph.
+- `[A]` [Holten — Hierarchical Edge Bundles](https://www.cs.jhu.edu/~misha/ReadingSeminar/Papers/Holten06.pdf) (IEEE TVCG 2006) — keeps a hierarchical layout while bundling cross-cutting edges so only real cross-tree dependencies stand out; invented for software adjacency data. The technique for "what reads what" over the CONTEXT.md tree without a hairball.
+- `[A]` [Shneiderman — Visual Information-Seeking Mantra](https://infovis-wiki.net/wiki/Visual_Information-Seeking_Mantra) — overview first, zoom & filter, details on demand. A full-detail dump violates it whatever the technique; the reason the *is* and *becoming* pictures stay separate and start at overview.
+- `[C]` [NN/g — Treemaps](https://www.nngroup.com/articles/treemaps/) · [AniMatrix — matrix-based software-evolution viz](https://www.researchgate.net/publication/265789153_AniMatrix_A_Matrix-Based_Visualization_of_Software_Evolution) — treemap for folder mass/activity (weak for depth); **matrix-over-time** (rows=component, cols=week) for the *becoming* picture, reusing the *is* picture's matrix grammar so one visual language serves both.
+- `[C]` [Mermaid](https://mermaid.js.org/) · [dependency-cruiser](https://github.com/sverweij/dependency-cruiser) · [Sankey pitfalls](https://datasketch.blog/en/post/the-5-most-common-mistakes-in-designing-a-sankey-diagram-and-how-to-avoid-them/) — tooling verdict: **Mermaid (renders client-side in one self-contained HTML, zero compiled binary) + a hand-rolled `git log --numstat` parser** is the minimal provider-agnostic generate-from-tree pipeline; avoid Structurizr / D2 / Graphviz-as-binary / Gource (install + rot cost). Steal C4's context/container/component vocabulary without adopting the tool. Sankey caps at ~10–12 nodes/stage and is for flow-with-conservation, not dependency.
+
+## Legibility prior art — decision records & controlled vocabulary
+
+> Evidence behind the legibility work in [/ROADMAP.md](../../ROADMAP.md). Captured 2026-08-18.
+> The *measurable* side of legibility — context bloat lowers agent task success and costs >20% more,
+> primacy bias means bloat degrades adherence to the earliest rules — is the § Context engineering
+> evidence above (Gloaguen/ETH Zurich 2602.11988; *When AGENTS.md Backfires*). Its corollary is the
+> one that governs this front: **the fix is subtraction, not more scaffolding.** This section adds the
+> *practice* literature for the words and the decisions.
+
+- `[C]` [ADR org / templates](https://adr.github.io/) · [log4brains](https://github.com/thomvaill/log4brains) · [Sherman — Architecture Decision Records](https://www.neilsherman.co.uk/blog/architecture-decision-records.html) — the ADR pattern (Nygard): one immutable file per decision (Status / Context / Decision / Consequences); a changed mind writes a **new** ADR that "supersedes" the old, nothing deleted. Reconciles with WOS's hard-delete because it logs *why* — the rejected option space git commit messages lose — not work-product, so it is a parallel, much smaller, append-only reasoning log. One decision per file keeps superseding clean. Feeds the decision-record work. **Reject** MADR's option-matrix ceremony and CI tooling; keep the 3-field core, scoped to consequential decisions only.
+- `[A]` [ISO 704 — Terminology work: principles and methods](https://www.iso.org/standard/38109.html) · [DDD ubiquitous language](https://www.dddcommunity.org/resources/ddd_terms/) · [Hilton — living glossaries](https://hilton.org.uk/blog/living-glossary) — term selection trades **precision (semantic transparency) over economy**, with clarity a hard constraint and intelligibility the tiebreaker — which is exactly Lucas's *"best word wins, simpler breaks the tie."* One term, one meaning, enforced by usage; a single canonical glossary (we have `core/SCHEMA.md` § Vocabulary — resist forking a second). Feeds the vocabulary work. **Reject** DDD's cross-stakeholder term-negotiation workshops — irrelevant for a solo owner.
+
 ## Tooling lists captured from Instagram (2026-07-27, via aiwbot) — unassessed
 
 Both are practitioner listicles, so `[C]`: signal about what people reach for, not evidence. Each

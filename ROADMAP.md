@@ -46,8 +46,9 @@ asked for in every case.
 **It went 5 → 9 on 2026-08-18, and the jump is the point rather than a backlog failure.** Lucas:
 *"sometimes the WOS is growing with decisions I didn't recall making… I want to understand those
 better and aid on the decision process."* Four items moved to 🔴 that morning because he asked to be
-in them, not because they got harder. **Take 18.1 first** — it is the sitting about how these
-decisions get made at all, and it may well change what the other eight look like.
+in them, not because they got harder. **18.1 had its opening sitting on 2026-08-18** — ruled a
+standing front with three real halves — and is now the *deep* sitting it revealed, which may still
+reshape what the other eight look like. It stays first and stays 🔴.
 Stating that number is part of the cure for feeling lost, so **keep it true** — it has been wrong
 four times: once claiming one while five were live; once (2026-08-16) carrying four items marked 🔴
 whose own `→ tier:` line said medium; once holding *two* lists of the same set, here and in
@@ -795,11 +796,35 @@ them as separate cleanups is why each one only helped for a while. His two rules
 This front never closes. It is the standing check that the workspace stays understandable to the
 person who owns it, and the place to route the next *"when was that decided?"*
 
-1. 🔴 **Open with a sitting: what is this front, and is it a front at all.** Lucas: *"not sure if
-   this is a new front, or a standalone task."* Filed as a front because it is standing rather than
-   finishable, and because it has three separate halves below — but that is a ruling to confirm, not
-   a decision to inherit. Bring the three halves and decide which are real.
-   → **tier: high**, with Lucas, first.
+1. 🔴 **The deep sitting: research and brainstorm what this front actually is, then build.**
+   The opening question — *"is it a front at all"* — was answered in the 2026-08-18 sitting. **Ruled
+   (Lucas): it IS a front, standing; and all three halves below (18.2/18.3/18.4) are real work, none
+   killed.** What is NOT settled is the front's shape — Lucas: *"this deserves discussion, research
+   and brainstorming, I don't think we will handle all we need in this small assessment."* So the
+   halves may split, merge or gain a fourth, and their ordering is open. This row does not close when
+   the halves are listed; it closes when the front has had the research sitting it asks for.
+
+   **Opening material, carried as a hypothesis to test — not a fact** (this is the Front 17
+   discipline applied to itself): *Fronts 15, 17 and 18 may be three faces of one root — the
+   workspace emits durable text its readers cannot trust or parse.* 17 = the agent writes false
+   structural claims about our own code; 15 = false confident claims about the outside world; 18 =
+   words and quiet decisions Lucas cannot read. Lucas's own line is the evidence for it — the
+   feature-registry and rename churn was *"downstream of a legibility problem nobody had named."*
+   **Falsification path:** if the three halves land and 15's and 17's symptoms do not ease, the
+   framing was wrong and these stay three separate fronts. Bring evidence to the sitting, not the
+   framing pre-accepted. **First evidence in, and it cuts for the root:** legibility is a *measurable*
+   property, not taste — generated context bloat lowers agent task success and raises cost, and
+   instruction accretion degrades adherence to the earliest, highest-consequence rules (ETH Zurich
+   2026 and the AGENTS.md-bloat literature, [`core/refs/REFS.md`](core/refs/REFS.md) § Legibility
+   prior art). The corollary is sharp: the fix is subtraction, so solving *"I cannot read my
+   workspace"* by adding explanation makes it worse for both readers.
+
+   **The 2026-08-18 sitting ran the diagram half:** 18.3's shape is ruled below, 18.2's criterion is
+   refined, and 18.4 is reshaped by the decision-record finding. What the front still owes its own
+   session: the **jargon audit** (18.2's internal replacement work), the **one-root test** above, and
+   the **hook-trigger registry** (18.3) — all deferred here deliberately, none cheap enough to fold
+   into a mixed session.
+   → **tier: high**, with Lucas, its own session about this and nothing else.
 
 2. 🟡 **Replace the words that need a glossary to be read.** A definition is a patch; the fix is the
    plain word. Named by Lucas: **ledger**, **seam**, **probe**. Found beside them in one pass over
@@ -811,26 +836,55 @@ person who owns it, and the place to route the next *"when was that decided?"*
    Two products, in order: a **plain-word replacement** per term that survives the cut, applied
    across the corpus the way `capability` → `feature` was; and the survivors defined in **one place**
    — [`core/SCHEMA.md`](core/SCHEMA.md) § Vocabulary already holds three definitions and is the home,
-   so nothing new gets built for this. **A word is only allowed to survive if a sentence using it
-   reads worse without it.** → **tier: medium**, after the sitting.
+   so nothing new gets built for this. **Criterion ruled 2026-08-18 (Lucas): the best, most precise
+   word wins, and simpler breaks the tie** — he will learn a new word if it is genuinely the best one,
+   and drop a word that is only showing off. Mature terminology practice says the same (precision over
+   economy, clarity a hard constraint — [`core/refs/REFS.md`](core/refs/REFS.md) § Legibility prior
+   art), so the rule is confirmed, not invented. → **tier: medium**, after the sitting.
 
 3. 🟡 **Draw the workspace, and generate the drawing.** Lucas: *"I would love to see diagrams,
-   charts, graphs maybe, whatever best represents how WOS is today and how it is changing."* Two
-   different pictures and they should not be one file: **what it is** (the layers, what enforces
-   what, what reads what) and **what it is becoming** (what changed, at what rate).
+   charts, graphs… whatever best represents how WOS is today and how it is changing."* **Shape ruled
+   2026-08-18** (research in [`core/refs/REFS.md`](core/refs/REFS.md) § Workspace visualization).
 
-   **Generate it from the tree, never draw it by hand** — a hand-drawn map is the exact failure
-   `CONTEXT.md` routing tables exist to prevent, and it would be wrong within a week. The data is
-   already there: `core/features.txt` says what exists and what enforces it, the `CONTEXT.md` chain
-   says what contains what, `entropy.md` says what is drifting. Publish it where Lucas can actually
-   look at it rather than as a file he has to open a viewer for. → **tier: medium**.
+   **Three pictures, not two:** *is* (generated from the tree), *becoming* (generated from git
+   history), and *goal* (authored intent — the only one not tree-derived, since the future is not on
+   disk). The third pays off as **goal − is = the roadmap made visible**: what is left to build, seen
+   rather than listed. **Three renderable forms, so Lucas picks by experimenting:** a matrix (the
+   dense enforcement relation — a grid beats a node-link graph past the few-dozen-node mark, which is
+   where WOS already sits), a shallow node-link spine (the routing chain), and a treemap (folder
+   mass). Overview first, detail on demand — never a whole-tree hairball.
 
-4. 🟡 **A session must not decide things quietly.** The complaint under all of the above is
-   *"decisions I didn't recall making."* Cheapest honest fix, and it costs one section: the hand-off
-   names **what this session decided without asking**, separately from what it did. A decision that
-   cannot be stated in one line was too big to take alone, which makes the section a filter as well
-   as a record. [`core/skills/handoff.md`](core/skills/handoff.md), and the shape of the rule belongs
-   in [`core/SPECS.md`](core/SPECS.md) § AD-09 beside the rest of the ritual. → **tier: medium**.
+   **Generate from the tree, never draw by hand** — a hand-drawn map is the rot `CONTEXT.md` routing
+   tables exist to prevent. A **zero-token deterministic generator** in `core/tools/wos/`, sibling of
+   the entropy and routing generators; no model at render time. **Output is one self-contained HTML
+   file, provider-agnostic, committed in-tree** (Lucas: an asset inside the workspace, no external
+   publish).
+
+   **The picture may not lie — Front 17 in drawn form:** every edge either renders canonical data
+   (`core/features.txt`, the routing blocks — it cannot be more wrong than its source, and a wrong
+   edge exposes a real routing bug) or is labelled *inferred*. The generator is total and fail-loud —
+   it prints coverage (parsed N of M, the unparsed listed) and never silently drops a node. **Data:**
+   `core/features.txt` (layers, enforcement, wiring), the auto-generated routing blocks in the
+   CONTEXT.md chain (containment), and per-nested-repo `git log` via the proven `nested_repos()` +
+   `core/hooks/git/branch_debt.py` pattern (becoming).
+
+   **One region cannot be rendered faithfully yet:** there is no machine-readable *hook → when it
+   fires → what it blocks* table, so those edges would be inferred. Building that registry would make
+   the picture fully honest and feed the verification front too — Lucas wants to design it jointly, so
+   it is a candidate for its own sitting, not forced here. → **tier: medium** to build, deferred.
+
+4. 🟡 **A session must not decide things quietly, and the record of *why* must survive.** The
+   complaint under all of the above is *"decisions I didn't recall making."* Two shapes, the second
+   reshaped by the research (seed, not yet ruled — [`core/refs/REFS.md`](core/refs/REFS.md)
+   § Legibility prior art): the hand-off names **what this session decided without asking**, separate
+   from what it did (a decision that cannot be stated in one line was too big to take alone, so the
+   section is a filter as well as a record); and, for decisions with lasting blast radius, a **minimal
+   decision record** — Context / Decision / Consequences, one file each, superseded rather than
+   rewritten. That record logs the rejected option space git commit messages lose, so it captures
+   *why*, not work-product, and does **not** contradict "done work is deleted, git is the history" —
+   the § Rejected list here is already a partial version of it. Shape belongs in
+   [`core/SPECS.md`](core/SPECS.md) § AD-09; [`core/skills/handoff.md`](core/skills/handoff.md)
+   carries the hand-off half. → **tier: medium**.
 
 ## Declared but unbuilt — a rule with a `SPECS.md` section and no implementation
 
