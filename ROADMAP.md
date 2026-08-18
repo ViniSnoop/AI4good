@@ -39,9 +39,9 @@ never here** — a ledger that names a vendor's model goes stale the day that mo
 🔴 needs Lucas · 🟡 pilot on one subtree first · 🟢 mechanical.
 
 **Twelve open steps need Lucas's own judgment: 4.11, 4.12, 4.13, 9.5, 10.6, 12.2, 15.1, 15.2, 15.3,
-17.1, 18.1, 18.5** — the single list, quoted here and nowhere else. Everything else is agent work, and all nine are
-*research-and-discussion* items rather than questions with options attached, which is what he has
-asked for in every case.
+17.1, 18.1, 18.5** — the single list, quoted here and nowhere else. Everything else is agent work,
+and every one of these twelve is a *research-and-discussion* item rather than a question with
+options attached, which is what he has asked for in every case.
 
 **It went 5 → 9 → 12 on 2026-08-18, and the jump is the point rather than a backlog failure.** Lucas:
 *"sometimes the WOS is growing with decisions I didn't recall making… I want to understand those
@@ -1016,12 +1016,12 @@ person who owns it, and the place to route the next *"when was that decided?"*
 
 ## Declared but unbuilt — a rule with a `SPECS.md` section and no implementation
 
-Five checks were relocated out of this ledger on 2026-08-17, into the `SPECS.md` sections that
-declare them. **The relocation was right and the accounting was not.** A rule belongs beside the
-thing it governs, so the sections stay — but a `SPECS.md` states what must be true and cannot say
-whether anything enforces it yet, so the *build* was left with no home and the item count flattered
-the work state. **The declaring section is the spec; the row here is the work.** Each row is deleted
-the day its check runs; this section is deleted when the last one does.
+A rule belongs beside the thing it governs, so each of these is declared in a `SPECS.md` § — but a
+`SPECS.md` states what must be true and cannot say whether anything enforces it yet, which left the
+*build* with no home and made the item count flatter than the work state. **The declaring section is
+the spec; the row here is the work.** Each row is deleted the day its check runs; this section is
+deleted when the last one does. **Three left of six**, and the three that landed were the ones with
+nothing to decide — what is left each needs one judgment first, named in its row.
 
 4. 🟢 **roundup compares the declared model split against the actual one.** `core/tools/wos/roundup`
    already prints the per-session split at every close; what is missing is the plan **declaring its
