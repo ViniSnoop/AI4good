@@ -60,6 +60,7 @@ toggle	diagram	on
 toggle	rtk-compaction	on
 toggle	web-search	on
 toggle	google-auth	on
+toggle	forms	on
 toggle	mail-triage	on
 toggle	notes-notion	on
 toggle	video-text	on

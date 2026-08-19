@@ -129,5 +129,5 @@ low). Which model fills each tier is data in that file, never in this one.
 | [`ROADMAP-legibility.md`](ROADMAP-legibility.md) | Lucas can no longer read his own workspace, and that is the root cause. | essential | 8 | 2 | — | — |
 | [`ROADMAP-measurement.md`](ROADMAP-measurement.md) | Nothing here has been measured, and confident wrong answers pass unchallenged. | important | 4 | 3 | ROADMAP-portability.md | — |
 | [`ROADMAP-portability.md`](ROADMAP-portability.md) | A fresh clone gets every feature: declared deps, no undocumented hand-installs. | essential | 2 | 1 | — | — |
-| [`ROADMAP-self-description.md`](ROADMAP-self-description.md) | The workspace describes itself wrongly, plus the work reopened after v1. | important | 4 | 1 | — | — |
+| [`ROADMAP-self-description.md`](ROADMAP-self-description.md) | The workspace describes itself wrongly, plus the work reopened after v1. | important | 3 | 1 | — | — |
 <!-- routing:end -->

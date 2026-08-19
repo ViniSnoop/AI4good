@@ -1,6 +1,6 @@
 # Accounts and keys
 > Everything needing a credential: web search, Exa, Google, the Telegram bot.
-> feature: web-search, exa, google-auth, telegram-capture
+> feature: web-search, exa, google-auth, forms, telegram-capture
 
 <!-- steps:start -->
 
@@ -54,9 +54,9 @@ core/tools/web/search "test query" --n 3           # auto-picks Exa when the key
 ## Google account access
 > feature: `google-auth` · agent: no
 
-Shared OAuth for `mail/gmail`, `calendar/gcalendar`, `files/gdrive` and `slides/gslides`. Tokens
-live at `~/.config/workspace-<service>/`, dir `700` / file `600`. Drive and Slides each keep a
-separate write token from their read one.
+Shared OAuth for `mail/gmail`, `calendar/gcalendar`, `files/gdrive`, `slides/gslides` and
+`forms/gforms`. Tokens live at `~/.config/workspace-<service>/`, dir `700` / file `600`. Drive,
+Slides and Forms each keep a separate write token from their read one.
 
 **Precondition**
 ```bash
@@ -79,6 +79,32 @@ core/tools/mail/gmail sync --since 1 && core/tools/calendar/gcalendar upcoming -
 
 An expired token names its own fix — relay that message verbatim rather than paraphrasing it, per
 [`core/tools/SPECS.md`](core/tools/SPECS.md) § An auth failure names its own fix.
+
+## Google Forms API
+> feature: `forms` · agent: no
+
+One switch per Google API, inside the GCP project that owns the OAuth client
+(`workspace-gmail-499605`). Consent alone is not enough: a disabled API answers every call with
+`SERVICE_DISABLED` no matter which scopes the token carries.
+
+**Precondition**
+```bash
+core/tools/forms/gforms read --account personal <form_id>   # an outline means the API is on
+```
+
+**Needs Lucas:** one click in Google's own console — enable at
+https://console.cloud.google.com/apis/library/forms.googleapis.com?project=workspace-gmail-499605
+then wait ~2 min for it to propagate. Nothing else here is his.
+
+**Install**
+```bash
+core/tools/forms/gforms auth personal --write        # prompts the consent flow on first run
+```
+
+**Verify**
+```bash
+core/tools/forms/gforms new --account personal <spec.json>
+```
 
 ## Telegram bot — `code/aiwbot`
 > feature: `telegram-capture` · agent: no

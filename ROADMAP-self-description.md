@@ -72,16 +72,6 @@ refiled there, and a finding worth keeping goes into the `SPECS.md` section that
    per-type rollup, not a new measurement. Results belong in
    [`core/experiments/`](core/experiments/CONTEXT.md), never in this file.
    → **tier: medium**.
-4. 🟢 **a `forms` tool family, provider leaf `gforms`.** Lucas, INBOX 2026-08-18: *"adicionar o
-   gforms ao WOS."* The shape is already dictated by
-   [`core/tools/SPECS.md`](core/tools/SPECS.md) — a family directory is the feature and the tool
-   inside it is the provider, so this is `core/tools/forms/gforms` beside `calendar/gcalendar` and
-   `files/gdrive`, reusing [`core/tools/auth/gauth.py`](core/tools/auth/gauth.py) rather than
-   minting a second Google credential path. It lands as a row in `core/features.txt` (group
-   `tools`, `runs: on-demand`), a `deps.txt` line and a `SETUP.md` step, which is the whole join.
-   **What is not decided is what it reads** — a form's responses are the useful half and the
-   question is whether that is a new capability or a `files/` download in disguise.
-   → **tier: low**.
 3. 🟡 **then reinforce the goal↔roadmap link, possibly enforced.** Same capture, and deliberately
    second: *"depois gostaria de reforçar a conexão entre os goals e os roadmaps, não sei se tem
    como, talvez até algo ENFORCED"*. Every goal file already carries an `>**owns**` block and every
