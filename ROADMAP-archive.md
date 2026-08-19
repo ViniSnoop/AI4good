@@ -133,7 +133,7 @@ months anyway. Cheaper than a list nobody reads.
 - **Commit the `.claude/commands/{drive,calendar}.md` symlinks** — done inline rather than tracked.
 - **`/caveman compress` on workspace docs** — piloted on the worst offender: 8571 → 8552 chars,
   **0.22%**, for one full quota call. The docs have no lexical fat, so placement beats phrasing and
-  compression stays the last step on an already-reduced surface (core/SCHEMA.md § Placement).
+  compression stays the last step on an already-reduced surface (core/SCHEMA-placement.md § Placement).
 - **A media-host allowlist for INBOX link extraction** — deciding which links the video tool runs
   from a list of known hosts (instagram/youtube/tiktok/…) is faster, and the list rots into exactly
   the silent skip the batch fix exists to kill. Every link is attempted; one with no media falls

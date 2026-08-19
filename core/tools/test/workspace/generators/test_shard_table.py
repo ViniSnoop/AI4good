@@ -1,4 +1,4 @@
-# A sharded type's index table (core/SCHEMA.md § What a shard publishes about itself).
+# A sharded type's index table (core/SCHEMA-outgrowing.md § What a shard publishes about itself).
 #
 # The table exists so a session can decide "open or skip" without opening anything, and its two
 # errors are not symmetric: skipping a shard that mattered is silent. So the cases here are mostly

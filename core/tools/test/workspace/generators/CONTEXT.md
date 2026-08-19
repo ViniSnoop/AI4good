@@ -19,5 +19,5 @@ failure mode this workspace actually has*.
 | [`test_interface_generators.py`](test_interface_generators.py) | [`test_interface_generators.pyi`](test_interface_generators.pyi) | T0 interface-generator invariants: a generated stub must land beside its source, and a |
 | [`test_routing_sync_bugs.py`](test_routing_sync_bugs.py) | [`test_routing_sync_bugs.pyi`](test_routing_sync_bugs.pyi) | T0 routing-generator invariants (ROADMAP Batch B item 1): four ways the CONTEXT.md routing |
 | [`test_routing_table.py`](test_routing_table.py) | [`test_routing_table.pyi`](test_routing_table.pyi) | The routing table's generated columns (core/hooks/SPECS.md). Zero-token, runs in verify-fast. |
-| [`test_shard_table.py`](test_shard_table.py) | [`test_shard_table.pyi`](test_shard_table.pyi) | A sharded type's index table (core/SCHEMA.md § What a shard publishes about itself). |
+| [`test_shard_table.py`](test_shard_table.py) | [`test_shard_table.pyi`](test_shard_table.pyi) | A sharded type's index table (core/SCHEMA-outgrowing.md § What a shard publishes about itself). |
 <!-- routing:end -->

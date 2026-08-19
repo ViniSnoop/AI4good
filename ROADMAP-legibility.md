@@ -61,7 +61,7 @@ person who owns it, and the place to route the next *"when was that decided?"*
 
    Two products, in order: a **plain-word replacement** per term that survives the cut, applied
    across the corpus the way `capability` → `feature` was; and the survivors defined in **one place**
-   — [`core/SCHEMA.md`](core/SCHEMA.md) § Vocabulary already holds three definitions and is the home,
+   — [`core/SCHEMA-vocabulary.md`](core/SCHEMA-vocabulary.md) § Vocabulary already holds three definitions and is the home,
    so nothing new gets built for this. **Criterion ruled 2026-08-18 (Lucas): the best, most precise
    word wins, and simpler breaks the tie** — he will learn a new word if it is genuinely the best one,
    and drop a word that is only showing off. Mature terminology practice says the same (precision over

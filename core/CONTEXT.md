@@ -30,6 +30,10 @@ Ported from Feynman (https://github.com/companion-inc/feynman), adapted for prov
 | File | Description |
 |------|-------------|
 | [`ROADMAP.md`](ROADMAP.md) | Making the agent library sound: one enforced frontmatter contract per layer… |
+| [`SCHEMA-layers.md`](SCHEMA-layers.md) | The frontmatter every skill, agent, norm and flow declares, and how they… |
+| [`SCHEMA-outgrowing.md`](SCHEMA-outgrowing.md) | Where an unclassified name goes, and how a type that passed the cap splits. |
+| [`SCHEMA-placement.md`](SCHEMA-placement.md) | Which directory a file belongs in, and how deep the routing may go. |
+| [`SCHEMA-vocabulary.md`](SCHEMA-vocabulary.md) | One word per idea, one idea per word, and every token a rename retired. |
 | [`SCHEMA.md`](SCHEMA.md) | The enforced frontmatter contract for skills, flows, and agents, plus the… |
 | [`SPECS-discipline.md`](SPECS-discipline.md) | What an always-loaded rule must prove, when doubt costs, when to delegate. |
 | [`SPECS-features.md`](SPECS-features.md) | What counts as a feature, what its columns mean, and what may not be undeclared. |

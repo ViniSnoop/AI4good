@@ -10,7 +10,8 @@
 # Nothing here blocks. The cap that does live in checks/pre-edit.py; this file reports what the
 # tree already carries, including the files a ratchet let through before the cap reached them.
 # Crossing a threshold asks for a SPLIT, never for a summary — forced brevity is the trap, and
-# core/SCHEMA.md § A type that outgrows the cap shards says what a split has to leave behind.
+# core/SCHEMA-outgrowing.md § A type that outgrows the cap shards says what a split
+# has to leave behind.
 import re
 import subprocess
 import sys

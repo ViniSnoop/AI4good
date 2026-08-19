@@ -2,7 +2,7 @@
 > Rules obeyed rather than enforced. One file each; `AGENTS.md`'s rule block is generated from them.
 
 The INDUCED half of the line whose ENFORCED half is `file_law.py` / `schema_law.py` /
-`feature_law.py` ([`../SCHEMA.md`](../SCHEMA.md) § Vocabulary). A norm that acquires a checker stops
+`feature_law.py` ([`../SCHEMA-vocabulary.md`](../SCHEMA-vocabulary.md) § Vocabulary). A norm that acquires a checker stops
 being a norm and becomes a hook.
 
 **Every file here is paid by every session.** `AGENTS.md` is always loaded, so a norm's body is its

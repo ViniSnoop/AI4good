@@ -3,7 +3,7 @@
 #
 # Two assertions that make two recurring bugs catchable instead of re-discovered:
 #   retired tokens  — a rename is finished only when its old spelling appears nowhere
-#                     (core/SCHEMA.md § Retired tokens). This is what makes an
+#                     (core/SCHEMA-vocabulary.md § Retired tokens). This is what makes an
 #                     incomplete rename visible at the generator instead of at the leaves.
 #   duplicate slugs — a work item lives in exactly one ledger; a copy is a bug
 #                     (ROADMAP.md header). This is v1 criterion 2, verified by scan.

@@ -24,6 +24,18 @@ BACKTICKED_MD = re.compile(r'`([^`]+\.md)`')
 SCOPES = (('repo root only', 'repo-root'), ('root only', 'root'))
 
 
+def _law(schema_path: Path) -> str:
+    """The whole law: the index plus every shard, in name order.
+
+    SCHEMA.md outgrew the line cap and split. Reading only the index would have silently
+    dropped § Retired tokens — the parse would still succeed and return an empty dict, which
+    is the failure shape this module exists to prevent: a check that passes because it can no
+    longer see what it was checking.
+    """
+    parts = [schema_path] + sorted(schema_path.parent.glob(f'{schema_path.stem}-*.md'))
+    return '\n\n'.join(p.read_text(encoding='utf-8') for p in parts if p.exists())
+
+
 def _section(text: str, heading: str) -> str:
     """Body of one '### ...' section, up to the next heading of the same or higher level."""
     start = text.find(heading)
@@ -36,7 +48,7 @@ def _section(text: str, heading: str) -> str:
 
 def load_law(schema_path: Path = SCHEMA) -> tuple[set, set]:
     """(allowed type names, exempt transient-doc names) read straight from the law."""
-    text = schema_path.read_text(encoding='utf-8')
+    text = _law(schema_path)
     allowed = set(TYPE_ROW.findall(text))
     exempt = {Path(name).name
               for name in BACKTICKED_MD.findall(_section(text, TRANSIENT_HEADING))}
@@ -49,7 +61,7 @@ def load_scopes(schema_path: Path = SCHEMA) -> dict:
     The scope is written in the table as prose ("(root only)") because that is where a
     reader meets it; parsing it here is what stops the rule from having a second home.
     """
-    text = schema_path.read_text(encoding='utf-8')
+    text = _law(schema_path)
     scopes = {}
     for name, question in SCOPED_ROW.findall(text):
         for phrase, scope in SCOPES:
@@ -61,5 +73,4 @@ def load_scopes(schema_path: Path = SCHEMA) -> dict:
 
 def load_retired(schema_path: Path = SCHEMA) -> dict:
     """Retired token -> its replacement (§ Retired tokens)."""
-    text = schema_path.read_text(encoding='utf-8')
-    return dict(RETIRED_ROW.findall(_section(text, RETIRED_HEADING)))
+    return dict(RETIRED_ROW.findall(_section(_law(schema_path), RETIRED_HEADING)))

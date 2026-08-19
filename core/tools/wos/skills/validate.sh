@@ -76,7 +76,7 @@ validate_flow_loops() {
   return $rc
 }
 
-# Composition layer (core/SCHEMA.md § Composition and cycles): the `uses:` graph must be a DAG.
+# Composition layer (core/SCHEMA-layers.md § Composition and cycles): the `uses:` graph must be a DAG.
 # A definitional cycle never bottoms out — expanding it is infinite. This is the *definition-time*
 # guard only; execution loops are legal and bounded by validate_flow_loops above.
 validate_flow_dag() {

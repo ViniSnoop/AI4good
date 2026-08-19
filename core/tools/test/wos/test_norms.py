@@ -1,4 +1,4 @@
-# T0 the norms layer (core/SCHEMA.md § Layer: norm): the always-loaded rule block is generated,
+# T0 the norms layer (core/SCHEMA-layers.md § Layer: norm): the always-loaded rule block is generated,
 # and generating it is what makes a rule switchable.
 #
 # WHY THIS IS ITS OWN FILE. test_features.py asks whether the registry's DATA is complete and
@@ -41,7 +41,7 @@ def test_every_norm_file_is_declared_and_every_declared_norm_exists():
 
 
 def test_a_norm_declares_its_name_and_what_obeying_it_buys():
-    """core/SCHEMA.md § Layer: norm — `name` matches the filename, `description` is one line."""
+    """core/SCHEMA-layers.md § Layer: norm — `name` matches the filename, `description` is one line."""
     broken = []
     for path in sorted(NORMS_DIR.glob('*.md')):
         if path.name == 'CONTEXT.md':

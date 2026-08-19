@@ -37,7 +37,7 @@ slug-names-the-file rule cannot apply there; that is a finding, not a rename to 
 **`norms` is live** — `core/norms/<slug>.md`, published into `AGENTS.md`'s generated rule block by
 `core/hooks/routing/norms.py`, which is also the group's one switch. Rule order comes from the
 registry, so moving a rule up the prompt means moving its row. Contract:
-[`core/SCHEMA.md`](core/SCHEMA.md) § Layer: norm.
+[`core/SCHEMA-layers.md`](core/SCHEMA-layers.md) § Layer: norm.
 
 **`agents` and `flows` still have no rows**, and the seam is a *rendering* mirror rather than the
 symlink one skills use. Ruled 2026-08-18 (Lucas): extend the mirror, not the read gate. Grounding
@@ -46,7 +46,7 @@ found the layer carries a **double asymmetry** the extension has to resolve firs
 - `core/agents/` holds five research agents (`lead`, `researcher`, `writer`, `verifier`, `reviewer`)
   mirrored **nowhere** — they are file contents pasted as a system prompt, not spawnable agent types.
 - `.claude/agents/craft-{high,medium,low}.md` and `.opencode/agents/craft-*.md` are hand-written
-  **twice with no source in `core/`**, while [`core/SCHEMA.md`](core/SCHEMA.md) § Layer: agent calls
+  **twice with no source in `core/`**, while [`core/SCHEMA-layers.md`](core/SCHEMA-layers.md) § Layer: agent calls
   them mirrors and states *"There is no generator, so keep each mirror's `model:` in sync with its
   source `tier:` by hand."*
 
