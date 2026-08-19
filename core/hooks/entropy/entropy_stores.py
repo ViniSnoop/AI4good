@@ -15,6 +15,9 @@ from pathlib import Path
 
 EXPERIMENTS = 'core/experiments'
 REFS = 'core/refs/REFS.md'
+# The family, not the one file: REFS.md sharded, and a suffix matcher would have gone
+# silent on every shard while still passing — the same shape as reading only an index.
+REFS_DIR, REFS_STEM = 'core/refs/', 'REFS'
 
 # The format core/experiments/SPECS.md declares. `What changed` is required even when the answer is
 # `nothing yet`: a measurement nobody acted on is a finding, and an absent section hides it.
@@ -66,7 +69,8 @@ def ref_tier_hits(files: list) -> list:
     """
     hits = []
     for path in files:
-        if path.as_posix()[-len(REFS):] != REFS:
+        posix = path.as_posix()
+        if REFS_DIR not in posix or not path.stem.split('-')[0] == REFS_STEM:
             continue
         try:
             lines = path.read_text(encoding='utf-8').splitlines()

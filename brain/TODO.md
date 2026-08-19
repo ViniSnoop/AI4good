@@ -102,12 +102,12 @@
 - [ ] [code / security] decidir quais dos 20 itens da checklist pré-lançamento viram gate de verdade
       para os projetos que vão pro ar (gira, voti, ppc) — vários já estão cobertos (secret-scan no
       pre-commit, skill `security-review`); o que sobra é auth server-side, RLS, rate-limit e
-      headers, que nenhum gate nosso vê. Ref em `core/refs/REFS.md` § Shipping an agent-written app
+      headers, que nenhum gate nosso vê. Ref em `core/refs/REFS-unjudged.md` § Shipping an agent-written app
       (INBOX 2026-08-13)
 - [ ] [flows] avaliar a orquestração graph-native de agentes do Claude Code contra o que `code/flows` já faz — e checar se o tal "Graph Engineering" (Microsoft/Stanford/Anthropic) existe de fato; o próprio post diz que só um dos dois é real (ref em `core/refs/REFS.md`, INBOX 2026-07-29)
 - [ ] [wos / core] averiguar o JCode — reimplementação em Rust do harness do Claude Code, com multi-agente
       no mesmo projeto. Duas perguntas separadas, e a segunda vale mais que a primeira: (1) a ferramenta
       presta? (2) **é mesmo o harness que deixa tudo caro**, ou o custo é do modelo? A (2) dá pra medir
       aqui sem instalar nada — comparar tokens de scaffolding vs tokens de conteúdo numa sessão nossa.
-      Ref em `core/refs/REFS.md` § Comparable systems (INBOX 2026-07-31)
+      Ref em `core/refs/REFS-tooling.md` § Comparable systems (INBOX 2026-07-31)
 - [ ] [dobra / local-ai] avaliar as 10 libs de fine-tuning local (Unsloth, LLaMA-Factory, PEFT, Axolotl, TRL, torchtune, LitGPT, SWIFT, DeepSpeed, AutoTrain) — quais servem ao runner de SLM do dobra na RTX 3050 6GB? ref em `core/refs/REFS.md` (INBOX 2026-07-27)

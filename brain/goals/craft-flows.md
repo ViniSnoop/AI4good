@@ -10,7 +10,7 @@ transformative · essential · thrilled
 
 > **Vocabulário: o termo canônico é *flow*, não *loop*.** Racional e modelo de composição
 > (flows compõem flows via `uses:`, grafo **acíclico**, ciclo só em execução com teto de
-> iterações) em [`core/SCHEMA.md`](../../core/SCHEMA.md) § *Composition and cycles*; as grafias
+> iterações) em [`core/SCHEMA-layers.md`](../../core/SCHEMA-layers.md) § *Composition and cycles*; as grafias
 > aposentadas estão em § *Retired tokens* e são verificadas por hook. Os flows vivem em
 > [`core/flows/craft/`](../../core/flows/craft/CONTEXT.md), executados por `craft-{low,medium,high}`.
 > **Ainda emite a palavra aposentada**: só o dir de estado `.loop/<slug>/`. A skill virou `/craft`
@@ -72,14 +72,14 @@ Abrir `core/flows/craft/craft.md` `## Field Practice` (7 runs auditados, A1 DONE
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-16  ·  trend: advancing
+last-touch: 2026-08-18  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |      29 |
-| trimester   |      34 |
-| semester    |      70 |
-| year        |      70 |
-| 2-year      |      70 |
-| 4-year      |      70 |
+| month       |      34 |
+| trimester   |      39 |
+| semester    |      75 |
+| year        |      75 |
+| 2-year      |      75 |
+| 4-year      |      75 |
 <!-- stats:end -->

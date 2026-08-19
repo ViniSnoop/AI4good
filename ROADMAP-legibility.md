@@ -42,7 +42,7 @@ person who owns it, and the place to route the next *"when was that decided?"*
    framing pre-accepted. **First evidence in, and it cuts for the root:** legibility is a *measurable*
    property, not taste — generated context bloat lowers agent task success and raises cost, and
    instruction accretion degrades adherence to the earliest, highest-consequence rules (ETH Zurich
-   2026 and the AGENTS.md-bloat literature, [`core/refs/REFS.md`](core/refs/REFS.md) § Legibility
+   2026 and the AGENTS.md-bloat literature, [`core/refs/REFS-legibility.md`](core/refs/REFS-legibility.md) § Legibility
    prior art). The corollary is sharp: the fix is subtraction, so solving *"I cannot read my
    workspace"* by adding explanation makes it worse for both readers.
 
@@ -65,7 +65,7 @@ person who owns it, and the place to route the next *"when was that decided?"*
    so nothing new gets built for this. **Criterion ruled 2026-08-18 (Lucas): the best, most precise
    word wins, and simpler breaks the tie** — he will learn a new word if it is genuinely the best one,
    and drop a word that is only showing off. Mature terminology practice says the same (precision over
-   economy, clarity a hard constraint — [`core/refs/REFS.md`](core/refs/REFS.md) § Legibility prior
+   economy, clarity a hard constraint — [`core/refs/REFS-legibility.md`](core/refs/REFS-legibility.md) § Legibility prior
    art), so the rule is confirmed, not invented.
 
    **First case run, and it changed what the audit is looking for.** Lucas, 2026-08-18, on the
@@ -102,7 +102,7 @@ person who owns it, and the place to route the next *"when was that decided?"*
    standing want — *"I am missing seeing some trees, graphs… sequences of thing1 → thing2 → thing3…
    how things are connected or not"* — and both sit above the tab strip. Where a graph pays is
    settled by evidence rather than taste: Ghoniem says matrices beat node-link past ~20 nodes
-   ([`core/refs/REFS.md`](core/refs/REFS.md) § Workspace visualization), which is why the 107-node
+   ([`core/refs/REFS-tooling.md`](core/refs/REFS-tooling.md) § Workspace visualization), which is why the 107-node
    routing tree reads as wallpaper and a six-node fan-in does not.
 
    - **the lifecycle sequence — KEPT (Lucas, 2026-08-18).** One band per session moment, the
@@ -159,7 +159,7 @@ person who owns it, and the place to route the next *"when was that decided?"*
    table by +24% correctness and −12% time, concentrated on exactly the *spread* and *impact*
    questions Lucas is asking — **but the table stayed faster for precise lookups and the authors
    conclude the two complement each other** (Wettel, Lanza & Robbes, ICSE 2011,
-   [`core/refs/REFS.md`](core/refs/REFS.md) § The health shelf). So the summary goes *above* the
+   [`core/refs/REFS-tooling.md`](core/refs/REFS-tooling.md) § The health shelf). So the summary goes *above* the
    enforcement matrix, and the standing proposal to cut that matrix is dead on evidence.
 
    **Nothing on the page is inferred**, so the next two pictures inherit a page with no
@@ -183,7 +183,7 @@ person who owns it, and the place to route the next *"when was that decided?"*
 
 6. 🟡 **A session must not decide things quietly, and the record of *why* must survive.** The
    complaint under all of the above is *"decisions I didn't recall making."* Two shapes, the second
-   reshaped by the research (seed, not yet ruled — [`core/refs/REFS.md`](core/refs/REFS.md)
+   reshaped by the research (seed, not yet ruled — [`core/refs/REFS-legibility.md`](core/refs/REFS-legibility.md)
    § Legibility prior art): the hand-off names **what this session decided without asking**, separate
    from what it did (a decision that cannot be stated in one line was too big to take alone, so the
    section is a filter as well as a record); and, for decisions with lasting blast radius, a **minimal

@@ -2,6 +2,8 @@ from _typeshed import Incomplete
 
 EXPERIMENTS: str
 REFS: str
+REFS_DIR: Incomplete
+REFS_STEM: Incomplete
 SECTIONS: Incomplete
 TIERED: Incomplete
 LINKED: Incomplete

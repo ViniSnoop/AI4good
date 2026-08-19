@@ -91,7 +91,7 @@
    biggest slice of it. The guidance and the rejection never actually agreed.
 
    **Not claimed: that lowering effort is free.** Thinking is where the reasoning happens, and ACL
-   Findings 2025 (a wrong budget degrades the answer, `core/refs/REFS.md` § Output cost) bites harder
+   Findings 2025 (a wrong budget degrades the answer, `core/refs/REFS-cost.md` § Output cost) bites harder
    here than anywhere, because this budget buys correctness rather than brevity. So **measure before
    touching it**: same arm shape as `caveman-cost.md` — one task at two effort levels, comparing
    billed output per turn *and* whether the work came out right. It needs a clean switch, so it runs
