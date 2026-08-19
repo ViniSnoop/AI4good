@@ -19,11 +19,14 @@ SHARD_FIELD = re.compile(r'^>\s*([a-z][a-z-]*):\s*(.+)$')
 # the same one entropy_ledger.TICKED_ITEM recognises. Counting `[slug]` instead would have read
 # most fronts as empty: the bracketed id is optional and most items carry prose alone.
 ITEM = re.compile(r'^[ \t]*\d+[a-z]?\.[ \t]', re.M)
+# The marker counts only in ITEM position. A bare substring count read 13 where the ledger holds
+# 12, because one shard has a sentence ABOUT the count with the marker inside it — the same
+# confusion between a mark and a mention that made the hand-kept count wrong four times.
+LUCAS_ITEM = re.compile(r'^[ \t]*\d+[a-z]?\.[ \t]*🔴', re.M)
 # The optional id, when an item declares one. Narrower than entropy_ledger's copy on purpose: an
 # index only needs to NAME items, never to decide whether two ledgers claim the same one.
 SLUG = re.compile(r'^\s*(?:[-*>]+\s*)*(?:\d+[a-z]?\.\s*)?(?:\[[ xX]\]\s*)*[^\S\n]*'
                   r'(?:[🔴🟡🟢]\s*)?\**`?\[([a-z0-9][a-z0-9-]+)\](?!\()', re.M)
-NEEDS_LUCAS = '🔴'
 EMPTY_CELL = {'—', '-', ''}
 
 # Column order is reading order: what it is, then how much is live, then what stops you.
@@ -56,8 +59,8 @@ def shard_facts(path: Path) -> dict:
         facts['open'] = str(len(items))
     if slugs := SLUG.findall(text):
         facts['items'] = ' '.join(f'`{slug}`' for slug in slugs)
-    if red := text.count(NEEDS_LUCAS):
-        facts['needs-lucas'] = str(red)
+    if red := LUCAS_ITEM.findall(text):
+        facts['needs-lucas'] = str(len(red))
     return facts
 
 

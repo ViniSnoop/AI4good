@@ -16,7 +16,7 @@ core/tools/wos/session/context                                   # its share of 
 
 The *saving* is not measured. What would settle it is an arm — the same task run with
 `CAVEMAN_DEFAULT_MODE=off` and with `full`, comparing output tokens per turn on comparable work.
-That needs the feature-toggle registry ([/ROADMAP.md](../../ROADMAP.md) § Portability & clonability) to make the arm
+That needs the feature-toggle registry ([/ROADMAP-portability.md](../../ROADMAP-portability.md)) to make the arm
 switchable cleanly, which is why this sits open rather than half-answered. The *ceiling* needed
 neither, and is in the Results table below.
 

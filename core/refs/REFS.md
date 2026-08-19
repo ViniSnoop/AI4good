@@ -25,7 +25,7 @@
 - `[A]` [Do Prompt Positions Really Matter?](https://aclanthology.org/2024.findings-naacl.258.pdf) (NAACL Findings 2024) — same axis, earlier evidence.
 - `[A]` [Mind the instructions: consistency and interactions in prompt-based learning](https://aclanthology.org/2023.conll-1.20.pdf) (CoNLL 2023) — instruction-wording sensitivity; weaker model, larger variance.
 - `[A]` [When Punctuation Matters: Prompt Robustness Methods for LLMs](https://aclanthology.org/2025.findings-emnlp.1109.pdf) (EMNLP Findings 2025) — formatting brittleness, large-scale comparison.
-- `[C]` [Anthropic cut >80% of Claude Code's system prompt](https://www.instagram.com/p/DbQNApxEnCh/) — [src: web:instagram.com] Vyzual AI reports six "inverted practices" replacing hardcoded rules: judgement over rules, interfaces over examples, disclosure over dumping; `TodoWrite` said to go from ~9.1k chars of worked examples to an enum-typed interface (pending/in_progress/completed), verification and code review moved out to on-demand skills, tool definitions deferred behind `ToolSearch`. **The post itself flags that the 80%/no-loss claim is self-reported with no published benchmark — not independently verifiable, never cite the number.** The framework is testable on our own docs, which is the part worth having; assessment task in [/ROADMAP.md](../../ROADMAP.md) § Memory and always-loaded context. Lucas: *"ver se é verdade e se for estudar como aproveitar no wos"*.
+- `[C]` [Anthropic cut >80% of Claude Code's system prompt](https://www.instagram.com/p/DbQNApxEnCh/) — [src: web:instagram.com] Vyzual AI reports six "inverted practices" replacing hardcoded rules: judgement over rules, interfaces over examples, disclosure over dumping; `TodoWrite` said to go from ~9.1k chars of worked examples to an enum-typed interface (pending/in_progress/completed), verification and code review moved out to on-demand skills, tool definitions deferred behind `ToolSearch`. **The post itself flags that the 80%/no-loss claim is self-reported with no published benchmark — not independently verifiable, never cite the number.** The framework is testable on our own docs, which is the part worth having; assessment task in [/ROADMAP-cost.md](../../ROADMAP-cost.md) § Memory and always-loaded context. Lucas: *"ver se é verdade e se for estudar como aproveitar no wos"*.
 
 ### What this evidence actually settles for us (2026-07-30)
 
@@ -86,7 +86,7 @@ because they are cheap per chain, not because the evidence endorses them.
 
 ## Output cost & the interface an agent acts through
 
-> The evidence behind [/ROADMAP.md](../../ROADMAP.md) § Cost & model routing; the measurement it may
+> The evidence behind [/ROADMAP-cost.md](../../ROADMAP-cost.md); the measurement it may
 > not contradict is [`core/experiments/output-cost.md`](../experiments/output-cost.md).
 
 - `[A]` [SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering](https://arxiv.org/abs/2405.15793) (NeurIPS 2024) — LM agents are a new class of end user; the interface they act through measurably changes behavior and performance. **The strongest published backing for this workspace's own bet: a gate beats a paragraph.**

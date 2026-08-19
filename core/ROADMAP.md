@@ -106,7 +106,7 @@ No flow is privileged — the exemplar is `flows/_template.md` (see [SCHEMA.md](
 ## Blocked — waiting on a trigger
 
 Open work whose own reasoning says *not yet*. Each line names the event that reopens it, so § Open
-stays a count of what is drainable now. Same discipline as [/ROADMAP.md](../ROADMAP.md) § Blocked.
+stays a count of what is drainable now. Same discipline as [/ROADMAP-archive.md](../ROADMAP-archive.md) § Blocked.
 
 - [ ] **The `video/` family name describes less than the family delivers.** It gained a page fallback
       — a link with no media goes to `web/fetch` — so what it offers is *link → navigable text*,

@@ -52,6 +52,17 @@ def test_needs_lucas_is_counted_not_declared(tmp_path) -> None:
     assert shard_facts(tmp_path / 'ROADMAP-alpha.md')['needs-lucas'] == '1'
 
 
+def test_a_sentence_about_the_marker_is_not_a_marked_item(tmp_path) -> None:
+    """Caught on the first real run: a bare count read 13 where the ledger holds 12, because one
+    shard carries a sentence ABOUT the count with the marker inside it. Mark versus mention is
+    exactly the confusion that made the hand-kept number wrong four times."""
+    (tmp_path / 'ROADMAP.md').write_text('# I\n> i.\n', encoding='utf-8')
+    (tmp_path / 'ROADMAP-alpha.md').write_text(
+        '# A\n> a.\n\ntwo items need Lucas while three were marked 🔴 — the count went stale.\n\n'
+        '1. 🔴 a real one.\n', encoding='utf-8')
+    assert shard_facts(tmp_path / 'ROADMAP-alpha.md')['needs-lucas'] == '1'
+
+
 def test_an_item_id_survives_the_marker_in_front_of_it(tmp_path) -> None:
     """`2. 🟢 [ratchet]` — the emoji sits between the number and the id, and ate it once."""
     _sharded(tmp_path, **{'ROADMAP-alpha.md': ALPHA})

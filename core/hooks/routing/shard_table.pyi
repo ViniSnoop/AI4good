@@ -3,8 +3,8 @@ from pathlib import Path
 
 SHARD_FIELD: Incomplete
 ITEM: Incomplete
+LUCAS_ITEM: Incomplete
 SLUG: Incomplete
-NEEDS_LUCAS: str
 EMPTY_CELL: Incomplete
 SHARD_COLUMNS: Incomplete
 

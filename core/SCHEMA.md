@@ -666,7 +666,7 @@ curated content, which is the side of the evidence split that helps — see [ref
 pack reaches ~2× accuracy at ½ the tokens vs. raw at corpus scale, and *"the weaker the agent's
 native navigation, the earlier the skill pack earns its keep."* **Preprint = provisional** (see
 [refs/CONTEXT.md](refs/CONTEXT.md)); this policy is a default, not a hard gate. Nothing here has been
-measured on our own corpus — [ROADMAP.md](../ROADMAP.md) § ablation is where that would happen.
+measured on our own corpus — [ROADMAP-measurement.md](../ROADMAP-measurement.md) is where that would happen.
 
 ## Enforcement
 
