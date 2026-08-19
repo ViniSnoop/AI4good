@@ -16,7 +16,7 @@
 <!-- norms:end -->
 
 Git Flow, the branch gate's scope, the `--no-verify` protocol, and the push policy:
-[`code/SPECS.md`](code/SPECS.md) § Git Branching. *Gated by `core/hooks/git/gitflow-gate.sh`.*
+[`code/SPECS-git.md`](code/SPECS-git.md). *Gated by `core/hooks/git/gitflow-gate.sh`.*
 What the hooks block, and the contract a new agent's shim must satisfy:
 [`core/hooks/SPECS.md`](core/hooks/SPECS.md). Installing the toolchain they need — stubgen, tsc,
 caveman, rtk: [SETUP.md](SETUP.md).

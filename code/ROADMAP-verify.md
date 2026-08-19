@@ -1,5 +1,6 @@
 # VERIFY — Agent Verification & Enforcement Roadmap
-> Testing-discipline rollout for `code/` projects: make agents verify their own results (no human eye per prompt) and enforce code centralization. Pilot: isoroll-module. Second: apptime.
+> Testing-discipline rollout for `code/` projects: make agents verify their own results (no human
+> eye per prompt) and enforce code centralization. Pilot: isoroll-module. Second: apptime.
 
 **Lifecycle: transient initiative doc** (REFACTOR.md species, one level up — lives beside
 `code/CONTEXT.md` instead of inside one project) — NOT workspace structure. Linked from root
@@ -8,12 +9,11 @@ enforce is tracked). Endstate: once every `code/` project has a real contract an
 completes, surviving durable rules stay in `core/tools/verify/CONTEXT.md` (already done at W3)
 and this file is deleted (git keeps it).
 
-**Scope note:** this doc originally tracked workspace-wide hook infra too (context-gate,
-bash-gate — see Phase W1 below). That part is done and lives canonically in
-[`core/hooks/SPECS.md`](../core/hooks/SPECS.md)'s gate tables now; W1 is kept here only as a
-compressed historical pointer. This doc's live scope
-from W2 onward is `code/` testing-pyramid rollout specifically — brain/academy don't have a
-`verify:fast` concept.
+**Scope note:** the workspace-wide hook infrastructure this plan once carried (context-gate,
+bash-gate) is the enforcement layer's own contract now —
+[`core/hooks/SPECS-gates.md`](../core/hooks/SPECS-gates.md) — and not tracked here. What this
+file scopes is the `code/` testing-pyramid rollout: brain/ and academy/ have no `verify:fast`
+concept.
 
 Origin: assessment session 2026-07-02. Diagnosis: workspace over-invests in context transfer
 (docs, skills, codegraph, facades), zero in behavior verification. No test suite anywhere.
@@ -63,96 +63,6 @@ Contract script names (all code projects): **`verify:fast`** = T0+T1 (runs per c
 
 ---
 
-## Phase W1 — Context Gate + Bypass Hardening (workspace-wide, documented elsewhere)
-
-Workspace-wide hooks (`context-gate.py`, `context-tracker.py`, `bash-context-gate.py` +
-PreCompact/SessionStart lifecycle) — not `code/`-specific, so their canonical documentation
-lives in [`core/hooks/SPECS.md`](../core/hooks/SPECS-gates.md) § Agent lifecycle gates, not
-here. Kept as a one-line pointer: these hooks force the CONTEXT.md chain to be Read before any
-file access anywhere in the workspace.
-
----
-
-## Phase W2 — Duplication + LOC Gates ✅ 2026-07-02
-
-### `pre-edit.py` message rewrite
-Replace "Create a new module file and write there instead" (line ~86) with:
-> "Extract shared logic into a new module and import it from existing callers.
-> Do NOT copy existing functions — copies are blocked at commit."
-Cap stays 200 (token-economy: single-pass read). Rationale: cap alone leaves two compliant
-moves (extract vs copy); agents take the cheap one. Dup gate removes the cheap exit.
-
-### jscpd gate — global pre-commit (`core.hooksPath`, fires in every repo)
-- Block any clone involving a staged file. No baseline (locked decision) — editing a file
-  with a legacy clone forces extracting it then (boy-scout rule, enforced).
-- Config beside `line-limits.env`: min ~10 lines / ~75 tokens; exclude `*.d.ts`, `*.pyi`,
-  generated, fixtures, `node_modules`, goldens.
-- **Immediately after landing:** one dedicated isoroll dedup session — clear legacy clones
-  in hot files as a burst, not a drizzle.
-
-### Layer-2 note (semantic dups)
-jscpd catches verbatim/near-verbatim. Agents also *regenerate* similar logic — no static
-tool catches that. Periodic `/dedup` audit skill (codegraph: same-signature/same-call-shape
-candidates, agent reviews) — deferred to W3+.
-
----
-
-## Phase I1 — isoroll Unit Foundation ✅ 2026-07-02
-
-- vitest + fast-check into isoroll-module (Vite already in stack).
-- Targets: `src/render/iso-tile-depth.ts`, `src/render/iso-tile-geom.ts`, `src/transform/coord-map.ts`.
-- Property invariants:
-  - No exact zIndex ties across slices of neighboring tiles (any layout).
-  - `computeSliceCuts` monotonic; no phantom zero-width slices.
-  - `sliceDepthCell` result inside footprint or clamped to edge face.
-  - `tileSortBand` total order, stable under permutation, bounded below `TOKEN_BAND`.
-- `verify:fast` = tsc + eslint + unit suite.
-- **Verify gate lands in global pre-commit here:** project declaring `verify:fast` → red
-  blocks commit. Project without contract → warn (promote to block once templates exist).
-
-## Phase I2 — isoroll Headless Harness ✅ 2026-07-02 (core deliverable)
-
-- **Launcher script (committed, `test/`):** start Foundry server
-  (`node ~/FoundryVTT/resources/app/main.js --dataPath=~/foundrydata-v14`), health-check,
-  Playwright connect to `localhost:30000`, login, activate fixture scene.
-- **Fixtures:** committed scene JSONs + minimal assets. Fixture #1 = B32 L/T/X wall-junction
-  layout. Standing rule (Principle 5) applies from here on.
-- **Formal debug API:** `window.isoroll.debug.dumpZOrder()` → JSON per slice:
-  `{tileId, cell:{row,col}, elev, zIndex, band, screenAABB}`. Plus dump endpoints for slice
-  visibility state and tile transforms. Must call live-path functions (Principle 4).
-- **Assertion pack** (pure logic on the dump — no vision):
-  - Z-order oracle: for every pair of screen-overlapping slices, lower `(row − col + elev)`
-    has lower zIndex.
-  - Zero exact zIndex ties on the iso layer.
-  - Slice visibility mirrors `document.hidden` after hide→unhide (B33 oracle).
-  - Positions follow grid-rescale like tokens/walls; size stable (B2 oracle).
-  - Stability: dump identical after move-tile-and-return and after adversarial reversal of
-    PIXI children order.
-- **Regression specs:** `test/regressions/b32-junction.spec.ts`, `b33-unhide.spec.ts`,
-  `b2-rescale.spec.ts`. One per KNOWN-BUG as they're worked.
-- `verify:full` = launcher + all specs + (from I3) goldens.
-- **BUGS gate lands here:** pre-edit hook on `BUGS.md` — flipping a bug to
-  FIXED blocked unless matching `test/regressions/b<N>-*` exists.
-
-## Phase I3 — isoroll Visual Layer ✅ 2026-07-02
-
-- Deterministic render config for fixtures: animations off, fixed viewport + zoom,
-  wait-for-render-idle, pixelmatch tolerance threshold.
-- Golden screenshots per fixture scene; failure artifact = diff PNG (agent Reads it for diagnosis).
-- New-feature flow: harness produces screenshot set → human approves ONCE → golden-locked.
-  Human role shifts from per-prompt camera to per-feature approver.
-
-## Phase W3 — Extract + Generalize ✅ 2026-07-02
-
-- Generic pieces → `core/tools/verify/`: Playwright launcher helpers, golden runner with
-  `approve`/`update` CLI, dump-oracle pattern doc (the contract any project's adapter implements).
-- `code/_templates/` update: vitest scaffold, `test/` layout, jscpd config, `verify:fast`/`verify:full`
-  stubs, BUGS.md template carrying the regression rule. New projects born compliant.
-- `core/hooks/SPECS.md`: add all new rows as **ENFORCED**; audit existing INDUCED rows — promote
-  or delete.
-- `/roundup` skill: runs `verify:full`, result recorded in the resume prompt.
-- `/dedup` semantic audit skill (see W2 note).
-
 ## Phase I4 — isoroll Unit Coverage Expansion 🔲
 
 I1 covers the pure-math core only (iso-tile-depth, iso-tile-geom, coord-map). Expand T1 to
@@ -182,12 +92,9 @@ After isoroll road. Contract + T1 first; T2 adapter designed against apptime's a
 
 ## Sequence
 
-```
-W1 → W2 (+ legacy dedup session) → I1 → I2 → I3 → W3 → … → A1
-```
-
-W1+W2 ≈ one day, whole workspace benefits immediately. I1+I2 = the oracle where the pain is.
-W3 makes it portable.
+`I4 → A1` is what remains; § Status Log holds the dated record of everything before them.
+The workspace-wide half of the rollout is the enforcement layer's own contract
+([`core/hooks/SPECS-gates.md`](../core/hooks/SPECS-gates.md)), not a phase of this plan.
 
 ## Status Log
 

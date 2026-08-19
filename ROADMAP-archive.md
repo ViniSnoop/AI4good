@@ -14,7 +14,7 @@ A row moves back up the moment its trigger fires. A row whose trigger never fire
   over the cap fails every commit in that repo, **including the commits that would fix it**. This
   repo, `code/aiwbot` and `code/flows` are drained; `apptime` and `spacemantics` carry their own
   items on `feature/workspace-drift-refile`. What the draining taught is
-  [`code/SPECS.md`](code/SPECS.md) § Splitting an over-full directory — five rules, each of which
+  [`code/SPECS-style.md`](code/SPECS-style.md) § Splitting an over-full directory — five rules, each of which
   cost a session to find.
   → **trigger: the parallel isoroll session refiles its own drift.** `isoroll-content/src/pipeline`
   and `isoroll-module/src/render` and their siblings, plus the one file over `BLOCK_LINES`; writing

@@ -37,9 +37,13 @@ ROADMAP.md
 code/*
 !code/CONTEXT.md
 !code/SETUP.md
+# A type and its shards, as a glob rather than one line each: an allowlist that enumerates
+# files stops covering a document the moment it outgrows the line cap and splits, and the
+# shard lands untracked with nothing saying so. Same shape as the citation gate's exemption
+# and generated.txt — a shard inherits what its index has.
 !code/SPECS.md
-!code/ROADMAP-verify.md
-!code/ROADMAP-spec-drive.md
+!code/SPECS-*.md
+!code/ROADMAP-*.md
 !code/eslint.shared.js
 !code/laplata/
 code/laplata/*

@@ -64,7 +64,7 @@ Git Flow is enforced alongside (`.hooks/gitflow-gate.sh`, pre-commit 1e; see `SP
 
 ### P0 — Format + pilot ✅ 2026-07-17
 - `_templates/module.SPEC.md` v0 skeleton.
-- `SPECS.md` § Module Spec Contract.
+- `SPECS-structure.md` § Module Spec Contract.
 - Pilot: `spacemantics/dsl/SPEC.md` reshaped to v0 (`status: locked`, `verify: make verify-fast`); the
   rich language spec is preserved below as normative reference. `dsl/CONTEXT.md` carries `> spec: SPEC.md`.
   `make verify-fast` green (39 passed).
