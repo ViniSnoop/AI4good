@@ -101,7 +101,7 @@ Lucas, and its credential is read from the service directory rather than the gma
 `~/.config/workspace-gmail/`, so dropping a second `credentials.json` into `workspace-forms/` and
 `workspace-forms-write/` leaves mail, calendar, drive and slides untouched.
 
-**Needs Lucas**, in console.cloud.google.com signed in as `lsf.cin@gmail.com`: create a project,
+**Needs Lucas:** in console.cloud.google.com signed in as `lsf.cin@gmail.com` — create a project,
 enable **Google Forms API** and **Google Drive API** in it, configure the auth platform (External,
 himself as test user), then create an **OAuth client → Desktop app** and download its JSON. The
 agent does everything after the download. Live since 2026-08-19: project `workspace-os-506016`,
