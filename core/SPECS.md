@@ -48,7 +48,7 @@
   quebrados em 6 arquivos). Um número é um ponteiro que envelhece na primeira seção inserida, e
   envelhece *em silêncio*: `[SETUP.md §6]` continuava resolvendo para um arquivo que existe, só que
   para a seção errada — nenhum check de integridade de link pega isso. O root `SETUP.md` tinha
-  chegado a ter `§10` antes de `§9`. Referência boa: `[SETUP.md](SETUP.md) § Web search` — o texto
+  chegado a ter `§10` antes de `§9`. Referência boa: `[`SETUP-accounts.md`](SETUP-accounts.md) § Web search` — o texto
   âncora sobrevive a qualquer reordenação, e se a seção for renomeada a busca falha em vez de
   apontar para o lugar errado.
 - **Nome de arquivo: uma palavra só, e a palavra inteira** (preferência do Lucas, 2026-07-23). Truncação perde para a palavra completa: `architect` > `arch`, `literature` > `lit`. Nome que repete o namespace do pai é ruído — sob `research/`, `deepresearch.md` gagueja (`research deepresearch`), então virou `deep.md`. Nomes genéricos e óbvios devem ser **reservados** para o flow que realmente os merece: `explore` ficou com o loop de tentar ideias justamente para deixar `experiment` e `optimize` livres para flows futuros distintos.

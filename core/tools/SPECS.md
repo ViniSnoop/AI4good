@@ -93,7 +93,7 @@ have skipped silently on a clean machine.
 
 The path is absolute because **a shebang cannot resolve a relative one**. That is a real cost: it
 hardcodes `/mnt/workspace`, so a clone living anywhere else needs the shebangs rewritten. That
-rewrite is a step in [`SETUP.md`](../../SETUP.md) § Workspace path rather than a caveat in prose —
+rewrite is a step in [`SETUP-workspace.md`](../../SETUP-workspace.md) § Workspace path rather than a caveat in prose —
 it is idempotent, it has a probe, and an agent performs it. The test asserts the *absence of the
 system shebang*, so it keeps passing on a relocated clone.
 

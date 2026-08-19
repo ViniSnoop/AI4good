@@ -1,6 +1,7 @@
 from _typeshed import Incomplete
 
 SETUP: Incomplete
+SHARDS: Incomplete
 INSTALL_SKILL: Incomplete
 
 def test_the_steps_region_exists() -> None: ...

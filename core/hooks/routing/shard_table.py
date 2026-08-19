@@ -32,7 +32,7 @@ EMPTY_CELL = {'—', '-', ''}
 # Column order is reading order: what it is, then how much is live, then what stops you.
 SHARD_COLUMNS = (('Shard', None), ('Description', 'description'), ('Prio', 'priority'),
                  ('Open', 'open'), ('Needs Lucas', 'needs-lucas'), ('Answers', 'answers'),
-                 ('Governs', 'governs'), ('Parsed by', 'parsed-by'),
+                 ('Governs', 'governs'), ('Feature', 'feature'), ('Parsed by', 'parsed-by'),
                  ('Enforced by', 'enforced-by'), ('Blocked by', 'blocked-by'),
                  ('Items', 'items'))
 

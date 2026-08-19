@@ -25,8 +25,9 @@ with the first one.
 
 ## Protocol
 
-1. **Read `SETUP.md` in full.** Its header defines the contract every step follows — `> feature:`,
-   **Precondition**, **Install**, **Verify** — and the steps themselves live between the
+1. **Read `SETUP.md`, then every shard its routing table names.** The index holds the contract each
+   step follows — `> feature:`, **Precondition**, **Install**, **Verify** — plus what is already
+   wired and the whole-install probe. The steps live in the `SETUP-<slug>.md` shards, between the
    `<!-- steps:start -->` and `<!-- steps:end -->` markers. Nothing outside those markers is a step.
 
 2. **Run every step's Precondition first, before installing anything.** Then print one table and

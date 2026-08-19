@@ -9,19 +9,30 @@ import re
 from conftest import WORKSPACE_ROOT
 
 SETUP = WORKSPACE_ROOT / 'SETUP.md'
+SHARDS = sorted(WORKSPACE_ROOT.glob('SETUP-*.md'))
 INSTALL_SKILL = WORKSPACE_ROOT / 'core/skills/install.md'
+
+
+def _procedure() -> str:
+    """The index plus every shard. SETUP.md outgrew the line cap and the steps moved out of it;
+    reading only the index would find no steps and every check below would pass vacuously."""
+    return '\n'.join(p.read_text(encoding='utf-8') for p in [SETUP] + SHARDS)
 
 
 def _steps():
     """The `##` sections between the steps markers. Prose outside them is not a step."""
-    body = SETUP.read_text().split('<!-- steps:start -->')[1].split('<!-- steps:end -->')[0]
-    chunks = re.split(r'^## ', body, flags=re.M)[1:]
-    return [(c.splitlines()[0].strip(), c) for c in chunks]
+    steps = []
+    for text in [p.read_text(encoding='utf-8') for p in [SETUP] + SHARDS]:
+        if '<!-- steps:start -->' not in text:
+            continue
+        body = text.split('<!-- steps:start -->')[1].split('<!-- steps:end -->')[0]
+        steps += [(c.splitlines()[0].strip(), c) for c in re.split(r'^## ', body, flags=re.M)[1:]]
+    return steps
 
 
 def test_the_steps_region_exists():
-    assert '<!-- steps:start -->' in SETUP.read_text(), (
-        'SETUP.md lost its steps markers; every check below reads them')
+    assert '<!-- steps:start -->' in _procedure(), (
+        'the SETUP family lost its steps markers; every check below reads them')
     assert _steps(), 'no steps found between the markers'
 
 
@@ -71,7 +82,7 @@ def test_the_install_skill_is_a_door_not_a_copy():
     SETUP.md must stand alone. The failure this guards is the skill slowly re-inlining the commands
     until there are two procedures that drift apart.
     """
-    setup_blocks = re.findall(r'```(?:bash|powershell)\n(.*?)```', SETUP.read_text(), re.S)
+    setup_blocks = re.findall(r'```(?:bash|powershell)\n(.*?)```', _procedure(), re.S)
     setup_lines = {ln.strip() for b in setup_blocks for ln in b.splitlines()
                    if ln.strip() and not ln.strip().startswith('#')}
     skill_blocks = re.findall(r'```(?:bash|powershell)\n(.*?)```', INSTALL_SKILL.read_text(), re.S)

@@ -83,14 +83,14 @@ def test_every_tool_runs_under_the_workspace_venv():
 
     That is how core/tools/paper/terms could import yaml here and fail on a clean machine: the
     venv holds the declared deps, the system interpreter does not. The path is absolute because
-    a shebang cannot resolve a relative one — SETUP.md § Workspace path rewrites these on a
+    a shebang cannot resolve a relative one — `SETUP-workspace.md` § Workspace path rewrites these on a
     clone that lives somewhere else, which is why this test reads the line from disk.
     """
     wrong = [str(p.relative_to(WORKSPACE_ROOT)) for p in _python_files() if p.suffix == ''
              and p.read_text().splitlines()[0].endswith('/usr/bin/env python3')]
     assert not wrong, (
         'these tools run under the system interpreter, which has none of the declared deps:\n  ' +
-        '\n  '.join(wrong) + '\nUse the venv shebang, or run SETUP.md § Workspace path.')
+        '\n  '.join(wrong) + '\nUse the venv shebang, or run `SETUP-workspace.md` § Workspace path.')
 
 
 def test_the_probe_runner_agrees_with_this_file():
