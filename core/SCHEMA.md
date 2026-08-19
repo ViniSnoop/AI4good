@@ -111,6 +111,33 @@ get a new type.
 
 Anything else is rejected: *"add it to the allowlist if you mean it."*
 
+### A type that outgrows the cap shards
+
+**One type may occupy several files: `TYPE-<slug>.md`, with the unsuffixed file as the index.**
+The slug is lowercase kebab-case, and that is not a style preference — three independent gates
+already assume this exact shape and reject any other. `type-gate.py` reads
+`^[A-Z][A-Z0-9_.-]*\.md$` as a *type name* and sends it to this allowlist, so `ROADMAP-F4.md` is
+rejected as an unknown type while `ROADMAP-entropy.md` passes as an instance;
+`entropy_naming.TYPE_SLUG` accepts a suffix only as `[a-z0-9]+(?:-[a-z0-9]+)*`; and
+`citation-gate.LEDGER_NAMES` matches `^ROADMAP(-[a-z0-9-]+)?\.md$`, which is what lets a shard
+number its own items — a suffix it does not match turns every `Front N` inside the shard into a
+blocking violation. The citation gate was written for this case before any shard existed: *"matched
+on filename, not path, so a `ROADMAP-<slug>.md` in any repo under the workspace is covered without
+enumeration."*
+
+**What the index keeps, and nothing else** — the rule the [`split`](norms/split.md) norm publishes,
+stated once here for every type:
+
+1. **What is true of every shard** — the whole-document rules.
+2. **Any list the type's own rule says lives in exactly one place.** A list that exists precisely so
+   it is not duplicated cannot be pushed into one shard.
+3. **The generated routing table** over the shards.
+
+The test that makes "as small as possible" checkable rather than a matter of taste: **a reader who
+has read only the index names the shard that answers their question, and is never wrong.** Wrong
+means a line is missing from the index; right without needing a given paragraph means that paragraph
+belongs in a shard. What each shard publishes so the index can route to it is § Layer: shard.
+
 `MEMORY.md` earns its row on symmetry: `~/.claude/projects/<slug>/memory` is a symlink to
 `brain/memory/`, so it stands to [`brain/memory/`](../brain/memory/CONTEXT.md) exactly as `GOALS.md`
 stands to `brain/goals/` — an index and router over a directory of instances, one line each, loaded
@@ -485,6 +512,39 @@ Flow-type assignments:
   symmetric fix (add `engineering` to the enum, give the three flows real frontmatter, delete the
   exemption) is a schema change and is queued in [ROADMAP.md](ROADMAP.md), not taken silently here.
 
+## Layer: shard — `TYPE-<slug>.md`
+
+Not part of the skill → flow → agent graph: a shard is a **document** layer. Its frontmatter exists
+for one reader — the index's generated routing table — and every field earns its place by answering
+*should I open this file?* rather than *what does it say?*
+
+**The decision is binary and its two errors are not symmetric.** Skipping a shard that held what the
+task needed is silent: the session duplicates work, contradicts a settled decision, or reopens a
+rejected idea. Opening one that was not needed costs a read and is visible. So the table is tuned
+against the silent error, and a field that only saves a read is cut.
+
+| field | ROADMAP | SCHEMA | SPECS | value |
+|-------|:---:|:---:|:---:|-------|
+| `name` | ✅ | ✅ | ✅ | kebab-case, matches the filename's slug |
+| `description` | ✅ | ✅ | ✅ | one line: what this shard covers |
+| `priority` | ✅ | — | — | `essential` \| `important` \| `desirable` |
+| `blocked-by` | ✅ | — | — | shard filenames, comma list; the generator checks each one exists |
+| `answers` | — | ✅ | — | the questions this law settles |
+| `governs` | — | — | ✅ | the paths or modules it constrains (same job as a `> spec:` line) |
+| `parsed-by` | — | ✅ | — | code that reads this law, so an edit here is known to have code consequences |
+| `enforced-by` | — | ✅ | ✅ | the gates that apply it |
+
+**Everything countable is counted, never declared.** The generator derives open items, the
+needs-Lucas count, the item slugs (`entropy_ledger.ITEM_SLUG`), the lowest tier, line count and last
+touch, and writes them into the index's table. A declared count is a second copy of a fact, and this
+workspace has the receipts: `ROADMAP.md` § How to read this carried a hand-kept count that **went
+stale four times**, twice while the paragraph asking to keep it true was sitting directly above it.
+Deriving it deletes the paragraph and the failure mode together.
+
+**The table names the marker in words, not the emoji.** `🔴` is defined only inside the file that
+uses it, so a column header of `🔴` asks the reader to have read the thing they are deciding whether
+to read. The column is `Needs Lucas`. Body markers are a separate question and are not touched here.
+
 ## Composition and cycles
 
 > Decided 2026-07-23. Vocabulary: **"flow" is the canonical term.** "Loop" is retired for the
@@ -518,9 +578,10 @@ state does not change is not iteration — it is a hang.
 
 ## Routing depth and locality (structural policy)
 
-> Decided 2026-07-24. Governs how every subtree is structured, not just the
-> library. Two axes, deliberately separate — conflating them produced the wrong "flatten everything"
-> call in an earlier round.
+> Decided 2026-07-24 on two axes, since grown to four. Governs how every subtree is structured, not
+> just the library. They stay **deliberately separate** — conflating them produced the wrong
+> "flatten everything" call in an earlier round, and that is the reason the count keeps rising
+> rather than the axes merging.
 
 **Locality — keep it.** Small `CONTEXT.md` glued to the files it governs is **not** overhead. On a
 workspace that must also run on Sonnet and small local models, scattered local `CONTEXT.md` is what
@@ -537,13 +598,27 @@ else. Source files in one directory are a different axis: `workspace_scanner.SPL
 `entropy_fanout.py` reports it to the dashboard rather than to a stdout nobody reads, which is what
 let the tail grow unopposed before.
 
-The three axes, kept separate on purpose:
+**Document size — cap it, and make the root route.** One authored `.md` is capped at `BLOCK_LINES`,
+the same number code is held to, because the trade is the same shape: a shard adds a hop, so it pays
+only when it sheds more than the routing row it costs. What makes prose different from a directory
+is that the shard's readers are *sessions deciding whether to read it*, so shedding content is only
+half the move — the index has to carry enough to make that decision without opening anything. The
+shape of the split is § A type that outgrows the cap shards; the fields a shard publishes so the
+index can route to it are § Layer: shard.
+
+The evidence this axis was added on (2026-08-18, `core/tools/wos/session/reads` over 89 transcripts):
+`ROADMAP.md` at 1222 lines was the most re-read file in the workspace, 130 reads for 983k chars, and
+**ten whole-file reads carried 56% of those chars** while the median read was 2.2k. Mass is not paid
+evenly — it is paid by the reads that give up on navigating and take the whole thing.
+
+The four axes, kept separate on purpose:
 
 | Axis | Rule | Enforced by |
 |---|---|---|
 | **locality** | many small local `CONTEXT.md` = good, never consolidate | judgement |
 | **depth** | cap hops to content; measure before adding a routing level | judgement |
 | **fanout** | `WARN_FILES=7` asks for a look, `BLOCK_FILES=10` is the cap | `entropy_fanout.py`, dashboard |
+| **document size** | `BLOCK_LINES=200` caps one authored `.md`; a root that sheds shards routes to them | `pre-edit.py`, dashboard |
 
 **Where they meet:** splitting an over-full directory *adds a hop*, so fanout and depth trade against
 each other directly. Pay the hop only when the split removes more table than it adds. A directory in

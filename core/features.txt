@@ -154,6 +154,7 @@ improve	norms	automatic	-	advises	general	core/hooks/routing/norms.py	A session 
 interview	norms	automatic	-	advises	general	core/hooks/routing/norms.py	Doubt about intent costs one question instead of a session of work in the wrong direction
 acronyms	norms	automatic	-	advises	general	core/hooks/routing/norms.py	A reader is never left decoding, which is what keeps a durable file readable by the next session rather than only by its author
 edit	norms	automatic	-	advises	general	core/hooks/routing/norms.py	Refining an existing file beats adding one, so the tree stops scattering and the same idea stops living in three places
+split	norms	automatic	-	advises	general	core/hooks/routing/norms.py	A root that outgrew the cap routes to its siblings instead of holding them, so a reader decides what to open without paying to open it
 symmetry	norms	automatic	-	advises	general	core/hooks/routing/norms.py	An asymmetry that is written down gets fixed; one that is merely noticed becomes the next category error
 deletion	norms	automatic	-	advises	general	core/hooks/routing/norms.py	A ledger holds only what is still open, so its length is a real measure of remaining work
 dogfood	norms	automatic	-	advises	general	core/hooks/routing/norms.py	Our own tools get used and therefore get good, instead of decaying beside a hand-rolled alternative

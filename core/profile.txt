@@ -86,6 +86,7 @@ toggle	improve	on
 toggle	interview	on
 toggle	acronyms	on
 toggle	edit	on
+toggle	split	on
 toggle	symmetry	on
 toggle	deletion	on
 toggle	dogfood	on

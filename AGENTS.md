@@ -8,6 +8,7 @@
 - DON'T ASSUME, interview user if in doubt about his idea or intent.
 - EXPAND ACRONYMS on first use. Aliases: [`core/SCHEMA.md`](core/SCHEMA.md) § Vocabulary.
 - EDIT > CREATE: refine / improve / reduce **wins over** creating new, except for prototyping. Avoid scattering.
+- SPLIT A FILE OVER THE CAP into `TYPE-<slug>.md` siblings; the root keeps only what decides which sibling to open — the whole-document rules, the lists the type says live in one place, and the generated routing table.
 - SYMMETRY IS A CORE VALUE, semantic and structural. When you find an asymmetry, write it down.
 - **DONE WORK IS DELETED. GIT IS THE HISTORY.** No strikethrough, no annotated corpses.
 - USE OUR TOOLS / FLOWS: we want those to be useful and perfected.
