@@ -12,7 +12,6 @@
 # Crossing a threshold asks for a SPLIT, never for a summary — forced brevity is the trap, and
 # core/SCHEMA-outgrowing.md § A type that outgrows the cap shards says what a split
 # has to leave behind.
-import re
 import subprocess
 import sys
 from importlib.util import module_from_spec, spec_from_file_location
@@ -37,13 +36,12 @@ from entropy_naming import check_dirs, check_placement, check_shape  # noqa: E40
 from entropy_report import SECTIONS, render  # noqa: E402
 from entropy_stores import experiment_hits, ref_tier_hits  # noqa: E402
 from file_law import (is_authored, is_authored_prose,  # noqa: E402
-                      is_generated_artifact, is_vendored, load_limits)
+                      is_generated_artifact, is_vendored, load_limits,
+                      over_column_cap)
 from schema_law import (SCHEMA, WORKSPACE_ROOT, load_law,  # noqa: E402
                         load_retired, load_scopes)
 
 REPORT = WORKSPACE_ROOT / 'entropy.md'
-# A markdown table row, which the column cap exempts because it cannot be wrapped.
-TABLE_ROW = re.compile(r'^\s*\|')
 
 LEDGERS = {
     # Every shard of the wos ledger is ONE namespace: criterion 2 forbids the same item in two
@@ -147,9 +145,7 @@ def size_signals(files: list) -> list:
         if len(lines) > block:
             signals.append(f'{_rel(path)} — {len(lines)} lines, over the {block} cap; '
                            f'introduced by {_added_by(path)}')
-        # A table row cannot wrap, so it is never a finding. See core/hooks/limits.env.
-        long = [n for n, line in enumerate(lines, 1)
-                if len(line) > cols and not TABLE_ROW.match(line)] if prose else []
+        long = over_column_cap(text, cols) if prose else []
         if long:
             signals.append(f'{_rel(path)} — {len(long)} line(s) over the {cols}-column cap '
                            f'(first at line {long[0]})')

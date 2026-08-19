@@ -131,6 +131,24 @@ def is_authored(path: Path, root: Path) -> bool:
             and not is_generated_artifact(path, root))
 
 
+def over_column_cap(text: str, cols: int) -> list:
+    """Line numbers of prose lines longer than `cols`. The one definition both gates read.
+
+    Two shapes are exempt because neither can be wrapped without changing what it means:
+    a **markdown table row**, which stops being a table, and anything inside a **fenced code
+    block** — a directory tree, an aligned CLI listing, a schema. Both were found the same way,
+    by a split that produced a file the cap flagged and no rewrap could fix.
+    """
+    over, fenced = [], False
+    for number, line in enumerate(text.splitlines(), 1):
+        if line.lstrip().startswith('```'):
+            fenced = not fenced
+            continue
+        if not fenced and len(line) > cols and not line.lstrip().startswith('|'):
+            over.append(number)
+    return over
+
+
 def is_authored_prose(path: Path, root: Path) -> bool:
     """The prose twin, for the gates that hold .md to the same line cap (2026-08-18).
 

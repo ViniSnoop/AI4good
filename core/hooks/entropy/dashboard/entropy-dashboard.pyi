@@ -1,7 +1,6 @@
 from _typeshed import Incomplete
 
 REPORT: Incomplete
-TABLE_ROW: Incomplete
 LEDGERS: Incomplete
 
 def collect(files: list) -> dict: ...
