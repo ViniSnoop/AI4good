@@ -11,6 +11,7 @@
 ## today
 
 - [ ] sleep by 00:30 — streak-3 starts tonight
+- [ ] [ensino] **habilitar a Google Forms API** e mandar os dois questionários pras turmas (aula 2026-08-20). Um clique, só o Lucas pode: https://console.cloud.google.com/apis/library/forms.googleapis.com?project=workspace-gmail-499605 → *Enable*. É outra página que a tela de consentimento do OAuth, que já foi feita. Depois o agente roda `core/tools/forms/gforms new` com os specs de `academy/teaching/ai4good/` e `academy/teaching/tecnologias-na-educacao/`
 
 ## week
 
