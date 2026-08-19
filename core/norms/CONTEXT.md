@@ -30,6 +30,7 @@ every session's prompt rather than merely marking it inactive.
 | [`improve.md`](improve.md) | Every session leaves the workspace better than it found it, and files what it… |
 | [`interview.md`](interview.md) | Doubt about intent is resolved by asking Lucas, never by guessing. |
 | [`one-action.md`](one-action.md) | Agent-facing text names exactly one action, because it is read mid-thread and… |
+| [`split.md`](split.md) | A file over the cap splits into siblings its root routes to, so a reader decides… |
 | [`storage.md`](storage.md) | The workspace owns its state; nothing that matters is written to a vendor's… |
 | [`symmetry.md`](symmetry.md) | Semantic and structural symmetry is a value, and every asymmetry found gets… |
 <!-- routing:end -->
