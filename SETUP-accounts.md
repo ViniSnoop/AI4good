@@ -92,9 +92,19 @@ One switch per Google API, inside the GCP project that owns the OAuth client
 core/tools/forms/gforms read --account personal <form_id>   # an outline means the API is on
 ```
 
-**Needs Lucas:** one click in Google's own console — enable at
-https://console.cloud.google.com/apis/library/forms.googleapis.com?project=workspace-gmail-499605
-then wait ~2 min for it to propagate. Nothing else here is his.
+**The project has to be one Lucas administers, and `workspace-gmail-499605` is not.** Signing in
+as `lsf.cin@gmail.com` or `lsf@cin.ufpe.br` gets `You need additional access ...
+resourcemanager.projects.get (Missing)` — the OAuth client works because a client id needs no
+console rights, but switching an API on does. So Forms runs on **its own project**, created by
+Lucas, and its credential is read from the service directory rather than the gmail one:
+`gauth._credentials_file()` looks in `~/.config/workspace-<service>/` **before** falling back to
+`~/.config/workspace-gmail/`, so dropping a second `credentials.json` into `workspace-forms/` and
+`workspace-forms-write/` leaves mail, calendar, drive and slides untouched.
+
+**Needs Lucas**, in console.cloud.google.com signed in as `lsf.cin@gmail.com`: create a project,
+enable **Google Forms API** and **Google Drive API** in it, configure the auth platform (External,
+himself as test user), then create an **OAuth client → Desktop app** and download its JSON. The
+agent does everything after the download.
 
 **Install**
 ```bash
