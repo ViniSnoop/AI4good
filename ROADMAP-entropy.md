@@ -70,7 +70,7 @@
 6. 🟢 **sweep this repo's first-line-comment markers now that the gate is shut.** The hole is closed:
    `entropy_context.check_description` blocks at commit through the Tier 0 gate, ratcheted to what a
    commit adds, and asks the routing generator rather than a table of its own
-   ([`core/hooks/SPECS.md`](core/hooks/SPECS.md) § First-line descriptions). What is left is the
+   ([`core/hooks/SPECS.md`](core/hooks/SPECS-generators.md) § First-line descriptions). What is left is the
    standing queue the ratchet deliberately does not
    charge anyone for. **Size it against [`entropy.md`](entropy.md), and re-run the generator before
    measuring** — every marker drained so far was a file the generator could already describe.

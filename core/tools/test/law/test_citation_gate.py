@@ -108,6 +108,15 @@ def test_the_documents_stating_the_rule_may_quote_it():
     assert (WORKSPACE_ROOT / 'core/hooks/SPECS.md').resolve() in exempt
 
 
+def test_a_shard_of_an_exempt_document_inherits_the_exemption():
+    """Derived, never listed. `core/hooks/SPECS.md` outgrew the line cap and its § Git pre-commit
+    section — which has to name the shape this gate forbids — moved into a sibling and stopped
+    being exempt on arrival. Enumerating shards would fail again at the next split."""
+    exempt = entropy_citations.citation_exempt_paths(WORKSPACE_ROOT)
+    for shard in (WORKSPACE_ROOT / 'core/hooks').glob('SPECS-*.md'):
+        assert shard.resolve() in exempt, shard
+
+
 def test_the_checker_exempts_itself_and_its_tests():
     """Otherwise the check fails on the file that defines it — the corpse of a self-referring rule."""
     exempt = entropy_citations.citation_exempt_paths(WORKSPACE_ROOT)

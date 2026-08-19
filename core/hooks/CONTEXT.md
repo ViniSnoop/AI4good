@@ -42,7 +42,9 @@ Python modules in a subdirectory reach the root law with
 `sys.path.insert(0, str(Path(__file__).resolve().parents[1]))`. The test suite gets the same
 path set once, from `core/tools/test/conftest.py`, derived by scanning this directory.
 
-Gate behavior and the agent-shim contract: [`SPECS.md`](SPECS.md). Why the `code/` gates
+Gate behavior is [`SPECS-gates.md`](SPECS-gates.md), what the hooks write is
+[`SPECS-generators.md`](SPECS-generators.md), and the agent-shim contract is
+[`SPECS-shim.md`](SPECS-shim.md); [`SPECS.md`](SPECS.md) indexes them. Why the `code/` gates
 exist: [`code/ROADMAP-verify.md`](../../code/ROADMAP-verify.md). Installing the toolchain they depend on:
 [`SETUP.md`](../../SETUP.md).
 
@@ -69,6 +71,9 @@ exist: [`code/ROADMAP-verify.md`](../../code/ROADMAP-verify.md). Installing the 
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
+| [`SPECS-gates.md`](SPECS-gates.md) | — | — | What each blocking gate rejects, at commit time and at edit time. |
+| [`SPECS-generators.md`](SPECS-generators.md) | — | — | What the hooks write rather than reject, and what must be true of each artifact. |
+| [`SPECS-shim.md`](SPECS-shim.md) | — | — | One canonical behaviour, and what a new agent runtime must do to get it. |
 | [`SPECS.md`](SPECS.md) | — | — | What must be true of the enforcement layer, and why: what each gate blocks, and… |
 | [`extensionless.txt`](extensionless.txt) | — | — | Files allowed to have no extension because something OUTSIDE this workspace dictates the |
 | [`feature_law.py`](feature_law.py) | [`feature_law.pyi`](feature_law.pyi) | `load_registry`, `slugs`, `load_profile`, `is_enabled`, `setting` | What is switched ON. The third law module: file_law.py says what a file IS, schema_law.py says |

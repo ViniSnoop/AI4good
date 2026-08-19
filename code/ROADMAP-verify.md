@@ -67,7 +67,7 @@ Contract script names (all code projects): **`verify:fast`** = T0+T1 (runs per c
 
 Workspace-wide hooks (`context-gate.py`, `context-tracker.py`, `bash-context-gate.py` +
 PreCompact/SessionStart lifecycle) — not `code/`-specific, so their canonical documentation
-lives in [`core/hooks/SPECS.md`](../core/hooks/SPECS.md) § Agent lifecycle gates, not
+lives in [`core/hooks/SPECS.md`](../core/hooks/SPECS-gates.md) § Agent lifecycle gates, not
 here. Kept as a one-line pointer: these hooks force the CONTEXT.md chain to be Read before any
 file access anywhere in the workspace.
 

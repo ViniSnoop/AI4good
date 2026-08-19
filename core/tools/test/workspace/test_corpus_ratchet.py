@@ -25,7 +25,7 @@ HEAD_WARN = load_limits()['CONTEXT_HEAD_WARN']
 #
 # The marker queue fell 69 → 55 on 2026-08-15 without a single file being described by hand:
 # the generator learned to read a multi-line module docstring and the `core/hooks` data files
-# (core/hooks/SPECS.md § The `CONTEXT.md` routing block). Markers answered by closing a
+# (core/hooks/SPECS-generators.md § The `CONTEXT.md` routing block). Markers answered by closing a
 # generator gap are the cheapest kind, and they are indistinguishable here from ones answered
 # by writing prose — which is the point.
 FINISHED_CEILING = 19

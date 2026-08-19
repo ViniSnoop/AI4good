@@ -5,7 +5,7 @@
 # BOUND its length — and those parts had drifted into two modules that each did some of it.
 # A subdirectory row hoisted a blurb and got all three; a `.md` file row hoisted nothing and
 # showed its H1 instead. One module, one rule: everything hoisted goes through hoist().
-# The contract this serves: core/hooks/SPECS.md § The `CONTEXT.md` routing block.
+# The contract this serves: core/hooks/SPECS-generators.md § The `CONTEXT.md` routing block.
 import re
 from pathlib import Path
 

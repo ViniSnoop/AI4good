@@ -52,7 +52,7 @@ item a high-tier agent can rule on alone is 🟡. Every one of them is a researc
 rather than a question with options attached, which is what he has asked for in every case.
 
 **Never cite an item number outside the roadmap family** — enforced on every commit by
-`checks/citation-gate.py` ([`core/hooks/SPECS.md`](core/hooks/SPECS.md) § Git pre-commit), which
+`checks/citation-gate.py` ([`core/hooks/SPECS.md`](core/hooks/SPECS-gates.md) § Git pre-commit), which
 matches `ROADMAP.md` and `ROADMAP-<slug>.md` and nothing else. Completion is deletion, so a cited
 number is a pointer to nothing the day the item lands; point at the section that owns the rule
 instead — or, across shards, at the shard's filename, which is what `blocked-by` carries.

@@ -59,8 +59,16 @@ WORKSPACE_ROOT = Path(__file__).resolve().parents[3]
 
 
 def citation_exempt_paths(root: Path) -> set:
-    """Files allowed to contain a Front number: the law, the report, and this check itself."""
-    return ({(root / name).resolve() for name in ENFORCEMENT}
+    """Files allowed to contain a Front number: the law, the report, and this check itself.
+
+    A shard of an exempt file inherits the exemption, derived rather than listed. Enumerating
+    them would fail the first time one of these documents outgrew the line cap, which is exactly
+    what happened to `core/hooks/SPECS.md` — its § Git pre-commit section, which has to name the
+    shape this gate forbids, moved into a sibling and stopped being exempt on arrival.
+    """
+    named = [root / name for name in ENFORCEMENT]
+    return ({p.resolve() for p in named}
+            | {s.resolve() for p in named for s in p.parent.glob(f'{p.stem}-*{p.suffix}')}
             | {Path(__file__).resolve().parent / _CHECKER}
             | {p.resolve() for p in root.glob(_CHECKER_TESTS)})
 
