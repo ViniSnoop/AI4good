@@ -15,9 +15,9 @@ core/tools/forms/gforms responses --account personal <form_id>
 sua, e o mesmo questionário vira um form separado em cada uma, porque a leitura das respostas é
 por turma.
 
-| Spec | `formId` |
-|------|----------|
-| [`2026-2-rotina-e-setup.json`](2026-2-rotina-e-setup.json) | *(pendente: Forms API desligada no projeto GCP)* |
+| Spec | `formId` | Link de resposta |
+|------|----------|------------------|
+| [`2026-2-rotina-e-setup.json`](2026-2-rotina-e-setup.json) | `1QyOkwdY9nNZPLLh179tSRyadgh6Cl-p9R1XM7qRTWkY` | [viewform](https://docs.google.com/forms/d/e/1FAIpQLScOoEjTI-l64rgUSBMQ198J_B9ssrai_tIVAcPAOYe-uWklww/viewform) |
 
 <!-- routing:start -->
 ## Routing

@@ -104,7 +104,13 @@ Lucas, and its credential is read from the service directory rather than the gma
 **Needs Lucas**, in console.cloud.google.com signed in as `lsf.cin@gmail.com`: create a project,
 enable **Google Forms API** and **Google Drive API** in it, configure the auth platform (External,
 himself as test user), then create an **OAuth client → Desktop app** and download its JSON. The
-agent does everything after the download.
+agent does everything after the download. Live since 2026-08-19: project `workspace-os-506016`,
+which also has gmail, calendar, docs, slides and sheets switched on — the successor to
+`workspace-gmail-499605` for anything that ever needs a console again.
+
+**One project serves every account.** The project owns the *app*; an account only consents to it.
+A second account needs no second project — just a row under *Audience → Test users*, and an
+institutional account may still be refused by its own Workspace admin's unverified-app policy.
 
 **Install**
 ```bash
