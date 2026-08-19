@@ -136,7 +136,48 @@ stated once here for every type:
 The test that makes "as small as possible" checkable rather than a matter of taste: **a reader who
 has read only the index names the shard that answers their question, and is never wrong.** Wrong
 means a line is missing from the index; right without needing a given paragraph means that paragraph
-belongs in a shard. What each shard publishes so the index can route to it is § Layer: shard.
+belongs in a shard.
+
+### What a shard publishes about itself
+
+A shard's header exists for one reader — the index's generated table — and every field earns its
+place by answering *should I open this file?*, never *what does it say?*
+
+**The decision is binary and its two errors are not symmetric.** Skipping a shard that held what the
+task needed is silent: the session duplicates work, contradicts a settled decision, or reopens a
+rejected idea. Opening one that was not needed costs a read and is visible. So the header is tuned
+against the silent error, and a field that only saves a read is cut.
+
+**The header is `>` lines under the H1, not YAML frontmatter.** Frontmatter is the contract for the
+agent-library *layers* — skill, flow, agent, norm — which are loaded as prompts. A shard belongs to
+the document family, and every type in it declares itself the same way `CONTEXT.md` does: `#` name,
+then `> ` description, then `> key: value`. `hoist.md_blurb` already reads that second line and
+`code/`'s `> spec:` already rides on the same shape, so the convention costs no new parser and,
+unlike frontmatter, renders where a human can see it.
+
+| field | ROADMAP | SCHEMA | SPECS | value |
+|-------|:---:|:---:|:---:|-------|
+| line 2, no key | ✅ | ✅ | ✅ | one line: what this shard covers |
+| `priority` | ✅ | — | — | `essential` \| `important` \| `desirable` |
+| `blocked-by` | ✅ | — | — | shard filenames, comma list; the generator checks each one exists |
+| `answers` | — | ✅ | — | the questions this law settles |
+| `governs` | — | — | ✅ | the paths or modules it constrains, same job as a `> spec:` line |
+| `parsed-by` | — | ✅ | — | code that reads this law, so an edit here is known to have code consequences |
+| `enforced-by` | — | ✅ | ✅ | the gates that apply it |
+
+**Everything countable is counted, never declared.** The generator derives open items, the
+needs-Lucas count, the item slugs (`entropy_ledger.ITEM_SLUG`), line count and last touch, and writes
+them into the index's table. A declared count is a second copy of a fact, and this workspace has the
+receipts: `ROADMAP.md` § How to read this carried a hand-kept count that **went stale four times**,
+twice while the paragraph asking to keep it true sat directly above it. Deriving it deletes the
+paragraph and the failure mode together.
+
+**The table names the marker in words, not the emoji.** `🔴` is defined only inside the file that
+uses it, so a column headed `🔴` asks the reader to have already read the thing they are deciding
+whether to read. The column is `Needs Lucas`. Body markers are a separate question, untouched here.
+
+**A column empty for every shard is not emitted**, the rule `build_file_rows` already follows, which
+is what lets one generator serve all three types without knowing which it is looking at.
 
 `MEMORY.md` earns its row on symmetry: `~/.claude/projects/<slug>/memory` is a symlink to
 `brain/memory/`, so it stands to [`brain/memory/`](../brain/memory/CONTEXT.md) exactly as `GOALS.md`
@@ -511,39 +552,6 @@ Flow-type assignments:
   `engineering` is not in the `type` enum, so the cluster is exempted by path rather than typed. The
   symmetric fix (add `engineering` to the enum, give the three flows real frontmatter, delete the
   exemption) is a schema change and is queued in [ROADMAP.md](ROADMAP.md), not taken silently here.
-
-## Layer: shard — `TYPE-<slug>.md`
-
-Not part of the skill → flow → agent graph: a shard is a **document** layer. Its frontmatter exists
-for one reader — the index's generated routing table — and every field earns its place by answering
-*should I open this file?* rather than *what does it say?*
-
-**The decision is binary and its two errors are not symmetric.** Skipping a shard that held what the
-task needed is silent: the session duplicates work, contradicts a settled decision, or reopens a
-rejected idea. Opening one that was not needed costs a read and is visible. So the table is tuned
-against the silent error, and a field that only saves a read is cut.
-
-| field | ROADMAP | SCHEMA | SPECS | value |
-|-------|:---:|:---:|:---:|-------|
-| `name` | ✅ | ✅ | ✅ | kebab-case, matches the filename's slug |
-| `description` | ✅ | ✅ | ✅ | one line: what this shard covers |
-| `priority` | ✅ | — | — | `essential` \| `important` \| `desirable` |
-| `blocked-by` | ✅ | — | — | shard filenames, comma list; the generator checks each one exists |
-| `answers` | — | ✅ | — | the questions this law settles |
-| `governs` | — | — | ✅ | the paths or modules it constrains (same job as a `> spec:` line) |
-| `parsed-by` | — | ✅ | — | code that reads this law, so an edit here is known to have code consequences |
-| `enforced-by` | — | ✅ | ✅ | the gates that apply it |
-
-**Everything countable is counted, never declared.** The generator derives open items, the
-needs-Lucas count, the item slugs (`entropy_ledger.ITEM_SLUG`), the lowest tier, line count and last
-touch, and writes them into the index's table. A declared count is a second copy of a fact, and this
-workspace has the receipts: `ROADMAP.md` § How to read this carried a hand-kept count that **went
-stale four times**, twice while the paragraph asking to keep it true was sitting directly above it.
-Deriving it deletes the paragraph and the failure mode together.
-
-**The table names the marker in words, not the emoji.** `🔴` is defined only inside the file that
-uses it, so a column header of `🔴` asks the reader to have read the thing they are deciding whether
-to read. The column is `Needs Lucas`. Body markers are a separate question and are not touched here.
 
 ## Composition and cycles
 

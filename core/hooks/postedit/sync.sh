@@ -2,9 +2,12 @@
 # Sourced by core/hooks/post-edit.sh — a FRAGMENT, not a standalone script:
 # it relies on $file, $dir, $TSC and find_tsconfig from the caller.
 
-# ── Sync CONTEXT.md Routing block — leaf dir only ─────────────────────────────
-[ -f "$dir/CONTEXT.md" ] \
-    && python3 /mnt/workspace/core/hooks/routing/context_synchronizer.py "$dir" 2>/dev/null
+# ── Sync the routing blocks: the directory's CONTEXT.md, and the index of a sharded type ──
+# The FILE is passed, not its directory. Both are needed and only the file carries both: the
+# synchronizer derives the directory itself, and a shard's index is found from the shard's own
+# name. Passing "$dir" behind a CONTEXT.md test also meant a workspace-root .md never synced
+# at all, since the root's routing block lives in AGENTS.md.
+python3 /mnt/workspace/core/hooks/routing/context_synchronizer.py "$file" 2>/dev/null
 
 # ── codegraph sync — keep index fresh after every source edit ─────────────────
 if [[ "$file" == /mnt/workspace/code/* ]]; then

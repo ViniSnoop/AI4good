@@ -6,6 +6,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import feature_law
 from file_law import is_code_file
+from shard_table import build_shard_rows, index_for, shards_of
 from workspace_scanner import (
     SPLIT_THRESHOLD,
     code_files, has_code_content, subdir_scan,
@@ -16,13 +17,6 @@ from workspace_scanner import (
 RS  = '<!-- routing:start -->'
 RE  = '<!-- routing:end -->'
 
-# Legacy sentinel names — detected and converted automatically on first sync.
-_OLD_AS = '<!-- ctx-sync:auto:start -->'
-_OLD_AE = '<!-- ctx-sync:auto:end -->'
-_OLD_SS = '<!-- ctx-sync:sub:start -->'
-_OLD_SE = '<!-- ctx-sync:sub:end -->'
-_OLD_RS = '<!-- ctx-sync:routing:start -->'
-_OLD_RE = '<!-- ctx-sync:routing:end -->'
 
 
 def _line_pos(text: str, sentinel: str) -> int:
@@ -37,52 +31,6 @@ def _line_pos(text: str, sentinel: str) -> int:
         if after >= len(text) or text[after] in ('\n', '\r'):
             return pos
     return -1
-
-
-def _extract_between_lines(text: str, start: str, end: str) -> str:
-    si = _line_pos(text, start)
-    if si == -1:
-        return ''
-    content_start = si + len(start)
-    ei = text.find(end, content_start)
-    return text[content_start:ei].strip() if ei != -1 else ''
-
-
-def migrate_legacy(text: str) -> tuple[str, bool]:
-    """Convert old sentinel formats to current routing block (line-anchored only)."""
-    # Migration: ctx-sync:routing:* → routing:*
-    if _line_pos(text, _OLD_RS) != -1:
-        text = text.replace(_OLD_RS, RS).replace(_OLD_RE, RE)
-        return text, True
-
-    has_auto = _line_pos(text, _OLD_AS) != -1
-    has_sub  = _line_pos(text, _OLD_SS) != -1
-    if not has_auto and not has_sub:
-        return text, False
-
-    sub_inner  = _extract_between_lines(text, _OLD_SS, _OLD_SE)
-    auto_inner = _extract_between_lines(text, _OLD_AS, _OLD_AE)
-
-    # Locate the full extent: from earliest sentinel to end of last sentinel.
-    candidates = [p for p in (_line_pos(text, _OLD_AS), _line_pos(text, _OLD_SS)) if p != -1]
-    end_sentinels = [s for s in (_OLD_AE, _OLD_SE) if _line_pos(text, s) != -1]
-    ends = [_line_pos(text, s) + len(s) for s in end_sentinels]
-    first, last_end = min(candidates), max(ends)
-
-    # Walk back to absorb any preceding section heading.
-    prefix = text[:first]
-    section_start = first
-    for h in ('## File Map', '## Sub-modules', '## Routing'):
-        idx = prefix.rfind(h)
-        if idx != -1 and prefix[idx:].count('\n') <= 5:
-            section_start = min(section_start, idx)
-
-    end = last_end
-    while end < len(text) and text[end] == '\n':
-        end += 1
-
-    new_block = build_routing_block(sub_inner, auto_inner, RS, RE)
-    return text[:section_start] + new_block + '\n' + text[end:], True
 
 
 _ROUTING_HEAD = re.compile(r'^##\s+Routing\s*$', re.MULTILINE)
@@ -105,6 +53,37 @@ def _drop_unsentineled_routing(text: str) -> str:
     return (text[:m.start()].rstrip('\n') + '\n\n' + text[end:].lstrip('\n')).rstrip('\n')
 
 
+def replace_block(text: str, new_block: str) -> str:
+    """Swap the routing block for a new one, standardized to the end of the file.
+
+    Shared by the two things that own a routing block — a directory's CONTEXT.md and a sharded
+    type's index. They differ in what fills the block, never in where it sits.
+    """
+    si, ei = _line_pos(text, RS), _line_pos(text, RE)
+    if si != -1 and ei != -1:
+        before = text[:si].rstrip('\n')
+        after  = text[ei + len(RE):].lstrip('\n')
+        text   = '\n\n'.join(p for p in (before, after) if p)
+    else:
+        text = _drop_unsentineled_routing(text)
+    return text.rstrip('\n') + '\n\n' + new_block
+
+
+def sync_shards(target: Path) -> bool:
+    """Rewrite the index table of the sharded type `target` belongs to; False when it is not one.
+
+    Runs BESIDE the directory sync rather than instead of it: a shard is one of its type's files
+    and one of its directory's, and both tables are meant to know about it.
+    """
+    index = index_for(target)
+    if index is None:
+        return False
+    block = build_routing_block('', build_shard_rows(shards_of(index)), RS, RE)
+    index.write_text(replace_block(index.read_text(encoding='utf-8'), block), encoding='utf-8')
+    print(f'✓ shard-sync: {index}')
+    return True
+
+
 def sync(target: Path):
     # The one seam for `routing-tables` (core/SPECS.md § AD-14): pre-commit
     # (generators/routing.sh) and post-edit (postedit/sync.sh) both arrive here, so one
@@ -113,6 +92,8 @@ def sync(target: Path):
     # block, not in whether the block gets written.
     if not feature_law.is_enabled('routing-tables'):
         return
+    if not target.is_dir():
+        sync_shards(target)
     directory = target if target.is_dir() else target.parent
 
     ctx = directory / 'CONTEXT.md'
@@ -126,12 +107,6 @@ def sync(target: Path):
             return
 
     text = ctx.read_text(encoding='utf-8')
-
-    # Self-heal: migrate legacy sentinel format if present.
-    text, migrated = migrate_legacy(text)
-    if migrated:
-        ctx.write_text(text, encoding='utf-8')
-        print(f'  migrated legacy format: {ctx}')
 
     # Extract preserved descriptions first (workspace_mode uses them for link_list).
     si = _line_pos(text, RS)
@@ -159,17 +134,7 @@ def sync(target: Path):
     file_content = build_file_rows(all_files, preserved_files, directory) if all_files else ''
     new_block    = build_routing_block(sub_content, file_content, RS, RE)
 
-    if si != -1 and ei != -1:
-        # Remove block from current position; re-append at end (standardized position).
-        before = text[:si].rstrip('\n')
-        after  = text[ei + len(RE):].lstrip('\n')
-        parts  = [p for p in (before, after) if p]
-        text   = '\n\n'.join(parts)
-    else:
-        text = _drop_unsentineled_routing(text)
-    text = text.rstrip('\n') + '\n\n' + new_block
-
-    ctx.write_text(text, encoding='utf-8')
+    ctx.write_text(replace_block(text, new_block), encoding='utf-8')
     print(f'✓ routing-sync: {ctx}')
 
     removed = set(preserved_files) - {rel for _, rel in all_files}

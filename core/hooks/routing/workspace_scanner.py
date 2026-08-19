@@ -6,6 +6,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from file_law import load_limits  # noqa: E402
 from hoist import hoist, md_blurb  # noqa: E402
+from shard_table import EMPTY_CELL, render_table  # noqa: E402
 from workspace_meta import (  # noqa: E402
     ALL_EXTS, PLACEHOLDER, extract_api, file_description, interface_for,
 )
@@ -112,7 +113,6 @@ def build_sub_rows(link_list: list, preserved_subs: dict) -> str:
 
 HEADERS   = ('File', 'Interface', 'API', 'Description')
 ALWAYS    = (0, 3)          # File and Description are the table; the rest earn their place
-EMPTY_CELL = {'—', '-', ''}
 FACADE_PREFIX = '**facade** — '
 
 
@@ -149,14 +149,7 @@ def build_file_rows(files_with_rel: list, preserved: dict, ctx_dir: Path) -> str
             found = hoist(found, '' if str(folded) == '.' else f'{folded}/')
         desc = pre + (found or kept)
         rows.append((f'[`{rel}`]({rel})', interface_for(f, ctx_dir), extract_api(f), desc))
-    if not rows:
-        return ''
-    keep = [i for i in range(len(HEADERS))
-            if i in ALWAYS or any(r[i] not in EMPTY_CELL for r in rows)]
-    out = ['| ' + ' | '.join(HEADERS[i] for i in keep) + ' |',
-           '|' + '|'.join('-' * (len(HEADERS[i]) + 2) for i in keep) + '|']
-    out += ['| ' + ' | '.join(r[i] for i in keep) + ' |' for r in rows]
-    return '\n'.join(out)
+    return render_table(HEADERS, rows, ALWAYS)
 
 def build_routing_block(sub_content: str, file_content: str, rs: str, re_end: str) -> str:
     parts = [rs, '## Routing', '']

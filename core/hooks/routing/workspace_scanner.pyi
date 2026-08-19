@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 from pathlib import Path
+from shard_table import EMPTY_CELL as EMPTY_CELL
 
 SPLIT_THRESHOLD: Incomplete
 FACADE_NAMES: Incomplete
@@ -14,7 +15,6 @@ def build_sub_rows(link_list: list, preserved_subs: dict) -> str: ...
 
 HEADERS: Incomplete
 ALWAYS: Incomplete
-EMPTY_CELL: Incomplete
 FACADE_PREFIX: str
 
 def build_file_rows(files_with_rel: list, preserved: dict, ctx_dir: Path) -> str: ...
