@@ -6,7 +6,7 @@ from conftest import WORKSPACE_ROOT
 
 import forms_spec
 
-SPEC = WORKSPACE_ROOT / 'academy/teaching/forms/2026-2-rotina-e-setup.json'
+SPECS = sorted((WORKSPACE_ROOT / 'academy/teaching').glob('*/*.json'))
 
 
 def test_a_section_is_a_page_break_and_never_a_question():
@@ -60,8 +60,14 @@ def test_an_unknown_type_fails_here_rather_than_at_the_api():
         forms_spec.requests({"items": [{"type": "slider", "title": "?"}]})
 
 
-def test_the_form_lucas_applies_still_compiles():
-    """Guards the content, not just the builder: a broken spec is a class with no survey."""
-    spec = json.loads(SPEC.read_text())
-    reqs = forms_spec.requests(spec)
-    assert len(reqs) == len(spec["items"]) + 1  # every item, plus the description
+def test_every_form_lucas_applies_still_compiles():
+    """Guards the content, not just the builder: a broken spec is a class with no survey.
+
+    Discovered by glob rather than listed, because a spec is added per discipline and a
+    listed path would leave the next turma's form untested without saying so.
+    """
+    assert SPECS, 'no form spec found under academy/teaching/*/'
+    for path in SPECS:
+        spec = json.loads(path.read_text())
+        reqs = forms_spec.requests(spec)
+        assert len(reqs) == len(spec["items"]) + 1, path  # every item, plus the description
