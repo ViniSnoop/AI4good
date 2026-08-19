@@ -1,4 +1,4 @@
-# T0 the two doubt stores (core/SPECS.md § AD-16 band 1): an experiment states its own format, and
+# T0 the two doubt stores (core/SPECS-discipline.md § AD-16 band 1): an experiment states its own format, and
 # a judged reference carries a source tier. Zero-token, runs in verify-fast.
 #
 # These are the rules this workspace cites as proof it knows how to doubt, and until 2026-08-18

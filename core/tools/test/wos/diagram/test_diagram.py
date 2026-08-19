@@ -105,7 +105,7 @@ def test_check_reports_stale_and_current(tmp_path):
 
 
 def test_the_switch_is_honest(tmp_path):
-    """core/SPECS.md § AD-14: the row claims a switch, so throwing it must move the observable.
+    """core/SPECS-features.md § AD-14: the row claims a switch, so throwing it must move the observable.
     Off means no picture written and the tool's own refusal code — not a quiet exit 0 that an
     ablation arm would read as success."""
     out = tmp_path / 'off.html'

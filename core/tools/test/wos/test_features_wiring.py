@@ -1,4 +1,4 @@
-# T0 the feature registry's honesty half (core/SPECS.md § AD-14): a row claiming a switch must
+# T0 the feature registry's honesty half (core/SPECS-features.md § AD-14): a row claiming a switch must
 # really have one, and throwing the switch must move the observable.
 #
 # WHY THIS IS A FILE OF ITS OWN. test_features.py answers "is the declaration complete and in its

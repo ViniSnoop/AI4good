@@ -2,7 +2,7 @@
 # Sourced by core/hooks/post-edit.sh — a FRAGMENT, not a standalone script:
 # it relies on $file, $dir, $TSC and find_tsconfig from the caller.
 #
-# The second of `interface-stubs`' two paths (core/SPECS.md § AD-14). This half is what
+# The second of `interface-stubs`' two paths (core/SPECS-features.md § AD-14). This half is what
 # keeps the stub current WITHIN a session; generators/interfaces.sh is what stages it into
 # the commit. Switch off only one and read/pre-read.sh silently stops enforcing, because it
 # blocks a source read only while the stub beside it is current.

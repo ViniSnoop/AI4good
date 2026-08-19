@@ -9,14 +9,14 @@
 > § The `.md` type system. The registry's grouping, its columns, and the fact that `scope` **is** the
 > general/Lucas-specific line (a column the sync reads, not a document) are declared in the header of
 > [`core/features.txt`](core/features.txt) itself; the rule behind it is
-> [`core/SPECS.md`](core/SPECS.md) § AD-14.
+> [`core/SPECS-features.md`](core/SPECS-features.md) § AD-14.
 
 **Criterion 4 is met and the registry is live.** A feature whose `wired` column reads `-` cannot be
 switched off, so **the ablation cannot report on it**. Wiring one is calling
 `feature_law.is_enabled()` where the rule is enforced and naming that file in the column. Read the
 count from `core/tools/wos/features --findings`, never from here — and the target is zero with **no
 exceptions left**: the `n/a` column is empty, because the rows that carried it were category errors
-rather than hard cases (`core/SPECS.md` § AD-14).
+rather than hard cases (`core/SPECS-features.md` § AD-14).
 
 **The backlog is down to `telegram-capture`, and it is not mechanical** — it is item 6 below. Every
 other row's guard was verified by running the feature both ways, never by grepping for the slug.

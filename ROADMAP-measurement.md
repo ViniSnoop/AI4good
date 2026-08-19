@@ -36,7 +36,7 @@
    sibling of this item, it is its instrument — *"it also would ease ablation tests so we can indeed
    see the impacts of each option"* (Lucas, 2026-08-14). Building the bench before the switch
    repeats the failure. Two ways a feature goes off, and the registry only knows the first:
-   an in-process switch, or a variant built without it — [`core/SPECS.md`](core/SPECS.md) § AD-14.
+   an in-process switch, or a variant built without it — [`core/SPECS-features.md`](core/SPECS-features.md) § AD-14.
 
    **Named for measurement by Lucas (INBOX 2026-08-16), and the list is the scope:** *"incluir na
    nossa medição do estudo de ablação as funcionalidades da fachada, das interfaces, do limite de

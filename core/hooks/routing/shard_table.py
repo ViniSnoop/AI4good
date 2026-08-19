@@ -55,6 +55,11 @@ def shard_facts(path: Path) -> dict:
             break
         if match := SHARD_FIELD.match(line.strip()):
             facts[match.group(1)] = match.group(2).strip()
+    # The three counts are ROADMAP-only, as core/SCHEMA.md's field table says. Deriving them for
+    # every type read a SPECS shard as having 13 open items, because a numbered list in prose looks
+    # exactly like a numbered item — a count that is meaningless is worse than no column.
+    if path.stem.split('-')[0] != 'ROADMAP':
+        return facts
     if items := ITEM.findall(text):
         facts['open'] = str(len(items))
     if slugs := SLUG.findall(text):

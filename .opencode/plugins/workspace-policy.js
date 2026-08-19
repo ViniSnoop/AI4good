@@ -34,7 +34,7 @@ function blockMsg(r, fallback) {
 }
 
 export const WorkspacePolicy = async ({ client }) => {
-  // The `opencode-plugin` switch (core/SPECS.md § AD-14). Asked through
+  // The `opencode-plugin` switch (core/SPECS-features.md § AD-14). Asked through
   // feature_law.py's --enabled arm, which exists so a second harness reaches the same
   // registry without a second implementation of it. Off = register no hooks at all,
   // which is the honest observable: opencode runs with none of the canonical gates.

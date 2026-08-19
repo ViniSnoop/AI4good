@@ -117,7 +117,7 @@ def is_wired(row: dict) -> bool:
     `n/a` says one cannot exist — the .venv every hook runs on cannot disable itself and still
     leave a gate running to answer. Those rows are NOT findings and are NOT probed: they are
     ablated by building a clone variant without them, which is the harness's job and not this
-    module's (core/SPECS.md § AD-14). Everything else either names a file or is a finding.
+    module's (core/SPECS-features.md § AD-14). Everything else either names a file or is a finding.
     """
     return row.get('wired', '-').split()[:1] not in ([], ['-'], ['n/a'])
 
@@ -140,7 +140,7 @@ def findings() -> list:
 
     This is the audit, not a warning list. A feature entangled with the scaffold rather than
     sitting on it is invisible to an ablation, so the count is the number the ablation study has
-    to drive down before it can measure anything (core/SPECS.md § AD-14). Its target is zero,
+    to drive down before it can measure anything (core/SPECS-features.md § AD-14). Its target is zero,
     which is only honest because `n/a` carries the rows where a switch cannot exist.
     """
     return [r for r in load_registry()

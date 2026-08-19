@@ -91,6 +91,15 @@ def test_the_marker_column_is_named_in_words(tmp_path) -> None:
     assert 'Needs Lucas' in table and '| 🔴 |' not in table
 
 
+def test_only_a_roadmap_shard_is_counted_for_open_items(tmp_path) -> None:
+    """A numbered list in prose looks exactly like a numbered item. Counting it read a SPECS shard
+    as having 13 open items — a meaningless number is worse than an absent column."""
+    (tmp_path / 'SPECS.md').write_text('# S\n> s.\n', encoding='utf-8')
+    (tmp_path / 'SPECS-alpha.md').write_text(
+        '# A\n> a.\n\n1. first rule.\n2. second rule.\n', encoding='utf-8')
+    assert 'open' not in shard_facts(tmp_path / 'SPECS-alpha.md')
+
+
 def test_a_type_with_shards_and_no_index_is_left_alone(tmp_path) -> None:
     """`code/` holds ROADMAP-verify.md and no ROADMAP.md. Writing one is a decision, not a save."""
     (tmp_path / 'ROADMAP-verify.md').write_text('# V\n> v.\n', encoding='utf-8')

@@ -18,7 +18,7 @@ shared with. `not_shared_text` leads with that reading on purpose.
 ## No read/write token split
 
 Capabilities are chosen when the integration is created (AD-11's exception, see
-[`../../SPECS.md`](../../SPECS.md) § AD-11) — unlike Slides or Drive, one secret with
+[`../../SPECS-library.md`](../../SPECS-library.md) § AD-11) — unlike Slides or Drive, one secret with
 Read + Update + Insert already carries the strongest grant, so there is no second token to
 request.
 

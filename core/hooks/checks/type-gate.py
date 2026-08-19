@@ -68,7 +68,7 @@ def failures_for(path: Path, allowed: set, exempt: set, scopes: dict,
             + finished_work_hits([path], enforcement_paths(WORKSPACE_ROOT))
             # The two doubt stores are small, closed and clean today, so this one goes in total
             # rather than on a ratchet: a new experiment or a newly judged reference arrives with
-            # the discipline or does not arrive (core/SPECS.md § AD-16 band 1).
+            # the discipline or does not arrive (core/SPECS-discipline.md § AD-16 band 1).
             + experiment_hits([path]) + ref_tier_hits([path]))
 
 

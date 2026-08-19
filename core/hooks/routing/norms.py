@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # Publish core/norms/*.md into AGENTS.md's rule block, in the registry's order.
 #
-# The `norms` group's one wiring point (core/SPECS.md § AD-14), the same shape as the skills
+# The `norms` group's one wiring point (core/SPECS-features.md § AD-14), the same shape as the skills
 # mirror: a norm is markdown and calls no function, so its only real "off" is the publisher
 # declining to publish it. Here that is stronger than for a skill — AGENTS.md is always
 # loaded, so a switched-off norm leaves the session's prompt entirely rather than merely

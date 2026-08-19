@@ -31,6 +31,10 @@ Ported from Feynman (https://github.com/companion-inc/feynman), adapted for prov
 |------|-------------|
 | [`ROADMAP.md`](ROADMAP.md) | Making the agent library sound: one enforced frontmatter contract per layer… |
 | [`SCHEMA.md`](SCHEMA.md) | The enforced frontmatter contract for skills, flows, and agents, plus the… |
+| [`SPECS-discipline.md`](SPECS-discipline.md) | What an always-loaded rule must prove, when doubt costs, when to delegate. |
+| [`SPECS-features.md`](SPECS-features.md) | What counts as a feature, what its columns mean, and what may not be undeclared. |
+| [`SPECS-library.md`](SPECS-library.md) | How the agent library is arranged, and how a tool family and its auth attach. |
+| [`SPECS-session.md`](SPECS-session.md) | How a session closes, and who carries context when work is handed off. |
 | [`SPECS.md`](SPECS.md) | Architecture decisions and conventions for the Core agent library. |
 | [`features.txt`](features.txt) | Every toggleable feature this workspace has, declared: what group it belongs to, how hard it |
 | [`profile.txt`](profile.txt) | Which features are switched on for THIS machine, and the settings that are not switches. |

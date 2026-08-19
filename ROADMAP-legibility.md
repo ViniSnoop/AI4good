@@ -191,5 +191,5 @@ person who owns it, and the place to route the next *"when was that decided?"*
    rewritten. That record logs the rejected option space git commit messages lose, so it captures
    *why*, not work-product, and does **not** contradict "done work is deleted, git is the history" —
    the § Rejected list here is already a partial version of it. Shape belongs in
-   [`core/SPECS.md`](core/SPECS.md) § AD-09; [`core/skills/handoff.md`](core/skills/handoff.md)
+   [`core/SPECS-session.md`](core/SPECS-session.md) § AD-09; [`core/skills/handoff.md`](core/skills/handoff.md)
    carries the hand-off half. → **tier: medium**.

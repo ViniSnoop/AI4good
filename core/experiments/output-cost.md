@@ -100,7 +100,7 @@ does not cost precision work; that fear priced a session about to end, and at th
 session is not about to end. Both halves of the response are live —
 [`core/hooks/session/context-meter.py`](../hooks/session/context-meter.py) announces the crossings,
 [`core/tools/wos/roundup`](../tools/wos/roundup) closes the session; the split is
-[`core/SPECS.md`](../SPECS.md) § AD-09.
+[`core/SPECS-session.md`](../SPECS-session.md) § AD-09.
 
 ## Three claims this audit retired
 

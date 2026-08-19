@@ -158,7 +158,7 @@ nothing to decide — what is left each needs one judgment first, named in its r
    already prints the per-session split at every close; what is missing is the plan **declaring its
    expected split** and roundup comparing. It forces nobody to delegate — it makes deviation visible
    and dated instead of invisible, and needs no new instrument.
-   Declared: [`core/SPECS.md`](core/SPECS.md) § AD-17. → **tier: medium**.
+   Declared: [`core/SPECS-discipline.md`](core/SPECS-discipline.md) § AD-17. → **tier: medium**.
 0. 🟢 **the ledgers name vendor models where they should name tiers.** Lucas, 2026-08-17, reading a
    step assignment: *"nothing in WOS should be tied to a specific vendor/company/model."* He was
    right and it was wider than the one line he saw — 26 routing directives across both ledgers said

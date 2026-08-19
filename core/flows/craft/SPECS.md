@@ -64,7 +64,7 @@ trade the two mechanisms built for our actual constraint to gain an arc we alrea
 flow is not deleted, and that outcome was genuinely on the table.**
 
 **The importable part is the trigger, and it is the missing half of
-[`core/SPECS.md`](../../SPECS.md) § AD-17.** That AD found the assignment already carried at plan
+[`core/SPECS-discipline.md`](../../SPECS-discipline.md) § AD-17.** That AD found the assignment already carried at plan
 time with no executor reading it outside `/craft`, and
 [`core/experiments/delegation.md`](../../experiments/delegation.md) prices it: 9 of 37 spawns are the
 `craft-*` mirrors, the only structural ones. Superpowers' answer to exactly that gap is to make

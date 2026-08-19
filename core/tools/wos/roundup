@@ -6,7 +6,7 @@
 # Same name as core/skills/roundup.md on purpose: one ritual, two layers. Judgment — what to delete,
 # where knowledge goes, what the INBOX means — stays in the skill; everything with one right answer
 # lives here, where it costs one tool call instead of prose reasoned about at the most expensive
-# turns a session ever has (core/SPECS.md § AD-09). Lucas types /roundup; the skill calls this.
+# turns a session ever has (core/SPECS-session.md § AD-09). Lucas types /roundup; the skill calls this.
 set -uo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

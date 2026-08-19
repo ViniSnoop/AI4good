@@ -18,7 +18,7 @@
 >
 > Both halves of the session transition are already live: `context-meter.py` announces the crossings
 > at zero token cost, `core/tools/wos/roundup` closes the session, and the split is
-> [`core/SPECS.md`](core/SPECS.md) § AD-09.
+> [`core/SPECS-session.md`](core/SPECS-session.md) § AD-09.
 
 1. 🟢 **safe — cheaper models where the work is mechanical.** Measured split (2026-08-16):
    opus-5 56.5%, opus-4.8 27.5%, fable 8.3%, sonnet 7.7%, haiku ~0%. Worth doing, but note the

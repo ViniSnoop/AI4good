@@ -5,7 +5,7 @@
 # These are the two rules this workspace cites as proof it knows how to doubt — a runnable `Method`
 # with dated `Results` and `Limitations` never omitted, and a tier marker on every reference — and
 # until 2026-08-18 neither was verified by anything. They held because a few careful sessions
-# followed them, which is INDUCED wearing ENFORCED's costume (core/SPECS.md § AD-16 band 1).
+# followed them, which is INDUCED wearing ENFORCED's costume (core/SPECS-discipline.md § AD-16 band 1).
 #
 # Both stores are small and closed, so the check is total rather than sampled: no allowlist, no
 # ratchet inside this module. The ratchet is the CALLER's — type-gate.py asks only about files a
