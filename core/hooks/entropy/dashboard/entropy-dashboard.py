@@ -7,8 +7,11 @@
 # a commit ADDS, which is why a repo that inherited violations is not blocked on every
 # commit. Everything it lets through historically shows up here, once, with a count.
 #
-# Size is reported as a SIGNAL, never a cap: crossing a threshold asks for a delta review,
-# it does not ask anyone to summarize a document down. Forced brevity is the trap.
+# Nothing here blocks. The cap that does live in checks/pre-edit.py; this file reports what the
+# tree already carries, including the files a ratchet let through before the cap reached them.
+# Crossing a threshold asks for a SPLIT, never for a summary — forced brevity is the trap, and
+# core/SCHEMA.md § A type that outgrows the cap shards says what a split has to leave behind.
+import re
 import subprocess
 import sys
 from importlib.util import module_from_spec, spec_from_file_location
@@ -23,7 +26,8 @@ for _dir in (_ENTROPY, _ENTROPY.parent, _ENTROPY.parent / 'git'):
 import feature_law  # noqa: E402
 from branch_debt import merged_remote_branches, unmerged_branches  # noqa: E402
 from entropy_context import check_goal_link, check_misplaced_answer  # noqa: E402
-from entropy_corpus import enforcement_paths, tracked_files, wiki_exempt_paths  # noqa: E402
+from entropy_corpus import (enforcement_paths, is_generated_mirror,  # noqa: E402
+                            tracked_files, wiki_exempt_paths)
 from entropy_fanout import fanout_signals  # noqa: E402
 from entropy_ledger import (duplicate_slugs, finished_work_hits,  # noqa: E402
                             goal_vocabulary, retired_hits,
@@ -31,18 +35,20 @@ from entropy_ledger import (duplicate_slugs, finished_work_hits,  # noqa: E402
 from entropy_naming import check_dirs, check_placement, check_shape  # noqa: E402
 from entropy_report import SECTIONS, render  # noqa: E402
 from entropy_stores import experiment_hits, ref_tier_hits  # noqa: E402
-from file_law import (is_authored, is_generated_artifact,  # noqa: E402
-                      is_vendored, load_limits)
+from file_law import (is_authored, is_authored_prose,  # noqa: E402
+                      is_generated_artifact, is_vendored, load_limits)
 from schema_law import (SCHEMA, WORKSPACE_ROOT, load_law,  # noqa: E402
                         load_retired, load_scopes)
 
 REPORT = WORKSPACE_ROOT / 'entropy.md'
-# A curated doc past this asks for a delta review. Docs are long because thinking is long;
-# this is the point where it is worth asking whether two documents are wearing one name.
-DOC_SIGNAL_LINES = 300
+# A markdown table row, which the column cap exempts because it cannot be wrapped.
+TABLE_ROW = re.compile(r'^\s*\|')
 
 LEDGERS = {
-    'wos-roadmap': [WORKSPACE_ROOT / 'ROADMAP.md'],
+    # Every shard of the wos ledger is ONE namespace: criterion 2 forbids the same item in two
+    # ledgers, and sharding a ledger does not make its own shards rivals.
+    'wos-roadmap': [WORKSPACE_ROOT / 'ROADMAP.md',
+                    *sorted(WORKSPACE_ROOT.glob('ROADMAP-*.md'))],
     'life-todo': [WORKSPACE_ROOT / 'brain/TODO.md'],
     'core-roadmap': [WORKSPACE_ROOT / 'core/ROADMAP.md'],
     'goals': sorted((WORKSPACE_ROOT / 'brain/goals').glob('*.md')),
@@ -56,10 +62,6 @@ def _gate(name: str):
     module = module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
-
-
-def _block_lines() -> int:
-    return load_limits()['BLOCK_LINES']
 
 
 def _added_by(path: Path) -> str:
@@ -121,21 +123,35 @@ def collect(files: list) -> dict:
 
 
 def size_signals(files: list) -> list:
-    block = _block_lines()
+    """Authored files over the line cap, and .md lines over the column cap.
+
+    One number for both kinds since 2026-08-18. Prose used to carry its own DOC_SIGNAL_LINES=300,
+    a second number answering the question BLOCK_LINES already answers, which is the drift
+    file_law.py exists to prevent — and it reported a file it never held to anything.
+    """
+    limits = load_limits()
+    block, cols = limits['BLOCK_LINES'], limits['BLOCK_COLS']
     signals = []
     for path in files:
-        code = is_authored(path, WORKSPACE_ROOT)
-        if not code and path.suffix != '.md':
+        if is_generated_mirror(path):
+            continue
+        prose = is_authored_prose(path, WORKSPACE_ROOT)
+        if not prose and not is_authored(path, WORKSPACE_ROOT):
             continue
         try:
-            lines = len(path.read_text(encoding='utf-8').splitlines())
+            text = path.read_text(encoding='utf-8')
         except (OSError, UnicodeDecodeError):
             continue
-        if path.suffix == '.md' and lines > DOC_SIGNAL_LINES:
-            signals.append(f'{_rel(path)} — {lines} lines (doc signal, review the delta)')
-        elif code and lines > block:
-            signals.append(f'{_rel(path)} — {lines} lines, over the {block} cap; '
+        lines = text.splitlines()
+        if len(lines) > block:
+            signals.append(f'{_rel(path)} — {len(lines)} lines, over the {block} cap; '
                            f'introduced by {_added_by(path)}')
+        # A table row cannot wrap, so it is never a finding. See core/hooks/limits.env.
+        long = [n for n, line in enumerate(lines, 1)
+                if len(line) > cols and not TABLE_ROW.match(line)] if prose else []
+        if long:
+            signals.append(f'{_rel(path)} — {len(long)} line(s) over the {cols}-column cap '
+                           f'(first at line {long[0]})')
     return signals
 
 

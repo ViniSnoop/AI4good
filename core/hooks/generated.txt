@@ -18,3 +18,15 @@
 # until it lands the glob matches nothing, which costs nothing.
 ARCHITECTURE.html
 */ARCHITECTURE.html
+
+# The skill mirrors are deliberately NOT here. Half of them are symlinks, and every pattern in this
+# file is matched against a RESOLVED path, so `.claude/skills/inbox/SKILL.md` arrives as
+# `core/skills/inbox.md` and no glob written here could ever match it. The predicate that works on
+# the unresolved path is entropy_corpus.is_generated_mirror, which three checks already use, and
+# the size signal now uses it too.
+
+# The entropy report — core/hooks/entropy/dashboard/entropy-dashboard.py, committed by
+# core/tools/wos/roundup. Its own second line says "Do not edit", and it went uncounted here for as
+# long as this list has existed: harmless while the line cap was code-only, a finding the day the
+# cap reached .md, since the report is 554 lines of generated prose that no split could improve.
+entropy.md

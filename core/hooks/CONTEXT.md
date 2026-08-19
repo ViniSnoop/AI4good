@@ -55,7 +55,7 @@ exist: [`code/ROADMAP-verify.md`](../../code/ROADMAP-verify.md). Installing the 
 | [`checks/`](checks/CONTEXT.md) | Standalone blocking checks the commit and edit hooks run. |
 | [`compact/`](compact/CONTEXT.md) | Shrink tool output before it reaches the context — the input-side twin of… |
 | [`copilot/`](copilot/CONTEXT.md) | Provider shim: translates Copilot hook payloads onto the canonical gates. |
-| [`entropy/`](entropy/CONTEXT.md) | The entropy dashboard and the Tier 0 checks it runs over the whole tree. |
+| [`entropy/`](entropy/CONTEXT.md) | The Tier 0 checks that count what the tree has drifted into. One question each. |
 | [`facade/`](facade/CONTEXT.md) | The facade discipline: read the facade before editing, never import around it. |
 | [`gates/`](gates/CONTEXT.md) | Sourced pre-commit stages that may reject the commit. |
 | [`generators/`](generators/CONTEXT.md) | Sourced pre-commit stages that write artifacts and stage them. |

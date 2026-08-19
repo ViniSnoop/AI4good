@@ -131,6 +131,19 @@ def is_authored(path: Path, root: Path) -> bool:
             and not is_generated_artifact(path, root))
 
 
+def is_authored_prose(path: Path, root: Path) -> bool:
+    """The prose twin, for the gates that hold .md to the same line cap (2026-08-18).
+
+    A separate predicate rather than a wider is_authored, because two of that function's callers
+    must stay code-only: entropy_fanout counts MODULES in a directory — a flat collection of
+    documents is a legitimate shape, and brain/goals/ is 57 files — and `--filter-code` feeds the
+    shell line gate. It lives here rather than in the two gates that ask it, for the reason the
+    whole module exists: the same question answered in two files drifts.
+    """
+    return (path.suffix == '.md' and not is_vendored(path, root)
+            and not is_generated_artifact(path, root))
+
+
 def main() -> int:
     """`--filter-code` keeps stdin paths that are code, so the shell gate shares this law."""
     if '--filter-code' not in sys.argv:

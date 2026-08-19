@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 
 REPORT: Incomplete
-DOC_SIGNAL_LINES: int
+TABLE_ROW: Incomplete
 LEDGERS: Incomplete
 
 def collect(files: list) -> dict: ...
