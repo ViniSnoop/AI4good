@@ -15,6 +15,9 @@ hand-edit either. Plan, status and the open upload step: [`../ROADMAP-ementas.md
 | [`extract_old.py`](extract_old.py) | [`extract_old.pyi`](extract_old.pyi) | `uniq_cells`, `flatten_rows`, `extract` | Extract SIGAA-shaped fields from an old-schema ('PROGRAMA DA DISCIPLINA') source doc. |
 | [`extract_single.py`](extract_single.py) | [`extract_single.pyi`](extract_single.pyi) | `extract` | Extract SIGAA fields from a standalone single-table new-schema doc (no |
 | [`filler.py`](filler.py) | [`filler.pyi`](filler.pyi) | `cell_label`, `fill` | Fill MODELO EMENTA SIGAA.docx into one per-discipline doc. |
+| [`gaps-derivados.md`](gaps-derivados.md) | — | — | Conteúdo reenumerado da ementa, carga vinda de créditos, fallbacks do modelo. |
+| [`gaps-objetivos-1.md`](gaps-objetivos-1.md) | — | — | OBJETIVOS gerados pelo batch, primeira metade das disciplinas. |
+| [`gaps-objetivos-2.md`](gaps-objetivos-2.md) | — | — | OBJETIVOS gerados pelo batch, segunda metade das disciplinas. |
 | [`gaps.md`](gaps.md) | — | — | gaps.md -- auditoria do BATCH MODELO-SIGAA (gerado 2026-07-21) |
 | [`hallucination_scan.py`](hallucination_scan.py) | [`hallucination_scan.pyi`](hallucination_scan.pyi) | — | Flag any token in a generated OBJETIVOS that doesn't appear in that same |
 | [`port.py`](port.py) | [`port.pyi`](port.pyi) | `uniq_cells`, `match_label`, `extract`, `set_font`, `fill` | Port one discipline into a MODELO-SIGAA doc. |
