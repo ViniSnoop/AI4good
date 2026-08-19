@@ -10,7 +10,9 @@ core/tools/forms/gforms responses --account personal <form_id>     # answers as 
 
 The spec format, the two auth grants, why `SERVICE_DISABLED` is not a permission bug, and what
 `responses` returns: [`SPECS.md`](SPECS.md). The specs Lucas actually applies live with the course
-material, in [`academy/teaching/forms/`](../../../academy/teaching/forms/CONTEXT.md).
+material, one copy per discipline — [`academy/teaching/ai4good/`](../../../academy/teaching/ai4good/CONTEXT.md)
+and [`academy/teaching/tecnologias-na-educacao/`](../../../academy/teaching/tecnologias-na-educacao/CONTEXT.md) —
+because the answers are read per turma, never pooled.
 
 <!-- routing:start -->
 ## Routing
