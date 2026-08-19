@@ -25,6 +25,14 @@ ARCHITECTURE.html
 # the unresolved path is entropy_corpus.is_generated_mirror, which three checks already use, and
 # the size signal now uses it too.
 
+# Research artifacts — core/flows/research/*, every one of which declares `outputs/<slug>-*.md`
+# as the file it writes. A peer review, an audit or a provenance record is the flow's product, and
+# holding it to an authoring rule has exactly one honest fix: make the flow write worse output.
+# The CONTEXT.md routing each of these directories is authored, and is matched here too — the only
+# rule this waives is the size cap, which a router never approaches.
+*/outputs/*
+outputs/*
+
 # The entropy report — core/hooks/entropy/dashboard/entropy-dashboard.py, committed by
 # core/tools/wos/roundup. Its own second line says "Do not edit", and it went uncounted here for as
 # long as this list has existed: harmless while the line cap was code-only, a finding the day the
