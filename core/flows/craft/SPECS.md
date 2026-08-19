@@ -1,13 +1,25 @@
 # Craft Flows — Specs
-> Why `craft.md` stays one file instead of splitting further.
+> How `craft.md` is split, and the axis both of its splits followed.
 
-`craft.md` was one ~52 KB file mixing the always-loaded protocol with tables and history each loop
-paid for eight times. The 2026-07-23 split follows what is actually read when: always-needed stays
-in one file; per-chain and never-needed content became the subfiles beside it (`routing.md`,
-`runtimes.md`, `prior-art.md`, the trunk `route.md`, the map `tree.md`). This is deliberately not
-blind fragmentation — the whole spine (Core Principle, Carry, Autorouting, Return Flags, Loops
-0–6.5, Cost Gate, Field Practice) stays one file, because a loop executor needs all of it in a
-single read.
+**The axis is what is actually read when.** `craft.md` was one ~52 KB file mixing the always-loaded
+protocol with tables and history each loop paid for eight times. The 2026-07-23 split moved
+per-chain and never-needed content into the subfiles beside it (`routing.md`, `runtimes.md`,
+`prior-art.md`, the trunk `route.md`, the map `tree.md`), keeping the always-needed part in one
+place. This is deliberately not blind fragmentation.
+
+**The 2026-08-19 split applied the same axis one level deeper, and reversed the sentence that used
+to sit here.** That sentence said the loops stayed together "because a loop executor needs all of it
+in a single read" — and the flow's own spawn prompt, three sections below in `craft.md`, had always
+told the executor to read *"section Loop N plus Core Principle, Autorouting, Return Flags"*. It was
+never reading all of it. A session runs exactly one loop, which makes the loops per-chain content by
+the same test the first split used. So `craft.md` keeps the spine every loop needs — Tool
+Discipline, Core Principle, Carry, Autorouting, Return Flags, Orchestration, Cost Gate, Field
+Practice — and the loops live in `craft-plan.md` (0–2), `craft-build.md` (3–4b) and `craft-ship.md`
+(5–6.5). An executor reads ~138 lines plus its own file rather than 382.
+
+**Three files rather than one per loop.** Twelve files of 10–30 lines is scatter, and a loop's
+neighbours are what tell an executor where it sits in the arc; the grouping is plan / build / ship,
+which is the arc itself.
 
 ## Adversarial review: require the bound, not the step (ruled 2026-08-17)
 

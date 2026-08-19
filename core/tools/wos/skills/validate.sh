@@ -62,14 +62,18 @@ validate_flows() {
 # per-step scan would have to guess where a step ends in prose. CONTEXT.md and SPECS.md are skipped
 # because they STATE the rule — the file declaring a law names its own words and is not running one.
 validate_flow_loops() {
-  local rc=0 f name
+  # The unit is the FLOW, not the file. A flow that outgrew the line cap and split into
+  # `<flow>-<slug>.md` shards is still one flow with one cap, so a shard is checked against the
+  # whole family — the same rule the entropy dashboard applies to a sharded ledger's namespace.
+  local rc=0 f name family
   while IFS= read -r f; do
     name="$(basename "$f")"
     case "$name" in
       CONTEXT.md|SPECS.md) continue ;;
     esac
     grep -qEi '^#+[[:space:]].*execution loops|iteration cap|^[*# ]*Loop [0-9]|\biterations?\b|\brepeat until\b' "$f" || continue
-    grep -qEi '(iteration cap|round cap|at most|maximum([[:space:]]+of)?|max[A-Za-z]*)[^.]{0,40}[0-9]' "$f" && continue
+    family="$(cat "$(dirname "$f")/$(basename "$f" .md | cut -d- -f1)"*.md 2>/dev/null)"
+    grep -qEi '(iteration cap|round cap|at most|maximum([[:space:]]+of)?|max[A-Za-z]*)[^.]{0,40}[0-9]' <<<"$family" && continue
     echo "INVALID flow (declares a loop with no numeric cap — an unbounded loop is a hang, see core/flows/CONTEXT.md): $f"
     rc=1
   done < <(find "$WORKSPACE/core/flows" -name '*.md')

@@ -11,6 +11,17 @@ No flow is privileged — the exemplar is `flows/_template.md` (see [SCHEMA.md](
 
 ## Open
 
+- [ ] **Only one of the craft flow's loops declares a cap, and the check cannot see that.**
+      `validate_flow_loops` is whole-file by design — *"one cap governs the flow, and finding where
+      a step ends in prose would be a guess"* — so Loop 1's `at most 3 passes` satisfies it for the
+      entire flow. Splitting `craft.md` on 2026-08-19 made the gap visible: `craft-build.md` and
+      `craft-ship.md` each declare loops and carry no cap of their own, and **Loop 4b is literally
+      called "Code Until Green"**. The check was widened to read the whole family rather than
+      tightened, deliberately — changing enforcement inside a split is how a split stops being
+      reviewable. What is open is the flow question: does 4b need a cap, and 5 and 6, or is the
+      one-cap-per-flow rule right and the per-shard reading a false alarm.
+      → **tier: medium**, with Lucas — it is his flow and the answer changes what a stuck run does.
+
 - [ ] **Every skill is invisible to a session started outside the workspace.** Lucas (INBOX
       2026-08-18): *"/roundup and maybe other skills are not registered on claude code terminal (and
       maybe other harnesses e.g., opencode terminal and desktop)."* Reproduced 2026-08-18: the

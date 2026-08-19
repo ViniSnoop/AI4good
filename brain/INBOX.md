@@ -9,6 +9,9 @@
 
 <!-- add entries below, newest first -->
 
+https://www.instagram.com/reel/DbtoVzfkk4M/?igsi=MThnZngwZnZ4dW9zMg==
+— via aiwbot · 2026-08-19
+
 https://www.instagram.com/reel/Dbi79TLPs1G/?igsi=MTh0NXByaGh4Ym03dA==
 weave again, we should at least trt it at some point
 — via aiwbot · 2026-08-19

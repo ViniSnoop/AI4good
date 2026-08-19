@@ -11,8 +11,11 @@ Why `craft.md` stays one file instead of splitting further: [`SPECS.md`](SPECS.m
 
 | File | Description |
 |------|-------------|
-| [`SPECS.md`](SPECS.md) | Why `craft.md` stays one file instead of splitting further. |
+| [`SPECS.md`](SPECS.md) | How `craft.md` is split, and the axis both of its splits followed. |
 | [`architect.md`](architect.md) | Architecture-decision subtree of the craft tree — turn a design/technology… |
+| [`craft-build.md`](craft-build.md) | Loops 3-4b of the craft flow — architecture, contract layout, tests first, then… |
+| [`craft-plan.md`](craft-plan.md) | Loops 0-2 of the craft flow — clarify the ask, plan it adversarially, ground it… |
+| [`craft-ship.md`](craft-ship.md) | Loops 5-6.5 of the craft flow — user test, ship the branch, and extract any… |
 | [`craft.md`](craft.md) | Looped engineering flow — development in file-relayed loops with model… |
 | [`prior-art.md`](prior-art.md) | Where this flow comes from, what evidence backs its routing decisions, and one… |
 | [`route.md`](route.md) | Loop router — classify a /craft task by TYPE and dispatch to the right subtree… |
