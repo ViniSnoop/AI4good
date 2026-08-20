@@ -1,14 +1,17 @@
 # References
-> Tier-1 capture for the workspace-os / agent-library scaffold. One line per ref.
-> Tier markers `[A] [B] [P] [V] [C]` defined in [CONTEXT.md](CONTEXT.md) — `[P]` = preprint, provisional.
-> Captured 2026-07-23 (rounds 1+2 of the workspace-os robustness sweep).
->
-> **Judged vs unjudged is a `status:`, not a separate file** (2026-07-30). The old
-> `core/WATCHLIST.md` was folded in here: "candidates to try" and "references to read" are the same
-> object — a link — at two points of one pipeline (`INBOX` → unjudged → judged → a ROADMAP item or
-> a rejection line). Everything above this file's last section is `status: judged`; the
-> **Unjudged** section at the bottom is the intake queue. Promote by moving the line up and giving it
-> a tier; reject by deleting it and leaving one line in the relevant ROADMAP.
+> What external material exists for the workspace-os / agent-library scaffold, and how much weight
+> does each piece hold? One line per ref, each carrying a tier marker; judged refs come first and the
+> **Unjudged** section at the bottom is the intake queue. Tier definitions and the citation
+> discipline: [CONTEXT.md](CONTEXT.md).
+
+Tier markers are `[A] [B] [P] [V] [C]` — `[P]` = preprint, provisional. Captured from 2026-07-23
+(rounds 1+2 of the workspace-os robustness sweep) onward.
+
+**Judged vs unjudged is a `status:`, not a separate file** (2026-07-30). The old
+`core/WATCHLIST.md` was folded in here: "candidates to try" and "references to read" are the same
+object — a link — at two points of one pipeline (`INBOX` → unjudged → judged → a ROADMAP item or
+a rejection line). Promote by moving the line up and giving it a tier; reject by deleting it and
+leaving one line in the relevant ROADMAP.
 
 <!-- routing:start -->
 ## Routing

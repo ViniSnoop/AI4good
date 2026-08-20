@@ -17,6 +17,7 @@ sys.path.insert(0, str(_HOOKS / 'routing'))
 
 import feature_law  # noqa: E402
 from file_law import EXAMPLE_COMMENT, is_generated_artifact, is_vendored  # noqa: E402
+from hoist import DESC_LIMIT  # noqa: E402
 from workspace_meta import PLACEHOLDER, file_description  # noqa: E402
 from workspace_scanner import is_scanned  # noqa: E402
 
@@ -24,6 +25,10 @@ WORKSPACE_ROOT = _HOOKS.parents[1]
 
 # core/SCHEMA.md § Boundaries where types nearly touch: CONTEXT never hand-lists files.
 ROUTING_START = '<!-- routing:start -->'
+ROUTING_END = '<!-- routing:end -->'
+# The first cell of a truncated row, so the finding names the file whose description to shorten
+# rather than the row it was rendered into.
+TRUNCATED_ROW = re.compile(r'^\|\s*\[`([^`]+)`\]')
 TREE_GLYPH = re.compile(r'[├└│]──')
 PATH_BULLET = re.compile(r'^\s*[-*]\s+[`\[]+([\w./-]+\.\w+|[\w./-]+/)', re.M)
 # The same list, drawn as a table. Anchored at the FIRST cell, because a path named in a
@@ -126,6 +131,34 @@ def check_description(path: Path) -> str | None:
     return (f'{path}: nothing to put in the routing table.\n'
             f"   Its CONTEXT.md row would read '{PLACEHOLDER}'.\n"
             f'   Give it a first line: {example}')
+
+
+def check_truncation(path: Path) -> str | None:
+    """A `…` inside a generated routing block means an author wrote past `hoist.DESC_LIMIT`.
+
+    The twin of check_description, and the same rule section
+    (core/SCHEMA-outgrowing.md § What a description must say): that one catches a row with nothing
+    in it, this one a row with half a sentence in it. **Fix the source, never the cut** — the
+    generator is doing exactly what it was told, so editing the table just regenerates the ellipsis
+    on the next commit.
+
+    Only inside the block: an author may write `…` in prose, and several do.
+    """
+    try:
+        text = path.read_text(encoding='utf-8')
+    except (OSError, UnicodeDecodeError):
+        return None
+    if ROUTING_START not in text or ROUTING_END not in text:
+        return None
+    block = text.split(ROUTING_START, 1)[1].split(ROUTING_END, 1)[0]
+    rows = [ln for ln in block.splitlines() if '…' in ln]
+    if not rows:
+        return None
+    named = [m.group(1) for ln in rows if (m := TRUNCATED_ROW.match(ln))]
+    return (f'{path}: {len(rows)} truncated description(s) — '
+            f'{", ".join(named) if named else "in the routing block"}.\n'
+            f'   The source wrote past the {DESC_LIMIT}-character bound. Shorten the description\n'
+            f'   at its source, then regenerate; never edit the table.')
 
 
 def is_project(path: Path) -> bool:

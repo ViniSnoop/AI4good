@@ -1,10 +1,14 @@
 # Core Library Roadmap
-> Making the agent library sound: one enforced frontmatter contract per layer, symmetric within
-> layer/type. Contract in [SCHEMA.md](SCHEMA.md). Completed work is deleted -- git is the history.
->
-> **Scope: agent-library internals only** — skills, agents, flows, tools, and their schema. Workspace
-> scaffold work (hooks, gitignore, anti-entropy, cost, portability) lives in the single wos ledger,
-> [/ROADMAP.md](../ROADMAP.md). An item belongs to exactly one of the two.
+> What is still unsound about the agent library itself, and what would make it sound? Holds the
+> per-layer frontmatter contract and the migrations that have not landed. Open it for a skill, an
+> agent, a flow, a tool or their schema — workspace scaffold work is the wos ledger's, never this
+> file's.
+
+**Scope: agent-library internals only** — skills, agents, flows, tools, and their schema. Workspace
+scaffold work (hooks, gitignore, anti-entropy, cost, portability) lives in the single wos ledger,
+[/ROADMAP.md](../ROADMAP.md). An item belongs to exactly one of the two.
+
+Contract in [SCHEMA.md](SCHEMA.md). Completed work is deleted -- git is the history.
 
 Goal: [[spec-driven-development]] — SPEC-v0 pilot on the `core/` agent library.
 No flow is privileged — the exemplar is `flows/_template.md` (see [SCHEMA.md](SCHEMA.md)).

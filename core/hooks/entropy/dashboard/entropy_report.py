@@ -45,6 +45,8 @@ SECTIONS = (
     ('stores', 'Doubt stores missing their own discipline',
      'an experiment states its Method, Results, What changed and Limitations; a judged reference '
      'carries a source tier'),
+    ('truncated', 'Truncated routing descriptions',
+     'the source wrote past the bound — shorten it there, never edit the table'),
     ('misplaced', 'Constraints trapped in a CONTEXT.md head',
      'the only enforced-read type — move the contract to a sibling SPECS.md'),
     ('branches', 'Repos on an unmerged feature branch',

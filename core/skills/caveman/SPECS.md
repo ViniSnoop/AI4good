@@ -62,7 +62,12 @@ Keep this list short: it is what a re-sync with upstream has to reconcile.
 6. **First-line comments added to `scripts/__main__.py` and `scripts/benchmark.py`** — the two
    modules upstream left with neither a `#` comment nor a docstring, so the routing generator could
    not describe them. One line each, above the first import; nothing else moved.
-7. **`scripts/benchmark.py` glob mode is dead** and was left alone. It resolves
+7. **`SKILL.md`'s `description:` was shortened to fit `hoist.DESC_LIMIT`** (360), which the routing
+   table truncates past — and a truncated description is a finding, not a rendering
+   (`core/SCHEMA-outgrowing.md` § What a description must say). What was cut is the enumeration of
+   the six levels and six sub-commands, which this router documents below anyway; every **trigger
+   phrase** the harness matches on was kept, since those are what the field is for.
+8. **`scripts/benchmark.py` glob mode is dead** and was left alone. It resolves
    `parents[3]/tests/caveman-compress`, a path from the upstream repo layout that exists in neither
    the old global install nor here. Explicit-pair mode (`benchmark_pair(orig, comp)`) works. Fix it
    upstream, not locally, or the next re-sync conflicts.

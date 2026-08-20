@@ -11,12 +11,57 @@ from conftest import WORKSPACE_ROOT  # the depth lives in one file, not nine
 # here would go stale the next time core/hooks is split.
 
 import entropy_context  # noqa: E402
+import entropy_corpus  # noqa: E402
 
 
 def test_every_project_declares_its_goal():
     failures = [f for path in sorted((WORKSPACE_ROOT / 'code').glob('*/CONTEXT.md'))
                 if (f := entropy_context.check_goal_link(path))]
     assert failures == [], '\n'.join(failures)
+
+
+def test_no_routing_block_publishes_half_a_sentence():
+    """Asserted at ZERO, not against a baseline: the three that existed were fixed first.
+
+    A check introduced against a red tree teaches people to ignore it — the same order the goal-link
+    check above was written in.
+
+    THIS REPO ONLY, like every other zero-assert here. The dashboard scans the nested repos and
+    reports their truncations; asserting on them would fail this build for a fix that has to land in
+    somebody else's repo.
+    """
+    failures = [f for path in entropy_corpus.tracked_files(WORKSPACE_ROOT)
+                if (f := entropy_context.check_truncation(path))]
+    assert failures == [], '\n'.join(failures)
+
+
+def _routed(tmp_path, description):
+    doc = tmp_path / 'CONTEXT.md'
+    doc.write_text('# t\n> what it is\n\n<!-- routing:start -->\n## Routing\n\n'
+                   '| File | Description |\n|------|-------------|\n'
+                   f'| [`thing.py`](thing.py) | {description} |\n'
+                   '<!-- routing:end -->\n', encoding='utf-8')
+    return doc
+
+
+def test_a_truncated_row_names_the_file_whose_source_to_shorten(tmp_path):
+    """The fix is at the source, so the finding has to say which source."""
+    failure = entropy_context.check_truncation(_routed(tmp_path, 'a long description that ran…'))
+    assert 'thing.py' in failure and 'never edit the table' in failure
+
+
+def test_an_ellipsis_outside_the_block_is_prose(tmp_path):
+    """Authors write `…` in prose and several do; only the generated half is the generator's."""
+    doc = _routed(tmp_path, 'a complete description')
+    doc.write_text(doc.read_text(encoding='utf-8').replace('> what it is', '> what it is…'),
+                   encoding='utf-8')
+    assert entropy_context.check_truncation(doc) is None
+
+
+def test_a_file_with_no_routing_block_is_not_asked(tmp_path):
+    doc = tmp_path / 'SPECS.md'
+    doc.write_text('# s\n> a rule that trails off…\n', encoding='utf-8')
+    assert entropy_context.check_truncation(doc) is None
 
 
 def _project(tmp_path, line3):

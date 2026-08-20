@@ -83,11 +83,3 @@ refiled there, and a finding worth keeping goes into the `SPECS.md` section that
    is not a stronger link to them.
    → **tier: medium**.
 
-4. 🟢 **A truncated routing description is a finding, and three are left.** The mechanism is fixed
-   (2026-08-19): the capture reads whole `>` blocks and comment paragraphs, the bound is 360, the
-   rule is `core/SCHEMA-outgrowing.md` § What a description must say, and 91 routing blocks were
-   regenerated. What remains is the *content* half in three files whose authors wrote past the
-   bound — `core/CONTEXT.md`'s ROADMAP row, `core/refs/CONTEXT.md`'s REFS row, and the vendored
-   caveman `SKILL.md`. Re-derive the list rather than trusting this one; fix the SOURCE, never the
-   cut. **Nothing enforces it yet** — a `…` in a generated block should fail a Tier 0 check, and
-   that check is the actual open work here. → **tier: medium**.

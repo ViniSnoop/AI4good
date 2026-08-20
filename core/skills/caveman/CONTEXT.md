@@ -23,7 +23,7 @@ re-sync has to reconcile: [`SPECS.md`](SPECS.md).
 
 | File | Description |
 |------|-------------|
-| [`SKILL.md`](SKILL.md) | Ultra-compressed communication mode — router. Cuts token usage ~75% by speaking like a smart caveman while keeping full technical accuracy. Intensity levels: lite, full (default), ultra, wenyan-lite, wenyan-full, wenyan-ultra. Sub-commands: /caveman commit, review, compress, stats, crew, help. Use when the user says "caveman mode", "talk like caveman", "less… |
+| [`SKILL.md`](SKILL.md) | Ultra-compressed communication mode — router. Cuts token usage ~75% by speaking like a smart caveman while keeping full technical accuracy, across six intensity levels and six sub-commands. Use when the user says "caveman mode", "talk like caveman", "less tokens", "be brief", or invokes /caveman. Also auto-triggers when token efficiency is requested. |
 | [`SPECS.md`](SPECS.md) | Global registration, the `$HOME` wiring, and the local adaptations that are the re-sync cost. |
 | [`cavecrew.md`](cavecrew.md) | Subfile of the `caveman` skill. Reached via `/caveman crew` (legacy `/cavecrew`). Decision guide only — it spawns nothing itself. |
 | [`commit.md`](commit.md) | Subfile of the `caveman` skill. Reached via `/caveman commit` (legacy `/caveman commit`). Independent mode: it defines its own output style; the base caveman rules do not stack on top. |

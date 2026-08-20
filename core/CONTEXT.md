@@ -29,7 +29,7 @@ Ported from Feynman (https://github.com/companion-inc/feynman), adapted for prov
 
 | File | Description |
 |------|-------------|
-| [`ROADMAP.md`](ROADMAP.md) | Making the agent library sound: one enforced frontmatter contract per layer, symmetric within layer/type. Contract in [SCHEMA.md](SCHEMA.md). Completed work is deleted -- git is the history. **Scope: agent-library internals only** — skills, agents, flows, tools, and their schema. Workspace scaffold work (hooks, gitignore, anti-entropy, cost, portability)… |
+| [`ROADMAP.md`](ROADMAP.md) | What is still unsound about the agent library itself, and what would make it sound? Holds the per-layer frontmatter contract and the migrations that have not landed. Open it for a skill, an agent, a flow, a tool or their schema — workspace scaffold work is the wos ledger's, never this file's. |
 | [`SCHEMA-layers.md`](SCHEMA-layers.md) | The frontmatter every skill, agent, norm and flow declares, and how they compose. |
 | [`SCHEMA-outgrowing.md`](SCHEMA-outgrowing.md) | Where an unclassified name goes, and how a type that passed the cap splits. |
 | [`SCHEMA-placement.md`](SCHEMA-placement.md) | Which directory a file belongs in, and how deep the routing may go. |

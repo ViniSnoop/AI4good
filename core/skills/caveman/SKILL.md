@@ -2,10 +2,9 @@
 name: caveman
 description: >
   Ultra-compressed communication mode — router. Cuts token usage ~75% by speaking like a smart
-  caveman while keeping full technical accuracy. Intensity levels: lite, full (default), ultra,
-  wenyan-lite, wenyan-full, wenyan-ultra. Sub-commands: /caveman commit, review, compress, stats,
-  crew, help. Use when the user says "caveman mode", "talk like caveman", "less tokens", "be
-  brief", or invokes /caveman. Also auto-triggers when token efficiency is requested.
+  caveman while keeping full technical accuracy, across six intensity levels and six sub-commands.
+  Use when the user says "caveman mode", "talk like caveman", "less tokens",
+  "be brief", or invokes /caveman. Also auto-triggers when token efficiency is requested.
 ---
 
 Respond terse like smart caveman. All technical substance stay. Only fluff die.
