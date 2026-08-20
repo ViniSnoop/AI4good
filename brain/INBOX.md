@@ -9,6 +9,21 @@
 
 <!-- add entries below, newest first -->
 
+https://www.instagram.com/reel/DZIdVD6Rrjl/?igsi=NTc4MTIwNjQ2YQ==
+usar esse modelo em AI4Good
+
+definitivamente temos que conectar os goals com os roadmaps. talvez no /roundup. talvez, talvez! automaticamente lançar warning quando fizer um commit de qualquer arquivo RODAMAP*.md para atualizar o goal linkado com aquele roadmap.
+
+não sei onde está o teste de ablação do wos no roadmap... será que a gente jogou fora?
+
+entropy pulou para mais de 800... temos um limite de 200 LOC por arquivo, mas nesse caso diria que o melhor é resolver tudo antes de fazer um split. agora claro, pra cada caso tentar resolver na causa raiz, não de modo superficial. ao mesmo tempo, acho que o ISSUES.md deveria carregar essas medidas de entropia descentralizadas. cada ISSUES.md vai fazer a medida de entropia local. o ISSUES.md raiz coleta dos outros ISSUES.md as medidas de entropia e expõe, faz o roteamento, e também mede a entropia do diretório raiz (WOS)
+
+uma forma de pensar context folding é "mimaps" ou "3D model lod". como texturas e modelos, arquivos de texto poderiam ter versões de resolução máxima + 2 níveis, médio, mínimo, e 1-parágrafo. será que no claude code a gente tem acesso ao contexto? a gente pode manipular o contexto das sessões?
+
+editar a mensagem final do /roundup para incluir a sugestão de no plano já adicionar um /roundup no final e evitar uma troca extra de mensagens com o usuário. isso é só uma ideia, avaliar antes de implantar
+
+o WOS precisa ser avaliado, mais uma vez, suas features, seus arquivos, tá tudo um pouco grande e sinto que um pouco como uma macarronada... acho que o teste de ablação vai ser de fato o principal. vai ajudar a tirar ruído também por que vamos naturalmente perceber cargas desncessárias.
+
 https://www.instagram.com/reel/DcMSk7Rxcdu/?igsi=MWg2ZHJibnFqazFiYQ==
 pro nosso teste de ablação
 — via aiwbot · 2026-08-19

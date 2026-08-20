@@ -11,7 +11,7 @@ Creative, fuzzy thinker. Strong starter; struggles to finish.
 
 ## Language
 
-Lucas may write in pt-br (inbox, conversation). Agent always writes Brain files in en-us.
+Lucas may write in pt-br (inbox, conversation). Agent always writes brain/, core/, code/, and academy/ files in en-us.
 
 ## What Helps
 
