@@ -1,5 +1,8 @@
 # Cost and model routing
-> Where session spend goes, which tier runs what, and what loads every session.
+> What does a session cost, and which of that is avoidable? Holds which tier runs what, what loads
+> at session start, and what fills the context window. Open it for what we intend to change about
+> spend; every measured number lives in `core/experiments/`, so re-run the instrument for what
+> spend actually is.
 > priority: important
 
 ## Front 9 — Cost & model routing

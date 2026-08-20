@@ -19,6 +19,6 @@ that keeps the counts falling lives in `core/tools/test/workspace/test_corpus_ra
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
-| [`entropy-dashboard.py`](entropy-dashboard.py) | [`entropy-dashboard.pyi`](entropy-dashboard.pyi) | `collect`, `size_signals`, `stub_signals`, `main` | The entropy dashboard. Runs every Tier 0 check over the whole |
+| [`entropy-dashboard.py`](entropy-dashboard.py) | [`entropy-dashboard.pyi`](entropy-dashboard.pyi) | `collect`, `size_signals`, `stub_signals`, `main` | The entropy dashboard. Runs every Tier 0 check over the whole tree and writes ONE generated report, so agents and Lucas read a pre-computed file instead of re-scanning the workspace. Zero-token, no LLM. |
 | [`entropy_report.py`](entropy_report.py) | [`entropy_report.pyi`](entropy_report.pyi) | `render` | The entropy report: what the dashboard's findings look like on the page. |
 <!-- routing:end -->

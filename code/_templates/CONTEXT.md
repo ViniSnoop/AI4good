@@ -24,7 +24,7 @@
 |------|-------------|
 | [`ISSUES.md`](ISSUES.md) | [Project Name] — Issues |
 | [`README.md`](README.md) | [One-line tagline — what it is and why it matters.] |
-| [`ROADMAP.md`](ROADMAP.md) | Pending work only. Completed items are deleted -- git is the history. A rejected… |
+| [`ROADMAP.md`](ROADMAP.md) | Pending work only. Completed items are deleted -- git is the history. A rejected idea gets one line under `## Rejected` so it does not resurface looking new. |
 | [`SETUP.md`](SETUP.md) | Everything needed to run this project locally from scratch. |
 | [`SPECS.md`](SPECS.md) | Design decisions, algorithms, conventions, and architecture rationale. |
 | [`module.SPEC.md`](module.SPEC.md) | SPEC: [module name] |

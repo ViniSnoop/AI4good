@@ -31,5 +31,5 @@ reconcile: [`../SPECS.md`](../SPECS.md).
 | [`stats-format.js`](stats-format.js) | [`stats-format.d.ts`](stats-format.d.ts) | `formatHistory`, `formatShare`, `savingsBlock`, `formatStats` | caveman — rendering: turn collected numbers into the three printed views. |
 | [`stats-pricing.js`](stats-pricing.js) | [`stats-pricing.d.ts`](stats-pricing.d.ts) | `priceForModel`, `formatUsd`, `deriveSavings`, `parseDuration`, `humanizeTokens` | caveman — savings math: compression ratios, model pricing, derived estimates |
 | [`stats.js`](stats.js) | [`stats.d.ts`](stats.d.ts) | `reportLifetime`, `recordSnapshot`, `main` | caveman stats — read the active Claude Code session log, print real token usage |
-| [`statusline.sh`](statusline.sh) | — | — | caveman — statusline badge script for Claude Code |
+| [`statusline.sh`](statusline.sh) | — | — | caveman — statusline badge script for Claude Code Reads the caveman mode flag file and outputs a colored badge. |
 <!-- routing:end -->

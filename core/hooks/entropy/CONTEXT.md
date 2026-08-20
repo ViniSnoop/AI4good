@@ -15,14 +15,14 @@ may look at*, which every check needs before it can count anything.
 
 | Subdirectory | Description |
 |--------------|-------------|
-| [`dashboard/`](dashboard/CONTEXT.md) | The entropy report: running every check over the whole tree, and what the… |
+| [`dashboard/`](dashboard/CONTEXT.md) | The entropy report: running every check over the whole tree, and what the findings look like. |
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
 | [`entropy_context.py`](entropy_context.py) | [`entropy_context.pyi`](entropy_context.pyi) | `check_inventory`, `context_head`, `check_misplaced_answer`, `check_description`, `is_project` | Tier 0 CONTEXT.md rules, parsed from core/SCHEMA.md. Zero-token, deterministic. |
-| [`entropy_corpus.py`](entropy_corpus.py) | [`entropy_corpus.pyi`](entropy_corpus.pyi) | `staged_added_files`, `tracked_files`, `nested_repos`, `is_generated_mirror`, `enforcement_paths` | Which files the Tier 0 checks look at, and which of them are allowed to name what the |
+| [`entropy_corpus.py`](entropy_corpus.py) | [`entropy_corpus.pyi`](entropy_corpus.pyi) | `staged_added_files`, `tracked_files`, `nested_repos`, `is_generated_mirror`, `enforcement_paths` | Which files the Tier 0 checks look at, and which of them are allowed to name what the checks forbid. Split from entropy_ledger.py 2026-07-30 at the 150-line warn: enumerating the corpus is a different job from asserting things about it. |
 | [`entropy_fanout.py`](entropy_fanout.py) | [`entropy_fanout.pyi`](entropy_fanout.pyi) | `fanout_counts`, `fanout_signals` | Directory fanout: how many files one directory asks a reader to hold at once. |
 | [`entropy_ledger.py`](entropy_ledger.py) | [`entropy_ledger.pyi`](entropy_ledger.pyi) | `retired_hits`, `item_slugs`, `duplicate_slugs`, `finished_work_hits`, `unanswered_placeholders` | Tier 0 ledger and vocabulary checks, parsed from core/SCHEMA.md. Zero-token, deterministic. |
 | [`entropy_naming.py`](entropy_naming.py) | [`entropy_naming.pyi`](entropy_naming.pyi) | `check_shape`, `check_dirs`, `check_placement` | Tier 0 naming and placement, parsed from core/SCHEMA.md. Zero-token, deterministic. |
-| [`entropy_stores.py`](entropy_stores.py) | [`entropy_stores.pyi`](entropy_stores.pyi) | `experiment_hits`, `ref_tier_hits` | Tier 0 for the two stores that record what we know and how sure we are: core/experiments/ and |
+| [`entropy_stores.py`](entropy_stores.py) | [`entropy_stores.pyi`](entropy_stores.pyi) | `experiment_hits`, `ref_tier_hits` | Tier 0 for the two stores that record what we know and how sure we are: core/experiments/ and core/refs/REFS.md. Zero-token, deterministic. |
 <!-- routing:end -->

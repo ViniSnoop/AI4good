@@ -55,7 +55,7 @@ exist: [`code/ROADMAP-verify.md`](../../code/ROADMAP-verify.md). Installing the 
 |--------------|-------------|
 | [`brain/`](brain/CONTEXT.md) | brain/ attention stats and the GOALS.md dashboard. |
 | [`checks/`](checks/CONTEXT.md) | Standalone blocking checks the commit and edit hooks run. |
-| [`compact/`](compact/CONTEXT.md) | Shrink tool output before it reaches the context — the input-side twin of… |
+| [`compact/`](compact/CONTEXT.md) | Shrink tool output before it reaches the context — the input-side twin of caveman. |
 | [`copilot/`](copilot/CONTEXT.md) | Provider shim: translates Copilot hook payloads onto the canonical gates. |
 | [`entropy/`](entropy/CONTEXT.md) | The Tier 0 checks that count what the tree has drifted into. One question each. |
 | [`facade/`](facade/CONTEXT.md) | The facade discipline: read the facade before editing, never import around it. |
@@ -67,24 +67,24 @@ exist: [`code/ROADMAP-verify.md`](../../code/ROADMAP-verify.md). Installing the 
 | [`routing/`](routing/CONTEXT.md) | The CONTEXT.md routing-table generator. |
 | [`session/`](session/CONTEXT.md) | Session lifecycle: start, prune, precompact wipe, and the SessionStart nudges. |
 | [`stubgen/`](stubgen/CONTEXT.md) | Interface stubs and paper scaffolding, generated on save and on commit. |
-| [`trigger/`](trigger/CONTEXT.md) | When a feature fires, read from the registrations rather than from where its… |
+| [`trigger/`](trigger/CONTEXT.md) | When a feature fires, read from the registrations rather than from where its file sits. |
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
 | [`SPECS-gates.md`](SPECS-gates.md) | — | — | What each blocking gate rejects, at commit time and at edit time. |
 | [`SPECS-generators.md`](SPECS-generators.md) | — | — | What the hooks write rather than reject, and what must be true of each artifact. |
 | [`SPECS-shim.md`](SPECS-shim.md) | — | — | One canonical behaviour, and what a new agent runtime must do to get it. |
-| [`SPECS.md`](SPECS.md) | — | — | What must be true of the enforcement layer, and why: what each gate blocks, and… |
-| [`extensionless.txt`](extensionless.txt) | — | — | Files allowed to have no extension because something OUTSIDE this workspace dictates the |
-| [`feature_law.py`](feature_law.py) | [`feature_law.pyi`](feature_law.pyi) | `load_registry`, `slugs`, `load_profile`, `is_enabled`, `setting` | What is switched ON. The third law module: file_law.py says what a file IS, schema_law.py says |
-| [`file_law.py`](file_law.py) | [`file_law.pyi`](file_law.pyi) | `is_code_file`, `load_limits`, `allowed_extensionless`, `is_vendored`, `is_generated_artifact` | What a file IS, and which rules apply to it. The numeric-law sibling of schema_law.py: |
-| [`generated.txt`](generated.txt) | — | — | Files this workspace GENERATES. Excluded from the line cap, the fanout signal and the size |
-| [`gitignore-exceptions.txt`](gitignore-exceptions.txt) | — | — | One "<domain>/<dir>" per line: a CONTEXT.md-bearing subdir Lucas deliberately wants left |
+| [`SPECS.md`](SPECS.md) | — | — | What must be true of the enforcement layer, and why: what each gate blocks, and the contract a new agent's shim must satisfy. |
+| [`extensionless.txt`](extensionless.txt) | — | — | Files allowed to have no extension because something OUTSIDE this workspace dictates the name. Everything else without an extension must be an executable carrying a shebang — enforced by test_every_extensionless_tracked_file_is_explained. |
+| [`feature_law.py`](feature_law.py) | [`feature_law.pyi`](feature_law.pyi) | `load_registry`, `slugs`, `load_profile`, `is_enabled`, `setting` | What is switched ON. The third law module: file_law.py says what a file IS, schema_law.py says what a name MAY BE, this one says which features are live. Like schema_law.py it reads its answer out of core/ rather than holding one — the registry is core/features.txt, the answers are core/profile.txt, and neither is restated here. |
+| [`file_law.py`](file_law.py) | [`file_law.pyi`](file_law.pyi) | `is_code_file`, `load_limits`, `allowed_extensionless`, `is_vendored`, `is_generated_artifact` | What a file IS, and which rules apply to it. The numeric-law sibling of schema_law.py: that module parses core/SCHEMA.md, this one owns the file-shape law every size, fanout and line-count check reads. |
+| [`generated.txt`](generated.txt) | — | — | Files this workspace GENERATES. Excluded from the line cap, the fanout signal and the size dashboard — an authoring rule aimed at a file nobody authored produces a finding nobody can act on, and the only honest fix would be to make the generator write worse output. |
+| [`gitignore-exceptions.txt`](gitignore-exceptions.txt) | — | — | One "<domain>/<dir>" per line: a CONTEXT.md-bearing subdir Lucas deliberately wants left out of the .gitignore allowlist (reviewed, not an oversight). gitignore-self-heal.sh skips any name listed here instead of re-adding its `!<domain>/<dir>/` line. |
 | [`hook_input.py`](hook_input.py) | [`hook_input.pyi`](hook_input.pyi) | `parse_stdin`, `is_subagent`, `seen_file`, `load_seen`, `mark_seen` | Shared parser for Claude Code hook stdin JSON — nested (current) and flat (legacy shim) schemas. |
-| [`limits.env`](limits.env) | — | — | Every numeric limit in the workspace, in one file. Read by core/hooks/file_law.py |
-| [`post-commit`](post-commit) | — | — | auto-push feature/* so work survives a dead session |
+| [`limits.env`](limits.env) | — | — | Every numeric limit in the workspace, in one file. Read by core/hooks/file_law.py (Python) and sourced directly by check-line-counts.sh (shell) — same file, one law. |
+| [`post-commit`](post-commit) | — | — | auto-push feature/* so work survives a dead session and reaches the other machine. main/develop are never auto-pushed: promoting them is a conscious gitflow merge, done in /roundup after the verification gate. Never blocks: post-commit exit status is ignored by git, and every failure is a warning. |
 | [`post-edit.sh`](post-edit.sh) | — | — | PostToolUse: Edit, Write — regenerates interfaces, checks first-line comment, syncs CONTEXT.md |
-| [`pre-commit`](pre-commit) | — | — | the dispatcher. |
-| [`schema_law.py`](schema_law.py) | [`schema_law.pyi`](schema_law.pyi) | `load_law`, `load_scopes`, `load_retired` | The law parser. Every Tier 0 check reads core/SCHEMA.md through this module, and none |
-| [`vendored.txt`](vendored.txt) | — | — | Third-party files we did not author. Excluded from the line cap, the fanout signal and |
+| [`pre-commit`](pre-commit) | — | — | the dispatcher. Applied via: git config --global core.hooksPath /mnt/workspace/core/hooks |
+| [`schema_law.py`](schema_law.py) | [`schema_law.pyi`](schema_law.pyi) | `load_law`, `load_scopes`, `load_retired` | The law parser. Every Tier 0 check reads core/SCHEMA.md through this module, and none of them restates it — a second copy of the law inside a checker is the exact drift the checks exist to catch. |
+| [`vendored.txt`](vendored.txt) | — | — | Third-party files we did not author. Excluded from the line cap, the fanout signal and the size dashboard — holding someone else's code to our authoring rules produces findings nobody can act on. |
 <!-- routing:end -->

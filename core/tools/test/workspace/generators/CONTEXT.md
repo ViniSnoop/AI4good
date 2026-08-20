@@ -16,8 +16,8 @@ failure mode this workspace actually has*.
 | File | Interface | Description |
 |------|-----------|-------------|
 | [`test_api_column.py`](test_api_column.py) | [`test_api_column.pyi`](test_api_column.pyi) | What the routing table's API column may name (core/hooks/SPECS.md). Zero-token, runs in verify-fast. |
-| [`test_interface_generators.py`](test_interface_generators.py) | [`test_interface_generators.pyi`](test_interface_generators.pyi) | T0 interface-generator invariants: a generated stub must land beside its source, and a |
-| [`test_routing_sync_bugs.py`](test_routing_sync_bugs.py) | [`test_routing_sync_bugs.pyi`](test_routing_sync_bugs.pyi) | T0 routing-generator invariants (ROADMAP Batch B item 1): four ways the CONTEXT.md routing |
+| [`test_interface_generators.py`](test_interface_generators.py) | [`test_interface_generators.pyi`](test_interface_generators.pyi) | T0 interface-generator invariants: a generated stub must land beside its source, and a jsconfig.json must never pretend to be a build config. Both bugs this guards were silent — the JS declaration path exited 0 and emitted nothing for years (ROADMAP Batch B item 6). |
+| [`test_routing_sync_bugs.py`](test_routing_sync_bugs.py) | [`test_routing_sync_bugs.pyi`](test_routing_sync_bugs.pyi) | T0 routing-generator invariants (ROADMAP Batch B item 1): four ways the CONTEXT.md routing table used to corrupt itself. Each bug here was found by eye in a live file, never by a check. |
 | [`test_routing_table.py`](test_routing_table.py) | [`test_routing_table.pyi`](test_routing_table.pyi) | The routing table's generated columns (core/hooks/SPECS.md). Zero-token, runs in verify-fast. |
 | [`test_shard_table.py`](test_shard_table.py) | [`test_shard_table.pyi`](test_shard_table.pyi) | A sharded type's index table (core/SCHEMA-outgrowing.md § What a shard publishes about itself). |
 <!-- routing:end -->

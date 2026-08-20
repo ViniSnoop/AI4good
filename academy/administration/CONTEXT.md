@@ -6,7 +6,7 @@
 
 | Subdirectory | Description |
 |--------------|-------------|
-| [`coordenacao-lc/`](coordenacao-lc/CONTEXT.md) | Coordenação da Licenciatura em Computação (UFRPE) — curriculum redesign work… |
+| [`coordenacao-lc/`](coordenacao-lc/CONTEXT.md) | Coordenação da Licenciatura em Computação (UFRPE) — curriculum redesign work, currently the new BCC PPC. |
 
 | File | Interface | Description |
 |------|-----------|-------------|

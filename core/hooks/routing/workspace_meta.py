@@ -5,7 +5,7 @@ from pathlib import Path
 # One definition, from core/hooks/file_law.py — this module used to carry its own copy.
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from file_law import CODE_EXTS  # noqa: E402  (re-exported: callers import it from here)
-from hoist import md_blurb  # noqa: E402
+from hoist import comment_paragraph, md_blurb  # noqa: E402
 
 # `.env` and `.txt` joined 2026-08-15: the four files core/hooks keeps its law in
 # (`limits.env`, `vendored.txt`, `extensionless.txt`, `gitignore-exceptions.txt`) each carry a
@@ -40,12 +40,11 @@ def _exec_description(path: Path) -> str:
         lines = path.read_text(encoding='utf-8', errors='ignore').splitlines()
     except OSError:
         return ''
-    for line in lines[:6]:
+    for index, line in enumerate(lines[:6]):
         if line.startswith('#!'):
             continue
-        m = re.match(r'^#\s*(.+)', line)
-        if m:
-            text = m.group(1).strip()
+        if re.match(r'^#\s*(.+)', line):
+            text = comment_paragraph(lines, index)
             if ' — ' in text:
                 return text.split(' — ', 1)[1].strip()
             return text
@@ -105,7 +104,15 @@ def file_description(path: Path) -> str:
         return ''
     for pat in patterns:
         m = re.match(pat, first.strip())
-        if m: return m.group(1).strip()
+        if m:
+            # `#`-commented languages wrap their description across lines exactly as the
+            # shebang scripts do, so they get the same paragraph read. The others
+            # (`//`, `/* */`, `<!-- -->`) keep the single-line read: their first-line
+            # comment is authored as one line and joining `//` lines would swallow the
+            # next unrelated comment, which has no blank-line convention to stop at.
+            if pat.startswith('^#') and path.suffix != '.md':
+                return comment_paragraph(lines, 0) or m.group(1).strip()
+            return m.group(1).strip()
     if path.suffix == '.py':
         return _module_docstring(path)
     return ''

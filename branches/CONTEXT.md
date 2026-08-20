@@ -6,8 +6,8 @@
 
 | Subdirectory | Description |
 |--------------|-------------|
-| [`casinhas/`](casinhas/CONTEXT.md) | Gestão unificada da obra: 7 casas geminadas + 3 salas comerciais em Rua Isaac… |
-| [`ecovila/`](ecovila/CONTEXT.md) | Cockpit da ecovila Santuário dos Jatobás: lote de 200 m² comprado com o pai numa… |
-| [`instituto/`](instituto/CONTEXT.md) | Cockpit do programa do instituto: núcleos de ideias sobre fluxos de dinheiro e… |
+| [`casinhas/`](casinhas/CONTEXT.md) | Gestão unificada da obra: 7 casas geminadas + 3 salas comerciais em Rua Isaac Buril 52, Várzea, Recife. Burocracia, orçamentos, modelo 3D/5D, design e gastos. |
+| [`ecovila/`](ecovila/CONTEXT.md) | Cockpit da ecovila Santuário dos Jatobás: lote de 200 m² comprado com o pai numa área loteada para casas ecológicas longe de Recife. Goal: [ecovila](ecovila/../../brain/goals/ecovila.md). |
+| [`instituto/`](instituto/CONTEXT.md) | Cockpit do programa do instituto: núcleos de ideias sobre fluxos de dinheiro e coletividade, motor de ideação, funding e caminho legal. Gestão unificada fora da universidade. |
 | [`writing/`](writing/CONTEXT.md) | Writing that is not academic — drafts, notes, mantras, personal essays. |
 <!-- routing:end -->

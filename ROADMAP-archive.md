@@ -1,5 +1,8 @@
 # Archive
-> Blocked on a trigger, parked out of v1, or killed — with the reason kept.
+> What is NOT being worked on, and what would change that? Three kinds: blocked on a named
+> trigger, parked as out of scope, killed outright — each keeping its reason so a dead idea cannot
+> return looking new. Read it before proposing something that sounds obvious; nothing here counts
+> toward the drain, so Open reads empty.
 
 ## Blocked — waiting on a trigger
 

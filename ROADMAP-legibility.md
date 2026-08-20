@@ -1,5 +1,8 @@
 # Legibility
-> Lucas can no longer read his own workspace, and that is the root cause.
+> Can Lucas still read the thing he owns — its words, its decisions, its shape? A standing front
+> that never closes: the jargon audit, the pictures that show the workspace at a glance, and the
+> rule that a session may not decide quietly. Open it when something is UNREADABLE or was decided
+> without him, not when it is broken.
 > priority: essential
 
 ## Front 18 — Lucas can no longer read his own workspace, and that is the root cause

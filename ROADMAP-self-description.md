@@ -1,5 +1,8 @@
 # Self-description
-> The workspace describes itself wrongly, plus the work reopened after v1.
+> Why does this workspace keep asserting things about its own code that one command would refute?
+> Holds the discipline problem — a structural claim written into a durable file with no probe
+> attached — and the routing descriptions a reader meets first. Open it when the workspace says
+> something false ABOUT ITSELF; the outside world is measurement's.
 > priority: important
 
 ## Front 17 — the workspace describes itself wrongly, and the description is what we build on

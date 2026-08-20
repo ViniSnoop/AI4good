@@ -9,19 +9,42 @@
 import re
 from pathlib import Path
 
-DESC_LIMIT = 80
+# Two to three sentences, ruled by Lucas 2026-08-19: *"a 'Description' tão bem sucinta e muitas
+# vezes não explica de que se trata o arquivo"*. It was 80, which cannot hold a question and its
+# object, so the bound wrote the prose — thirty-odd shard descriptions were shaped to fit it, and
+# `core/tools/wos/session/reads` advertised itself as "which files a", cut mid-word.
+#
+# 360 is MEASURED, not chosen: the eight rewritten shard descriptions run 304-347 characters at
+# three sentences each. 240 was a guess at "two to three sentences" and truncated all eight, which
+# would have made the bound write the prose a second time — the exact failure, one size up.
+#
+# A routing block is exempt from the 120-column cap (only lines OUTSIDE the markers are counted),
+# which is why this can grow without turning every CONTEXT.md into a column-cap violation and
+# without restructuring the table into something else. Checked before changing it, not assumed.
+DESC_LIMIT = 360
 SCAFFOLD_BLURB = '← add description'
 LINK_RE = re.compile(r'\[([^\]]*)\]\(([^)]+)\)')
+# `> priority: essential`, `> goal: ...`, `> spec: none`, `> governs: ...`, `> blocked-by: ...`.
+# A single lowercase word before a colon is a FIELD and never prose; a real sentence that happens
+# to carry a colon ("The flow canvas: a Python WebSocket server…") has spaces before it and is kept.
+FIELD_RE = re.compile(r'^>\s*[a-z][a-z0-9_-]*:')
 
 
 def md_blurb(path: Path) -> str:
-    """A `.md` file's line-2 `> ` blurb — the sentence that says what the file IS.
+    """A `.md` file's `> ` blurb — the two or three sentences that say what the file IS.
 
     The `#` H1 is a *name*, not a description: `COMMENT_RE['.md']` captured it and stopped,
     so `tree.md` advertised "The Craft Tree" in every routing table while the sentence
     saying what it is sat one line below, unread. This line has always been read for a
     *child's* CONTEXT.md and for nothing else — same class as the missing `.sh` key in
     COMMENT_RE: the generator had the text and did not reach for it.
+
+    It read line 2 and stopped until 2026-08-19, which is the other half of why descriptions
+    said so little: a file whose blurb ran to three lines advertised its first line, and an
+    author who wrote more got no credit for it. Now the whole `>` block is one description,
+    stopping at the first FIELD line — `priority:`, `goal:`, `spec:`, `governs:`,
+    `blocked-by:` are data the table has its own columns for, and reading them as prose is
+    how "Tier 0 checks…" would have become "Tier 0 checks… priority: essential".
     """
     try:
         lines = path.read_text(encoding='utf-8', errors='ignore').splitlines()
@@ -29,11 +52,37 @@ def md_blurb(path: Path) -> str:
         return ''
     if len(lines) < 2:
         return ''
-    match = re.match(r'^>\s*(.+)', lines[1].strip())
-    if not match:
-        return ''
-    blurb = match.group(1).strip()
+    parts = []
+    for line in lines[1:]:
+        stripped = line.strip()
+        if not stripped.startswith('>') or FIELD_RE.match(stripped):
+            break
+        parts.append(re.sub(r'^>\s*', '', stripped).strip())
+    blurb = ' '.join(p for p in parts if p).strip()
     return '' if blurb == SCAFFOLD_BLURB else blurb
+
+
+def comment_paragraph(lines: list, start: int) -> str:
+    """Consecutive `#` comment lines from `start`, joined — one paragraph, not one line.
+
+    `md_blurb`'s twin for a code file or a shebang script: same rule, different comment
+    syntax, so both live here rather than one drifting from the other. A description is two
+    to three sentences (Lucas, 2026-08-19) and authors were already writing them; the
+    generator read line one and stopped, so a sentence that wrapped got published cut in
+    half. `core/tools/wos/session/reads` advertised itself as **"which files a"** — not a
+    truncation, the literal end of its first comment line.
+
+    Stops at the first non-comment line or bare `#`, which is the paragraph break every one
+    of these headers already uses to separate what the file IS from why it exists. Without
+    that stop this would hoist a whole rationale essay into a routing table.
+    """
+    parts = []
+    for line in lines[start:]:
+        stripped = line.strip()
+        if not stripped.startswith('#') or stripped == '#':
+            break
+        parts.append(re.sub(r'^#\s*', '', stripped).strip())
+    return ' '.join(p for p in parts if p).strip()
 
 
 def rebase_links(text: str, prefix: str) -> str:

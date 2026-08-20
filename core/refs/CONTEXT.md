@@ -17,6 +17,6 @@ definitions and the citation discipline: [`SPECS.md`](SPECS.md).
 | [`REFS-memory.md`](REFS-memory.md) | How an agent remembers, and what untrusted text does to that store. |
 | [`REFS-tooling.md`](REFS-tooling.md) | What lints an agent setup, what to compare against, and how to draw it. |
 | [`REFS-unjudged.md`](REFS-unjudged.md) | Captured but not yet judged: a link earns its tier when promoted. |
-| [`REFS.md`](REFS.md) | Tier-1 capture for the workspace-os / agent-library scaffold. One line per ref. |
-| [`SPECS.md`](SPECS.md) | What each tier marker means, and the citation discipline that keeps REFS.md… |
+| [`REFS.md`](REFS.md) | Tier-1 capture for the workspace-os / agent-library scaffold. One line per ref. Tier markers `[A] [B] [P] [V] [C]` defined in [CONTEXT.md](CONTEXT.md) — `[P]` = preprint, provisional. Captured 2026-07-23 (rounds 1+2 of the workspace-os robustness sweep). **Judged vs unjudged is a `status:`, not a separate file** (2026-07-30). The old `core/WATCHLIST.md` was… |
+| [`SPECS.md`](SPECS.md) | What each tier marker means, and the citation discipline that keeps REFS.md honest. |
 <!-- routing:end -->

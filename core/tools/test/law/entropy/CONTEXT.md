@@ -27,5 +27,5 @@ it is the same ambiguity the reader has.
 | [`test_entropy_ledger.py`](test_entropy_ledger.py) | [`test_entropy_ledger.pyi`](test_entropy_ledger.pyi) | T0 ledger and vocabulary checks (Tier 0, law in core/SCHEMA.md). Zero-token, runs in verify-fast. |
 | [`test_entropy_naming.py`](test_entropy_naming.py) | [`test_entropy_naming.pyi`](test_entropy_naming.pyi) | T0 naming and placement (Tier 0, law in core/SCHEMA.md). Zero-token, runs in verify-fast. |
 | [`test_entropy_placeholders.py`](test_entropy_placeholders.py) | [`test_entropy_placeholders.pyi`](test_entropy_placeholders.pyi) | T0 unanswered scaffold placeholders (first-line-comment rule, core/hooks/SPECS.md). Zero-token, runs in verify-fast. |
-| [`test_entropy_stores.py`](test_entropy_stores.py) | [`test_entropy_stores.pyi`](test_entropy_stores.pyi) | T0 the two doubt stores (core/SPECS-discipline.md § AD-16 band 1): an experiment states its own format, and |
+| [`test_entropy_stores.py`](test_entropy_stores.py) | [`test_entropy_stores.pyi`](test_entropy_stores.pyi) | T0 the two doubt stores (core/SPECS-discipline.md § AD-16 band 1): an experiment states its own format, and a judged reference carries a source tier. Zero-token, runs in verify-fast. |
 <!-- routing:end -->

@@ -6,5 +6,5 @@
 
 | File | Description |
 |------|-------------|
-| [`REFS.md`](REFS.md) | Captured references for the future ecological build on the lot: técnica… |
+| [`REFS.md`](REFS.md) | Captured references for the future ecological build on the lot: técnica, materiais, custo. |
 <!-- routing:end -->

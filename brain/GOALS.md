@@ -4,14 +4,14 @@
 <!-- stats:start -->
 <!-- data:start -->
 ## attention dashboard  _(auto-updated on every commit)_
-last-updated: 2026-08-19 22:29
+last-updated: 2026-08-19 23:55
 
 >**areas** — last 14 days  
 ```
-health       ██████████   238 touches
-career       ░░░░░░░░░░   22 touches
+health       ██████████   244 touches
+career       ░░░░░░░░░░   23 touches
 finances     ░░░░░░░░░░   11 touches
-fun          ░░░░░░░░░░   7 touches
+fun          ░░░░░░░░░░   10 touches
 spiritual    ░░░░░░░░░░   0 touches
 ```
 
@@ -21,7 +21,7 @@ CONTEXT                  ░░░░░░░░░░   3 touches
 burocracia-academica     ░░░░░░░░░░   5 touches
 career-ufrpe             ░░░░░░░░░░   0 touches
 corporal-expressiveness  ░░░░░░░░░░   0 touches
-craft-flows              ░░░░░░░░░░   19 touches
+craft-flows              ░░░░░░░░░░   20 touches
 cria                     ░░░░░░░░░░   3 touches
 dance                    ░░░░░░░░░░   1 touches
 ecovila                  ░░░░░░░░░░   3 touches
@@ -31,7 +31,7 @@ guitar                   ░░░░░░░░░░   0 touches
 home-casinhas            ░░░░░░░░░░   9 touches
 instituto                ░░░░░░░░░░   1 touches
 lih-dd                   ░░░░░░░░░░   2 touches
-local-ai                 ░░░░░░░░░░   8 touches
+local-ai                 ░░░░░░░░░░   10 touches
 magic-places             ░░░░░░░░░░   0 touches
 make-in-time             ░░░░░░░░░░   0 touches
 pandeiro                 ░░░░░░░░░░   0 touches
@@ -40,7 +40,7 @@ paper-megatruth          ░░░░░░░░░░   0 touches
 paper-scattercode        ░░░░░░░░░░   0 touches
 prompt-opt-automation    ░░░░░░░░░░   1 touches
 reading                  ░░░░░░░░░░   0 touches
-rpg-isoroll              ░░░░░░░░░░   5 touches
+rpg-isoroll              ░░░░░░░░░░   8 touches
 sleep-regularity         ░░░░░░░░░░   0 touches
 smartphone-addiction     ░░░░░░░░░░   0 touches
 spacemantics             ░░░░░░░░░░   5 touches
@@ -63,11 +63,11 @@ startapps-virada         ░░░░░░░░░░   0 touches
 startapps-voti           ░░░░░░░░░░   1 touches
 startapps-xacomigo       ░░░░░░░░░░   0 touches
 surf                     ░░░░░░░░░░   0 touches
-teaching-materials       ░░░░░░░░░░   16 touches
+teaching-materials       ░░░░░░░░░░   17 touches
 travel                   ░░░░░░░░░░   1 touches
 vipassana                ░░░░░░░░░░   0 touches
 voice                    ░░░░░░░░░░   0 touches
-workspace-os             ██████████   238 touches
+workspace-os             ██████████   244 touches
 yoga                     ░░░░░░░░░░   0 touches
 ```
 <!-- data:end -->

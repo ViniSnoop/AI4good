@@ -18,16 +18,16 @@ re-sync has to reconcile: [`SPECS.md`](SPECS.md).
 
 | Subdirectory | Description |
 |--------------|-------------|
-| [`hooks/`](hooks/CONTEXT.md) | Claude Code lifecycle hooks for the caveman suite — activation, mode tracking… |
-| [`scripts/`](scripts/CONTEXT.md) | Compression CLI behind `/caveman compress <file>` — detect file type, call the… |
+| [`hooks/`](hooks/CONTEXT.md) | Claude Code lifecycle hooks for the caveman suite — activation, mode tracking, stats, statusline. |
+| [`scripts/`](scripts/CONTEXT.md) | Compression CLI behind `/caveman compress <file>` — detect file type, call the model, validate, retry. Upstream-synced (adapted, not verbatim). |
 
 | File | Description |
 |------|-------------|
-| [`SKILL.md`](SKILL.md) | Ultra-compressed communication mode — router. Cuts token usage ~75% by speaking… |
-| [`SPECS.md`](SPECS.md) | Global registration, the `$HOME` wiring, and the local adaptations that are the… |
-| [`cavecrew.md`](cavecrew.md) | Subfile of the `caveman` skill. Reached via `/caveman crew` (legacy… |
-| [`commit.md`](commit.md) | Subfile of the `caveman` skill. Reached via `/caveman commit` (legacy `/caveman… |
-| [`compress.md`](compress.md) | Subfile of the `caveman` skill. Reached via `/caveman compress <file>` (legacy… |
+| [`SKILL.md`](SKILL.md) | Ultra-compressed communication mode — router. Cuts token usage ~75% by speaking like a smart caveman while keeping full technical accuracy. Intensity levels: lite, full (default), ultra, wenyan-lite, wenyan-full, wenyan-ultra. Sub-commands: /caveman commit, review, compress, stats, crew, help. Use when the user says "caveman mode", "talk like caveman", "less… |
+| [`SPECS.md`](SPECS.md) | Global registration, the `$HOME` wiring, and the local adaptations that are the re-sync cost. |
+| [`cavecrew.md`](cavecrew.md) | Subfile of the `caveman` skill. Reached via `/caveman crew` (legacy `/cavecrew`). Decision guide only — it spawns nothing itself. |
+| [`commit.md`](commit.md) | Subfile of the `caveman` skill. Reached via `/caveman commit` (legacy `/caveman commit`). Independent mode: it defines its own output style; the base caveman rules do not stack on top. |
+| [`compress.md`](compress.md) | Subfile of the `caveman` skill. Reached via `/caveman compress <file>` (legacy `/caveman-compress`). Independent mode. Scripts live in `scripts/` next to this file. |
 | [`modes.md`](modes.md) | Caveman — intensity levels, worked |
-| [`review.md`](review.md) | Subfile of the `caveman` skill. Reached via `/caveman review` (legacy… |
+| [`review.md`](review.md) | Subfile of the `caveman` skill. Reached via `/caveman review` (legacy `/caveman-review`). Independent mode: it defines its own output style; the base caveman rules do not stack on top. |
 <!-- routing:end -->

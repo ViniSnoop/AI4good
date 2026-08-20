@@ -33,16 +33,16 @@ Design rationale → [SPECS.md](SPECS.md) § Rationale.
 
 | Subdirectory | Description |
 |--------------|-------------|
-| [`attachments/`](attachments/CONTEXT.md) | Files captured from Gmail and Telegram, filed by month — the raw material, not a… |
-| [`goals/`](goals/CONTEXT.md) | One file per goal — organic growth from seed to full. Dashboard + router… |
-| [`memory/`](memory/CONTEXT.md) | What the agent learned across sessions and nothing else records… |
+| [`attachments/`](attachments/CONTEXT.md) | Files captured from Gmail and Telegram, filed by month — the raw material, not a ledger. |
+| [`goals/`](goals/CONTEXT.md) | One file per goal — organic growth from seed to full. Dashboard + router: [GOALS.md](goals/../GOALS.md). |
+| [`memory/`](memory/CONTEXT.md) | What the agent learned across sessions and nothing else records. Harness-written, workspace-owned. |
 
 | File | Description |
 |------|-------------|
 | [`GOALS.md`](GOALS.md) | Dashboard, attention monitor, Pareto lens, and the router to every goal file. |
-| [`INBOX.md`](INBOX.md) | zero friction. thoughts. no taxonomy. no formating. handle duplications. |
-| [`SPECS.md`](SPECS.md) | Goal file format, section growth triggers, signals, dynamics, timing, and… |
-| [`TODO.md`](TODO.md) | practical layer. tasks for today, week, month. each may link to a goal… |
+| [`INBOX.md`](INBOX.md) | zero friction. thoughts. no taxonomy. no formating. handle duplications. triage with `/inbox`: each entry routed to a goal, task, ref, project doc, draft — or deleted. signal the route preemptively (optional — agent infers if omitted): `goal` · `task: today`/`week`/`month`/`backlog` · `ref` · `proj: <name>` · `draft` · `delete` |
+| [`SPECS.md`](SPECS.md) | Goal file format, section growth triggers, signals, dynamics, timing, and backlog conventions. |
+| [`TODO.md`](TODO.md) | practical layer. tasks for today, week, month. each may link to a goal achievement — or not. fill freely. clear when done. agent and Lucas both write here. **scope**: life, academic, and per-project tasks. Workspace-OS build work does **not** live here — it lives in [/ROADMAP.md](../ROADMAP.md), the single wos ledger. Done items are deleted, not |
 | [`USER.md`](USER.md) | Lucas — read before any Brain task. |
 | [`drafts/context-folding-report.md`](drafts/context-folding-report.md) | Context Folding: A Graph-Based Architecture for Infinite-Horizon AI Agent Memory |
 <!-- routing:end -->

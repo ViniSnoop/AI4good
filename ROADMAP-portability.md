@@ -1,5 +1,8 @@
 # Portability and clonability
-> A fresh clone gets every feature: declared deps, no undocumented hand-installs.
+> Would this workspace work on a machine that is not Lucas's? Every dependency is declared and
+> `SETUP.md` is an executed procedure, so what is left is the public scaffold repo his students
+> will clone and the one feature that cannot be switched off. Open it for anything crossing the
+> line between what is general and what is his.
 > priority: essential
 
 ## Front 10 — Portability & clonability — **v1 criterion 4**

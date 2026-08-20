@@ -51,9 +51,9 @@ por turma.
 <!-- routing:start -->
 ## Routing
 
-| File | API | Description |
-|------|-----|-------------|
-| [`add_aula02.py`](add_aula02.py) | `build` | Aula 02: intercala slides novos no deck existente e refina dois slides. |
-| [`aula02_conteudo.py`](aula02_conteudo.py) | — | Conteudo da aula 02 — o que entra no deck e onde. |
-| [`build_excalidraw.py`](build_excalidraw.py) | `frame`, `rect`, `ellipse`, `text`, `bloco` | Gera o quadro da aula 02: um frame por equipe + um frame de exemplo preenchido. |
+| File | Interface | API | Description |
+|------|-----------|-----|-------------|
+| [`add_aula02.py`](add_aula02.py) | [`add_aula02.pyi`](add_aula02.pyi) | `build` | Aula 02: intercala slides novos no deck existente e refina dois slides. |
+| [`aula02_conteudo.py`](aula02_conteudo.py) | [`aula02_conteudo.pyi`](aula02_conteudo.pyi) | — | Conteudo da aula 02 — o que entra no deck e onde. |
+| [`build_excalidraw.py`](build_excalidraw.py) | [`build_excalidraw.pyi`](build_excalidraw.pyi) | `frame`, `rect`, `ellipse`, `text`, `bloco` | Gera o quadro da aula 02: um frame por equipe + um frame de exemplo preenchido. |
 <!-- routing:end -->

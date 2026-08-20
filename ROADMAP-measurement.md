@@ -1,5 +1,8 @@
 # Measurement and doubt
-> Nothing here has been measured, and confident wrong answers pass unchallenged.
+> Does any of this scaffold actually help, and what catches the agent being confidently wrong?
+> Two halves with one cause: the ablation that would measure whether a rule earns its keep, and
+> the gates that would make a claim carry its evidence. Open it before trusting a number or a
+> technical opinion; the experiment's design lives in its paper twin.
 > priority: important
 > blocked-by: ROADMAP-portability.md
 

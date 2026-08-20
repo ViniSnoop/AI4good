@@ -12,6 +12,7 @@ from conftest import WORKSPACE_ROOT  # the depth lives in one file, not nine
 # sys.path for the enforcement layer is set once, by conftest.py — a second copy
 # here would go stale the next time core/hooks is split.
 
+from hoist import DESC_LIMIT  # noqa: E402  (the bound is imported, never restated)
 from workspace_meta import ALL_EXTS, COMMENT_RE, extract_api, file_description  # noqa: E402
 from workspace_scanner import build_file_rows, parse_preserved_files  # noqa: E402
 
@@ -129,10 +130,22 @@ def test_a_folded_md_blurb_has_its_links_rebased(tmp_path) -> None:
 
 
 def test_a_long_md_blurb_is_bounded(tmp_path) -> None:
-    """One file's paragraph must not set the width of another file's table."""
-    table = _table(tmp_path, **{'a.md': f'# a\n> {"word " * 60}\n'})
-    assert '…' in table
-    assert max(len(line) for line in table.splitlines()) < 160
+    """One file's paragraph must not set the width of another file's table.
+
+    The bound is imported, never restated. It was hardcoded at 160 here — calibrated to a
+    DESC_LIMIT of 80 — so raising the limit to hold two or three sentences (Lucas, 2026-08-19)
+    failed this test for the one reason a limit test must never fail: a second copy of the
+    number.
+    """
+    blurb = ('word ' * 200).strip()
+    table = _table(tmp_path, **{'a.md': f'# a\n> {blurb}\n'})
+    assert '…' in table, 'a blurb past the limit must say that it was cut'
+    assert blurb not in table, 'the whole paragraph reached the table uncut'
+    longest = max(len(line) for line in table.splitlines())
+    assert longest <= DESC_LIMIT + 200, (
+        f'longest row is {longest}; the description cell should be bounded by '
+        f'DESC_LIMIT={DESC_LIMIT} plus the row chrome around it'
+    )
 
 
 def test_a_first_line_comment_is_never_bounded(tmp_path) -> None:

@@ -27,16 +27,16 @@ workspace.
 
 | Subdirectory | Description |
 |--------------|-------------|
-| [`diagram/`](diagram/CONTEXT.md) | Coverage for the workspace picture, split the way its source is: what it draws… |
-| [`session/`](session/CONTEXT.md) | The instruments: what a session costs, what fills its window, and what a read… |
+| [`diagram/`](diagram/CONTEXT.md) | Coverage for the workspace picture, split the way its source is: what it draws, and what it claims. |
+| [`session/`](session/CONTEXT.md) | The instruments: what a session costs, what fills its window, and what a read was served. |
 
 | File | Interface | Description |
 |------|-----------|-------------|
-| [`test_deps.py`](test_deps.py) | [`test_deps.pyi`](test_deps.pyi) | T0 declared dependencies (core/tools/SPECS.md § Declared dependencies): a third-party import the |
-| [`test_features.py`](test_features.py) | [`test_features.pyi`](test_features.pyi) | T0 the feature registry's declaration half (core/SPECS-features.md § AD-14): every feature is declared, |
-| [`test_features_wiring.py`](test_features_wiring.py) | [`test_features_wiring.pyi`](test_features_wiring.pyi) | T0 the feature registry's honesty half (core/SPECS-features.md § AD-14): a row claiming a switch must |
-| [`test_flow_loops.py`](test_flow_loops.py) | [`test_flow_loops.pyi`](test_flow_loops.pyi) | T0 the flow layer's loop bound (core/flows/CONTEXT.md § Rules that hold for every flow): a step |
-| [`test_norms.py`](test_norms.py) | [`test_norms.pyi`](test_norms.pyi) | T0 the norms layer (core/SCHEMA-layers.md § Layer: norm): the always-loaded rule block is generated, |
-| [`test_roundup.py`](test_roundup.py) | [`test_roundup.pyi`](test_roundup.pyi) | T1 roundup tool (core/SPECS-session.md § AD-09): the deterministic half of the session-close ritual. |
-| [`test_roundup_skills.py`](test_roundup_skills.py) | [`test_roundup_skills.pyi`](test_roundup_skills.pyi) | T0 the session-close skills (core/SPECS-session.md § AD-09): what bash cannot assert about the other layer. |
+| [`test_deps.py`](test_deps.py) | [`test_deps.pyi`](test_deps.pyi) | T0 declared dependencies (core/tools/SPECS.md § Declared dependencies): a third-party import the tool surface uses must be declared, and every tool must run under the workspace venv. |
+| [`test_features.py`](test_features.py) | [`test_features.pyi`](test_features.pyi) | T0 the feature registry's declaration half (core/SPECS-features.md § AD-14): every feature is declared, answered, and inside the closed sets its columns may draw from. |
+| [`test_features_wiring.py`](test_features_wiring.py) | [`test_features_wiring.pyi`](test_features_wiring.pyi) | T0 the feature registry's honesty half (core/SPECS-features.md § AD-14): a row claiming a switch must really have one, and throwing the switch must move the observable. |
+| [`test_flow_loops.py`](test_flow_loops.py) | [`test_flow_loops.pyi`](test_flow_loops.pyi) | T0 the flow layer's loop bound (core/flows/CONTEXT.md § Rules that hold for every flow): a step that declares a loop must declare its numeric cap. Zero-token, no network. |
+| [`test_norms.py`](test_norms.py) | [`test_norms.pyi`](test_norms.pyi) | T0 the norms layer (core/SCHEMA-layers.md § Layer: norm): the always-loaded rule block is generated, and generating it is what makes a rule switchable. |
+| [`test_roundup.py`](test_roundup.py) | [`test_roundup.pyi`](test_roundup.pyi) | T1 roundup tool (core/SPECS-session.md § AD-09): the deterministic half of the session-close ritual. Zero-token, no network — every case builds its own throwaway repo. |
+| [`test_roundup_skills.py`](test_roundup_skills.py) | [`test_roundup_skills.pyi`](test_roundup_skills.pyi) | T0 the session-close skills (core/SPECS-session.md § AD-09): what bash cannot assert about the other layer. Zero-token, no network. |
 <!-- routing:end -->

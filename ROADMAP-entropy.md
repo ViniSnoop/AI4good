@@ -1,5 +1,8 @@
 # Workspace anti-entropy
-> Tier 0 checks, the shrinking-baseline ratchet, and rules declared but unbuilt.
+> Does the tree still have the shape we said it has, and does anything check? Holds the Tier 0
+> checks, the ratchet that makes their count shrink, and rules declared in a `SPECS.md` with no
+> implementation. Open it for a check, a drifted name or an unenforced limit — never for what the
+> drift *means*, which is legibility's.
 > priority: essential
 
 ## Front 4 — workspace anti-entropy — **the keystone, v1 criterion 1**

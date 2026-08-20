@@ -17,11 +17,11 @@ Per-file format, the rule that keeps a stored number honest, and the reporting d
 
 | File | Description |
 |------|-------------|
-| [`SPECS.md`](SPECS.md) | The format every file in this directory follows, and the discipline that keeps a… |
-| [`caveman-cost.md`](caveman-cost.md) | What does keeping caveman mode on cost per session, and does the compression it… |
-| [`context-window.md`](context-window.md) | What fills a session's context window, split by source, and how much of it the… |
-| [`delegation.md`](delegation.md) | How often does this workspace actually spawn a subagent, and which agent… |
+| [`SPECS.md`](SPECS.md) | The format every file in this directory follows, and the discipline that keeps a stored number trustworthy. |
+| [`caveman-cost.md`](caveman-cost.md) | What does keeping caveman mode on cost per session, and does the compression it buys pay for it? |
+| [`context-window.md`](context-window.md) | What fills a session's context window, split by source, and how much of it the workspace controls. |
+| [`delegation.md`](delegation.md) | How often does this workspace actually spawn a subagent, and which agent definitions get used? |
 | [`output-cost.md`](output-cost.md) | Output tokens are more expensive than input — by how much, and where are ours? |
-| [`read-amplification.md`](read-amplification.md) | Do our own gates make a session read the same file more than once — and what… |
-| [`subagent-context-chain.md`](subagent-context-chain.md) | Does forcing an agent to read a subtree's CONTEXT.md chain change what it does … |
+| [`read-amplification.md`](read-amplification.md) | Do our own gates make a session read the same file more than once — and what does that cost? |
+| [`subagent-context-chain.md`](subagent-context-chain.md) | Does forcing an agent to read a subtree's CONTEXT.md chain change what it does — and should a subagent be forced at all? |
 <!-- routing:end -->

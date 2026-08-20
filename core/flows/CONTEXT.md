@@ -28,11 +28,11 @@ flow:
 
 | Subdirectory | Description |
 |--------------|-------------|
-| [`craft/`](craft/CONTEXT.md) | The engineering cluster owned by the `craft` skill — build work in file-relayed… |
-| [`research/`](research/CONTEXT.md) | Research-workflow protocols owned by the `research` skill. Invoked as `research… |
+| [`craft/`](craft/CONTEXT.md) | The engineering cluster owned by the `craft` skill — build work in file-relayed loops. Invoked as `/craft`. |
+| [`research/`](research/CONTEXT.md) | Research-workflow protocols owned by the `research` skill. Invoked as `research <verb>` — filename = command tail. |
 
 | File | Description |
 |------|-------------|
 | [`_template.md`](_template.md) | One line — what durable artifact this flow produces. |
-| [`mechanism-search.md`](mechanism-search.md) | Busca sistemática de mecanismos sociais (motivo individual → efeito coletivo)… |
+| [`mechanism-search.md`](mechanism-search.md) | Busca sistemática de mecanismos sociais (motivo individual → efeito coletivo) para um ralo quantificado — geração com diversidade forçada, filtro humano deliberativo, saída pronta para piloto test-to-kill. |
 <!-- routing:end -->
