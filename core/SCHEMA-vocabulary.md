@@ -1,7 +1,8 @@
 # Vocabulary
 > One word per idea, one idea per word, and every token a rename retired.
 > answers: which spelling is canonical, what a term means, what may no longer be written
-> enforced-by: core/hooks/entropy/entropy_ledger.py, core/hooks/checks/citation-gate.py
+> enforced-by: core/hooks/entropy/entropy_ledger.py, core/hooks/entropy/entropy_vendor.py,
+> core/hooks/checks/citation-gate.py
 
 ## Vocabulary
 
@@ -89,3 +90,18 @@ pointer does not. **A rename whose old spelling is also a real word needs a shap
 Not yet listed because the rename has not landed: `SPEC.md`→`SPECS.md` (load-bearing in five
 enforcement points; see [ROADMAP.md](../ROADMAP.md)). A token joins this table only when
 the sweep is complete — a row that fails on the day it is written trains people to ignore the check.
+
+### A vendor's model name is data, never a directive
+
+**Ruled 2026-08-17 (Lucas), reading a step assignment: *"nothing in WOS should be tied to a specific
+vendor/company/model."*** A ledger assigns a **tier** — `low` · `medium` · `high` — and which model
+fills a tier is data, in [`core/flows/craft/routing.md`](flows/craft/routing.md) and nowhere else. A
+ledger that names a model goes stale the day that model does, and ties the workspace to one vendor
+in the one place a reader looks for what to do next.
+
+**This is a shape, not a token**, for the same reason `Frente` is: the same word is honest in one
+position and wrong in another. `**model: opus**` is a directive and is forbidden; `` `model: opus` ``
+in prose reporting a measurement, quoting a stale id, or describing what a provider's frontmatter
+resolves to is data and is fine. `core/hooks/entropy/entropy_vendor.py` matches the bolded
+assignment and nothing else — a flat token ban would fire on every honest use and be switched off
+inside a week.

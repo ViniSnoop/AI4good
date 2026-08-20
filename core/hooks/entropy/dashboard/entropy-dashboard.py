@@ -38,6 +38,7 @@ from entropy_naming import check_dirs, check_placement, check_shape  # noqa: E40
 from entropy_size import size_signals, stub_signals  # noqa: E402
 from entropy_report import END, SECTIONS, SEED, START, render  # noqa: E402
 from entropy_stores import experiment_hits, ref_tier_hits  # noqa: E402
+from entropy_vendor import vendor_directive_hits  # noqa: E402
 from file_law import load_limits  # noqa: E402
 from schema_law import (SCHEMA, WORKSPACE_ROOT, load_law,  # noqa: E402
                         load_retired, load_scopes)
@@ -111,6 +112,7 @@ def collect(files: list) -> dict:
     findings['finished'] = finished_work_hits(files, exempt)
     findings['undescribed'] = unanswered_placeholders(files, exempt)
     findings['stores'] = experiment_hits(files) + ref_tier_hits(files)
+    findings['vendor'] = vendor_directive_hits(files, exempt)
     # One directory-level finding is reported by every file under it; dedupe so a count
     # means "things to fix", not "files touched by a thing to fix".
     findings['naming'] = sorted(set(findings['naming']))

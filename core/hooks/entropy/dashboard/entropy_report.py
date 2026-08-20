@@ -45,6 +45,8 @@ SECTIONS = (
     ('stores', 'Doubt stores missing their own discipline',
      'an experiment states its Method, Results, What changed and Limitations; a judged reference '
      'carries a source tier'),
+    ('vendor', 'Ledgers naming a model where they mean a tier',
+     'which model fills a tier is data — core/flows/craft/routing.md'),
     ('truncated', 'Truncated routing descriptions',
      'the source wrote past the bound — shorten it there, never edit the table'),
     ('misplaced', 'Constraints trapped in a CONTEXT.md head',

@@ -26,4 +26,5 @@ may look at*, which every check needs before it can count anything.
 | [`entropy_naming.py`](entropy_naming.py) | [`entropy_naming.pyi`](entropy_naming.pyi) | `check_shape`, `check_dirs`, `check_placement` | Tier 0 naming and placement, parsed from core/SCHEMA.md. Zero-token, deterministic. |
 | [`entropy_size.py`](entropy_size.py) | [`entropy_size.pyi`](entropy_size.pyi) | `size_signals`, `stub_signals` | How big a file got, and whether anything can read its interface. Zero-token, deterministic. |
 | [`entropy_stores.py`](entropy_stores.py) | [`entropy_stores.pyi`](entropy_stores.pyi) | `experiment_hits`, `ref_tier_hits` | Tier 0 for the two stores that record what we know and how sure we are: core/experiments/ and core/refs/REFS.md. Zero-token, deterministic. |
+| [`entropy_vendor.py`](entropy_vendor.py) | [`entropy_vendor.pyi`](entropy_vendor.pyi) | `is_ledger`, `vendor_directive_hits` | Does a ledger assign a vendor's model where it should assign a tier? Zero-token, deterministic. |
 <!-- routing:end -->

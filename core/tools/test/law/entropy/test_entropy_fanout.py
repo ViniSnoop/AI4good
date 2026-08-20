@@ -33,6 +33,17 @@ BASELINE = {
     # splitting it the way `law/entropy/` and `workspace/generators/` already are: one test
     # directory per hook directory it covers.
     'core/tools/test/workspace/gates',
+    # Joined 2026-08-20 with the eighth one-question check (entropy_size, entropy_vendor). Unlike
+    # the row above, the NAME has not drifted — every module here really does answer one question
+    # about the corpus, which is the directory's stated design, so the count is the cost of that
+    # design working rather than a responsibility problem. Retired by splitting on what each check
+    # READS: the tree's shape (corpus, naming, fanout, size) against its text (context, ledger,
+    # stores, vendor). Named in ROADMAP-entropy.md so it is a decision someone makes, not a
+    # threshold that quietly rises. Its coverage directory mirrors it one word apart and crossed on
+    # the same commit for the same reason, so the two split together or not at all — which is the
+    # property that mirroring buys and the argument for keeping it.
+    'core/hooks/entropy',
+    'core/tools/test/law/entropy',
 }
 
 

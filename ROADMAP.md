@@ -152,9 +152,9 @@ low). Which model fills each tier is data in that file, never in this one.
 - 🟢 sweep this repo's first-line-comment markers now that the gate is shut.
 - 🟡 Five `.md` files are still over the 200-line cap, and the gate cannot go live until none are.
 - 🟢 the corpus is half Portuguese and the rule is English.
+- 🟡 `core/hooks/entropy/` holds eight one-question checks and crossed the fanout signal.
 - 🔴 Should entropy be scattered across the nested repos instead of pooled at the root?
 - 🟢 roundup compares the declared model split against the actual one.
-- 🟢 the ledgers name vendor models where they should name tiers.
 - 🟢 import the auto-trigger.
 
 **[`ROADMAP-ledger.md`](ROADMAP-ledger.md)**

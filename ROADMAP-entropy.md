@@ -110,6 +110,20 @@
    because matching a file's existing language beat mixing two inside one section. Convert whole
    files or whole ADs, never half of one. Quoted Lucas is his own words and **stays Portuguese**.
    → **tier: medium**.
+11. 🟡 **`core/hooks/entropy/` holds eight one-question checks and crossed the fanout signal.**
+    Joined the baseline 2026-08-20, when the size and vendor checks landed. **The name has not
+    drifted** — every module there really does answer one question about the corpus, which is what
+    that directory is for, so this is the cost of the design working rather than the responsibility
+    problem the signal usually means. That is exactly why it needs a decision instead of a rising
+    threshold. The seam, if it is worth paying one hop for: split on what each check **reads** — the
+    tree's *shape* (`corpus`, `naming`, `fanout`, `size`) against its *text* (`context`, `ledger`,
+    `stores`, `vendor`). Four and four, and the dashboard imports from two places instead of one.
+    **Splitting costs one hop; pay it only when it removes more table than it adds**, so the honest
+    answer may be to leave it and let the baseline hold. Whatever is decided applies to
+    `core/tools/test/law/entropy/` in the same commit: it mirrors this directory one word apart and
+    crossed the signal for the same reason, which is the property mirroring buys.
+    → **tier: medium**.
+
 13. 🔴 **Should entropy be scattered across the nested repos instead of pooled at the root?** Lucas,
     2026-08-18: *"entropy maybe should be scattered as well across each individual repo (maybe this
     is a task that deserves to be written somewhere, so we can DISCUSS this point in depth)."* Today
@@ -129,27 +143,14 @@ A rule belongs beside the thing it governs, so each of these is declared in a `S
 `SPECS.md` states what must be true and cannot say whether anything enforces it yet, which left the
 *build* with no home and made the item count flatter than the work state. **The declaring section is
 the spec; the row here is the work.** Each row is deleted the day its check runs; this section is
-deleted when the last one does. **Three left of six**, and the three that landed were the ones with
-nothing to decide — what is left each needs one judgment first, named in its row.
+deleted when the last one does. The rows below are the count; the ones that landed were the ones
+with nothing to decide, so what is left each needs one judgment first, named in its row.
 
 4. 🟢 **roundup compares the declared model split against the actual one.** `core/tools/wos/roundup`
    already prints the per-session split at every close; what is missing is the plan **declaring its
    expected split** and roundup comparing. It forces nobody to delegate — it makes deviation visible
    and dated instead of invisible, and needs no new instrument.
    Declared: [`core/SPECS-discipline.md`](core/SPECS-discipline.md) § AD-17. → **tier: medium**.
-0. 🟢 **the ledgers name vendor models where they should name tiers.** Lucas, 2026-08-17, reading a
-   step assignment: *"nothing in WOS should be tied to a specific vendor/company/model."* He was
-   right and it was wider than the one line he saw — 26 routing directives across both ledgers said
-   `model: sonnet` / `model: opus` where the workspace already has the abstraction: `/craft` routes
-   by **tier**, and [`core/flows/craft/routing.md`](core/flows/craft/routing.md) is the one file
-   holding which concrete model fills a tier per provider.
-   **The sweep is done; what is unbuilt is the guard.** Nothing stops the next session writing a
-   model name back in, which is the shape § Retired tokens exists for — except that a bare vendor
-   name is legitimate as *data* (a measured split, a quoted stale model id in a bug report) and
-   illegitimate as a *directive*, so a flat token ban would fire on the honest uses. The check has to
-   read position, not presence. Pairs with the `core/tier-map.json` extraction in
-   [`core/ROADMAP.md`](core/ROADMAP.md), which removes the last such name from source.
-   → **tier: medium**.
 5. 🟢 **import the auto-trigger.** `/craft` must be typed, which is the missing half of AD-17: the
    assignment is carried at plan time and no executor reads it outside the flow. The mechanism
    imports without the methodology — the rest of that repo stays under § Rejected.
