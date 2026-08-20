@@ -95,45 +95,6 @@
    because matching a file's existing language beat mixing two inside one section. Convert whole
    files or whole ADs, never half of one. Quoted Lucas is his own words and **stays Portuguese**.
    → **tier: medium**.
-11. 🟡 **`core/hooks/entropy/` holds eight one-question checks and crossed the fanout signal.**
-    Joined the baseline 2026-08-20, when the size and vendor checks landed. **The name has not
-    drifted** — every module there really does answer one question about the corpus, which is what
-    that directory is for, so this is the cost of the design working rather than the responsibility
-    problem the signal usually means. That is exactly why it needs a decision instead of a rising
-    threshold. The seam, if it is worth paying one hop for: split on what each check **reads** — the
-    tree's *shape* (`corpus`, `naming`, `fanout`, `size`) against its *text* (`context`, `ledger`,
-    `stores`, `vendor`). Four and four, and the dashboard imports from two places instead of one.
-    **Splitting costs one hop; pay it only when it removes more table than it adds**, so the honest
-    answer may be to leave it and let the baseline hold. Whatever is decided applies to
-    `core/tools/test/law/entropy/` in the same commit: it mirrors this directory one word apart and
-    crossed the signal for the same reason, which is the property mirroring buys.
-    → **tier: medium**.
-
-13. 🟡 **scatter entropy into every code repo, and collect one number at the root.** RULED
-    2026-08-20 (Lucas) — the discussion is closed and what remains is work.
-
-    **The ruling, in three parts.** *(a)* **Every CODE repo gets a local `ISSUES.md`**: the workspace
-    repo and everything under `code/`. Papers and `branches/` stay pooled — they are not code and
-    their findings are few. `core/` and `brain/` are **undecided and must be evaluated**, since both
-    live inside the workspace repo and may already be covered by its own ledger. *(b)* **The root
-    sums.** One collected number, not a table of cells each with its own baseline: *"sum it up, I am
-    aware of the tradeoff, that said, optimizing/solving the sum solves it all."* The sum keeps the
-    ratchet a single number in a single diff, which is the property that made it work. *(c)* The
-    picture rides along — see [`ROADMAP-legibility.md`](ROADMAP-legibility.md).
-
-    **What the evidence says the work is, and it is smaller than the item feared.** The scope is
-    **16 ledgers, not 26**, and they cover **91%** of findings; the 9% in papers and `branches/` stay
-    at the root. The other number that decides the shape: the root `ISSUES.md` is **91% generated
-    block** — the hand-written half holding the real bugs is buried under it. So the root stops
-    dumping findings and becomes an index of counts plus its own local findings, which is the routing
-    pattern every other type here already uses. Re-read both numbers from
-    [`ISSUES.md`](ISSUES.md) § Entropy rather than trusting these.
-
-    **The one thing to get right:** the sum must be recomputed from the local ledgers, never
-    hand-carried. A collected number that any repo can write into is the copied-count drift these
-    checks exist to catch.
-    → **tier: medium**.
-
 ---
 ## Declared but unbuilt — a rule with a `SPECS.md` section and no implementation
 
