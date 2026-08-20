@@ -80,11 +80,19 @@
    `core/tools/web/fetch` is treated as a command touching that subtree, so the gate demands the
    CONTEXT.md before letting the commit through. The gate should read the command, not the text the
    command carries. `core/hooks/read/bash-context-gate.py`. → **tier: medium**.
-8. 🟡 **`core/SPECS.md` crossed the size signal and mixes seven concerns.** Lucas (INBOX
-   2026-08-17), at 451 lines and 17 ADs; it is past 470 now. It holds tools, auth, flows, features,
-   always-loaded prose, doubt and delegation. **Decide the split axis before cutting** — that is why
-   it was not split mid-session, and the reason still stands: a split made in passing scatters
-   instead of organising. → **tier: medium**, axis first.
+8. 🟡 **Ten files are still over the 200-line cap, and the gate cannot go live until none are.**
+   Twenty-one were split on 2026-08-18/19; these ten each stop for a different reason and none is
+   work a workspace session can finish alone. **Six cannot be sharded at all** — `TYPE-<slug>.md`
+   only passes `check_shape` when `TYPE.md` is on the allowlist, and `UI_SPEC.md`, `LEXICON.md`,
+   `EXAMPLES.md`, `SPEC.md`, `REFACTOR.md` and `ROADMAP-2026H1-strategies.md` (uppercase in the
+   slug) are not. They need renaming first, and for spacemantics that rename is already refiled to
+   that repo's own roadmap. **Two are archives** — `archive/ROADMAP-2026H1-strategies.md` says
+   SUPERSEDED in its own title and `archive/S4-REVIEW-ROUNDS.md` is a dated review; 1065 lines that
+   § No archive types says to delete rather than split, which is Lucas's call on another project's
+   content. **Two are blocked on a live session** holding staged changes to
+   `code/isoroll-content/ROADMAP.md` and `code/isoroll-module/ROADMAP.md`. The eleventh,
+   `s3_batch.sh` at 209, is code and was already over before any of this.
+   → **tier: medium**, but the two rulings come first: rename the six, and delete the two archives.
 9. 🟢 **the corpus is half Portuguese and the rule is English.** Lucas (INBOX 2026-08-17): *"somente
    o meu texto é em português, as conversas nas sessões, mas o resto, os docs, tudo em inglês
    inclusive pra economizar tokens."* `AD-15/16/17` were written in English; **`AD-01`–`AD-14` and
