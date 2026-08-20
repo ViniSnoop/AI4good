@@ -75,7 +75,6 @@ Membership **only shrinks** and each survivor has a route.
 | File | Route | Why |
 |---|---|---|
 | `code/ROADMAP-spec-drive.md` | → ROADMAP-spec-drive.md | same shape, no anchor citations |
-| `code/isoroll-module/REFACTOR.md` | → ROADMAP-refactor.md | project-local, cheapest of the three |
 | `code/dobra/DECISIONS.md` | → that project's SPECS.md | **not a roadmap at all** — decisions are *what must be true and why*, which is the SPECS question. It sat in this list by naming accident |
 
 **A rename preserves every anchor id**, so a doc cited by anchor from source comments (`W1`, `G5`,

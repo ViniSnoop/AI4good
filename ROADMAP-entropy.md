@@ -80,19 +80,28 @@
    `core/tools/web/fetch` is treated as a command touching that subtree, so the gate demands the
    CONTEXT.md before letting the commit through. The gate should read the command, not the text the
    command carries. `core/hooks/read/bash-context-gate.py`. → **tier: medium**.
-8. 🟡 **Ten files are still over the 200-line cap, and the gate cannot go live until none are.**
-   Twenty-one were split on 2026-08-18/19; these ten each stop for a different reason and none is
-   work a workspace session can finish alone. **Six cannot be sharded at all** — `TYPE-<slug>.md`
-   only passes `check_shape` when `TYPE.md` is on the allowlist, and `UI_SPEC.md`, `LEXICON.md`,
-   `EXAMPLES.md`, `SPEC.md`, `REFACTOR.md` and `ROADMAP-2026H1-strategies.md` (uppercase in the
-   slug) are not. They need renaming first, and for spacemantics that rename is already refiled to
-   that repo's own roadmap. **Two are archives** — `archive/ROADMAP-2026H1-strategies.md` says
-   SUPERSEDED in its own title and `archive/S4-REVIEW-ROUNDS.md` is a dated review; 1065 lines that
-   § No archive types says to delete rather than split, which is Lucas's call on another project's
-   content. **Two are blocked on a live session** holding staged changes to
-   `code/isoroll-content/ROADMAP.md` and `code/isoroll-module/ROADMAP.md`. The eleventh,
-   `s3_batch.sh` at 209, is code and was already over before any of this.
-   → **tier: medium**, but the two rulings come first: rename the six, and delete the two archives.
+8. 🟡 **Five `.md` files are still over the 200-line cap, and the gate cannot go live until none are.**
+   Ten on 2026-08-19 morning; Lucas's rulings that afternoon closed five of them and **none of the
+   five left is workspace work**:
+   - **Three belong to `code/spacemantics`** — `dsl/SPEC.md`, `dsl/EXAMPLES.md`, `dsl/LEXICON.md`.
+     Renaming them is that repo's design question and is already filed in its own roadmap. Nothing
+     here moves until it rules.
+   - **Two are blocked on a live session** holding staged changes to `code/isoroll-content/ROADMAP.md`
+     and `code/isoroll-module/ROADMAP.md`. Check `git status` in both before touching either; the
+     work that unblocks them is somebody else's commit, not ours.
+
+   `s3_batch.sh` at 209 is code, not `.md`, and predates the rule. The `outputs/*.md` files the raw
+   line count surfaces are **not** violations — `core/hooks/generated.txt` excludes them, which is
+   worth knowing before someone re-derives the list by hand and reports nine.
+
+   **What the closing session learned, and the next one should expect.** The two names that looked
+   like they needed an allowlist entry needed neither: `UI_SPEC.md` needed the `SPECS.md` name its own
+   repo already used nine times, and `REFACTOR.md` was **done work** whose branch no longer existed.
+   Reach for *is this still true* before *what type is this*. Two traps fired on the way: a deleted
+   file's row in `core/SCHEMA.md`'s transient-exemption table keeps its exemption alive, because every
+   backticked name there is parsed as one; and a document being deleted can be the sole record of
+   something live — `REFACTOR.md` held the only copy of bug B29, which `BUGS.md` was supposed to have.
+   → **tier: medium**, and the gate flip is the last step, not the first.
 9. 🟢 **the corpus is half Portuguese and the rule is English.** Lucas (INBOX 2026-08-17): *"somente
    o meu texto é em português, as conversas nas sessões, mas o resto, os docs, tudo em inglês
    inclusive pra economizar tokens."* `AD-15/16/17` were written in English; **`AD-01`–`AD-14` and

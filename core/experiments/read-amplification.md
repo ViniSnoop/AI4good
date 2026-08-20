@@ -24,6 +24,7 @@ worker re-reading a chain its parent already read is a different question.
 | Date | sessions | reads | distinct files | served | re-reads | re-read chars |
 |---|---|---|---|---|---|---|
 | 2026-08-17 | 80 | 3,234 | 863 | 9,389k chars | 2,371 (73%) | 7,520k (80%) |
+| 2026-08-19 | 86 | 3,510 | 873 | 9,943k chars | 2,637 (75%) | 8,033k (81%) |
 
 By what was served (2026-08-17):
 
@@ -48,6 +49,38 @@ three times the per-session repeat rate of the chain it is usually blamed alongs
 
 **Stubs are cheap and are being served.** 339 stub reads for 159k chars — 470 chars each against
 2,300 for a source read — so the redirect is both live and paying.
+
+## Did sharding the ledger lower its read cost? — asked 2026-08-19, NOT YET ANSWERABLE
+
+Lucas, watching a session open all seven shards: *"we splited those to avoid reading too much,
+clearly the split wasn't enough… either we improve the routing so the agent really only opens the
+small subfile when needed or we go back to huge files."* The right response is a number, and the
+number does not exist yet. What the instrument shows, and why none of it settles the question:
+
+`ROADMAP.md` went 101 reads / 877k chars (08-17) to **134 / 1,000k** (08-19) — 33 reads and 123k
+chars added in the two days the split happened. That reads like a regression and is not evidence of
+one, for three reasons that each defeat it on their own:
+
+- **Every session in the window was a roadmap session.** The shards were created 08-18/19 by sessions
+  whose entire job was the roadmap family. A census over a family cannot skip a member, so the
+  measurement window contains only the workload sharding does not help.
+- **Per-read cost does not separate the two eras.** One post-split session read the root 3x for 7k
+  chars; a **pre**-split session (08-17) read it 4x for 4k. `Read` takes offset and limit, so what a
+  read costs depends on how it was asked for, and that variance is larger than the effect.
+- **The shards are one day old.** None of `ROADMAP-entropy.md`, `-ledger.md`, `-legibility.md`,
+  `-cost.md`, `-measurement.md`, `-portability.md` or `-self-description.md` appears in the top 60
+  re-read files. There is not enough of them in the population to measure.
+
+**What would settle it**, and the only thing that will: re-run `session/reads --top 60` after ~2 weeks
+of ordinary (non-roadmap) sessions and compare **chars served for the whole `ROADMAP*` family per
+session**, not for the root file alone. Sharding moves cost between family members; a number that
+watches one member cannot see whether the total fell.
+
+**One defect found while measuring, and it needs no experiment.** The root's routing table cannot let
+a reader skip a shard: its `Description` column names a topic rather than the questions inside, and
+its `Items` column is empty for every shard but one — although the generator already parses each
+shard's items to produce the `Open` and `Needs Lucas` counts. That is a fix, not a hypothesis, and it
+is filed in [`/ROADMAP-self-description.md`](../../ROADMAP-self-description.md).
 
 ## What changed
 
