@@ -78,11 +78,6 @@
    charge anyone for. **Size it against [`entropy.md`](entropy.md), and re-run the generator before
    measuring** — every marker drained so far was a file the generator could already describe.
    **Scope here is this repo only**; the nested-repo majority is under § Blocked. → **tier: medium**.
-7. 🟢 **the bash context gate reads paths out of a commit message body.** Lucas (INBOX 2026-08-17)
-   and **reproduced twice in this session**: a heredoc `git commit -F -` whose *message* names
-   `core/tools/web/fetch` is treated as a command touching that subtree, so the gate demands the
-   CONTEXT.md before letting the commit through. The gate should read the command, not the text the
-   command carries. `core/hooks/read/bash-context-gate.py`. → **tier: medium**.
 8. 🟡 **Five `.md` files are still over the 200-line cap, and the gate cannot go live until none are.**
    Ten on 2026-08-19 morning; Lucas's rulings that afternoon closed five of them and **none of the
    five left is workspace work**:

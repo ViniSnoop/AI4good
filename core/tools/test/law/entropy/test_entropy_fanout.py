@@ -26,6 +26,13 @@ BASELINE = {
     'core/skills/caveman/scripts',
     'core/skills/caveman/hooks',
     'academy/administration/coordenacao-lc/novo-ppc-bcc/ementas',
+    # Joined 2026-08-19, and it owes a split that is already named. `gates/` is supposed to mirror
+    # `core/hooks/gates/`, but it holds tests for hooks from read/, checks/, git/ and compact/ as
+    # well — so the directory's NAME has drifted from its contents, which is the responsibility
+    # problem the fanout signal exists to surface rather than a count to wave through. Retired by
+    # splitting it the way `law/entropy/` and `workspace/generators/` already are: one test
+    # directory per hook directory it covers.
+    'core/tools/test/workspace/gates',
 }
 
 
