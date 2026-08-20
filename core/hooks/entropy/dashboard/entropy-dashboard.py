@@ -37,6 +37,7 @@ from entropy_ledger import (duplicate_slugs, finished_work_hits,  # noqa: E402
 from entropy_naming import check_dirs, check_placement, check_shape  # noqa: E402
 from entropy_size import size_signals, stub_signals  # noqa: E402
 from entropy_report import END, SECTIONS, SEED, START, render  # noqa: E402
+from entropy_scatter import scatter  # noqa: E402
 from entropy_stores import experiment_hits, ref_tier_hits  # noqa: E402
 from entropy_vendor import vendor_directive_hits  # noqa: E402
 from file_law import load_limits  # noqa: E402
@@ -124,11 +125,15 @@ def main() -> int:
         return 0  # switched off: no report is written, so the number stops existing rather than lying
     files = tracked_files(WORKSPACE_ROOT, nested=True)
     findings = collect(files)
+    # Every code repo's findings go to its own ledger first; what is left is this repo's own, and
+    # the counts come back so the root can sum them in the same pass that wrote them.
+    mine, counts = scatter(findings, WORKSPACE_ROOT, files)
     text = REPORT.read_text(encoding='utf-8') if REPORT.exists() else SEED
-    block = render(findings, len(files), WORKSPACE_ROOT)
+    block = render(mine, len(files), WORKSPACE_ROOT, index=counts)
     REPORT.write_text(replace_block(text, block, START, END), encoding="utf-8")
-    print(f'entropy dashboard → {_rel(REPORT)} '
-          f'({sum(len(findings[k]) for k, _, _ in SECTIONS)} findings)')
+    here = sum(len(mine[k]) for k, _, _ in SECTIONS)
+    print(f'entropy dashboard → {_rel(REPORT)} ({here + sum(counts.values())} findings, '
+          f'{here} here, {len(counts)} local ledgers)')
     return 0
 
 

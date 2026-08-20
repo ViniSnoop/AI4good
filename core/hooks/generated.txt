@@ -33,15 +33,19 @@ ARCHITECTURE.html
 */outputs/*
 outputs/*
 
-# The workspace's own ISSUES.md — the ROOT one only, which is why the pattern is anchored: every
-# other ISSUES.md in the tree is hand-written from its first line to its last and stays capped.
-# This one carries the entropy block (core/hooks/entropy/dashboard/entropy-dashboard.py) and the
-# verify block (core/tools/wos/roundup), together some 900 lines of generated prose that no split
-# could improve, so the cap is waived for the whole file.
+# Every ISSUES.md, at the root and in each code repo. The pattern used to be anchored to the root
+# one, on the reasoning that every other ISSUES.md was hand-written from its first line to its last;
+# the entropy scatter (ruled 2026-08-20) ended that — each code repo's ledger now carries the same
+# generated entropy block the root does, holding its own findings.
 #
-# It is the one HALF-authored entry in this list, and that is a real cost rather than a detail: the
-# hand-written issues above the blocks lose the size signal too. Accepted because the alternative is
-# a per-block cap — a second numeric law, answering a question BLOCK_LINES already answers, which is
-# the drift file_law.py exists to prevent. If the hand-written half ever grows past a screen, it
-# shards like any other type and the shards are ordinary capped files.
+# The root additionally carries the verify block (core/tools/wos/roundup). Together these are
+# hundreds of lines of generated prose that no split could improve, so the cap is waived for the
+# whole file.
+#
+# These are the one HALF-authored kind of entry in this list, and that is a real cost rather than a
+# detail: the hand-written issues above the blocks lose the size signal too. Accepted because the
+# alternative is a per-block cap — a second numeric law, answering a question BLOCK_LINES already
+# answers, which is the drift file_law.py exists to prevent. If a hand-written half ever grows past
+# a screen, it shards like any other type and the shards are ordinary capped files.
 ISSUES.md
+*/ISSUES.md

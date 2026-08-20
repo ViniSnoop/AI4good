@@ -96,12 +96,20 @@ _CHECKER_TESTS = 'core/tools/test/**/test_entropy_ledger.py*'
 # moves — which is exactly what happened when the hooks moved into `core/` (2026-07-31).
 _CHECKER = ('entropy_ledger.py', 'entropy_ledger.pyi')
 
+# Since the entropy scatter (ruled 2026-08-20) every code repo's ledger carries the same generated
+# block the root's does, so the exemption that followed the report into ISSUES.md has to follow it
+# into all of them. This is not a courtesy: the report's own section notes name a retired token and
+# spell `[[slug]]` literally, so a ledger left unexempt is flagged by the very text the tool wrote
+# into it — the check reporting on its own output.
+_LOCAL_LEDGERS = 'code/*/ISSUES.md'
+
 
 def enforcement_paths(root: Path) -> set:
     here = Path(__file__).resolve().parent
     return ({(root / name).resolve() for name in ENFORCEMENT}
             | {here / name for name in _CHECKER}
-            | {p.resolve() for p in root.glob(_CHECKER_TESTS)})
+            | {p.resolve() for p in root.glob(_CHECKER_TESTS)}
+            | {p.resolve() for p in root.glob(_LOCAL_LEDGERS)})
 
 
 # brain/memory holds cross-session agent memory, and its `[[slug]]` names ANOTHER MEMORY rather
