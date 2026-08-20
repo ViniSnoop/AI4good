@@ -131,6 +131,27 @@ agents first, flows after the pointer question is answered.
    **The tie-breaker to settle first is the public repo**, not the wiring: if the scaffold ships the
    research and paper-writing subset, whether a Telegram bridge is inside the workspace or beside it
    is answered by what a student clones. Decide that, and this row decides itself.
-   → **tier: high**, one sitting.
+
+   **That tie-breaker was already answered and nobody had noticed** (2026-08-20). Item 5 above
+   records Lucas's own scoping from INBOX 2026-08-17: the minimum useful subset is **the research
+   and paper-writing branch, not the whole scaffold**. A Telegram bridge is not in that subset under
+   any reading, so **it never travels, wherever it lives** — and that collapses the strongest
+   argument on the *against* side. That argument was that absorbing "would have to exclude it by
+   allowlist rather than by it living elsewhere, which moves a boundary that currently cannot be got
+   wrong." But the sync's allowlist is a **positive** list that fails closed, and every other
+   top-level directory is already governed by it. Living in a separate repo was never the guard; the
+   allowlist is the guard, and it is unchanged either way.
+
+   **What survives on the against side is real but weaker than it reads:** aiwbot has its own verify
+   suite, its own history and its own `AgentBackend` seam — *"exactly the shape `code/*` is for."*
+   True of every project under `code/`, which is the point: `code/` is for **projects**, and Lucas's
+   own words say this is not one — *"aiwbot is part of WOS, it is deeply entangled, it is not meant
+   for general purpose bots."* Absorbing also removes a structural impossibility rather than an
+   inconvenience: `telegram-capture` cannot be wired today because the only available column value
+   would make this repo's Tier 0 test assert on a nested repo's content, which Front 4 forbids for a
+   reason this repo cannot fix.
+
+   **Verdict brought, ruling still Lucas's:** absorb. The evidence is that the deciding question was
+   already settled and the wiring block is structural, not effortful. → **tier: high**, one sitting.
 
 ---

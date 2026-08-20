@@ -117,6 +117,31 @@ Three sub-questions, in the order they can be answered:
    other checks in this repo prove a name is present rather than that a behaviour happened**, which
    is [`core/SPECS.md`](core/SPECS.md) § Conventions applied to our own suite for the first time.
    **Lucas asked (2026-08-18) to be walked through this rather than have it decided for him.**
+
+   **The sweep ran 2026-08-20 and the result reframes the question. The row stays open for his
+   ruling; what follows is evidence, not a decision.** Eighty-eight assertions in the suite match
+   the shape *"a literal appears in some text"*. The great majority are **not** the failure: they
+   assert on the **output of a program the test just ran**, which is behaviour observed, not a name
+   grepped. Roughly ten read a **source file** instead — and those split in two, which is the thing
+   worth deciding:
+
+   - **The property really is textual, and grep is the right instrument.** *"This module does not
+     keep a second copy of the law"* is a claim about source text and nothing else. Three checks are
+     this shape (`entropy_fanout`'s one-home test, `subagent_gate`'s, the stubgen-output one), and
+     each already pairs its positive with a **negative** assert — `f'= {WARN}' not in source`,
+     `"'agent_id'" not in body`. The negative is the load-bearing half; the positive is a weak
+     witness that the import exists at all.
+   - **The property is behavioural and the grep is standing in for it.** This is the family that
+     failed. `test_features_wiring` asserts a wired file "asks feature_law whether it is on" by
+     `'feature_law' in body or 'tool_law' in body` — **an OR of two common tokens matched anywhere,
+     comments and docstrings included**, which is a weaker witness than the one that passed on
+     *asymmetry*. `test_gate_messages` proves a block "reaches the user" by finding the word
+     `stderr` in the gate's source.
+
+   **So the rule to rule on is not "stop grepping".** It is: *does the claim describe the text or
+   the run?* A no-second-copy rule is textual and its negative assert is the real check. "This gate
+   consults the registry", "this block reaches the user" are runtime claims, and for those a
+   substring is a proxy that has already been caught passing wrongly once.
    → **tier: medium**, and it is the cheapest item in this front by a wide margin.
 
 3. 🔴 **The agent agrees with the frame it was handed, and nothing catches that either.** Lucas
