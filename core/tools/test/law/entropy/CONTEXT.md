@@ -12,14 +12,8 @@ ledger and a legend marker in a spec, a date without a completion verb is a cita
 unfilled marker is a question rather than history. Whether the **backlog is shrinking** is a
 different question, owned by the ratchets in [`../../workspace/`](../../workspace/CONTEXT.md).
 
-**The mirror is incomplete, and it was asserted complete for as long as both directories existed.**
-One `ls` refutes it: `entropy_corpus.py` and `entropy_size.py` have no test file here, while
-`test_entropy_inventory.py` and `test_entropy_placeholders.py` test surfaces that live inside other
-modules. Six names line up, two do not, in each direction. The claim that this directory "mirrors"
-that one was written into a durable file with no probe attached — the failure shape
-[`ROADMAP-self-description.md`](../../../../ROADMAP-self-description.md) exists to name — and it is
-recorded here rather than fixed in passing, because closing the gap means deciding whether the two
-untested modules deserve their own files or their coverage belongs where it already sits.
+The mirror is incomplete — two modules next door have no test file here, two tests here cover
+surfaces that live elsewhere. Recorded as a bug in [`ISSUES.md`](../../../../../ISSUES.md).
 
 Write the glyphs these checks hunt for **only inside a test**, never in this head: the checks read
 prose literally, and a `CONTEXT.md` quoting a marker is indistinguishable from one that never

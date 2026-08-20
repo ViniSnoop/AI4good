@@ -87,6 +87,29 @@ of investigation per occurrence, which is the same silent-failure shape
 
 **Root cause:** unknown. Which path exits quietly is unestablished; the size gate is not it.
 
+## B5 — `core/tools/test/law/entropy/` says it mirrors the checks it tests, and it does not
+
+**Symptom:** its `CONTEXT.md` described itself as mirroring `core/hooks/entropy/`, and the roadmap
+row about that directory's fanout repeated the claim — *"it mirrors this directory one word apart"*.
+One `ls` of each refutes both. Six names line up; two do not, in each direction:
+
+- `entropy_corpus.py` and `entropy_size.py` have **no test file** in the mirror.
+- `test_entropy_inventory.py` and `test_entropy_placeholders.py` test surfaces that live **inside
+  other modules**, so their names answer to nothing next door.
+
+**Why it matters more than a wrong description:** the fanout ruling for `core/hooks/entropy/` was
+argued partly from symmetry — whatever is decided applies to the mirror "in the same commit, which
+is the property mirroring buys." That property was assumed, not checked, so the argument rested on
+something untrue. It also means `size_signals` and the corpus selector — the check that decides
+*which files every other check may look at* — are covered only incidentally.
+
+**Root cause of the gap:** unestablished, and it is a real decision rather than an oversight to
+correct in passing. Either those two modules deserve their own test files, or their coverage
+genuinely belongs where it already sits and the *name* is what should change. Nothing asserts either
+way today, which is why the claim could drift unnoticed for as long as both directories existed.
+
+**Repro:** `ls core/hooks/entropy/ core/tools/test/law/entropy/` and compare the stems.
+
 <!-- entropy:start -->
 ## Entropy
 

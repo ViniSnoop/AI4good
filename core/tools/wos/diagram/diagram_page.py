@@ -6,6 +6,7 @@
 # fail silently in a viewer, and the file stays readable as text.
 from html import escape
 
+import diagram_footer as footer
 import diagram_overview as overview
 
 STYLE = """
@@ -43,6 +44,10 @@ td.advises { color:var(--dim); } td.none { color:var(--dim); opacity:.6; }
 .empty { background:transparent; }
 .unwired { color:#c0392b; font-size:10px; letter-spacing:.04em; }
 .inf { color:var(--dim); font-size:9px; letter-spacing:.04em; }
+table.findings { border-collapse:collapse; font-size:12.5px; margin:8px 0 0; min-width:min(420px,100%); }
+table.findings td { border-bottom:1px solid var(--line); padding:3px 10px 3px 0; }
+table.findings td.n { text-align:right; font-variant-numeric:tabular-nums; color:var(--dim);
+  padding-right:0; }
 .legend { color:var(--dim); font-size:12px; margin:10px 0 4px; }
 .key { margin-right:16px; white-space:nowrap; }
 .note { color:var(--dim); font-size:12px; max-width:80ch; margin:8px 0 0; }
@@ -105,9 +110,9 @@ TABS = (('matrix', 'enforcement', 'what is wired where'),
         ('mass', 'mass', 'how much of it there is'))
 
 
-def _tab_inputs() -> str:
+def _tab_inputs(keys: tuple) -> str:
     out = []
-    for i, (key, label, hint) in enumerate(TABS):
+    for i, (key, label, hint) in enumerate(t for t in TABS if t[0] in keys):
         checked = ' checked' if i == 0 else ''
         out.append(f'<input type="radio" name="tab" id="t-{key}"{checked}>'
                    f'<label for="t-{key}" title="{escape(hint)}">{escape(label)}</label>')
@@ -120,16 +125,21 @@ def _panel(key: str, heading: str, body: str) -> str:
 
 
 def render(panels: dict, coverage: dict, scope: dict, summary: str = '',
-           sequence: str = '', fanin: str = '') -> str:
+           sequence: str = '', fanin: str = '', title: str = 'workspace architecture',
+           heading: str = 'the workspace as it is', whole: bool = True) -> str:
     """One page: the summary, the session sequence, the wiring fan-in, then the detail tabs.
 
     `summary`, `sequence` and `fanin` render ABOVE the tab strip and outside it, deliberately — a
     tab is a click, and the page's whole defect was that its most-asked questions were the ones
     needing a hunt. `panels` maps a tab key to its rendered body plus the prose under it; nothing
     here computes anything about the workspace.
+
+    A caller may hand over FEWER panels than there are tabs, and the strip then holds only what it
+    was given. That is what lets a code repo reuse this shell: three of the six drawings read
+    `core/features.txt` and the hook registrations, which no repo under `code/` has.
     """
-    body = [_tab_inputs()]
-    for key, _label, _hint in TABS:
+    body = [_tab_inputs(tuple(panels))]
+    for key, _label, _hint in (t for t in TABS if t[0] in panels):
         drawing, prose = panels[key]
         heading = {'matrix': 'features against the sites that enforce them',
                    'spine': 'the routing chain, three levels deep',
@@ -142,9 +152,9 @@ def render(panels: dict, coverage: dict, scope: dict, summary: str = '',
         '<!doctype html>',
         '<html lang="en"><head><meta charset="utf-8">',
         '<meta name="viewport" content="width=device-width,initial-scale=1">',
-        '<title>workspace architecture</title>',
+        f'<title>{escape(title)}</title>',
         f'<style>{STYLE}{overview.STYLE}</style></head><body>',
-        '<h1>the workspace as it is</h1>',
+        f'<h1>{escape(heading)}</h1>',
         '<p class="lede">Generated from the files that already declare it. Nothing here is drawn '
         'by hand — a hand-drawn map is the rot the routing tables exist to prevent, and it goes '
         'stale the day after it is drawn.</p>',
@@ -155,28 +165,5 @@ def render(panels: dict, coverage: dict, scope: dict, summary: str = '',
         '<div class="tabs">',
         '\n'.join(body),
         '</div>',
-        _footer(coverage, scope),
+        footer.render(coverage, scope, whole),
         '</body></html>', ''])
-
-
-def _footer(coverage: dict, scope: dict) -> str:
-    unparsed = coverage['unparsed']
-    line = (f'<b>coverage</b> parsed {coverage["parsed"]} of {coverage["total"]} routing blocks'
-            + (f' · <b>{len(unparsed)} unparsed:</b> {escape(", ".join(unparsed))}'
-               if unparsed else ' · none unparsed'))
-    return '\n'.join([
-        '<footer>',
-        f'<p>{line}</p>',
-        f'<p><b>scope</b> the workspace repository. {scope["nested"]} repositories nested inside '
-        'it are drawn as directories and no deeper: each is its own repository and will earn its '
-        'own document.</p>',
-        '<p><b>what is inferred</b> nothing, as of 2026-08-18. Every edge above renders declared '
-        'or generated data, the firing moment included: <code>core/hooks/trigger/trigger_law.py</code> '
-        'reads it from the registrations, the pre-commit dispatcher\'s own stage order and the '
-        'install steps. What the registrations cannot place is counted as a gap instead of '
-        'guessed at.</p>',
-        '<p><b>how to change it</b> edit the source, not this file: '
-        '<code>core/features.txt</code> for the matrix, a directory\'s <code>CONTEXT.md</code> '
-        'for the spine. Regenerated and committed by <code>/roundup</code> at every session '
-        'close, so a stale picture is a bug in the close, not a fact of life.</p>',
-        '</footer>'])
