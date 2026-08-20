@@ -59,16 +59,8 @@ this table holds the guard.
 | `LOOP-TREE` | `tree.md` | 2026-07-23 |
 | `KNOWN-BUGS` | `ISSUES.md` | 2026-07-30 |
 | `/loops` | `/craft` | 2026-08-17 |
+| `BUGS.md` | `ISSUES.md` | 2026-08-19 |
 
-**`BUGS.md` is renamed but has no row yet, and the reason is one file.** The type became `ISSUES.md`
-on 2026-08-19 and the sweep is otherwise complete — four files renamed across four repos, the gate
-renamed to `issues-gate`, every reference in every tracked file moved. What survives is
-[`brain/INBOX.md`](../brain/INBOX.md), which holds **Lucas's own capture proposing the rename**, in
-his words. Rewriting a capture to satisfy a check written because of it is the wrong order, and the
-INBOX is drained by `/inbox` rather than by sed. The row lands the day that entry is triaged. Until
-then this rename is *unfinished by this table's own definition*, which is the honest state and is
-exactly why the row is not here: a row that fails on the day it is written teaches people to ignore
-the check.
 
 **The skill rename is a shape, not a word, for the same reason `Frente` is.** `loops` is ordinary
 English — the corpus holds a thousand honest uses, from "file-relayed loops" to "execution loops"
