@@ -22,7 +22,8 @@
   Routing](https://arxiv.org/abs/2605.18796) (2026) — escalate on calibrated uncertainty, not on
   task label.
 - `[C]` [three-lane model routing](https://www.instagram.com/reel/DbHHdF4gLWS/) — cheap model
-  compresses all input, expensive model reads only the briefing. Also in `core/WATCHLIST.md`.
+  compresses all input, expensive model reads only the briefing. Also in
+  [`REFS-unjudged.md`](REFS-unjudged.md) § Frameworks / methods.
 
 ## Output cost & the interface an agent acts through
 

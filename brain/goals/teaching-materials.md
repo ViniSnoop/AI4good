@@ -46,7 +46,7 @@ Comece escrevendo **uma** semana-padrão: o que a quarta faz, o que a sexta faz.
 > [ ] [pesquisa-que-falta] gamificação séria (sem infantilizar), specs/contract grading, mecanismos de avaliação por pares com propriedades verificáveis, e venues de publicação alcançáveis por graduandos em um semestre  
 > [ ] [notion-write] WOS edita a página da turma — o CLI lê; escrever a metodologia nova lá é o que fecha o ciclo para os alunos  
 > [ ] [excalidraw-vs-miro] veredito sobre trocar o Miro: a colaboração ao vivo do Excalidraw é efêmera e morre com a aba de quem abriu. Decidir **com a evidência da aula de 2026-08-19**, não antes  
-> [ ] [research-tools] research best current teaching tools — interactive slides, animations, open formats — start from the animation entries in `core/WATCHLIST.md` (claude-code+remotion, Claude Code UI-animation skills). **Reescopado 2026-08-14:** o WOS agora lê e edita os decks direto no Google Slides (`core/tools/slides/gslides`), e Slidev foi deletado — a pergunta aberta não é mais qual formato local adotar, é quanto de animação dá pra autorar como sequência de slides gerada  
+> [ ] [research-tools] research best current teaching tools — interactive slides, animations, open formats — start from the animation entries in `core/refs/REFS-unjudged.md` (claude-code+remotion, Claude Code UI-animation skills). **Reescopado 2026-08-14:** o WOS agora lê e edita os decks direto no Google Slides (`core/tools/slides/gslides`), e Slidev foi deletado — a pergunta aberta não é mais qual formato local adotar, é quanto de animação dá pra autorar como sequência de slides gerada  
 > [ ] [pick-format] pick a target format or tool — one concrete candidate to prototype with  
 > [ ] [migrate-one] convert one existing lecture to the new format as a test  
 > [ ] [full-migration] define migration plan for remaining course materials  
@@ -62,10 +62,10 @@ last-touch: 2026-08-19  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |      26 |
-| trimester   |      36 |
-| semester    |      36 |
-| year        |      36 |
-| 2-year      |      36 |
-| 4-year      |      36 |
+| month       |      28 |
+| trimester   |      38 |
+| semester    |      38 |
+| year        |      38 |
+| 2-year      |      38 |
+| 4-year      |      38 |
 <!-- stats:end -->

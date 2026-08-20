@@ -7,11 +7,10 @@
 Tier markers are `[A] [B] [P] [V] [C]` — `[P]` = preprint, provisional. Captured from 2026-07-23
 (rounds 1+2 of the workspace-os robustness sweep) onward.
 
-**Judged vs unjudged is a `status:`, not a separate file** (2026-07-30). The old
-`core/WATCHLIST.md` was folded in here: "candidates to try" and "references to read" are the same
-object — a link — at two points of one pipeline (`INBOX` → unjudged → judged → a ROADMAP item or
-a rejection line). Promote by moving the line up and giving it a tier; reject by deleting it and
-leaving one line in the relevant ROADMAP.
+**Judged vs unjudged is a `status:`, not a separate file** (2026-07-30). "Candidates to try" and
+"references to read" are the same object — a link — at two points of one pipeline (`INBOX` →
+unjudged → judged → a ROADMAP item or a rejection line). Promote by moving the line up and giving it
+a tier; reject by deleting it and leaving one line in the relevant ROADMAP.
 
 <!-- routing:start -->
 ## Routing

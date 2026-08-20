@@ -52,6 +52,19 @@
    Scope is the whole enforcement layer, not the `.md` corpus: hooks, skills, tools, `AGENTS.md`
    itself. The corpus drain is downstream — its verdicts are judgement calls today precisely because this
    instrument does not exist, and it says so rather than implying they are measured.
+
+   **Re-affirmed as the priority, 2026-08-20 (Lucas, INBOX):** *"o WOS precisa ser avaliado, mais uma
+   vez, suas features, seus arquivos, tá tudo um pouco grande e sinto que um pouco como uma
+   macarronada… acho que o teste de ablação vai ser de fato o principal. vai ajudar a tirar ruído
+   também porque vamos naturalmente perceber cargas desnecessárias."* Note what he expects of it that
+   this row does not currently promise: the ablation as a **subtraction instrument**, telling him
+   which loads are unnecessary — not only whether the scaffold helps in aggregate. Design the suite so
+   a per-feature verdict is readable, or it answers the smaller question.
+
+   **Outside evidence that the premise is live, captured 2026-08-20** — Anthropic reportedly runs
+   exactly this and found stripping system prompts can leave the model *slightly more intelligent*,
+   instructions constraining rather than helping. Secondhand and uncitable as it stands; the ref and
+   its provenance are in [`academy/papers/wos-ablation/refs/REFS.md`](academy/papers/wos-ablation/refs/REFS.md).
    → **tier: high** for the design, medium to run it.
 
 ---
@@ -128,6 +141,17 @@ Three sub-questions, in the order they can be answered:
 
 **Do not open this with a prompt rule.** That is the cheapest-looking move and the one the evidence
 above already rejects.
+
+**A third specimen of the failure, captured 2026-08-20, and it arrives with the rejected cure
+attached.** Reported claim: the model treats a claim repeated across many sites as many independent
+confirmations, even when every copy traces to one anonymous source — laundering a single unsourced
+assertion into apparent consensus. That is this front's subject seen from the *evidence-weighing*
+side rather than the assertion side, and it is worth keeping because our own case study has the same
+shape: the instrument that agreed with the script it replaced *read as confirmation and was not,
+because both shared one misunderstanding*. The proposed fix in the source is one extra prompt line
+telling the model to trace claims to origin — **the exact INDUCED move this front already rejects**,
+so it is filed as a specimen and not as a candidate mechanism. Ref and provenance:
+[`core/refs/REFS-unjudged.md`](core/refs/REFS-unjudged.md).
 ## Silent failure is the failure mode this workspace actually has
 
 The rule this cost six bugs to learn is [`core/SPECS.md`](core/SPECS.md) § Conventions: **a check

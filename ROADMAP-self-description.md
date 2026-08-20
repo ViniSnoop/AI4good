@@ -81,5 +81,34 @@ refiled there, and a finding worth keeping goes into the `SPECS.md` section that
    plan is supposed to live in a `ROADMAP.md`; what is missing is anything asserting the two agree.
    **Do not design this before item 2 reports** — if goal files turn out to be read rarely, the fix
    is not a stronger link to them.
+
+   **A mechanism proposed, 2026-08-20 (Lucas, INBOX), and it is his own hedge:** *"definitivamente
+   temos que conectar os goals com os roadmaps. talvez no /roundup. talvez, talvez! automaticamente
+   lançar warning quando fizer um commit de qualquer arquivo ROADMAP*.md para atualizar o goal linkado
+   com aquele roadmap."* Two candidate moments, and they are not equivalent: `/roundup` is a ritual
+   the agent runs and can skip, a commit hook is ENFORCED and costs zero tokens — which this
+   workspace's own bet says should win. The `>**owns**` block already declares the goal↔path
+   direction, so the reverse lookup a warning needs is derivable rather than something to author.
+   The *"talvez, talvez!"* is doing real work: **warn, never block.** A gate that stops a commit
+   because a goal file was not touched would train people to write empty goal updates.
    → **tier: medium**.
+4. 🟡 **audit the goal file format against what actually drives follow-through.** Lucas, 2026-08-20
+   (INBOX), on a summary of fifty years of motivation research: *"podemos talvez aproveitar essas
+   máximas no design do WOS, dos goals."* The six named: specific goals beat vague intentions
+   (Locke & Latham); visible progress sustains effort (Amabile's progress principle); self-directed
+   meaning beats willpower (Deci & Ryan); environment and cues shape behaviour more than resolve
+   (Wood); social accountability strengthens pursuit; and setbacks get planned for in advance rather
+   than absorbed (Gollwitzer's implementation intentions).
+
+   **The reason this is a real audit and not decoration:** our goal files already do the first two —
+   a backlog item is specific, and `/compass` renders progress — and do **none** of the last three.
+   There is no `if this happens, then I will` field anywhere, which is the one with the strongest
+   evidence behind it and the cheapest to add. Read as a critique rather than a checklist, this says
+   the format is built for *stating* goals and not for *resuming* them, which is also Lucas's
+   recurring complaint about goals feeling unused.
+
+   **Ordered behind item 2, deliberately**, for the same reason item 3 is: if goal files turn out to
+   be read rarely, redesigning their fields is the wrong move. Secondhand summary, uncitable as it
+   stands — the named researchers are the citable trail, and the ref is in
+   [`core/refs/REFS-unjudged.md`](core/refs/REFS-unjudged.md). → **tier: medium**.
 

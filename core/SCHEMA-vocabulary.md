@@ -60,6 +60,7 @@ this table holds the guard.
 | `KNOWN-BUGS` | `ISSUES.md` | 2026-07-30 |
 | `/loops` | `/craft` | 2026-08-17 |
 | `BUGS.md` | `ISSUES.md` | 2026-08-19 |
+| `WATCHLIST.md` | `core/refs/REFS-unjudged.md` | 2026-08-20 |
 
 
 **The skill rename is a shape, not a word, for the same reason `Frente` is.** `loops` is ordinary

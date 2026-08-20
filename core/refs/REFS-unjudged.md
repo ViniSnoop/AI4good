@@ -6,11 +6,15 @@
 
 Candidates to try, not references to read. Nothing here has been assessed, so nothing here may be
 cited or used to justify a decision. Promote a winner by moving its line up into a judged section
-with a tier marker; kill the rest by deleting the line. Folded in from `core/WATCHLIST.md` 2026-07-30.
+with a tier marker; kill the rest by deleting the line.
 
 ### Frameworks / methods
 - [weft](https://github.com/WeaveMindAI/weft) · [node docs](https://weavemind.ai/docs/nodes) — node
-  language; test the principles or the language itself
+  language; test the principles or the language itself. **Captured a second time 2026-08-19** —
+  Lucas: *"weave again, we should at least try it at some point"*; the repeat is itself the signal.
+  Claimed shape, per the source: build AI systems as structured graphs instead of thousands of lines
+  of Python, compiled to native Rust. That is `code/flows` restated by someone else, which is what
+  makes it worth an hour — assessment task tracked in `code/flows/ROADMAP-flows.md`
 - [OpenJarvis](https://github.com/open-jarvis/OpenJarvis) — assistant framework
 - [claude-code + remotion animations (van
   Clief)](https://www.skool.com/cliefnotes/classroom/d3907117?md=f7a33a9888604a08a7e48bb876682691) —
@@ -48,6 +52,16 @@ with a tier marker; kill the rest by deleting the line. Folded in from `core/WAT
   **Parse, not OCR** — does not solve the image-only PDFs
 
 ### Models / runtimes
+- [Echo](https://www.instagram.com/reel/Db1fYnbyoAX/) — claims it beat Claude Fable on a coding
+  benchmark at 40% less cost by running several open-weight models at once, allocating compute
+  dynamically and merging outputs. Lucas: *"será que vale um teste?"* ⚠ vendor claim relayed by a
+  third-party account, no benchmark named — assessment task tracked in `/ROADMAP-cost.md`
+- [seven open-source releases, week of 2026-08-17](https://www.instagram.com/reel/DcJ3PUDyIvS/) —
+  relayed claim of a Chinese Opus-level model running fully local and free, plus releases from Meta,
+  xAI, Zhipu and Alibaba; watermark removal and browser-driven site cloning among the tools. Lucas:
+  *"interessado especialmente nos casos em que podemos rodar algo localmente"* ⚠ no model named, no
+  benchmark — the value is the pointer to that week, not the claim — backlog item in
+  `brain/goals/local-ai.md`
 - kimi 2.6 · kimi 2.7 · GLM-5.2 · moonshot AI · qwen code
 - airLLM + Qwen3.6 (14B–20B) and/or Laguna XS.2; LFM2.5
 - turbovec (google compressions, 31b → 4b)
@@ -112,6 +126,20 @@ Lucas can open them in a browser and paste the content, which is the only path t
   superpowers?"* — the honest comparison is against `core/flows/craft/` and `/craft`, which already
   do this, and the question is whether theirs is better rather than whether it is good. Paired
   assessment item in /ROADMAP.md
+
+### How a goal is written, and how a claim is weighed
+- [50 years of motivation science](https://www.instagram.com/reel/DcQpCU_JkmU/) — Shadé Zahrai,
+  summarising six findings: specific goals over vague intentions (Locke & Latham), progress as the
+  driver of persistence (Amabile), self-directed meaning over willpower (Deci & Ryan), environment and
+  cues over resolve (Wood), social accountability, and implementation intentions — *if this happens,
+  then I will* (Gollwitzer). Lucas: *"podemos talvez aproveitar essas máximas no design do WOS, dos
+  goals."* ⚠ a reel summarising six literatures; **the named researchers are the citable trail, this
+  link is not** — assessment task tracked in `/ROADMAP-self-description.md`
+- [repeated claims read as independent confirmation](https://www.instagram.com/reel/DcNQt9juXpA/) —
+  claim that the model counts the same assertion across many sites as many confirmations even when all
+  copies trace to one anonymous source. ⚠ no study cited, and its proposed fix is a prompt line, which
+  `/ROADMAP-measurement.md` already rejects as INDUCED — kept as a specimen of the failure, never as
+  a candidate cure
 
 ### Offline resilience (parked, see /ROADMAP.md)
 - [Reticulum](https://github.com/markqvist/Reticulum) — E2E-encrypted network stack that keeps

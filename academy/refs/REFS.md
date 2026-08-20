@@ -32,6 +32,28 @@ Lidos e usados na aula 02; todos com número citável em sala.
 - [MIT NEET — instructor's guide (OCW SP.248)](https://ocw.mit.edu/courses/sp-248-the-neet-experience-fall-2025/pages/instructors-guide/) — declara a carga no papel: 60 min de aula + 120 min fora por semana.
 - [Lim, Choi & Hong — Identify Design Problems Through Questioning](https://arxiv.org/abs/2409.07178) — KAIST, CSCW '24. Novatos definem problema mal porque **aceitam passivamente o feedback do professor**; treinar o *perguntar* corrige. Role-play com LLM reduziu a pressão social de perguntar — e gerou over-reliance.
 
+## Simulação de população para pesquisa e para aula (2026-08-20)
+
+- **MatrAIx / Persona 8B** (Harvard + MIT) — dataset de **8,3 bilhões de perfis digitais** montado a
+  partir de dados reais e sintéticos, cobrindo psicologia, hábitos de consumo e estilo de vida (1290
+  dimensões por persona). As personas interagem em surveys, chats, navegação e apps simulados;
+  reportam mais de **18.000 trials** em comércio e saúde. Arquitetura anunciada em três blocos:
+  construir a população → infraestrutura de avaliação com usuário simulado → tarefas e produtos de
+  aplicação. Lucas, INBOX 2026-08-20: *"matraix deve entrar nas minhas aulas."*
+
+  **Vale mais do que material de aula, e é aí que precisa de cuidado.** Um simulador de população é
+  exatamente o instrumento que [`megatruth`](../papers/megatruth/CONTEXT.md) (agregação de verdade em
+  multidão), [`2027-CHI-cria`](../papers/2027-CHI-cria/CONTEXT.md) (estudo de ideação com turma) e
+  [`mechanism-search`](../papers/mechanism-search/CONTEXT.md) usariam para pilotar um desenho antes de
+  gastar participantes reais — e é também exatamente o instrumento que **substitui evidência por
+  plausibilidade** se alguém aceitar o resultado simulado como achado. Se entrar em qualquer um dos
+  três, entra como *piloto de desenho*, nunca como dado.
+
+  ⚠ Capturado de um carrossel de agregador, sem link para paper ou release; nada aqui foi verificado
+  na fonte primária. Buscar a publicação de Harvard/MIT antes de citar ou de levar para sala.
+  **A disciplina de destino ainda não foi decidida** — a nota do Lucas diz "minhas aulas" sem dizer
+  qual, e `academy/teaching/` tem treze.
+
 ## Candidatos a substituir o vídeo do carrinho da IDEO (2026-08-19)
 
 O carrinho ([ABC Nightline 1999, 22m03s](https://www.youtube.com/watch?v=izjhx17NuSE)) mostra o ciclo completo. Os candidatos foram avaliados pelo *trabalho* que fazem, não pela estética.

@@ -87,9 +87,17 @@
    - **Three belong to `code/spacemantics`** — `dsl/SPEC.md`, `dsl/EXAMPLES.md`, `dsl/LEXICON.md`.
      Renaming them is that repo's design question and is already filed in its own roadmap. Nothing
      here moves until it rules.
-   - **Two are blocked on a live session** holding staged changes to `code/isoroll-content/ROADMAP.md`
-     and `code/isoroll-module/ROADMAP.md`. Check `git status` in both before touching either; the
-     work that unblocks them is somebody else's commit, not ours.
+   - **Two were filed as blocked on a live session** holding staged changes to
+     `code/isoroll-content/ROADMAP.md` and `code/isoroll-module/ROADMAP.md`. **That diagnosis is
+     wrong.** Both worktrees are clean of those files and both files are still over the cap — the
+     staging was never what held them there. Read the current numbers from
+     [`ISSUES.md`](ISSUES.md) § Entropy, which also shows *why*: both carry ticked items and one
+     carries strikethrough, so the mass is undeleted finished work.
+
+     **Cut, then split only what is still over** (Lucas's ruling, item 13): apply *completion is
+     deletion* to both files first and re-measure. A roadmap that long under a delete-on-completion
+     policy is mostly finished work, and sharding it would preserve the mass across more files —
+     the superficial fix rather than the root-cause one.
 
    `s3_batch.sh` at 209 is code, not `.md`, and predates the rule. The `outputs/*.md` files the raw
    line count surfaces are **not** violations — `core/hooks/generated.txt` excludes them, which is
@@ -134,6 +142,21 @@
     one number in one diff. Twenty-six ratchets is twenty-six baselines nobody watches. The same
     question is now open for the picture — `ARCHITECTURE.html` faces the identical split — so the two
     should be ruled together rather than drifting apart.
+
+    **Lucas ruled the shape, 2026-08-20 (INBOX):** *"acho que o ISSUES.md deveria carregar essas
+    medidas de entropia descentralizadas. cada ISSUES.md vai fazer a medida de entropia local. o
+    ISSUES.md raiz coleta dos outros ISSUES.md as medidas de entropia e expõe, faz o roteamento, e
+    também mede a entropia do diretório raiz (WOS)."* So it is **scattered AND pooled**, not one or
+    the other, and that dissolves the ratchet objection above: each repo owns its local measurement,
+    the root keeps one collected number to ratchet on, and the root additionally measures itself —
+    which it does not do today, because its own findings are mixed into the pool. What is left to
+    settle is the collection mechanism and which baseline each side owns.
+
+    **The same capture carries a second ruling, and it governs the cap work rather than this row:**
+    *"temos um limite de 200 LOC por arquivo, mas nesse caso diria que o melhor é resolver tudo antes
+    de fazer um split. agora claro, pra cada caso tentar resolver na causa raiz, não de modo
+    superficial."* Cut before splitting. A file over the cap is first evidence of undeleted finished
+    work; sharding it preserves the mass and hides it across more files. Applied to item 8.
     → **tier: high**, with Lucas, its own sitting.
 
 ---

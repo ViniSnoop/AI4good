@@ -27,6 +27,17 @@
    opus-5 56.5%, opus-4.8 27.5%, fable 8.3%, sonnet 7.7%, haiku ~0%. Worth doing, but note the
    ceiling — routing cannot beat a 4x context multiplier, and the transition above already took the
    larger win. → **tier: medium**.
+2. 🟢 **assess whether an ensemble router beats single-model routing on our own work.** Lucas, INBOX
+   2026-08-19, on a claim that *Echo* beat a frontier model on a coding benchmark at 40% less cost by
+   running several open-weight models at once and merging their outputs: *"será que vale um teste?"*
+
+   **The claim is unverified and relayed third-hand** — no benchmark named, no independent run
+   ([`core/refs/REFS-unjudged.md`](core/refs/REFS-unjudged.md) § Models / runtimes). So the work is a
+   check, not an adoption: does the *shape* apply here at all? Our spend is driven by context size
+   rather than model choice (4.2x across bands, 88% above 100k), which is the finding that decides
+   this — an ensemble that reads the same large context several times pays the multiplier several
+   times over. That is the falsifiable version and it is cheap to reason through before anything is
+   installed. → **tier: medium**.
 5. 🔴 **give flows and agents a deliberate trial, then judge them.** Lucas, same capture: *"um aluno
    comentou que existem formas diretas de o claudecode delegar pra subagentes… temos skills e isso
    me parece suficiente, mas talvez não seja."*

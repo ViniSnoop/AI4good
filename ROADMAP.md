@@ -123,13 +123,13 @@ low). Which model fills each tier is data in that file, never in this one.
 | Shard | Description | Prio | Open | Needs Lucas | Blocked by | Items |
 |-------|-------------|------|------|-------------|------------|-------|
 | [`ROADMAP-archive.md`](ROADMAP-archive.md) | What is NOT being worked on, and what would change that? Three kinds: blocked on a named trigger, parked as out of scope, killed outright — each keeping its reason so a dead idea cannot return looking new. Read it before proposing something that sounds obvious; nothing here counts toward the drain, so Open reads empty. | — | — | — | — | `gdrive-integration` `offline-resilience` `task-metric` |
-| [`ROADMAP-cost.md`](ROADMAP-cost.md) | What does a session cost, and which of that is avoidable? Holds which tier runs what, what loads at session start, and what fills the context window. Open it for what we intend to change about spend; every measured number lives in `core/experiments/`, so re-run the instrument for what spend actually is. | important | 6 | 1 | — | — |
+| [`ROADMAP-cost.md`](ROADMAP-cost.md) | What does a session cost, and which of that is avoidable? Holds which tier runs what, what loads at session start, and what fills the context window. Open it for what we intend to change about spend; every measured number lives in `core/experiments/`, so re-run the instrument for what spend actually is. | important | 7 | 1 | — | — |
 | [`ROADMAP-entropy.md`](ROADMAP-entropy.md) | Does the tree still have the shape we said it has, and does anything check? Holds the Tier 0 checks, the ratchet that makes their count shrink, and rules declared in a `SPECS.md` with no implementation. Open it for a check, a drifted name or an unenforced limit — never for what the drift *means*, which is legibility's. | essential | 10 | 1 | — | — |
 | [`ROADMAP-ledger.md`](ROADMAP-ledger.md) | Where does a piece of writing belong, and is it written down twice? Holds the `.md` type system's unfinished migrations and the rule that an item lives in exactly one ledger. Open it when a file's NAME or PLACE is the question; the law itself is `core/SCHEMA.md` and the checks that catch a breach are entropy's. | essential | 3 | — | — | — |
 | [`ROADMAP-legibility.md`](ROADMAP-legibility.md) | Can Lucas still read the thing he owns — its words, its decisions, its shape? A standing front that never closes: the jargon audit, the pictures that show the workspace at a glance, and the rule that a session may not decide quietly. Open it when something is UNREADABLE or was decided without him, not when it is broken. | essential | 6 | 2 | — | — |
 | [`ROADMAP-measurement.md`](ROADMAP-measurement.md) | Does any of this scaffold actually help, and what catches the agent being confidently wrong? Two halves with one cause: the ablation that would measure whether a rule earns its keep, and the gates that would make a claim carry its evidence. Open it before trusting a number or a technical opinion; the experiment's design lives in its paper twin. | important | 4 | 3 | ROADMAP-portability.md | — |
 | [`ROADMAP-portability.md`](ROADMAP-portability.md) | Would this workspace work on a machine that is not Lucas's? Every dependency is declared and `SETUP.md` is an executed procedure, so what is left is the public scaffold repo his students will clone and the one feature that cannot be switched off. Open it for anything crossing the line between what is general and what is his. | essential | 2 | 1 | — | — |
-| [`ROADMAP-self-description.md`](ROADMAP-self-description.md) | Why does this workspace keep asserting things about its own code that one command would refute? Holds the discipline problem — a structural claim written into a durable file with no probe attached — and the routing descriptions a reader meets first. Open it when the workspace says something false ABOUT ITSELF; the outside world is measurement's. | important | 3 | 1 | — | — |
+| [`ROADMAP-self-description.md`](ROADMAP-self-description.md) | Why does this workspace keep asserting things about its own code that one command would refute? Holds the discipline problem — a structural claim written into a durable file with no probe attached — and the routing descriptions a reader meets first. Open it when the workspace says something false ABOUT ITSELF; the outside world is measurement's. | important | 4 | 1 | — | — |
 
 ### What is open, per shard
 
@@ -138,6 +138,7 @@ low). Which model fills each tier is data in that file, never in this one.
 **[`ROADMAP-cost.md`](ROADMAP-cost.md)**
 
 - 🟢 safe — cheaper models where the work is mechanical.
+- 🟢 assess whether an ensemble router beats single-model routing on our own work.
 - 🔴 give flows and agents a deliberate trial, then judge them.
 - 🟡 show context growth continuously, not just at two thresholds.
 - 🟡 auto-continue when the session limit is hit.
@@ -189,4 +190,5 @@ low). Which model fills each tier is data in that file, never in this one.
 - 🔴 Open with a research and design sitting, and build nothing before it.
 - 🟡 measure which `UPPERCASE.md` files are actually read, and what they cost.
 - 🟡 then reinforce the goal↔roadmap link, possibly enforced.
+- 🟡 audit the goal file format against what actually drives follow-through.
 <!-- routing:end -->

@@ -15,6 +15,16 @@ No flow is privileged — the exemplar is `flows/_template.md` (see [SCHEMA.md](
 
 ## Open
 
+- [ ] **`/roundup` ends by asking for something it could have proposed inside the plan.** Lucas
+      (INBOX 2026-08-20): *"editar a mensagem final do /roundup para incluir a sugestão de no plano já
+      adicionar um /roundup no final e evitar uma troca extra de mensagens com o usuário. isso é só
+      uma ideia, avaliar antes de implantar."* One saved round-trip per session, and the flag is his:
+      **evaluate before implanting.** The thing to check first is whether it survives contact with
+      `AGENTS.md` § AGENT-FACING TEXT NAMES ONE ACTION — a closing message that names the next
+      session's close is naming a second action, which is exactly the rule's failure case, so the
+      honest version may belong in the *plan* template rather than in roundup's final message.
+      → **tier: low**.
+
 - [ ] **Only one of the craft flow's loops declares a cap, and the check cannot see that.**
       `validate_flow_loops` is whole-file by design — *"one cap governs the flow, and finding where
       a step ends in prose would be a guess"* — so Loop 1's `at most 3 passes` satisfies it for the
