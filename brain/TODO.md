@@ -96,9 +96,11 @@
 
 ## backlog
 
-- [ ] [setup] no Brave, ativar a aceleração de buscas para Maps, Google Tradutor e as outras
-      ferramentas que oferecem o atalho (INBOX 2026-08-20 — captura truncada em "ferrament";
-      se a lista importar, reconfirmar com Lucas quais ferramentas)
+- [ ] [setup] no Brave, ativar aceleração de buscas por site — o atalho da barra de endereço que o
+      Lucas usava no Chrome (`y` + Tab abre a busca do YouTube ali mesmo). O trabalho não é ativar,
+      é **levantar quais ferramentas valem um atalho pra ele**: Maps e Google Tradutor são certos;
+      Amazon, Mercado Livre e ChatGPT são candidatos que ele mesmo levantou com dúvida. Decidir a
+      lista com ele antes de configurar — atalho de uma letra é recurso escasso (INBOX 2026-08-20)
 - [ ] [academy] assess "mandato coletivo" (participatory-mandate: constituents vote on bills,
       track spending, propose amendments) as a mechanism-design case worth citing/comparing against
       current research angle (cria/instituto) — ref in `academy/refs/REFS.md` (INBOX 2026-07-26)
