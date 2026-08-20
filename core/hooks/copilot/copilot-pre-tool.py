@@ -88,7 +88,7 @@ def main() -> int:
                 gate("facade/facade-scan.py", payload, canonical, workspace_root, messages)
             if gate("facade/facade-gate.py", payload, canonical, workspace_root, messages):
                 return 2
-            if gate("checks/bugs-gate.py", payload, canonical, workspace_root, messages):
+            if gate("checks/issues-gate.py", payload, canonical, workspace_root, messages):
                 return 2
             if gate("read/spec-read-gate.py", payload, canonical, workspace_root, messages):
                 return 2

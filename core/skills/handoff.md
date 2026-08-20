@@ -77,7 +77,7 @@ the artifact; let Lucas move his own attention.
 no "none.", no placeholder, no shape to fill. Last session's block ran 48 lines and 3 of its 5
 open threads were already written in `ROADMAP.md` — that is what these caps exist to stop.
 
-**Say it once.** If a fact is already in a ledger — a `ROADMAP.md` item, a `BUGS.md` entry, a
+**Say it once.** If a fact is already in a ledger — a `ROADMAP.md` item, a `ISSUES.md` entry, a
 `SPECS.md` decision — point at the file; do not restate it. The next session reads those anyway,
 and a hand-off that duplicates them is a second copy to keep in sync.
 

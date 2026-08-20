@@ -20,7 +20,7 @@ get a new type.
 | `CONTEXT.md` | What is *this directory*, and where inside it do I go? |
 | `ROADMAP.md` | What do we intend to do — and what did we reject, and why? |
 | `SPECS.md` | What must be true of this thing, and *why*? (contract + rationale) |
-| `BUGS.md` | What is currently **untrue** that we know about? |
+| `ISSUES.md` | What is currently **untrue** that we know about? (hand-written issues + generated measurements) |
 | `README.md` | I just cloned this. What is it and how do I run it? (repo root only) |
 | `REFS.md` | What external material exists, and what did we conclude about it? |
 | `SKILL.md` | What procedure does the agent follow when invoked? |
@@ -42,7 +42,8 @@ The three real conflicts, with the resolving rule:
 |----------|------|
 | `CONTEXT.md` vs its own routing block | CONTEXT **never hand-lists files**; the generated routing block owns inventory. A hand-written File Map is a bug — as a bullet list *or* a table, both counted by `entropy_context.check_inventory`. **But ask why it was written before deleting it**: `core/hooks/CONTEXT.md` hand-listed `limits.env` and three siblings because the generator could not *reach* them, and cutting the table would have cut three real pointers. Fix the generator first, then the list is redundant. |
 | `CONTEXT.md` vs `SPECS.md` | Rules that *constrain code* → SPECS. What the directory *is* → CONTEXT. |
-| `ROADMAP.md` vs `BUGS.md` | BUGS owns the bug text; ROADMAP references it by id and never restates it. Intent vs. state: a roadmap item leaves the list when deprioritised, a bug does not stop being true. |
+| `ROADMAP.md` vs `ISSUES.md` | ISSUES owns the issue text; ROADMAP references it by id and never restates it. Intent vs. state: a roadmap item leaves the list when deprioritised, an issue does not stop being true. |
+| `ISSUES.md` hand-written vs generated | The hand-written issues come first; every generated measurement lives inside its own delimited block (`entropy:start`, `verify:start`) exactly as the routing block does inside `CONTEXT.md`. Never hand-edit inside a block, and never write a measured number outside one — a copied count is the drift these checks exist to catch. The FIXED gate governs the hand-written half only. |
 
 ### The one exception: transient initiative docs
 

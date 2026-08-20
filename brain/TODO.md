@@ -41,7 +41,7 @@
 
 - [ ] [casinhas] averbação do terreno
 - [ ] [ufrpe] PPC ementas: 41/44 já reformatadas p/ modelo SIGAA e subidas no Drive (`[MODELO-SIGAA] <nome>`, pasta EMENTAS/OBRIGATORIAS+NOVAS) — 2026-07-21. Falta: pedir a Paulo o conteúdo (EMENTA/CONTEÚDO) de 3 disciplinas sem fonte em lugar nenhum — FUNDAMENTOS DA EDUCAÇÃO, PROJETO INTEGRADOR EM DESENVOLVIMENTO DE ARTEFATOS EDUCACIONAIS, PROJETO INTEGRADOR EM EDUCAÇÃO EM COMPUTAÇÃO (ver `academy/administration/coordenacao-lc/novo-ppc-bcc/ementas/gaps.md`) → depois de obter o conteúdo, **criar as 3 ementas já no formato novo** (INBOX 2026-07-24)
-- [ ] [slides / portas-logicas] OR gate body still missing — see BUGS.md; investigate `CUSTOM` shape type in slide 23 group, then decide if worth further debugging
+- [ ] [slides / portas-logicas] OR gate body still missing — see ISSUES.md; investigate `CUSTOM` shape type in slide 23 group, then decide if worth further debugging
 - [ ] [security] backup/recovery do Google Authenticator — várias contas com 2FA nele; se o celular quebrar/sumir, como recuperar? Mapear códigos de recuperação por conta + método de restauração antes que vire pesadelo (INBOX 2026-07-24)
 - [ ] [billing] confirmar se o crédito Fable (100 usd até setembro) ainda consome do limite por turno/semanal, ou se é isento (INBOX 2026-07-24)
 - [ ] [isoroll-content] testar geração de imagem via opencode + chave NVIDIA — nanobanana com a key falhou algumas vezes; validar esse caminho alternativo (INBOX 2026-07-24)

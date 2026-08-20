@@ -22,7 +22,7 @@ PRE_EDIT = WORKSPACE_ROOT / "core/hooks/checks/pre-edit.py"
 # on stdout, which is why this went unnoticed for so long: five siblings were correct.
 BLOCKING_GATES = (
     "core/hooks/checks/pre-edit.py",
-    "core/hooks/checks/bugs-gate.py",
+    "core/hooks/checks/issues-gate.py",
     "core/hooks/read/context-gate.py",
     "core/hooks/read/bash-context-gate.py",
     "core/hooks/read/spec-read-gate.py",

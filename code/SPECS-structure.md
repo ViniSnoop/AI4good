@@ -13,7 +13,7 @@ Each project CAN have:
 - `SPECS.md` — architecture decisions and design rationale (WHY, not WHAT)
 - `ROADMAP.md` — pending milestones with agent-ready technical context
 - `SETUP.md` — dev environment setup from scratch
-- `BUGS.md` — tracked bugs with reproduction steps
+- `ISSUES.md` — known-untrue state: tracked bugs with reproduction steps, plus the generated entropy and verify blocks
 
 Skeletons for all files: [`_templates/`](_templates/)
 

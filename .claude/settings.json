@@ -55,7 +55,7 @@
           },
           {
             "type": "command",
-            "command": "python3 /mnt/workspace/core/hooks/checks/bugs-gate.py"
+            "command": "python3 /mnt/workspace/core/hooks/checks/issues-gate.py"
           },
           {
             "type": "command",

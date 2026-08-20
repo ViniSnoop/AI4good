@@ -53,7 +53,7 @@ python -m pytest
 <!-- Required for all code projects — see code/ROADMAP-verify.md + core/tools/verify/CONTEXT.md.
      verify:fast (static + unit, seconds) is enforced by the global pre-commit gate: red blocks commits.
      verify:full (headless functional + goldens) runs pre-merge and at /roundup.
-     Regression specs: test/**/b<N>-*.* — BUGS.md FIXED flips are hook-gated on these. -->
+     Regression specs: test/**/b<N>-*.* — ISSUES.md FIXED flips are hook-gated on these. -->
 
 ```bash
 npm run verify:fast   # or make verify-fast

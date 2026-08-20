@@ -1,7 +1,7 @@
 ---
 name: inbox
 description: >
-  Triage brain/INBOX.md — route each entry to a goal, task, reference, project doc, writing draft, or delete. Cross-domain front door: reaches into code ROADMAP/BUGS and domain refs/, not just brain/.
+  Triage brain/INBOX.md — route each entry to a goal, task, reference, project doc, writing draft, or delete. Cross-domain front door: reaches into code ROADMAP/ISSUES and domain refs/, not just brain/.
 ---
 
 Triage brain/INBOX.md — route each entry to its durable home. INBOX is zero-friction capture; taxonomy happens **here at triage**, never at capture.
@@ -10,7 +10,7 @@ Arguments: $ARGUMENTS
 
 ## Guardrail — land in on-demand docs, never CONTEXT.md
 
-Every route targets a doc that loads **only when needed**: `ROADMAP.md`, `BUGS.md`, `refs/REFS.md`, goal files, `TODO.md`.
+Every route targets a doc that loads **only when needed**: `ROADMAP.md`, `ISSUES.md`, `refs/REFS.md`, goal files, `TODO.md`.
 
 **NEVER route an entry into a `CONTEXT.md`.** CONTEXT.md loads every session for its whole subtree — every line there costs tokens on every task. Ideas, bugs, and references go to on-demand docs. This is the rule that keeps capture cheap without flooding always-loaded context.
 
@@ -23,7 +23,7 @@ Every INBOX entry lands in exactly one place:
 | **goal** | new goal file in `brain/goals/` or backlog item in an existing goal | `goal` |
 | **task** | `brain/TODO.md` at the right timeframe (today / week / month / backlog) | `task: <when>` |
 | **ref** | domain `refs/REFS.md` — one tier-1 line (routing table + convention below) | `ref` |
-| **project** | `code/<proj>/ROADMAP.md` `## Backlog` (idea) or `BUGS.md` (bug) | `proj: <name>` |
+| **project** | `code/<proj>/ROADMAP.md` `## Backlog` (idea) or `ISSUES.md` (bug) | `proj: <name>` |
 | **draft** | new file in `branches/writing/drafts/[slug].md` | `draft` |
 | **delete** | gone | `delete` |
 
@@ -85,7 +85,7 @@ most of them.
 ## project route — writing into code repos
 
 - **idea** → append to `code/<proj>/ROADMAP.md` under `## Backlog` (or the project's backlog section), phrased agent-ready.
-- **bug** → append to `code/<proj>/BUGS.md`.
+- **bug** → append to `code/<proj>/ISSUES.md`.
 - Code projects are their **own git repos**. Write the file, leave it **staged/uncommitted** — do NOT commit. Report which repo(s) were touched so Lucas commits deliberately.
 - Never write project ideas into `code/<proj>/CONTEXT.md`.
 
@@ -138,7 +138,7 @@ For each entry:
    - **goal (existing)** → name the goal file and the exact backlog line to append
    - **task** → state timeframe and the exact line to add to TODO.md
    - **ref** → name the target `refs/REFS.md` and the exact tier-1 line
-   - **project** → name the target file (ROADMAP / BUGS), the exact line, and the repo
+   - **project** → name the target file (ROADMAP / ISSUES), the exact line, and the repo
    - **draft** → propose filename slug and one-line description of the draft
    - **delete** → one-line reason
 3. Present all proposed routes first. Wait for confirmation. Act only after Lucas confirms.
@@ -155,7 +155,7 @@ For each entry:
 - Write new goal files or append to confirmed backlogs
 - Add task lines to the correct timeframe section in `brain/TODO.md`
 - Append ref lines to the domain `refs/REFS.md` (create `refs/REFS.md` + `refs/CONTEXT.md` if absent)
-- Append project ideas/bugs to `code/<proj>/ROADMAP.md` / `BUGS.md` — leave **staged**, report repos
+- Append project ideas/bugs to `code/<proj>/ROADMAP.md` / `ISSUES.md` — leave **staged**, report repos
 - Create draft files in `branches/writing/drafts/[slug].md` with a title and blank body
 - Clear confirmed entries from `brain/INBOX.md` — leave unconfirmed entries untouched
 - **Last, always:** `python3 core/hooks/brain/brain_stats.py` — refreshes the `GOALS.md` dashboard

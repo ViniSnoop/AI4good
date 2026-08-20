@@ -39,7 +39,7 @@ enough to be worth folding was tested and **rejected on the numbers** —
 | [`feedback_additive_course_material.md`](feedback_additive_course_material.md) | em material de aula do Lucas, contribuir é ADICIONAR e refinar no lugar — nunca… |
 | [`feedback_agent_runs_auth.md`](feedback_agent_runs_auth.md) | Agent runs every auth command itself; Lucas only does what has no command form… |
 | [`feedback_background_bash_reliability.md`](feedback_background_bash_reliability.md) | Backgrounded Bash tool calls (run_in_background) can die silently across a… |
-| [`feedback_bug_tracking.md`](feedback_bug_tracking.md) | isoroll-module bugs go in BUGS.md, not memory |
+| [`feedback_bug_tracking.md`](feedback_bug_tracking.md) | isoroll-module bugs go in ISSUES.md, not memory |
 | [`feedback_delete_weak_features.md`](feedback_delete_weak_features.md) | Lucas deletes a feature that only produces weak signal rather than keeping it as… |
 | [`feedback_explore_before_cutting.md`](feedback_explore_before_cutting.md) | while a design question is still open, keep every variant; delete only after… |
 | [`feedback_full_workflow_thinking.md`](feedback_full_workflow_thinking.md) | plan isoroll (and similar) work from the full user workflow, not from artifacts… |

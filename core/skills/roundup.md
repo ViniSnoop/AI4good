@@ -30,7 +30,7 @@ so padding is what the next session inherits and acts on.
 ## Phase 1 — Clear completed work out of the ledgers
 
 ```bash
-find . -maxdepth 3 \( -name "ROADMAP.md" -o -name "BUGS.md" -o -name "TODO.md" \) 2>/dev/null | sort
+find . -maxdepth 3 \( -name "ROADMAP.md" -o -name "ISSUES.md" -o -name "TODO.md" \) 2>/dev/null | sort
 git log --oneline -10
 ```
 
@@ -40,9 +40,9 @@ Read what the session touched. Then:
 — see [`core/SCHEMA.md`](../SCHEMA.md) § No archive types. A
 completed item's record is its commit; re-writing it into an archive file only grows a doc nobody
 opens. So: delete completed `ROADMAP.md` items (`- [x]`, "done", "shipped", "merged", "✅") and
-resolved `BUGS.md` items (`- [x]`, "fixed", "resolved", "closed"). For a bug, the regression spec
+resolved `ISSUES.md` items (`- [x]`, "fixed", "resolved", "closed"). For a bug, the regression spec
 (`test/**/b<N>-*`) is the durable proof it is dead — that is what
-[`core/hooks/checks/bugs-gate.py`](../hooks/checks/bugs-gate.py) enforces, and it outlives any prose.
+[`core/hooks/checks/issues-gate.py`](../hooks/checks/issues-gate.py) enforces, and it outlives any prose.
 
 **The one thing that must not be deleted.** An approach the session **tried and rejected** was never
 committed, so git cannot hold it. Write **one line** under `## Rejected` in the relevant
@@ -59,7 +59,7 @@ Route each piece of knowledge the session produced. Conflict with existing conte
 |---|---|
 | Non-obvious design decision + rationale | `SPECS.md` → Architecture Decisions |
 | Discovered convention / coding rule | `SPECS.md` → Conventions |
-| Bug found, not fixed | `BUGS.md` |
+| Bug found, not fixed | `ISSUES.md` |
 | New technical work item (project has `ROADMAP.md`) | `ROADMAP.md` |
 | Reference / link / paper / tool worth keeping | domain `refs/REFS.md` (route-by-domain — see `/inbox`) |
 | Personal / admin / life / teaching task — or project task with hard deadline | `brain/TODO.md` (right horizon: today / week / month / backlog) |

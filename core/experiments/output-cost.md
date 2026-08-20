@@ -119,7 +119,7 @@ with `core/tools/telegram_daemon.py` written whole eight times. Second pass spli
 *do*: writes a file (`cat >`/`tee >`) 128 calls / 354,100 chars / 26% of heredoc volume; stdin to an
 interpreter (analysis, writes nothing) 430 calls / 599,203 / 44%. Shell-written files are 3.7% of
 logged output, not ~15%. What survived is **governance, not cost**: those 128 writes met no gate at
-all — `pre-edit.py` and `bugs-gate.py` are `PreToolUse: Edit|Write`, and the only Bash gate was a
+all — `pre-edit.py` and `issues-gate.py` are `PreToolUse: Edit|Write`, and the only Bash gate was a
 *read* gate.
 
 **2. RTK: four wrong stories before the test that held** (2026-08-15). Retracted in order: *"we

@@ -100,7 +100,7 @@
    Reach for *is this still true* before *what type is this*. Two traps fired on the way: a deleted
    file's row in `core/SCHEMA.md`'s transient-exemption table keeps its exemption alive, because every
    backticked name there is parsed as one; and a document being deleted can be the sole record of
-   something live — `REFACTOR.md` held the only copy of bug B29, which `BUGS.md` was supposed to have.
+   something live — `REFACTOR.md` held the only copy of bug B29, which `ISSUES.md` was supposed to have.
    → **tier: medium**, and the gate flip is the last step, not the first.
 9. 🟢 **the corpus is half Portuguese and the rule is English.** Lucas (INBOX 2026-08-17): *"somente
    o meu texto é em português, as conversas nas sessões, mas o resto, os docs, tudo em inglês

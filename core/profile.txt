@@ -35,7 +35,7 @@ toggle	duplication-gate	on
 toggle	facade-discipline	on
 toggle	type-gate	on
 toggle	citation-gate	on
-toggle	bugs-gate	on
+toggle	issues-gate	on
 toggle	spec-read-gate	on
 toggle	heredoc-gate	on
 toggle	verify-suite	on

@@ -10,7 +10,7 @@ metadata:
 
 code/ROADMAP-verify.md is the canonical plan for agent self-verification +
 enforcement. As of 2026-07-02, phases W1, W2, W3, I1, I2, I3 are DONE: context-gate
-hook suite live (whole workspace, Copilot parity), jscpd + verify:fast + BUGS
+hook suite live (whole workspace, Copilot parity), jscpd + verify:fast + ISSUES
 gates in global pre-commit, isoroll has verify:fast/verify:full with unit+e2e+golden
 tiers on branch `feature/verify-harness` (NOT merged — Lucas decides). B32 mechanically
 verified; B33 open (xfail spec); B2 narrowed to GridConfig path. Remaining: I4 unit

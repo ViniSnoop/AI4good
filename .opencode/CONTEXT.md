@@ -35,7 +35,7 @@ problem for a non-Claude agent. Field-name lists (`PATH_KEYS`,
 | `tool.execute.before`, `edit`/`write` | PreToolUse `Edit\|Write` | `core/hooks/checks/pre-edit.py` | exit 2 → throw |
 | `tool.execute.before`, `edit`/`write` | PreToolUse `Edit\|Write` | `core/hooks/facade/facade-scan.py` | (warn only; never exits 2) |
 | `tool.execute.before`, `edit`/`write`/`apply_patch` | PreToolUse `Edit\|Write` | `core/hooks/facade/facade-gate.py` | exit 2 → throw |
-| `tool.execute.before`, `edit`/`write`/`apply_patch` | PreToolUse `Edit\|Write` | `core/hooks/checks/bugs-gate.py` | exit 2 → throw |
+| `tool.execute.before`, `edit`/`write`/`apply_patch` | PreToolUse `Edit\|Write` | `core/hooks/checks/issues-gate.py` | exit 2 → throw |
 | `tool.execute.before`, `edit`/`write`/`apply_patch` | PreToolUse `Edit\|Write` | `core/hooks/read/spec-read-gate.py` | exit 2 → throw |
 | `tool.execute.before`, `bash` | PreToolUse `Bash` | `core/hooks/read/bash-context-gate.py` | exit 2 → throw |
 | `tool.execute.after`, `read` | PostToolUse `Read` | `core/hooks/facade/facade-tracker.py` | n/a (no block) |
@@ -100,11 +100,11 @@ test harness in the session that created this file — it covers seven original
 scenarios: read-block-with-pyi, read-allow-no-pyi, write-block-no-comment,
 write-block-oversized, write-allow-small, edit-allow-then-post-regenerates-pyi,
 read-facade-allow-then-tracker-silent. G6 (context-gate/bash-context-gate/
-context-tracker/bugs-gate) added three more, verified the same way:
+context-tracker/issues-gate) added three more, verified the same way:
 read/bash blocked on an unread CONTEXT.md chain then allowed after the chain
-is marked seen via the after-hook, and an edit flipping a BUGS.md entry
+is marked seen via the after-hook, and an edit flipping a ISSUES.md entry
 to FIXED without a matching `test/**/b<N>-*` spec blocked once the chain is
-seen (context-gate has to pass first to reach bugs-gate, same ordering
+seen (context-gate has to pass first to reach issues-gate, same ordering
 as `copilot-pre-tool.py`'s `gate()` chain).
 
 To validate inside a real opencode session, start opencode in `/mnt/workspace`

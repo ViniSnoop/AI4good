@@ -97,7 +97,7 @@ other provider's shim.
 | `read/context-tracker.py` | PostToolUse: Read | Records `CONTEXT.md` reads and interface reads — the state both gates above consume |
 | `read/spec-read-gate.py` | PreToolUse: Edit, Write (`code/` files) | **Blocks** editing a spec-locked module (`CONTEXT.md` `> spec:` + `SPECS.md` `status: locked`) until its `SPECS.md` was Read this session; nudges on new files in spec-less `code/` modules |
 | `read/agent-context.py` | PreToolUse: Agent, SubagentStart | **Induces, never blocks** — hands a spawned worker the `>` line of each subtree its prompt names |
-| `checks/bugs-gate.py` | PreToolUse: Edit, Write (`BUGS.md`) | **Blocks** flipping a bug to FIXED without a matching `test/**/b<N>-*` regression spec |
+| `checks/issues-gate.py` | PreToolUse: Edit, Write (`ISSUES.md`) | **Blocks** flipping a bug to FIXED without a matching `test/**/b<N>-*` regression spec |
 | `post-edit.sh` | PostToolUse: Edit, Write | Regenerates interfaces, scaffolds `jsconfig.json`/`tsconfig.json` if missing, reminds about a missing first-line comment, runs the routing sync |
 | `session/precompact-wipe.sh` | PreCompact | Wipes the seen-markers, so the `CONTEXT.md` chain is re-read after compaction |
 | `session/session-prune.sh` | SessionStart | Prunes session marker files older than 2 days |

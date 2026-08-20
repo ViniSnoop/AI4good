@@ -103,7 +103,7 @@ duplication-gate	hooks	automatic	declared-deps	blocks	general	core/hooks/checks/
 facade-discipline	hooks	automatic	-	blocks	general	core/hooks/facade/check-facade-imports.py	Cross-module imports that reach around index / __init__ are blocked, so module boundaries stay real and a rename does not become an archaeology project
 type-gate	hooks	automatic	-	blocks	general	core/hooks/checks/type-gate.py	UPPERCASE.md names are a closed allowlist, ratcheted on what a commit adds, so inventing a file type is a deliberate act instead of an accident
 citation-gate	hooks	automatic	-	blocks	general	core/hooks/checks/citation-gate.py	A roadmap item number is not a citable identifier outside the roadmap family, because a closed item is deleted and every citation of it becomes a dead pointer
-bugs-gate	hooks	automatic	-	blocks	general	core/hooks/checks/bugs-gate.py	A bug cannot be flipped to FIXED without a matching regression test, so "it works now" stops being a claim and becomes a file
+issues-gate	hooks	automatic	-	blocks	general	core/hooks/checks/issues-gate.py	An issue cannot be flipped to FIXED without a matching regression test, so "it works now" stops being a claim and becomes a file
 spec-read-gate	hooks	automatic	-	blocks	general	core/hooks/read/spec-read-gate.py	Editing a module with a locked contract requires having read that contract this session
 heredoc-gate	hooks	automatic	-	warns	general	core/hooks/checks/heredoc-gate.py	Warns when a file is written through a bash heredoc, which is the one path that bypasses every edit-time gate
 verify-suite	hooks	automatic	-	blocks	general	core/hooks/gates/project-contract.sh	make verify-fast is what the pre-commit gate checks against; without it the gate has nothing to run

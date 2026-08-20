@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# PreToolUse: Edit|Write on BUGS.md — flipping a bug to FIXED requires a matching
+# PreToolUse: Edit|Write on ISSUES.md — flipping an issue to FIXED requires a matching
 # regression spec (test/**/b<N>-*.*) in the same repo. See workspace ROADMAP-verify.md I2.
 import re
 import subprocess
@@ -33,13 +33,13 @@ def has_spec(root: Path, bug_id: str) -> bool:
 
 
 def main() -> int:
-	if not feature_law.is_enabled('bugs-gate'):
+	if not feature_law.is_enabled('issues-gate'):
 		return 0  # switched off: a disabled gate does not block, and does not pretend it ran
 	_, tool, tool_input, _, _ = parse_stdin()
 	if tool not in ('Edit', 'Write'):
 		return 0
 	file_path = Path(str(tool_input.get('file_path', '')))
-	if file_path.name != 'BUGS.md':
+	if file_path.name != 'ISSUES.md':
 		return 0
 
 	if tool == 'Write':
@@ -60,7 +60,7 @@ def main() -> int:
 	if not missing:
 		return 0
 
-	print('BUGS GATE - FIXED requires executable proof.', file=sys.stderr)
+	print('ISSUES GATE - FIXED requires executable proof.', file=sys.stderr)
 	for b in missing:
 		print(f'   B{b}: no regression spec found (expected test/**/b{b}-*.*).', file=sys.stderr)
 	print('   Write the regression spec first, verify it passes, then flip the status.', file=sys.stderr)

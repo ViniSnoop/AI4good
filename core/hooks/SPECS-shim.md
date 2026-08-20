@@ -64,7 +64,7 @@ Existing shims, as worked examples: `copilot/copilot-pre-tool.py` and `copilot/c
 | Context-gate (`CONTEXT.md` chain) | — | ✅ | ✅ | ✅ |
 | Bash context-gate (cat/grep bypass) | — | ✅ | ✅ (terminal hints) | ✅ (bash tool) |
 | Context / interface read tracker | — | ✅ | ✅ | ✅ |
-| BUGS gate (FIXED needs a spec) | — | ✅ | ✅ | ✅ |
+| ISSUES gate (FIXED needs a spec) | — | ✅ | ✅ | ✅ |
 | Spec-read-gate (spec-locked modules) | — | ✅ | ✅ | ✅ |
 | Size / facade import / stub gen / context sync | ✅ | — | — | automatic (git) |
 | Spec-driven new-module gate | ✅ block | — | — | automatic (git) |
@@ -92,6 +92,6 @@ proves a path *resolves*, never that the gate *fires*. A shim whose paths all re
 translate a payload wrongly, and that is a behavioural question this does not answer.
 
 **So a new runtime's shim owes two things**, not one: the contract above, and an entry in
-`SHIMS` in `core/tools/test/workspace/gates/test_shim_paths.py` naming its files and how a spawn
+`SHIMS` in `core/tools/test/workspace/test_shim_paths.py` naming its files and how a spawn
 names a script. A shim with no entry is unchecked, which is the state opencode and Copilot were
 both in.

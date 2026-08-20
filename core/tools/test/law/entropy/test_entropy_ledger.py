@@ -30,7 +30,7 @@ def test_retired_tokens_come_from_schema():
     """Declared, not hardcoded — the same design as the type allowlist."""
     retired = schema_law.load_retired()
     assert retired['loop-engineering'] == 'craft'
-    assert retired['KNOWN-BUGS'] == 'BUGS.md'
+    assert retired['KNOWN-BUGS'] == 'ISSUES.md'
     assert 'SPEC.md' not in retired, 'that rename has not landed yet'
 
 
@@ -137,7 +137,7 @@ def test_memory_links_are_exempt_but_its_retired_tokens_are_not():
     """brain/memory's `[[slug]]` names a memory, not a goal, and may dangle by design.
 
     Only that check is relaxed. Retired tokens stay enforced there, which is not hypothetical: the
-    day the store moved into the workspace it was still telling sessions to write to KNOWN-BUGS.md.
+    day the store moved into the workspace it was still telling sessions to write to KNOWN-ISSUES.md.
     """
     exempt = entropy_corpus.wiki_exempt_paths(WORKSPACE_ROOT)
     memory = {p.resolve() for p in (WORKSPACE_ROOT / 'brain/memory').rglob('*.md')}

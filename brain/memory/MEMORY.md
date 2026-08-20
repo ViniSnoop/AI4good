@@ -1,7 +1,7 @@
 # Memory Index
 
 - [User Profile](user_profile.md) — Lucas, CS professor at UFRPE/CIn-UFPE, research in Hybrid Intelligence, Mechanism Design, AR, 3D CV — file lives at brain/USER.md (symlinked)
-- [Feedback: bug tracking](feedback_bug_tracking.md) — isoroll bugs go in code/isoroll-module/BUGS.md, not memory
+- [Feedback: bug tracking](feedback_bug_tracking.md) — isoroll bugs go in code/isoroll-module/ISSUES.md, not memory
 - [Feedback: parallel sessions](feedback_parallel_sessions.md) — partition workspace by subtree across concurrent sessions; check git status AND the current branch right before committing; stage explicitly, commit often
 - [Core library schema](project_core_schema.md) — core/ agent library soundness: enforced per-layer frontmatter (core/SCHEMA.md), tier unified, sweep in core/ROADMAP.md
 - [Feedback: visual eyeball gate](feedback_visual_eyeball_gate.md) — image-producing steps need Lucas's visual OK (artifact board) before advancing; shortest path to visible content
