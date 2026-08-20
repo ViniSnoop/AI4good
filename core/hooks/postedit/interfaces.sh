@@ -8,28 +8,26 @@
 # blocks a source read only while the stub beside it is current.
 if python3 /mnt/workspace/core/hooks/feature_law.py --enabled interface-stubs; then
 
+# shellcheck source=/dev/null
+source /mnt/workspace/core/hooks/stubgen/stub_one.sh
+
 # ── Interface regeneration ──────────────────────────────────────────────────────
 case "$file" in
 	*.py)
 		STUBGEN="/mnt/workspace/.venv/bin/stubgen"
-		# shellcheck source=/dev/null
-		source /mnt/workspace/core/hooks/stubgen/stub_paths.sh
-		[ -x "$STUBGEN" ] && "$STUBGEN" "$file" -o "$(stub_out_dir "$file")" --quiet 2>/dev/null \
-			&& printf "✓ .pyi: ${file%.py}.pyi\n"
+		emit_pyi "$file" && printf "✓ .pyi: ${file%.py}.pyi\n"
 		;;
 	*.js)
 		if [ -n "$TSC" ]; then
-			"$TSC" --allowJs --checkJs false --declaration --emitDeclarationOnly \
-						 --declarationDir "$dir" --target ES2020 "$file" 2>/dev/null \
-				&& printf "✓ .d.ts: ${file%.js}.d.ts\n"
+			emit_dts "$file" "$TSC" && printf "✓ .d.ts: ${file%.js}.d.ts\n"
 		fi
 		# jsconfig.json is an EDITOR AID, never a build config — the same role
 		# core/tools/wos/sync-global-skills already assigns it. It carried
 		# declaration/emitDeclarationOnly/outDir for years and could not honour any
 		# of them: a file named jsconfig.json implies noEmit:true, and "outDir": "."
 		# lands in tsc's default exclude list, so the config excluded its own
-		# directory (TS18003, zero inputs). Declarations are emitted per file by the
-		# tsc call above and by core/hooks/generators/interfaces.sh — one path, not two.
+		# directory (TS18003, zero inputs). Declarations are emitted per file, by
+		# emit_dts above — one call site now, in core/hooks/stubgen/stub_one.sh.
 		if [ ! -f "$dir/jsconfig.json" ]; then
 			cat > "$dir/jsconfig.json" << 'EOF'
 {
@@ -55,16 +53,10 @@ EOF
 					"$TSC" -p "$decl_cfg" >/dev/null 2>&1 || true
 					printf "✓ .d.ts regenerated: %s\n" "$proj_root"
 				else
-					"$TSC" --declaration --emitDeclarationOnly \
-								 --declarationDir "$dir" --target ES2020 --skipLibCheck \
-								 "$file" 2>/dev/null \
-						&& printf "✓ .d.ts: ${file%.ts}.d.ts\n"
+					emit_dts "$file" "$TSC" && printf "✓ .d.ts: ${file%.ts}.d.ts\n"
 				fi
 			else
-				"$TSC" --declaration --emitDeclarationOnly \
-							 --declarationDir "$dir" --target ES2020 --skipLibCheck \
-							 "$file" 2>/dev/null \
-					&& printf "✓ .d.ts: ${file%.ts}.d.ts\n"
+				emit_dts "$file" "$TSC" && printf "✓ .d.ts: ${file%.ts}.d.ts\n"
 				# Same outDir-lands-in-exclude defect as the jsconfig template above.
 				# noEmit is not implied here — that half is jsconfig's name, not tsc's default.
 				cat > "$dir/tsconfig.json" << 'EOF'

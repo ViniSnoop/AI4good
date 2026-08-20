@@ -10,6 +10,9 @@ from conftest import WORKSPACE_ROOT
 
 POSTEDIT = WORKSPACE_ROOT / "core/hooks/postedit/interfaces.sh"
 PRECOMMIT = WORKSPACE_ROOT / "core/hooks/generators/interfaces.sh"
+# The one place the stubgen and tsc invocations live since 2026-08-20. Both fragments above
+# source it; asking either of them for the flags now asks the wrong file.
+SHARED = WORKSPACE_ROOT / "core/hooks/stubgen/stub_one.sh"
 
 # Keys tsc silently ignores in a file NAMED jsconfig.json: the name implies noEmit:true.
 # Carrying them is how the workspace convinced itself declarations were being generated.
@@ -73,17 +76,37 @@ def test_scaffolded_tsconfig_with_dot_outdir_declares_exclude() -> None:
 def test_js_declarations_are_generated_per_file_not_per_project() -> None:
     """`tsc -p <config>` reads its own previous output: our .d.ts sit beside their
     sources, so a project build resolves them as inputs and dies with TS5055."""
-    body = PRECOMMIT.read_text(encoding="utf-8")
-    section = body.split("# ── 7.")[1].split("# ── 8.")[0]
-    # Comments in this section explain the defect by naming it — match code only.
-    js_section = "\n".join(
-        l for l in section.splitlines() if not l.lstrip().startswith("#")
+    # Comments explain the defect by naming it — match code only.
+    code = "\n".join(l for l in SHARED.read_text(encoding="utf-8").splitlines()
+                     if not l.lstrip().startswith("#"))
+    assert "-p " not in code, (
+        "emit_dts uses a tsc project build again — it must emit per file "
+        "(--declarationDir), which is the whole reason both hooks share it"
     )
-    assert "-p " not in js_section, (
-        "the JS declaration step uses a tsc project build again — it must emit per "
-        "file (--declarationDir), the same call post-edit makes"
-    )
-    assert "--declarationDir" in js_section
+    assert "--declarationDir" in code
+
+
+def test_neither_hook_re_inlines_the_call_it_shares() -> None:
+    """The extraction only holds while both callers keep calling.
+
+    Four near-identical tsc invocations and two stubgen ones drifted a flag at a time before
+    2026-08-20; nothing noticed, because each copy worked. A new raw invocation in either
+    fragment is that drift restarting, so it is the thing to fail on — not the flags, which
+    the case above now checks in one place.
+    """
+    for script in (POSTEDIT, PRECOMMIT):
+        code = "\n".join(l for l in script.read_text(encoding="utf-8").splitlines()
+                          if not l.lstrip().startswith("#"))
+        assert "stub_one.sh" in code, f"{script.name} no longer sources the shared fragment"
+        # `--declarationDir` is the PER-FILE call's signature, and only that one was
+        # duplicated. The pre-commit TypeScript step's `tsc -p <cfg> --incremental` is a
+        # different shape — once per project, not once per file — and stays where it is.
+        assert "--declarationDir" not in code, (
+            f"{script.name} spells out the per-file tsc call again — call emit_dts"
+        )
+        assert "--quiet" not in code, (
+            f"{script.name} spells out a stubgen call again — call emit_pyi"
+        )
 
 
 def _stub_out_dir(path: str, cwd: Path) -> str:
@@ -112,14 +135,17 @@ def test_stub_output_root_is_unchanged_outside_a_package(tmp_path: Path) -> None
     assert _stub_out_dir("plain/mod.py", tmp_path) == "plain"
 
 
-def test_both_hooks_use_the_shared_output_root_helper() -> None:
-    for script in (POSTEDIT, PRECOMMIT):
-        body = script.read_text(encoding="utf-8")
-        assert "stub_out_dir" in body, f"{script.name} computes the stubgen -o path itself"
-        assert '-o "$dir"' not in body, (
-            f"{script.name} passes the file's own directory to stubgen again — that is "
-            "what wrote a mirror of the path inside itself"
-        )
+def test_the_stubgen_output_root_comes_from_the_shared_helper() -> None:
+    """One caller now — emit_pyi — so the assertion follows it there.
+
+    What it guards is unchanged: passing the file's own directory to stubgen is what wrote a
+    mirror of the path inside itself, deleted by hand three times before the cause was named.
+    """
+    body = SHARED.read_text(encoding="utf-8")
+    assert "stub_out_dir" in body, "emit_pyi computes the stubgen -o path itself"
+    assert '-o "$dir"' not in body, (
+        "emit_pyi passes the file's own directory to stubgen again"
+    )
 
 
 def _repeated_run(parts: tuple[str, ...]) -> str | None:

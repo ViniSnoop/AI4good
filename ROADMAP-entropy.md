@@ -110,24 +110,6 @@
    because matching a file's existing language beat mixing two inside one section. Convert whole
    files or whole ADs, never half of one. Quoted Lucas is his own words and **stays Portuguese**.
    → **tier: medium**.
-10. 🟢 **one program should generate a stub, and two fragments should call it.**
-    `generators/interfaces.sh` and `postedit/interfaces.sh` carry three near-identical
-    `tsc --declaration --emitDeclarationOnly` invocations plus two copies of the stubgen call, which
-    is why `interface-stubs` is the one feature needing two wired paths where `routing-tables` needs
-    none — the latter's two moments already share `context_synchronizer.py`.
-
-    **Both triggers are real and both stay.** Post-edit keeps the stub current *within* a session, and
-    losing it does not merely delay a stub: `read/pre-read.sh` blocks a source read only while the
-    stub beside it is current, so a stale stub makes the interface-first gate **silently stop
-    enforcing**. Pre-commit stages the stub into the commit and sweeps stubless siblings, which is the
-    only thing that ever catches a file entering outside Edit/Write. What is duplicated is the
-    *invocation*, not the trigger: extract `core/hooks/stubgen/stub_one.sh <file>`, call it from both,
-    and the feature collapses to a single wired path.
-
-    **Not a rush job** (Lucas, 2026-08-18): *"my tendency is to refactor to one shared seam first but
-    I do not want to do this in a rush and risk these features to be hindered."* The guard went in
-    first precisely so the refactor is not carrying two jobs at once. → **tier: medium**.
-
 13. 🔴 **Should entropy be scattered across the nested repos instead of pooled at the root?** Lucas,
     2026-08-18: *"entropy maybe should be scattered as well across each individual repo (maybe this
     is a task that deserves to be written somewhere, so we can DISCUSS this point in depth)."* Today

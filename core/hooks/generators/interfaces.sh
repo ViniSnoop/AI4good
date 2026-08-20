@@ -8,6 +8,9 @@
 # read/pre-read.sh never serves a stale interface. Guarding one would leave the other writing.
 if python3 /mnt/workspace/core/hooks/feature_law.py --enabled interface-stubs; then
 
+# shellcheck source=/dev/null
+source /mnt/workspace/core/hooks/stubgen/stub_one.sh
+
 # ── 6. Python → .pyi stubs (mypy stubgen) ─────────────────────────────────────
 # Staged files, PLUS any stubless sibling in the same directories. A .py that entered the
 # repo outside Edit/Write — a bash heredoc, a bulk vendoring, a --no-verify commit — was
@@ -29,11 +32,9 @@ if [ -n "$PY_FILES" ]; then
         done
       } | grep -v '^$' | sort -u
     )
-    # shellcheck source=/dev/null
-    source /mnt/workspace/core/hooks/stubgen/stub_paths.sh
     while IFS= read -r f; do
       [ -f "$f" ] || continue
-      if stubgen "$f" -o "$(stub_out_dir "$f")" --quiet 2>/dev/null; then
+      if emit_pyi "$f"; then
         pyi="${f%.py}.pyi"
         [ -f "$pyi" ] && git add "$pyi"
       else
@@ -44,14 +45,8 @@ if [ -n "$PY_FILES" ]; then
 fi
 
 # ── 7. JavaScript → .d.ts (tsc --allowJs, one file at a time) ─────────────────
-# Per file, NOT `tsc -p <jsconfig>`. The project path was silently emitting nothing
-# for years and two independent defects had to be fixed for it to emit even once:
-# jsconfig.json implies noEmit:true (it is an editor aid — see postedit/interfaces.sh),
-# and "outDir": "." lands in tsc's default exclude list, excluding the config's own
-# directory. Worse, once both were forced the project path hit TS5055 on every module
-# with a sibling .d.ts — our declarations sit beside their sources, so a project build
-# reads its own previous output as an input and refuses to overwrite it. The per-file
-# call has none of that, is idempotent, and is already what post-edit runs.
+# Per file, NOT `tsc -p <jsconfig>`, and why: core/hooks/stubgen/stub_one.sh § emit_dts,
+# which is now the one place that call lives.
 JS_FILES=$(echo "$STAGED" | grep '\.js$' | grep -v '\.min\.js$' | grep -v '\.config\.js$' || true)
 if [ -n "$JS_FILES" ]; then
   if ! command -v tsc &>/dev/null; then
@@ -60,9 +55,7 @@ if [ -n "$JS_FILES" ]; then
   else
     while IFS= read -r f; do
       [ -f "$f" ] || continue
-      d=$(dirname "$f")
-      if tsc --allowJs --checkJs false --declaration --emitDeclarationOnly \
-             --declarationDir "$d" --target ES2020 "$f" 2>/dev/null; then
+      if emit_dts "$f" tsc; then
         dts="${f%.js}.d.ts"
         [ -f "$dts" ] && git add "$dts"
       else
