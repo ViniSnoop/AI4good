@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: c7f29617-a34b-4367-b30b-7f98ac056b82
-  modified: 2026-08-17T02:15:11.352Z
+  modified: 2026-08-20T03:06:28.269Z
 ---
 
 **Lucas, 2026-08-16:** *"definitivamente, quero zerar o roadmap do WOS o quanto antes. já usamos
@@ -53,6 +53,19 @@ Result: total 28 → 21, but **opus-only 11 → 4**, which is the number that un
 So an opus session on this ledger should spend itself where opus is the scarce input and refuse the
 mechanical rows, even when they look faster. Corollary he supplied on the two items he owns: bring
 **verdict + evidence, item stays open** — study is agent work, ruling is his.
+
+**Ritmo, corrigido por Lucas 2026-08-19:** *"no rush. we don't need to get to zero NOW. do things
+consistently, with the best care you can. all I meant is the final goal is zero items on the roadmap
+but it is not feasible to think we will achieve that on this session."* Zero é destino, não meta de
+sessão — então **não** encolher o ledger por atalho no fim da sessão, e **não** aceitar um trabalho
+apressado num gerador crítico só pra fechar mais uma linha. Recusar explicitamente e deixar o item
+bem especificado vale mais que entregá-lo mal.
+
+**Forma de sessão que funcionou melhor até agora (2026-08-19): *rulings sprint* em plan mode.** Com
+todos os shards já carregados, juntar as decisões 🔴 numa ou duas rodadas de `AskUserQuestion` com
+opções fundamentadas em probe (não em memória), e só então executar sem interromper. Seis rulings
+numa rodada destravaram quatro itens. O gargalo do dreno é a **atenção dele**, não o trabalho: itens
+🔴 que pedem *sessão própria de pesquisa* não caem em sessão mista, por mais barata que pareça.
 
 Texto canônico do constraint em `brain/goals/workspace-os.md` § governing constraint.
 
