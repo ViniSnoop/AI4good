@@ -118,17 +118,22 @@ branches/writing/drafts/*
 
 core/*
 !core/CONTEXT.md
-!core/SCHEMA.md
 !core/ROADMAP.md
-!core/HISTORY.md
-!core/MIGRATION-STATUS.md
+# The law and the conventions, INCLUDING their shards. Named one by one until 2026-08-20, which
+# left every SCHEMA-*.md and SPECS-*.md silently untracked — a clone got an index pointing at four
+# files it did not have. A type that shards must be allowlisted by its shape, never by enumeration.
+!core/SCHEMA.md
+!core/SCHEMA-*.md
 !core/SPECS.md
-!core/WATCHLIST.md
+!core/SPECS-*.md
 !core/features.txt
 !core/profile.txt
 !core/agents/
+!core/experiments/
 !core/flows/
 !core/hooks/
+!core/norms/
+!core/prompts/
 !core/refs/
 !core/skills/
 !core/tools/

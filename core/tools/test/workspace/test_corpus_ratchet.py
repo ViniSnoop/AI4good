@@ -61,7 +61,7 @@ def test_prose_describing_finished_work_does_not_grow():
     live = _finished()
     assert live <= FINISHED_CEILING, (
         f'{live} corpses, up from {FINISHED_CEILING}. Cut the prose describing work that '
-        f'landed, or rewrite it as present-tense state — entropy.md § Prose describing '
+        f'landed, or rewrite it as present-tense state — ISSUES.md § Prose describing '
         f'finished work')
 
 

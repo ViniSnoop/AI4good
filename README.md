@@ -12,7 +12,7 @@ file, and it is versioned.
 
 ```bash
 make verify-fast     # every Tier 0 check + unit tests, ~5s. The global pre-commit gate runs this.
-make entropy         # the drift report over this repo and its nested ones → entropy.md
+make entropy         # the drift report over this repo and its nested ones → ISSUES.md
 make verify-full     # adds the network-marked tests
 ```
 
@@ -68,7 +68,7 @@ a rule that gets switched off.
 | Feature | What it buys you |
 |---|---|
 | The `.md` type system | `UPPERCASE.md` names are a closed allowlist and each answers exactly one question, so there is one place a given fact belongs and inventing a file is a deliberate act. Rules in [`core/SCHEMA.md`](core/SCHEMA.md) |
-| Entropy dashboard | Naming, placement, pointer integrity, fanout and size run as deterministic checks over this repo and every nested one, into [`entropy.md`](entropy.md). A number that must shrink, instead of a feeling that the repo is messy |
+| Entropy dashboard | Naming, placement, pointer integrity, fanout and size run as deterministic checks over this repo and every nested one, into [`ISSUES.md`](ISSUES.md). A number that must shrink, instead of a feeling that the repo is messy |
 | Done work is deleted | Finished items are cut, never ticked. Git is the history, so a roadmap's length measures remaining work rather than accumulated pride |
 
 **Cost — so long sessions stay affordable.**

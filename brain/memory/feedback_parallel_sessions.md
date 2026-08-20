@@ -22,7 +22,7 @@ Lucas runs several sessions on `/mnt/workspace` in parallel. The tree is a share
   `git status` at session start — the file was clean when the session began. **`brain/INBOX.md` is
   append-at-any-moment; treat it as never yours to stage unless the INBOX is the work.**
 - **Staging explicitly is not enough — `git commit` commits the whole index, not what you just
-  added.** Incident 2026-08-13: `git add ROADMAP.md entropy.md` followed by `git commit` swept in
+  added.** Incident 2026-08-13: `git add ROADMAP.md ISSUES.md` followed by `git commit` swept in
   nine files (`brain/GOALS.md`, `brain/TODO.md`, `branches/ecovila/*`, `core/*`) that were already
   staged in the index when the session *started*. Nothing was lost, but another session's WIP
   landed under an unrelated commit message, and the fix (soft-reset + recommit) needs a force-push

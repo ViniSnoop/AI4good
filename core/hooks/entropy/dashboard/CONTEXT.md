@@ -10,8 +10,12 @@ the checks it runs* — so the split cost no new idea, only the hop.
 answer. A check that moved in here would become invisible to the commit gate, which imports the
 checks directly and never touches the dashboard.
 
-Run it with `make entropy`; the report is [`entropy.md`](../../../../entropy.md) at the workspace
-root. It is a **report, never a gate** — nothing here exits non-zero on a finding, and the ratchet
+Run it with `make entropy`; the report is the `entropy:` block inside
+[`ISSUES.md`](../../../../ISSUES.md) at the workspace root, beside the hand-written issues and the
+`verify:` block `core/tools/wos/roundup` writes. **This directory owns the block, never the file** —
+it reads what is there, swaps its own markers, and writes the rest back untouched.
+
+It is a **report, never a gate** — nothing here exits non-zero on a finding, and the ratchet
 that keeps the counts falling lives in `core/tools/test/workspace/test_corpus_ratchet.py`.
 
 <!-- routing:start -->

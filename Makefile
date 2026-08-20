@@ -13,7 +13,7 @@ verify-fast:
 	@$(PYTEST) core/tools/test/ -m "not network" -q
 
 # The entropy dashboard: every Tier 0 check over the workspace AND its 24 nested repos,
-# written to entropy.md. Read the report; never re-scan the tree by hand. Not part of
+# written into the entropy block of ISSUES.md. Read the report; never re-scan the tree. Not part of
 # verify-fast — it writes a file, and a verification step must not have side effects.
 entropy:
 	@python3 core/hooks/entropy/dashboard/entropy-dashboard.py

@@ -15,12 +15,15 @@
 1. 🟡 **entropy is reported "flat" every session and has roughly quadrupled in four days.** Lucas
    (INBOX 2026-08-17): *"sessions keep saying entropy is flat but on the last week it went from 270
    I think up to more than 400."* He is right and the real curve is steeper than his memory of it —
-   re-derived from the file's own history, one command, which is the point:
+   re-derived from the count's own history, one command, which is the point. It spans the two files
+   the count has lived in — `entropy.md` until 2026-08-19, the entropy block of `ISSUES.md` after —
+   because a trend that stops at a rename is the same blindness in a new place:
 
    ```bash
-   for c in $(git log --format=%h --since="12 days ago" -- entropy.md); do
+   for c in $(git log --format=%h --since="12 days ago" -- entropy.md ISSUES.md); do
      printf '%s  ' "$(git log -1 --format=%ad --date=short $c)"
-     git show $c:entropy.md | grep -m1 -oE '[0-9]+ findings'
+     { git show "$c:ISSUES.md" 2>/dev/null || git show "$c:entropy.md" 2>/dev/null; } \
+       | grep -m1 -oE '[0-9]+ findings'
    done | sort -u
    ```
 
@@ -59,7 +62,7 @@
    — one token, one meaning, and a carve-out for run artifacts is a second rule to remember at every
    future rename. Git holds what the file said before.
    → **tier: medium**.
-3. 🟢 **drain the entropy dashboard.** `make entropy` → [`entropy.md`](entropy.md), the whole
+3. 🟢 **drain the entropy dashboard.** `make entropy` → [`ISSUES.md`](ISSUES.md) § Entropy, the whole
    workspace and its nested repos in seconds. Read the report; never re-scan the tree. **Never copy
    its counts into this file** — a copied number is the drift these checks exist to catch, and the
    summary table at the top of the report is the interface. Criterion 1 wants it reading clean.
@@ -75,7 +78,7 @@
    commit adds, and asks the routing generator rather than a table of its own
    ([`core/hooks/SPECS.md`](core/hooks/SPECS-generators.md) § First-line descriptions). What is left is the
    standing queue the ratchet deliberately does not
-   charge anyone for. **Size it against [`entropy.md`](entropy.md), and re-run the generator before
+   charge anyone for. **Size it against [`ISSUES.md`](ISSUES.md) § Entropy, and re-run the generator before
    measuring** — every marker drained so far was a file the generator could already describe.
    **Scope here is this repo only**; the nested-repo majority is under § Blocked. → **tier: medium**.
 8. 🟡 **Five `.md` files are still over the 200-line cap, and the gate cannot go live until none are.**
@@ -128,7 +131,7 @@
 13. 🔴 **Should entropy be scattered across the nested repos instead of pooled at the root?** Lucas,
     2026-08-18: *"entropy maybe should be scattered as well across each individual repo (maybe this
     is a task that deserves to be written somewhere, so we can DISCUSS this point in depth)."* Today
-    one [`entropy.md`](entropy.md) at the workspace root counts this repo **and** all 25 nested ones,
+    one entropy block in [`ISSUES.md`](ISSUES.md) at the workspace root counts this repo **and** all 25 nested ones,
     which is why a finding in `code/aiwbot` is read by a session working on the workspace and by
     nobody working on aiwbot. The pull the other way is real and is why this is a discussion rather
     than a task: the root file is a **ratchet**, and a number that must shrink only works while it is

@@ -28,7 +28,7 @@ Four criteria. Nothing else gates v1.
 
 | # | Criterion | Owner | State |
 |---|-----------|-------|-------|
-| 1 | **verify-fast green + Tier 0 live** — naming, placement, pointer integrity, size-as-signal deterministic; **this repo** clean, every nested repo on a shrinking baseline | [`ROADMAP-entropy.md`](ROADMAP-entropy.md) | checks live · **read [`entropy.md`](entropy.md) for the count, never a copy of it** |
+| 1 | **verify-fast green + Tier 0 live** — naming, placement, pointer integrity, size-as-signal deterministic; **this repo** clean, every nested repo on a shrinking baseline | [`ROADMAP-entropy.md`](ROADMAP-entropy.md) | checks live · **read [`ISSUES.md`](ISSUES.md) § Entropy for the count, never a copy of it** |
 | 2 | **One ledger, no duplicates** — this family is the sole wos ledger, verified by scan not eyeball | [`ROADMAP-ledger.md`](ROADMAP-ledger.md) | ✅ **MET 2026-07-30** — `test_no_item_lives_in_two_ledgers` |
 | 3 | **Everything pushed, gitflow-shaped** — every `code/` repo on `main`/`feature/*`, zero unpushed, no repo without a remote | — | ✅ **MET 2026-08-14** — re-run, never trusted: one loop over `find . -name .git` asserting a remote and a legal branch per repo |
 | 4 | **Clonable by a student** — fresh clone gets every feature; deps declared, no undocumented hand-installs | [`ROADMAP-portability.md`](ROADMAP-portability.md) | ✅ **MET 2026-08-16** — `SETUP.md` is an executed procedure, every dep declared in `core/tools/deps.txt`, both enforced by `verify-fast` |
@@ -59,7 +59,7 @@ instead — or, across shards, at the shard's filename, which is what `blocked-b
 
 Measurements never live here. The instrument is
 [`core/tools/wos/session/context`](core/tools/wos/session/context); results live in
-[`core/experiments/`](core/experiments/CONTEXT.md); drift counts live in [`entropy.md`](entropy.md).
+[`core/experiments/`](core/experiments/CONTEXT.md); drift counts live in [`ISSUES.md`](ISSUES.md) § Entropy.
 Re-run them rather than quoting a number from this file.
 
 **Load-bearing principle: automatic + zero-token beats agent-checked, and free checks are never
@@ -125,7 +125,7 @@ low). Which model fills each tier is data in that file, never in this one.
 | [`ROADMAP-archive.md`](ROADMAP-archive.md) | What is NOT being worked on, and what would change that? Three kinds: blocked on a named trigger, parked as out of scope, killed outright — each keeping its reason so a dead idea cannot return looking new. Read it before proposing something that sounds obvious; nothing here counts toward the drain, so Open reads empty. | — | — | — | — | `gdrive-integration` `offline-resilience` `task-metric` |
 | [`ROADMAP-cost.md`](ROADMAP-cost.md) | What does a session cost, and which of that is avoidable? Holds which tier runs what, what loads at session start, and what fills the context window. Open it for what we intend to change about spend; every measured number lives in `core/experiments/`, so re-run the instrument for what spend actually is. | important | 6 | 1 | — | — |
 | [`ROADMAP-entropy.md`](ROADMAP-entropy.md) | Does the tree still have the shape we said it has, and does anything check? Holds the Tier 0 checks, the ratchet that makes their count shrink, and rules declared in a `SPECS.md` with no implementation. Open it for a check, a drifted name or an unenforced limit — never for what the drift *means*, which is legibility's. | essential | 11 | 1 | — | — |
-| [`ROADMAP-ledger.md`](ROADMAP-ledger.md) | Where does a piece of writing belong, and is it written down twice? Holds the `.md` type system's unfinished migrations and the rule that an item lives in exactly one ledger. Open it when a file's NAME or PLACE is the question; the law itself is `core/SCHEMA.md` and the checks that catch a breach are entropy's. | essential | 4 | — | — | — |
+| [`ROADMAP-ledger.md`](ROADMAP-ledger.md) | Where does a piece of writing belong, and is it written down twice? Holds the `.md` type system's unfinished migrations and the rule that an item lives in exactly one ledger. Open it when a file's NAME or PLACE is the question; the law itself is `core/SCHEMA.md` and the checks that catch a breach are entropy's. | essential | 3 | — | — | — |
 | [`ROADMAP-legibility.md`](ROADMAP-legibility.md) | Can Lucas still read the thing he owns — its words, its decisions, its shape? A standing front that never closes: the jargon audit, the pictures that show the workspace at a glance, and the rule that a session may not decide quietly. Open it when something is UNREADABLE or was decided without him, not when it is broken. | essential | 6 | 2 | — | — |
 | [`ROADMAP-measurement.md`](ROADMAP-measurement.md) | Does any of this scaffold actually help, and what catches the agent being confidently wrong? Two halves with one cause: the ablation that would measure whether a rule earns its keep, and the gates that would make a claim carry its evidence. Open it before trusting a number or a technical opinion; the experiment's design lives in its paper twin. | important | 4 | 3 | ROADMAP-portability.md | — |
 | [`ROADMAP-portability.md`](ROADMAP-portability.md) | Would this workspace work on a machine that is not Lucas's? Every dependency is declared and `SETUP.md` is an executed procedure, so what is left is the public scaffold repo his students will clone and the one feature that cannot be switched off. Open it for anything crossing the line between what is general and what is his. | essential | 2 | 1 | — | — |
@@ -162,7 +162,6 @@ low). Which model fills each tier is data in that file, never in this one.
 
 - 🟢 `TODO.md` dies as a type — fold its content into goals, then delete the file.
 - 🟡 the attention dashboard measures the wrong thing
-- 🟢 `entropy.md` still sits at the workspace root, and the ruling that removes it is half built.
 - 🟢 the `SPEC.md` → `SPECS.md` migration — the one part of retyping that is still wos work.
 
 **[`ROADMAP-legibility.md`](ROADMAP-legibility.md)**

@@ -20,10 +20,12 @@ from pathlib import Path
 # The checks are one level up in entropy/; the law (file_law, schema_law) is two, at the root of
 # the enforcement layer; git/ holds the one check that reads git state instead of file content.
 _ENTROPY = Path(__file__).resolve().parents[1]
-for _dir in (_ENTROPY, _ENTROPY.parent, _ENTROPY.parent / 'git'):
+for _dir in (_ENTROPY, _ENTROPY.parent, _ENTROPY.parent / 'git',
+             _ENTROPY.parent / 'routing'):
     sys.path.insert(0, str(_dir))
 
 import feature_law  # noqa: E402
+from blocks import replace_block  # noqa: E402
 from branch_debt import merged_remote_branches, unmerged_branches  # noqa: E402
 from entropy_context import check_goal_link, check_misplaced_answer  # noqa: E402
 from entropy_corpus import (enforcement_paths, is_generated_mirror,  # noqa: E402
@@ -33,7 +35,7 @@ from entropy_ledger import (duplicate_slugs, finished_work_hits,  # noqa: E402
                             goal_vocabulary, retired_hits,
                             unanswered_placeholders, wiki_link_hits)
 from entropy_naming import check_dirs, check_placement, check_shape  # noqa: E402
-from entropy_report import SECTIONS, render  # noqa: E402
+from entropy_report import END, SECTIONS, SEED, START, render  # noqa: E402
 from entropy_stores import experiment_hits, ref_tier_hits  # noqa: E402
 from file_law import (is_authored, is_authored_prose,  # noqa: E402
                       is_generated_artifact, is_vendored, load_limits,
@@ -41,7 +43,10 @@ from file_law import (is_authored, is_authored_prose,  # noqa: E402
 from schema_law import (SCHEMA, WORKSPACE_ROOT, load_law,  # noqa: E402
                         load_retired, load_scopes)
 
-REPORT = WORKSPACE_ROOT / 'entropy.md'
+# The measurements sit under the hand-written issues, in their own block: an entropy finding and a
+# known bug answer the same question, and core/SCHEMA.md gives that question one file. This tool
+# owns the block, never the file.
+REPORT = WORKSPACE_ROOT / 'ISSUES.md'
 
 LEDGERS = {
     # Every shard of the wos ledger is ONE namespace: criterion 2 forbids the same item in two
@@ -181,7 +186,9 @@ def main() -> int:
         return 0  # switched off: no report is written, so the number stops existing rather than lying
     files = tracked_files(WORKSPACE_ROOT, nested=True)
     findings = collect(files)
-    REPORT.write_text(render(findings, len(files), WORKSPACE_ROOT), encoding="utf-8")
+    text = REPORT.read_text(encoding='utf-8') if REPORT.exists() else SEED
+    block = render(findings, len(files), WORKSPACE_ROOT)
+    REPORT.write_text(replace_block(text, block, START, END), encoding="utf-8")
     print(f'entropy dashboard → {_rel(REPORT)} '
           f'({sum(len(findings[k]) for k, _, _ in SECTIONS)} findings)')
     return 0

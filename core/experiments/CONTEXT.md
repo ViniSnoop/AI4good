@@ -4,7 +4,7 @@
 **Why this exists.** *"No feature in this workspace has ever been measured"*
 ([/ROADMAP-portability.md](../../ROADMAP-portability.md)). Every instrument we own —
 [`session/context`](../tools/wos/session/context), [`session/usage`](../tools/wos/session/usage),
-[`entropy.md`](../../entropy.md) — prints the present and forgets; git holds the past but not a
+[`ISSUES.md`](../../ISSUES.md) — prints the present and forgets; git holds the past but not a
 readable trend. This directory is the readable half, and differs on purpose from
 `core/SCAFFOLD-LOG.md` ([/ROADMAP-archive.md](../../ROADMAP-archive.md) § Rejected): that logged narrated
 **changes**, redundant with git; this records **measurements over time**, which git cannot give you.

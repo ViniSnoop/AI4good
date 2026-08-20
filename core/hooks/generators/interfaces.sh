@@ -14,7 +14,7 @@ if python3 /mnt/workspace/core/hooks/feature_law.py --enabled interface-stubs; t
 # never stubbed by anything, and nothing ever looked back: 182 files workspace-wide had no
 # interface. Sweeping the touched directories catches the common shape (a directory that
 # gained files in one go) without paying a whole-tree scan on every commit. The rest is
-# counted in entropy.md so the number is visible instead of merely absent.
+# counted in ISSUES.md § Entropy so the number is visible instead of merely absent.
 PY_FILES=$(echo "$STAGED" | grep '\.py$' | grep -v '__pycache__' || true)
 if [ -n "$PY_FILES" ]; then
   if ! command -v stubgen &>/dev/null; then

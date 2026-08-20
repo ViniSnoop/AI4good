@@ -1,11 +1,12 @@
 # routing
-> The CONTEXT.md routing-table generator.
+> The CONTEXT.md routing-table generator, and the delimited-block writer every generator shares.
 
 <!-- routing:start -->
 ## Routing
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
+| [`blocks.py`](blocks.py) | [`blocks.pyi`](blocks.pyi) | `markers`, `line_pos`, `replace_block`, `main` | A generated block inside an authored file: found by its markers, rewritten in place. |
 | [`context_synchronizer.py`](context_synchronizer.py) | [`context_synchronizer.pyi`](context_synchronizer.pyi) | `replace_block`, `sync_shards`, `sync` | Sync the Routing block in CONTEXT.md (or AGENTS.md at workspace root). |
 | [`hoist.py`](hoist.py) | [`hoist.pyi`](hoist.pyi) | `md_blurb`, `comment_paragraph`, `rebase_links`, `truncate_outside_links`, `hoist` | Text written for one file, made safe to show inside another file's table. |
 | [`norms.py`](norms.py) | [`norms.pyi`](norms.pyi) | `body`, `published`, `block`, `sync` | Publish core/norms/*.md into AGENTS.md's rule block, in the registry's order. |

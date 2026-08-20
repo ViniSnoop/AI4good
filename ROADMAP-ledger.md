@@ -99,34 +99,9 @@ spaghetti. I wanted things to be very clear here. very concise, precise."* The i
 > and their resolving rules, § Retired tokens holds what each rename retired. This front holds only
 > the migrations that have not landed.
 
-2. 🟢 **`entropy.md` still sits at the workspace root, and the ruling that removes it is half built.**
-   **Decided 2026-08-19 (Lucas), from his own INBOX capture**: the measurements move into
-   `ISSUES.md` — *"fico pensando se não deveríamos incluir os resultados das verificações/testes no
-   BUGS.md… poderíamos incluir nele as medições de entropia do repo tbm"* — and that file is
-   renamed from the old bug-only name, because `core/SCHEMA.md` already declared its question as
-   *what is currently untrue that we know about*, which an entropy finding and a red test both are.
-
-   **The rename landed; the blocks did not.** What is left is the whole of this item:
-   - `entropy-dashboard.py` writes into `<!-- entropy:start -->…<!-- entropy:end -->` inside the
-     root `ISSUES.md` instead of writing `entropy.md`, and the file is deleted.
-   - a `<!-- verify:start -->` block carrying the verification result, which has no writer yet.
-   - the references move with it — **re-derive the count, do not trust this line**, and note that
-     several of them are prose saying *read `entropy.md` for the count, never a copy of it*, which
-     has to keep meaning the same thing after the move.
-
-   **Shape ruled with it, and it is the whole risk**: hand-written issues first, every generated
-   measurement inside its own delimited block, exactly as the routing block lives inside
-   `CONTEXT.md`. Never hand-edit inside a block; never write a measured number outside one. The
-   FIXED gate governs the hand-written half only, or it starts asserting on regenerated text.
-
-   **Scope boundary held deliberately:** only the root gets a block. Whether every nested repo grows
-   its own is the scattered-vs-pooled question in [`ROADMAP-entropy.md`](ROADMAP-entropy.md), still
-   open and still Lucas's. This gives that question a concrete shape; it does not answer it.
-   → **tier: medium**.
-
 1. 🟢 **the `SPEC.md` → `SPECS.md` migration — the one part of retyping that is still wos work.**
    `core/hooks/checks/type-gate.py` stops *new* off-allowlist names; the existing ones are
-   enumerated live in [`entropy.md`](entropy.md) — read the report, never re-scan.
+   enumerated live in [`ISSUES.md`](ISSUES.md) § Entropy — read the report, never re-scan.
 
    **Three `SPEC.md` instances**: `spacemantics`, `aiwbot`, and `code/_templates/module.SPEC.md`.
    The template is the generator, so it moves first or the name grows straight back. This is
@@ -140,7 +115,7 @@ spaghetti. I wanted things to be very clear here. very concise, precise."* The i
    **The rest is refiled (2026-08-16).** spacemantics' eleven spec-shaped names are that repo's
    design question and now live in its ROADMAP; the twenty-name long tail across nine repos is
    each repo's own, as are the completed-milestone corpses still sitting in `flows` and `aiwbot`.
-   [`entropy.md`](entropy.md) keeps counting all of it, so nothing goes dark.
+   [`ISSUES.md`](ISSUES.md) § Entropy keeps counting all of it, so nothing goes dark.
 
    **The lesson that generalises, from draining the six `HISTORY.md`: delete the generator before
    the artefact, or the name grows back.** Four ROADMAP headers were *instructing every future

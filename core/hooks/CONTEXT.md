@@ -36,7 +36,7 @@ Two axes worth knowing before you route:
   directory holds standalone programs, run by path.
 - **Reject vs write.** A gate exits non-zero and stops the commit or the edit; a generator
   writes an artifact and stages it. `entropy/` does neither — it reports, into
-  [`entropy.md`](../../entropy.md); read that report instead of re-scanning the tree.
+  [`ISSUES.md`](../../ISSUES.md); read that report instead of re-scanning the tree.
 
 Python modules in a subdirectory reach the root law with
 `sys.path.insert(0, str(Path(__file__).resolve().parents[1]))`. The test suite gets the same
@@ -64,7 +64,7 @@ exist: [`code/ROADMAP-verify.md`](../../code/ROADMAP-verify.md). Installing the 
 | [`git/`](git/CONTEXT.md) | Gates and self-heals about git state itself: branch shape, gitlinks, .gitignore. |
 | [`postedit/`](postedit/CONTEXT.md) | Sourced post-edit stages: regenerate interfaces, remind, sync, lint. |
 | [`read/`](read/CONTEXT.md) | Who must read what before touching a subtree — and who gets handed it instead. |
-| [`routing/`](routing/CONTEXT.md) | The CONTEXT.md routing-table generator. |
+| [`routing/`](routing/CONTEXT.md) | The CONTEXT.md routing-table generator, and the delimited-block writer every generator shares. |
 | [`session/`](session/CONTEXT.md) | Session lifecycle: start, prune, precompact wipe, and the SessionStart nudges. |
 | [`stubgen/`](stubgen/CONTEXT.md) | Interface stubs and paper scaffolding, generated on save and on commit. |
 | [`trigger/`](trigger/CONTEXT.md) | When a feature fires, read from the registrations rather than from where its file sits. |

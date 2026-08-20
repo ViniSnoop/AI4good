@@ -5,6 +5,8 @@ import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import feature_law
+from blocks import line_pos as _line_pos
+from blocks import replace_block as _replace
 from file_law import is_code_file
 from shard_table import build_shard_rows, index_for, shards_of
 from workspace_scanner import (
@@ -17,20 +19,6 @@ from workspace_scanner import (
 RS  = '<!-- routing:start -->'
 RE  = '<!-- routing:end -->'
 
-
-
-def _line_pos(text: str, sentinel: str) -> int:
-    """Return position of sentinel only when it appears on its own line, else -1."""
-    # Match at start of file or after a newline, followed by newline or end.
-    for prefix in ('\n', ''):
-        idx = text.find(prefix + sentinel)
-        if idx == -1:
-            continue
-        pos = idx + len(prefix)
-        after = pos + len(sentinel)
-        if after >= len(text) or text[after] in ('\n', '\r'):
-            return pos
-    return -1
 
 
 _ROUTING_HEAD = re.compile(r'^##\s+Routing\s*$', re.MULTILINE)
@@ -58,15 +46,14 @@ def replace_block(text: str, new_block: str) -> str:
 
     Shared by the two things that own a routing block — a directory's CONTEXT.md and a sharded
     type's index. They differ in what fills the block, never in where it sits.
+
+    The marker mechanics live in blocks.py, shared with every other generated block; what stays
+    here is the routing table's own two rules — it goes last, and a hand-written `## Routing`
+    section it finds instead of markers is the block it is replacing.
     """
-    si, ei = _line_pos(text, RS), _line_pos(text, RE)
-    if si != -1 and ei != -1:
-        before = text[:si].rstrip('\n')
-        after  = text[ei + len(RE):].lstrip('\n')
-        text   = '\n\n'.join(p for p in (before, after) if p)
-    else:
+    if _line_pos(text, RS) == -1 or _line_pos(text, RE) == -1:
         text = _drop_unsentineled_routing(text)
-    return text.rstrip('\n') + '\n\n' + new_block
+    return _replace(text, new_block, RS, RE, at_end=True)
 
 
 def sync_shards(target: Path) -> bool:

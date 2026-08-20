@@ -33,8 +33,15 @@ ARCHITECTURE.html
 */outputs/*
 outputs/*
 
-# The entropy report — core/hooks/entropy/dashboard/entropy-dashboard.py, committed by
-# core/tools/wos/roundup. Its own second line says "Do not edit", and it went uncounted here for as
-# long as this list has existed: harmless while the line cap was code-only, a finding the day the
-# cap reached .md, since the report is 554 lines of generated prose that no split could improve.
-entropy.md
+# The workspace's own ISSUES.md — the ROOT one only, which is why the pattern is anchored: every
+# other ISSUES.md in the tree is hand-written from its first line to its last and stays capped.
+# This one carries the entropy block (core/hooks/entropy/dashboard/entropy-dashboard.py) and the
+# verify block (core/tools/wos/roundup), together some 900 lines of generated prose that no split
+# could improve, so the cap is waived for the whole file.
+#
+# It is the one HALF-authored entry in this list, and that is a real cost rather than a detail: the
+# hand-written issues above the blocks lose the size signal too. Accepted because the alternative is
+# a per-block cap — a second numeric law, answering a question BLOCK_LINES already answers, which is
+# the drift file_law.py exists to prevent. If the hand-written half ever grows past a screen, it
+# shards like any other type and the shards are ordinary capped files.
+ISSUES.md

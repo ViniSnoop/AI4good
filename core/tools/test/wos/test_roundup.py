@@ -13,8 +13,15 @@ from conftest import WORKSPACE_ROOT
 
 ROUNDUP = WORKSPACE_ROOT / 'core/tools/wos/roundup'
 
-MAKEFILE = 'verify-fast:\n\t@echo "3 passed"\n\nentropy:\n\t@echo "**7 findings**" > entropy.md\n'
-RED_MAKEFILE = 'verify-fast:\n\t@exit 1\n\nentropy:\n\t@echo "**7 findings**" > entropy.md\n'
+# The fake entropy target writes a BLOCK through the real writer, exactly as the dashboard does.
+# A target that clobbered the file would pass while hiding the thing worth guarding: roundup writes
+# the verify block first, so an entropy regen that does not preserve its neighbours destroys it.
+_REGEN = '@echo "**7 findings**" | python3 core/hooks/routing/blocks.py ISSUES.md entropy'
+MAKEFILE = f'verify-fast:\n\t@echo "3 passed"\n\nentropy:\n\t{_REGEN}\n'
+RED_MAKEFILE = f'verify-fast:\n\t@exit 1\n\nentropy:\n\t{_REGEN}\n'
+
+SEEDED_ISSUES = ('# Issues\n\n## B1 — a hand-written issue the generators must not touch\n\n'
+                 '<!-- entropy:start -->\n**9 findings**\n<!-- entropy:end -->\n')
 
 
 def _git(repo, *args):
@@ -26,11 +33,17 @@ def _workspace(tmp_path, makefile=MAKEFILE):
     gitflow and entropy branches of the code are reachable. main == develop, feature one ahead."""
     ws = tmp_path / 'ws'
     (ws / 'core/tools/wos').mkdir(parents=True)
+    (ws / 'core/hooks/routing').mkdir(parents=True)
+    (ws / 'core/tools/wos/close').mkdir(parents=True)
     dest = ws / 'core/tools/wos/roundup'
     shutil.copy(ROUNDUP, dest)
     os.chmod(dest, 0o755)
+    # The fragment it sources and the block writer that fragment calls: both are the real files,
+    # because what they do to the tree is the subject of these cases.
+    shutil.copy(ROUNDUP.parent / 'close/artifacts.sh', ws / 'core/tools/wos/close')
+    shutil.copy(WORKSPACE_ROOT / 'core/hooks/routing/blocks.py', ws / 'core/hooks/routing')
     (ws / 'Makefile').write_text(makefile, encoding='utf-8')
-    (ws / 'entropy.md').write_text('**9 findings**\n', encoding='utf-8')
+    (ws / 'ISSUES.md').write_text(SEEDED_ISSUES, encoding='utf-8')
 
     _git(ws, 'init', '-q', '-b', 'main')
     _git(ws, 'config', 'user.email', 'test@example.com')
@@ -110,7 +123,29 @@ def test_clean_tree_still_commits_entropy(tmp_path):
     r = _run(ws)
     assert r.returncode == 0, r.stdout
     assert '7 findings' in r.stdout and 'not committed' not in r.stdout
-    assert 'chore(entropy)' in _git(ws, 'log', '--oneline', 'main').stdout
+    assert 'chore(issues)' in _git(ws, 'log', '--oneline', 'main').stdout
+
+
+def test_the_two_blocks_and_the_hand_written_issues_coexist(tmp_path):
+    """Three writers share ISSUES.md and none of them owns the file.
+
+    roundup writes the verify block, the dashboard rewrites the entropy block after it, and the
+    hand-written issues above both are nobody's to touch. A generator that rebuilt the file instead
+    of its own block would pass every other case here and silently eat the other two.
+    """
+    ws = _workspace(tmp_path)
+    assert _run(ws).returncode == 0
+    text = (ws / 'ISSUES.md').read_text(encoding='utf-8')
+    assert '## B1 — a hand-written issue' in text, 'the hand-written half must survive both writers'
+    assert '**7 findings**' in text and '**9 findings**' not in text
+    assert '<!-- verify:start -->' in text and 'green (3 passed)' in text
+
+
+def test_a_red_suite_reports_itself_in_the_verify_block(tmp_path):
+    """A red run still writes the block — that is the whole point of recording the last result."""
+    ws = _workspace(tmp_path, makefile=RED_MAKEFILE)
+    _run(ws)
+    assert '**red**' in (ws / 'ISSUES.md').read_text(encoding='utf-8')
 
 
 def test_a_real_merge_is_refused_while_the_tree_is_not_ours(tmp_path):

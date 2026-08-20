@@ -26,7 +26,7 @@ A row moves back up the moment its trigger fires. A row whose trigger never fire
   `test_entropy_fanout.py` in the same commit. → **tier: medium**, one repo at a time.
 
 - **The nested-repo majority of the first-line-comment queue.** Sized against
-  [`entropy.md`](entropy.md), after re-running the generator — every marker drained so far was a file
+  [`ISSUES.md`](ISSUES.md), after re-running the generator — every marker drained so far was a file
   the generator could already describe.
   → **trigger: a session in each nested repo.** This repo's half stays in Front 4.
 
@@ -53,7 +53,7 @@ A row moves back up the moment its trigger fires. A row whose trigger never fire
   → **tier: medium**, one file per commit.
 
 - **The `.d.ts` half of the stub gap** — 203 files, all in nested repos, counted in
-  [`entropy.md`](entropy.md) under the criterion-1 baseline rule.
+  [`ISSUES.md`](ISSUES.md) under the criterion-1 baseline rule.
   → **trigger: a session in each nested repo.**
 
 - **`gira` and `laplata` declare `goal: none` while their goal files exist.** The project ⟺ goal

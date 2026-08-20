@@ -6,6 +6,7 @@
 
 | Subdirectory | Description |
 |--------------|-------------|
+| [`close/`](close/CONTEXT.md) | What a session close writes, and what it does with each artifact afterwards. |
 | [`diagram/`](diagram/CONTEXT.md) | The workspace drawn from its own declarations: one generated HTML picture, zero tokens, no model. |
 | [`session/`](session/CONTEXT.md) | What a session costs and what fills it, read from the local transcripts. No network, no model. |
 

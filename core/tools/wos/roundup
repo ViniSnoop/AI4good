@@ -58,26 +58,21 @@ else
   VERIFY="red"
 fi
 
-# ── Entropy dashboard. Workspace repo only — it scans the whole tree, including the nested repos.
-findings() { grep -oE '\*\*[0-9]+ findings\*\*' entropy.md 2>/dev/null | grep -oE '[0-9]+' | head -1; }
+# ── The two generated blocks in ISSUES.md — the workspace's own answer to what is currently untrue.
+#    Workspace repo only: the dashboard scans the whole tree, nested repos included. Both blocks
+#    land in one file, so they are settled once, in one commit.
+. "$SCRIPT_DIR/close/artifacts.sh"
+
+findings() { grep -oE '\*\*[0-9]+ findings\*\*' ISSUES.md 2>/dev/null | grep -oE '[0-9]+' | head -1; }
 ENTROPY=""
 if [ "$ROOT" = "$WORKSPACE" ]; then
   BEFORE="$(findings)"
-  WAS_CLEAN=0; git diff --quiet entropy.md 2>/dev/null && WAS_CLEAN=1
+  WAS_CLEAN=0; git diff --quiet ISSUES.md 2>/dev/null && WAS_CLEAN=1
+  verify_block
   if make entropy >/dev/null 2>&1; then
     AFTER="$(findings)"
     if [ "$AFTER" = "$BEFORE" ]; then ENTROPY="$AFTER findings (flat)"; else ENTROPY="$AFTER findings (was ${BEFORE:-?})"; fi
-    # The commit stages the whole index — safe only because the dirty stop guaranteed it empty.
-    # Under --leave-dirty it is not, so the count is reported and the write is rolled back: a
-    # regenerated entropy.md left behind would ride into the other session's next `git add -A`.
-    if ! git diff --quiet entropy.md 2>/dev/null; then
-      if [ -n "$LEAVE_DIRTY" ]; then
-        [ "$WAS_CLEAN" = 1 ] && git checkout -q -- entropy.md 2>/dev/null
-        ENTROPY="$ENTROPY · reported only, not committed (tree holds another session's work)"
-      elif ! { git add entropy.md && git commit -q -m "chore(entropy): regenerate at session close"; }; then
-        ENTROPY="$ENTROPY · commit failed, entropy.md left dirty"
-      fi
-    fi
+    ENTROPY="$ENTROPY$(settle ISSUES.md "$WAS_CLEAN" "chore(issues): regenerate the entropy and verify blocks at session close")"
   else
     ENTROPY="regen failed"
   fi
@@ -95,14 +90,7 @@ if [ "$ROOT" = "$WORKSPACE" ]; then
   else
     DIAGRAM="regen incomplete · $(printf '%s' "$DIAGRAM_OUT" | grep -c UNPARSED) unparsed routing block(s)"
   fi
-  if ! git diff --quiet ARCHITECTURE.html 2>/dev/null; then
-    if [ -n "$LEAVE_DIRTY" ]; then
-      [ "$WAS_CLEAN" = 1 ] && git checkout -q -- ARCHITECTURE.html 2>/dev/null
-      DIAGRAM="$DIAGRAM · reported only, not committed (tree holds another session's work)"
-    elif ! { git add ARCHITECTURE.html && git commit -q -m "chore(diagram): regenerate at session close"; }; then
-      DIAGRAM="$DIAGRAM · commit failed, ARCHITECTURE.html left dirty"
-    fi
-  fi
+  DIAGRAM="$DIAGRAM$(settle ARCHITECTURE.html "$WAS_CLEAN" "chore(diagram): regenerate at session close")"
 fi
 
 # ── Branch promotion. Same scope as core/hooks/git/gitflow-gate.sh: the workspace repo and

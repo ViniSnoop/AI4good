@@ -6,7 +6,7 @@ A centralized personal operating system: all thoughts, projects, demands, full-l
 transformative · essential · thrilled
 
 >**owns**  
-`core` · `ROADMAP.md` · `SETUP.md` · `AGENTS.md` · `Makefile` · `entropy.md`
+`core` · `ROADMAP.md` · `SETUP.md` · `AGENTS.md` · `Makefile` · `ISSUES.md`
 
 >**dynamics**  
 immersed mode · advancing motion · intrinsic source  
@@ -79,14 +79,14 @@ fallback · iterate — MVP can always be extended*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-17  ·  trend: advancing
+last-touch: 2026-08-20  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |     240 |
-| trimester   |     285 |
-| semester    |     302 |
-| year        |     302 |
-| 2-year      |     302 |
-| 4-year      |     302 |
+| month       |     286 |
+| trimester   |     337 |
+| semester    |     356 |
+| year        |     356 |
+| 2-year      |     356 |
+| 4-year      |     356 |
 <!-- stats:end -->

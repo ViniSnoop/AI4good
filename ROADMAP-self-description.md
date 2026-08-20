@@ -33,7 +33,7 @@ our own tree, was written into a durable file, and was refuted by one `grep`, on
 None needed judgment; they needed anyone to check. That is the evidence this front asked for.
 
 **The asymmetry that makes this tractable.** This workspace already has the discipline — for
-*numbers*. *"Re-run it, never quote it"* is everywhere and it works; `entropy.md`, `session/usage`
+*numbers*. *"Re-run it, never quote it"* is everywhere and it works; `ISSUES.md`, `session/usage`
 and `--findings` are all quoted-from-nowhere by rule. There is **no equivalent for structural
 claims**: *"nothing calls X"*, *"there is nowhere to put Y"*, *"Z is unbuilt"*, *"these groups match
 the tree"*. Those are strictly **cheaper** to verify than any number — one `grep`, one `ls`, one run

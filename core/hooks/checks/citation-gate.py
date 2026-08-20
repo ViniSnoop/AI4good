@@ -49,7 +49,7 @@ LEDGER_NAMES = re.compile(r'^ROADMAP(-[a-z0-9-]+)?\.md$')
 # with its tests all have to be able to NAME the shape they forbid. Nothing else may.
 # core/hooks/SPECS.md joined this list by failing the check the moment it documented the gate,
 # which is the same argument core/SCHEMA.md was already on it for.
-ENFORCEMENT = ('core/SCHEMA.md', 'core/hooks/SPECS.md', 'entropy.md')
+ENFORCEMENT = ('core/SCHEMA.md', 'core/hooks/SPECS.md', 'ISSUES.md')
 # Derived from __file__, never spelled out: a hard-coded path here stops exempting this
 # checker the moment the hooks directory moves, which is what happened to the sibling
 # exemption in entropy_corpus.py when the hooks moved into core/ (2026-07-31).
