@@ -31,6 +31,14 @@ These are enforced by code review, not hooks. Violation = redo before continuing
 - **Eyeball output whose shape is the deliverable** — chat bubbles, rendered docs, images. Two
   bugs in aiwbot (an answer reposted whole; `(1) (1/10)` double counters) passed every assertion
   in their own spec file and were caught by printing the result and reading it
+- **Two sides of a comparison that share a derivation cannot check that derivation** — and the
+  test will be green while they are both wrong. isoroll's parity oracle scaled the expected and
+  the actual by the same wrong constant (CP-1), then agreed on a floor that was nine tenths
+  undrawn (CP-3): both sides read the same massing. Make the two sides come from different places
+  — one measured off the live system, one from the spec — or the green means only "consistent"
+- **Mutation-test an oracle before trusting it** — break the thing it is supposed to catch, on
+  purpose, and confirm it goes red. isoroll's first CP-4 wall check passed against the very bug it
+  was written for; a two-minute revert-and-run is what said so
 
 <!-- routing:start -->
 ## Routing

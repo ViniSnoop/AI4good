@@ -65,3 +65,10 @@ será que vale um teste?
 https://www.instagram.com/reel/DcJ3PUDyIvS/?utm_source=ig_web_copy_link&igsh=NTc4MTIwNjQ2YQ==
 interessado especialmente nos casos em que podemos rodar algo localmente
 — via aiwbot · 2026-08-17
+
+## pre-edit hook pode bloquear sem dizer por que
+Um Edit em `code/isoroll-content/src/pipeline/kit_modules.py` foi barrado por
+`core/hooks/checks/pre-edit.py` com **"No stderr output"** — nenhuma razao impressa. Rodando o mesmo
+hook a mao com um payload que estoura o size gate, a mensagem sai certa; entao existe pelo menos um
+caminho de rejeicao que sai != 0 calado. Hook que bloqueia sem nomear o conserto custa uma rodada de
+investigacao por ocorrencia. (Achado durante CP-3/CP-4 do isoroll.)
