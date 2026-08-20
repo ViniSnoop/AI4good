@@ -53,6 +53,22 @@
    layer never got one — reach was measured, worth was not. The work is **rounds of discussion and
    research**: what a flow is for, what an agent is for, whether a flow naming `agents:` in
    frontmatter is the right shape, and one deliberate run of each before anyone rules.
+
+   **The trial started 2026-08-20 and the first run is in.** A roadmap row was drained through
+   `/craft` end to end rather than by hand, and running the flow found things reading it had not:
+   the router has no home for a measurement, and the shortcut it falls back to mandates a branch its
+   own hazard note forbids. Both are refiled as work in
+   [`core/ROADMAP.md`](core/ROADMAP.md) § Open, where the flow layer's internals live.
+
+   **What the run does NOT yet give you, and it is the half that matters most.** The verdict was
+   *padaria*, which prescribes zero delegation — so the run exercised the router, the trail and the
+   gates, but **never the file relay**. `craft.md`'s central claim is *N cheap short sessions
+   instead of one long expensive one*, and this run was one session at max tier, the exact opposite.
+   **Judging flows on this evidence would repeat the mistake the ruling above corrected**, so the
+   trial needs at least one `standard`-verdict row before anyone rules. Agents remain wholly
+   untried: the executor was a generic subagent, and its own report names what a workspace-authored
+   one would have carried instead — the three gates it spent six tool calls discovering, and the
+   epistemic norm that produced the run's single best decision.
    → **tier: high**, with Lucas — several sittings, not one pass.
 7. 🟡 **show context growth continuously, not just at two thresholds.** Lucas, same capture:
    *"gostaria de ver o crescimento da janela de contexto em tempo real, o claude code no vs code
@@ -111,18 +127,5 @@
    billed output per turn *and* whether the work came out right. It needs a clean switch, so it runs
    on the feature registry, and it is the same instrument Front 14 needs. No behavior change until
    the number exists. → **tier: high**, with Lucas on whether to act on it.
-
----
-## Front 3 — Memory and always-loaded context
-
-0. 🟢 **measure `.claude/commands/`, then decide — the only unmeasured thing left at session start.**
-   `mirror.sh` copies all 13 skills a *second* time as slash commands (52 KB on disk). That copy is
-   folded into the system prompt, so it lands inside the **77% residual** that
-   [`session/context`](core/tools/wos/session/context) cannot decompose — it is invisible to every
-   number we have. It may be a real chunk of the residual or nothing at all, and the honest order is
-   measure first: the cheapest probe is a session with the directory emptied, comparing turn-1
-   context. **Do not cut it on suspicion** — that is the mistake the 1.6-3.5x inflation already
-   taught. Record the result in [`core/experiments/context-window.md`](core/experiments/context-window.md).
-   → **tier: medium**.
 
 ---

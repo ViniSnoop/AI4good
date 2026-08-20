@@ -15,6 +15,35 @@ No flow is privileged — the exemplar is `flows/_template.md` (see [SCHEMA.md](
 
 ## Open
 
+- [ ] **The craft router has no home for a measurement, and the shortcut it falls back to
+      contradicts itself.** Both found by *running* the flow on 2026-08-20 (the trial funded by
+      [`ROADMAP-cost.md`](../ROADMAP-cost.md)), not by reading it — which is the point of having
+      run it.
+      - **No `experiment` subtree.** `route.md` offers padaria · feature/SDD · research ·
+        architecture. A controlled experiment on our own harness fits none: every `research/*` flow
+        is a source-gathering shape, and `research/explore.md` is an *optimization* loop demanding a
+        benchmark command and blocking on user confirmation. The fallback was the padaria gate,
+        which **measures the write, not the investigation** — the same task touching three files
+        would have routed to contract-first TDD, which is absurd for a measurement. Its step
+        sequence is genuinely distinct (hypothesis → arms → control → run → record → decide) and
+        [`core/experiments/SPECS.md`](SPECS.md) already defines its output contract with a hook
+        enforcing it, which clears `tree.md`'s own bar for a fifth subtree.
+      - **Padaria mandates the thing it forbids.** It says to skip Loops 1/3/3.5/4a/5 and then to
+        execute Loop 2, which mandates a `feature/<slug>` branch off develop — while `craft.md`'s
+        own Field Practice names "two loops, one repo = worktree fight" as the hazard. It needs an
+        explicit *reuse the current feature branch, stage explicitly* path. Its verification step
+        also assumes an existing test suite, and offers no route for "the check is a linter."
+      → **tier: medium**, and the first half is Lucas's call because it adds a subtree.
+
+- [ ] **The flow front-loads its most expensive reads ahead of the gate that decides it needs
+      them.** Protocol step 2 orders `craft.md` (13.3 KB) + `routing.md` (12 KB) + `runtimes.md`
+      *before* Loop 0 — but Loop 0 is where the padaria verdict is set, and padaria delegates
+      nothing, so 18 KB of routing and runtimes is read and never consulted. A flow whose stated
+      purpose is saving tokens should decide the shape before paying for the machinery. Related and
+      cheaper: the provider-resolution ritual (`opencode models`, `$OPENCODE_MODEL`) is dead weight
+      under a runtime where routing is pinned in executor frontmatter, and is conditional on
+      something the tool set already reveals. → **tier: low**.
+
 - [ ] **`/roundup` ends by asking for something it could have proposed inside the plan.** Lucas
       (INBOX 2026-08-20): *"editar a mensagem final do /roundup para incluir a sugestão de no plano já
       adicionar um /roundup no final e evitar uma troca extra de mensagens com o usuário. isso é só

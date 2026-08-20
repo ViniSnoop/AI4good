@@ -128,7 +128,7 @@ low). Which model fills each tier is data in that file, never in this one.
 | Shard | Description | Prio | Open | Needs Lucas | Blocked by | Items |
 |-------|-------------|------|------|-------------|------------|-------|
 | [`ROADMAP-archive.md`](ROADMAP-archive.md) | What is NOT being worked on, and what would change that? Three kinds: blocked on a named trigger, parked as out of scope, killed outright — each keeping its reason so a dead idea cannot return looking new. Read it before proposing something that sounds obvious; nothing here counts toward the drain, so Open reads empty. | — | — | — | — | `gdrive-integration` `offline-resilience` `task-metric` |
-| [`ROADMAP-cost.md`](ROADMAP-cost.md) | What does a session cost, and which of that is avoidable? Holds which tier runs what, what loads at session start, and what fills the context window. Open it for what we intend to change about spend; every measured number lives in `core/experiments/`, so re-run the instrument for what spend actually is. | important | 7 | 1 | — | — |
+| [`ROADMAP-cost.md`](ROADMAP-cost.md) | What does a session cost, and which of that is avoidable? Holds which tier runs what, what loads at session start, and what fills the context window. Open it for what we intend to change about spend; every measured number lives in `core/experiments/`, so re-run the instrument for what spend actually is. | important | 6 | 1 | — | — |
 | [`ROADMAP-entropy.md`](ROADMAP-entropy.md) | Does the tree still have the shape we said it has, and does anything check? Holds the Tier 0 checks, the ratchet that makes their count shrink, and rules declared in a `SPECS.md` with no implementation. Open it for a check, a drifted name or an unenforced limit — never for what the drift *means*, which is legibility's. | essential | 7 | — | — | — |
 | [`ROADMAP-ledger.md`](ROADMAP-ledger.md) | Where does a piece of writing belong, and is it written down twice? Holds the `.md` type system's unfinished migrations and the rule that an item lives in exactly one ledger. Open it when a file's NAME or PLACE is the question; the law itself is `core/SCHEMA.md` and the checks that catch a breach are entropy's. | essential | 3 | — | — | — |
 | [`ROADMAP-legibility.md`](ROADMAP-legibility.md) | Can Lucas still read the thing he owns — its words, its decisions, its shape? A standing front that never closes: the jargon audit, the pictures that show the workspace at a glance, and the rule that a session may not decide quietly. Open it when something is UNREADABLE or was decided without him, not when it is broken. | essential | 6 | 1 | — | — |
@@ -148,7 +148,6 @@ low). Which model fills each tier is data in that file, never in this one.
 - 🟡 show context growth continuously, not just at two thresholds.
 - 🟡 auto-continue when the session limit is hit.
 - 🟡 the lever nobody has looked at: thinking is 65% of billed output and no instrument here can see it.
-- 🟢 measure `.claude/commands/`, then decide — the only unmeasured thing left at session start.
 
 **[`ROADMAP-entropy.md`](ROADMAP-entropy.md)**
 
