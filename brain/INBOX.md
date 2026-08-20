@@ -9,6 +9,10 @@
 
 <!-- add entries below, newest first -->
 
+https://www.instagram.com/reel/DcMSk7Rxcdu/?igsi=MWg2ZHJibnFqazFiYQ==
+pro nosso teste de ablação
+— via aiwbot · 2026-08-19
+
 AGENTS.md não menciona o SPECS.md nem o ROADMAP.md, me pergunto se esse padrão se repete nos CONTEXT.md das subpastas. é isso mesmo? será que não deveríamos incluir pelo menos 1 ponteiro para deixar os agentes cientes desses arquivos? ou eles já ficam cientes por outros caminhos? se o SPECS.md fica escondido aí nos encaminhamos para um drift dos repositórios em que a definição se distancia da execução. outra coisa, fico pensando se não deveríamos incluir os resultados das verificações/testes no BUGS.md, e talvez trocar o nome BUGS.md (não sei se ISSUES.md). poderíamos incluir nele as medições de entropia do repo tbm.
 
 https://www.instagram.com/reel/DbtoVzfkk4M/?igsi=MThnZngwZnZ4dW9zMg==

@@ -10,11 +10,16 @@
 
 ## today
 
+- [ ] [ensino] **antes das 18h30**: abrir `academy/teaching/tecnologias-na-educacao/aula02-problemas.excalidraw` no excalidraw.com e confirmar que carrega (o JSON foi montado à mão, nunca foi aberto). Depois: *Live collaboration* → copiar o link → trocar `[EXCALIDRAW]` no slide 69 do deck. Confirmar se são mesmo 8 equipes (o quadro tem 8 frames)
+- [ ] [ensino] **na aula de hoje**: decidir o vídeo do slot do carrinho — trecho de 4 min do Dietz, ou perguntar à turma "o que envelheceu nesse vídeo de 1999?" (candidatos avaliados em `academy/refs/REFS.md`)
+- [ ] [ensino] **depois da aula**: anotar dois números — quantos alunos falaram no bloco de abertura, e quantos grupos saíram com o frame preenchido. É o teste honesto do redesenho
+- [ ] jogar na lixeira o deck `__probe_delete_me` no Drive pessoal (sonda de auth, criada por engano)
 - [ ] sleep by 00:30 — streak-3 starts tonight
 - [ ] [ensino] mandar os dois questionários pras turmas na aula de 2026-08-20 — links de resposta nos `CONTEXT.md` de `academy/teaching/ai4good/` e `academy/teaching/tecnologias-na-educacao/`. Antes: abrir cada link, responder uma vez de teste e apagar a resposta. Depois da aula, ler com `core/tools/forms/gforms responses --account personal <form_id>` e decidir o formato das sextas
 
 ## week
 
+- [ ] [ensino] **desenhar a metodologia completa de Tecnologias na Educação** e fechar o calendário nos 34 encontros reais (números em `academy/teaching/tecnologias-na-educacao/CONTEXT.md`). Entra: semana-padrão (quarta e sexta com papéis fixos, uma pergunta e um produto por encontro), as 9 etapas do Lucas mapeadas nas datas, avaliação nova, dashboard que substitui as duas planilhas, e o padrão MODELO+EXEMPLO em toda entrega. Pesquisa que falta: gamificação séria, specs/contract grading, mecanismos de avaliação por pares, venues de publicação para graduandos em um semestre
 - [ ] revisar artigo do svr — prazo ~25/07 (fazer nos próximos 2 dias, confirmado 23/07)
 - [ ] responder megatruth
 - [ ] [finances] pedir mudança da data de pagamento do aluguel: dia 5 → dia 10

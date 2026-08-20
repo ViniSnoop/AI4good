@@ -25,19 +25,27 @@ material fora do alcance do workspace.
 `core/tools/files` · `core/tools/mail` · `core/tools/calendar`  
 `academy/teaching`
 
+**A conectividade caiu em 2026-08-19.** O gargalo que este goal declarava — "material fora do
+alcance do workspace" — não existe mais para Tecnologias na Educação: o Notion lê (integração "WOS"
+viva, página `0bd17453-ea83-4019-ba38-22a79d0114ce`), o Drive pessoal lê, e o `gslides` **escreveu
+de verdade num deck real de aula** — 20 slides intercalados e 3 refinados no deck de Design
+Thinking, na véspera da aula. `[roundtrip-one]` está feito. A ordem "alcançar → organizar → só
+depois trocar o formato" avançou uma casa: o próximo degrau é **organizar**, não conectar.
+
 ## selected next achievement
-    [inventory-material] mapear o que existe e onde — pastas do Drive por disciplina, páginas do Notion, o que é fonte e o que é cópia
+    [metodologia-tecedu] desenhar a metodologia completa de Tecnologias na Educação e fechar o calendário 2026.2
 
 **ease-start**  
-Abra o Drive e o Notion lado a lado e liste, em dez linhas, quais disciplinas têm material e onde
-cada uma mora. Sem organizar nada ainda — só o inventário.
+Abra `academy/teaching/tecnologias-na-educacao/CONTEXT.md` e `academy/refs/REFS.md` § disciplinas
+project-based. Os 34 encontros já estão contados e o padrão de missão do ME310 já está descrito.
+Comece escrevendo **uma** semana-padrão: o que a quarta faz, o que a sexta faz.
 
 ## backlog
 
-> [ ] [inventory-material] mapear o que existe e onde — pastas do Drive por disciplina, páginas do Notion, o que é fonte e o que é cópia; sem isso não dá pra saber o que "conectar" significa  
-> [ ] [notion-read] WOS lê a página da turma no Notion — **o CLI está pronto e parado num passo seu**: criar a integração em https://www.notion.so/my-integrations, colar o segredo (`core/tools/notes/notion auth personal` pergunta) e conectar a página da turma a ela. É o único passo que nenhum agente consegue fazer por você  
-> [ ] [notion-write] WOS edita a página da turma — escrita só depois que a leitura estiver confiável  
-> [ ] [roundtrip-one] editar **uma** aula real pelo CLI e devolver ao lugar onde os alunos veem; é o teste honesto de que a conexão existe  
+> [ ] [metodologia-tecedu] semana-padrão, as 9 etapas mapeadas nos 34 encontros, avaliação nova, dashboard que substitui as duas planilhas Google, e o padrão MODELO+EXEMPLO em toda entrega; ver task na semana em `brain/TODO.md`  
+> [ ] [pesquisa-que-falta] gamificação séria (sem infantilizar), specs/contract grading, mecanismos de avaliação por pares com propriedades verificáveis, e venues de publicação alcançáveis por graduandos em um semestre  
+> [ ] [notion-write] WOS edita a página da turma — o CLI lê; escrever a metodologia nova lá é o que fecha o ciclo para os alunos  
+> [ ] [excalidraw-vs-miro] veredito sobre trocar o Miro: a colaboração ao vivo do Excalidraw é efêmera e morre com a aba de quem abriu. Decidir **com a evidência da aula de 2026-08-19**, não antes  
 > [ ] [research-tools] research best current teaching tools — interactive slides, animations, open formats — start from the animation entries in `core/WATCHLIST.md` (claude-code+remotion, Claude Code UI-animation skills). **Reescopado 2026-08-14:** o WOS agora lê e edita os decks direto no Google Slides (`core/tools/slides/gslides`), e Slidev foi deletado — a pergunta aberta não é mais qual formato local adotar, é quanto de animação dá pra autorar como sequência de slides gerada  
 > [ ] [pick-format] pick a target format or tool — one concrete candidate to prototype with  
 > [ ] [migrate-one] convert one existing lecture to the new format as a test  
@@ -50,14 +58,14 @@ cada uma mora. Sem organizar nada ainda — só o inventário.
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-14  ·  trend: advancing
+last-touch: 2026-08-19  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |      16 |
-| trimester   |      26 |
-| semester    |      26 |
-| year        |      26 |
-| 2-year      |      26 |
-| 4-year      |      26 |
+| month       |      26 |
+| trimester   |      36 |
+| semester    |      36 |
+| year        |      36 |
+| 2-year      |      36 |
+| 4-year      |      36 |
 <!-- stats:end -->

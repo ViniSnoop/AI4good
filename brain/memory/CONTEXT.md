@@ -36,6 +36,7 @@ enough to be worth folding was tested and **rejected on the numbers** —
 |------|-------------|
 | [`MEMORY.md`](MEMORY.md) | Memory Index |
 | [`fable_quota_strategy.md`](fable_quota_strategy.md) | How Lucas spends remaining Fable 5 quota (won't renew) — Fable decides, Opus… |
+| [`feedback_additive_course_material.md`](feedback_additive_course_material.md) | em material de aula do Lucas, contribuir é ADICIONAR e refinar no lugar — nunca… |
 | [`feedback_agent_runs_auth.md`](feedback_agent_runs_auth.md) | Agent runs every auth command itself; Lucas only does what has no command form… |
 | [`feedback_background_bash_reliability.md`](feedback_background_bash_reliability.md) | Backgrounded Bash tool calls (run_in_background) can die silently across a… |
 | [`feedback_bug_tracking.md`](feedback_bug_tracking.md) | isoroll-module bugs go in BUGS.md, not memory |

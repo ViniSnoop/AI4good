@@ -4,34 +4,34 @@
 <!-- stats:start -->
 <!-- data:start -->
 ## attention dashboard  _(auto-updated on every commit)_
-last-updated: 2026-08-19 11:47
+last-updated: 2026-08-19 22:29
 
 >**areas** — last 14 days  
 ```
-health       ██████████   226 touches
-career       ░░░░░░░░░░   18 touches
-finances     ░░░░░░░░░░   10 touches
-fun          ░░░░░░░░░░   5 touches
+health       ██████████   238 touches
+career       ░░░░░░░░░░   22 touches
+finances     ░░░░░░░░░░   11 touches
+fun          ░░░░░░░░░░   7 touches
 spiritual    ░░░░░░░░░░   0 touches
 ```
 
 >**goals** — last 14 days  
 ```
 CONTEXT                  ░░░░░░░░░░   3 touches
-burocracia-academica     ░░░░░░░░░░   4 touches
+burocracia-academica     ░░░░░░░░░░   5 touches
 career-ufrpe             ░░░░░░░░░░   0 touches
 corporal-expressiveness  ░░░░░░░░░░   0 touches
-craft-flows              ░░░░░░░░░░   16 touches
+craft-flows              ░░░░░░░░░░   19 touches
 cria                     ░░░░░░░░░░   3 touches
 dance                    ░░░░░░░░░░   1 touches
 ecovila                  ░░░░░░░░░░   3 touches
 exercise                 ░░░░░░░░░░   2 touches
 finances                 ░░░░░░░░░░   0 touches
 guitar                   ░░░░░░░░░░   0 touches
-home-casinhas            ░░░░░░░░░░   8 touches
+home-casinhas            ░░░░░░░░░░   9 touches
 instituto                ░░░░░░░░░░   1 touches
 lih-dd                   ░░░░░░░░░░   2 touches
-local-ai                 ░░░░░░░░░░   7 touches
+local-ai                 ░░░░░░░░░░   8 touches
 magic-places             ░░░░░░░░░░   0 touches
 make-in-time             ░░░░░░░░░░   0 touches
 pandeiro                 ░░░░░░░░░░   0 touches
@@ -40,7 +40,7 @@ paper-megatruth          ░░░░░░░░░░   0 touches
 paper-scattercode        ░░░░░░░░░░   0 touches
 prompt-opt-automation    ░░░░░░░░░░   1 touches
 reading                  ░░░░░░░░░░   0 touches
-rpg-isoroll              ░░░░░░░░░░   3 touches
+rpg-isoroll              ░░░░░░░░░░   5 touches
 sleep-regularity         ░░░░░░░░░░   0 touches
 smartphone-addiction     ░░░░░░░░░░   0 touches
 spacemantics             ░░░░░░░░░░   5 touches
@@ -63,11 +63,11 @@ startapps-virada         ░░░░░░░░░░   0 touches
 startapps-voti           ░░░░░░░░░░   1 touches
 startapps-xacomigo       ░░░░░░░░░░   0 touches
 surf                     ░░░░░░░░░░   0 touches
-teaching-materials       ░░░░░░░░░░   12 touches
+teaching-materials       ░░░░░░░░░░   16 touches
 travel                   ░░░░░░░░░░   1 touches
 vipassana                ░░░░░░░░░░   0 touches
 voice                    ░░░░░░░░░░   0 touches
-workspace-os             ██████████   226 touches
+workspace-os             ██████████   238 touches
 yoga                     ░░░░░░░░░░   0 touches
 ```
 <!-- data:end -->
@@ -137,7 +137,7 @@ yoga                     ░░░░░░░░░░   0 touches
 | voti | craft | year | — | [data-research] research available open data: Câmara do… | [→](goals/startapps-voti.md) |
 | xacomigo | craft | year | — | [value-prop] write the core value proposition in 2 sent… | [→](goals/startapps-xacomigo.md) |
 | surf | fun | year | — | [find-school] find a surf school in Recife — Boa Viagem… | [→](goals/surf.md) |
-| teaching materials paradigm | craft | near | — | [inventory-material] mapear o que existe e onde — pasta… | [→](goals/teaching-materials.md) |
+| teaching materials paradigm | craft | near | — | [metodologia-tecedu] desenhar a metodologia completa de… | [→](goals/teaching-materials.md) |
 | travel | fun | near | — | [one-trip] escolher UMA viagem para os próximos 12 mese… | [→](goals/travel.md) |
 | vipassana | spiritual | year | none external | [sit-5] sit in silence for 5 minutes — no guidance, no … | [→](goals/vipassana.md) |
 | voice | spiritual | near | — | [voice-map] identify one scenario where not being heard… | [→](goals/voice.md) |
