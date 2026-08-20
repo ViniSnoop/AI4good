@@ -173,16 +173,32 @@ person who owns it, and the place to route the next *"when was that decided?"*
    history too: look for the declaration before writing a new one.
    → **tier: medium** for *becoming*; *goal* needs Lucas's intent before it can be drawn.
 
-5. 🔴 **Which sectors deserve an `ARCHITECTURE.html`, and what does each one need that the
-   workspace document does not?** Lucas, 2026-08-18, on seeing the first one: *"I envision an
-   ARCHITECTURE.html file for each code project… maybe an ARCHITECTURE.html file even for papers, we
-   have to think this through, which sectors of the WOS deserve one and which are the
-   particularities."* The renderers are already reusable and `core/hooks/generated.txt` already
-   globs `*/ARCHITECTURE.html`, so the build is not the hard part — **the question is what each
-   sector's picture is *of*.** A code project has properties the workspace does not: call structure,
-   sequence over time, module dependency. A paper has others again. Answering that per sector is the
-   work; generating one document per repo before answering it would produce twenty-five drawings
-   nobody reads. → **tier: high**, with Lucas, before any second document is generated.
+5. 🟡 **give every code repo an `ARCHITECTURE.html`, on the same scope line as `ISSUES.md`.**
+   RULED 2026-08-20 (Lucas), and the ruling is a scope rather than a taxonomy: *"we should have
+   ARCHITECTURE types, it may be not the same for all repos, but to simplify things, let's do the
+   same we did for ISSUES.md."* So: the workspace repo and every `code/` repo get one; `core/` and
+   `brain/` are **evaluated, not assumed**; papers and `branches/` are out for now.
+
+   **What the ruling deliberately does not do is design thirteen pictures.** The opening worry —
+   *"generating one document per repo before answering what each sector's picture is OF would produce
+   twenty-five drawings nobody reads"* — is answered by shrinking the set, not by a per-sector
+   taxonomy. Types may differ later; sameness is the starting point because it is cheap to build and
+   cheap to reject. A code project does have properties the workspace lacks (call structure, module
+   dependency, sequence over time), so expect the shared shape to fail somewhere — **when it does,
+   that failure names the first real type**, which is a better way to find the taxonomy than
+   guessing it.
+
+   The build is not the hard part and was never claimed to be: the renderers are reusable and
+   [`core/hooks/generated.txt`](core/hooks/generated.txt) already globs `*/ARCHITECTURE.html`, so
+   the machinery has been waiting. Exactly one document exists today, at the root. Inherit the
+   standing rules the built one already keeps — generated from the tree, never hand-drawn;
+   zero-token and deterministic; one self-contained HTML file in-tree; every edge either declared
+   data or labelled *inferred*; total and fail-loud, printing `parsed N of M`.
+
+   **Ordering: after the `ISSUES.md` scatter, not beside it.** Both answer "what does this repo
+   look like from inside", and the entropy work establishes which repos are in the set and what a
+   per-repo generated artifact costs to keep current. Doing the picture first would settle that
+   twice. → **tier: medium**.
 
 6. 🟡 **A session must not decide things quietly, and the record of *why* must survive.** The
    complaint under all of the above is *"decisions I didn't recall making."* Two shapes, the second

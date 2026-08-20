@@ -95,6 +95,18 @@ pattern, and 59 well-commented files were marked undescribable — one of them i
 which was read as proof of a discipline hole until the generator was asked. **A marker is not
 evidence of a discipline problem until the generator has been asked whether it can answer it.**
 
+**A file that cannot carry a comment gets its description written into the table instead.**
+`parse_preserved_files` keeps any description already in a routing row across a re-sync — anything
+that is not the placeholder survives — so the row is the place to answer for a file whose *content
+is data a parser reads*. Found 2026-08-20 on `code/isoroll-module/test/unit/assets/`, seven DSL
+fixtures: `.txt` is in `CONTENT_EXTS` for the four law files in this directory, and its own comment
+there says *"a narrow list, not a net for data dumps"* — these are the data dumps. **Adding the
+comment is not merely useless, it is destructive**, and only the second check proved it: the parse
+test passed with a `#` first line while the round-trip test went red, because the parser silently
+drops the line and `toDsl(parseTextV2(text)) == text` no longer holds. Write the description in the
+row, never a comment into the fixture — and note that the *parse-only* green is exactly the silent
+pass [`core/SPECS.md`](../SPECS.md) § Conventions warns about.
+
 ### Finished-work prose is blocked on what a commit adds
 
 `entropy/entropy_ledger.py` carries the detector — strikethrough, a dated completion report, a

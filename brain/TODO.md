@@ -96,6 +96,9 @@
 
 ## backlog
 
+- [ ] [setup] no Brave, ativar a aceleração de buscas para Maps, Google Tradutor e as outras
+      ferramentas que oferecem o atalho (INBOX 2026-08-20 — captura truncada em "ferrament";
+      se a lista importar, reconfirmar com Lucas quais ferramentas)
 - [ ] [academy] assess "mandato coletivo" (participatory-mandate: constituents vote on bills,
       track spending, propose amendments) as a mechanism-design case worth citing/comparing against
       current research angle (cria/instituto) — ref in `academy/refs/REFS.md` (INBOX 2026-07-26)

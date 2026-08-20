@@ -7,4 +7,4 @@
 
 ---
 
-<!-- add entries below, newest first -->
+<!-- add entries below, newest first -->as, relembrando a mecânica que eu usava no chrome, t

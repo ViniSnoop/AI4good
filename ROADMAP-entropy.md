@@ -109,32 +109,30 @@
     crossed the signal for the same reason, which is the property mirroring buys.
     → **tier: medium**.
 
-13. 🔴 **Should entropy be scattered across the nested repos instead of pooled at the root?** Lucas,
-    2026-08-18: *"entropy maybe should be scattered as well across each individual repo (maybe this
-    is a task that deserves to be written somewhere, so we can DISCUSS this point in depth)."* Today
-    one entropy block in [`ISSUES.md`](ISSUES.md) at the workspace root counts this repo **and** all 25 nested ones,
-    which is why a finding in `code/aiwbot` is read by a session working on the workspace and by
-    nobody working on aiwbot. The pull the other way is real and is why this is a discussion rather
-    than a task: the root file is a **ratchet**, and a number that must shrink only works while it is
-    one number in one diff. Twenty-six ratchets is twenty-six baselines nobody watches. The same
-    question is now open for the picture — `ARCHITECTURE.html` faces the identical split — so the two
-    should be ruled together rather than drifting apart.
+13. 🟡 **scatter entropy into every code repo, and collect one number at the root.** RULED
+    2026-08-20 (Lucas) — the discussion is closed and what remains is work.
 
-    **Lucas ruled the shape, 2026-08-20 (INBOX):** *"acho que o ISSUES.md deveria carregar essas
-    medidas de entropia descentralizadas. cada ISSUES.md vai fazer a medida de entropia local. o
-    ISSUES.md raiz coleta dos outros ISSUES.md as medidas de entropia e expõe, faz o roteamento, e
-    também mede a entropia do diretório raiz (WOS)."* So it is **scattered AND pooled**, not one or
-    the other, and that dissolves the ratchet objection above: each repo owns its local measurement,
-    the root keeps one collected number to ratchet on, and the root additionally measures itself —
-    which it does not do today, because its own findings are mixed into the pool. What is left to
-    settle is the collection mechanism and which baseline each side owns.
+    **The ruling, in three parts.** *(a)* **Every CODE repo gets a local `ISSUES.md`**: the workspace
+    repo and everything under `code/`. Papers and `branches/` stay pooled — they are not code and
+    their findings are few. `core/` and `brain/` are **undecided and must be evaluated**, since both
+    live inside the workspace repo and may already be covered by its own ledger. *(b)* **The root
+    sums.** One collected number, not a table of cells each with its own baseline: *"sum it up, I am
+    aware of the tradeoff, that said, optimizing/solving the sum solves it all."* The sum keeps the
+    ratchet a single number in a single diff, which is the property that made it work. *(c)* The
+    picture rides along — see [`ROADMAP-legibility.md`](ROADMAP-legibility.md).
 
-    **The same capture carries a second ruling, and it governs the cap work rather than this row:**
-    *"temos um limite de 200 LOC por arquivo, mas nesse caso diria que o melhor é resolver tudo antes
-    de fazer um split. agora claro, pra cada caso tentar resolver na causa raiz, não de modo
-    superficial."* Cut before splitting. A file over the cap is first evidence of undeleted finished
-    work; sharding it preserves the mass and hides it across more files. Applied to item 8.
-    → **tier: high**, with Lucas, its own sitting.
+    **What the evidence says the work is, and it is smaller than the item feared.** The scope is
+    **16 ledgers, not 26**, and they cover **91%** of findings; the 9% in papers and `branches/` stay
+    at the root. The other number that decides the shape: the root `ISSUES.md` is **91% generated
+    block** — the hand-written half holding the real bugs is buried under it. So the root stops
+    dumping findings and becomes an index of counts plus its own local findings, which is the routing
+    pattern every other type here already uses. Re-read both numbers from
+    [`ISSUES.md`](ISSUES.md) § Entropy rather than trusting these.
+
+    **The one thing to get right:** the sum must be recomputed from the local ledgers, never
+    hand-carried. A collected number that any repo can write into is the copied-count drift these
+    checks exist to catch.
+    → **tier: medium**.
 
 ---
 ## Declared but unbuilt — a rule with a `SPECS.md` section and no implementation
