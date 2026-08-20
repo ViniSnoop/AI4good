@@ -2,7 +2,7 @@
 > How the orchestrator actually spawns a loop, per runtime. Verbatim recipes; no improvisation.
 
 Load **only the section for the runtime you are running in**, and only in the orchestrator, at the
-first spawn. The flow itself is runtime-agnostic — all state lives in `.loop/` files — so this file
+first spawn. The flow itself is runtime-agnostic — all state lives in `.craft/` files — so this file
 is the one place that knows about `opencode run`, the Claude Code `Agent` tool, and the rest.
 
 The spawn prompt body is in [`craft.md`](craft.md) § Orchestration; the tier → model table it
@@ -26,8 +26,8 @@ opencode run \
   --dir "$PROJECT_ROOT" \
   "Read core/flows/craft/craft.md, section 'Loop $N' plus 'Core Principle',
    'Autorouting', 'Tier → provider → model mapping', 'Return Flags'. Then read
-   $PROJECT_ROOT/.loop/$SLUG/$INFILE. Execute Loop $N. Append your output to
-   $PROJECT_ROOT/.loop/$SLUG/$OUTFILE following the embedded template. End your
+   $PROJECT_ROOT/.craft/$SLUG/$INFILE. Execute Loop $N. Append your output to
+   $PROJECT_ROOT/.craft/$SLUG/$OUTFILE following the embedded template. End your
    section with: executor: craft-$TIER model=$RESOLVED tier=$TIER deleg=$DELEG.
    Reply with ONE line: OK <verdict> | FLAG <flag line> | BLOCKED <reason>." \
   2>&1 | tail -n 1
@@ -50,7 +50,7 @@ Spawn via the native `Agent` tool with `subagent_type: 'craft-low'|'craft-medium
 
 ## Runtime portability
 
-The flow itself is runtime-agnostic — all state lives in `.loop/` files, so any agent that reads files and runs git can execute a loop. Only the **pinned executor definitions** are per-runtime (same body, different frontmatter dialect):
+The flow itself is runtime-agnostic — all state lives in `.craft/` files, so any agent that reads files and runs git can execute a loop. Only the **pinned executor definitions** are per-runtime (same body, different frontmatter dialect):
 
 | Runtime | Executor definitions | Frontmatter `model` (default fallback) | Status |
 |---|---|---|---|

@@ -30,9 +30,18 @@ get a new type.
 | `USER.md` | Who is Lucas, and how does he fail? |
 | `MEMORY.md` | Which memories exist, and what is each about? (index + router, `brain/memory/` only) |
 | `SETUP.md` | How do I make this environment work? (toolchain install + config) |
+| `STATUS.md` | Is this craft chain still running, and where did it stop? (`.craft/<slug>/` only) |
 | `SCHEMA.md` | This file: the law about types. |
 
 Anything else is rejected: *"add it to the allowlist if you mean it."*
+
+**`STATUS.md` joined 2026-08-20, and it was already mandatory before it was legal.**
+[`core/flows/craft/craft-ship.md`](flows/craft/craft-ship.md) § Status declares one per chain —
+Loop 0 creates it, Loop 6 mutates it, and `/craft --status` reads them all to find abandoned runs.
+The type gate rejected the name for as long as the rule existed, so the flow was asking for a file
+the law forbade. It is scoped to `.craft/<slug>/`: a status **anywhere else** is a roadmap item or an
+issue, and the two ledgers already answer that question. Note the shape it must keep — one line of
+present-tense state, never a completion report, or it collides with *done work is deleted*.
 
 ### Boundaries where types nearly touch
 

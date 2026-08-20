@@ -7,7 +7,7 @@ from pathlib import Path
 SPEC_LINE_RE = re.compile(r'^>\s*spec:\s*(\S.*?)\s*$', re.MULTILINE)
 # Edge line: A.out:Type -> B.in:Type  (declares a connection whose two endpoint types must match)
 EDGE_RE = re.compile(r'^(.+?):([^:]+?)\s*->\s*(.+?):([^:]+?)$')
-SKIP = {'.git', 'node_modules', 'dist', '.codegraph', '__pycache__', '.venv', '.loop'}
+SKIP = {'.git', 'node_modules', 'dist', '.codegraph', '__pycache__', '.venv', '.craft'}
 REQUIRED = ('Inputs', 'Outputs', 'Invariants')
 
 

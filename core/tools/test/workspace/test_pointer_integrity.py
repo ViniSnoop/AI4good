@@ -22,7 +22,7 @@ MEMORY_DIR = WORKSPACE_ROOT / "brain/memory"
 # deleted project into .Trash-<uid>/, whose stale relative links then fail the check
 # and block every commit until the trash is emptied — a gate nobody can fix by editing
 # the workspace. Trash is excluded by prefix because the uid varies per machine.
-EXCLUDE_DIRS = {".git", "node_modules", ".venv", "__pycache__", ".loop", ".craft"}
+EXCLUDE_DIRS = {".git", "node_modules", ".venv", "__pycache__", ".craft"}
 EXCLUDE_PREFIXES = (".Trash",)
 STRUCTURAL_NAME = re.compile(r"^(CONTEXT|SCHEMA|AGENTS|ROADMAP|ROADMAP-.*)\.md$")
 

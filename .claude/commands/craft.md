@@ -31,7 +31,7 @@ Arguments: $ARGUMENTS
 
 2. Read `core/flows/craft/craft.md` in full — it is the spine (Core Principle, Carry, Autorouting, Return Flags, Orchestration, Loops 0–6.5, Cost Gate, Field Practice). Then read `core/flows/craft/routing.md` **once** (tier → concrete model, delegation) and only your runtime's section of `core/flows/craft/runtimes.md` (spawn recipe). Do not load `prior-art.md` to run a chain.
 3. Execute it with the task: $ARGUMENTS. This session is the orchestrator. You hold only verdict lines and the chain's provider+map — never paste loop file contents here.
-4. Spawn each loop as a subagent per the flow's Orchestration section — pinned agent types `craft-low` / `craft-medium` / `craft-high`; pass the per-loop model from the resolved tier-map (or rely on the frontmatter default). The executor's self-report tag is `executor: craft-<tier> model=<provider/model-id> tier=<tier> deleg=<none|from→to>` — that is your per-loop cost/routing audit (`grep executor <project>/.loop/<slug>/*.md`).
+4. Spawn each loop as a subagent per the flow's Orchestration section — pinned agent types `craft-low` / `craft-medium` / `craft-high`; pass the per-loop model from the resolved tier-map (or rely on the frontmatter default). The executor's self-report tag is `executor: craft-<tier> model=<provider/model-id> tier=<tier> deleg=<none|from→to>` — that is your per-loop cost/routing audit (`grep executor <project>/.craft/<slug>/*.md`).
 5. Tier `max` is never auto-spawned: pause and tell the user (max-tier quota is scarce and, on nvidia, a hard ceiling — `routing.md` § Provider delegation rule 4 may surface the cost delta or stop the chain).
 6. Hold only verdict lines in this session. Never paste loop file contents here.
 

@@ -61,15 +61,15 @@ this table holds the guard.
 | `/loops` | `/craft` | 2026-08-17 |
 | `BUGS.md` | `ISSUES.md` | 2026-08-19 |
 | `WATCHLIST.md` | `core/refs/REFS-unjudged.md` | 2026-08-20 |
+| `.loop` | `.craft` | 2026-08-20 |
 
 
 **The skill rename is a shape, not a word, for the same reason `Frente` is.** `loops` is ordinary
 English — the corpus holds a thousand honest uses, from "file-relayed loops" to "execution loops"
 to "Loop 0..6" as step names — so a bare `loops` row would fail on correct prose the day it was
-written. What is retired is the **command**, so the row is the invocation shape `/loops`. The
-per-run state dir `.loop/<slug>/` is a *different* token on the same rename and is deliberately
-absent: it is still live in fourteen directories across three repos, and a row that fails today
-teaches people to ignore the check. It joins this table when that sweep lands.
+written. What is retired is the **command**, so the row is the invocation shape `/loops`, and the
+per-run state dir is the separate token `.loop`. Both are rows now; **"Loop 0..6" stays**, because
+an iterative step really is a loop and that word is correct English rather than the retired label.
 
 **`Frente`→`Front` (2026-08-16) is deliberately *not* a row here, and the reason is a limit of
 this table.** Every token above is a coined string that can only mean the thing it names, so a

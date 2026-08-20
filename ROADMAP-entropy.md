@@ -39,29 +39,6 @@
    drift. Separating the two is the first task, and the answer decides whether this is a reporting
    bug or a real cleanup. → **tier: medium**.
 
-2. 🟢 **finish the retired-word rename at the per-run state dir.** APPROVED 2026-07-29 (Lucas: *"we
-   renamed loops to be flows but apparently this keeps coming back"*). It keeps coming back because
-   it **was never a drift problem** — the rename stopped at the flow pool (`core/flows/`, flow
-   renamed `craft`) while the generators still emit the retired word *legitimately*, so no naming
-   check could ever flag it. The skill half is closed — the command is `/craft`, the file is
-   `core/skills/craft.md`, and `core/SCHEMA.md` § Retired tokens guards the invocation shape.
-
-   What is left is the state dir, and it is the larger half: `.loop/<slug>/` is hardcoded in
-   `craft.md`, `architect.md`, `runtimes.md` and `routing.md`, with 14 live dirs across `aiwbot`,
-   `isoroll-content` and `isoroll-module`; the cross-run pattern library is
-   `core/flows/.loop-skills/`. Scope: `.loop/` → `.craft/`, `.loop-skills/` → `.craft-skills/`, and
-   the live dirs migrate with it. Add that token to § Retired tokens the day it lands — **not
-   before**, because a row that fails on the day it is written trains people to ignore the check.
-   **Keep "Loop 0..6" as step names** — an iterative step really is a loop; that word is correct
-   English, not the retired label.
-   **Verify with `make entropy`, not `git grep`** ([`core/SPECS.md`](core/SPECS.md) § Conventions —
-   it is how this rename was declared done twice). Four survivors surfaced that way, and two of them
-   sit inside frozen `.loop/` run records.
-   **Ruled 2026-08-17 (Lucas): rename everything, no exemption.** The case for exempting them was
-   that a chain file records what was *run* that day, so rewriting it makes the record lie. Overruled
-   — one token, one meaning, and a carve-out for run artifacts is a second rule to remember at every
-   future rename. Git holds what the file said before.
-   → **tier: medium**.
 3. 🟢 **drain the entropy dashboard.** `make entropy` → [`ISSUES.md`](ISSUES.md) § Entropy, the whole
    workspace and its nested repos in seconds. Read the report; never re-scan the tree. **Never copy
    its counts into this file** — a copied number is the drift these checks exist to catch, and the

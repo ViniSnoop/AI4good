@@ -26,13 +26,13 @@ It never receives conversation history. It appends its output to its own loop fi
 
 ### File protocol
 
-- Directory: `<project>/.loop/<feature-slug>/` inside the target project's own repo.
+- Directory: `<project>/.craft/<feature-slug>/` inside the target project's own repo.
 - Files: `0-clarify.md`, `1-plan.md`, `2-ground.md`, `3-arch.md`, `3b-contracts.md` (feature subtree), `4a-tests.md`, `4b-code.md`, `5-user.md`, `6-ship.md`.
 - **Append-only.** Executors add sections; never rewrite prior content. Corrections are new appended sections.
-- **Executor self-report.** Every appended section ends with `executor: <agent-type> model=<provider/model-id> tier=<tier> deleg=<none|from→to>` — after a run, `grep executor .loop/<slug>/*.md` audits whether routing actually happened *and* which provider paid for each loop. The `model=` field MUST include the provider prefix (e.g. `model=nvidia/z-ai/glm-5.2`, not bare `model=glm-5.2`) so the per-provider cost split is recoverable from the chain alone, without the session log.
+- **Executor self-report.** Every appended section ends with `executor: <agent-type> model=<provider/model-id> tier=<tier> deleg=<none|from→to>` — after a run, `grep executor .craft/<slug>/*.md` audits whether routing actually happened *and* which provider paid for each loop. The `model=` field MUST include the provider prefix (e.g. `model=nvidia/z-ai/glm-5.2`, not bare `model=glm-5.2`) so the per-provider cost split is recoverable from the chain alone, without the session log.
 - **Small.** Soft cap ~80 lines per file. A loop file that wants to exceed the cap is a smell: the task is too big — raise `FLAG: RETURN loop=1 reason=split-needed`.
 - **Carry block.** Every loop file starts with a `## Carry` block **copied verbatim** from the previous file (Loop 0 creates it). It holds: slug, branch, project root, test command, criticality, acceptance-criteria digest, context pointers (project `CONTEXT.md`/`AGENTS.md` paths). This is what makes "read exactly one file" true — no loop ever needs to chase earlier files.
-- `.loop/` is committed on the feature branch during the flow (audit trail, survives crashes). Loop 6 folds the durable outcome into the project's `ROADMAP.md` (workspace policy: plans live in roadmaps) and deletes `.loop/<slug>/` in the final commit unless Loop 0 recorded `keep-trail: yes`.
+- `.craft/` is committed on the feature branch during the flow (audit trail, survives crashes). Loop 6 folds the durable outcome into the project's `ROADMAP.md` (workspace policy: plans live in roadmaps) and deletes `.craft/<slug>/` in the final commit unless Loop 0 recorded `keep-trail: yes`.
 
 ### Carry block template
 
@@ -96,8 +96,8 @@ The orchestrator (lead session) holds only: slug, current loop number, verdicts,
 Read core/flows/craft/craft.md — the spine, all of it — then the one loop file
 that holds your loop: craft-plan.md (0-2), craft-build.md (3-4b), craft-ship.md
 (5-6.5). Read no other loop file. Then read
-<project>/.loop/<slug>/<input-file>. Execute Loop <N>. Append your output to
-<project>/.loop/<slug>/<output-file> following the embedded template. End your
+<project>/.craft/<slug>/<input-file>. Execute Loop <N>. Append your output to
+<project>/.craft/<slug>/<output-file> following the embedded template. End your
 section with `executor: craft-<tier> model=<provider/model-id> tier=<tier>
 deleg=<none|from→to>`. Reply with ONE line:
 OK <verdict> | FLAG <flag line> | BLOCKED <reason>.

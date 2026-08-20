@@ -16,8 +16,8 @@ A task that *chooses between designs, patterns, or technologies* — "Redis vs i
 
 ## File protocol
 
-- Directory: `<project>/.loop/<decision-slug>/`. Files append-only. Carry block copied verbatim between steps (same discipline as the feature subtree).
-- The **durable output** is an ADR entry, NOT the `.loop/` trail: by default a new `### <NNNN> <Decision>` subsection under `SPECS.md` § Architecture Decisions (the template already defines that structure); for a large/standalone decision, a `docs/adr/<NNNN>-<slug>.md` file instead. `.loop/<decision-slug>/` is deleted on record unless `keep-trail: yes`.
+- Directory: `<project>/.craft/<decision-slug>/`. Files append-only. Carry block copied verbatim between steps (same discipline as the feature subtree).
+- The **durable output** is an ADR entry, NOT the `.craft/` trail: by default a new `### <NNNN> <Decision>` subsection under `SPECS.md` § Architecture Decisions (the template already defines that structure); for a large/standalone decision, a `docs/adr/<NNNN>-<slug>.md` file instead. `.craft/<decision-slug>/` is deleted on record unless `keep-trail: yes`.
 
 ## Step A0 — Frame  ·  **Output:** `0-frame.md`
 
@@ -46,10 +46,10 @@ Write the decision record. Default target: append to the project `SPECS.md` § A
 - **Options considered:** <one line each, the rejected ones named>
 - **Decision:** <what was chosen>
 - **Consequences:** <what this enables and what it costs / forecloses>
-- **Provenance:** <.loop/<decision-slug>/ if kept, or "trail dropped">
+- **Provenance:** <.craft/<decision-slug>/ if kept, or "trail dropped">
 ```
 
-Then: update `ROADMAP.md` if the decision spawns work; delete `.loop/<decision-slug>/` unless `keep-trail: yes`; commit on a `feature/*` branch (the gitflow gate applies). Do not merge — the user's call.
+Then: update `ROADMAP.md` if the decision spawns work; delete `.craft/<decision-slug>/` unless `keep-trail: yes`; commit on a `feature/*` branch (the gitflow gate applies). Do not merge — the user's call.
 
 **Chain-out:** if the decision requires implementation, hand the ADR to the `feature` subtree as an input constraint for its Loop 3.5 Contract Layout — the ADR bounds the module contracts.
 
