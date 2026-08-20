@@ -75,3 +75,23 @@ Existing shims, as worked examples: `copilot/copilot-pre-tool.py` and `copilot/c
 
 The four ❌ are the live gaps: Copilot and opencode get no lint enforcement at all, so a TS
 violation authored there is caught only at commit, by git.
+
+## A ✅ in that table is a claim, and until 2026-08-19 nothing checked it
+
+**Every path a shim spawns must resolve, and `test_shim_paths.py` asserts it.** The 2026-07-31
+split moved scripts into `read/`, `checks/` and `facade/`; all eleven of opencode's spawns kept
+pointing at `core/hooks/<script>` and were dead for weeks with every row above still reading ✅.
+Repointed 2026-08-18. Writing the test on 2026-08-19 immediately found **three more, in the
+Copilot shim, from the same split** — `read/facade-{tracker,gate,scan}.py`, which is to say the
+facade-scan, facade-gate and post-read facade-tracker rows were ✅ for a runtime that could not
+reach any of them.
+
+**Two shims, one cause, found a day apart is the argument for the check rather than for another
+careful reading.** What the check buys is bounded and the test says so in its own first lines: it
+proves a path *resolves*, never that the gate *fires*. A shim whose paths all resolve can still
+translate a payload wrongly, and that is a behavioural question this does not answer.
+
+**So a new runtime's shim owes two things**, not one: the contract above, and an entry in
+`SHIMS` in `core/tools/test/workspace/gates/test_shim_paths.py` naming its files and how a spawn
+names a script. A shim with no entry is unchecked, which is the state opencode and Copilot were
+both in.

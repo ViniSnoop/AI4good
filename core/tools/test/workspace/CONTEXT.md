@@ -15,14 +15,14 @@ are one word apart: [`gates/`](gates/CONTEXT.md) and [`generators/`](generators/
 |--------------|-------------|
 | [`gates/`](gates/CONTEXT.md) | What a blocking gate must say, and who it must fire for. Mirrors… |
 | [`generators/`](generators/CONTEXT.md) | What the generators must produce, and what they must never produce. Mirrors… |
+| [`harness/`](harness/CONTEXT.md) | The suite's own preconditions: nothing about the workspace, everything about the… |
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
 | [`test_brain_attention.py`](test_brain_attention.py) | [`test_brain_attention.pyi`](test_brain_attention.pyi) | — | T0 the goal-file `>**owns**` block: a field ends where its block ends. Zero-token, verify-fast. |
 | [`test_corpus_ratchet.py`](test_corpus_ratchet.py) | [`test_corpus_ratchet.pyi`](test_corpus_ratchet.pyi) | — | T0 corpus ratchets (core/SCHEMA-placement.md § Placement): the .md corpus may not accumulate more of the three |
 | [`test_gitignore_self_heal.py`](test_gitignore_self_heal.py) | [`test_gitignore_self_heal.pyi`](test_gitignore_self_heal.pyi) | — | T0 self-healing .gitignore allowlist check (core/hooks/SPECS.md): a new domain subdir with a |
-| [`test_hook_environment.py`](test_hook_environment.py) | [`test_hook_environment.pyi`](test_hook_environment.pyi) | — | T0 harness invariant: the suite must mean the same thing run by hand and run by a git hook. |
-| [`test_import_paths.py`](test_import_paths.py) | [`test_import_paths.pyi`](test_import_paths.pyi) | — | T0 harness invariant: the suite's sys.path cannot silently shadow a module. |
 | [`test_pointer_integrity.py`](test_pointer_integrity.py) | [`test_pointer_integrity.pyi`](test_pointer_integrity.pyi) | `check_pointers` | T0 pointer-integrity check (Tier 0): every relative |
 | [`test_setup_executable.py`](test_setup_executable.py) | [`test_setup_executable.pyi`](test_setup_executable.pyi) | — | T0 the install is a procedure, not prose (core/SCHEMA.md § The .md type system): every SETUP.md |
+| [`test_shim_paths.py`](test_shim_paths.py) | — | — | T0 the shim contract (core/hooks/SPECS-shim.md): every canonical script a provider shim spawns |
 <!-- routing:end -->

@@ -47,7 +47,7 @@ def main() -> int:
     if any(hint in tool_name_lower for hint in READ_HINTS) and paths:
         for file_path in paths:
             payload = {"file_path": file_path, "session_id": session_id()}
-            run_script(HOOKS / "read/facade-tracker.py", payload, "Read", workspace_root, via_env=True)
+            run_script(HOOKS / "facade/facade-tracker.py", payload, "Read", workspace_root, via_env=True)
             run_script(HOOKS / "read/context-tracker.py", payload, "Read", workspace_root, via_env=True)
         emit_allow()
         return 0

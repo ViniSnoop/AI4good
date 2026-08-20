@@ -85,8 +85,8 @@ def main() -> int:
             if gate("checks/pre-edit.py", payload, canonical, workspace_root, messages):
                 return 2
             if write_like:
-                gate("read/facade-scan.py", payload, canonical, workspace_root, messages)
-            if gate("read/facade-gate.py", payload, canonical, workspace_root, messages):
+                gate("facade/facade-scan.py", payload, canonical, workspace_root, messages)
+            if gate("facade/facade-gate.py", payload, canonical, workspace_root, messages):
                 return 2
             if gate("checks/bugs-gate.py", payload, canonical, workspace_root, messages):
                 return 2

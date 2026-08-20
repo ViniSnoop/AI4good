@@ -24,5 +24,6 @@ Why each one exists, and the one place a test reads source instead of running it
 | [`test_branch_marker.py`](test_branch_marker.py) | [`test_branch_marker.pyi`](test_branch_marker.pyi) | `marker_path`, `repo`, `run` | T0 the branch-drift warning (core/hooks/SPECS-gates.md § Branch drift): HEAD moving under a session |
 | [`test_gate_messages.py`](test_gate_messages.py) | [`test_gate_messages.pyi`](test_gate_messages.pyi) | — | T0: a hook must speak on the channel its class is read on. Two mirrored rules, one subject. |
 | [`test_heredoc_gate.py`](test_heredoc_gate.py) | [`test_heredoc_gate.pyi`](test_heredoc_gate.pyi) | `run` | T0 the heredoc gate: a shell write to a workspace file must not walk past the file gates. |
+| [`test_shim_paths.py`](test_shim_paths.py) | [`test_shim_paths.pyi`](test_shim_paths.pyi) | — | T0 the shim contract (core/hooks/SPECS-shim.md): every canonical script a provider shim spawns |
 | [`test_subagent_gate.py`](test_subagent_gate.py) | [`test_subagent_gate.pyi`](test_subagent_gate.pyi) | — | T0 the subagent exemption (core/hooks/SPECS.md): a worker is not made to read the routing chain. |
 <!-- routing:end -->

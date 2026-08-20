@@ -127,17 +127,6 @@
     I do not want to do this in a rush and risk these features to be hindered."* The guard went in
     first precisely so the refactor is not carrying two jobs at once. → **tier: medium**.
 
-11. 🔴 **the opencode shim was dead for weeks and no check could have noticed.** All eleven of its
-    gate spawns pointed at `core/hooks/<script>` after those scripts moved into `read/`, `checks/`
-    and `facade/` in the 2026-07-31 split. Repointed 2026-08-18, but the paths were only found by
-    reading them: **nothing asserts that a shim's script paths resolve**, so the second harness's
-    gate coverage is claimed rather than known. Lucas had the same item in the INBOX the same day
-    (*"fully recover / adjust opencode wiring"*), which is the confirmation that repointing was not
-    the whole ask.
-    The decision is not how to write the check — it is whether opencode is still a runtime we
-    support, because the answer sets how much this is worth. **Lucas asked (2026-08-18) to be walked
-    through this rather than have it decided for him.** → **tier: medium** once decided.
-
 13. 🔴 **Should entropy be scattered across the nested repos instead of pooled at the root?** Lucas,
     2026-08-18: *"entropy maybe should be scattered as well across each individual repo (maybe this
     is a task that deserves to be written somewhere, so we can DISCUSS this point in depth)."* Today
