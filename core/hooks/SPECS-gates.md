@@ -32,6 +32,15 @@ this workspace.
   `Frente`→`Front` rename by matching the citation *shape* rather than the word, because
   `frente` is ordinary Portuguese and a bare-word retired token fired on honest prose.
 
+- `git/gitignore-self-heal.sh`: a new domain subdirectory carrying a `CONTEXT.md` gets its
+  `!<domain>/<dir>/` allow line written automatically. **It then stops the commit** if that
+  directory holds files git could not see — because staging happened before this hook ran, so
+  those files are not in the index and the commit would ship a `CONTEXT.md` without the content it
+  describes. It heals, names the directory, and asks for one `git add` and a re-run. A heal that
+  hides nothing (the line was missing but the files were already tracked) lets the commit through.
+  Ruled 2026-08-19 (Lucas), against the alternative of the hook staging the files itself: **a
+  commit hook that stages what the caller did not is worse than the bug it fixes.**
+
 ### Branch drift
 
 **HEAD is shared mutable state between parallel sessions, and until this existed nothing said so.**

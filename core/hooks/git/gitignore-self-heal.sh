@@ -30,6 +30,8 @@ EXCEPTIONS="$ROOT/core/hooks/gitignore-exceptions.txt"
 
 [ -f "$GITIGNORE" ] || exit 0
 
+HEALED=""
+
 for domain in $(grep -oE '^[a-zA-Z0-9_-]+/\*$' "$GITIGNORE" | sed 's#/\*$##'); do
   [ -d "$ROOT/$domain" ] || continue
   for dir in "$ROOT/$domain"/*/; do
@@ -45,5 +47,35 @@ for domain in $(grep -oE '^[a-zA-Z0-9_-]+/\*$' "$GITIGNORE" | sed 's#/\*$##'); d
     grep -qxF "!$name/" "$GITIGNORE" && continue
     printf '!%s/\n' "$name" >> "$GITIGNORE"
     git -C "$ROOT" add "$GITIGNORE" 2>/dev/null || true
+    HEALED="$HEALED $name"
   done
 done
+
+# Heal, then STOP — the commit in flight cannot carry what it could not see.
+#
+# Staging happens before this hook runs, so every file under a directory healed above was
+# ignored at `git add` time and is not in the index. Committing anyway ships a directory's
+# CONTEXT.md without the files it describes, and a clone at that commit regenerates an empty
+# artifact. That is what happened when core/norms/ landed: it self-corrected one commit later
+# and nothing was lost, which is exactly why it would keep happening.
+#
+# The alternative was to `git add` the missing files here so one commit always suffices.
+# Rejected 2026-08-19 (Lucas): a commit hook that stages files the caller did not stage is
+# worse than the bug it fixes. Fail loud instead. Contract: core/hooks/SPECS-gates.md.
+[ -n "$HEALED" ] || exit 0
+
+MISSING=""
+for name in $HEALED; do
+  if [ -n "$(git -C "$ROOT" ls-files --others --exclude-standard -- "$name" 2>/dev/null)" ]; then
+    MISSING="$MISSING $name"
+  fi
+done
+
+# Healed, but nothing was actually hidden — the allow line was merely absent. Let the commit run.
+[ -n "$MISSING" ] || exit 0
+
+echo "GITIGNORE HEALED -- rerun the commit" >&2
+echo "  .gitignore now allows:$MISSING" >&2
+echo "  Those files were ignored when this commit was staged, so it would ship without them." >&2
+echo "  Run: git add$MISSING && git commit ..." >&2
+exit 1

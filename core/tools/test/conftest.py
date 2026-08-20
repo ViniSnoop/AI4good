@@ -4,10 +4,21 @@
 # Every test used to spell out `parents[3]` for the workspace root — nine copies of a depth,
 # which is a number that changes the moment a test moves into a subdirectory. Import it from
 # here instead; pytest loads this file before any test module.
-import sys, pathlib
+import os, sys, pathlib
 
 HERE = pathlib.Path(__file__).resolve().parent
 WORKSPACE_ROOT = HERE.parents[2]
+
+# A git hook exports GIT_DIR, GIT_INDEX_FILE and friends, and every child process inherits them.
+# Dozens of tests here build a throwaway repo in tmp_path and run git inside it; under those
+# variables git ignores the cwd and operates on THIS repo instead. The tests then assert against
+# the workspace's own history and fail — but only when the suite is run BY THE PRE-COMMIT HOOK,
+# which is the one moment verify:fast is acting as a gate. Run by hand it is green, so the gate
+# was red and its operator was told otherwise. Found 2026-08-19; the failure is loud (19 tests)
+# and was invisible for as long as it existed because nobody reproduces a hook's environment.
+for _var in ('GIT_DIR', 'GIT_INDEX_FILE', 'GIT_WORK_TREE', 'GIT_OBJECT_DIRECTORY',
+             'GIT_ALTERNATE_OBJECT_DIRECTORIES', 'GIT_PREFIX', 'GIT_COMMON_DIR'):
+    os.environ.pop(_var, None)
 
 # Own directory first, so tests in subdirectories can `from conftest import WORKSPACE_ROOT`.
 sys.path.insert(0, str(HERE))

@@ -138,17 +138,6 @@
     support, because the answer sets how much this is worth. **Lucas asked (2026-08-18) to be walked
     through this rather than have it decided for him.** → **tier: medium** once decided.
 
-12. 🔴 **a new top-level directory silently costs two commits.** `core/norms/` could not be staged
-    until the pre-commit `.gitignore` self-heal added its allowlist line, and the heal runs *inside*
-    the commit that needs it — so the commit that added the generated `AGENTS.md` shipped without the
-    files it was generated from, and a clone at that commit regenerates an empty rule block. It
-    self-corrected one commit later and nothing was lost, which is exactly why it will keep
-    happening.
-    Two ways out and they are not equivalent: heal *before* staging so one commit always suffices,
-    or leave the behaviour and document it as the cost of a fail-closed allowlist. **Lucas asked
-    (2026-08-18) to be walked through this rather than have it decided for him.**
-    → **tier: medium** once decided.
-
 13. 🔴 **Should entropy be scattered across the nested repos instead of pooled at the root?** Lucas,
     2026-08-18: *"entropy maybe should be scattered as well across each individual repo (maybe this
     is a task that deserves to be written somewhere, so we can DISCUSS this point in depth)."* Today

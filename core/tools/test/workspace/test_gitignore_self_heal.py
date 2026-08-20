@@ -33,6 +33,26 @@ def _run(tmp_path: Path) -> str:
     return (tmp_path / ".gitignore").read_text(encoding="utf-8")
 
 
+def _git(fixture: Path, *args: str) -> subprocess.CompletedProcess:
+    return subprocess.run(
+        ["git", "-C", str(fixture), *args], capture_output=True, text=True, check=False
+    )
+
+
+def _make_repo_fixture(tmp_path: Path) -> Path:
+    """A fixture that is a real git repo, so the heal can see what staging missed."""
+    fixture = _make_fixture(tmp_path)
+    _git(fixture, "init", "-q")
+    _git(fixture, "add", "-A")
+    return fixture
+
+
+def _heal(fixture: Path) -> subprocess.CompletedProcess:
+    return subprocess.run(
+        ["bash", str(SCRIPT), str(fixture)], capture_output=True, text=True, check=False
+    )
+
+
 def test_new_context_bearing_subdir_gets_allowlisted(tmp_path):
     gitignore = _run(_make_fixture(tmp_path))
     assert "!core/newdir/" in gitignore
@@ -60,6 +80,49 @@ def test_running_twice_is_idempotent(tmp_path):
     _run(fixture)
     gitignore = _run(fixture)
     assert gitignore.count("!core/newdir/") == 1
+
+
+def test_healing_a_hidden_subdir_stops_the_commit(tmp_path):
+    # The bug this closes: staging happens BEFORE this hook runs, so a directory healed here was
+    # ignored at `git add` time and is not in the index. Committing anyway ships a CONTEXT.md
+    # without the files it describes. Ruled 2026-08-19 (Lucas): heal, then fail loud.
+    fixture = _make_repo_fixture(tmp_path)
+    (fixture / "core" / "newdir" / "payload.txt").write_text("data\n", encoding="utf-8")
+    result = _heal(fixture)
+    assert result.returncode != 0, "a heal that hid files must stop the commit"
+    assert "core/newdir" in result.stderr, "the message must name the directory"
+    assert "!core/newdir/" in (fixture / ".gitignore").read_text(encoding="utf-8")
+
+
+def test_the_stopped_commit_had_nothing_staged_behind_the_callers_back(tmp_path):
+    # The rejected alternative was for the hook to `git add` the missing files itself so one
+    # commit always sufficed. A commit hook that stages what the caller did not is worse than
+    # the bug, so this asserts the index is untouched apart from .gitignore.
+    fixture = _make_repo_fixture(tmp_path)
+    (fixture / "core" / "newdir" / "payload.txt").write_text("data\n", encoding="utf-8")
+    _heal(fixture)
+    staged = _git(fixture, "diff", "--cached", "--name-only").stdout.split()
+    assert not [p for p in staged if p.startswith("core/newdir")]
+
+
+def test_rerunning_after_the_user_stages_lets_the_commit_through(tmp_path):
+    fixture = _make_repo_fixture(tmp_path)
+    (fixture / "core" / "newdir" / "payload.txt").write_text("data\n", encoding="utf-8")
+    _heal(fixture)
+    _git(fixture, "add", "core/newdir")
+    assert _heal(fixture).returncode == 0
+
+
+def test_a_heal_that_hides_nothing_does_not_stop_the_commit(tmp_path):
+    # The heal and the stop are two decisions, not one: an allow line can be missing while the
+    # files are already tracked (added with -f). Adding the line is still right; stopping the
+    # commit is not, because nothing was hidden from it. Without this case the suite would pass
+    # a version that failed on every heal.
+    fixture = _make_repo_fixture(tmp_path)
+    _git(fixture, "add", "-f", "core/newdir")  # tracked already, just missing its allow line
+    result = _heal(fixture)
+    assert result.returncode == 0, result.stderr
+    assert "!core/newdir/" in (fixture / ".gitignore").read_text(encoding="utf-8")
 
 
 def test_own_repo_subdir_is_never_touched(tmp_path):

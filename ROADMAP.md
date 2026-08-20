@@ -124,7 +124,7 @@ low). Which model fills each tier is data in that file, never in this one.
 |-------|-------------|------|------|-------------|------------|-------|
 | [`ROADMAP-archive.md`](ROADMAP-archive.md) | Blocked on a trigger, parked out of v1, or killed — with the reason kept. | — | — | — | — | `gdrive-integration` `offline-resilience` `task-metric` |
 | [`ROADMAP-cost.md`](ROADMAP-cost.md) | Where session spend goes, which tier runs what, and what loads every session. | important | 6 | 1 | — | — |
-| [`ROADMAP-entropy.md`](ROADMAP-entropy.md) | Tier 0 checks, the shrinking-baseline ratchet, and rules declared but unbuilt. | essential | 14 | 3 | — | — |
+| [`ROADMAP-entropy.md`](ROADMAP-entropy.md) | Tier 0 checks, the shrinking-baseline ratchet, and rules declared but unbuilt. | essential | 13 | 2 | — | — |
 | [`ROADMAP-ledger.md`](ROADMAP-ledger.md) | One ledger with no duplicates, and what each `.md` type is allowed to be. | essential | 6 | 1 | — | — |
 | [`ROADMAP-legibility.md`](ROADMAP-legibility.md) | Lucas can no longer read his own workspace, and that is the root cause. | essential | 8 | 2 | — | — |
 | [`ROADMAP-measurement.md`](ROADMAP-measurement.md) | Nothing here has been measured, and confident wrong answers pass unchallenged. | important | 4 | 3 | ROADMAP-portability.md | — |

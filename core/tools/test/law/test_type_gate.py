@@ -30,10 +30,13 @@ def test_law_comes_from_schema():
     # SPEC.md was deliberately collapsed into SPECS.md and must NOT be a type.
     assert 'SPEC.md' not in allowed
     # The transient-initiative exemption is parsed from its own section.
-    assert 'REFACTOR.md' in exempt
+    assert 'ROADMAP-spec-drive.md' in exempt
     # Membership only shrinks; each is routed to a ROADMAP-<slug>.md or a SPECS.md. VERIFY.md left
     # on 2026-08-17 when its rename landed — the exemption covers the old name, never the new one.
-    assert exempt == {'ROADMAP-spec-drive.md', 'REFACTOR.md', 'DECISIONS.md'}, (
+    # REFACTOR.md left on 2026-08-19 by DELETION rather than rename: it recorded a refactor whose
+    # phases were complete and whose branch no longer existed. A row outliving its file is not
+    # harmless here, because every backticked name in that section is parsed as an exemption.
+    assert exempt == {'ROADMAP-spec-drive.md', 'DECISIONS.md'}, (
         'the exemption is a closed list that only shrinks — a new name here means someone '
         'invented a type instead of using ROADMAP-<slug>.md'
     )
