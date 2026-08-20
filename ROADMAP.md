@@ -129,7 +129,7 @@ low). Which model fills each tier is data in that file, never in this one.
 | [`ROADMAP-legibility.md`](ROADMAP-legibility.md) | Can Lucas still read the thing he owns — its words, its decisions, its shape? A standing front that never closes: the jargon audit, the pictures that show the workspace at a glance, and the rule that a session may not decide quietly. Open it when something is UNREADABLE or was decided without him, not when it is broken. | essential | 6 | 2 | — | — |
 | [`ROADMAP-measurement.md`](ROADMAP-measurement.md) | Does any of this scaffold actually help, and what catches the agent being confidently wrong? Two halves with one cause: the ablation that would measure whether a rule earns its keep, and the gates that would make a claim carry its evidence. Open it before trusting a number or a technical opinion; the experiment's design lives in its paper twin. | important | 4 | 3 | ROADMAP-portability.md | — |
 | [`ROADMAP-portability.md`](ROADMAP-portability.md) | Would this workspace work on a machine that is not Lucas's? Every dependency is declared and `SETUP.md` is an executed procedure, so what is left is the public scaffold repo his students will clone and the one feature that cannot be switched off. Open it for anything crossing the line between what is general and what is his. | essential | 2 | 1 | — | — |
-| [`ROADMAP-self-description.md`](ROADMAP-self-description.md) | Why does this workspace keep asserting things about its own code that one command would refute? Holds the discipline problem — a structural claim written into a durable file with no probe attached — and the routing descriptions a reader meets first. Open it when the workspace says something false ABOUT ITSELF; the outside world is measurement's. | important | 4 | 2 | — | — |
+| [`ROADMAP-self-description.md`](ROADMAP-self-description.md) | Why does this workspace keep asserting things about its own code that one command would refute? Holds the discipline problem — a structural claim written into a durable file with no probe attached — and the routing descriptions a reader meets first. Open it when the workspace says something false ABOUT ITSELF; the outside world is measurement's. | important | 4 | 1 | — | — |
 
 ### What is open, per shard
 
@@ -192,5 +192,5 @@ low). Which model fills each tier is data in that file, never in this one.
 - 🔴 Open with a research and design sitting, and build nothing before it.
 - 🟡 measure which `UPPERCASE.md` files are actually read, and what they cost.
 - 🟡 then reinforce the goal↔roadmap link, possibly enforced.
-- 🔴 A routing-table Description rarely says what the file is about.
+- 🟢 A truncated routing description is a finding, and three are left.
 <!-- routing:end -->

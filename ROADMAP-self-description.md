@@ -83,17 +83,11 @@ refiled there, and a finding worth keeping goes into the `SPECS.md` section that
    is not a stronger link to them.
    → **tier: medium**.
 
-4. 🔴 **A routing-table Description rarely says what the file is about.** Lucas, closing the
-   sharding session 2026-08-19: *"as 'Description' tão bem sucintas e muitas vezes não explicam de
-   que se trata o arquivo de forma minimamente decente."* This is Front 17 pointed at the one line
-   every reader meets first: an index exists so a session can decide what to open without opening
-   it, and a description that does not say what the file is about makes that decision by coin flip.
-   **It is not only the new shards.** `hoist.DESC_LIMIT = 80` bounds every description in every
-   routing table in the workspace, and 80 characters is what the thirty-odd shard descriptions
-   written this week were shaped to fit — the bound wrote the prose. Three things to separate
-   before touching anything: whether 80 is simply too small; whether the failure is length or
-   *content* (many descriptions name a topic where they should name the question the file answers,
-   which `core/SCHEMA-outgrowing.md` already demands of a shard and nothing enforces); and whether
-   a description that is truncated with `…` should count as a finding rather than a rendering.
-   → **tier: high**, with Lucas — he is the reader the column is for, so what "decent" means is his
-   to define before anything is rewritten.
+4. 🟢 **A truncated routing description is a finding, and three are left.** The mechanism is fixed
+   (2026-08-19): the capture reads whole `>` blocks and comment paragraphs, the bound is 360, the
+   rule is `core/SCHEMA-outgrowing.md` § What a description must say, and 91 routing blocks were
+   regenerated. What remains is the *content* half in three files whose authors wrote past the
+   bound — `core/CONTEXT.md`'s ROADMAP row, `core/refs/CONTEXT.md`'s REFS row, and the vendored
+   caveman `SKILL.md`. Re-derive the list rather than trusting this one; fix the SOURCE, never the
+   cut. **Nothing enforces it yet** — a `…` in a generated block should fail a Tier 0 check, and
+   that check is the actual open work here. → **tier: medium**.
