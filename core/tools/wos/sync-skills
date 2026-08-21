@@ -5,6 +5,7 @@
 # Symlink mirrors (<name>/SKILL.md -> source):
 #   /mnt/workspace/.opencode/skills/<name>/SKILL.md   (opencode)
 #   /mnt/workspace/.claude/skills/<name>/SKILL.md     (Claude Code)
+#   /mnt/workspace/.zcode/skills/<name>/SKILL.md      (ZCode)
 # Command file copies (<name>.md — full copy of source, enables /<name> slash command):
 #   /mnt/workspace/.claude/commands/<name>.md         (Claude Code slash commands)
 #
@@ -24,6 +25,7 @@ SRC="$WORKSPACE/core/skills"
 MIRRORS=(
   "$WORKSPACE/.opencode/skills"
   "$WORKSPACE/.claude/skills"
+  "$WORKSPACE/.zcode/skills"
 )
 COMMANDS_DIR="$WORKSPACE/.claude/commands"
 

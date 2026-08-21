@@ -197,6 +197,7 @@ code/ppc
 code/shortvid
 code/spacemantics
 code/voti
+code/statem
 
 # Plain content dirs (no nested repo) — fully trackable.
 !code/prog1/
@@ -210,3 +211,7 @@ code/voti
 !academy/reviews/
 !core/experiments/
 !core/norms/
+
+# ZCode session artifacts — config.json, CONTEXT.md and the skills/ mirror are tracked.
+.zcode/plans/
+!branches/google-migration/

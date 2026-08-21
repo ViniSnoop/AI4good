@@ -68,6 +68,7 @@ exist: [`code/ROADMAP-verify.md`](../../code/ROADMAP-verify.md). Installing the 
 | [`session/`](session/CONTEXT.md) | Session lifecycle: start, prune, precompact wipe, and the SessionStart nudges. |
 | [`stubgen/`](stubgen/CONTEXT.md) | Interface stubs and paper scaffolding, generated on save and on commit. |
 | [`trigger/`](trigger/CONTEXT.md) | When a feature fires, read from the registrations rather than from where its file sits. |
+| [`zcode/`](zcode/CONTEXT.md) | ZCode-side instruments: hook-protocol probes, and the adapter's home if direct registration fails fidelity. |
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|

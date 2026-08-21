@@ -35,6 +35,13 @@ SHIMS = {
          HOOKS / 'copilot/copilot_shared.py'],
         re.compile(r'["\']((?:[A-Za-z0-9_-]+/)+[A-Za-z0-9_-]+\.(?:py|sh))["\']'),
     ),
+    # Direct registration, no adapter: the config spawns canonical scripts by absolute path
+    # (mirroring .claude/settings.json). Inert until workspace trust — see
+    # core/experiments/zcode-hook-protocol.md — but the paths it names must resolve regardless.
+    'zcode': (
+        [WORKSPACE_ROOT / '.zcode/config.json'],
+        re.compile(r'/mnt/workspace/core/hooks/([A-Za-z0-9_./-]+\.(?:py|sh))'),
+    ),
 }
 
 
@@ -65,3 +72,8 @@ def test_opencode_spawns_only_scripts_that_exist():
 def test_copilot_spawns_only_scripts_that_exist():
     dead = sorted(p for p in _spawned('copilot') if not (HOOKS / p).exists())
     assert not dead, f'copilot shim spawns paths that do not resolve: {dead}'
+
+
+def test_zcode_spawns_only_scripts_that_exist():
+    dead = sorted(p for p in _spawned('zcode') if not (HOOKS / p).exists())
+    assert not dead, f'zcode shim spawns paths that do not resolve: {dead}'

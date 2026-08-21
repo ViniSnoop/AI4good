@@ -47,6 +47,7 @@ not to go looking for an install step. They are not steps and have no probes of 
 | Feature | Why nothing is needed |
 |---|---|
 | Claude Code hooks | `.claude/settings.json` is in the repo; Claude Code reads it when the workspace is opened, and `core/hooks/` activates immediately |
+| ZCode hooks | `.zcode/config.json` is in the repo and ZCode reads it at every session start — but project-scope hooks stay **inert until the workspace is trusted in the client** (one-time, per machine; `agent: no` — open the workspace in ZCode and accept the trust prompt / Settings → trust). Until then zcode enforces nothing at edit time; the git gates still fire. Measured: ISSUES.md B6 |
 | opencode policy plugin | `.opencode/plugins/workspace-policy.js` is a project-level plugin, auto-loaded on startup from the workspace root. Helpers live in `.opencode/wp-helpers.js`, outside `plugins/` so opencode does not load them as a second plugin |
 | Copilot hook registration | `.github/hooks/workspace-policy.json` and `.github/hooks/rtk-rewrite.json` are inert config files until Copilot itself is installed |
 | The feature registry | `core/features.txt` and `core/profile.txt` are both versioned, and `core/hooks/feature_law.py` reads them where they sit. Nothing to install |

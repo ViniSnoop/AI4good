@@ -1,0 +1,158 @@
+{
+  "hooks": {
+    "enabled": true,
+    "events": {
+      "PreToolUse": [
+        {
+          "matcher": "Read|Edit|Write|ApplyPatch|Grep|NotebookEdit",
+          "hooks": [
+            {
+              "type": "command",
+              "timeout": 30,
+              "command": "python3 /mnt/workspace/core/hooks/read/context-gate.py"
+            }
+          ]
+        },
+        {
+          "matcher": "Bash",
+          "hooks": [
+            {
+              "type": "command",
+              "timeout": 30,
+              "command": "python3 /mnt/workspace/core/hooks/read/bash-context-gate.py"
+            },
+            {
+              "type": "command",
+              "timeout": 30,
+              "command": "python3 /mnt/workspace/core/hooks/checks/heredoc-gate.py"
+            }
+          ]
+        },
+        {
+          "matcher": "Edit|Write|ApplyPatch",
+          "hooks": [
+            {
+              "type": "command",
+              "timeout": 60,
+              "command": "python3 /mnt/workspace/core/hooks/checks/pre-edit.py"
+            },
+            {
+              "type": "command",
+              "timeout": 60,
+              "command": "python3 /mnt/workspace/core/hooks/facade/facade-scan.py"
+            },
+            {
+              "type": "command",
+              "timeout": 60,
+              "command": "python3 /mnt/workspace/core/hooks/facade/facade-gate.py"
+            },
+            {
+              "type": "command",
+              "timeout": 30,
+              "command": "python3 /mnt/workspace/core/hooks/checks/issues-gate.py"
+            },
+            {
+              "type": "command",
+              "timeout": 30,
+              "command": "python3 /mnt/workspace/core/hooks/read/spec-read-gate.py"
+            }
+          ]
+        },
+        {
+          "matcher": "Read",
+          "hooks": [
+            {
+              "type": "command",
+              "timeout": 30,
+              "command": "bash /mnt/workspace/core/hooks/read/pre-read.sh"
+            }
+          ]
+        },
+        {
+          "matcher": "Agent|Task",
+          "hooks": [
+            {
+              "type": "command",
+              "timeout": 30,
+              "command": "python3 /mnt/workspace/core/hooks/read/agent-context.py"
+            }
+          ]
+        }
+      ],
+      "PostToolUse": [
+        {
+          "matcher": "Edit|Write|ApplyPatch",
+          "hooks": [
+            {
+              "type": "command",
+              "timeout": 120,
+              "command": "bash /mnt/workspace/core/hooks/post-edit.sh"
+            }
+          ]
+        },
+        {
+          "matcher": "Read",
+          "hooks": [
+            {
+              "type": "command",
+              "timeout": 30,
+              "command": "python3 /mnt/workspace/core/hooks/facade/facade-tracker.py"
+            },
+            {
+              "type": "command",
+              "timeout": 30,
+              "command": "python3 /mnt/workspace/core/hooks/read/context-tracker.py"
+            }
+          ]
+        }
+      ],
+      "UserPromptSubmit": [
+        {
+          "hooks": [
+            {
+              "type": "command",
+              "timeout": 30,
+              "command": "python3 /mnt/workspace/core/hooks/session/context-meter.py"
+            }
+          ]
+        }
+      ],
+      "SessionStart": [
+        {
+          "matcher": "^compact$",
+          "hooks": [
+            {
+              "type": "command",
+              "timeout": 30,
+              "command": "bash /mnt/workspace/core/hooks/session/precompact-wipe.sh"
+            }
+          ]
+        },
+        {
+          "hooks": [
+            {
+              "type": "command",
+              "timeout": 30,
+              "command": "bash /mnt/workspace/core/hooks/session/session-prune.sh"
+            },
+            {
+              "type": "command",
+              "timeout": 30,
+              "command": "bash /mnt/workspace/core/hooks/git/branch-marker.sh record"
+            },
+            {
+              "type": "command",
+              "timeout": 30,
+              "command": "python3 /mnt/workspace/core/hooks/session/inbox-nudge.py"
+            },
+            {
+              "type": "command",
+              "timeout": 30,
+              "command": "python3 /mnt/workspace/core/hooks/session/compass-nudge.py"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
