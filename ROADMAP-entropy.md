@@ -99,6 +99,12 @@
     - **~25 findings live in `academy/papers/*`**, which are their own repos with Overleaf as the
       authority. The dashboard counts them; this repo cannot fix them. Work that shows in the total
       and appears nowhere it can be done.
+    - **`core/tools/wos/roundup` still prints `entropy: N findings (flat)`.** Caught at the very
+      close of the session that made "flat" unwriteable — in the dashboard header, and only there.
+      Roundup is a second reporter of the same number and it still compares against the session
+      before it, which is the comparison that was wrong all along. It should read the trend the
+      dashboard now derives rather than recomputing a delta of its own; a second way of saying how
+      the count moved is a second way to say it wrongly.
     - **The goal files' `<!-- done:start -->` blocks** are full of finished work that
       *completion is deletion* would cut. The wrap will not touch a generated block, so it is
       permanent residue until someone cuts it. → **tier: medium**.
