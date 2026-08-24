@@ -75,19 +75,7 @@
    backticked name there is parsed as one; and a document being deleted can be the sole record of
    something live — `REFACTOR.md` held the only copy of bug B29, which `ISSUES.md` was supposed to have.
    → **tier: medium**, and the gate flip is the last step, not the first.
-10. 🔴 **Roughly half the column-cap findings left cannot be wrapped, and the fix is a third
-    exemption.** `core/tools/wos/wrap` drained 163 files on 2026-08-24 and the count fell by a
-    third. **What it could not touch is now the majority of what remains: ~42 findings are the
-    `description:` line of a YAML frontmatter block.** Breaking one breaks the parse — which is
-    verbatim the criterion the two existing exemptions in `file_law.over_column_cap` were granted
-    on, a markdown table row and a fenced code block, both admitted because "neither can be wrapped
-    without changing what it means". A frontmatter scalar is the same shape arriving through a third
-    door. **It is Lucas's, not a session's**, because it edits the law in
-    [`core/hooks/limits.env`](core/hooks/limits.env)'s neighbourhood rather than the corpus, and
-    because the alternative reading is real: an exemption is also how a cap gets hollowed out one
-    reasonable case at a time. The question to answer is which, not how to implement it.
-
-11. 🟡 **What the drain hit on the way, all four still true.** Filed 2026-08-24, kept in one item
+11. 🟡 **What the drain hit on the way, still true.** Filed 2026-08-24, kept in one item
     because they share a cause — a rule that never met the corpus it governs.
     - **The two caps pull against each other.** Wrapping
       `academy/administration/coordenacao-lc/novo-ppc-bcc/ROADMAP-ementas.md` took it from 195 to
@@ -99,12 +87,6 @@
     - **~25 findings live in `academy/papers/*`**, which are their own repos with Overleaf as the
       authority. The dashboard counts them; this repo cannot fix them. Work that shows in the total
       and appears nowhere it can be done.
-    - **`core/tools/wos/roundup` still prints `entropy: N findings (flat)`.** Caught at the very
-      close of the session that made "flat" unwriteable — in the dashboard header, and only there.
-      Roundup is a second reporter of the same number and it still compares against the session
-      before it, which is the comparison that was wrong all along. It should read the trend the
-      dashboard now derives rather than recomputing a delta of its own; a second way of saying how
-      the count moved is a second way to say it wrongly.
     - **The goal files' `<!-- done:start -->` blocks** are full of finished work that
       *completion is deletion* would cut. The wrap will not touch a generated block, so it is
       permanent residue until someone cuts it. → **tier: medium**.
@@ -144,6 +126,17 @@ in passing while cleaning up.
 
 ---
 ## Rejected
+
+- **Shortening the frontmatter descriptions instead of exempting them** (2026-08-24). The
+  alternative to the ruling that granted `over_column_cap` its third exemption: keep the cap
+  absolute and rewrite all 38 over-long `description:` lines to fit. Refused because it degrades
+  the field to satisfy a display rule — for the 15 `core/skills/` and `core/flows/` files the
+  description **is** the model's invocation trigger, and median 156 → 120 characters is a quarter
+  of the dispatch text gone; for the 23 `brain/memory/` files it is the line recall is chosen on.
+  The ruling and its reasoning are `core/hooks/limits.env` § BLOCK_COLS. What the implementation
+  then found is the part worth keeping: `core/tools/wos/wrap` had **already** been skipping
+  frontmatter from a private list of its own, so the exemption existed and only the law was
+  silent — granting it moved a rule into the law rather than adding one, and deleted the copy.
 
 - **Wrapping `core/norms/*.md` to the column cap** (2026-08-24). A norm is one line by contract:
   `norms.py` publishes each rule as a `- ` line into `AGENTS.md` and `test_norms` reads the block

@@ -63,15 +63,18 @@ fi
 #    land in one file, so they are settled once, in one commit.
 . "$SCRIPT_DIR/close/artifacts.sh"
 
-findings() { grep -oE '\*\*[0-9]+ findings\*\*' ISSUES.md 2>/dev/null | grep -oE '[0-9]+' | head -1; }
+#    The count AND how it moved are both read out of the header the dashboard just wrote.
+#    entropy_trend.py derives that trend from git every run; roundup used to compute a second delta
+#    of its own, against the session immediately before it — where the delta really is +-1. That is
+#    how "flat" got written into hand-off after hand-off while the real number climbed 95 -> 645.
+#    A second way of saying how the count moved is a second way to say it wrongly, so there is one.
+findings() { grep -oE '\*\*[0-9]+ findings\*\*( \([^)]*\))?' ISSUES.md 2>/dev/null | head -1 | tr -d '*'; }
 ENTROPY=""
 if [ "$ROOT" = "$WORKSPACE" ]; then
-  BEFORE="$(findings)"
   WAS_CLEAN=0; git diff --quiet ISSUES.md 2>/dev/null && WAS_CLEAN=1
   verify_block
   if make entropy >/dev/null 2>&1; then
-    AFTER="$(findings)"
-    if [ "$AFTER" = "$BEFORE" ]; then ENTROPY="$AFTER findings (flat)"; else ENTROPY="$AFTER findings (was ${BEFORE:-?})"; fi
+    ENTROPY="$(findings)"
     ENTROPY="$ENTROPY$(settle ISSUES.md "$WAS_CLEAN" "chore(issues): regenerate the entropy and verify blocks at session close")"
   else
     ENTROPY="regen failed"

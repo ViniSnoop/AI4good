@@ -132,15 +132,23 @@ def is_authored(path: Path, root: Path) -> bool:
 
 
 def over_column_cap(text: str, cols: int) -> list:
-    """Line numbers of prose lines longer than `cols`. The one definition both gates read.
+    """Line numbers of prose lines longer than `cols`. The one definition every reader uses.
 
-    Two shapes are exempt because neither can be wrapped without changing what it means:
-    a **markdown table row**, which stops being a table, and anything inside a **fenced code
-    block** — a directory tree, an aligned CLI listing, a schema. Both were found the same way,
-    by a split that produced a file the cap flagged and no rewrap could fix.
+    Three shapes are exempt: a **markdown table row**, anything inside a **fenced code block**,
+    and the **leading YAML frontmatter block**. Why each, and why the third is not a hollow-out,
+    is in limits.env § BLOCK_COLS — the one home for this rule's reasoning.
     """
     over, fenced = [], False
-    for number, line in enumerate(text.splitlines(), 1):
+    lines = text.splitlines()
+    end = 0
+    if lines and lines[0].strip() == '---':
+        for number, line in enumerate(lines[1:], 2):
+            if line.strip() == '---':
+                end = number
+                break
+    for number, line in enumerate(lines, 1):
+        if number <= end:  # the leading frontmatter block, closed by its own `---`
+            continue
         if line.lstrip().startswith('```'):
             fenced = not fenced
             continue

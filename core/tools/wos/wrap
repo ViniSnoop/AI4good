@@ -69,26 +69,23 @@ def wrap_line(line: str, cols: int) -> list:
 
 
 def rewrap(text: str, cols: int) -> str:
-    """Rewrap every line file_law flags, skipping what a generator or a parser owns.
+    """Rewrap every line file_law flags, skipping what a generator owns.
 
-    over_column_cap already exempts table rows and fenced code; this adds the two shapes that
-    are not its business — a delimited generated block, and YAML frontmatter — because both are
-    read by something that would break on a newline.
+    One shape is added here, and only because file_law cannot see it: a DELIMITED GENERATED BLOCK
+    inside an authored file, which the law knows nothing about — is_generated_artifact answers for
+    whole files. Frontmatter used to be a second arm here; it is the law's now (limits.env
+    § BLOCK_COLS), so this tool asks instead of restating.
     """
     flagged = set(file_law.over_column_cap(text, cols))
-    out, generated, frontmatter = [], False, False
+    out, generated = [], False
 
     for number, line in enumerate(text.splitlines(), 1):
-        if number == 1 and line.strip() == '---':
-            frontmatter = True
-        elif frontmatter and line.strip() == '---':
-            frontmatter = False
         if BLOCK_OPEN.match(line):
             generated = True
         elif BLOCK_CLOSE.match(line):
             generated = False
 
-        if number in flagged and not generated and not frontmatter:
+        if number in flagged and not generated:
             out.extend(wrap_line(line, cols))
         else:
             out.append(line)
