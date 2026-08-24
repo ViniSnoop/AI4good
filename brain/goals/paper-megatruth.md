@@ -31,6 +31,7 @@ Send João and Mari a message today. Not about the paper — about a meeting. "L
 > [ ] [mega-04] map what's done vs. what's missing for a submission  
 > [ ] [mega-05] identify target venue and deadline  
 > [ ] [mega-06] write and submit  
+> [ ] [responder-time] responder ao time (João e Mari) — quebrar o silêncio é o bloqueio real, distinto de `[mega-01]` (agendar reunião)  
 
 ## done
 
@@ -39,14 +40,14 @@ Send João and Mari a message today. Not about the paper — about a meeting. "L
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-22  ·  trend: advancing
+last-touch: 2026-07-22  ·  trend: stalled
 
 | period      | touches |
 |-------------|----------|
-| month       |       6 |
-| trimester   |       7 |
-| semester    |       7 |
-| year        |       7 |
-| 2-year      |       7 |
-| 4-year      |       7 |
+| month       |       0 |
+| trimester   |       6 |
+| semester    |       6 |
+| year        |       6 |
+| 2-year      |       6 |
+| 4-year      |       6 |
 <!-- stats:end -->

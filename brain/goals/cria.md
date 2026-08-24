@@ -37,6 +37,7 @@ Não é hora de começar isto: o goal está parqueado por escolha e a energia es
 > [ ] [lbw] LBW CHI 2027 (jan/2027, alunos coautores)  
 > [ ] [full] full paper CHI 2028  
 > [ ] [manifesto] sessão Opus do paper-manifesto (brief pronto em `academy/papers/ai4good/outputs/manifesto-brief.md`)
+> [ ] [mandato-coletivo] assess "mandato coletivo" (participatory-mandate: constituents vote on bills, track spending, propose amendments) as a mechanism-design case worth citing/comparing — ref in `academy/refs/REFS.md` (INBOX 2026-07-26)
 
 ## done
 
@@ -46,14 +47,14 @@ Não é hora de começar isto: o goal está parqueado por escolha e a energia es
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-13  ·  trend: advancing
+last-touch: 2026-08-20  ·  trend: steady
 
 | period      | touches |
 |-------------|----------|
-| month       |      13 |
-| trimester   |      25 |
-| semester    |      25 |
-| year        |      25 |
-| 2-year      |      25 |
-| 4-year      |      25 |
+| month       |      12 |
+| trimester   |      28 |
+| semester    |      28 |
+| year        |      28 |
+| 2-year      |      28 |
+| 4-year      |      28 |
 <!-- stats:end -->

@@ -15,12 +15,11 @@ import entropy_corpus  # noqa: E402
 import entropy_ledger  # noqa: E402
 import schema_law  # noqa: E402
 
-# The four wos ledgers (ROADMAP.md header: "an item lives in exactly one of the four").
+# The three wos ledgers (ROADMAP.md header: "an item lives in exactly one of the three").
 # All goal files share one namespace because their achievement slugs are per-goal
 # vocabulary — six startapps each having a [build-mvp] is not six copies of one item.
 LEDGERS = {
     'wos-roadmap': [WORKSPACE_ROOT / 'ROADMAP.md'],
-    'life-todo': [WORKSPACE_ROOT / 'brain/TODO.md'],
     'core-roadmap': [WORKSPACE_ROOT / 'core/ROADMAP.md'],
     'goals': sorted((WORKSPACE_ROOT / 'brain/goals').glob('*.md')),
 }
@@ -62,11 +61,11 @@ def test_sibling_namespaces_may_repeat_a_slug(tmp_path):
 
 def test_same_slug_in_two_ledgers_is_a_duplicate(tmp_path):
     (tmp_path / 'ROADMAP.md').write_text('- [ ] [thing] do it\n', encoding='utf-8')
-    (tmp_path / 'TODO.md').write_text('- [ ] [thing] do it\n', encoding='utf-8')
+    (tmp_path / 'OTHER.md').write_text('- [ ] [thing] do it\n', encoding='utf-8')
     dups = entropy_ledger.duplicate_slugs(
-        {'roadmap': [tmp_path / 'ROADMAP.md'], 'todo': [tmp_path / 'TODO.md']})
+        {'roadmap': [tmp_path / 'ROADMAP.md'], 'other': [tmp_path / 'OTHER.md']})
     assert set(dups) == {'thing'}
-    assert set(dups['thing']) == {'roadmap', 'todo'}
+    assert set(dups['thing']) == {'roadmap', 'other'}
 
 
 def test_no_item_lives_in_two_ledgers():

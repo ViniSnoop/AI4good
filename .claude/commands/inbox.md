@@ -10,7 +10,7 @@ Arguments: $ARGUMENTS
 
 ## Guardrail — land in on-demand docs, never CONTEXT.md
 
-Every route targets a doc that loads **only when needed**: `ROADMAP.md`, `ISSUES.md`, `refs/REFS.md`, goal files, `TODO.md`.
+Every route targets a doc that loads **only when needed**: `ROADMAP.md`, `ISSUES.md`, `refs/REFS.md`, goal files.
 
 **NEVER route an entry into a `CONTEXT.md`.** CONTEXT.md loads every session for its whole subtree — every line there costs tokens on every task. Ideas, bugs, and references go to on-demand docs. This is the rule that keeps capture cheap without flooding always-loaded context.
 
@@ -21,7 +21,7 @@ Every INBOX entry lands in exactly one place:
 | route | destination | signal |
 |-------|-------------|--------|
 | **goal** | new goal file in `brain/goals/` or backlog item in an existing goal | `goal` |
-| **task** | `brain/TODO.md` at the right timeframe (today / week / month / backlog) | `task: <when>` |
+| **task** | commitment → backlog item in the goal it serves (`brain/goals/*.md`); capture with no clear goal → stays in `INBOX.md` | `task` |
 | **ref** | domain `refs/REFS.md` — one tier-1 line (routing table + convention below) | `ref` |
 | **project** | `code/<proj>/ROADMAP.md` `## Backlog` (idea) or `ISSUES.md` (bug) | `proj: <name>` |
 | **draft** | new file in `branches/writing/drafts/[slug].md` | `draft` |
@@ -73,8 +73,9 @@ potential is ever assessed. **Whenever an entry carries an actionable intent** �
 something — pair the ref with an **assessment task in the owning surface**, so both exist:
 
 - ref line → the domain `refs/REFS.md` (as above), **and**
-- one assessment task → the same domain's `ROADMAP.md ## Backlog` (for a project) or `brain/TODO.md`
-  (for cross-cutting/life). Phrase it as the concrete next look ("assess whether X transfers to our
+- one assessment task → the same domain's `ROADMAP.md ## Backlog` (for a project) or the owning
+  goal's backlog in `brain/goals/*.md` (for cross-cutting/life; `brain/INBOX.md` if no goal owns it
+  yet). Phrase it as the concrete next look ("assess whether X transfers to our
   pipeline", "test X vs current backend"), not "read this". In the ref line, point to where the task
   lives (`— assessment task tracked in <where>`); in the task, point back to the ref.
 
@@ -136,7 +137,7 @@ For each entry:
 2. Propose route:
    - **goal (new)** → suggest `# [ area | subarea | horizon ] title` + first backlog item + ease-start
    - **goal (existing)** → name the goal file and the exact backlog line to append
-   - **task** → state timeframe and the exact line to add to TODO.md
+   - **task** → name the goal backlog and the exact line to append (or, if it's pure capture, that it stays in INBOX)
    - **ref** → name the target `refs/REFS.md` and the exact tier-1 line
    - **project** → name the target file (ROADMAP / ISSUES), the exact line, and the repo
    - **draft** → propose filename slug and one-line description of the draft
@@ -153,7 +154,7 @@ For each entry:
 ## After confirmation
 
 - Write new goal files or append to confirmed backlogs
-- Add task lines to the correct timeframe section in `brain/TODO.md`
+- Add task lines to the backlog of the goal they serve in `brain/goals/*.md`
 - Append ref lines to the domain `refs/REFS.md` (create `refs/REFS.md` + `refs/CONTEXT.md` if absent)
 - Append project ideas/bugs to `code/<proj>/ROADMAP.md` / `ISSUES.md` — leave **staged**, report repos
 - Create draft files in `branches/writing/drafts/[slug].md` with a title and blank body

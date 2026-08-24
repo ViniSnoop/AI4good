@@ -14,6 +14,6 @@ Plano e próximos passos vivem no goal: [`brain/goals/ecovila.md`](../../brain/g
 
 | Subdirectory | Description |
 |--------------|-------------|
-| [`burocracia/`](burocracia/CONTEXT.md) | Documentos da Associação Ecovila Santuário dos Jatobás e papelada do lote. Vários PDFs são image-only (precisam de OCR — ver `brain/TODO.md`). |
+| [`burocracia/`](burocracia/CONTEXT.md) | Documentos da Associação Ecovila Santuário dos Jatobás e papelada do lote. Vários PDFs são image-only (precisam de OCR — ver `brain/goals/ecovila.md` `[org-docs]`). |
 | [`refs/`](refs/CONTEXT.md) | Captured references for the ecovila lot — construction technique, ecological building, terrain. Tier-1 links in `refs/REFS.md`. |
 <!-- routing:end -->

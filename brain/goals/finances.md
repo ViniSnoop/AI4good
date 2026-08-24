@@ -24,6 +24,7 @@ fallback · even a rough estimate is better than no map*
 > [ ] [reserve-boxes] define 3-4 reserve categories (emergency, projects, leisure, etc.) and amounts  
 > [ ] [spending-audit] review last month's actual spending — where did it go?  
 > [ ] [budget-rhythm] establish a monthly budget review rhythm — even 30 minutes/month  
+> [ ] [aluguel-dia-10] pedir mudança da data de pagamento do aluguel: dia 5 → dia 10  
 
 ## done
 
@@ -32,14 +33,14 @@ fallback · even a rough estimate is better than no map*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-22  ·  trend: advancing
+last-touch: 2026-07-22  ·  trend: stalled
 
 | period      | touches |
 |-------------|----------|
-| month       |       6 |
-| trimester   |       7 |
-| semester    |       7 |
-| year        |       7 |
-| 2-year      |       7 |
-| 4-year      |       7 |
+| month       |       0 |
+| trimester   |       6 |
+| semester    |       6 |
+| year        |       6 |
+| 2-year      |       6 |
+| 4-year      |       6 |
 <!-- stats:end -->

@@ -42,7 +42,6 @@ Design rationale → [SPECS.md](SPECS.md) § Rationale.
 | [`GOALS.md`](GOALS.md) | Dashboard, attention monitor, Pareto lens, and the router to every goal file. |
 | [`INBOX.md`](INBOX.md) | zero friction. thoughts. no taxonomy. no formating. handle duplications. triage with `/inbox`: each entry routed to a goal, task, ref, project doc, draft — or deleted. signal the route preemptively (optional — agent infers if omitted): `goal` · `task: today`/`week`/`month`/`backlog` · `ref` · `proj: <name>` · `draft` · `delete` |
 | [`SPECS.md`](SPECS.md) | Goal file format, section growth triggers, signals, dynamics, timing, and backlog conventions. |
-| [`TODO.md`](TODO.md) | practical layer. tasks for today, week, month. each may link to a goal achievement — or not. fill freely. clear when done. agent and Lucas both write here. **scope**: life, academic, and per-project tasks. Workspace-OS build work does **not** live here — it lives in [/ROADMAP.md](../ROADMAP.md), the single wos ledger. Done items are deleted, not |
 | [`USER.md`](USER.md) | Lucas — read before any Brain task. |
 | [`drafts/context-folding-report.md`](drafts/context-folding-report.md) | Context Folding: A Graph-Based Architecture for Infinite-Horizon AI Agent Memory |
 <!-- routing:end -->

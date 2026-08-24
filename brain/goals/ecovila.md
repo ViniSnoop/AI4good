@@ -12,13 +12,13 @@ transformative · expected · thrilled
     [org-docs] organizar a papelada da associação em `branches/ecovila/burocracia/` — o Regimento Interno já está lá; ler e extrair o que muda pra mim como associado (direitos/deveres/área privativa)
 
 **ease-start**
-Abrir `branches/ecovila/burocracia/` e olhar o Regimento Interno da Associação Ecovila Santuário dos Jatobás (v13). Precisa de OCR primeiro (PDF image-only — ver TODO). 15 min de leitura assim que o OCR sair.
+Abrir `branches/ecovila/burocracia/` e olhar o Regimento Interno da Associação Ecovila Santuário dos Jatobás (v13). Precisa de OCR primeiro (PDF image-only). 15 min de leitura assim que o OCR sair.
 
 ## backlog
 
-> [ ] [org-docs] ler + resumir Regimento Interno + demais docs da associação (em `branches/ecovila/burocracia/`); depende do OCR (ver `brain/TODO.md`)
+> [ ] [org-docs] ler + resumir Regimento Interno + demais docs da associação (em `branches/ecovila/burocracia/`); depende do OCR ainda pendente
 > [ ] [terrain-3d] pesquisar/testar solução de mapeamento 3D do terreno (drone/fotogrametria/LiDAR de celular) — cruza com [[spacemantics]]
-> [ ] [finance-terreno] fechar o lado financeiro do terreno com o pai (ver TODO week: transferir valor do terreno/chão do santuário jatobá)
+> [ ] [finance-terreno] fechar o lado financeiro do terreno com o pai — transferir pra painho o valor do terreno/chão do santuário jatobá
 > [ ] [construction-later] planejar a futura construção ecológica no lote (agroecologia, preservação) — reusar aprendizados de [[project_casinhas|casinhas]]
 
 ## done
@@ -28,14 +28,14 @@ Abrir `branches/ecovila/burocracia/` e olhar o Regimento Interno da Associação
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-13  ·  trend: advancing
+last-touch: 2026-08-19  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       3 |
-| trimester   |       3 |
-| semester    |       3 |
-| year        |       3 |
-| 2-year      |       3 |
-| 4-year      |       3 |
+| month       |       6 |
+| trimester   |       6 |
+| semester    |       6 |
+| year        |       6 |
+| 2-year      |       6 |
+| 4-year      |       6 |
 <!-- stats:end -->

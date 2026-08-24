@@ -25,7 +25,6 @@ get a new type.
 | `REFS.md` | What external material exists, and what did we conclude about it? |
 | `SKILL.md` | What procedure does the agent follow when invoked? |
 | `GOALS.md` | Which goals have wind right now? (dashboard + router) |
-| `TODO.md` | What must I do in life this week? |
 | `INBOX.md` | Raw capture, zero taxonomy, drained to empty |
 | `USER.md` | Who is Lucas, and how does he fail? |
 | `MEMORY.md` | Which memories exist, and what is each about? (index + router, `brain/memory/` only) |

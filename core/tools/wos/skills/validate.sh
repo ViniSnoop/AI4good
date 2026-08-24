@@ -29,6 +29,11 @@ validate_flows() {
     name="$(basename "$f" .md)"
     case "$f" in
       */flows/craft/*) continue ;;
+      # A dot-directory under flows/ is a STORE, not a flow: nothing in it is invocable, so
+      # the flow frontmatter contract does not apply. core/flows/.craft-skills/ is the live
+      # case — Loop 6.5 appends earned design patterns there and Loop 1 greps it. Without
+      # this, that store failed the flow validator and blocked every commit in the repo.
+      */flows/.*/*) continue ;;
     esac
     case "$name" in
       CONTEXT) continue ;;

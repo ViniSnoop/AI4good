@@ -49,6 +49,7 @@ Abrir `core/flows/craft/craft.md` `## Field Practice` (7 runs auditados, A1 DONE
 > [ ] [pipeline-step-review] adicionar etapa de pipeline dedicada (visual/usabilidade) + revisá-la
 > [ ] [arch-algo-vs-lib] etapa de arquitetura: decidir algoritmo ANTES de escolher biblioteca
 > [ ] [simplicity-gap] investigar por que agente (mesmo Fable) produz soluções mais complexas/tortuosas que o design humano — ex. tinyglade-like no isoroll (etapas humanas eram simples/didáticas); motiva etapas arquitetura+review  
+> [ ] [graph-native] avaliar a orquestração graph-native de agentes do Claude Code contra o que `code/flows` já faz — e checar se o tal "Graph Engineering" (Microsoft/Stanford/Anthropic) existe de fato; o próprio post diz que só um dos dois é real (ref em `core/refs/REFS-tooling.md`, INBOX 2026-07-29)  
 
 ## seed (INBOX 2026-07 — insumo da sessão Fable)
 
@@ -76,10 +77,10 @@ last-touch: 2026-08-20  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |      40 |
-| trimester   |      45 |
-| semester    |      81 |
-| year        |      81 |
-| 2-year      |      81 |
-| 4-year      |      81 |
+| month       |      38 |
+| trimester   |      46 |
+| semester    |      82 |
+| year        |      82 |
+| 2-year      |      82 |
+| 4-year      |      82 |
 <!-- stats:end -->

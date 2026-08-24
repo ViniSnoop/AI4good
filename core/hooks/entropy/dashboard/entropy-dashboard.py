@@ -54,7 +54,6 @@ LEDGERS = {
     # ledgers, and sharding a ledger does not make its own shards rivals.
     'wos-roadmap': [WORKSPACE_ROOT / 'ROADMAP.md',
                     *sorted(WORKSPACE_ROOT.glob('ROADMAP-*.md'))],
-    'life-todo': [WORKSPACE_ROOT / 'brain/TODO.md'],
     'core-roadmap': [WORKSPACE_ROOT / 'core/ROADMAP.md'],
     'goals': sorted((WORKSPACE_ROOT / 'brain/goals').glob('*.md')),
 }

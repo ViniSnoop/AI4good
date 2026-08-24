@@ -22,6 +22,8 @@ Pegar UM processo real recente (ex. a progressão CTA 23082.018263/2026-55) e es
 > [ ] [gather-norms] reunir resoluções + instruções normativas + links oficiais num índice navegável (não copiar tudo — referenciar + anotar)
 > [ ] [dept-guide] empacotar como guia extensível pro departamento — reusável por outros professores
 > [ ] amarrar com `academy/administration/` (já existe) e com o goal `career-ufrpe`
+> [ ] [ppc-ementas-3] PPC ementas: 41/44 já reformatadas p/ modelo SIGAA e subidas no Drive — falta pedir a Paulo o conteúdo de 3 disciplinas sem fonte: FUNDAMENTOS DA EDUCAÇÃO, PROJETO INTEGRADOR EM DESENVOLVIMENTO DE ARTEFATOS EDUCACIONAIS, PROJETO INTEGRADOR EM EDUCAÇÃO EM COMPUTAÇÃO (detalhe por disciplina em `academy/administration/coordenacao-lc/novo-ppc-bcc/ementas/gaps.md`) — depois, criar as 3 ementas no formato novo (INBOX 2026-07-24)
+> [ ] [sbc-cotas] checar isenção e prazos de cotas SBC — email andreza.leite@ufrpe.br
 
 ## done
 
@@ -30,14 +32,14 @@ Pegar UM processo real recente (ex. a progressão CTA 23082.018263/2026-55) e es
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-31  ·  trend: advancing
+last-touch: 2026-08-19  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       7 |
-| trimester   |       7 |
-| semester    |       7 |
-| year        |       7 |
-| 2-year      |       7 |
-| 4-year      |       7 |
+| month       |      13 |
+| trimester   |      13 |
+| semester    |      13 |
+| year        |      13 |
+| 2-year      |      13 |
+| 4-year      |      13 |
 <!-- stats:end -->

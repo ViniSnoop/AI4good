@@ -68,6 +68,11 @@ fallback · iterate — MVP can always be extended*
 > [ ] [domain-coverage] `branches/` covers all active life domains and every `GOALS.md` stub has a real goal file (ROADMAP § the .md type system)  
 > [ ] [content-in] course materials and Google Drive brought in under a decided strategy (ROADMAP § Parked, until v1)  
 > [ ] [offline-resilient] survives a world without internet — Reticulum for network, Kiwix for corpus (parked, ROADMAP § Parked)  
+> [ ] [checkup-metodo] checkup de rotina do workspace (INBOX 2026-07-30) — rodar `core/tools/test/verify-fast`, ler `ISSUES.md` § Entropy (a contagem, nunca uma cópia), e auditar os 4 critérios de v1 no `/ROADMAP.md` contra o que é verdade hoje; sessão de leitura + medição, o que virar trabalho vira item de lá, não daqui. E o checkup precisa de um método (INBOX 2026-08-13: *"tô com bastante vontade de testar as nossas features do wos. tem que ver uma forma válida de fazer isso"*) — usar as features de verdade, não só verificar que passam; a forma de exercitá-las é parte do que essa sessão tem que descobrir  
+> [ ] [fable-credito] confirmar se o crédito Fable (100 usd até setembro) ainda consome do limite por turno/semanal, ou se é isento (INBOX 2026-07-24)  
+> [ ] [plan-mode-default] deixar o plan mode como default de sessão nova na extensão VSCode do Claude Code (INBOX 2026-08-16) — config do harness, não do workspace: checar se há setting em `.claude/settings.json` ou se é só na UI da extensão; se for setting, é one-liner e a skill `update-config` cobre. Casa com a mudança do `/roundup`, que agora fecha pedindo *plan*, não *continue*  
+> [ ] [security-gates] decidir quais dos 20 itens da checklist pré-lançamento viram gate de verdade para os projetos que vão pro ar (gira, voti, ppc) — vários já cobertos (secret-scan no pre-commit, skill `security-review`); o que sobra é auth server-side, RLS, rate-limit e headers, que nenhum gate nosso vê. Ref em `core/refs/REFS-unjudged.md` § Shipping an agent-written app (INBOX 2026-08-13)  
+> [ ] [jcode-custo] averiguar o JCode — reimplementação em Rust do harness do Claude Code, com multi-agente no mesmo projeto; duas perguntas separadas, e a segunda vale mais: (1) a ferramenta presta? (2) é mesmo o harness que deixa tudo caro, ou o custo é do modelo? — a (2) dá pra medir aqui sem instalar nada, comparando tokens de scaffolding vs tokens de conteúdo numa sessão nossa. Ref em `core/refs/REFS-tooling.md` § Comparable systems (INBOX 2026-07-31)  
 
 ## done
 
@@ -79,14 +84,14 @@ fallback · iterate — MVP can always be extended*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-20  ·  trend: advancing
+last-touch: 2026-08-24  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |     286 |
-| trimester   |     337 |
-| semester    |     356 |
-| year        |     356 |
-| 2-year      |     356 |
-| 4-year      |     356 |
+| month       |     268 |
+| trimester   |     357 |
+| semester    |     377 |
+| year        |     377 |
+| 2-year      |     377 |
+| 4-year      |     377 |
 <!-- stats:end -->

@@ -4,12 +4,12 @@
 <!-- stats:start -->
 <!-- data:start -->
 ## attention dashboard  _(auto-updated on every commit)_
-last-updated: 2026-08-24 10:42
+last-updated: 2026-08-24 15:50
 
 >**areas** — last 14 days  
 ```
-health       ██████████   222 touches
-career       █░░░░░░░░░   27 touches
+health       ██████████   224 touches
+career       █░░░░░░░░░   28 touches
 finances     ░░░░░░░░░░   12 touches
 fun          ░░░░░░░░░░   19 touches
 spiritual    ░░░░░░░░░░   0 touches
@@ -17,7 +17,7 @@ spiritual    ░░░░░░░░░░   0 touches
 
 >**goals** — last 14 days  
 ```
-CONTEXT                  ░░░░░░░░░░   4 touches
+CONTEXT                  ░░░░░░░░░░   5 touches
 burocracia-academica     ░░░░░░░░░░   6 touches
 career-ufrpe             ░░░░░░░░░░   0 touches
 corporal-expressiveness  ░░░░░░░░░░   0 touches
@@ -27,7 +27,7 @@ dance                    ░░░░░░░░░░   1 touches
 ecovila                  ░░░░░░░░░░   4 touches
 exercise                 ░░░░░░░░░░   2 touches
 finances                 ░░░░░░░░░░   0 touches
-google-migration         ░░░░░░░░░░   1 touches
+google-migration         ░░░░░░░░░░   2 touches
 guitar                   ░░░░░░░░░░   0 touches
 home-casinhas            ░░░░░░░░░░   9 touches
 instituto                ░░░░░░░░░░   1 touches
@@ -64,11 +64,11 @@ startapps-virada         ░░░░░░░░░░   0 touches
 startapps-voti           ░░░░░░░░░░   1 touches
 startapps-xacomigo       ░░░░░░░░░░   0 touches
 surf                     ░░░░░░░░░░   0 touches
-teaching-materials       ░░░░░░░░░░   19 touches
+teaching-materials       ░░░░░░░░░░   20 touches
 travel                   ░░░░░░░░░░   1 touches
 vipassana                ░░░░░░░░░░   0 touches
 voice                    ░░░░░░░░░░   0 touches
-workspace-os             ██████████   222 touches
+workspace-os             ██████████   224 touches
 yoga                     ░░░░░░░░░░   0 touches
 ```
 <!-- data:end -->

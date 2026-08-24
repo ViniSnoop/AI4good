@@ -36,6 +36,7 @@ Nothing to set up on your side. The seam freeze + cabin fixture run in `code/iso
 > [ ] [8dir-sprites] 8-direction views per character — after tiles ship (NB cardinal weakness returns for tokens)  
 > [ ] [anim-pipeline] animate characters: idle, attack, defend, hurt, cast, crouch  
 > [ ] [sprite-atlas] atlas packing for Foundry export  
+> [ ] [nvidia-imagegen] testar geração de imagem via opencode + chave NVIDIA — nanobanana com a key falhou algumas vezes; validar esse caminho alternativo (INBOX 2026-07-24)  
 
 ## done
 
@@ -44,14 +45,14 @@ Nothing to set up on your side. The seam freeze + cabin fixture run in `code/iso
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-15  ·  trend: decelerating
+last-touch: 2026-08-20  ·  trend: decelerating
 
 | period      | touches |
 |-------------|----------|
-| month       |      48 |
-| trimester   |     591 |
-| semester    |     594 |
-| year        |     594 |
-| 2-year      |     594 |
-| 4-year      |     594 |
+| month       |      50 |
+| trimester   |     603 |
+| semester    |     609 |
+| year        |     609 |
+| 2-year      |     609 |
+| 4-year      |     609 |
 <!-- stats:end -->

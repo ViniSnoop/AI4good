@@ -35,7 +35,7 @@
   specialist agents on one project at once; the framing is that the harness, not the model, is what
   makes AI coding expensive. No repo linked (comment-gated), no numbers, no independent measurement
   — treat the cost claim as the interesting hypothesis, not a finding. Assessment task in
-  `brain/TODO.md § backlog`. Lucas: *"averiguar se realmente é bom... fiquei curioso pra entender se
+  `brain/goals/workspace-os.md` `[jcode-custo]`. Lucas: *"averiguar se realmente é bom... fiquei curioso pra entender se
   realmente é o harness que deixa tudo caro"*.
 
 ## Workspace visualization (diagrams generated from the tree)
@@ -127,7 +127,7 @@
 ## Tooling lists captured from Instagram (2026-07-27, via aiwbot) — unassessed
 
 Both are practitioner listicles, so `[C]`: signal about what people reach for, not evidence. Each
-has a paired assessment task in `brain/TODO.md` — a ref that lands without one never gets read.
+has a paired assessment task in the owning goal's backlog — a ref that lands without one never gets read.
 
 - `[C]` [Top 10 Open-Source Libraries to Fine-Tune LLMs
   Locally](https://www.analyticsvidhya.com/blog/2026/05/open-source-libraries-to-fine-tune-llm-locally/)
@@ -141,14 +141,16 @@ has a paired assessment task in `brain/TODO.md` — a ref that lands without one
 - `[C]` [Baidu "Unlimited OCR"](https://www.instagram.com/reel/DbWZwciSP4l/) — [src:
   web:instagram.com] claims a compact model that reads a 100-page PDF in one pass, preserving
   layout, tables and reading order, running locally under MIT. Lucas: *"checar se é útil pra gente"*
-  → lands squarely on the open OCR task in `brain/TODO.md` week (image-only PDFs in
-  `branches/ecovila/burocracia/` that `core/tools/paper/parse` returns empty for). Claim is a
+  → lands squarely on the open OCR dependency named in `brain/goals/ecovila.md` `[org-docs]`
+  (image-only PDFs in `branches/ecovila/burocracia/` that `core/tools/paper/parse` returns empty
+  for). Claim is a
   vendor/practitioner post, not a benchmark — verify on a real scanned PDF before touching the
   toolchain.
 - `[C]` [Surfsense](https://www.instagram.com/reel/DbTp-OayCcU/) — [src: web:instagram.com]
   self-hostable research assistant in the NotebookLM/Perplexity mould, pitched as connecting your
   own sources. Overlaps what `core/tools` + the research flow already do, so the question is whether
-  it beats the parts we own — assessment task in `brain/TODO.md` backlog.
+  it beats the parts we own — no assessment task is tracked yet; pair one in the owning goal's
+  backlog before acting on this.
 - `[C]` [Claude Code animation/UI skill set](https://www.instagram.com/p/DbBJSzvnP3J/) · [same list,
   second post](https://www.instagram.com/p/Da5jnu9E_0n/) — [src: web:instagram.com] captured twice
   from different accounts (Matheus Castro, Rifqi Eka Hardianto), same six repos named only in the
@@ -167,6 +169,6 @@ has a paired assessment task in `brain/TODO.md` — a ref that lands without one
   and a separate viral post credits a Microsoft/Stanford/Anthropic "Graph Engineering" discovery —
   the post itself says only one of the two is real, so treat both as unverified. Lucas: *"acho que
   serve pra gente"* → bears directly on `code/flows` (graph workflow engine) and the craft flow;
-  assessment task in `brain/TODO.md` backlog.
+  assessment task in `brain/goals/craft-flows.md` `[graph-native]`.
 
 ---

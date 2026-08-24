@@ -30,7 +30,7 @@ so padding is what the next session inherits and acts on.
 ## Phase 1 — Clear completed work out of the ledgers
 
 ```bash
-find . -maxdepth 3 \( -name "ROADMAP.md" -o -name "ISSUES.md" -o -name "TODO.md" \) 2>/dev/null | sort
+find . -maxdepth 3 \( -name "ROADMAP.md" -o -name "ISSUES.md" \) 2>/dev/null | sort
 git log --oneline -10
 ```
 
@@ -62,16 +62,17 @@ Route each piece of knowledge the session produced. Conflict with existing conte
 | Bug found, not fixed | `ISSUES.md` |
 | New technical work item (project has `ROADMAP.md`) | `ROADMAP.md` |
 | Reference / link / paper / tool worth keeping | domain `refs/REFS.md` (route-by-domain — see `/inbox`) |
-| Personal / admin / life / teaching task — or project task with hard deadline | `brain/TODO.md` (right horizon: today / week / month / backlog) |
+| Personal / admin / life / teaching task — or project task with hard deadline | the owning goal's backlog in `brain/goals/*.md` (or `brain/INBOX.md` if no goal owns it yet) |
 | Insight about a specific life or career goal | `brain/goals/[goal].md` (achievement, backlog item, or obstacle) |
 | Skill workflow improvement | the skill file directly |
 | Workspace-wide rule across all projects | `AGENTS.md` |
 | Critical quick-reference fact or constant needed at session start | `CONTEXT.md` — see exclusions |
 | Doesn't fit cleanly | `brain/INBOX.md` — triaged in Phase 3 |
 
-**TODO vs ROADMAP.** *ROADMAP*: project has `ROADMAP.md` AND the item is a technical milestone with
-agent-ready context. *TODO*: personal / admin / life / teaching; OR the project has no `ROADMAP.md`;
-OR it is a project task with a hard external deadline needing horizon tracking. Unclear → INBOX.
+**Goal backlog vs ROADMAP.** *ROADMAP*: project has `ROADMAP.md` AND the item is a technical
+milestone with agent-ready context. *Goal backlog*: personal / admin / life / teaching — append to
+the backlog of the goal it serves, or write the goal's seed if none exists yet. Neither fits (no
+owning goal, no technical milestone) → `INBOX.md`. Unclear → INBOX.
 
 **CONTEXT.md exclusions.** Routing-block changes → ignore, hooks auto-sync them. Behavioral cues
 ("be careful with X", "prefer Y") → `SPECS.md` Conventions or `AGENTS.md`. Decisions + rationale →

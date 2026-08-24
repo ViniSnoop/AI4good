@@ -7,9 +7,9 @@
 
 ## Front 8 — The ledger discipline — **v1 criterion 2**
 
-**Mass is the disease and only deletion cures it.** Collapsing four ledgers into one made this file
-honest but not smaller — items went 158 → 123 while mass stayed flat, and Lucas reported feeling
-lost twice more after it.
+**Mass is the disease and only deletion cures it.** Collapsing the four that existed then into one
+made this file honest but not smaller — items went 158 → 123 while mass stayed flat, and Lucas
+reported feeling lost twice more after it.
 
 **And the cost of mass is now measured, not argued** (2026-08-17,
 [`core/experiments/read-amplification.md`](core/experiments/read-amplification.md)): this file is the
@@ -21,28 +21,6 @@ size/entropy of the WOS, feeling maybe things are being scattered, entangled, an
 spaghetti. I wanted things to be very clear here. very concise, precise."* The instrument is
 `core/tools/wos/session/reads`; re-run it rather than trusting this paragraph.
 
-1. 🟢 **`TODO.md` dies as a type — fold its content into goals, then delete the file.** Ruled
-   2026-08-14. Lucas reported twice, unprompted, *"sinto que o TODO.md simplesmente não tá sendo
-   usado"*, and the evidence was always that he writes tasks into the INBOX instead. He chose
-   **both** the delete and the fold, and they are not alternatives — they are the two halves of one
-   move, in order:
-
-   1. **Fold** — every live line in `brain/TODO.md` becomes a backlog item in the goal it actually
-      serves (`[short-id] description`, per [brain/SPECS.md](brain/SPECS.md) § Backlog Ordering).
-      A task with no goal is the interesting case and there are only two honest outcomes: it belongs
-      to a goal that does not exist yet (write the seed — a goal file's minimum is two lines), or it
-      is capture, not commitment, and belongs in the INBOX.
-   2. **Delete** — remove the file, then the type: the row in `core/SCHEMA.md`'s type table, the
-      mention in [brain/CONTEXT.md](brain/CONTEXT.md), and the "four ledgers" phrasing in this
-      file's own header, which becomes three. Deleting the file while leaving the type declared
-      would regenerate it — that is the lesson job A of Front 12.1 already paid for.
-
-   **Why this beats redesigning it.** The redesign question was *"what would make it get checked
-   daily"*, and the honest answer is nothing: `/compass` is already the review ritual and it reads
-   goals, so a second surface competes with a ritual that works. Capture goes to INBOX, commitment
-   goes to a goal backlog — no third place, no boundary to police. This is the *delete weak features*
-   rule applied to our own scaffold instead of to code.
-   → **tier: medium**. The fold needs a judgment call per line, so read them, do not batch.
 3. 🟡 **the attention dashboard measures the wrong thing** (Lucas, INBOX 2026-08-13). It counts
    edits to the goal's **own `.md` file**, not work **on** the goal — so the 2026-08-13 compass
    rendered `workspace-os ░░░░░░░░░░ 1 touch` in the same fortnight that **29 of 29** workspace

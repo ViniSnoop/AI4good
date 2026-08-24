@@ -34,6 +34,7 @@ fallback · even a partial map beats starting from zero again*
 > [ ] [indie-team] research independent, cheaper construction team as alternative  
 > [ ] [cad-to-ifc] gerar IFC por script parametrizado (ifcopenshell) a partir das plantas V03 + Bonsai como visualizador (S8–S9)  
 > [ ] [complementares] rascunhar estrutural/hidráulico/elétrico com guias IA no Bonsai; engenheiro valida/assina (S12+)  
+> [ ] [gastos-catalogar] catalogar as últimas finanças da obra — cockpit em `branches/casinhas/` (INBOX 2026-07-22)  
 
 ## done
 
@@ -45,14 +46,14 @@ fallback · even a partial map beats starting from zero again*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-31  ·  trend: steady
+last-touch: 2026-08-19  ·  trend: steady
 
 | period      | touches |
 |-------------|----------|
-| month       |       4 |
-| trimester   |      16 |
-| semester    |      16 |
-| year        |      16 |
-| 2-year      |      16 |
-| 4-year      |      16 |
+| month       |      10 |
+| trimester   |      25 |
+| semester    |      25 |
+| year        |      25 |
+| 2-year      |      25 |
+| 4-year      |      25 |
 <!-- stats:end -->

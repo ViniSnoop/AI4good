@@ -26,7 +26,7 @@ That question runs second. The first is **is it still true?** — checked agains
 | **HOT** | `CONTEXT.md` | the only **enforced-read** type: `hooks/read/context-gate.py` demands the whole chain before any file access in a subtree |
 | | `AGENTS.md`, `MEMORY.md` | folded into the system prompt every session |
 | | `GOALS.md`, `ROADMAP.md` | induced-hot — the root `README.md` sends every reader to them first |
-| **COLD** | `SPECS.md`, `REFS.md`, `ISSUES.md`, `SETUP.md`, `USER.md`, `TODO.md` | on demand only |
+| **COLD** | `SPECS.md`, `REFS.md`, `ISSUES.md`, `SETUP.md`, `USER.md` | on demand only |
 | **MACHINE-READ** | `SCHEMA.md` | cold to humans, parsed on every check — so its *tables* are load-bearing where its prose is not |
 
 **Where the two axes meet:**

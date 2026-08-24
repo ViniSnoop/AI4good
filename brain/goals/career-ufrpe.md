@@ -16,6 +16,8 @@ Achar no SIGEPE ou no contracheque a data da última progressão e anotar aqui. 
 > [ ] [progressao-map] mapear regras e calendário de progressão + data/nível da última progressão  
 > [ ] [progressao-alarm] checklist anti-perda: lembrete automático meses antes do interstício fechar (gcal ou hook do workspace)  
 > [ ] [renda-map] levantar opções legais de renda extra na carreira UFRPE (fundação de apoio, bolsas, cursos, consultoria) — cruza com a pesquisa legal da sessão instituto (`core/prompts/fable-instituto.md`)  
+> [ ] [bolsa-ic] bolsa IC — NÃO submetido, bloqueado por 2 pré-requisitos: (1) projeto de pesquisa aprovado no CTA, (2) nomes dos alunos candidatos; só faz sentido mexer depois disso (2026-07-23)  
+> [ ] [progressao-cta] relatar/assinar processo de progressão CTA — processo **23082.018263/2026-55** (Lenina inseriu no GT CTA); assina seg/ter, pauta de terça (INBOX 2026-07-23)  
 
 ## done
 
@@ -24,14 +26,14 @@ Achar no SIGEPE ou no contracheque a data da última progressão e anotar aqui. 
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-22  ·  trend: advancing
+last-touch: 2026-07-22  ·  trend: stalled
 
 | period      | touches |
 |-------------|----------|
-| month       |       7 |
-| trimester   |       7 |
-| semester    |       7 |
-| year        |       7 |
-| 2-year      |       7 |
-| 4-year      |       7 |
+| month       |       0 |
+| trimester   |       6 |
+| semester    |       6 |
+| year        |       6 |
+| 2-year      |       6 |
+| 4-year      |       6 |
 <!-- stats:end -->

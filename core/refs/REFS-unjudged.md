@@ -80,8 +80,8 @@ with a tier marker; kill the rest by deleting the line.
   enable RLS, encrypt sensitive data, enforce server-side auth, block record access + field
   tampering, secure session cookies, hash passwords, rate-limit login, bot protection, parameterize
   queries, validate all input, escape user content, restrict file uploads, trim API responses,
-  security headers, force HTTPS, scan dependencies — assessment task tracked in `brain/TODO.md`
-  backlog (INBOX 2026-08-13)
+  security headers, force HTTPS, scan dependencies — assessment task tracked in
+  `brain/goals/workspace-os.md` `[security-gates]` (INBOX 2026-08-13)
 
 - `[C]` [github/spec-kit](https://github.com/github/spec-kit) — GitHub's Spec-Driven Development
   toolkit. Lucas, INBOX 2026-08-16: *"pra ajudar a gente a aplicar o SDD. vale a pena pesquisar bem

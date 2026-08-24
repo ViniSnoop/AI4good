@@ -89,7 +89,7 @@ SETTLED = re.compile(r'\bSETTLED\b')
 # finding against the top of the file instead of the line the reader has to go fix.
 TICKED_ITEM = re.compile(
     r'^[ \t]*(?:[-*>]+[ \t]*)*(?:\d+[a-z]?\.[ \t]*)?(?:\[[xX]\]|✅)', re.M)
-LEDGER_FILES = {'ROADMAP.md', 'GOALS.md', 'TODO.md', 'ISSUES.md'}
+LEDGER_FILES = {'ROADMAP.md', 'GOALS.md', 'ISSUES.md'}
 PLACEHOLDER = '← add'
 
 

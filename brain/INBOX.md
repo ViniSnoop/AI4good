@@ -9,6 +9,18 @@
 
 <!-- add entries below, newest first -->
 
+jogar na lixeira o deck `__probe_delete_me` no Drive pessoal (sonda de auth, criada por engano)
+— moved here from the old to-do file · 2026-08-24
+
+revisar artigo do svr — prazo original ~25/07, já vencido; decidir se ainda vale a pena
+— moved here from the old to-do file · 2026-08-24
+
+responder o desafio público do Jake Van Clief com nossas ideias/visão — ele julga os 3 comentários mais curtidos, janela curta (reel: https://www.instagram.com/reel/DbWA6VOxVq-/)
+— moved here from the old to-do file · 2026-08-24
+
+no Brave, ativar aceleração de buscas por site — o atalho da barra de endereço que o Lucas usava no Chrome (`y` + Tab abre a busca do YouTube ali mesmo); o trabalho não é ativar, é levantar quais ferramentas valem um atalho: Maps e Google Tradutor são certos, Amazon/Mercado Livre/ChatGPT são candidatos com dúvida — decidir a lista com ele antes de configurar, atalho de uma letra é recurso escasso
+— moved here from the old to-do file · 2026-08-24
+
 a memória tá sendo guardada em
 /home/lucas/.claude/projects/-mnt-workspace/memory/MEMORY.md
 este é um ponto que venho tratando de forma repetida e que não foi resolvido, a memória não deveria ser propriedade de um único harness/agente. provider-agnostic... este é o objetivo

@@ -39,6 +39,7 @@ Open the weft repo (github.com/WeaveMindAI/weft). Read the README. Understand wh
 > [ ] [claude-code-alt] set up CLI coding agent alternative to Claude Code — candidates: qwencode + qwen model locally, GLM 5.1 (free cloud), opencode, codex  
 > [ ] [local-video-gen] evaluate the local AI video-gen setup as alternative to opencode+nvidia+image-model (INBOX 2026-07-26, IG carousel `DbKa8dzkRv4` — DM-gated, only title cards extracted; may need the "GUIDE" DM or independent search to get the real tool list)  
 > [ ] [vipassana-autonomous] explorar deixar um agente rodando com autonomia SEGURA durante os 10 dias de vipassana (1–12 ago, offline), entregando resultados RELEVANTES — candidatos: watcher que constrói/refina continuamente as revisões de estado-da-arte dos papers planejados; pasta sandbox pra prototipar. Pré-requisito duro: **mecânica de autostart de sessões** (o caso "sessão morreu, ninguém acorda o agente" do [workspace-os] triggers pós-janela). Definir escopo seguro ANTES; sem isso, não roda (INBOX 2026-07-23)  
+> [ ] [finetune-libs] avaliar as 10 libs de fine-tuning local (Unsloth, LLaMA-Factory, PEFT, Axolotl, TRL, torchtune, LitGPT, SWIFT, DeepSpeed, AutoTrain) — quais servem ao runner de SLM do dobra na RTX 3050 6GB? ref em `core/refs/REFS-tooling.md` (INBOX 2026-07-27)  
 
 ## done
 
@@ -47,14 +48,14 @@ Open the weft repo (github.com/WeaveMindAI/weft). Read the README. Understand wh
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-19  ·  trend: advancing
+last-touch: 2026-08-20  ·  trend: steady
 
 | period      | touches |
 |-------------|----------|
-| month       |     107 |
-| trimester   |     131 |
-| semester    |     131 |
-| year        |     131 |
-| 2-year      |     131 |
-| 4-year      |     131 |
+| month       |      64 |
+| trimester   |     133 |
+| semester    |     133 |
+| year        |     133 |
+| 2-year      |     133 |
+| 4-year      |     133 |
 <!-- stats:end -->
