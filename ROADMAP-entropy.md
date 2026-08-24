@@ -69,7 +69,15 @@
    file's row in `core/SCHEMA.md`'s transient-exemption table keeps its exemption alive, because every
    backticked name there is parsed as one; and a document being deleted can be the sole record of
    something live — `REFACTOR.md` held the only copy of bug B29, which `ISSUES.md` was supposed to have.
-   → **tier: medium**, and the gate flip is the last step, not the first.
+   **The workspace repo's own half is done (2026-08-24) and every file left is in a nested repo.**
+   `core/ROADMAP.md` (203) and `ROADMAP-legibility.md` (216) both cleared. Neither carried a tick or
+   a strikethrough, so *completion is deletion* had nothing to cut and the work was editorial — and
+   what it found is the reusable part: the mass was **duplication and slack**, not finished work.
+   `ROADMAP-legibility.md` stated the same five standing rules for a generated picture twice, in two
+   different rows; `core/ROADMAP.md`'s ablation section was eleven lines pointing at content already
+   moved out, wrapped around one live instruction. Look for the second copy before reaching for a
+   split. → **tier: medium**, and the gate flip is the last step, not the first.
+
 11. 🟡 **What the drain hit on the way, still true.** Filed 2026-08-24, kept in one item
     because they share a cause — a rule that never met the corpus it governs.
     - **The two caps pull against each other.** Wrapping

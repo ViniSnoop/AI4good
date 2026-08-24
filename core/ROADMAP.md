@@ -187,15 +187,11 @@ stays a count of what is drainable now. Same discipline as [/ROADMAP-archive.md]
 
 ## ablation-bench
 
-**Rescued 2026-08-15 — the pilot's durable half now lives in
-[`core/experiments/subagent-context-chain.md`](experiments/subagent-context-chain.md)**, beside the
-2026-08-15 subagent probe that reframes it, with the follow-up design (n ≥ 4, equal budgets, a third
-gate-off *and* prompt-off arm) preserved verbatim. The metrics schema and honest-reporting rules the
-pilot froze became the ledger's format, in
-[`core/experiments/CONTEXT.md`](experiments/CONTEXT.md).
-
-Still in `tmp/ablation-bench/`, gitignored and never in git: the raw run data (`arms/`, `runners/`,
-`toy-project/`, `metrics-all.json`). Delete it with `tmp/` — the durable content is out.
+Nothing to build — the durable half is out, in
+[`core/experiments/subagent-context-chain.md`](experiments/subagent-context-chain.md) (follow-up
+design included) and in [`core/experiments/SPECS.md`](experiments/SPECS.md), whose format and
+honest-reporting rules are the ones this pilot froze. **All that is left is disposal:** the raw run
+data still sits in `tmp/ablation-bench/`, gitignored and never in git. Delete it with `tmp/`.
 
 ## Notes
 

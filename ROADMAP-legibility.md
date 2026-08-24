@@ -41,18 +41,17 @@ person who owns it, and the place to route the next *"when was that decided?"*
    words and quiet decisions Lucas cannot read. Lucas's own line is the evidence for it — the
    feature-registry and rename churn was *"downstream of a legibility problem nobody had named."*
    **Falsification path:** if the three halves land and 15's and 17's symptoms do not ease, the
-   framing was wrong and these stay three separate fronts. Bring evidence to the sitting, not the
-   framing pre-accepted. **First evidence in, and it cuts for the root:** legibility is a *measurable*
-   property, not taste — generated context bloat lowers agent task success and raises cost, and
-   instruction accretion degrades adherence to the earliest, highest-consequence rules (ETH Zurich
-   2026 and the AGENTS.md-bloat literature, [`core/refs/REFS-legibility.md`](core/refs/REFS-legibility.md) § Legibility
-   prior art). The corollary is sharp: the fix is subtraction, so solving *"I cannot read my
-   workspace"* by adding explanation makes it worse for both readers.
+   framing was wrong and these stay three separate fronts — bring evidence to the sitting, not the
+   framing pre-accepted. **First evidence in, and it cuts for the root:** legibility is *measurable*,
+   not taste — context bloat lowers agent task success and raises cost, and instruction accretion
+   degrades adherence to the earliest, highest-consequence rules (ETH Zurich 2026 and the
+   AGENTS.md-bloat literature, [`core/refs/REFS-legibility.md`](core/refs/REFS-legibility.md) § Legibility prior art).
+   The corollary is sharp: **the fix is subtraction**, so answering *"I cannot read my workspace"*
+   with more explanation makes it worse for both readers.
 
-   **The 2026-08-18 sitting ran the diagram half:** 18.3's shape is ruled below, 18.2's criterion is
-   refined, and 18.4 is reshaped by the decision-record finding. What the front still owes its own
-   session: the **jargon audit** (18.2's internal replacement work) and the **one-root test** above —
-   both deferred here deliberately, neither cheap enough to fold into a mixed session.
+   **The 2026-08-18 sitting ran the diagram half**, leaving the front two things it still owes its
+   own session: the **jargon audit** and the **one-root test** above — both deferred deliberately,
+   neither cheap enough to fold into a mixed session.
    → **tier: high**, with Lucas, its own session about this and nothing else.
 
 2. 🟡 **Replace the words that need a glossary to be read.** A definition is a patch; the fix is the
@@ -62,26 +61,23 @@ person who owns it, and the place to route the next *"when was that decided?"*
    are showing off, and telling those apart is the work — *gate* is worth its definition, *seam*
    almost certainly is not (it means "the place the switch goes").
 
-   Two products, in order: a **plain-word replacement** per term that survives the cut, applied
-   across the corpus the way `capability` → `feature` was; and the survivors defined in **one place**
-   — [`core/SCHEMA-vocabulary.md`](core/SCHEMA-vocabulary.md) § Vocabulary already holds three definitions and is the
-   home,
-   so nothing new gets built for this. **Criterion ruled 2026-08-18 (Lucas): the best, most precise
-   word wins, and simpler breaks the tie** — he will learn a new word if it is genuinely the best one,
-   and drop a word that is only showing off. Mature terminology practice says the same (precision over
-   economy, clarity a hard constraint — [`core/refs/REFS-legibility.md`](core/refs/REFS-legibility.md) § Legibility
-   prior
-   art), so the rule is confirmed, not invented.
+   Two products, in order: a **plain-word replacement** per surviving term, applied across the
+   corpus the way `capability` → `feature` was; and the survivors defined in **one place** —
+   [`core/SCHEMA-vocabulary.md`](core/SCHEMA-vocabulary.md) § Vocabulary already holds three and is the home, so nothing
+   new gets built for this. **Criterion ruled 2026-08-18 (Lucas): the best, most precise word wins,
+   and simpler breaks the tie** — he will learn a new word if it is genuinely the best, and drop one
+   that is only showing off. Mature terminology practice agrees (precision over economy, clarity a
+   hard constraint — [`core/refs/REFS-legibility.md`](core/refs/REFS-legibility.md) § Legibility prior art), so the rule
+   is confirmed, not invented.
 
-   **First case run, and it changed what the audit is looking for.** Lucas, 2026-08-18, on the
-   registry's `enforcement: none`: *"what is none… that it does nothing? is none the best word?"*
-   The word was fine; it was carrying **two facts** — "fires by itself and applies no pressure" and
-   "you call it" — and that ambiguity had already made a session report the workspace's capability
-   layer as its largest block of dead weight. The fix was a second column (`runs: automatic |
-   on-demand`), not a better word. **So the audit's first question is whether a confusing term is
-   underspecified rather than badly named**; a rename would have buried the defect under a nicer
-   label. Rejected on the way: `serves` as a replacement value, and `passive`/`active` as the new
-   column's values — `active` collides with "switched on", which this registry declares everywhere.
+   **First case run, and it changed what the audit looks for.** Lucas, 2026-08-18, on the registry's
+   `enforcement: none`: *"what is none… that it does nothing? is none the best word?"* The word was
+   fine; it carried **two facts** — "fires by itself and applies no pressure" and "you call it" —
+   and that ambiguity had already made a session report the capability layer as the workspace's
+   largest block of dead weight. The fix was a second column (`runs: automatic | on-demand`), not a
+   better word. **So the audit asks first whether a confusing term is underspecified rather than
+   badly named**; a rename would have buried the defect under a nicer label. Rejected on the way:
+   `serves` as a value, and `passive`/`active` — `active` collides with "switched on".
 
    **A word list beats asking a model, and Lucas proved it while naming the diagram tool** — he
    went to a thesaurus, came back with *architect / blueprint / diagram / scheme*, and picked one.
@@ -97,17 +93,16 @@ person who owns it, and the place to route the next *"when was that decided?"*
    so no rush in discarding anything yet."*
 
    **The question was restated and it is not the one this row used to hold.** Lucas: *"1) in a
-   glance see if WOS is well tied, if it has loose ends, if it has too much noise, discardable
-   things, see the value in a glance, 2) spot the GAPS, what is missing."* That is a **health**
-   read, not the inventory read the first version answered — an inventory says what is there,
-   health says what is loose, what is dead weight, what is absent. All three original drawings are
-   inventories, which is the deeper reason none of them landed.
+   glance see if WOS is well tied, if it has loose ends, if it has too much noise… 2) spot the
+   GAPS, what is missing."* That is a **health** read, not the inventory read the first version
+   answered — inventory says what is there, health says what is loose, dead weight, or absent. All
+   three original drawings are inventories, which is the deeper reason none landed.
 
    **Both queued shapes are drawn, so the cut is now the whole of this row.** They answer Lucas's
-   standing want — *"I am missing seeing some trees, graphs… sequences of thing1 → thing2 → thing3…
-   how things are connected or not"* — and both sit above the tab strip. Where a graph pays is
-   settled by evidence rather than taste: Ghoniem says matrices beat node-link past ~20 nodes
-   ([`core/refs/REFS-tooling.md`](core/refs/REFS-tooling.md) § Workspace visualization), which is why the 107-node
+   standing want — *"seeing some trees, graphs… sequences of thing1 → thing2 → thing3… how things
+   are connected or not"* — and both sit above the tab strip. Where a graph pays is evidence, not
+   taste: matrices beat node-link past ~20 nodes (Ghoniem,
+   [`core/refs/REFS-tooling.md`](core/refs/REFS-tooling.md) § Workspace visualization), which is why the 107-node
    routing tree reads as wallpaper and a six-node fan-in does not.
 
    - **the lifecycle sequence — KEPT (Lucas, 2026-08-18).** One band per session moment, the
@@ -123,16 +118,13 @@ person who owns it, and the place to route the next *"when was that decided?"*
    decided — *are declared layers holding no feature a defect?* — prints `undecided` so it cannot
    pass for a met one. Pinned by `test_diagram_health.py`. → **tier: medium** for the row.
 
-   **The picture's boundary — DEFERRED by Lucas, 2026-08-18**, after the worry was measured:
-   *"to respect the context tree I think we may leave as it is now… let's not overcomplicate this
-   for now, we have bigger priorities."* What settles it is that **WOS versions nothing at all
-   inside a nested repo** — `git ls-files academy/papers/2027-ICLR-dobra` returns zero files, and
-   the same holds for `code/dobra` and `branches/casinhas`. Each paper and project owns every one
-   of its own files in its own repository. What reaches the picture is the paper's **name**, from
-   the routing table in `academy/papers/CONTEXT.md`, so the leak is one row of a parent's index
-   rather than versioned content. The candidate rule if it is ever taken up: a directory whose
-   children are instances rather than structure stops at its own name — and the declared signal
-   for "instance" already exists, since every one of them is its own git repo.
+   **The picture's boundary — DEFERRED by Lucas, 2026-08-18** (*"let's not overcomplicate this for
+   now, we have bigger priorities"*), and the worry was measured away first: **WOS versions nothing
+   at all inside a nested repo** — `git ls-files academy/papers/2027-ICLR-dobra` returns zero, same
+   for `code/dobra` and `branches/casinhas`. What reaches the picture is the name from a parent's
+   routing table, so the leak is one index row, never versioned content. The candidate rule if it
+   is ever taken up: a directory whose children are instances stops at its own name — and
+   "instance" already has a declared signal, since each one is its own repo.
 
    **One ruling still Lucas's**, raised by an outside critique of the page: `core/features.txt`
    opens by saying **no feature in this workspace has ever been measured**, and the diagram of the
@@ -159,20 +151,17 @@ person who owns it, and the place to route the next *"when was that decided?"*
    declared data or is labelled *inferred*; total and fail-loud, printing `parsed N of M` and naming
    what it could not read.
 
-   **A summary does not replace the detail, and that is now measured rather than assumed.** In a
-   41-subject controlled experiment across three countries, an overview beat a state-of-the-practice
-   table by +24% correctness and −12% time, concentrated on exactly the *spread* and *impact*
-   questions Lucas is asking — **but the table stayed faster for precise lookups and the authors
-   conclude the two complement each other** (Wettel, Lanza & Robbes, ICSE 2011,
-   [`core/refs/REFS-tooling.md`](core/refs/REFS-tooling.md) § The health shelf). So the summary goes *above* the
-   enforcement matrix, and the standing proposal to cut that matrix is dead on evidence.
+   **A summary does not replace the detail — measured, not assumed.** An overview beat a table by
+   +24% correctness and −12% time on exactly the *spread* and *impact* questions Lucas asks, **but
+   the table stayed faster for precise lookups and the two complement each other** (Wettel et al.,
+   ICSE 2011, [`core/refs/REFS-tooling.md`](core/refs/REFS-tooling.md) § The health shelf). So the summary goes
+   *above* the enforcement matrix, and the proposal to cut that matrix is dead on evidence.
 
-   **Nothing on the page is inferred**, so the next two pictures inherit a page with no
-   apologies on it: [`core/hooks/trigger/`](core/hooks/trigger/CONTEXT.md) reads the firing moment
-   out of the registrations, and what it cannot place is counted as a gap. **The transferable
-   finding is that a registry asked to be authored turned out to be derivable** — the same shape as
-   the `runs` column the session before, and the rule the next picture should carry into git
-   history too: look for the declaration before writing a new one.
+   **Nothing on the page is inferred**, so the next two inherit a page with no apologies on it.
+   **The transferable finding: a registry asked to be authored turned out to be derivable** —
+   [`core/hooks/trigger/`](core/hooks/trigger/CONTEXT.md) reads each firing moment out of the
+   registrations and counts what it cannot place as a gap. Same shape as the `runs` column before
+   it, and the rule *becoming* carries into git history: look for the declaration first.
    → **tier: medium** for *becoming*; *goal* needs Lucas's intent before it can be drawn.
 
 5. 🟡 **give every code repo an `ARCHITECTURE.html`, on the same scope line as `ISSUES.md`.**
@@ -181,21 +170,17 @@ person who owns it, and the place to route the next *"when was that decided?"*
    same we did for ISSUES.md."* So: the workspace repo and every `code/` repo get one; `core/` and
    `brain/` are **evaluated, not assumed**; papers and `branches/` are out for now.
 
-   **What the ruling deliberately does not do is design thirteen pictures.** The opening worry —
-   *"generating one document per repo before answering what each sector's picture is OF would produce
-   twenty-five drawings nobody reads"* — is answered by shrinking the set, not by a per-sector
-   taxonomy. Types may differ later; sameness is the starting point because it is cheap to build and
-   cheap to reject. A code project does have properties the workspace lacks (call structure, module
-   dependency, sequence over time), so expect the shared shape to fail somewhere — **when it does,
-   that failure names the first real type**, which is a better way to find the taxonomy than
-   guessing it.
+   **The ruling deliberately does not design thirteen pictures.** The worry — *"one document per
+   repo before answering what each sector's picture is OF would produce twenty-five drawings nobody
+   reads"* — is answered by shrinking the set, not by a per-sector taxonomy. Sameness starts
+   because it is cheap to build and cheap to reject. A code project has properties the workspace
+   lacks (call structure, module dependency, sequence over time), so expect the shared shape to
+   fail somewhere — **that failure names the first real type**, which beats guessing it.
 
    The build is not the hard part and was never claimed to be: the renderers are reusable and
    [`core/hooks/generated.txt`](core/hooks/generated.txt) already globs `*/ARCHITECTURE.html`, so
-   the machinery has been waiting. Exactly one document exists today, at the root. Inherit the
-   standing rules the built one already keeps — generated from the tree, never hand-drawn;
-   zero-token and deterministic; one self-contained HTML file in-tree; every edge either declared
-   data or labelled *inferred*; total and fail-loud, printing `parsed N of M`.
+   the machinery has been waiting. Exactly one document exists today, at the root, and each new one
+   inherits the standing rules the *becoming*/*goal* row states — one home for them, not two.
 
    **Ordering: after the `ISSUES.md` scatter, not beside it.** Both answer "what does this repo
    look like from inside", and the entropy work establishes which repos are in the set and what a
@@ -207,10 +192,9 @@ person who owns it, and the place to route the next *"when was that decided?"*
    reshaped by the research (seed, not yet ruled — [`core/refs/REFS-legibility.md`](core/refs/REFS-legibility.md)
    § Legibility prior art): the hand-off names **what this session decided without asking**, separate
    from what it did (a decision that cannot be stated in one line was too big to take alone, so the
-   section is a filter as well as a record); and, for decisions with lasting blast radius, a **minimal
+   section filters as well as records); and, for decisions with lasting blast radius, a **minimal
    decision record** — Context / Decision / Consequences, one file each, superseded rather than
-   rewritten. That record logs the rejected option space git commit messages lose, so it captures
-   *why*, not work-product, and does **not** contradict "done work is deleted, git is the history" —
-   the § Rejected list here is already a partial version of it. Shape belongs in
-   [`core/SPECS-session.md`](core/SPECS-session.md) § AD-09; [`core/skills/handoff.md`](core/skills/handoff.md)
-   carries the hand-off half. → **tier: medium**.
+   rewritten. That logs the rejected option space commit messages lose, so it captures *why*, not
+   work-product, and does **not** contradict "done work is deleted, git is the history" — § Rejected
+   here is already a partial version. Shape belongs in [`core/SPECS-session.md`](core/SPECS-session.md) § AD-09;
+   [`core/skills/handoff.md`](core/skills/handoff.md) carries the hand-off half. → **tier: medium**.
