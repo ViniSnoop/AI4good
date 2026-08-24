@@ -12,19 +12,14 @@
 > the agent library has [core/SCHEMA.md](core/SCHEMA.md). Nothing yet governs the shape of the
 > workspace itself.
 
-2. 🟡 **the count's biggest jump has never been separated into scope and rot.** The trend line now
-   prints, so the count can no longer be called flat when it is not — but the reporting fix answered
-   the smaller half. The count went ~95 (2026-08-13) to 297 (2026-08-14) in one day, and that day is
-   also the day the scan went `nested=True` and new checks were added. **Part of that step is almost
-   certainly scope, not drift, and nobody has checked which part.** Until someone does, the trend
-   line's own baseline is a number of unknown meaning: it may be measuring a smaller tree rather than
-   a cleaner one. Re-derive by running today's checks over that day's tree, or by re-running that
-   day's check set over today's — either direction separates the two. The answer decides whether the
-   remaining findings are a cleanup or a reporting artifact. → **tier: medium**.
-
-   *Filed 2026-08-24 when the reporting half shipped. It was a sub-clause of the item that closed,
-   and closing that item would have deleted this question with it — which is the failure the
-   delete-on-completion policy is one edit away from causing every time an item holds two questions.*
+2. 🟡 **CONTEXT.md hand-written inventories is the whole drift story, and nobody has looked at it.**
+   Separating scope from rot ([`core/experiments/entropy-scope-vs-rot.md`](core/experiments/entropy-scope-vs-rot.md),
+   2026-08-24) answered the question this item used to ask and left a smaller one standing. Of the
+   climb from 95 to 604, 97% is checks that did not exist before; on the nine checks that did, the
+   tree **improved by 9 findings** — except `inventories`, which went 4 → 29 and swamps them all.
+   **What is not known is whether that is 25 new hand-written inventories or a check that widened**,
+   and the experiment says so in its own limitations rather than guessing. Read the check's history
+   first; only if it did not widen is this a real cleanup. → **tier: medium**.
 
 3. 🟢 **drain the entropy dashboard.** `make entropy` → [`ISSUES.md`](ISSUES.md) § Entropy, the whole
    workspace and its nested repos in seconds. Read the report; never re-scan the tree. **Never copy

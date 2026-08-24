@@ -152,7 +152,7 @@ low). Which model fills each tier is data in that file, never in this one.
 
 **[`ROADMAP-entropy.md`](ROADMAP-entropy.md)**
 
-- 🟡 the count's biggest jump has never been separated into scope and rot.
+- 🟡 CONTEXT.md hand-written inventories is the whole drift story, and nobody has looked at it.
 - 🟢 drain the entropy dashboard.
 - 🟢 sweep this repo's first-line-comment markers now that the gate is shut.
 - 🟡 Five `.md` files are still over the 200-line cap, and the gate cannot go live until none are.
