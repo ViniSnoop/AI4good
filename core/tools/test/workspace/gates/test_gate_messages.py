@@ -7,9 +7,12 @@
 # An INFORMING hook says it in hookSpecificOutput.additionalContext, the only non-blocking
 # channel that reaches the model. exit-0 stdout is transcript-only. Both halves are the same
 # failure — a hook that runs, exits cleanly, and is heard by nobody. See core/hooks/SPECS.md.
+import contextlib
 import json
 import re
+import shutil
 import subprocess
+import uuid
 from pathlib import Path
 
 import pytest
@@ -17,6 +20,8 @@ import pytest
 from conftest import WORKSPACE_ROOT
 
 PRE_EDIT = WORKSPACE_ROOT / "core/hooks/checks/pre-edit.py"
+# Any file under a subtree carrying a CONTEXT.md chain; its content is irrelevant.
+DEEP_FILE = WORKSPACE_ROOT / "core/hooks/brain/brain_attention.py"
 
 # Every gate wired as a blocking PreToolUse hook. pre-edit.py was the only one of the six
 # on stdout, which is why this went unnoticed for so long: five siblings were correct.
@@ -37,39 +42,101 @@ def _run(payload: dict) -> subprocess.CompletedProcess:
     )
 
 
+def _run_gate(gate: str, payload: dict) -> subprocess.CompletedProcess:
+    payload.setdefault("session_id", f"test-{uuid.uuid4()}")
+    payload.setdefault("cwd", str(WORKSPACE_ROOT))
+    return subprocess.run(
+        ["python3", str(WORKSPACE_ROOT / gate)], input=json.dumps(payload),
+        capture_output=True, text=True,
+    )
+
+
+@contextlib.contextmanager
+def _blocking_case(gate: str, tmp_path: Path):
+    """A payload that really makes `gate` block, and the marker its reason must carry.
+
+    One per gate because there is no generic way to trip six different rules — which is
+    exactly why the source-grep this replaced was tempting, and exactly what it cost.
+    """
+    # Matched on the exact basename, never endswith: "bash-context-gate.py" ends with
+    # "context-gate.py", so a suffix test silently handed the Bash gate a Read payload and
+    # the case passed by not blocking. Found while writing this, 2026-08-24.
+    name = gate.rsplit("/", 1)[-1]
+    if name == "pre-edit.py":
+        yield {"tool_name": "Write", "tool_input": {
+            "file_path": str(tmp_path / "p.py"), "content": "x = 1\n"}}, "FIRST-LINE MISSING"
+    elif name == "issues-gate.py":
+        subprocess.run(["git", "init", "-q", str(tmp_path)], check=True)
+        yield {"tool_name": "Write", "tool_input": {
+            "file_path": str(tmp_path / "ISSUES.md"),
+            "content": "## B99 — a bug — FIXED\n"}}, "ISSUES GATE"
+    elif name == "bash-context-gate.py":
+        yield {"tool_name": "Bash",
+               "tool_input": {"command": f"wc -l {DEEP_FILE}"}}, "CONTEXT GATE"
+    elif name == "context-gate.py":
+        yield {"tool_name": "Read",
+               "tool_input": {"file_path": str(DEEP_FILE)}}, "CONTEXT GATE"
+    elif name == "facade-gate.py":
+        mod = tmp_path / "code" / "proj" / "mod"
+        mod.mkdir(parents=True)
+        (mod / "__init__.py").write_text("from .a import alpha\n", encoding="utf-8")
+        (mod / "a.py").write_text("# a\nalpha = 1\n", encoding="utf-8")
+        yield {"tool_name": "Edit", "tool_input": {
+            "file_path": str(mod / "a.py"),
+            "old_string": "1", "new_string": "2"}}, "READ FACADE FIRST"
+    else:
+        # spec-read-gate.py hardcodes /mnt/workspace/code, so the probe module must really
+        # live there. code/* is gitignored, and the tree is restored however the test ends.
+        mod = WORKSPACE_ROOT / "code" / f"_spec_gate_probe_{uuid.uuid4().hex[:8]}"
+        mod.mkdir(parents=True)
+        try:
+            (mod / "CONTEXT.md").write_text(
+                "# probe\n> probe module, deleted by the test that made it\n"
+                "> spec: SPECS.md\n", encoding="utf-8")
+            (mod / "SPECS.md").write_text(
+                "# probe\n> probe spec\nstatus: locked\n", encoding="utf-8")
+            (mod / "a.py").write_text("# a\nx = 1\n", encoding="utf-8")
+            yield {"tool_name": "Edit", "tool_input": {
+                "file_path": str(mod / "a.py"),
+                "old_string": "1", "new_string": "2"}}, "SPEC GATE"
+        finally:
+            shutil.rmtree(mod, ignore_errors=True)
+
+
 @pytest.mark.parametrize("gate", BLOCKING_GATES)
-def test_every_blocking_gate_writes_its_reason_to_stderr(gate: str) -> None:
-    body = (WORKSPACE_ROOT / gate).read_text(encoding="utf-8")
-    # Five of the six block with `return 2` from main(), not sys.exit(2). Matching only
-    # the latter skipped exactly the gates this test exists to check — a green run that
-    # asserted nothing.
-    assert re.search(r'(sys\.)?exit\(2\)|return 2', body), (
-        f"{gate} is listed as a blocking gate but has no blocking path — either it "
-        "stopped blocking or this list is stale"
+def test_every_blocking_gate_writes_its_reason_to_stderr(gate: str, tmp_path: Path) -> None:
+    """Trip the gate for real, then read the channel its reason arrived on.
+
+    This replaced `"stderr" in body` on 2026-08-24. That grep proved nothing: a gate can
+    name the word in a comment and still print to stdout, which is the defect it was
+    written to catch. The stdout assert below is the half a source read cannot make.
+    """
+    with _blocking_case(gate, tmp_path) as (payload, marker):
+        done = _run_gate(gate, payload)
+    assert done.returncode == 2, (
+        f"{gate} did not block on a payload built to trip it — either it stopped blocking "
+        f"or this case is stale. stderr: {done.stderr[:200]}"
     )
-    assert "stderr" in body, (
-        f"{gate} exits 2 without ever naming stderr — Claude Code drops stdout on a "
-        "PreToolUse block, so the edit is refused with no reason attached"
+    assert marker in done.stderr, (
+        f"{gate} blocked but its reason did not reach stderr — Claude Code drops stdout on "
+        f"a PreToolUse block, so the edit is refused with no reason attached"
     )
+    assert not done.stdout.strip(), f"{gate} put its reason on stdout, which is dropped"
 
 
 # Hooks core/hooks/SPECS.md classes as "Informs": they never block, so the ONLY evidence they
 # work is that their text arrives. facade-scan.py printed to stdout until 2026-08-16 and was
 # read by nobody for as long as it existed — it never errored, which is exactly why nothing
-# said so.
-INFORMING_HOOKS = (
-    "core/hooks/facade/facade-scan.py",
-    "core/hooks/checks/heredoc-gate.py",
-)
-
-
-@pytest.mark.parametrize("hook", INFORMING_HOOKS)
-def test_an_informing_hook_speaks_on_the_channel_that_reaches_the_model(hook: str) -> None:
-    body = (WORKSPACE_ROOT / hook).read_text(encoding="utf-8")
-    assert "additionalContext" in body, (
-        f"{hook} informs on exit 0 but never names additionalContext — exit-0 stdout is "
-        "transcript-only, so whatever it prints reaches no model"
-    )
+# said so. facade-scan's own run is test_facade_scan_emits_valid_hook_json below.
+def test_the_heredoc_gate_informs_on_the_only_channel_that_reaches_the_model() -> None:
+    """Run it: `"additionalContext" in body` passed on the word appearing anywhere."""
+    done = _run_gate("core/hooks/checks/heredoc-gate.py", {
+        "tool_name": "Bash",
+        "tool_input": {"command": "cat > brain/INBOX.md <<'EOF'\nhi\nEOF"}})
+    assert done.returncode == 0
+    payload = json.loads(done.stdout)["hookSpecificOutput"]
+    assert payload["hookEventName"] == "PreToolUse"
+    assert "brain/INBOX.md" in payload["additionalContext"]
 
 
 def test_facade_scan_emits_valid_hook_json(tmp_path: Path) -> None:

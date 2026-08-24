@@ -1,5 +1,7 @@
 # T1 notion: an id survives any form it is pasted in, and a failure hands back a runnable fix.
+import os
 import pathlib
+import subprocess
 
 import pytest
 
@@ -141,7 +143,26 @@ def test_the_stored_secret_is_not_readable_by_anyone_else(monkeypatch, tmp_path)
     assert notion_auth.load_token("personal") == "ntn_secret"
 
 
-def test_the_cli_routes_its_entrypoint_through_run():
-    """Bypassing run() would print a traceback and lose the instruction it carries."""
-    cli = TOOLS_ROOT / "notes" / "notion"
-    assert "notion_core.run(main)" in cli.read_text()
+def test_the_cli_routes_its_entrypoint_through_run(tmp_path):
+    """Run the CLI and watch the wrapper actually get called.
+
+    This replaced `"notion_core.run(main)" in cli.read_text()` on 2026-08-24. Bypassing
+    run() would print a traceback and lose the instruction it carries, and a substring
+    could not tell the call apart from the same characters in a comment. The recorder
+    raises SystemExit(0) inside the wrapper, so no request is ever made.
+    """
+    shim = tmp_path / "shim"
+    shim.mkdir()
+    probe = tmp_path / "probe.txt"
+    (shim / "sitecustomize.py").write_text(
+        "import os, pathlib, sys\n"
+        f"sys.path.insert(0, {str(TOOLS_ROOT / 'notes')!r})\n"
+        "import notion_core\n"
+        "def _rec(main_fn):\n"
+        "    pathlib.Path(os.environ['RUN_PROBE']).write_text('called')\n"
+        "    raise SystemExit(0)\n"
+        "notion_core.run = _rec\n", encoding="utf-8")
+    subprocess.run(["python3", str(TOOLS_ROOT / "notes" / "notion")],
+                   capture_output=True, text=True, timeout=60,
+                   env={**os.environ, "PYTHONPATH": str(shim), "RUN_PROBE": str(probe)})
+    assert probe.exists(), "the notion CLI never reaches notion_core.run"

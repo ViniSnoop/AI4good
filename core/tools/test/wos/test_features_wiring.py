@@ -6,6 +6,7 @@
 # that runs" — a question about behaviour, and the one that costs the first ablation run its whole
 # signal when it goes unasked. A row claiming to be wired while nothing reads the switch would make
 # the ablation report "no effect" for a feature that was never disabled.
+import json
 import os
 import subprocess
 
@@ -82,21 +83,75 @@ def test_the_ablation_switch_turns_one_feature_off(monkeypatch):
     assert law.is_enabled('caveman'), 'the switch must remove one feature, not all of them'
 
 
-def test_the_wired_gates_actually_consult_the_law():
+def _asks_the_law(hook: str, tmp_path) -> set:
+    """Slugs the hook really asks about — recorded from a run, not read off the source.
+
+    A sitecustomize wraps `feature_law.is_enabled` before the hook's own code loads, so the
+    hook's law consultation lands in the log. The payload has to carry a command AND a
+    file_path: several gates return early on an empty one and never reach their own switch,
+    which reads identically to a gate that has no switch at all.
+    """
+    shim, log = tmp_path / 'shim', tmp_path / 'law.txt'
+    shim.mkdir(parents=True)
+    log.touch()
+    (shim / 'sitecustomize.py').write_text(
+        '# probe: record every slug a hook asks the law about, at runtime.\n'
+        'import os, pathlib, sys\n'
+        f'sys.path.insert(0, {str(WORKSPACE_ROOT / "core/hooks")!r})\n'
+        'import feature_law\n'
+        '_log, _orig = pathlib.Path(os.environ["LAW_PROBE"]), feature_law.is_enabled\n'
+        'def _rec(slug, *a, **k):\n'
+        '    _log.open("a").write(slug + "\\n")\n'
+        '    return _orig(slug, *a, **k)\n'
+        'feature_law.is_enabled = _rec\n', encoding='utf-8')
+    payload = json.dumps({'tool_name': 'Bash', 'session_id': 'law-probe',
+                          'cwd': str(WORKSPACE_ROOT),
+                          'tool_input': {'command': 'ls', 'file_path': '/tmp/probe.py',
+                                         'content': '# probe\n'}})
+    subprocess.run(['python3', str(WORKSPACE_ROOT / hook)], input=payload, text=True,
+                   capture_output=True, timeout=60,
+                   env={**os.environ, 'PYTHONPATH': str(shim), 'LAW_PROBE': str(log)})
+    return set(log.read_text().split())
+
+
+def _strip_comments(body: str, target: str) -> str:
+    """Source with comment lines removed — `symmetry` passed on the word *asymmetry* in one."""
+    marker = '//' if target.endswith('.js') else '#'
+    return '\n'.join(line for line in body.splitlines()
+                     if not line.lstrip().startswith(marker))
+
+
+def test_the_wired_gates_actually_consult_the_law(tmp_path):
     """Both seams, end to end: a shell gate and a node hook reach the same law module.
 
     They are in different languages on purpose — the `--enabled` CLI arm is what lets a third
     harness wire a gate without a second implementation of the registry. A `core/tools`
     tool reaches the law through `tool_law`, which carries the sys.path hop; that hop is
     asserted itself, or the indirection becomes a place for the chain to go quietly dead.
+
+    Rewritten 2026-08-24. It used to be `'feature_law' in body or 'tool_law' in body` — an OR
+    of two common tokens matched anywhere, comments included, which is a weaker witness than
+    the one that already passed on *asymmetry*. A standalone hook is now RUN and its law
+    consultation observed; the rest (libraries, sourced shell fragments, node plugins) cannot
+    be driven from a bare payload, so their source is read with comments stripped.
     """
-    assert 'feature_law' in (WORKSPACE_ROOT / TOOL_LAW).read_text(encoding='utf-8'), (
+    assert 'feature_law' in _strip_comments(
+        (WORKSPACE_ROOT / TOOL_LAW).read_text(encoding='utf-8'), TOOL_LAW), (
         f'{TOOL_LAW} is the tools-layer hop and must reach feature_law itself')
+    silent, ran = [], 0
     for row in law.load_registry():
         for target in law.wired_paths(row):
             body = (WORKSPACE_ROOT / target).read_text(encoding='utf-8')
-            assert 'feature_law' in body or 'tool_law' in body, (
-                f"{target} names {row['slug']} but never asks feature_law whether it is on")
+            # A standalone hook ends by running main() on stdin; those we can observe.
+            if target.endswith('.py') and 'sys.exit(main())' in body:
+                ran += 1
+                if row['slug'] not in _asks_the_law(target, tmp_path / row['slug'] / target):
+                    silent.append(f"{row['slug']}: {target} ran without asking the law")
+            elif not ({'feature_law', 'tool_law'} & set(_strip_comments(body, target).split())
+                      or 'feature_law' in _strip_comments(body, target)):
+                silent.append(f"{row['slug']}: {target} never reaches feature_law")
+    assert not silent, 'these rows claim a switch nothing consults:\n  ' + '\n  '.join(silent)
+    assert ran, 'no wired hook was observable — the classifier stopped matching anything'
 
 
 def test_a_switched_off_tool_refuses_to_run():

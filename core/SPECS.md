@@ -43,6 +43,27 @@
   caçar o próximo, pergunte *"o que isto produz, e está lá?"* antes de ler o código atrás de uma
   exceção — e prefira o check transversal ao check de um arquivo só (nenhum stub gerado dentro de um
   caminho duplicado; nenhum gate que bloqueia sem escrever em stderr).
+- **A afirmação descreve o TEXTO ou a EXECUÇÃO?** (regra do Lucas, 2026-08-24, depois do sweep que
+  começou com `test_features_wiring` passando por acidente na palavra *asymmetry*, num comentário,
+  num arquivo que nunca mencionou a norma.) Um check que procura um nome não é evidência de que
+  algo aconteceu — e a pergunta que decide qual instrumento usar é essa, não "grep é proibido".
+  - **Afirmação textual** — *"este módulo não guarda uma segunda cópia da lei"* é uma afirmação
+    sobre o texto e nada mais. Pode usar grep, mas **o assert negativo é o check**: `f'= {WARN}'
+    not in source`, `"'agent_id'" not in body`. O assert positivo é testemunha fraca (prova só que
+    o import existe). Um check que lê fonte e só tem assert positivo é defeito.
+  - **Afirmação de runtime** — *"este gate consulta o registry"*, *"este bloqueio chega ao
+    usuário"*. Aí substring é proxy, e um proxy desses já foi pego passando errado. **Rode a
+    coisa e observe.** Se o alvo não puder ser executado direto (fragmento shell sourced, lib,
+    plugin node), leia a fonte **sem comentários** — não é o mesmo que rodar, e o comentário no
+    check tem que dizer isso.
+  Sem meta-test que força a regra: um check varrendo a suíte atrás de asserts sem par negativo
+  seria, ele próprio, um grep provando uma afirmação sobre testes — exatamente o cheiro que a
+  regra existe para nomear.
+  **A regra se demonstrou sozinha na hora de aplicá-la**: `"bash-context-gate.py".endswith(
+  "context-gate.py")` é `True`, então o primeiro rascunho do harness entregou ao gate de Bash um
+  payload de Read e o caso passou *por não bloquear*. Um grep teria ficado verde; a execução falhou
+  alto. Daí duas coisas: **caso de teste casa com o basename exato, nunca com sufixo**, e um teste
+  que roda a coisa erra ruidosamente onde o proxy erra em silêncio.
 - **Um comando cujo status é um gate nunca vai para dentro de um pipe** (achado 2026-08-13, custou um falso "main pushed"). Em `a | tail && b`, o status é o do `tail`, não o do `a` — então `git merge --ff-only x 2>&1 | tail -1 && git push` executa o push mesmo com o merge abortado, e a sessão reporta sucesso de algo que não aconteceu. Para sequências onde cada passo autoriza o próximo: `set -e` e sem pipes, ou capturar o status explicitamente. Filtrar saída é para inspeção, não para decisão.
 - **Seção de `.md` se cita pelo nome, nunca pelo número** (achado 2026-08-15, custou 8 ponteiros
   quebrados em 6 arquivos). Um número é um ponteiro que envelhece na primeira seção inserida, e
