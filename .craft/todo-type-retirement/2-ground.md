@@ -1,7 +1,7 @@
 # todo-type-retirement — ground
 
 ## Carry
-slug: todo-type-retirement | branch: feature/roundup-md-cap | root: /mnt/workspace
+slug: todo-type-retirement | branch: feature/todo-type-retirement | root: /mnt/workspace
 provider: anthropic | chain-deleg: none
 tier-map: anthropic | verified-on: 2026-08-20
 test-cmd: `make verify-fast` | e2e-cmd: none (`make entropy` writes the fenced ISSUES.md — DO NOT RUN)
@@ -33,6 +33,7 @@ context: /mnt/workspace/AGENTS.md · /mnt/workspace/brain/CONTEXT.md · /mnt/wor
 
 ## Ground
 branch-created: feature/roundup-md-cap base: 5cbb7b14174946e5229acea5edb3b1248a143bd1 (merge-base with develop; branch pinned by orchestrator, verify-only, no checkout)
+branch-now: feature/todo-type-retirement (2026-08-24 — the line above is what Loop 2 found and stays true of that day. That branch has since been MERGED into develop and is behind it, so resuming on it would have reverted work. The chain was repointed at a branch cut from the current HEAD. Carry lines in every loop file were updated to match; do NOT create or switch branches.)
 paths: 60/60 ok | missing: none
   ✓ All 60 existing files across T1–T9 verified present.
   ✓ Parent directories for new files exist: brain/goals/, branches/.

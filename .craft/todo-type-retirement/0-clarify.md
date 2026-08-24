@@ -1,7 +1,7 @@
 # todo-type-retirement — clarify
 
 ## Carry
-slug: todo-type-retirement | branch: feature/roundup-md-cap | root: /mnt/workspace
+slug: todo-type-retirement | branch: feature/todo-type-retirement | root: /mnt/workspace
 provider: anthropic | chain-deleg: none
 tier-map: anthropic | verified-on: 2026-08-20
 test-cmd: `make verify-fast` | e2e-cmd: `make entropy` (writes ISSUES.md — DO NOT RUN, concurrent session owns that file)

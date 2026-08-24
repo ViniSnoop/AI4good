@@ -47,6 +47,7 @@ enough to be worth folding was tested and **rejected on the numbers** —
 | [`feedback_parallel_sessions.md`](feedback_parallel_sessions.md) | How to work safely when multiple Claude/opencode sessions edit /mnt/workspace at once |
 | [`feedback_plain_language.md`](feedback_plain_language.md) | Write WOS in plain words — Lucas loses the thread when jargon accumulates, and language IS the system when the reader is an LLM |
 | [`feedback_provider_agnostic_naming.md`](feedback_provider_agnostic_naming.md) | Never put provider/model names (NB, Gemini, etc.) in file names, verbs, or dirs — workspace is provider-agnostic |
+| [`feedback_question_context.md`](feedback_question_context.md) | toda pergunta de escolha ao Lucas carrega contexto, problema e tradeoffs na própria pergunta e em cada opção |
 | [`feedback_visual_eyeball_gate.md`](feedback_visual_eyeball_gate.md) | Every image-producing pipeline step needs Lucas's visual review (artifact board) before advancing — loops passing their own tests is not enough for visual work |
 | [`project_aiwbot.md`](project_aiwbot.md) | provider-agnostic bot to drive swappable coding agents (claude/opencode/copilot) from chat — code/aiwbot, live; next is audio in+out |
 | [`project_casinhas.md`](project_casinhas.md) | Obra das casinhas (7 casas + 3 salas, Várzea/Recife, com o pai) — home em branches/casinhas, cockpit obrigatório, plano de sessões S2..S12 |

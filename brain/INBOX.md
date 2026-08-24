@@ -9,6 +9,10 @@
 
 <!-- add entries below, newest first -->
 
+a memória tá sendo guardada em
+/home/lucas/.claude/projects/-mnt-workspace/memory/MEMORY.md
+este é um ponto que venho tratando de forma repetida e que não foi resolvido, a memória não deveria ser propriedade de um único harness/agente. provider-agnostic... este é o objetivo
+
 atualizar a minha "página profissional" no notion
 
 ter uma skill para atualizar meu lattes... será que dá?

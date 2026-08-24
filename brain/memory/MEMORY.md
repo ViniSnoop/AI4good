@@ -25,5 +25,6 @@
 - [Reference: texpace = spacemantics](reference_texpace_is_spacemantics.md) — route "texpace" captures to code/spacemantics
 - [WOS fanout split](project_wos_fanout_split.md) — every core/tools CLI path changed 2026-07-31 (search → web/search); a fanout split only counts once each new dir has its own CONTEXT.md
 - [Feedback: agent runs auth](feedback_agent_runs_auth.md) — agent runs every auth command itself; ask Lucas only for provider-UI clicks, consent screens, minting a secret; pasted secrets go in via builtin pipe, never argv
+- [Feedback: contexto na pergunta](feedback_question_context.md) — toda escolha oferecida ao Lucas explica contexto, problema e tradeoffs na própria pergunta e em cada opção; ele "passa direto" no que não está ali
 - [Feedback: plain language](feedback_plain_language.md) — plain words over jargon (ledger/seam/probe are out); one idea one word; language IS the system when the reader is an LLM; say what a session decided alone
 - [WOS: zerar o roadmap](project_wos_zero_roadmap.md) — zerar = SHIPPAR tudo, não deletar; realocar sim, cortar não; drain strategy = spend opus only on opus-only rows (the count that matters)

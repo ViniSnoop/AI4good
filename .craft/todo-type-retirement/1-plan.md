@@ -1,7 +1,7 @@
 # todo-type-retirement — plan
 
 ## Carry
-slug: todo-type-retirement | branch: feature/roundup-md-cap | root: /mnt/workspace
+slug: todo-type-retirement | branch: feature/todo-type-retirement | root: /mnt/workspace
 provider: anthropic | chain-deleg: none
 tier-map: anthropic | verified-on: 2026-08-20
 test-cmd: `make verify-fast` | e2e-cmd: none (`make entropy` writes the fenced ISSUES.md — DO NOT RUN)
@@ -32,7 +32,7 @@ context: /mnt/workspace/AGENTS.md · /mnt/workspace/brain/CONTEXT.md · /mnt/wor
          · /mnt/workspace/brain/goals/CONTEXT.md · /mnt/workspace/core/CONTEXT.md
 
 ## Plan
-branch: feature/roundup-md-cap  *(pinned by the orchestrator — already checked out, shared worktree.
+branch: feature/todo-type-retirement  *(pinned by the orchestrator — already checked out, shared worktree.
 Do NOT create or switch branches. Loop 2 verifies only; it must not run `git checkout -b`.)*
 
 | id | task | files | done-when | tier | effort |
