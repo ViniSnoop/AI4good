@@ -120,3 +120,16 @@ with nothing to decide, so what is left each needs one judgment first, named in 
 check named in a `SPECS.md` § has an implementing file. It would enforce exactly the drift that
 produced this section — and it costs one more row, so it is Lucas's call rather than a decision made
 in passing while cleaning up.
+
+---
+## Rejected
+
+- **Splitting `core/hooks/entropy/` four-and-four, shape against text** (2026-08-24). The seam was
+  real — `corpus`/`naming`/`fanout`/`size` read the tree's shape, `context`/`ledger`/`stores`/`vendor`
+  read its text — but costing it showed the hop removes less table than it adds, and the dashboard
+  would import from two places to buy nothing. The directory holds over the fanout signal on purpose;
+  the reason lives in its own `CONTEXT.md`.
+- **Giving `core/` and `brain/` their own `ISSUES.md`** (2026-08-24). Both are parts of WOS, so the
+  workspace repo's ledger covers them. The evidence that settled it: between them they hold 160
+  findings and **not one hand-written bug** — 152 are size signals — so the two files would have held
+  nothing but generated warnings. Fourteen ledgers, not sixteen.
