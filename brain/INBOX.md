@@ -9,6 +9,9 @@
 
 <!-- add entries below, newest first -->
 
+fazer esses exercícios depois da corrida
+— via aiwbot · 2026-08-24
+
 jogar na lixeira o deck `__probe_delete_me` no Drive pessoal (sonda de auth, criada por engano)
 — moved here from the old to-do file · 2026-08-24
 
