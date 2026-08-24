@@ -1,5 +1,6 @@
 # ementas
-> Ementa pipeline for the new BCC PPC: download the sources, classify them, build one SIGAA-shaped `.docx` per discipline.
+> Ementa pipeline for the new BCC PPC: download the sources, classify them, build one SIGAA-shaped `.docx` per
+> discipline.
 
 `fonte/` holds what was downloaded, `saida-docx/` what was generated — regenerate rather than
 hand-edit either. Plan, status and the open upload step: [`../ROADMAP-ementas.md`](../ROADMAP-ementas.md).

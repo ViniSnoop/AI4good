@@ -1,6 +1,7 @@
 # Roteiro 4 — NVIDIA NIM (build.nvidia.com)
 
-> **Por que usar:** a NVIDIA hospeda 100+ modelos de código aberto (Nemotron, DeepSeek, Llama, GLM, Qwen) de graça no build.nvidia.com, rodando nas GPUs deles. Ótimo para experimentar modelos grandes sem precisar de hardware próprio.
+> **Por que usar:** a NVIDIA hospeda 100+ modelos de código aberto (Nemotron, DeepSeek, Llama, GLM, Qwen) de graça no
+> build.nvidia.com, rodando nas GPUs deles. Ótimo para experimentar modelos grandes sem precisar de hardware próprio.
 
 ## Visão geral
 
@@ -20,7 +21,8 @@
 3. Clique em **Generate API Key**
 4. **Copie a key agora** — ela começa com `nvapi-` e **só é mostrada uma vez**!
 
-> A key expira em ~6 meses. Quando expirar, volte ao build.nvidia.com → Settings → API Keys → gere outra e atualize no OpenCode.
+> A key expira em ~6 meses. Quando expirar, volte ao build.nvidia.com → Settings → API Keys → gere outra e atualize no
+> OpenCode.
 
 ## Passo 2 — Conectar no OpenCode (Windows e Linux, igual)
 

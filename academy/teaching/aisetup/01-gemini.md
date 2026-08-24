@@ -1,6 +1,7 @@
 # Roteiro 1 — Google Gemini (recomendado)
 
-> **Por que esta é a rota recomendada:** é a mais generosa das gratuitas — **1.500 requisições por dia**, não pede cartão de crédito e não expira. Cada aluno usa a própria conta Google.
+> **Por que esta é a rota recomendada:** é a mais generosa das gratuitas — **1.500 requisições por dia**, não pede
+> cartão de crédito e não expira. Cada aluno usa a própria conta Google.
 
 ## Visão geral
 
@@ -20,7 +21,8 @@
 4. Clique em **Create API key** → escolha um projeto (ou crie um) → **Create**
 5. **Copie a key** (começa com `AIza...`) e guarde num lugar seguro
 
-> Cada key é **sua** — não compartilhe com colegas. O limite é por conta/projeto, e criar várias keys não aumenta a cota.
+> Cada key é **sua** — não compartilhe com colegas. O limite é por conta/projeto, e criar várias keys não aumenta a
+> cota.
 
 ## Passo 2 — Conectar no OpenCode (Windows e Linux, igual)
 

@@ -1,5 +1,6 @@
 # SPEC-DRIVE — Spec-Driven Development Rollout
-> Enforcement rollout making the spec the contract for `code/` modules: verifiable inputs/outputs/invariants that precede and govern the code. Goal: [spec-driven-development](../brain/goals/spec-driven-development.md).
+> Enforcement rollout making the spec the contract for `code/` modules: verifiable inputs/outputs/invariants that
+> precede and govern the code. Goal: [spec-driven-development](../brain/goals/spec-driven-development.md).
 
 **Lifecycle: transient initiative doc** (ROADMAP-verify.md species — lives beside `code/CONTEXT.md`, not
 workspace structure). Endstate: once the ratchet has converted the modules that matter and the
@@ -29,7 +30,8 @@ induction.** So the spine is a hard-blocking hook, not a convention doc.
 ## The contract (SPEC v0)
 
 `code/<project>/<module>/SPEC.md`, machine-parseable header + five sections. Skeleton:
-[`_templates/module.SPEC.md`](_templates/module.SPEC.md). Documented in [`SPECS.md`](SPECS.md#module-spec-contract-spec-driven-development).
+[`_templates/module.SPEC.md`](_templates/module.SPEC.md). Documented in
+[`SPECS.md`](SPECS.md#module-spec-contract-spec-driven-development).
 
 | Header key | Values | Effect |
 |---|---|---|

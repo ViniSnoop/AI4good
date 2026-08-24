@@ -1,5 +1,6 @@
 # tecnologias-na-educacao
-> Disciplina Tecnologias na Educação — material e questionários da turma. Espelha `teaching/tecnologias-na-educacao/` no Drive pessoal.
+> Disciplina Tecnologias na Educação — material e questionários da turma. Espelha `teaching/tecnologias-na-educacao/` no
+> Drive pessoal.
 
 Aulas 2026.2: quarta 18h30 e sexta 20h10.
 

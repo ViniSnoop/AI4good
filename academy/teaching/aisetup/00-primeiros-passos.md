@@ -1,6 +1,8 @@
 # Passo 0 — Primeiros passos: instalar o OpenCode
 
-> O OpenCode é um assistente de programação que roda no terminal. Ele conversa com você, lê seus arquivos, edita código e roda comandos — usando um "cérebro" (modelo de IA) que você escolhe. Este guia ensina a instalar e a escolher o cérebro grátis.
+> O OpenCode é um assistente de programação que roda no terminal. Ele conversa com você, lê seus arquivos, edita código
+> e roda comandos — usando um "cérebro" (modelo de IA) que você escolhe. Este guia ensina a instalar e a escolher o
+> cérebro grátis.
 
 ## O que você precisa
 
@@ -38,7 +40,8 @@ Se preferir com npm (Node.js instalado):
 npm install -g opencode-ai
 ```
 
-> **Alternativa avançada (opcional):** no Windows, muitos programadores usam o **WSL** (subsistema Linux). Se você quiser, instale o WSL e siga as instruções de Linux dentro dele. Não é necessário para este guia.
+> **Alternativa avançada (opcional):** no Windows, muitos programadores usam o **WSL** (subsistema Linux). Se você
+> quiser, instale o WSL e siga as instruções de Linux dentro dele. Não é necessário para este guia.
 
 ### Verificar a instalação
 
@@ -64,7 +67,8 @@ Deve aparecer um número de versão (ex.: `1.2.30`).
 3. `/models` → escolhe o modelo
 4. Pronto: converse em português e peça tarefas de programação
 
-**Onde as keys ficam guardadas:** em `~/.local/share/opencode/auth.json` (Linux) ou `%USERPROFILE%\.local\share\opencode\auth.json` (Windows). Ninguém além de você deve ter acesso a esse arquivo.
+**Onde as keys ficam guardadas:** em `~/.local/share/opencode/auth.json` (Linux) ou
+`%USERPROFILE%\.local\share\opencode\auth.json` (Windows). Ninguém além de você deve ter acesso a esse arquivo.
 
 ## 3. Teste rápido do setup
 

@@ -16,13 +16,15 @@ rota de modelo, e o aluno precisa de apenas uma delas.
 ## Qual escolher?
 
 - **Para a maioria dos trabalhos da disciplina:** Gemini (rote 01) — maior volume, mais estável, setup simples.
-- **Para testar sem criar conta nenhuma:** OpenCode Zen caminho A (rote 02) — funciona direto, mas a cota é pequena e imprevisível.
+- **Para testar sem criar conta nenhuma:** OpenCode Zen caminho A (rote 02) — funciona direto, mas a cota é pequena e
+  imprevisível.
 - **Para experimentar modelos diferentes (DeepSeek, Llama, Qwen):** OpenRouter (rote 03).
 - **Para modelos grandes de código aberto (Nemotron):** NVIDIA NIM (rote 04).
 
 ## ⚠️ Regra de privacidade (leia antes de tudo)
 
-> **NUNCA** cole código sensível, senhas, dados pessoais ou trabalho proprietário em **nenhum** modelo gratuito. Todos podem usar seus dados para melhorar os modelos:
+> **NUNCA** cole código sensível, senhas, dados pessoais ou trabalho proprietário em **nenhum** modelo gratuito. Todos
+> podem usar seus dados para melhorar os modelos:
 >
 > - Gemini free tier e OpenCode Zen free: **explicitamente** usam seus dados para treino.
 > - NVIDIA NIM: registra o uso para segurança e melhoria de produtos.

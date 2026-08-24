@@ -1,6 +1,8 @@
 # Roteiro 2 — OpenCode Zen (sem cadastro)
 
-> **Por que usar:** é a rota mais rápida de todas — em muitos casos **não precisa nem criar conta**. O OpenCode traz modelos grátis embutidos, fornecidos pelo time do próprio OpenCode. Use para testes rápidos; não use para trabalho sério (cota pequena e instável).
+> **Por que usar:** é a rota mais rápida de todas — em muitos casos **não precisa nem criar conta**. O OpenCode traz
+> modelos grátis embutidos, fornecidos pelo time do próprio OpenCode. Use para testes rápidos; não use para trabalho
+> sério (cota pequena e instável).
 
 ## Visão geral
 
@@ -16,7 +18,8 @@
 
 1. Rode `opencode` na pasta do projeto
 2. Digite `/models`
-3. Escolha um modelo com **Free** no nome ou preço `$0` (ex.: `opencode/big-pickle` ou `opencode/deepseek-v4-flash-free`)
+3. Escolha um modelo com **Free** no nome ou preço `$0` (ex.: `opencode/big-pickle` ou
+   `opencode/deepseek-v4-flash-free`)
 4. Pronto — sem key, sem cadastro
 
 ## Caminho B — Com conta (cota por usuário em vez de por IP)
@@ -26,7 +29,8 @@
 3. No OpenCode: `/connect` → digite `zen` → selecione **OpenCode Zen** → cole a key
 4. `/models` → escolha o modelo free
 
-> Fazer login dá uma cota por conta (mais estável que a por IP) e libera modelos pagos, se um dia você quiser. **Não adianta pagar créditos para aumentar a cota dos modelos free** — o teto continua o mesmo.
+> Fazer login dá uma cota por conta (mais estável que a por IP) e libera modelos pagos, se um dia você quiser. **Não
+> adianta pagar créditos para aumentar a cota dos modelos free** — o teto continua o mesmo.
 
 ## Testar
 
