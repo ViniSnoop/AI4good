@@ -9,6 +9,10 @@
 
 <!-- add entries below, newest first -->
 
+preparar uma versão com acessibilidade pra Edson tanto das missões quanto do site da disciplina
+
+preparar um material (talvez slides) para mostrar pros meus alunos os conceitos dos projetos de pesquisa (e.g., dobra, cria, texpace/spacemantics)
+
 jogar na lixeira o deck `__probe_delete_me` no Drive pessoal (sonda de auth, criada por engano)
 — moved here from the old to-do file · 2026-08-24
 

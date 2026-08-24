@@ -270,7 +270,7 @@ Clean.
 - academy/teaching/tecnologias-na-educacao/CONTEXT.md — 1 line(s) over the 120-column cap (first at line 2)
 - brain/CONTEXT.md — 1 line(s) over the 120-column cap (first at line 25)
 - brain/GOALS.md — 10 line(s) over the 120-column cap (first at line 77)
-- brain/INBOX.md — 17 line(s) over the 120-column cap (first at line 18)
+- brain/INBOX.md — 18 line(s) over the 120-column cap (first at line 14)
 - brain/SPECS.md — 18 line(s) over the 120-column cap (first at line 120)
 - brain/USER.md — 12 line(s) over the 120-column cap (first at line 6)
 - brain/attachments/instituto-estrategias.md — 30 line(s) over the 120-column cap (first at line 3)
@@ -529,7 +529,7 @@ Clean.
 
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
-- . — feature/todo-type-retirement is 4 ahead of main
+- . — feature/todo-type-retirement is 5 ahead of main
 
 ### Remote branches already merged into their base
 
