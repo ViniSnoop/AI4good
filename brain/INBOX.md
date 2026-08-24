@@ -9,6 +9,12 @@
 
 <!-- add entries below, newest first -->
 
+atualizar a minha "página profissional" no notion
+
+ter uma skill para atualizar meu lattes... será que dá?
+
+garantir que todas as vezes que o claude code (ou qualquer outro harness) me dão escolhas para selecionar ele explica o contexto, o problema e os tradeoffs muito bem na própria pergunta e nas respostas. este é um momento em que minha atenção é forçada a ser dedicada à conversa, vários outros avanços na conversa, planos gigantes, etc, são coisas que não consigo dedicar minha atenção completa e acabo perdendo o contexto. inclusive, na pergunta o harness/agente pode até sugerir que eu consulte o plano ou a conversa pra entender melhor do que se trata. mas sim, tem muitas vezes que aparecem coisas nas resposta que eu simplesmente "passo direto", não sei do que se trata.
+
 to com uma sensação de que o WOS tá induzindo agentes a lerem 30 mil arquivos em circuitos complexos
 
 medir completamente o consumo de tokens. quando cada feature nossa do wos consome. será que tem como fazer isso automaticamente?
