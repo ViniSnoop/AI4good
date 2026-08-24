@@ -75,6 +75,34 @@
    backticked name there is parsed as one; and a document being deleted can be the sole record of
    something live — `REFACTOR.md` held the only copy of bug B29, which `ISSUES.md` was supposed to have.
    → **tier: medium**, and the gate flip is the last step, not the first.
+10. 🔴 **Roughly half the column-cap findings left cannot be wrapped, and the fix is a third
+    exemption.** `core/tools/wos/wrap` drained 163 files on 2026-08-24 and the count fell by a
+    third. **What it could not touch is now the majority of what remains: ~42 findings are the
+    `description:` line of a YAML frontmatter block.** Breaking one breaks the parse — which is
+    verbatim the criterion the two existing exemptions in `file_law.over_column_cap` were granted
+    on, a markdown table row and a fenced code block, both admitted because "neither can be wrapped
+    without changing what it means". A frontmatter scalar is the same shape arriving through a third
+    door. **It is Lucas's, not a session's**, because it edits the law in
+    [`core/hooks/limits.env`](core/hooks/limits.env)'s neighbourhood rather than the corpus, and
+    because the alternative reading is real: an exemption is also how a cap gets hollowed out one
+    reasonable case at a time. The question to answer is which, not how to implement it.
+
+11. 🟡 **What the drain hit on the way, all four still true.** Filed 2026-08-24, kept in one item
+    because they share a cause — a rule that never met the corpus it governs.
+    - **The two caps pull against each other.** Wrapping
+      `academy/administration/coordenacao-lc/novo-ppc-bcc/ROADMAP-ementas.md` took it from 195 to
+      270 lines, past the hard 200. Reverted: it trades one finding for another and blocks the
+      commit. Nothing says which cap wins when a file sits near the other.
+    - **`AGENTS.md` cannot satisfy the cap** while `test_norms` reads the published block line by
+      line — see § Rejected. Either that test rejoins continuations, or the most-read file in the
+      workspace keeps three findings forever.
+    - **~25 findings live in `academy/papers/*`**, which are their own repos with Overleaf as the
+      authority. The dashboard counts them; this repo cannot fix them. Work that shows in the total
+      and appears nowhere it can be done.
+    - **The goal files' `<!-- done:start -->` blocks** are full of finished work that
+      *completion is deletion* would cut. The wrap will not touch a generated block, so it is
+      permanent residue until someone cuts it. → **tier: medium**.
+
 9. 🟢 **the corpus is half Portuguese and the rule is English.** Lucas (INBOX 2026-08-17): *"somente
    o meu texto é em português, as conversas nas sessões, mas o resto, os docs, tudo em inglês
    inclusive pra economizar tokens."* `AD-15/16/17` were written in English; **`AD-01`–`AD-14` and
@@ -111,6 +139,11 @@ in passing while cleaning up.
 ---
 ## Rejected
 
+- **Wrapping `core/norms/*.md` to the column cap** (2026-08-24). A norm is one line by contract:
+  `norms.py` publishes each rule as a `- ` line into `AGENTS.md` and `test_norms` reads the block
+  back the same way, so a wrapped rule loses its continuation and vanishes from the published set.
+  Tried, reverted, suite green again. The three findings `AGENTS.md` carries are the price, and the
+  item above holds the two ways out.
 - **Splitting `core/hooks/entropy/` four-and-four, shape against text** (2026-08-24). The seam was
   real — `corpus`/`naming`/`fanout`/`size` read the tree's shape, `context`/`ledger`/`stores`/`vendor`
   read its text — but costing it showed the hop removes less table than it adds, and the dashboard
