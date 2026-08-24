@@ -132,7 +132,7 @@ agents first, flows after the pointer question is answered.
    research and paper-writing subset, whether a Telegram bridge is inside the workspace or beside it
    is answered by what a student clones. Decide that, and this row decides itself.
 
-   **That tie-breaker was already answered and nobody had noticed** (2026-08-20). Item 5 above
+   **That tie-breaker was already answered and nobody had noticed** (2026-08-24). Item 5 above
    records Lucas's own scoping from INBOX 2026-08-17: the minimum useful subset is **the research
    and paper-writing branch, not the whole scaffold**. A Telegram bridge is not in that subset under
    any reading, so **it never travels, wherever it lives** — and that collapses the strongest

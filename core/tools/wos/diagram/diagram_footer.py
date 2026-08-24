@@ -1,6 +1,6 @@
 # The page's honesty block: what this picture covered, what it inferred, and where to change it.
 #
-# Split from diagram_page.py 2026-08-20, when the per-repo document arrived and the footer stopped
+# Split from diagram_page.py 2026-08-24, when the per-repo document arrived and the footer stopped
 # being able to say one thing. Every line here is a claim ABOUT the document above it, and a claim
 # that is right for the workspace is wrong for a repo — the old text told a repo's reader to edit
 # core/features.txt for a matrix its page does not carry, and promised the nested repos would "earn

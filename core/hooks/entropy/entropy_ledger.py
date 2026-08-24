@@ -22,7 +22,7 @@ ITEM_SLUG = re.compile(
 
 # A URL is quoted, not written. Somebody else chose those words and no rename of ours can reach
 # them, so a captured link whose slug happens to contain a retired token is not an unfinished
-# rename — it is evidence. Found 2026-08-20 when an INBOX capture turned the suite red and the
+# rename — it is evidence. Found 2026-08-24 when an INBOX capture turned the suite red and the
 # check's own advice was to delete the line, which would have deleted Lucas's capture.
 _URL = re.compile(r'<?https?://\S+')
 

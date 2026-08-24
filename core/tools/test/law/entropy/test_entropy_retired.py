@@ -1,7 +1,7 @@
 # T0 the retired-token check (core/SCHEMA-vocabulary.md § Retired tokens): a rename is finished only
 # when its old spelling appears nowhere. Zero-token, runs in verify-fast.
 #
-# Split from test_entropy_ledger.py 2026-08-20 at the 200-line cap. The seam was already there —
+# Split from test_entropy_ledger.py 2026-08-24 at the 200-line cap. The seam was already there —
 # `entropy_ledger.py` answers several questions and this is the one that asserts against the LIVE
 # workspace and is meant to be green at all times rather than baselined.
 from conftest import WORKSPACE_ROOT  # the depth lives in one file, not nine
@@ -39,7 +39,7 @@ def test_retired_token_in_a_filename_is_a_hit(tmp_path):
 def test_a_retired_token_inside_a_url_is_not_a_hit(tmp_path):
     """Somebody else chose those words; no rename of ours can reach them.
 
-    Found 2026-08-20 by an INBOX capture — a link whose slug contained a retired token turned the
+    Found 2026-08-24 by an INBOX capture — a link whose slug contained a retired token turned the
     suite red, and the check's own advice was to delete the line, which would have deleted Lucas's
     capture. A quoted URL is evidence, not an unfinished rename.
     """

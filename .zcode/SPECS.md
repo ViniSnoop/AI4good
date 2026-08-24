@@ -1,7 +1,7 @@
 # ZCode registration contract
 > What ZCode must spawn, how its events map onto the canonical ones, and what is still unverified.
 
-Split from [`CONTEXT.md`](CONTEXT.md) 2026-08-20: a `CONTEXT.md` is the only enforced-read type, so
+Split from [`CONTEXT.md`](CONTEXT.md) 2026-08-24: a `CONTEXT.md` is the only enforced-read type, so
 a contract living in its head is read by everyone who touches the subtree whether they need it or
 not (`core/SCHEMA-placement.md` § Placement). The head keeps the pointer; the contract lives here.
 

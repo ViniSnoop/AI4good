@@ -54,7 +54,7 @@
    research**: what a flow is for, what an agent is for, whether a flow naming `agents:` in
    frontmatter is the right shape, and one deliberate run of each before anyone rules.
 
-   **The trial started 2026-08-20 and the first run is in.** A roadmap row was drained through
+   **The trial started 2026-08-24 and the first run is in.** A roadmap row was drained through
    `/craft` end to end rather than by hand, and running the flow found things reading it had not:
    the router has no home for a measurement, and the shortcut it falls back to mandates a branch its
    own hazard note forbids. Both are refiled as work in

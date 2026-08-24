@@ -10,7 +10,7 @@ violation is visible without being unable to commit.
 [`entropy_corpus.py`](entropy_corpus.py) is the odd one and stays: it answers *which files a check
 may look at*, which every check needs before it can count anything.
 
-**This directory sits over the fanout signal and holds there** — ruled 2026-08-20 (Lucas), after the
+**This directory sits over the fanout signal and holds there** — ruled 2026-08-24 (Lucas), after the
 candidate seam was costed: splitting on what each check *reads*, the tree's shape (`corpus`,
 `naming`, `fanout`, `size`) against its text (`context`, `ledger`, `stores`, `vendor`), would have
 made the dashboard import from two places to remove less table than the hop adds. The name has not

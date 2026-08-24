@@ -60,7 +60,7 @@ def test_papers_and_branches_stay_pooled_at_the_root() -> None:
 
 
 def test_core_and_brain_stay_with_the_workspace_repo() -> None:
-    """Ruled 2026-08-20: both are parts of WOS, so its own ledger covers them — 14 ledgers, not 16."""
+    """Ruled 2026-08-24: both are parts of WOS, so its own ledger covers them — 14 ledgers, not 16."""
     repos = code_repos(ROOT)
     assert owner('core/SCHEMA.md: finding', ROOT, repos) == ''
     assert owner('brain/GOALS.md: finding', ROOT, repos) == ''

@@ -16,7 +16,7 @@ No flow is privileged — the exemplar is `flows/_template.md` (see [SCHEMA.md](
 ## Open
 
 - [ ] **The craft router has no home for a measurement, and the shortcut it falls back to
-      contradicts itself.** Both found by *running* the flow on 2026-08-20 (the trial funded by
+      contradicts itself.** Both found by *running* the flow on 2026-08-24 (the trial funded by
       [`ROADMAP-cost.md`](../ROADMAP-cost.md)), not by reading it — which is the point of having
       run it.
       - **No `experiment` subtree.** `route.md` offers padaria · feature/SDD · research ·

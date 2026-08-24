@@ -66,7 +66,7 @@ def nested_repos(root: Path, depth: int = 3) -> list:
 # finding inside one is unfixable in place and is already reported against the source it was
 # copied from. Fixing the mirror is fixing the generator.
 #
-# `.zcode/skills/` joined 2026-08-20 — the mirror landed when ZCode was registered and this list
+# `.zcode/skills/` joined 2026-08-24 — the mirror landed when ZCode was registered and this list
 # did not follow it, so the new mirror's generated CONTEXT.md was counted as authored prose nobody
 # could fix. Only the skills subtree is a mirror: `.zcode/config.json`, `CONTEXT.md` and `SPECS.md`
 # are authored and stay in the corpus.

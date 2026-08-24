@@ -102,7 +102,7 @@ of [`ROADMAP-self-description.md`](ROADMAP-self-description.md), plus the declar
 
 **Nothing in this track waits on a word from Lucas any more, and this paragraph claimed two things
 did for longer than either was true** — a specimen of the front directly below, found by one probe
-on 2026-08-20. `CTX_LOUD` was ruled on 2026-08-17 (show both crossings, to both readers, at the end
+on 2026-08-24. `CTX_LOUD` was ruled on 2026-08-17 (show both crossings, to both readers, at the end
 of a response); the state-dir rename landed, so no run record carries the old name and the exemption
 question had nothing left to be about. Frozen run records were ruled the same day: a finished chain's
 trail is deleted like any other done work, and git is its history.

@@ -4,7 +4,7 @@
 # Ruled 2026-08-20 (Lucas): every CODE repo keeps its own ISSUES.md, because the reader who can fix
 # a finding is the one already inside that repo. Papers and branches/ stay pooled at the root —
 # they are not code and their findings are few. core/ and brain/ are parts of WOS itself, so the
-# workspace repo's own ledger covers them (his call, same day). Fourteen ledgers, not twenty-six.
+# workspace repo's own ledger covers them (his call, 2026-08-24). Fourteen ledgers, not twenty-six.
 #
 # The root SUMS, and the sum is recomputed here from the same scan that writes the locals — never
 # hand-carried. A collected number that any repo could write into is precisely the copied-count
