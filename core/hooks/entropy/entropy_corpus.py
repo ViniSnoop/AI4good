@@ -65,7 +65,12 @@ def nested_repos(root: Path, depth: int = 3) -> list:
 # Generated mirrors: sync-skills rewrites these from core/skills on every run, so a prose
 # finding inside one is unfixable in place and is already reported against the source it was
 # copied from. Fixing the mirror is fixing the generator.
-MIRRORS = ('.claude/', '.opencode/', '.github/')
+#
+# `.zcode/skills/` joined 2026-08-20 — the mirror landed when ZCode was registered and this list
+# did not follow it, so the new mirror's generated CONTEXT.md was counted as authored prose nobody
+# could fix. Only the skills subtree is a mirror: `.zcode/config.json`, `CONTEXT.md` and `SPECS.md`
+# are authored and stay in the corpus.
+MIRRORS = ('.claude/', '.opencode/', '.github/', '.zcode/skills/')
 
 
 def is_generated_mirror(path: Path) -> bool:
@@ -89,7 +94,8 @@ ENFORCEMENT = ('core/SCHEMA.md', 'core/SCHEMA-vocabulary.md', 'ISSUES.md')
 # The ledger check's own tests, found by name instead of by path. Spelling the path out is
 # what broke this exemption the moment core/tools/test was split (2026-07-31) — the same
 # defect as the hard-coded sibling path below, one directory over.
-_CHECKER_TESTS = 'core/tools/test/**/test_entropy_ledger.py*'
+_CHECKER_TESTS = ('core/tools/test/**/test_entropy_ledger.py*',
+                  'core/tools/test/**/test_entropy_retired.py*')
 
 # The checker and its stub are SIBLINGS of this file, so they are derived rather than
 # spelled out. A hard-coded path here stops exempting them the moment the hooks directory
@@ -108,7 +114,7 @@ def enforcement_paths(root: Path) -> set:
     here = Path(__file__).resolve().parent
     return ({(root / name).resolve() for name in ENFORCEMENT}
             | {here / name for name in _CHECKER}
-            | {p.resolve() for p in root.glob(_CHECKER_TESTS)}
+            | {p.resolve() for pattern in _CHECKER_TESTS for p in root.glob(pattern)}
             | {p.resolve() for p in root.glob(_LOCAL_LEDGERS)})
 
 

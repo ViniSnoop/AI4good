@@ -20,6 +20,13 @@ ITEM_SLUG = re.compile(
     r'^\s*(?:[-*>]+\s*)*(?:\[[ xX]\]\s*)*\**`?\[([a-z0-9][a-z0-9-]+)\](?!\()', re.M)
 
 
+# A URL is quoted, not written. Somebody else chose those words and no rename of ours can reach
+# them, so a captured link whose slug happens to contain a retired token is not an unfinished
+# rename — it is evidence. Found 2026-08-20 when an INBOX capture turned the suite red and the
+# check's own advice was to delete the line, which would have deleted Lucas's capture.
+_URL = re.compile(r'<?https?://\S+')
+
+
 def retired_hits(files: list, retired: dict, exempt: set) -> list:
     """Every surviving occurrence of a retired token, in content or in a filename."""
     exempt = {path.resolve() for path in exempt}
@@ -33,7 +40,7 @@ def retired_hits(files: list, retired: dict, exempt: set) -> list:
         if path.resolve() in exempt:
             continue
         try:
-            text = path.read_text(encoding='utf-8')
+            text = _URL.sub(lambda m: ' ' * len(m.group()), path.read_text(encoding='utf-8'))
         except (OSError, UnicodeDecodeError):
             continue
         for token, pattern in patterns.items():

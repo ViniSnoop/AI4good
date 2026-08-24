@@ -34,32 +34,6 @@ def test_retired_tokens_come_from_schema():
     assert 'SPEC.md' not in retired, 'that rename has not landed yet'
 
 
-def test_no_retired_token_survives():
-    """A rename is finished only when its old spelling appears nowhere."""
-    hits = entropy_ledger.retired_hits(
-        entropy_ledger.tracked_files(WORKSPACE_ROOT),
-        schema_law.load_retired(),
-        entropy_ledger.enforcement_paths(WORKSPACE_ROOT))
-    assert hits == [], '\n'.join(hits)
-
-
-def test_the_law_may_name_what_it_retires(tmp_path):
-    law = tmp_path / 'SCHEMA.md'
-    law.write_text('| `gone-token` | `kept` | 2026-01-01 |\n', encoding='utf-8')
-    assert entropy_ledger.retired_hits([law], {'gone-token': 'kept'}, {law}) == []
-
-
-def test_retired_token_in_a_filename_is_a_hit(tmp_path):
-    """The `fable-loop-engineering.md` shape: hyphen is a boundary, so a retired token
-    hiding inside a compound name is still found. That is where a half-done rename
-    survives longest."""
-    target = tmp_path / 'prefix-gone-token.md'
-    target.write_text('clean body\n', encoding='utf-8')
-    hits = entropy_ledger.retired_hits([target], {'gone-token': 'kept'}, set())
-    assert len(hits) == 1
-    assert 'filename' in hits[0]
-
-
 def test_a_longer_word_is_not_a_substring_hit(tmp_path):
     """Retired `gone-token` must not fire on `gone-tokenizer` — a different word."""
     target = tmp_path / 'note.md'
