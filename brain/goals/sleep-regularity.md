@@ -1,6 +1,9 @@
 # [ health | body | near ] sleep regularity
 
-The disruption isn't just practical — there's a psychological layer. The late night is where autonomy lives: a space of isolation, away from obligations, free to do anything or nothing. Sleeping feels like surrendering that space before the day felt sufficient. The threshold for sleep is exhaustion, not tiredness. Sometimes 4am. The aspiration is a natural 8am wake-up — not forced, discovered as worth it. Sleep timing consistency is the highest-impact variable.
+The disruption isn't just practical — there's a psychological layer. The late night is where autonomy lives: a space of
+isolation, away from obligations, free to do anything or nothing. Sleeping feels like surrendering that space before the
+day felt sufficient. The threshold for sleep is exhaustion, not tiredness. Sometimes 4am. The aspiration is a natural
+8am wake-up — not forced, discovered as worth it. Sleep timing consistency is the highest-impact variable.
 
 >**signals**  
 meaningful · expected · motivated
@@ -15,13 +18,20 @@ why · day is full of obligations; night is the compensatory autonomy space
 how · resistance as "just one more thing" loops — the thing is never the real reason*
 
 >**analysis**  
-This isn't a sleep problem — it's an autonomy problem wearing sleep clothes. The late night isn't laziness; it's a rational compensation for a day that doesn't leave enough room to simply exist on your own terms. Fighting the late night directly will fail. The intervention is upstream: create more pockets of genuine autonomy during the day so the night doesn't carry the entire load. On the sleep side: circadian consistency research shows that *when* you sleep matters more than duration — even a 30-minute shift earlier, held consistently, shifts the circadian anchor. The ritual ending strategy works: a meaningful closing act you *choose* signals satisfaction to the nervous system, not compliance to a rule.
+This isn't a sleep problem — it's an autonomy problem wearing sleep clothes. The late night isn't laziness; it's a
+rational compensation for a day that doesn't leave enough room to simply exist on your own terms. Fighting the late
+night directly will fail. The intervention is upstream: create more pockets of genuine autonomy during the day so the
+night doesn't carry the entire load. On the sleep side: circadian consistency research shows that *when* you sleep
+matters more than duration — even a 30-minute shift earlier, held consistently, shifts the circadian anchor. The ritual
+ending strategy works: a meaningful closing act you *choose* signals satisfaction to the nervous system, not compliance
+to a rule.
 
 ## selected next achievement
     [streak-3] 3 consecutive days on target — in bed by 00:30
 
 **ease-start**  
-Tonight, before "one more thing," write down the one thing you most want to do tomorrow morning. Something you look forward to. Put the note somewhere visible. The point isn't willpower — it's giving tomorrow a reason to exist.
+Tonight, before "one more thing," write down the one thing you most want to do tomorrow morning. Something you look
+forward to. Put the note somewhere visible. The point isn't willpower — it's giving tomorrow a reason to exist.
 
 >**timing**  
 *target · 6 weeks to establish consistency  
@@ -46,14 +56,14 @@ fallback · if consistency fails, investigate whether day autonomy is the real g
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-22  ·  trend: advancing
+last-touch: 2026-07-22  ·  trend: stalled
 
 | period      | touches |
 |-------------|----------|
-| month       |       6 |
-| trimester   |       7 |
-| semester    |       7 |
-| year        |       7 |
-| 2-year      |       7 |
-| 4-year      |       7 |
+| month       |       0 |
+| trimester   |       6 |
+| semester    |       6 |
+| year        |       6 |
+| 2-year      |       6 |
+| 4-year      |       6 |
 <!-- stats:end -->

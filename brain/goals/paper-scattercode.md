@@ -1,6 +1,8 @@
 # [ craft | research | near ] paper scattercode
 
-Experiment testing impact of code modularization on LLM coding ability. Metrics: assertiveness, precision, speed, total code size, and others. Test across different programming languages. Hypothesis: modular code structure changes agent performance in measurable, reproducible ways.
+Experiment testing impact of code modularization on LLM coding ability. Metrics: assertiveness, precision, speed, total
+code size, and others. Test across different programming languages. Hypothesis: modular code structure changes agent
+performance in measurable, reproducible ways.
 
 >**signals**  
 useful · optional · motivated
@@ -9,7 +11,8 @@ useful · optional · motivated
     [design-experiment] write one-page experiment design: hypothesis, conditions, metrics, languages
 
 **ease-start**  
-In one paragraph: what does "modularization" mean in this experiment, and what do you expect to find? Don't formalize — just write the intuition.
+In one paragraph: what does "modularization" mean in this experiment, and what do you expect to find? Don't formalize —
+just write the intuition.
 
 ## backlog
 
@@ -27,14 +30,14 @@ In one paragraph: what does "modularization" mean in this experiment, and what d
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-22  ·  trend: advancing
+last-touch: 2026-07-22  ·  trend: stalled
 
 | period      | touches |
 |-------------|----------|
-| month       |       6 |
-| trimester   |       7 |
-| semester    |       7 |
-| year        |       7 |
-| 2-year      |       7 |
-| 4-year      |       7 |
+| month       |       0 |
+| trimester   |       6 |
+| semester    |       6 |
+| year        |       6 |
+| 2-year      |       6 |
+| 4-year      |       6 |
 <!-- stats:end -->

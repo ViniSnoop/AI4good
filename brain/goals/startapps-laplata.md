@@ -1,8 +1,11 @@
 # [ craft | startapps | dream ] laplata
 
-Promovido a núcleo 4 e infraestrutura do instituto (2026-07-07): dossiê em [branches/instituto/nucleo-laplata.md](../../branches/instituto/nucleo-laplata.md); pipeline M1 em [code/laplata](../../code/laplata/ROADMAP.md); números-semente em [RALOS.md](../../branches/instituto/RALOS.md).
+Promovido a núcleo 4 e infraestrutura do instituto (2026-07-07): dossiê em
+[branches/instituto/nucleo-laplata.md](../../branches/instituto/nucleo-laplata.md); pipeline M1 em
+[code/laplata](../../code/laplata/ROADMAP.md); números-semente em [RALOS.md](../../branches/instituto/RALOS.md).
 
-Map the logic of money. Visualize flows. Heavy data visualization. Understand society's movement: where people spend, how money circulates, where it drains, what's paying more, which demands are suppressed or abundant. Anticipate markets.
+Map the logic of money. Visualize flows. Heavy data visualization. Understand society's movement: where people spend,
+how money circulates, where it drains, what's paying more, which demands are suppressed or abundant. Anticipate markets.
 
 >**signals**  
 useful · optional · motivated
@@ -14,7 +17,8 @@ useful · optional · motivated
     [data-hunt] find one public dataset of financial flows — IBGE, Banco Central open data
 
 **ease-start**  
-Search "dados abertos Banco Central" and "IBGE consumo das famílias." Find one dataset that shows where money moves. Download it. Just look at it.
+Search "dados abertos Banco Central" and "IBGE consumo das famílias." Find one dataset that shows where money moves.
+Download it. Just look at it.
 
 ## backlog
 
@@ -31,14 +35,14 @@ Search "dados abertos Banco Central" and "IBGE consumo das famílias." Find one 
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-31  ·  trend: advancing
+last-touch: 2026-08-14  ·  trend: steady
 
 | period      | touches |
 |-------------|----------|
-| month       |       5 |
-| trimester   |      10 |
-| semester    |      10 |
-| year        |      10 |
-| 2-year      |      10 |
-| 4-year      |      10 |
+| month       |       3 |
+| trimester   |      11 |
+| semester    |      11 |
+| year        |      11 |
+| 2-year      |      11 |
+| 4-year      |      11 |
 <!-- stats:end -->

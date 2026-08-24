@@ -22,7 +22,8 @@ else here has to be tidy at write time. The routing table below says what each f
 
 ## Skills
 
-- `/compass` — gentle strategic review: good wind, reorder by motivation, negotiate timing, ditch freely, close wins, next easy start
+- `/compass` — gentle strategic review: good wind, reorder by motivation, negotiate timing, ditch freely, close wins,
+  next easy start
 - `/inbox` — triage INBOX.md entries
 
 Goal file format, section specs, signals/dynamics/timing fields → [SPECS.md](SPECS.md).

@@ -1,6 +1,8 @@
 # [ finances | management | near ] finances
 
-Gastar só o dinheiro que sobra, não o que falta. Have reserve boxes with defined purposes. Build financial clarity: know what comes in, what's committed, what's left — and only spend what's left. Not austerity — just alignment between spending and actual availability.
+Gastar só o dinheiro que sobra, não o que falta. Have reserve boxes with defined purposes. Build financial clarity: know
+what comes in, what's committed, what's left — and only spend what's left. Not austerity — just alignment between
+spending and actual availability.
 
 >**signals**  
 meaningful · essential · motivated
@@ -9,7 +11,8 @@ meaningful · essential · motivated
     [map-numbers] map current monthly income and fixed expenses — just the numbers
 
 **ease-start**  
-Open a blank page or spreadsheet. Write: total monthly income. Then list every fixed expense (rent, subscriptions, phone, etc.) and their amounts. Subtract. That number is what actually exists. 20 minutes, no judgment.
+Open a blank page or spreadsheet. Write: total monthly income. Then list every fixed expense (rent, subscriptions,
+phone, etc.) and their amounts. Subtract. That number is what actually exists. 20 minutes, no judgment.
 
 >**timing**  
 *target · financial map complete within 2 weeks  
@@ -33,14 +36,14 @@ fallback · even a rough estimate is better than no map*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-22  ·  trend: stalled
+last-touch: 2026-08-24  ·  trend: decelerating
 
 | period      | touches |
 |-------------|----------|
-| month       |       0 |
-| trimester   |       6 |
-| semester    |       6 |
-| year        |       6 |
-| 2-year      |       6 |
-| 4-year      |       6 |
+| month       |       1 |
+| trimester   |       7 |
+| semester    |       7 |
+| year        |       7 |
+| 2-year      |       7 |
+| 4-year      |       7 |
 <!-- stats:end -->

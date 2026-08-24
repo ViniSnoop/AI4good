@@ -1,6 +1,8 @@
 # [ craft | teaching | near ] teaching materials paradigm
 
-Mudar o paradigma do material de aulas. Slides como arquivos abertos, com animações, acessíveis e editáveis. Sair do PowerPoint/PDF estático e entrar em algo vivo — onde o conteúdo pode ser versionado, transformado por agentes, e verdadeiramente interativo. Before building: understand what's best-in-class today.
+Mudar o paradigma do material de aulas. Slides como arquivos abertos, com animações, acessíveis e editáveis. Sair do
+PowerPoint/PDF estático e entrar em algo vivo — onde o conteúdo pode ser versionado, transformado por agentes, e
+verdadeiramente interativo. Before building: understand what's best-in-class today.
 
 **A metade que faltava, dita por Lucas em 2026-08-14: conectividade antes de formato.** Hoje o
 material de aula **não mora no workspace** — slides e forms estão no **Google Drive**, a página da
@@ -42,26 +44,56 @@ Comece escrevendo **uma** semana-padrão: o que a quarta faz, o que a sexta faz.
 
 ## backlog
 
-> [ ] [metodologia-tecedu] semana-padrão (quarta e sexta com papéis fixos, uma pergunta e um produto por encontro), as 9 etapas mapeadas nos 34 encontros reais (números em `academy/teaching/tecnologias-na-educacao/CONTEXT.md`), avaliação nova, dashboard que substitui as duas planilhas Google, e o padrão MODELO+EXEMPLO em toda entrega  
-> [ ] [pesquisa-que-falta] gamificação séria (sem infantilizar), specs/contract grading, mecanismos de avaliação por pares com propriedades verificáveis, e venues de publicação alcançáveis por graduandos em um semestre  
-> [ ] [notion-write] WOS edita a página da turma — o CLI lê; escrever a metodologia nova lá é o que fecha o ciclo para os alunos  
-> [ ] [excalidraw-vs-miro] veredito sobre trocar o Miro: a colaboração ao vivo do Excalidraw é efêmera e morre com a aba de quem abriu. Decidir **com a evidência da aula de 2026-08-19**, não antes  
-> [ ] [research-tools] research best current teaching tools — interactive slides, animations, open formats — start from the animation entries in `core/refs/REFS-unjudged.md` (claude-code+remotion, Claude Code UI-animation skills). **Reescopado 2026-08-14:** o WOS agora lê e edita os decks direto no Google Slides (`core/tools/slides/gslides`), e Slidev foi deletado — a pergunta aberta não é mais qual formato local adotar, é quanto de animação dá pra autorar como sequência de slides gerada (inclui a ideia de um gerador de animações próprio)  
+> [ ] [metodologia-tecedu] semana-padrão (quarta e sexta com papéis fixos, uma pergunta e um produto por encontro), as 9
+> etapas mapeadas nos 34 encontros reais (números em `academy/teaching/tecnologias-na-educacao/CONTEXT.md`), avaliação
+> nova, dashboard que substitui as duas planilhas Google, e o padrão MODELO+EXEMPLO em toda entrega  
+> [ ] [pesquisa-que-falta] gamificação séria (sem infantilizar), specs/contract grading, mecanismos de avaliação por
+> pares com propriedades verificáveis, e venues de publicação alcançáveis por graduandos em um semestre  
+> [ ] [notion-write] WOS edita a página da turma — o CLI lê; escrever a metodologia nova lá é o que fecha o ciclo para
+> os alunos  
+> [ ] [excalidraw-vs-miro] veredito sobre trocar o Miro: a colaboração ao vivo do Excalidraw é efêmera e morre com a aba
+> de quem abriu. Decidir **com a evidência da aula de 2026-08-19**, não antes  
+> [ ] [research-tools] research best current teaching tools — interactive slides, animations, open formats — start from
+> the animation entries in `core/refs/REFS-unjudged.md` (claude-code+remotion, Claude Code UI-animation skills).
+> **Reescopado 2026-08-14:** o WOS agora lê e edita os decks direto no Google Slides (`core/tools/slides/gslides`), e
+> Slidev foi deletado — a pergunta aberta não é mais qual formato local adotar, é quanto de animação dá pra autorar como
+> sequência de slides gerada (inclui a ideia de um gerador de animações próprio)  
 > [ ] [pick-format] pick a target format or tool — one concrete candidate to prototype with  
 > [ ] [migrate-one] convert one existing lecture to the new format as a test  
 > [ ] [full-migration] define migration plan for remaining course materials  
-> [ ] [excalidraw-aula02] abrir `academy/teaching/tecnologias-na-educacao/aula02-problemas.excalidraw` no excalidraw.com e confirmar que carrega (o JSON foi montado à mão, nunca foi aberto); depois, Live collaboration → copiar o link → trocar `[EXCALIDRAW]` no slide 69 do deck; confirmar se são mesmo 8 equipes (o quadro tem 8 frames)  
-> [ ] [video-carrinho] decidir o vídeo do slot do carrinho — trecho de 4 min do Dietz, ou perguntar à turma "o que envelheceu nesse vídeo de 1999?" (candidatos avaliados em `academy/refs/REFS.md`)  
-> [ ] [medir-redesenho] anotar dois números depois da aula — quantos alunos falaram no bloco de abertura, e quantos grupos saíram com o frame preenchido; é o teste honesto do redesenho  
-> [ ] [questionarios-sextas] mandar os dois questionários pras turmas — links de resposta nos `CONTEXT.md` de `academy/teaching/ai4good/` e `academy/teaching/tecnologias-na-educacao/`; antes, abrir cada link, responder uma vez de teste e apagar a resposta; depois da aula, ler com `core/tools/forms/gforms responses --account personal <form_id>` e decidir o formato das sextas  
-> [ ] [ai4good-book-burning] investigar o caso por trás do reel "this feels like a book burning" e decidir se entra nas aulas de ai4good — ref em `academy/refs/REFS.md` (INBOX 2026-07-28)  
-> [ ] [ai4good-pacing-frontier] assistir o reel "pacing the frontier" e decidir se entra nas aulas — ref em `academy/refs/REFS.md`; a extração só trouxe a legenda, então o conteúdo ainda é desconhecido (INBOX 2026-08-17)  
-> [ ] [arxiv-visuals] achar e testar o arXiv Visuals (paper → explainer animado; link é comment-gated, então achar por fora) — ref em `academy/refs/REFS.md`; teste honesto: rodar num paper que você conhece a fundo e ver se a ordem "conceito mais difícil primeiro" se sustenta ou se é sumarização com narração; se sustentar, decidir dois usos separados: leitura própria e material de aula (INBOX 2026-08-17, *"this IS for me"*)  
-> [ ] [or-gate-shape] OR gate body ainda ausente no deck de portas lógicas; investigar o tipo `CUSTOM` no grupo do slide 23, depois decidir se vale seguir debugando  
-> [ ] [calendario-ufrpe] baixar o calendário acadêmico da UFRPE para ajudar no planejamento das aulas (INBOX 2026-08-18)  
-> [ ] [acessibilidade-edson] preparar uma versão acessível das missões E do site da disciplina para o Edson — os dois artefatos, não só um (INBOX 2026-08-24)  
-> [ ] [slides-pesquisa] material (talvez slides) que apresente aos alunos os conceitos dos projetos de pesquisa: dobra, cria, texpace/spacemantics — serve de ponte entre a disciplina e a pesquisa própria (INBOX 2026-08-24)  
-> [ ] [ai4good-revisao-sobras] sobras da revisão dos decks História/ML/MLP + Prática MLP (2026-08-21): (1) checar visualmente a timeline da parte 3 — cobre Dartmouth 1956, inverno da IA, backprop 1986, AlexNet 2012? decidir se sobe pra parte 1 ou ganha recap; (2) slide-ponte no fim da aula amarrando os dois decks; (3) o único slide de resultados restante é da turma anterior — rotular "turma 2026.1" ou remover; (4) depois de aprovar, deletar os slides marcados "SKIPPED —" nos dois decks; (5) o slide "impacto das funções de ativação" (ex-163) foi deletado junto com sua cópia corrigida — se era pra manter, refazer a correção de pontuação  
+> [ ] [excalidraw-aula02] abrir `academy/teaching/tecnologias-na-educacao/aula02-problemas.excalidraw` no excalidraw.com
+> e confirmar que carrega (o JSON foi montado à mão, nunca foi aberto); depois, Live collaboration → copiar o link →
+> trocar `[EXCALIDRAW]` no slide 69 do deck; confirmar se são mesmo 8 equipes (o quadro tem 8 frames)  
+> [ ] [video-carrinho] decidir o vídeo do slot do carrinho — trecho de 4 min do Dietz, ou perguntar à turma "o que
+> envelheceu nesse vídeo de 1999?" (candidatos avaliados em `academy/refs/REFS.md`)  
+> [ ] [medir-redesenho] anotar dois números depois da aula — quantos alunos falaram no bloco de abertura, e quantos
+> grupos saíram com o frame preenchido; é o teste honesto do redesenho  
+> [ ] [questionarios-sextas] mandar os dois questionários pras turmas — links de resposta nos `CONTEXT.md` de
+> `academy/teaching/ai4good/` e `academy/teaching/tecnologias-na-educacao/`; antes, abrir cada link, responder uma vez
+> de teste e apagar a resposta; depois da aula, ler com `core/tools/forms/gforms responses --account personal <form_id>`
+> e decidir o formato das sextas  
+> [ ] [ai4good-book-burning] investigar o caso por trás do reel "this feels like a book burning" e decidir se entra nas
+> aulas de ai4good — ref em `academy/refs/REFS.md` (INBOX 2026-07-28)  
+> [ ] [ai4good-pacing-frontier] assistir o reel "pacing the frontier" e decidir se entra nas aulas — ref em
+> `academy/refs/REFS.md`; a extração só trouxe a legenda, então o conteúdo ainda é desconhecido (INBOX 2026-08-17)  
+> [ ] [arxiv-visuals] achar e testar o arXiv Visuals (paper → explainer animado; link é comment-gated, então achar por
+> fora) — ref em `academy/refs/REFS.md`; teste honesto: rodar num paper que você conhece a fundo e ver se a ordem
+> "conceito mais difícil primeiro" se sustenta ou se é sumarização com narração; se sustentar, decidir dois usos
+> separados: leitura própria e material de aula (INBOX 2026-08-17, *"this IS for me"*)  
+> [ ] [or-gate-shape] OR gate body ainda ausente no deck de portas lógicas; investigar o tipo `CUSTOM` no grupo do slide
+> 23, depois decidir se vale seguir debugando  
+> [ ] [calendario-ufrpe] baixar o calendário acadêmico da UFRPE para ajudar no planejamento das aulas (INBOX
+> 2026-08-18)  
+> [ ] [acessibilidade-edson] preparar uma versão acessível das missões E do site da disciplina para o Edson — os dois
+> artefatos, não só um (INBOX 2026-08-24)  
+> [ ] [slides-pesquisa] material (talvez slides) que apresente aos alunos os conceitos dos projetos de pesquisa: dobra,
+> cria, texpace/spacemantics — serve de ponte entre a disciplina e a pesquisa própria (INBOX 2026-08-24)  
+> [ ] [ai4good-revisao-sobras] sobras da revisão dos decks História/ML/MLP + Prática MLP (2026-08-21): (1) checar
+> visualmente a timeline da parte 3 — cobre Dartmouth 1956, inverno da IA, backprop 1986, AlexNet 2012? decidir se sobe
+> pra parte 1 ou ganha recap; (2) slide-ponte no fim da aula amarrando os dois decks; (3) o único slide de resultados
+> restante é da turma anterior — rotular "turma 2026.1" ou remover; (4) depois de aprovar, deletar os slides marcados
+> "SKIPPED —" nos dois decks; (5) o slide "impacto das funções de ativação" (ex-163) foi deletado junto com sua cópia
+> corrigida — se era pra manter, refazer a correção de pontuação  
 
 ## done
 
@@ -74,10 +106,10 @@ last-touch: 2026-08-24  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |      27 |
-| trimester   |      41 |
-| semester    |      41 |
-| year        |      41 |
-| 2-year      |      41 |
-| 4-year      |      41 |
+| month       |      28 |
+| trimester   |      42 |
+| semester    |      42 |
+| year        |      42 |
+| 2-year      |      42 |
+| 4-year      |      42 |
 <!-- stats:end -->

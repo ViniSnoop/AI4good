@@ -1,6 +1,9 @@
 # [ craft | startapps | year ] batituque
 
-Rhythm editor and player. Table scheme with eighth notes and different sounds. Musical education and experimentation. Hierarchical expand-collapse visualization: matrices of 8 or 16 beats (columns) × different sounds of the same instrument (lines). All configurable. Pandeiro touches (forró, samba, coco). Instruments as collapsible matrices. Instrument stacking. Configurable loops. Timeline: loop pauses, auto-level control, music building.
+Rhythm editor and player. Table scheme with eighth notes and different sounds. Musical education and experimentation.
+Hierarchical expand-collapse visualization: matrices of 8 or 16 beats (columns) × different sounds of the same
+instrument (lines). All configurable. Pandeiro touches (forró, samba, coco). Instruments as collapsible matrices.
+Instrument stacking. Configurable loops. Timeline: loop pauses, auto-level control, music building.
 
 >**signals**  
 useful · optional · motivated
@@ -9,7 +12,8 @@ useful · optional · motivated
     [matrix-prototype] prototype one rhythm matrix in any tool — 8 beats × 3 instruments
 
 **ease-start**  
-Open a spreadsheet. Make 8 columns (beats) and 3 rows (instruments). Put X where a beat hits. Play it mentally or tap on the table. Does the mental model work? That's the prototype.
+Open a spreadsheet. Make 8 columns (beats) and 3 rows (instruments). Put X where a beat hits. Play it mentally or tap on
+the table. Does the mental model work? That's the prototype.
 
 ## backlog
 
@@ -26,14 +30,14 @@ Open a spreadsheet. Make 8 columns (beats) and 3 rows (instruments). Put X where
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-22  ·  trend: advancing
+last-touch: 2026-07-22  ·  trend: stalled
 
 | period      | touches |
 |-------------|----------|
-| month       |       6 |
-| trimester   |       7 |
-| semester    |       7 |
-| year        |       7 |
-| 2-year      |       7 |
-| 4-year      |       7 |
+| month       |       0 |
+| trimester   |       6 |
+| semester    |       6 |
+| year        |       6 |
+| 2-year      |       6 |
+| 4-year      |       6 |
 <!-- stats:end -->

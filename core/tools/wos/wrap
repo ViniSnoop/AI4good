@@ -1,0 +1,143 @@
+#!/usr/bin/env python3
+# rewrap authored .md prose to the column cap; --apply writes, default reports, --check exits 1
+#
+# The cap itself is core/hooks/limits.env BLOCK_COLS and the question "is this line over" is
+# core/hooks/file_law.py over_column_cap. Neither is restated here: this tool only knows how to
+# BREAK a line, and asks that module which lines need breaking. A second copy of the exemption
+# list is the exact drift the Tier 0 checks exist to catch.
+import re
+import sys
+from pathlib import Path
+
+HERE = Path(__file__).resolve().parent
+WORKSPACE = HERE.parents[2]
+sys.path.insert(0, str(WORKSPACE / 'core' / 'hooks'))
+
+import file_law  # noqa: E402
+from entropy import entropy_corpus  # noqa: E402
+
+# What a line carries before its words, and what a continuation must repeat: indentation, any
+# depth of blockquote marker, and at most one list bullet — whose width becomes a hanging indent.
+PREFIX = re.compile(r'^(?P<indent>[ \t]*)(?P<quote>(?:>[ \t]*)*)'
+                    r'(?P<marker>(?:[-*+][ \t]+|\d+[.)][ \t]+)?)')
+
+# A generator's delimited block. Never hand-edited — fix the generator, per ISSUES.md.
+BLOCK_OPEN = re.compile(r'^\s*<!--\s*[\w-]+:start\s*-->')
+BLOCK_CLOSE = re.compile(r'^\s*<!--\s*[\w-]+:end\s*-->')
+
+
+def split_prefix(line: str) -> tuple:
+    """The line's prefix, the hanging prefix its continuations get, and the words between."""
+    match = PREFIX.match(line)
+    indent, quote, marker = match.group('indent', 'quote', 'marker')
+    body = line[match.end():]
+    return indent + quote + marker, indent + quote + ' ' * len(marker), body
+
+
+def wrap_line(line: str, cols: int) -> list:
+    """Greedily break one over-long line at whitespace, keeping its prefix shape.
+
+    A break at a space is safe for every inline construct markdown has — emphasis, code spans
+    and link text all survive a newline — and `](` holds no space, so a link's target cannot be
+    split from its text. A single token longer than the cap (a bare URL) has no break point and
+    comes back on a line of its own rather than mangled.
+
+    Trailing whitespace is markdown's hard line break and counts against the cap like any other
+    character, so the last segment is measured with it attached — a line that ends two spaces
+    over is the shape this got wrong first.
+    """
+    stripped = line.rstrip()
+    trailing = line[len(stripped):]
+    prefix, hanging, body = split_prefix(stripped)
+    words = body.split()
+    if not words:
+        return [line]
+
+    out, current, started = [], prefix, False
+    for index, word in enumerate(words):
+        room = cols - (len(trailing) if index == len(words) - 1 else 0)
+        trial = current + ' ' + word if started else current + word
+        if started and len(trial) > room:
+            out.append(current)
+            current = hanging + word
+        else:
+            current = trial
+        started = True
+    out.append(current + trailing)
+    return out
+
+
+def rewrap(text: str, cols: int) -> str:
+    """Rewrap every line file_law flags, skipping what a generator or a parser owns.
+
+    over_column_cap already exempts table rows and fenced code; this adds the two shapes that
+    are not its business — a delimited generated block, and YAML frontmatter — because both are
+    read by something that would break on a newline.
+    """
+    flagged = set(file_law.over_column_cap(text, cols))
+    out, generated, frontmatter = [], False, False
+
+    for number, line in enumerate(text.splitlines(), 1):
+        if number == 1 and line.strip() == '---':
+            frontmatter = True
+        elif frontmatter and line.strip() == '---':
+            frontmatter = False
+        if BLOCK_OPEN.match(line):
+            generated = True
+        elif BLOCK_CLOSE.match(line):
+            generated = False
+
+        if number in flagged and not generated and not frontmatter:
+            out.extend(wrap_line(line, cols))
+        else:
+            out.append(line)
+
+    return '\n'.join(out) + ('\n' if text.endswith('\n') else '')
+
+
+def targets(paths: list) -> list:
+    """Every authored .md the dashboard counts, narrowed to the given paths.
+
+    The corpus is entropy_corpus.tracked_files, not a walk: an untracked tmp/ or node_modules/
+    holds thousands of .md files nothing reports on, and drift the dashboard cannot see is not
+    drift this tool may create a diff for.
+    """
+    corpus = [p for p in entropy_corpus.tracked_files(WORKSPACE)
+              if file_law.is_authored_prose(p, WORKSPACE)
+              and not entropy_corpus.is_generated_mirror(p)]
+    if not paths:
+        return corpus
+    roots = [Path(raw).resolve() for raw in paths]
+    return [p for p in corpus if any(p == r or r in p.parents for r in roots)]
+
+
+def main() -> int:
+    args = [a for a in sys.argv[1:] if not a.startswith('--')]
+    apply_changes = '--apply' in sys.argv
+    check_only = '--check' in sys.argv
+    cols = file_law.load_limits()['BLOCK_COLS']
+
+    changed = 0
+    for path in targets(args or ['.']):
+        text = path.read_text(encoding='utf-8')
+        before = file_law.over_column_cap(text, cols)
+        if not before:
+            continue
+        wrapped = rewrap(text, cols)
+        if wrapped == text:
+            print(f'{path.relative_to(WORKSPACE)}: {len(before)} exempt or unbreakable')
+            continue
+        changed += 1
+        if apply_changes:
+            path.write_text(wrapped, encoding='utf-8')
+        left = file_law.over_column_cap(wrapped, cols)
+        rest = f', {len(left)} left' if left else ''
+        print(f'{path.relative_to(WORKSPACE)}: {len(before)} wrapped{rest}')
+
+    if not apply_changes and changed:
+        print(f'\n{changed} file(s) would change — re-run with --apply', file=sys.stderr)
+    return 1 if check_only and changed else 0
+
+
+if __name__ == '__main__':
+    sys.exit(main())

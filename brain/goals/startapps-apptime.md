@@ -1,6 +1,8 @@
 # [ craft | startapps | near ] apptime
 
-Show app usage time and how many times each app was opened. Personal usage analytics with awareness tab linking to research papers on the topic. Has Claude design experiments ready to incorporate. Needs tab reorganization. Target: launch on App Store.
+Show app usage time and how many times each app was opened. Personal usage analytics with awareness tab linking to
+research papers on the topic. Has Claude design experiments ready to incorporate. Needs tab reorganization. Target:
+launch on App Store.
 
 >**signals**  
 meaningful · expected · motivated
@@ -12,7 +14,8 @@ meaningful · expected · motivated
     [pre-launch-list] open the current design and list the 3 changes needed before App Store submission
 
 **ease-start**  
-Open the current apptime design or prototype. Walk through it as a first-time user. Write down the 3 things that feel incomplete or broken. That's the pre-launch list.
+Open the current apptime design or prototype. Walk through it as a first-time user. Write down the 3 things that feel
+incomplete or broken. That's the pre-launch list.
 
 >**timing**  
 *target · App Store submission within 3 months  
@@ -37,14 +40,14 @@ fallback · TestFlight release first if App Store delays*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-31  ·  trend: advancing
+last-touch: 2026-08-20  ·  trend: steady
 
 | period      | touches |
 |-------------|----------|
-| month       |       7 |
-| trimester   |      14 |
-| semester    |      31 |
-| year        |      31 |
-| 2-year      |      31 |
-| 4-year      |      31 |
+| month       |       8 |
+| trimester   |      18 |
+| semester    |      35 |
+| year        |      35 |
+| 2-year      |      35 |
+| 4-year      |      35 |
 <!-- stats:end -->

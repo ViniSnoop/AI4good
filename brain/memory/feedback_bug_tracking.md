@@ -9,6 +9,8 @@ metadata:
 
 Known bugs for isoroll-module belong in `code/isoroll-module/ISSUES.md`, not in the memory system.
 
-**Why:** The project already has a canonical bug tracker file with numbered entries (B1–B17+). Memory is the wrong place for project-specific issue tracking.
+**Why:** The project already has a canonical bug tracker file with numbered entries (B1–B17+). Memory is the wrong place
+for project-specific issue tracking.
 
-**How to apply:** When asked to "write down a bug", read ISSUES.md first, pick the next B-number, and append the entry there.
+**How to apply:** When asked to "write down a bug", read ISSUES.md first, pick the next B-number, and append the entry
+there.

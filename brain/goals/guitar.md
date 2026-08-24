@@ -1,12 +1,16 @@
 # [ fun | music | year ] guitar
 
-Navigate the instrument freely — no chord sheets needed, no overthinking, just being able to create and move through music intuitively. Execute a clear, beautiful sound. Record, create, launch. Play together — there's a barrier here: a belief of not having enough rhythm to sync with others. Electric guitar also waiting: change strings, set it up, build a recording setup.
+Navigate the instrument freely — no chord sheets needed, no overthinking, just being able to create and move through
+music intuitively. Execute a clear, beautiful sound. Record, create, launch. Play together — there's a barrier here: a
+belief of not having enough rhythm to sync with others. Electric guitar also waiting: change strings, set it up, build a
+recording setup.
 
 >**signals**  
 meaningful · expected · indifferent
 
 >**note**  
-The indifferent signal may be a protection layer — the description carries real desire alongside real barriers. Revisit this signal after the first ease-start.
+The indifferent signal may be a protection layer — the description carries real desire alongside real barriers. Revisit
+this signal after the first ease-start.
 
 >**fears**  
 *what · playing with others and being obviously out of sync  
@@ -18,7 +22,8 @@ how · plays alone, avoids sessions with others, barrier stays intact*
     [free-play] pick up guitar and improvise for 10 minutes — no songs, no chords, just explore
 
 **ease-start**  
-Pick up the guitar right now. No goal. No song in mind. Just make sounds for 10 minutes — explore the fretboard, find notes you like, let your hands move without a plan. The point is contact, not performance.
+Pick up the guitar right now. No goal. No song in mind. Just make sounds for 10 minutes — explore the fretboard, find
+notes you like, let your hands move without a plan. The point is contact, not performance.
 
 ## backlog
 
@@ -36,14 +41,14 @@ Pick up the guitar right now. No goal. No song in mind. Just make sounds for 10 
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-22  ·  trend: advancing
+last-touch: 2026-07-22  ·  trend: stalled
 
 | period      | touches |
 |-------------|----------|
-| month       |       6 |
-| trimester   |       7 |
-| semester    |       7 |
-| year        |       7 |
-| 2-year      |       7 |
-| 4-year      |       7 |
+| month       |       0 |
+| trimester   |       6 |
+| semester    |       6 |
+| year        |       6 |
+| 2-year      |       6 |
+| 4-year      |       6 |
 <!-- stats:end -->

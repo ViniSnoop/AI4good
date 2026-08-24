@@ -117,23 +117,31 @@ Ease-start always filled, never blank.
 
 ### Ease-start quality bar (agent-written)
 
-An ease-start is a **do-it-now launcher**, not a vague nudge. Lucas's rule: *don't tell him to "go look" — hand him the thing already loaded.* Every ease-start must carry, when they exist:
+An ease-start is a **do-it-now launcher**, not a vague nudge. Lucas's rule: *don't tell him to "go look" — hand him the
+thing already loaded.* Every ease-start must carry, when they exist:
 
-- **the exact link/handle** — the real URL, phone number, WhatsApp contact, file path, app name (not "open the portal" but "open `plataformabrasil.saude.gov.br` → Novo Projeto").
+- **the exact link/handle** — the real URL, phone number, WhatsApp contact, file path, app name (not "open the portal"
+  but "open `plataformabrasil.saude.gov.br` → Novo Projeto").
 - **numbered steps** — the concrete click-path from cold start to first real action.
-- **the content pre-staged** — if there's a form/message/doc to produce, drop the draft text or point to where the draft already lives (`academy/.../outputs/...`), so it's copy-paste not create-from-zero.
+- **the content pre-staged** — if there's a form/message/doc to produce, drop the draft text or point to where the draft
+  already lives (`academy/.../outputs/...`), so it's copy-paste not create-from-zero.
 - **a 5–10 min ceiling** — the first action must fit one sitting; if it can't, the ease-start is too big.
 
-When the compass/inbox skill lacks a real link or path, it must **go fetch or ask for it** before writing the ease-start — never ship a placeholder. A generic ease-start is a bug.
+When the compass/inbox skill lacks a real link or path, it must **go fetch or ask for it** before writing the ease-start
+— never ship a placeholder. A generic ease-start is a bug.
 
 ## Model Routing (agent-filled)
 
-Optional per-goal hints so a session on this goal starts at the right power/cost. Vocabulary is shared with `core/skills/prepare.md` — provider-agnostic (function in the name, model as data):
+Optional per-goal hints so a session on this goal starts at the right power/cost. Vocabulary is shared with
+`core/skills/prepare.md` — provider-agnostic (function in the name, model as data):
 
-- **tier**: `low` / `medium` / `high` / `max` — capability class (e.g. haiku / sonnet / opus / fable). Maps to Lucas's "decide → write → execute" split: `max`/`high` decides & writes, `medium`/`low` executes.
+- **tier**: `low` / `medium` / `high` / `max` — capability class (e.g. haiku / sonnet / opus / fable). Maps to Lucas's
+  "decide → write → execute" split: `max`/`high` decides & writes, `medium`/`low` executes.
 - **effort**: `low` / `medium` / `high` / `max` — reasoning depth / thoroughness for the run.
 
-Placed as a `>**routing**` block near `>**signals**`. Example: `>**routing**  \nhigh · high` for a research goal like cria; `low · low` for a startapp stub. The router (or `/prepare`) reads it to pick the actual model. Never write a model/provider name in the field itself.
+Placed as a `>**routing**` block near `>**signals**`. Example: `>**routing** \nhigh · high` for a research goal like
+cria; `low · low` for a startapp stub. The router (or `/prepare`) reads it to pick the actual model. Never write a
+model/provider name in the field itself.
 
 ## Rationale — why Brain is shaped this way
 
@@ -141,14 +149,25 @@ Placed as a `>**routing**` block near `>**signals**`. Example: `>**routing**  \n
 > why. Keeping them apart made the *why* a file nobody opened. Every line below is a cited result,
 > and each one is load-bearing for a design choice above.
 
-- **Non-completion = emotion regulation failure**, not laziness (Steel 2007; Sirois & Pychyl 2013). Fix the emotional mechanism, not the discipline.
-- **Perfectionism = ego-protection**. Completing exposes work to judgment. The `fears` block surfaces this so it cannot operate invisibly.
-- **Writing a specific plan closes open loops** without completing the task (Masicampo & Baumeister 2011). Specific `ease-start` steps discharge Zeigarnik tension.
-- **Maximizers get worse outcomes AND less satisfaction** than satisficers (Parker 2007). `closure` pre-commits the satisficing threshold *before* perfectionism can move the goalposts.
-- **Autonomous motivation outperforms willpower** for sustained creative work (Deci & Ryan, SDT; 2022 meta-review). Design for alignment, not obligation.
-- **Small consistent progress is self-reinforcing**: wins → satisfaction → importance → expectancy → more wins (Strand et al. 2025). Celebrate `[x]`, not just final delivery.
-- **Fear made workable, not eliminated**, reduces its behavioural grip (ACT — Wolitzky-Taylor 2015, d≈1.0). The `fears` block is not therapy, it is intelligence.
-- **External timing supplements internal motivation** without replacing it (Ariely & Wertenbroch 2002). `anchor` dates are chosen, never imposed.
-- **Ordering by motivation beats deadline pressure**. Energy follows what has wind, not the clock (SDT). Reviews order by live motivation first; deadlines surface gently and second.
-- **Ditching and deferring are strategic moves, not failures**. A satisficer releases cleanly rather than dragging every open loop (Parker 2007). The compass offers the drop as a valid option, never a verdict.
-- **Timing is negotiated, not imposed**. *"Is this the right moment, or is there better timing?"* — moving a chosen `target` is alignment, not slippage.
+- **Non-completion = emotion regulation failure**, not laziness (Steel 2007; Sirois & Pychyl 2013). Fix the emotional
+  mechanism, not the discipline.
+- **Perfectionism = ego-protection**. Completing exposes work to judgment. The `fears` block surfaces this so it cannot
+  operate invisibly.
+- **Writing a specific plan closes open loops** without completing the task (Masicampo & Baumeister 2011). Specific
+  `ease-start` steps discharge Zeigarnik tension.
+- **Maximizers get worse outcomes AND less satisfaction** than satisficers (Parker 2007). `closure` pre-commits the
+  satisficing threshold *before* perfectionism can move the goalposts.
+- **Autonomous motivation outperforms willpower** for sustained creative work (Deci & Ryan, SDT; 2022 meta-review).
+  Design for alignment, not obligation.
+- **Small consistent progress is self-reinforcing**: wins → satisfaction → importance → expectancy → more wins (Strand
+  et al. 2025). Celebrate `[x]`, not just final delivery.
+- **Fear made workable, not eliminated**, reduces its behavioural grip (ACT — Wolitzky-Taylor 2015, d≈1.0). The `fears`
+  block is not therapy, it is intelligence.
+- **External timing supplements internal motivation** without replacing it (Ariely & Wertenbroch 2002). `anchor` dates
+  are chosen, never imposed.
+- **Ordering by motivation beats deadline pressure**. Energy follows what has wind, not the clock (SDT). Reviews order
+  by live motivation first; deadlines surface gently and second.
+- **Ditching and deferring are strategic moves, not failures**. A satisficer releases cleanly rather than dragging every
+  open loop (Parker 2007). The compass offers the drop as a valid option, never a verdict.
+- **Timing is negotiated, not imposed**. *"Is this the right moment, or is there better timing?"* — moving a chosen
+  `target` is alignment, not slippage.

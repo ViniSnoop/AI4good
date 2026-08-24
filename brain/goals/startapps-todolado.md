@@ -1,6 +1,9 @@
 # [ craft | startapps | year ] todolado
 
-Cards with quotes from known figures — Christ, apostles, Buddha, religious leaders, politicians, artists. Swipe left: "this is from the left." Swipe right: "this is from the right." At the end: the app tells you which personalities you perceive as more left or right. The delight is in the surprises — especially confronting right-wing users with quotes from Jesus Christ. Legal implications to check before launch.
+Cards with quotes from known figures — Christ, apostles, Buddha, religious leaders, politicians, artists. Swipe left:
+"this is from the left." Swipe right: "this is from the right." At the end: the app tells you which personalities you
+perceive as more left or right. The delight is in the surprises — especially confronting right-wing users with quotes
+from Jesus Christ. Legal implications to check before launch.
 
 >**signals**  
 useful · optional · thrilled
@@ -9,7 +12,8 @@ useful · optional · thrilled
     [collect-quotes] collect 20 quotes — 5 from Jesus, 5 politically surprising, 10 others
 
 **ease-start**  
-Open a notes file. Write 5 quotes from Jesus (Sermon on the Mount is fertile ground). Then 5 quotes from politicians you suspect people would misclassify. Then 10 others from the mix. Just text — no design yet.
+Open a notes file. Write 5 quotes from Jesus (Sermon on the Mount is fertile ground). Then 5 quotes from politicians you
+suspect people would misclassify. Then 10 others from the mix. Just text — no design yet.
 
 ## backlog
 
@@ -27,14 +31,14 @@ Open a notes file. Write 5 quotes from Jesus (Sermon on the Mount is fertile gro
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-22  ·  trend: advancing
+last-touch: 2026-07-22  ·  trend: stalled
 
 | period      | touches |
 |-------------|----------|
-| month       |       6 |
-| trimester   |       7 |
-| semester    |       7 |
-| year        |       7 |
-| 2-year      |       7 |
-| 4-year      |       7 |
+| month       |       0 |
+| trimester   |       6 |
+| semester    |       6 |
+| year        |       6 |
+| 2-year      |       6 |
+| 4-year      |       6 |
 <!-- stats:end -->

@@ -19,4 +19,5 @@ goal: match frontier models via coded orchestration). Founded 2026-07-03 in a Fa
 - Sessions must follow code/dobra/CONTEXT.md session protocol (one task, acceptance command, phase gates).
 
 **Why:** central to [[fable-quota-strategy]]-class design work and Lucas's local-ai goal (brain/goals/local-ai.md).
-**How to apply:** any dobra session — read code/dobra/CONTEXT.md first; execution meant for Sonnet/Opus, design for Fable.
+**How to apply:** any dobra session — read code/dobra/CONTEXT.md first; execution meant for Sonnet/Opus, design for
+Fable.

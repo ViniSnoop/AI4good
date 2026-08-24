@@ -1,8 +1,13 @@
 # [ craft | startapps | dream ] gira
 
-Promovido a núcleo 2 do instituto (2026-07-07): dossiê com ciladas, matching por IA e test-to-kill em [branches/instituto/nucleo-circuito.md](../../branches/instituto/nucleo-circuito.md); código embrião em [code/gira](../../code/gira/README.md).
+Promovido a núcleo 2 do instituto (2026-07-07): dossiê com ciladas, matching por IA e test-to-kill em
+[branches/instituto/nucleo-circuito.md](../../branches/instituto/nucleo-circuito.md); código embrião em
+[code/gira](../../code/gira/README.md).
 
-Fomentar uma economia paralela. How to have a community and local circuit routine — not depending on concentrated billionaire resources, high rents, etc. Important caveat from the original idea: don't inadvertently strengthen capitalism by economizing on exploitations (e.g., saving on food might just raise rents as disposable income increases). This awareness is design-level, not just political.
+Fomentar uma economia paralela. How to have a community and local circuit routine — not depending on concentrated
+billionaire resources, high rents, etc. Important caveat from the original idea: don't inadvertently strengthen
+capitalism by economizing on exploitations (e.g., saving on food might just raise rents as disposable income increases).
+This awareness is design-level, not just political.
 
 >**signals**  
 transformative · optional · motivated
@@ -14,7 +19,8 @@ transformative · optional · motivated
     [timebanking-research] read about existing time-banking systems — what's worked in Brazil?
 
 **ease-start**  
-Search "banco de tempo Brasil" — find one existing example. Read how it works. What did it solve and where did it struggle?
+Search "banco de tempo Brasil" — find one existing example. Read how it works. What did it solve and where did it
+struggle?
 
 ## backlog
 
@@ -31,14 +37,14 @@ Search "banco de tempo Brasil" — find one existing example. Read how it works.
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-31  ·  trend: advancing
+last-touch: 2026-08-14  ·  trend: steady
 
 | period      | touches |
 |-------------|----------|
-| month       |       7 |
-| trimester   |      13 |
-| semester    |      13 |
-| year        |      13 |
-| 2-year      |      13 |
-| 4-year      |      13 |
+| month       |       5 |
+| trimester   |      14 |
+| semester    |      14 |
+| year        |      14 |
+| 2-year      |      14 |
+| 4-year      |      14 |
 <!-- stats:end -->

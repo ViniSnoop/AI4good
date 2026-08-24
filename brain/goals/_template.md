@@ -10,7 +10,8 @@ related list of subfolders
 
 <!--
 DESCRIPTION 
-detail in one paragraph the desired outcomes, its constraints, the aimed ideal future, motivations and any other relevant topic-->
+detail in one paragraph the desired outcomes, its constraints, the aimed ideal future, motivations and any other
+relevant topic-->
 Write here the goal description...
 
 <!-- 
@@ -62,7 +63,8 @@ when:
 triggers, when does it activate? situations that activate this fear
 
 why:
-reasons that show why inside you does this come from? the origins, perceived beliefs, past experiences, or internal expectations that seems to reinforce this fear
+reasons that show why inside you does this come from? the origins, perceived beliefs, past experiences, or internal
+expectations that seems to reinforce this fear
 
 how: I handle it now, behavioral barriers, personality traits and patterns that get in the way
 -->
@@ -76,7 +78,8 @@ how · ... *
 <!-- 
 analysis
 how is goal being handled, ponderate all its aspects
-how to surpass the fear, to-overcome your current fear. bring to me with backed scientific arguments (behavioral science and self-regulation research), practical, insightful, and precise thoughts and strategies
+how to surpass the fear, to-overcome your current fear. bring to me with backed scientific arguments (behavioral science
+and self-regulation research), practical, insightful, and precise thoughts and strategies
 -->
 
 >**analysis**  
@@ -103,13 +106,15 @@ target:
 when does this feel naturally right to happen? personal rhythm, not obligation.
 
 anchor:
-external timing anchor you intentionally chose to work with, e.g., semester, conference, season, commitment, opportunity window
+external timing anchor you intentionally chose to work with, e.g., semester, conference, season, commitment, opportunity
+window
 
 closure:
 what outcome or state would make this feel complete enough to release?
 
 tolerance:
-what actually happens if missed and this timing slips? is it negotiable, costly, emotionally relevant, or mostly symbolic?
+what actually happens if missed and this timing slips? is it negotiable, costly, emotionally relevant, or mostly
+symbolic?
 
 fallback:
 if the current window closes is there a plan-b? how should this evolve instead of collapsing?

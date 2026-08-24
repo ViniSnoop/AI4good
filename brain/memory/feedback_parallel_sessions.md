@@ -8,14 +8,20 @@ metadata:
   modified: 2026-08-14T14:26:13.375Z
 ---
 
-Lucas runs several sessions on `/mnt/workspace` in parallel. The tree is a shared mutable surface, so sessions collide — this is a recurring source of confusion and breakage.
+Lucas runs several sessions on `/mnt/workspace` in parallel. The tree is a shared mutable surface, so sessions collide —
+this is a recurring source of confusion and breakage.
 
-**Why:** one session's uncommitted edits are invisible to another; shared files (`core/hooks/pre-commit`, `.gitignore`, `CONTEXT.md`, `core/flows/craft/craft.md`, `.claude/agents/craft-*`) get co-edited. Real incident 2026-07-18: a `git mv` of a skill left a dangling mirror symlink another session's opencode choked on at startup (broke websearch).
+**Why:** one session's uncommitted edits are invisible to another; shared files (`core/hooks/pre-commit`, `.gitignore`,
+`CONTEXT.md`, `core/flows/craft/craft.md`, `.claude/agents/craft-*`) get co-edited. Real incident 2026-07-18: a `git mv`
+of a skill left a dangling mirror symlink another session's opencode choked on at startup (broke websearch).
 
 **How to apply:**
-- **Partition by subtree.** One session owns `core/`, another `code/`, another `brain/`. Never two sessions in `.hooks/` or `.gitignore` at once.
-- **Before refactoring a file, check `git status`** — if it's already `M` (dirty from another session), it's contended; don't rewrite it, coordinate or defer.
-- **Stage explicitly, never `git add -A`.** List your own files so you don't sweep a parallel session's work into your commit.
+- **Partition by subtree.** One session owns `core/`, another `code/`, another `brain/`. Never two sessions in `.hooks/`
+  or `.gitignore` at once.
+- **Before refactoring a file, check `git status`** — if it's already `M` (dirty from another session), it's contended;
+  don't rewrite it, coordinate or defer.
+- **Stage explicitly, never `git add -A`.** List your own files so you don't sweep a parallel session's work into your
+  commit.
 - **A parallel writer can be a bot, not a session, and it writes while you work.** Incident
   2026-08-17: `git add -A` before a rename commit staged a fresh `brain/INBOX.md` capture the
   aiwbot Telegram frontend had appended minutes earlier. Caught by reading the staged diff, not by

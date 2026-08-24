@@ -1,8 +1,12 @@
 # [ craft | startapps | year ] arede
 
-Promovido a núcleo 5 do instituto (2026-07-07): [branches/instituto/nucleo-arede.md](../../branches/instituto/nucleo-arede.md) — agentes LLM derrubaram o custo de manutenção do scoring (a causa-mortis clássica); prioridade menor, depende do circuito pra oferta local.
+Promovido a núcleo 5 do instituto (2026-07-07):
+[branches/instituto/nucleo-arede.md](../../branches/instituto/nucleo-arede.md) — agentes LLM derrubaram o custo de
+manutenção do scoring (a causa-mortis clássica); prioridade menor, depende do circuito pra oferta local.
 
-arede — "compra certo." Connect and organize conscious consumption on the left. Orchestrated consumption: monitor companies across dimensions (trash news involvement, money growth and concentration, employee quality of life, animal testing). Suggest alternatives, transparent about trade-offs.
+arede — "compra certo." Connect and organize conscious consumption on the left. Orchestrated consumption: monitor
+companies across dimensions (trash news involvement, money growth and concentration, employee quality of life, animal
+testing). Suggest alternatives, transparent about trade-offs.
 
 >**signals**  
 meaningful · expected · motivated
@@ -11,7 +15,8 @@ meaningful · expected · motivated
     [criteria] define what makes a brand "bad" — 3 criteria for company scoring
 
 **ease-start**  
-Write 3 criteria you'd use to evaluate companies. What are the 3 dimensions that matter most for the score? Keep it simple enough to be computable.
+Write 3 criteria you'd use to evaluate companies. What are the 3 dimensions that matter most for the score? Keep it
+simple enough to be computable.
 
 ## backlog
 
@@ -28,14 +33,14 @@ Write 3 criteria you'd use to evaluate companies. What are the 3 dimensions that
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-22  ·  trend: advancing
+last-touch: 2026-07-22  ·  trend: stalled
 
 | period      | touches |
 |-------------|----------|
-| month       |       7 |
-| trimester   |       8 |
-| semester    |       8 |
-| year        |       8 |
-| 2-year      |       8 |
-| 4-year      |       8 |
+| month       |       0 |
+| trimester   |       7 |
+| semester    |       7 |
+| year        |       7 |
+| 2-year      |       7 |
+| 4-year      |       7 |
 <!-- stats:end -->

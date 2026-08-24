@@ -1,6 +1,8 @@
 # [ craft | startapps | year ] cuida
 
-Receive people, talk, understand which health aspects are most damaged. Direct them. Boost the healing of this society. Personalized recommendations of services and places. An empathetic first contact for health that doesn't know where to start.
+Receive people, talk, understand which health aspects are most damaged. Direct them. Boost the healing of this society.
+Personalized recommendations of services and places. An empathetic first contact for health that doesn't know where to
+start.
 
 >**signals**  
 useful · optional · motivated
@@ -9,7 +11,8 @@ useful · optional · motivated
     [define-directed] define what "directed" means — what does the app do from contact to recommendation?
 
 **ease-start**  
-Write the simplest version: someone opens cuida, describes how they're feeling, and the app does X. What is X? Write it in 2 sentences. That's the product definition.
+Write the simplest version: someone opens cuida, describes how they're feeling, and the app does X. What is X? Write it
+in 2 sentences. That's the product definition.
 
 ## backlog
 
@@ -26,14 +29,14 @@ Write the simplest version: someone opens cuida, describes how they're feeling, 
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-22  ·  trend: advancing
+last-touch: 2026-07-22  ·  trend: stalled
 
 | period      | touches |
 |-------------|----------|
-| month       |       6 |
-| trimester   |       7 |
-| semester    |       7 |
-| year        |       7 |
-| 2-year      |       7 |
-| 4-year      |       7 |
+| month       |       0 |
+| trimester   |       6 |
+| semester    |       6 |
+| year        |       6 |
+| 2-year      |       6 |
+| 4-year      |       6 |
 <!-- stats:end -->

@@ -1,6 +1,8 @@
 # [ craft | startapps | year ] come bem
 
-Viabilizar uma vida alimentar gostosa (inclusive vegetariana ou vegana) na rotina das grandes cidades. Understands the person's profile: palate, routine, financial availability, food services used (iFood, LiveUp etc.), time and interest in cooking, available containers. Builds plan A, B, C. Monitors and adjusts.
+Viabilizar uma vida alimentar gostosa (inclusive vegetariana ou vegana) na rotina das grandes cidades. Understands the
+person's profile: palate, routine, financial availability, food services used (iFood, LiveUp etc.), time and interest in
+cooking, available containers. Builds plan A, B, C. Monitors and adjusts.
 
 >**signals**  
 meaningful · expected · motivated
@@ -9,7 +11,9 @@ meaningful · expected · motivated
     [self-profile] test the profile questionnaire on yourself
 
 **ease-start**  
-Write your own profile: palate (what you actually enjoy), routine (how real days look), financial comfort with food, which delivery services you use, how much time and interest you have to cook, what containers you have. This is also product design — notice what questions are missing or awkward.
+Write your own profile: palate (what you actually enjoy), routine (how real days look), financial comfort with food,
+which delivery services you use, how much time and interest you have to cook, what containers you have. This is also
+product design — notice what questions are missing or awkward.
 
 ## backlog
 
@@ -27,14 +31,14 @@ Write your own profile: palate (what you actually enjoy), routine (how real days
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-22  ·  trend: advancing
+last-touch: 2026-07-22  ·  trend: stalled
 
 | period      | touches |
 |-------------|----------|
-| month       |       6 |
-| trimester   |       7 |
-| semester    |       7 |
-| year        |       7 |
-| 2-year      |       7 |
-| 4-year      |       7 |
+| month       |       0 |
+| trimester   |       6 |
+| semester    |       6 |
+| year        |       6 |
+| 2-year      |       6 |
+| 4-year      |       6 |
 <!-- stats:end -->

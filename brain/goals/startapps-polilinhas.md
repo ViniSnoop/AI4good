@@ -1,6 +1,7 @@
 # [ craft | startapps | dream ] polilinhas
 
-Timeline of news about politicians — facts, speeches, events. Automatic crawler aggregates public information and makes political behavior traceable and searchable over time.
+Timeline of news about politicians — facts, speeches, events. Automatic crawler aggregates public information and makes
+political behavior traceable and searchable over time.
 
 >**signals**  
 meaningful · expected · thrilled
@@ -9,7 +10,8 @@ meaningful · expected · thrilled
     [poli-01] define MVP scope — politician timeline vs. full crawler
 
 **ease-start**  
-Pick one politician. Manually build their timeline for one month using public news. What would an ideal view look like? That's the MVP target.
+Pick one politician. Manually build their timeline for one month using public news. What would an ideal view look like?
+That's the MVP target.
 
 ## backlog
 
@@ -26,14 +28,14 @@ Pick one politician. Manually build their timeline for one month using public ne
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-22  ·  trend: advancing
+last-touch: 2026-07-22  ·  trend: stalled
 
 | period      | touches |
 |-------------|----------|
-| month       |       6 |
-| trimester   |       7 |
-| semester    |       7 |
-| year        |       7 |
-| 2-year      |       7 |
-| 4-year      |       7 |
+| month       |       0 |
+| trimester   |       6 |
+| semester    |       6 |
+| year        |       6 |
+| 2-year      |       6 |
+| 4-year      |       6 |
 <!-- stats:end -->

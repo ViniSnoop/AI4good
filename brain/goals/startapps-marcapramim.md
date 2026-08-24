@@ -1,6 +1,7 @@
 # [ craft | startapps | year ] marcapramim
 
-AI app that books appointments for the user. The friction of scheduling — especially medical, therapeutic, or administrative — handled by an agent on your behalf.
+AI app that books appointments for the user. The friction of scheduling — especially medical, therapeutic, or
+administrative — handled by an agent on your behalf.
 
 >**signals**  
 useful · optional · indifferent
@@ -25,14 +26,14 @@ Answer: which appointment do you most dread scheduling? That's the first vertica
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-22  ·  trend: advancing
+last-touch: 2026-07-22  ·  trend: stalled
 
 | period      | touches |
 |-------------|----------|
-| month       |       6 |
-| trimester   |       7 |
-| semester    |       7 |
-| year        |       7 |
-| 2-year      |       7 |
-| 4-year      |       7 |
+| month       |       0 |
+| trimester   |       6 |
+| semester    |       6 |
+| year        |       6 |
+| 2-year      |       6 |
+| 4-year      |       6 |
 <!-- stats:end -->

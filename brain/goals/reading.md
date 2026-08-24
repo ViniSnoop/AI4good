@@ -1,6 +1,7 @@
 # [ fun | learning | near ] reading
 
-Ler todo dia. A consistent daily reading habit — not a volume target, not a list to complete. Reading as a default for idle time, as an alternative to phone, as a way of inhabiting thought.
+Ler todo dia. A consistent daily reading habit — not a volume target, not a list to complete. Reading as a default for
+idle time, as an alternative to phone, as a way of inhabiting thought.
 
 >**signals**  
 meaningful · expected · motivated
@@ -22,7 +23,8 @@ fallback · articles or long-form essays count — reading is reading*
 
 > [ ] [pick-book] pick one book and read one page today  
 > [ ] [stevenson] ler Gary Stevenson, incluir obras no workspace onde pertinente (ver academy/refs/REFS.md)  
-> [ ] [bregman] ler Rutger Bregman (Moral Ambition), incluir obras no workspace onde pertinente (ver academy/refs/REFS.md)
+> [ ] [bregman] ler Rutger Bregman (Moral Ambition), incluir obras no workspace onde pertinente (ver
+> academy/refs/REFS.md)
 > [ ] [visible-book] keep a current book somewhere physically visible — not on a shelf  
 > [ ] [week-1] read every day for 7 days — even 5 minutes counts  
 > [ ] [month-1] reading as a natural daily default — no tracking needed  
@@ -34,14 +36,14 @@ fallback · articles or long-form essays count — reading is reading*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-22  ·  trend: advancing
+last-touch: 2026-07-22  ·  trend: stalled
 
 | period      | touches |
 |-------------|----------|
-| month       |       6 |
-| trimester   |       7 |
-| semester    |       7 |
-| year        |       7 |
-| 2-year      |       7 |
-| 4-year      |       7 |
+| month       |       0 |
+| trimester   |       6 |
+| semester    |       6 |
+| year        |       6 |
+| 2-year      |       6 |
+| 4-year      |       6 |
 <!-- stats:end -->

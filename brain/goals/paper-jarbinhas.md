@@ -1,6 +1,8 @@
 # [ craft | research | near ] paper jarbinhas
 
-Jarbas finished his PhD on a design space for advanced coding tools in 3D scenes. Lots of material, nothing published yet. Lucas wants to enter the DC graduate program — needs relevant publications. Goal: be strategic, extract one or more strong papers from the PhD material.
+Jarbas finished his PhD on a design space for advanced coding tools in 3D scenes. Lots of material, nothing published
+yet. Lucas wants to enter the DC graduate program — needs relevant publications. Goal: be strategic, extract one or more
+strong papers from the PhD material.
 
 >**signals**  
 meaningful · essential · indifferent
@@ -16,7 +18,8 @@ fallback · target lower-tier venue first to break the ice, then aim higher*
     [jarb-01] map Jarbas' PhD material — identify 2-3 publishable contributions
 
 **ease-start**  
-Read Jarbas' PhD conclusion and contributions chapter. List every claim that could stand alone as a paper contribution. That list is your starting point.
+Read Jarbas' PhD conclusion and contributions chapter. List every claim that could stand alone as a paper contribution.
+That list is your starting point.
 
 ## backlog
 
@@ -33,14 +36,14 @@ Read Jarbas' PhD conclusion and contributions chapter. List every claim that cou
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-22  ·  trend: advancing
+last-touch: 2026-07-22  ·  trend: stalled
 
 | period      | touches |
 |-------------|----------|
-| month       |       6 |
-| trimester   |       7 |
-| semester    |       7 |
-| year        |       7 |
-| 2-year      |       7 |
-| 4-year      |       7 |
+| month       |       0 |
+| trimester   |       6 |
+| semester    |       6 |
+| year        |       6 |
+| 2-year      |       6 |
+| 4-year      |       6 |
 <!-- stats:end -->

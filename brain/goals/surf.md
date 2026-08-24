@@ -1,6 +1,7 @@
 # [ fun | sports | year ] surf
 
-Aprender a surfar. Recife has ocean within reach — Boa Viagem, Candeias, Piedade. This is one of those things that lives in the imagination as something that fits: body, movement, water, presence.
+Aprender a surfar. Recife has ocean within reach — Boa Viagem, Candeias, Piedade. This is one of those things that lives
+in the imagination as something that fits: body, movement, water, presence.
 
 >**signals**  
 useful · optional · motivated
@@ -9,7 +10,8 @@ useful · optional · motivated
     [find-school] find a surf school in Recife — Boa Viagem or Piedade area
 
 **ease-start**  
-Search for surf schools near Recife this week. Find one with beginner classes. See what a first lesson would look like and cost.
+Search for surf schools near Recife this week. Find one with beginner classes. See what a first lesson would look like
+and cost.
 
 ## backlog
 
@@ -25,14 +27,14 @@ Search for surf schools near Recife this week. Find one with beginner classes. S
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-22  ·  trend: advancing
+last-touch: 2026-07-22  ·  trend: stalled
 
 | period      | touches |
 |-------------|----------|
-| month       |       6 |
-| trimester   |       7 |
-| semester    |       7 |
-| year        |       7 |
-| 2-year      |       7 |
-| 4-year      |       7 |
+| month       |       0 |
+| trimester   |       6 |
+| semester    |       6 |
+| year        |       6 |
+| 2-year      |       6 |
+| 4-year      |       6 |
 <!-- stats:end -->

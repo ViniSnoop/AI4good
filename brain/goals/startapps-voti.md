@@ -1,6 +1,8 @@
 # [ craft | startapps | year ] voti
 
-Conversational interface for political transparency. Based on real politician actions: votes, projects, speech history, legal processes (convicted, innocent, archived — who archived and why). Promotes political awareness. Shows which parties and politicians align with the user — in speech AND in practice. Legal implications to research carefully.
+Conversational interface for political transparency. Based on real politician actions: votes, projects, speech history,
+legal processes (convicted, innocent, archived — who archived and why). Promotes political awareness. Shows which
+parties and politicians align with the user — in speech AND in practice. Legal implications to research carefully.
 
 >**signals**  
 meaningful · expected · motivated
@@ -12,7 +14,8 @@ meaningful · expected · motivated
     [data-research] research available open data: Câmara dos Deputados API, TSE, other sources
 
 **ease-start**  
-Check what's actually available: dados.camara.leg.br and dados.tse.jus.br. What can you get programmatically? What's missing? 1 hour of exploration.
+Check what's actually available: dados.camara.leg.br and dados.tse.jus.br. What can you get programmatically? What's
+missing? 1 hour of exploration.
 
 ## backlog
 
@@ -29,14 +32,14 @@ Check what's actually available: dados.camara.leg.br and dados.tse.jus.br. What 
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-31  ·  trend: advancing
+last-touch: 2026-08-14  ·  trend: steady
 
 | period      | touches |
 |-------------|----------|
-| month       |       8 |
-| trimester   |      14 |
-| semester    |      17 |
-| year        |      17 |
-| 2-year      |      23 |
-| 4-year      |      23 |
+| month       |       6 |
+| trimester   |      15 |
+| semester    |      18 |
+| year        |      18 |
+| 2-year      |      24 |
+| 4-year      |      24 |
 <!-- stats:end -->

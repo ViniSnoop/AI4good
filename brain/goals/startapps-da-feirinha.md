@@ -1,8 +1,12 @@
 # [ craft | startapps | year ] da feirinha
 
-Primeira vertical do núcleo 2 do instituto (2026-07-07): [branches/instituto/nucleo-circuito.md](../../branches/instituto/nucleo-circuito.md) — o test-to-kill do circuito começa na feira, e [map-producers] continua sendo o próximo passo.
+Primeira vertical do núcleo 2 do instituto (2026-07-07):
+[branches/instituto/nucleo-circuito.md](../../branches/instituto/nucleo-circuito.md) — o test-to-kill do circuito começa
+na feira, e [map-producers] continua sendo o próximo passo.
 
-iFoood for agroecology. Massify buying local, quality, pesticide-free food. Fair delivery. Humanized transactions: real names, direct contact between farmer, delivery person, and consumer. R$1/transaction donation to cozinhas solidárias. Educational content: health and local economy. Community creation. Transparent. Human.
+iFoood for agroecology. Massify buying local, quality, pesticide-free food. Fair delivery. Humanized transactions: real
+names, direct contact between farmer, delivery person, and consumer. R$1/transaction donation to cozinhas solidárias.
+Educational content: health and local economy. Community creation. Transparent. Human.
 
 >**signals**  
 transformative · expected · motivated
@@ -11,7 +15,8 @@ transformative · expected · motivated
     [map-producers] map 3 agroecological producers in Recife/PE who could be early partners
 
 **ease-start**  
-Start with people you know or markets you already go to. Feira da Várzea? Feira agroecológica de Recife? Name 3 producers whose food you already trust.
+Start with people you know or markets you already go to. Feira da Várzea? Feira agroecológica de Recife? Name 3
+producers whose food you already trust.
 
 ## backlog
 
@@ -29,14 +34,14 @@ Start with people you know or markets you already go to. Feira da Várzea? Feira
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-22  ·  trend: advancing
+last-touch: 2026-07-22  ·  trend: stalled
 
 | period      | touches |
 |-------------|----------|
-| month       |       7 |
-| trimester   |       8 |
-| semester    |       8 |
-| year        |       8 |
-| 2-year      |       8 |
-| 4-year      |       8 |
+| month       |       0 |
+| trimester   |       7 |
+| semester    |       7 |
+| year        |       7 |
+| 2-year      |       7 |
+| 4-year      |       7 |
 <!-- stats:end -->

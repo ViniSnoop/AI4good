@@ -1,6 +1,9 @@
 # [ health | mental | year ] workspace OS
 
-A centralized personal operating system: all thoughts, projects, demands, full-life organization in one place. Automated setup that eases how life gets managed, reduces mental pressure, and enables goals and dreams to move from idea to action. Reliable, productive, and genuinely used — not just designed. Currently in MVP prototyping phase. First validated version expected in ~6 months.
+A centralized personal operating system: all thoughts, projects, demands, full-life organization in one place. Automated
+setup that eases how life gets managed, reduces mental pressure, and enables goals and dreams to move from idea to
+action. Reliable, productive, and genuinely used — not just designed. Currently in MVP prototyping phase. First
+validated version expected in ~6 months.
 
 >**signals**  
 transformative · essential · thrilled
@@ -10,12 +13,20 @@ transformative · essential · thrilled
 
 >**dynamics**  
 immersed mode · advancing motion · intrinsic source  
-2026-07-22 compass: highest wind + in-flow this session — mvp-gaps localized then closed, gitflow enforced, gitlinks killed, `/compass` shipped. Lucas ordered it #1: make v1 strong (gaps 1&2 cleanup) + finish aiwbot.  
-2026-07-29: the work is no longer *discovering* what to fix — it is draining a known list. Ledgers collapsed to one entrypoint, v1 given an explicit 4-criterion gate. Momentum now depends on the gate staying honest, not on new insight.  
-2026-08-13 compass: **confirmed #1 for a second cycle, and the numbers back it — 29 of 29 workspace commits in 14 days landed here.** Hooks became a root of law plus families, 37 tools became eight, the verify suite split by what it asserts, the session got a size meter, the INBOX drained to zero. The gate held honest under all of it: criterion 3 went *backwards* on purpose when a re-audit across 25 repos found three remotes missing, rather than staying a green tick that was false. What is left is not build — it is **one decision and one mechanical front**. This is a finish.
+2026-07-22 compass: highest wind + in-flow this session — mvp-gaps localized then closed, gitflow enforced, gitlinks
+killed, `/compass` shipped. Lucas ordered it #1: make v1 strong (gaps 1&2 cleanup) + finish aiwbot.  
+2026-07-29: the work is no longer *discovering* what to fix — it is draining a known list. Ledgers collapsed to one
+entrypoint, v1 given an explicit 4-criterion gate. Momentum now depends on the gate staying honest, not on new
+insight.  
+2026-08-13 compass: **confirmed #1 for a second cycle, and the numbers back it — 29 of 29 workspace commits in 14 days
+landed here.** Hooks became a root of law plus families, 37 tools became eight, the verify suite split by what it
+asserts, the session got a size meter, the INBOX drained to zero. The gate held honest under all of it: criterion 3 went
+*backwards* on purpose when a re-audit across 25 repos found three remotes missing, rather than staying a green tick
+that was false. What is left is not build — it is **one decision and one mechanical front**. This is a finish.
 
 ## selected next achievement
-    [v1] pass the four-criterion v1 gate — Tier 0 anti-entropy live · one ledger, no duplicates · everything pushed and gitflow-shaped · clonable by a student
+    [v1] pass the four-criterion v1 gate — Tier 0 anti-entropy live · one ledger, no duplicates · everything pushed and
+    gitflow-shaped · clonable by a student
 
 **All build work lives in [/ROADMAP.md](../../ROADMAP.md)** — the single wos ledger, each step tagged
 with model tier and impact flag. This file holds only why, signals, dynamics, and timing. Plans do not
@@ -63,18 +74,42 @@ fallback · iterate — MVP can always be extended*
 ## backlog
 
 > [ ] [v1] the four-criterion gate — see [/ROADMAP.md](../../ROADMAP.md) § v1 definition of done  
-> [ ] [mvp-validate] use the system daily for 30 days, then assess: does it reduce mental load? By definition post-v1 — this is the achievement v1 exists to make measurable  
-> [ ] [daily-use] the practical layer actually gets used — TODO redesign, dashboard freshness, mobile capture (ROADMAP § The ledger discipline)  
-> [ ] [domain-coverage] `branches/` covers all active life domains and every `GOALS.md` stub has a real goal file (ROADMAP § the .md type system)  
+> [ ] [mvp-validate] use the system daily for 30 days, then assess: does it reduce mental load? By definition post-v1 —
+> this is the achievement v1 exists to make measurable  
+> [ ] [daily-use] the practical layer actually gets used — TODO redesign, dashboard freshness, mobile capture (ROADMAP §
+> The ledger discipline)  
+> [ ] [domain-coverage] `branches/` covers all active life domains and every `GOALS.md` stub has a real goal file
+> (ROADMAP § the .md type system)  
 > [ ] [content-in] course materials and Google Drive brought in under a decided strategy (ROADMAP § Parked, until v1)  
-> [ ] [offline-resilient] survives a world without internet — Reticulum for network, Kiwix for corpus (parked, ROADMAP § Parked)  
-> [ ] [checkup-metodo] checkup de rotina do workspace (INBOX 2026-07-30) — rodar `core/tools/test/verify-fast`, ler `ISSUES.md` § Entropy (a contagem, nunca uma cópia), e auditar os 4 critérios de v1 no `/ROADMAP.md` contra o que é verdade hoje; sessão de leitura + medição, o que virar trabalho vira item de lá, não daqui. E o checkup precisa de um método (INBOX 2026-08-13: *"tô com bastante vontade de testar as nossas features do wos. tem que ver uma forma válida de fazer isso"*) — usar as features de verdade, não só verificar que passam; a forma de exercitá-las é parte do que essa sessão tem que descobrir  
-> [ ] [fable-credito] confirmar se o crédito Fable (100 usd até setembro) ainda consome do limite por turno/semanal, ou se é isento (INBOX 2026-07-24)  
-> [ ] [plan-mode-default] deixar o plan mode como default de sessão nova na extensão VSCode do Claude Code (INBOX 2026-08-16) — config do harness, não do workspace: checar se há setting em `.claude/settings.json` ou se é só na UI da extensão; se for setting, é one-liner e a skill `update-config` cobre. Casa com a mudança do `/roundup`, que agora fecha pedindo *plan*, não *continue*  
-> [ ] [security-gates] decidir quais dos 20 itens da checklist pré-lançamento viram gate de verdade para os projetos que vão pro ar (gira, voti, ppc) — vários já cobertos (secret-scan no pre-commit, skill `security-review`); o que sobra é auth server-side, RLS, rate-limit e headers, que nenhum gate nosso vê. Ref em `core/refs/REFS-unjudged.md` § Shipping an agent-written app (INBOX 2026-08-13)  
-> [ ] [jcode-custo] averiguar o JCode — reimplementação em Rust do harness do Claude Code, com multi-agente no mesmo projeto; duas perguntas separadas, e a segunda vale mais: (1) a ferramenta presta? (2) é mesmo o harness que deixa tudo caro, ou o custo é do modelo? — a (2) dá pra medir aqui sem instalar nada, comparando tokens de scaffolding vs tokens de conteúdo numa sessão nossa. Ref em `core/refs/REFS-tooling.md` § Comparable systems (INBOX 2026-07-31)  
-> [ ] [zcode-trust] aceitar o trust do workspace no ZCode (Settings, ou o prompt ao abrir /mnt/workspace) — **só o Lucas pode**; sem isso os hooks do shim ficam inertes. Depois abrir sessão nova e re-rodar a sonda de `core/experiments/zcode-hook-protocol.md`, que decide se o registro direto fica ou vira adaptador (INBOX 2026-08-21)  
-> [ ] [ferramentas-obsoletas] de tempos em tempos, checar se alguma ferramenta nossa deve ser atualizada ou abandonada porque os modelos e harnesses melhoraram — o WOS existe para contornar fraquezas do modelo, então cada fraqueza corrigida upstream é código nosso que virou peso morto. Mesmo raciocínio do estudo de ablação, em cadência menor (INBOX 2026-08-21)  
+> [ ] [offline-resilient] survives a world without internet — Reticulum for network, Kiwix for corpus (parked, ROADMAP §
+> Parked)  
+> [ ] [checkup-metodo] checkup de rotina do workspace (INBOX 2026-07-30) — rodar `core/tools/test/verify-fast`, ler
+> `ISSUES.md` § Entropy (a contagem, nunca uma cópia), e auditar os 4 critérios de v1 no `/ROADMAP.md` contra o que é
+> verdade hoje; sessão de leitura + medição, o que virar trabalho vira item de lá, não daqui. E o checkup precisa de um
+> método (INBOX 2026-08-13: *"tô com bastante vontade de testar as nossas features do wos. tem que ver uma forma válida
+> de fazer isso"*) — usar as features de verdade, não só verificar que passam; a forma de exercitá-las é parte do que
+> essa sessão tem que descobrir  
+> [ ] [fable-credito] confirmar se o crédito Fable (100 usd até setembro) ainda consome do limite por turno/semanal, ou
+> se é isento (INBOX 2026-07-24)  
+> [ ] [plan-mode-default] deixar o plan mode como default de sessão nova na extensão VSCode do Claude Code (INBOX
+> 2026-08-16) — config do harness, não do workspace: checar se há setting em `.claude/settings.json` ou se é só na UI da
+> extensão; se for setting, é one-liner e a skill `update-config` cobre. Casa com a mudança do `/roundup`, que agora
+> fecha pedindo *plan*, não *continue*  
+> [ ] [security-gates] decidir quais dos 20 itens da checklist pré-lançamento viram gate de verdade para os projetos que
+> vão pro ar (gira, voti, ppc) — vários já cobertos (secret-scan no pre-commit, skill `security-review`); o que sobra é
+> auth server-side, RLS, rate-limit e headers, que nenhum gate nosso vê. Ref em `core/refs/REFS-unjudged.md` § Shipping
+> an agent-written app (INBOX 2026-08-13)  
+> [ ] [jcode-custo] averiguar o JCode — reimplementação em Rust do harness do Claude Code, com multi-agente no mesmo
+> projeto; duas perguntas separadas, e a segunda vale mais: (1) a ferramenta presta? (2) é mesmo o harness que deixa
+> tudo caro, ou o custo é do modelo? — a (2) dá pra medir aqui sem instalar nada, comparando tokens de scaffolding vs
+> tokens de conteúdo numa sessão nossa. Ref em `core/refs/REFS-tooling.md` § Comparable systems (INBOX 2026-07-31)  
+> [ ] [zcode-trust] aceitar o trust do workspace no ZCode (Settings, ou o prompt ao abrir /mnt/workspace) — **só o Lucas
+> pode**; sem isso os hooks do shim ficam inertes. Depois abrir sessão nova e re-rodar a sonda de
+> `core/experiments/zcode-hook-protocol.md`, que decide se o registro direto fica ou vira adaptador (INBOX 2026-08-21)  
+> [ ] [ferramentas-obsoletas] de tempos em tempos, checar se alguma ferramenta nossa deve ser atualizada ou abandonada
+> porque os modelos e harnesses melhoraram — o WOS existe para contornar fraquezas do modelo, então cada fraqueza
+> corrigida upstream é código nosso que virou peso morto. Mesmo raciocínio do estudo de ablação, em cadência menor
+> (INBOX 2026-08-21)  
 
 ## done
 
@@ -90,10 +125,10 @@ last-touch: 2026-08-24  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |     271 |
-| trimester   |     360 |
-| semester    |     380 |
-| year        |     380 |
-| 2-year      |     380 |
-| 4-year      |     380 |
+| month       |     273 |
+| trimester   |     362 |
+| semester    |     382 |
+| year        |     382 |
+| 2-year      |     382 |
+| 4-year      |     382 |
 <!-- stats:end -->

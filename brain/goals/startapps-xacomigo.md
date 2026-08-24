@@ -1,6 +1,8 @@
 # [ craft | startapps | year ] xacomigo
 
-Matching capabilities with demands. Jobs for today and the future. "What is the ideal job for me right now?" Best professional path — a sequence of jobs as a career trajectory. Breaking the "work to survive" logic and establishing "work to fulfill your mission" logic.
+Matching capabilities with demands. Jobs for today and the future. "What is the ideal job for me right now?" Best
+professional path — a sequence of jobs as a career trajectory. Breaking the "work to survive" logic and establishing
+"work to fulfill your mission" logic.
 
 >**signals**  
 meaningful · expected · motivated
@@ -9,7 +11,8 @@ meaningful · expected · motivated
     [value-prop] write the core value proposition in 2 sentences
 
 **ease-start**  
-Write 2 sentences: what does xacomigo do, and why does that matter to a real person. No jargon. Read it aloud — if it sounds like a pitch deck, rewrite it.
+Write 2 sentences: what does xacomigo do, and why does that matter to a real person. No jargon. Read it aloud — if it
+sounds like a pitch deck, rewrite it.
 
 ## backlog
 
@@ -26,14 +29,14 @@ Write 2 sentences: what does xacomigo do, and why does that matter to a real per
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-22  ·  trend: advancing
+last-touch: 2026-07-22  ·  trend: stalled
 
 | period      | touches |
 |-------------|----------|
-| month       |       6 |
-| trimester   |       7 |
-| semester    |       7 |
-| year        |       7 |
-| 2-year      |       7 |
-| 4-year      |       7 |
+| month       |       0 |
+| trimester   |       6 |
+| semester    |       6 |
+| year        |       6 |
+| 2-year      |       6 |
+| 4-year      |       6 |
 <!-- stats:end -->
