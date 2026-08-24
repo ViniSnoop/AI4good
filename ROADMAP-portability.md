@@ -151,7 +151,22 @@ agents first, flows after the pointer question is answered.
    would make this repo's Tier 0 test assert on a nested repo's content, which Front 4 forbids for a
    reason this repo cannot fix.
 
-   **Verdict brought, ruling still Lucas's:** absorb. The evidence is that the deciding question was
-   already settled and the wiring block is structural, not effortful. → **tier: high**, one sitting.
+   **RULED 2026-08-24 (Lucas): absorb.** The verdict brought was absorb, and he took it — the
+   deciding question (what a student clones) was already settled, and the wiring block is
+   structural rather than effortful. This row is no longer a decision; it is a build.
+
+   **What the build touches, mapped 2026-08-24 so the resume is cheap:**
+   - version `code/aiwbot` inside this repo, and delete the standalone repo;
+   - `.gitignore:184` — drop the `code/aiwbot` ignore line;
+   - `core/features.txt:123` — the `telegram-capture` row's wiring column, which reads `-` today;
+   - `core/features.txt:70-73` — the header paragraph documenting *why* the target of zero is not
+     met. It stops being true the moment the row is wired, and a stale explanation of a solved
+     exception is worse than none;
+   - `code/CONTEXT.md` — a routing row (`aiwbot/` is already listed, so confirm rather than add);
+   - `core/tools/test/law/entropy/test_entropy_scatter.py:46-47,70-71` — names `code/aiwbot` as a
+     nested repo in its fixtures. It stops being one; the fixtures need a different example or the
+     test needs a real nested repo that survives.
+
+   → **tier: high**, one sitting, and it is now the largest ruled-but-unbuilt row in this file.
 
 ---
