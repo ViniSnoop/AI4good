@@ -430,7 +430,7 @@ Clean.
 
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
-- . — feature/entropy-column-drain is 5 ahead of main
+- . — feature/entropy-column-drain is 1 ahead of main
 
 ### Remote branches already merged into their base
 
