@@ -38,6 +38,7 @@ from entropy_naming import check_dirs, check_placement, check_shape  # noqa: E40
 from entropy_size import size_signals, stub_signals  # noqa: E402
 from entropy_report import END, SECTIONS, SEED, START, render  # noqa: E402
 from entropy_scatter import scatter  # noqa: E402
+from entropy_trend import baseline, format_trend  # noqa: E402
 from entropy_stores import experiment_hits, ref_tier_hits  # noqa: E402
 from entropy_vendor import vendor_directive_hits  # noqa: E402
 from file_law import load_limits  # noqa: E402
@@ -128,10 +129,14 @@ def main() -> int:
     # the counts come back so the root can sum them in the same pass that wrote them.
     mine, counts = scatter(findings, WORKSPACE_ROOT, files)
     text = REPORT.read_text(encoding='utf-8') if REPORT.exists() else SEED
-    block = render(mine, len(files), WORKSPACE_ROOT, index=counts)
-    REPORT.write_text(replace_block(text, block, START, END), encoding="utf-8")
     here = sum(len(mine[k]) for k, _, _ in SECTIONS)
-    print(f'entropy dashboard → {_rel(REPORT)} ({here + sum(counts.values())} findings, '
+    collected = here + sum(counts.values())
+    # A bare count is how "flat" got written every session while the real number climbed —
+    # re-derive the baseline from git history every run rather than trusting yesterday's memory.
+    trend = format_trend(collected, baseline(WORKSPACE_ROOT))
+    block = render(mine, len(files), WORKSPACE_ROOT, index=counts, trend=trend)
+    REPORT.write_text(replace_block(text, block, START, END), encoding="utf-8")
+    print(f'entropy dashboard → {_rel(REPORT)} ({collected} findings, '
           f'{here} here, {len(counts)} local ledgers)')
     return 0
 

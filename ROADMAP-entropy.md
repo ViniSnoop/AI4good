@@ -12,32 +12,19 @@
 > the agent library has [core/SCHEMA.md](core/SCHEMA.md). Nothing yet governs the shape of the
 > workspace itself.
 
-1. 🟡 **entropy is reported "flat" every session and has roughly quadrupled in four days.** Lucas
-   (INBOX 2026-08-17): *"sessions keep saying entropy is flat but on the last week it went from 270
-   I think up to more than 400."* He is right and the real curve is steeper than his memory of it —
-   re-derived from the count's own history, one command, which is the point. It spans the two files
-   the count has lived in — `entropy.md` until 2026-08-19, the entropy block of `ISSUES.md` after —
-   because a trend that stops at a rename is the same blindness in a new place:
+2. 🟡 **the count's biggest jump has never been separated into scope and rot.** The trend line now
+   prints, so the count can no longer be called flat when it is not — but the reporting fix answered
+   the smaller half. The count went ~95 (2026-08-13) to 297 (2026-08-14) in one day, and that day is
+   also the day the scan went `nested=True` and new checks were added. **Part of that step is almost
+   certainly scope, not drift, and nobody has checked which part.** Until someone does, the trend
+   line's own baseline is a number of unknown meaning: it may be measuring a smaller tree rather than
+   a cleaner one. Re-derive by running today's checks over that day's tree, or by re-running that
+   day's check set over today's — either direction separates the two. The answer decides whether the
+   remaining findings are a cleanup or a reporting artifact. → **tier: medium**.
 
-   ```bash
-   for c in $(git log --format=%h --since="12 days ago" -- entropy.md ISSUES.md); do
-     printf '%s  ' "$(git log -1 --format=%ad --date=short $c)"
-     { git show "$c:ISSUES.md" 2>/dev/null || git show "$c:entropy.md" 2>/dev/null; } \
-       | grep -m1 -oE '[0-9]+ findings'
-   done | sort -u
-   ```
-
-   `~94` (08-13) → `297` (08-14) → `402`…`435` (08-15) → `440` (08-17). **Every session compared
-   itself only to the session before it, where the delta really is ±1, and wrote "flat" into the
-   hand-off** — which the next session then inherited as fact. A true statement at one time scale,
-   false at the one that matters, repeated because nothing re-checks the baseline. Front 17's shape
-   with a number attached, and the cheapest possible fix: the dashboard should print a **trend
-   against a dated baseline**, not a bare count, so "flat" becomes unwriteable when it is false.
-
-   **Do not treat the 94 → 297 jump as rot until it is checked** — it lands on the day the scan
-   went `nested=True` and new checks were added, so part of that step is almost certainly scope, not
-   drift. Separating the two is the first task, and the answer decides whether this is a reporting
-   bug or a real cleanup. → **tier: medium**.
+   *Filed 2026-08-24 when the reporting half shipped. It was a sub-clause of the item that closed,
+   and closing that item would have deleted this question with it — which is the failure the
+   delete-on-completion policy is one edit away from causing every time an item holds two questions.*
 
 3. 🟢 **drain the entropy dashboard.** `make entropy` → [`ISSUES.md`](ISSUES.md) § Entropy, the whole
    workspace and its nested repos in seconds. Read the report; never re-scan the tree. **Never copy

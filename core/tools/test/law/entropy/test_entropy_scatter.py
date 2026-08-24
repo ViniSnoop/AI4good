@@ -13,13 +13,17 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[4] / 'hooks/entropy/dash
 from entropy_scatter import code_repos, owner, partition  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[4].parent
-TOTAL = re.compile(r'\*\*(\d+) findings\*\*')
+# One definition for both numbers the header can carry, so a header change (like the dated
+# baseline entropy_trend.py inserts between the count and "of them here") is fixed once here
+# rather than in two regexes that can drift apart. `here` is absent on a local ledger's own
+# header (no index there), which is exactly what the optional group is for.
+HEADER = re.compile(r'\*\*(?P<collected>\d+) findings\*\*(?:.*?, (?P<here>\d+) of them here)?')
 
 
 def _reported(ledger: Path) -> int:
     """The finding count a ledger states in its own generated block."""
-    match = TOTAL.search(ledger.read_text(encoding='utf-8'))
-    return int(match.group(1)) if match else 0
+    match = HEADER.search(ledger.read_text(encoding='utf-8'))
+    return int(match.group('collected')) if match else 0
 
 
 def test_every_code_repo_has_its_own_ledger() -> None:
@@ -30,8 +34,9 @@ def test_every_code_repo_has_its_own_ledger() -> None:
 def test_the_root_total_equals_the_sum_of_the_local_ledgers() -> None:
     repos = code_repos(ROOT)
     root_text = (ROOT / 'ISSUES.md').read_text(encoding='utf-8')
-    collected = int(TOTAL.search(root_text).group(1))
-    here = int(re.search(r'\*\*\d+ findings\*\*, (\d+) of them here', root_text).group(1))
+    match = HEADER.search(root_text)
+    collected = int(match.group('collected'))
+    here = int(match.group('here'))
     scattered = sum(_reported(ROOT / repo / 'ISSUES.md') for repo in repos)
     assert collected == here + scattered
 

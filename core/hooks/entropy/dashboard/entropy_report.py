@@ -80,7 +80,8 @@ def _index(counts: dict, here: int) -> list:
     return out + [f'| **collected** | **{scattered + here}** |']
 
 
-def render(findings: dict, scanned: int, root, name: str = '', index: dict = None) -> str:
+def render(findings: dict, scanned: int, root, name: str = '', index: dict = None,
+           trend: str = '') -> str:
     total = sum(len(findings[key]) for key, _, _ in SECTIONS)
     scope = f'`{name}`' if name else 'the whole tree'
     collected = total + sum(index.values()) if index else total
@@ -92,7 +93,7 @@ def render(findings: dict, scanned: int, root, name: str = '', index: dict = Non
            'number is the drift these checks exist to catch.',
            '',
            f'{date.today().isoformat()} · {scanned} tracked files scanned · '
-           f'**{collected} findings**'
+           f'**{collected} findings**{trend}'
            + (f', {total} of them here' if index else ''), '',
            '| Check | Findings |', '|-------|----------|']
     out += [f'| {title} | {len(findings[key])} |' for key, title, _ in SECTIONS]

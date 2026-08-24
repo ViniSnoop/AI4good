@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 
 ROOT: Incomplete
-TOTAL: Incomplete
+HEADER: Incomplete
 
 def test_every_code_repo_has_its_own_ledger() -> None: ...
 def test_the_root_total_equals_the_sum_of_the_local_ledgers() -> None: ...

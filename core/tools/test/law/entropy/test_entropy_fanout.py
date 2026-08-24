@@ -33,6 +33,14 @@ BASELINE = {
     # splitting it the way `law/entropy/` and `workspace/generators/` already are: one test
     # directory per hook directory it covers.
     'core/tools/test/workspace/gates',
+    # Joined 2026-08-24 with `wrap`, the eighth tool acting on the workspace itself. The name has
+    # not drifted — every file here really is a CLI that operates on this repo — so the count is
+    # the cost of a family directory doing its job, the same reading `core/hooks/entropy` gets
+    # below. Retired by splitting on what each tool TOUCHES: the ledgers it reads (`spec-scan`,
+    # `spec-contract-check`, `features`, `deps`) against the files it rewrites (`wrap`,
+    # `sync-skills`, `sync-global-skills`, `roundup`). Cost the hop before taking it — the split
+    # rejected for `core/hooks/entropy/` was rejected for removing less table than it added.
+    'core/tools/wos',
     # Joined 2026-08-20 with the eighth one-question check (entropy_size, entropy_vendor). Unlike
     # the row above, the NAME has not drifted — every module here really does answer one question
     # about the corpus, which is the directory's stated design, so the count is the cost of that

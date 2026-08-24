@@ -73,3 +73,26 @@ será que texpace e spacemantics tem a ver com essa semantic layer?
 https://www.instagram.com/p/DbiVrYngBiV/?img_index=3&igsi=MXBud3JkZjIwdnl2aQ==
 headroom parece ressoar com a ideia que dei de mipmaps e 3d model lod pra contextos de llm
 — via aiwbot · 2026-08-21
+
+ref: os dois caps brigam entre si. Drenar o cap de 120 colunas empurrou
+academy/administration/coordenacao-lc/novo-ppc-bcc/ROADMAP-ementas.md de 195 pra 270 linhas, passando
+o BLOCK de 200. Troca uma finding por outra e trava o commit. Falta uma regra dizendo qual cap ganha
+quando um arquivo já está perto do outro. — sessão 2026-08-24
+
+ref: uma norm é uma linha por contrato, então o bloco de regras do AGENTS.md nunca satisfaz o cap de
+coluna. core/tools/test/wos/test_norms.py extrai só as linhas que começam com "- ", e uma regra
+quebrada em duas some da lista. Ou o teste rejunta as continuações, ou AGENTS.md — o arquivo mais
+lido do workspace — carrega 3 findings pra sempre. — sessão 2026-08-24
+
+ref: ~42 das findings de coluna que sobraram são linhas `description:` de frontmatter YAML. Não dá
+pra quebrar sem quebrar o parse, que é exatamente o critério das duas isenções que over_column_cap já
+tem (linha de tabela, bloco de código). Candidata a terceira isenção — decisão do Lucas, não de uma
+sessão. — sessão 2026-08-24
+
+ref: academy/papers/* são repos próprios. O dashboard conta as findings deles (~25) mas o repo do
+workspace não pode arrumar, e Overleaf é a autoridade lá. Trabalho que aparece na conta e não aparece
+em lugar nenhum onde se possa fazer. — sessão 2026-08-24
+
+ref: os goal files têm blocos `<!-- done:start -->` cheios de trabalho terminado que a política de
+completion-is-deletion mandaria cortar. O wrap não toca (bloco gerado), então isso fica sendo resíduo
+permanente até alguém cortar. — sessão 2026-08-24
