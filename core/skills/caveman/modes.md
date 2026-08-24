@@ -26,7 +26,8 @@ examples, not six.
 
 ## Example — "Explain database connection pooling."
 
-- lite: "Connection pooling reuses open connections instead of creating new ones per request. Avoids repeated handshake overhead."
+- lite: "Connection pooling reuses open connections instead of creating new ones per request. Avoids repeated handshake
+  overhead."
 - full: "Pool reuse open DB connections. No new connection per request. Skip handshake overhead."
 - ultra: "Pool = reuse DB conn. Skip handshake → fast under load."
 - wenyan-full: "池reuse open connection。不每req新開。skip handshake overhead。"

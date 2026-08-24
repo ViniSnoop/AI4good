@@ -5,11 +5,14 @@ description: Emit a copy-pasteable resume prompt for the next session. For the f
 
 # Handoff skill
 
-Produce the resume prompt for the next session. Capture only what is **not already in project files** — reference the file instead of repeating it.
+Produce the resume prompt for the next session. Capture only what is **not already in project files** — reference the
+file instead of repeating it.
 
 Arguments: $ARGUMENTS  (focus for next session)
 
-> **Narrow by design.** This emits only the resume prompt. To also archive completed work, route session knowledge to durable files, drain the INBOX, and run the verification gate first, use `/roundup` — it runs those phases, then calls `/handoff`.
+> **Narrow by design.** This emits only the resume prompt. To also archive completed work, route session knowledge to
+> durable files, drain the INBOX, and run the verification gate first, use `/roundup` — it runs those phases, then calls
+> `/handoff`.
 
 ## Decide first — is there anything to hand off?
 
@@ -67,7 +70,8 @@ it, with no block to carry across by hand, which is why
 at `CTX_LOUD`. Overwrite it: the newest hand-off is the only one worth resuming, and `outputs/`
 is gitignored, so nothing durable is lost.
 
-**Never spawn a successor session.** Decided 2026-08-13 ([`core/SPECS-session.md`](../SPECS-session.md) § AD-09): `claude --bg`
+**Never spawn a successor session.** Decided 2026-08-13 ([`core/SPECS-session.md`](../SPECS-session.md) § AD-09):
+`claude --bg`
 can start a fresh-context agent but cannot move the terminal Lucas types into, so a spawned
 successor would work the same branch *unattended, in parallel with the live session*. Prepare
 the artifact; let Lucas move his own attention.

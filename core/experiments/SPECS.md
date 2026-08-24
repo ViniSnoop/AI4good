@@ -29,7 +29,8 @@ workspace rule that nothing actually blocks. Owning a detector and charging for 
 [`core/hooks/entropy/entropy_stores.py`](../hooks/entropy/entropy_stores.py) asserts every section
 of it, blocking through the commit gate and counted on the dashboard. Before that the discipline
 held only because few and careful sessions followed it, which made this directory INDUCED wearing
-the costume of ENFORCED — the defect [`core/SPECS-discipline.md`](../SPECS-discipline.md) § AD-16 is about. What is *not*
+the costume of ENFORCED — the defect [`core/SPECS-discipline.md`](../SPECS-discipline.md) § AD-16 is about. What is
+*not*
 enforced is the content: nothing can tell a runnable `Method` line from a plausible one.
 
 ## The format

@@ -12,7 +12,10 @@ Tier semantics (low/medium/high/max) and the escalation rules live in
 
 ## Tier → provider → model mapping — VOLATILE
 
-Tiers are vertical (low/medium/high/max) — work capacity. Provider selects *which* models fill the tiers and never cross-contaminates billing across a single chain. The orchestrator resolves the active provider **once, up front**, before Loop 0; every executor in that chain runs on the same provider unless delegation is explicitly downward (see `Provider delegation` below).
+Tiers are vertical (low/medium/high/max) — work capacity. Provider selects *which* models fill the tiers and never
+cross-contaminates billing across a single chain. The orchestrator resolves the active provider **once, up front**,
+before Loop 0; every executor in that chain runs on the same provider unless delegation is explicitly downward (see
+`Provider delegation` below).
 
 **Fastest provider detection (use this):**
 
@@ -25,11 +28,15 @@ opencode status 2>&1 | grep -iE 'model|provider'                      # live ses
 rtk grep -A0 -E '"model":\s*"[^/]+' ~/.config/opencode/opencode.json[c]? opencode.json[c]? 2>/dev/null
 ```
 
-The active model id is `<provider>/<model-id>`. Take the **provider prefix** (everything before the first `/`) — that is the chain's provider and the row of the table below that fills its tiers. Detection must happen *before* Loop 0 so the Carry block can record it (see `## Carry` `provider:` field).
+The active model id is `<provider>/<model-id>`. Take the **provider prefix** (everything before the first `/`) — that is
+the chain's provider and the row of the table below that fills its tiers. Detection must happen *before* Loop 0 so the
+Carry block can record it (see `## Carry` `provider:` field).
 
 ### Provider availability — verify BEFORE filling tiers
 
-A provider exists for routing **only if it appears in `opencode models`** (i.e. its API key is configured and at least one model resolves). Pinning a tier to an unavailable model fails the loop with `Tool not found` / `model_not_found`. So the very first orchestrator action — before Loop 0 — is the availability probe:
+A provider exists for routing **only if it appears in `opencode models`** (i.e. its API key is configured and at least
+one model resolves). Pinning a tier to an unavailable model fails the loop with `Tool not found` / `model_not_found`. So
+the very first orchestrator action — before Loop 0 — is the availability probe:
 
 ```bash
 opencode models 2>&1 | awk -F/ '{print $1}' | sort -u     # which providers responded with keys
@@ -42,11 +49,21 @@ opencode models 2>&1 | grep -E '^<provider>/' | grep -ivE 'safety|rerank|embed|g
 alibaba-coding-plan, google, nvidia, ollama-cloud, opencode (Zen free), openrouter
 ```
 
-`anthropic` and `copilot` are **NOT** opencode providers here — the anthropic tier (opus/sonnet/haiku) and the copilot tier exist only when the chain runs under the **Claude Code** or **Copilot CLI** runtimes respectively. Inside opencode those models are reachable **only via the `openrouter/anthropic/*` and `openrouter/.../...` cross-listed endpoints** — and reaching them consumes openrouter credits, never a flat-fee anthropic clock. The provider delegation hierarchy below reflects this: in opencode, "anthropic" reduces to "openrouter/anthropic/* on credits" — so it sits **below** openrouter-only models only when cheaper, which is rarely the case.
+`anthropic` and `copilot` are **NOT** opencode providers here — the anthropic tier (opus/sonnet/haiku) and the copilot
+tier exist only when the chain runs under the **Claude Code** or **Copilot CLI** runtimes respectively. Inside opencode
+those models are reachable **only via the `openrouter/anthropic/*` and `openrouter/.../...` cross-listed endpoints** —
+and reaching them consumes openrouter credits, never a flat-fee anthropic clock. The provider delegation hierarchy below
+reflects this: in opencode, "anthropic" reduces to "openrouter/anthropic/* on credits" — so it sits **below**
+openrouter-only models only when cheaper, which is rarely the case.
 
 ### Per-provider tier maps — filled from availability + benchmarks
 
-For each configured provider, the tier is filled with the **best available** coding-capable text model on that provider, ranked by ArtificialAnalysis agentic_index → coding_index → intelligence_index, then cost (cheaper wins ties). If a tier has **no** available coding-capable model on that provider, the row reads `NONE` — that tier **cannot be served on this provider**, and the orchestrator must either (a) delegate that loop downward to a provider that has it (cost-direction permits), or (b) escalate the loop to the user as blocked. **Never substitute a non-coding/embed/safety/vision/TTS model into a tier — those exist on nvidia et al. but cannot run code loops.**
+For each configured provider, the tier is filled with the **best available** coding-capable text model on that provider,
+ranked by ArtificialAnalysis agentic_index → coding_index → intelligence_index, then cost (cheaper wins ties). If a tier
+has **no** available coding-capable model on that provider, the row reads `NONE` — that tier **cannot be served on this
+provider**, and the orchestrator must either (a) delegate that loop downward to a provider that has it (cost-direction
+permits), or (b) escalate the loop to the user as blocked. **Never substitute a non-coding/embed/safety/vision/TTS model
+into a tier — those exist on nvidia et al. but cannot run code loops.**
 
 | Provider | low | medium | high | max | Billing | Notes |
 |---|---|---|---|---|---|---|
@@ -58,9 +75,12 @@ For each configured provider, the tier is filled with the **best available** cod
 | **alibaba-coding-plan** | (per alibaba-coding-plan `opencode models` list — qwen/glm/kimi re-sellers) | ... | ... | ... | per-plan | Filled from its `opencode models` listing — qwen3-coder-next, glm-5, kimi-k2.5, minimax-m2.5. Map tiers the same way (agentic_index first), verify availability before relying. |
 | **google / ollama-cloud** | (per their `opencode models` listings) | ... | ... | ... | mixed | Fill only if a chain explicitly runs on these providers; defaults below assume nvidia/openrouter/opencode. |
 
-**Default provider per orchestrator runtime (chicken-egg resolved):** the orchestrator inherits its own runtime's provider — Claude Code → anthropic, Copilot CLI → copilot, opencode → detected via the probe above (nvidia by default in this workspace, as the active model is `nvidia/z-ai/glm-5.2`).
+**Default provider per orchestrator runtime (chicken-egg resolved):** the orchestrator inherits its own runtime's
+provider — Claude Code → anthropic, Copilot CLI → copilot, opencode → detected via the probe above (nvidia by default in
+this workspace, as the active model is `nvidia/z-ai/glm-5.2`).
 
-**Benchmarks driving tier selection (ArtificialAnalysis indices: intelligence / coding / agentic / cost $/1M-out, source `openrouter.ai/api/v1/models`):**
+**Benchmarks driving tier selection (ArtificialAnalysis indices: intelligence / coding / agentic / cost $/1M-out, source
+`openrouter.ai/api/v1/models`):**
 
 | Model | intel | coding | agentic | $/M out | Recommended tier |
 |---|---|---|---|---|---|
@@ -73,11 +93,13 @@ For each configured provider, the tier is filled with the **best available** cod
 | claude-haiku-4.5 | 29.6 | 43.9 | 16.4 | $5.00 | low (anthropic only — Haiku is premium-tier-only) |
 | nemotron-3-ultra (550b) | — | — | — | (free on nvidia) | max (nvidia) — reasoning-heavy, fallback for unsolvable high-tier cases |
 
-User instinct confirmed: **GLM 5.2 > DeepSeek V4 Pro > DeepSeek V4 Flash** for nvidia. Source data above; rerun the snippet under `## Provider routing provenance` to refresh quarterly.
+User instinct confirmed: **GLM 5.2 > DeepSeek V4 Pro > DeepSeek V4 Flash** for nvidia. Source data above; rerun the
+snippet under `## Provider routing provenance` to refresh quarterly.
 
 ## Provider delegation — cost-directional, downward only
 
-Delegation across providers is **strongly directional**: an orchestrator on a paid/scarce provider may delegate loops **downward** to cheaper/free subagents to save cost; a free provider may **never** silently pull up to a paid one.
+Delegation across providers is **strongly directional**: an orchestrator on a paid/scarce provider may delegate loops
+**downward** to cheaper/free subagents to save cost; a free provider may **never** silently pull up to a paid one.
 
 ```
 openrouter  →  anthropic  →  copilot  →  nvidia
@@ -94,14 +116,23 @@ openrouter  →  anthropic  →  copilot  →  nvidia
 **Rules:**
 
 1. A single chain stays within one provider by default.
-2. Downward delegation is *encouraged* (cost-saving, never blocked) — e.g., an openrouter orchestrator may run all 8 loops on nvidia sub-agents and pay nothing. Audit tag on the loop file: `executor: loop-N model=<nvidia/...> tier=<tier> deleg=openrouter→nvidia`.
-3. **Upward promotion** (a max-tier escalation that would land on a higher-billing provider) **requires explicit user consent every time** — surface the evidence line + the cost delta (e.g. `loop-3 escalated to max → would spend ~$X of openrouter credits; OK?`). The orchestrator never silently crosses upward.
-4. **nvidia is a hard ceiling.** If `nvidia/.../nemotron-3-ultra` (max tier) still cannot satisfy the loop, the orchestrator does NOT auto-escalate upward — it sets `STATUS.md` to `blocked-flag-pending-user, reason=max-on-nvidia-failed` and stops. The user either runs it themselves on openrouter/anthropic, or overrides.
-5. opencode-Zaen free-tier (provider `opencode`) is treated like nvidia for delegation purposes — rate-limited free, downward-only target, hard ceiling at its own max.
+2. Downward delegation is *encouraged* (cost-saving, never blocked) — e.g., an openrouter orchestrator may run all 8
+   loops on nvidia sub-agents and pay nothing. Audit tag on the loop file: `executor: loop-N model=<nvidia/...>
+   tier=<tier> deleg=openrouter→nvidia`.
+3. **Upward promotion** (a max-tier escalation that would land on a higher-billing provider) **requires explicit user
+   consent every time** — surface the evidence line + the cost delta (e.g. `loop-3 escalated to max → would spend ~$X of
+   openrouter credits; OK?`). The orchestrator never silently crosses upward.
+4. **nvidia is a hard ceiling.** If `nvidia/.../nemotron-3-ultra` (max tier) still cannot satisfy the loop, the
+   orchestrator does NOT auto-escalate upward — it sets `STATUS.md` to `blocked-flag-pending-user,
+   reason=max-on-nvidia-failed` and stops. The user either runs it themselves on openrouter/anthropic, or overrides.
+5. opencode-Zaen free-tier (provider `opencode`) is treated like nvidia for delegation purposes — rate-limited free,
+   downward-only target, hard ceiling at its own max.
 
 ## Provider routing provenance
 
-The `Tier → provider → model` table above is filled from `openrouter.ai/api/v1/models` benchmarks + the local `opencode models` availability probe, on the date stamped in the table. To refresh quarterly (or when a provider adds/removes a model):
+The `Tier → provider → model` table above is filled from `openrouter.ai/api/v1/models` benchmarks + the local `opencode
+models` availability probe, on the date stamped in the table. To refresh quarterly (or when a provider adds/removes a
+model):
 
 ```bash
 # 1. Re-probe local opencode availability (which providers + coding-capable models are live NOW):
@@ -121,4 +152,6 @@ for m in d.get('data',[]):
 "
 ```
 
-Update the `last-reviewed` date in the table after re-running. If availability or ranking changed materially (a provider added a better coding model, a model was retired), bump both the table AND the frontmatter of any pinned executor files that drift from what's actually running — `grep executor .craft/<slug>/*.md` is your post-hoc audit.
+Update the `last-reviewed` date in the table after re-running. If availability or ranking changed materially (a provider
+added a better coding model, a model was retired), bump both the table AND the frontmatter of any pinned executor files
+that drift from what's actually running — `grep executor .craft/<slug>/*.md` is your post-hoc audit.

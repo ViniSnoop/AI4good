@@ -33,11 +33,14 @@ Back-compat aliases: `deep`/`deepresearch`→`sota`, `autoresearch`/`auto`→`ex
 
 ## Execution protocol
 
-1. Read the flow file for the requested workflow (`core/flows/research/<workflow>.md`; resolve aliases `deep`/`deepresearch`→`sota`, `autoresearch`/`auto`→`explore`, `lit`→`literature` first).
+1. Read the flow file for the requested workflow (`core/flows/research/<workflow>.md`; resolve aliases
+   `deep`/`deepresearch`→`sota`, `autoresearch`/`auto`→`explore`, `lit`→`literature` first).
 2. Read `core/tools/CONTEXT.md` to know which tools are available and how to call them.
 3. Execute the workflow step by step. Use bash to invoke tools:
    - `core/tools/paper/papers "<query>"` — arXiv / Semantic Scholar
-   - `core/tools/web/search "<query>"` — unified web search (Exa if `~/.feynman/web-search.json` keyed, else ddgr zero-key fallback; flags: `--n`, `--type neural|keyword`, `--since`, `--domains`, `--content`, `--backend auto|exa|ddgr`)
+   - `core/tools/web/search "<query>"` — unified web search (Exa if `~/.feynman/web-search.json` keyed, else ddgr
+     zero-key fallback; flags: `--n`, `--type neural|keyword`, `--since`, `--domains`, `--content`, `--backend
+     auto|exa|ddgr`)
    - `core/tools/web/fetch "<url>"` — fetch a URL
    - `core/tools/paper/parse <file>` — extract text from PDF/DOCX
    - `core/tools/web/code list|read|search <owner/repo>` — GitHub

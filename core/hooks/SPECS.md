@@ -1,5 +1,6 @@
 # Hooks — Specs
-> What must be true of the enforcement layer, and why: what each gate blocks, and the contract a new agent's shim must satisfy.
+> What must be true of the enforcement layer, and why: what each gate blocks, and the contract a new agent's shim must
+> satisfy.
 
 Companion to [`CONTEXT.md`](CONTEXT.md), which says what this directory *is* and routes into it.
 This file holds the constraints. Installing the toolchain these gates depend on is a third

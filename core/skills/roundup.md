@@ -104,7 +104,8 @@ core/tools/wos/roundup
 
 It runs the verification contract, writes both generated blocks of the root `ISSUES.md` — the
 verification result and the regenerated entropy findings (workspace repo — and commits them
-itself, under `chore(issues)`, so no session ever writes that message by hand), merges `feature/*` → `develop` → `main` and pushes, then prints three lines: `verify:`,
+itself, under `chore(issues)`, so no session ever writes that message by hand), merges `feature/*` → `develop` → `main`
+and pushes, then prints three lines: `verify:`,
 `entropy:`, `sync:`. **Those three lines are the hand-off's State block** — copy the facts, do not
 re-derive them.
 

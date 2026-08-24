@@ -4,7 +4,8 @@ description: >
   Triage brain/INBOX.md — route each entry to a goal, task, reference, project doc, writing draft, or delete. Cross-domain front door: reaches into code ROADMAP/ISSUES and domain refs/, not just brain/.
 ---
 
-Triage brain/INBOX.md — route each entry to its durable home. INBOX is zero-friction capture; taxonomy happens **here at triage**, never at capture.
+Triage brain/INBOX.md — route each entry to its durable home. INBOX is zero-friction capture; taxonomy happens **here at
+triage**, never at capture.
 
 Arguments: $ARGUMENTS
 
@@ -12,7 +13,9 @@ Arguments: $ARGUMENTS
 
 Every route targets a doc that loads **only when needed**: `ROADMAP.md`, `ISSUES.md`, `refs/REFS.md`, goal files.
 
-**NEVER route an entry into a `CONTEXT.md`.** CONTEXT.md loads every session for its whole subtree — every line there costs tokens on every task. Ideas, bugs, and references go to on-demand docs. This is the rule that keeps capture cheap without flooding always-loaded context.
+**NEVER route an entry into a `CONTEXT.md`.** CONTEXT.md loads every session for its whole subtree — every line there
+costs tokens on every task. Ideas, bugs, and references go to on-demand docs. This is the rule that keeps capture cheap
+without flooding always-loaded context.
 
 ## Routes
 
@@ -62,8 +65,10 @@ A `ref` goes to the **nearest owning subtree's** `refs/REFS.md` — never a cent
 
 - **Tier 1 — capture (default, zero-friction):** append one line to `refs/REFS.md`:
   `- [what it is](url) — one-phrase why it matters`. This is **all** `/inbox` ever does for a ref.
-- **Tier 2 — promote (manual, deliberate):** when a ref earns real study or citation, a human promotes it to `refs/<slug>.yaml` (schema = `academy/papers/*/refs/CONTEXT.md`). Triage NEVER auto-creates a yaml.
-- **Lazy creation:** the first ref routed to a domain births `refs/REFS.md` (and a minimal `refs/CONTEXT.md`: line 2 = `> Captured references for <domain>.`). Do NOT pre-seed empty `refs/` folders across projects.
+- **Tier 2 — promote (manual, deliberate):** when a ref earns real study or citation, a human promotes it to
+  `refs/<slug>.yaml` (schema = `academy/papers/*/refs/CONTEXT.md`). Triage NEVER auto-creates a yaml.
+- **Lazy creation:** the first ref routed to a domain births `refs/REFS.md` (and a minimal `refs/CONTEXT.md`: line 2 =
+  `> Captured references for <domain>.`). Do NOT pre-seed empty `refs/` folders across projects.
 
 ### Policy — a ref is not the end of the line (INBOX 2026-07-24, Lucas)
 
@@ -85,9 +90,11 @@ most of them.
 
 ## project route — writing into code repos
 
-- **idea** → append to `code/<proj>/ROADMAP.md` under `## Backlog` (or the project's backlog section), phrased agent-ready.
+- **idea** → append to `code/<proj>/ROADMAP.md` under `## Backlog` (or the project's backlog section), phrased
+  agent-ready.
 - **bug** → append to `code/<proj>/ISSUES.md`.
-- Code projects are their **own git repos**. Write the file, leave it **staged/uncommitted** — do NOT commit. Report which repo(s) were touched so Lucas commits deliberately.
+- Code projects are their **own git repos**. Write the file, leave it **staged/uncommitted** — do NOT commit. Report
+  which repo(s) were touched so Lucas commits deliberately.
 - Never write project ideas into `code/<proj>/CONTEXT.md`.
 
 ## Links — one command, before anything is routed

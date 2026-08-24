@@ -10,7 +10,9 @@ Foundry VTT v14 — HUD positioning in isometric mode: TokenHUD, TileHUD, Ruler 
 
 ## #hud Coordinate System
 
-Foundry positions `#hud` by setting its CSS `style.left = wt.tx + "px"` and `style.top = wt.ty + "px"` **inside the `canvasPan` handler only**. The `#hud` CSS transform is always `scale(1)` — no rotation, no translation in the transform property. Pan offset lives in `style.left/top` directly.
+Foundry positions `#hud` by setting its CSS `style.left = wt.tx + "px"` and `style.top = wt.ty + "px"` **inside the
+`canvasPan` handler only**. The `#hud` CSS transform is always `scale(1)` — no rotation, no translation in the transform
+property. Pan offset lives in `style.left/top` directly.
 
 Within `#hud`, the formula for a world point `(cx, cy)` in CSS px:
 
@@ -22,15 +24,18 @@ const T = (wt.b * cx + wt.d * cy) / zoom;
 // wt.tx/ty intentionally omitted — absorbed by #hud style.left/top
 ```
 
-**Zoom cancels**: `wt.a = zoom * cos_component`, so `wt.a / zoom = cos_component`. The formula is zoom-independent. Works at any zoom level.
+**Zoom cancels**: `wt.a = zoom * cos_component`, so `wt.a / zoom = cos_component`. The formula is zoom-independent.
+Works at any zoom level.
 
 ## PIXI worldTransform Cache — Critical Gotcha
 
-PIXI only recomputes `worldTransform` during the render loop. After setting `stage.rotation` / `stage.skew`, `worldTransform` remains stale (identity) until the next frame.
+PIXI only recomputes `worldTransform` during the render loop. After setting `stage.rotation` / `stage.skew`,
+`worldTransform` remains stale (identity) until the next frame.
 
 **Symptom**: HUD positions correctly after first pan/zoom but wrong on initial load (before any interaction).
 
-**Why**: `canvasPan` never fires on initial load. `#hud style.left/top` are at their default (not matching new `wt.tx/ty`). The formula is correct, but `#hud` is mispositioned.
+**Why**: `canvasPan` never fires on initial load. `#hud style.left/top` are at their default (not matching new
+`wt.tx/ty`). The formula is correct, but `#hud` is mispositioned.
 
 **Fix** — call after `applyCurrentState()` in `canvasReady`:
 
@@ -45,7 +50,8 @@ if (hud) { hud.style.left = `${wt.tx}px`; hud.style.top = `${wt.ty}px`; }
 
 ## Correct Pattern: _updatePosition Prototype Patch
 
-**Use `_updatePosition` prototype patch for both TileHUD and TokenHUD.** Do NOT use `renderTileHUD` / `renderTokenHUD` hooks:
+**Use `_updatePosition` prototype patch for both TileHUD and TokenHUD.** Do NOT use `renderTileHUD` / `renderTokenHUD`
+hooks:
 - Hooks fire only on initial render; `_updatePosition` fires on every tile/token document update too
 - Hooks + RAF have timing issues and can accidentally stomp Foundry's native `transform: scale(uiScale)`
 - Prototype patch preserves `pos.scale` (uiScale) automatically — only set `left/top/width`
@@ -83,7 +89,8 @@ pos.height = 0;   // auto — avoids docH dependency
 
 ## TokenHUD — Centered Layout with Expanded Width
 
-Token `center` is the **visual center** in world space. TokenHUD should be centered horizontally on the iso footprint and use native vertical centering.
+Token `center` is the **visual center** in world space. TokenHUD should be centered horizontally on the iso footprint
+and use native vertical centering.
 
 ```typescript
 const raw = token.center ?? { x: token.x, y: token.y };
@@ -104,7 +111,8 @@ pos.top   = c.top  + centeringOffsetY;  // preserve native vertical centering
 pos.width = visualCssW / s;
 ```
 
-**Centering offset derivation**: in non-iso, `isoHudCenter(x,y).left = x` (zoom cancels). Native `_updatePosition` gives `pos.left = x + centering_offset`. So `centering_offset = pos.left - x = pos.left - raw.x`, zoom-independent.
+**Centering offset derivation**: in non-iso, `isoHudCenter(x,y).left = x` (zoom cancels). Native `_updatePosition` gives
+`pos.left = x + centering_offset`. So `centering_offset = pos.left - x = pos.left - raw.x`, zoom-independent.
 
 ## Shared Utilities
 
@@ -129,7 +137,8 @@ export function isoVisualCssWidth(w: number, h: number): number {
 
 ## Ruler Waypoint Labels
 
-Both `Ruler` and `TokenRuler` compute `context.position = {x: canvasX, y: canvasY}` in `_getWaypointLabelContext`, then write to `#hud #measurement` as CSS `--position-x`/`--position-y`. Patch both prototypes at `init`:
+Both `Ruler` and `TokenRuler` compute `context.position = {x: canvasX, y: canvasY}` in `_getWaypointLabelContext`, then
+write to `#hud #measurement` as CSS `--position-x`/`--position-y`. Patch both prototypes at `init`:
 
 ```typescript
 // TokenRuler is NOT a global — access via CONFIG.Token.rulerClass

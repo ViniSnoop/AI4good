@@ -16,11 +16,14 @@ Tool names are literal. Use only tools visible in the current tool set. See `cor
 
 Summarize the following source: $@
 
-Derive a short slug from the source filename or URL domain (lowercase, hyphens, no filler words, ≤5 words). Use this slug for all files in this run.
+Derive a short slug from the source filename or URL domain (lowercase, hyphens, no filler words, ≤5 words). Use this
+slug for all files in this run.
 
 ## Why this uses the RLM pattern
 
-Standard summarization injects the full document into context. Above ~15k tokens, early content degrades as the window fills (context rot). This workflow keeps the document on disk as an external variable and reads only bounded windows — so context pressure is proportional to the window size, not the document size.
+Standard summarization injects the full document into context. Above ~15k tokens, early content degrades as the window
+fills (context rot). This workflow keeps the document on disk as an external variable and reads only bounded windows —
+so context pressure is proportional to the window size, not the document size.
 
 Tier 1 (below the Tier-1 threshold) is a deliberate exception: direct injection is safe for short inputs.
 
@@ -31,13 +34,16 @@ Tier 1 (below the Tier-1 threshold) is a deliberate exception: direct injection 
 - `--tier1-threshold <chars>` (default: `8000`)
 - `--tier2-threshold <chars>` (default: `60000`)
 
-Validate `window-size > overlap` and `tier1-threshold < tier2-threshold`. Log resolved values once: `[summarize] config window=<w> overlap=<o> tier1=<t1> tier2=<t2>`.
+Validate `window-size > overlap` and `tier1-threshold < tier2-threshold`. Log resolved values once: `[summarize] config
+window=<w> overlap=<o> tier1=<t1> tier2=<t2>`.
 
 ## Step 1 — Fetch, validate, measure
 
 - **GitHub repo URL** (exactly 4 slashes): fetch the raw README instead.
-- **Remote URL**: fetch to disk with `curl -sL -o outputs/.notes/<slug>-raw.txt <url>`. Do NOT use `fetch_content` — its return value enters context directly, bypassing the RLM principle.
-- **Local file or PDF**: copy or extract to `outputs/.notes/<slug>-raw.txt`. For PDFs, extract text via `pdftotext` or equivalent before measuring.
+- **Remote URL**: fetch to disk with `curl -sL -o outputs/.notes/<slug>-raw.txt <url>`. Do NOT use `fetch_content` — its
+  return value enters context directly, bypassing the RLM principle.
+- **Local file or PDF**: copy or extract to `outputs/.notes/<slug>-raw.txt`. For PDFs, extract text via `pdftotext` or
+  equivalent before measuring.
 - **Empty or failed fetch**: stop and surface the error.
 - **Existing output**: if `outputs/<slug>-summary.md` already exists, ask the user whether to overwrite.
 
@@ -59,11 +65,13 @@ Read `outputs/.notes/<slug>-raw.txt` in full. Summarize directly. Write to `outp
 
 ## Tier 2 — RLM-lite windowed read
 
-Extract `<window-size>`-char windows via bash, using char-offset reads (not line offsets). For each window: extract key claims and evidence, append to `outputs/.notes/<slug>-notes.md`. Synthesize notes into `outputs/<slug>-summary.md`.
+Extract `<window-size>`-char windows via bash, using char-offset reads (not line offsets). For each window: extract key
+claims and evidence, append to `outputs/.notes/<slug>-notes.md`. Synthesize notes into `outputs/<slug>-summary.md`.
 
 ## Tier 3 — Full RLM parallel chunks
 
-Chunk the document with overlap, dispatch one `researcher` subagent per chunk (reads only its chunk file, no web search), aggregate summaries, deduplicate boundary claims, write `outputs/<slug>-summary.md`.
+Chunk the document with overlap, dispatch one `researcher` subagent per chunk (reads only its chunk file, no web
+search), aggregate summaries, deduplicate boundary claims, write `outputs/<slug>-summary.md`.
 
 Example subagent task per chunk:
 ```
@@ -100,6 +108,7 @@ All tiers produce the same artifact at `outputs/<slug>-summary.md`:
 [Missing chunk indices]
 ```
 
-Every claim in the summary must trace to the source text actually read. Never fill in content for unread or failed windows — report them under Coverage gaps instead.
+Every claim in the summary must trace to the source text actually read. Never fill in content for unread or failed
+windows — report them under Coverage gaps instead.
 
 Before you stop, verify on disk that `outputs/<slug>-summary.md` exists.

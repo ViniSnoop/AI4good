@@ -16,11 +16,14 @@ Tool names are literal. Use only tools visible in the current tool set. See `cor
 
 Review this AI research artifact: $@
 
-Derive a short slug from the artifact name (lowercase, hyphens, no filler words, ≤5 words). Use this slug for all files in this run.
+Derive a short slug from the artifact name (lowercase, hyphens, no filler words, ≤5 words). Use this slug for all files
+in this run.
 
-This is an execution request, not a request to explain or implement the workflow instructions. Carry out the workflow with tools and durable files.
+This is an execution request, not a request to explain or implement the workflow instructions. Carry out the workflow
+with tools and durable files.
 
-Do not ask for confirmation. Briefly summarize the plan to the user and continue immediately unless the user explicitly asked to review the plan first.
+Do not ask for confirmation. Briefly summarize the plan to the user and continue immediately unless the user explicitly
+asked to review the plan first.
 
 Required artifacts:
 - Plan: `outputs/.plans/<slug>-review-plan.md`
@@ -32,16 +35,23 @@ Workflow:
 1. Create `outputs/.plans`, `outputs/.drafts`, and `outputs`.
 2. Write `outputs/.plans/<slug>-review-plan.md` with:
    - artifact identifier and source type (arXiv ID, URL, local file, PDF, Markdown, etc.)
-   - review criteria: novelty, empirical rigor, baselines, reproducibility, claims validity, figures/tables, metrics, related work, writing quality
+   - review criteria: novelty, empirical rigor, baselines, reproducibility, claims validity, figures/tables, metrics,
+     related work, writing quality
    - verification checks needed for claims, figures, reported metrics, data/code availability, and linked artifacts
 3. Continue immediately. Do not end after planning.
 4. Inspect the artifact:
    - For local files, read or parse the file directly.
-   - For PDFs, use available PDF/document parsing tools. If parsing fails, use any available fallback extraction, record the failure, and still produce a blocked or partial review artifact.
+   - For PDFs, use available PDF/document parsing tools. If parsing fails, use any available fallback extraction, record
+     the failure, and still produce a blocked or partial review artifact.
    - For arXiv IDs or URLs, fetch the paper/source directly and record the URL.
-   - Inspect linked code, datasets, supplemental material, or citations when they are reachable and materially affect the review.
-5. Write evidence notes to `outputs/.drafts/<slug>-review-evidence.md` before writing the final review. Include quoted/paraphrased claims, observed methods, reported metrics, baseline comparisons, reproducibility facts, and every inspected source path or URL.
-6. Use the `researcher` and `reviewer` subagents only if the `subagent` tool is available and the artifact is large enough to benefit from delegation. If subagents are unavailable or would only add overhead, do the lead-owned review directly.
+   - Inspect linked code, datasets, supplemental material, or citations when they are reachable and materially affect
+     the review.
+5. Write evidence notes to `outputs/.drafts/<slug>-review-evidence.md` before writing the final review. Include
+   quoted/paraphrased claims, observed methods, reported metrics, baseline comparisons, reproducibility facts, and every
+   inspected source path or URL.
+6. Use the `researcher` and `reviewer` subagents only if the `subagent` tool is available and the artifact is large
+   enough to benefit from delegation. If subagents are unavailable or would only add overhead, do the lead-owned review
+   directly.
 7. Write exactly one final review artifact to `outputs/<slug>-review.md` with:
    - Summary Assessment
    - Strengths
@@ -52,7 +62,12 @@ Workflow:
    - Inline Annotations tied to sections, claims, figures, or tables where possible
    - Recommendation
    - Sources
-8. If the artifact cannot be parsed or critical evidence is unavailable, still write `outputs/<slug>-review.md`. Mark the affected sections with `Verification: BLOCKED`, explain exactly what failed, and distinguish blocked checks from actual paper weaknesses.
-9. Write `outputs/<slug>-review.provenance.md` (date, artifact identifier, sources inspected vs accepted vs rejected, verification status). Before responding, verify on disk that both `outputs/<slug>-review.md` and its provenance sidecar exist. If the review is missing, create it immediately as a blocked review artifact with the failure reason.
+8. If the artifact cannot be parsed or critical evidence is unavailable, still write `outputs/<slug>-review.md`. Mark
+   the affected sections with `Verification: BLOCKED`, explain exactly what failed, and distinguish blocked checks from
+   actual paper weaknesses.
+9. Write `outputs/<slug>-review.provenance.md` (date, artifact identifier, sources inspected vs accepted vs rejected,
+   verification status). Before responding, verify on disk that both `outputs/<slug>-review.md` and its provenance
+   sidecar exist. If the review is missing, create it immediately as a blocked review artifact with the failure reason.
 
-Never end with planning-only chat. Never ask what to do next. Never claim the review is complete unless `outputs/<slug>-review.md` exists.
+Never end with planning-only chat. Never ask what to do next. Never claim the review is complete unless
+`outputs/<slug>-review.md` exists.

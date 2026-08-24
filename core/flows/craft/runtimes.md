@@ -10,11 +10,18 @@ resolves against is in [`routing.md`](routing.md).
 
 ## Spawn procedure per runtime
 
-Verbatim recipes a fresh-tier executor follows without improvisation. The orchestrator picks ONE runtime based on where it is running; never mix in a single chain.
+Verbatim recipes a fresh-tier executor follows without improvisation. The orchestrator picks ONE runtime based on where
+it is running; never mix in a single chain.
 
 **opencode** (subprocess per loop — required for tier diversity):
 
-opencode's in-session `task` / `subagent` tool does NOT take a `model=` argument — subagents invoked via `task` inherit the orchestrator's own model (per opencode docs §Agents → Model: *"If you don't specify a model, … subagents will use the model of the primary agent that invoked the subagent"*). For an orchestrator that needs different-tier models per loop, that inheritance collapses every tier onto the orchestrator's model. The way to get true tier routing in opencode is therefore to spawn each loop as a **fresh `opencode run` subprocess** carrying the resolved model in `-m`, NOT via the in-session `task` tool. Each subprocess is its own opencode session with its own active model — exactly the "fresh, cheap session that reads exactly one file" the Core Principle calls for.
+opencode's in-session `task` / `subagent` tool does NOT take a `model=` argument — subagents invoked via `task` inherit
+the orchestrator's own model (per opencode docs §Agents → Model: *"If you don't specify a model, … subagents will use
+the model of the primary agent that invoked the subagent"*). For an orchestrator that needs different-tier models per
+loop, that inheritance collapses every tier onto the orchestrator's model. The way to get true tier routing in opencode
+is therefore to spawn each loop as a **fresh `opencode run` subprocess** carrying the resolved model in `-m`, NOT via
+the in-session `task` tool. Each subprocess is its own opencode session with its own active model — exactly the "fresh,
+cheap session that reads exactly one file" the Core Principle calls for.
 
 ```bash
 # orchestrator (loop-server session at $PROJECT_ROOT), per loop N with tier $TIER:
@@ -36,21 +43,34 @@ opencode run \
 ```
 
 Notes a fresh orchestrator must read:
-- Loops are strictly serial — `wait` for each subprocess before spawning the next (each loop reads the previous loop's output file).
-- `--auto` auto-approves non-denied permissions; the executor needs `read`, `edit`, `bash`, `glob`, `grep`. Without `--auto` the subprocess hangs on the first permission prompt and you cannot answer it from the orchestrator's session.
-- Special case: `padaria` chains skip tier routing by design (one medium session does plan+code+ship). For padaria the in-session `task` tool is fine — no per-tier model mix needed, same model throughout.
-- The executors are pinned agent types `craft-low` / `craft-medium` / `craft-high` defined in `.opencode/agents/craft-*.md`; **their frontmatter does NOT carry a `model:` line** (stripped per the agnostic principle — see [`prior-art.md`](prior-art.md) § Research provenance). The `-m <RESOLVED>` passed to `opencode run` selects the executor's model; the `--agent craft-<tier>` selects the role.
-- If `opencode run` is unavailable in a degraded environment, fall back to manual mode: the user opens a fresh opencode TUI session per loop, sets the model with `/model <RESOLVED>`, runs `@craft-<tier> "<spawn-prompt>"`. The flow is unchanged.
+- Loops are strictly serial — `wait` for each subprocess before spawning the next (each loop reads the previous loop's
+  output file).
+- `--auto` auto-approves non-denied permissions; the executor needs `read`, `edit`, `bash`, `glob`, `grep`. Without
+  `--auto` the subprocess hangs on the first permission prompt and you cannot answer it from the orchestrator's session.
+- Special case: `padaria` chains skip tier routing by design (one medium session does plan+code+ship). For padaria the
+  in-session `task` tool is fine — no per-tier model mix needed, same model throughout.
+- The executors are pinned agent types `craft-low` / `craft-medium` / `craft-high` defined in
+  `.opencode/agents/craft-*.md`; **their frontmatter does NOT carry a `model:` line** (stripped per the agnostic
+  principle — see [`prior-art.md`](prior-art.md) § Research provenance). The `-m <RESOLVED>` passed to `opencode run`
+  selects the executor's model; the `--agent craft-<tier>` selects the role.
+- If `opencode run` is unavailable in a degraded environment, fall back to manual mode: the user opens a fresh opencode
+  TUI session per loop, sets the model with `/model <RESOLVED>`, runs `@craft-<tier> "<spawn-prompt>"`. The flow is
+  unchanged.
 
 **Claude Code** (Agent tool per loop):
 
-Spawn via the native `Agent` tool with `subagent_type: 'craft-low'|'craft-medium'|'craft-high'` and the spawn-prompt body above. The agent's frontmatter `model: haiku|sonnet|opus` IS the tier alias Claude Code resolves to the latest low/medium/high-tier slug — Anthropic's own dogfood pattern (see [`prior-art.md`](prior-art.md) § Research provenance, source s8). No subprocess shelling; no `-m` needed.
+Spawn via the native `Agent` tool with `subagent_type: 'craft-low'|'craft-medium'|'craft-high'` and the spawn-prompt
+body above. The agent's frontmatter `model: haiku|sonnet|opus` IS the tier alias Claude Code resolves to the latest
+low/medium/high-tier slug — Anthropic's own dogfood pattern (see [`prior-art.md`](prior-art.md) § Research provenance,
+source s8). No subprocess shelling; no `-m` needed.
 
-**Copilot CLI / anything else**: the user opens a fresh session per loop with the spawn-prompt and picks the model from the active provider's tier-map. Recipe status — copy the executor bodies, adjust the frontmatter for the runtime.
+**Copilot CLI / anything else**: the user opens a fresh session per loop with the spawn-prompt and picks the model from
+the active provider's tier-map. Recipe status — copy the executor bodies, adjust the frontmatter for the runtime.
 
 ## Runtime portability
 
-The flow itself is runtime-agnostic — all state lives in `.craft/` files, so any agent that reads files and runs git can execute a loop. Only the **pinned executor definitions** are per-runtime (same body, different frontmatter dialect):
+The flow itself is runtime-agnostic — all state lives in `.craft/` files, so any agent that reads files and runs git can
+execute a loop. Only the **pinned executor definitions** are per-runtime (same body, different frontmatter dialect):
 
 | Runtime | Executor definitions | Frontmatter `model` (default fallback) | Status |
 |---|---|---|---|
@@ -59,6 +79,9 @@ The flow itself is runtime-agnostic — all state lives in `.craft/` files, so a
 | Copilot CLI | `.github/agents/craft-*.md` **in the target project's repo** (or `~/.copilot/agents/`) | GitHub Models free-tier id | recipe only — copy the Claude Code bodies, adjust frontmatter |
 | anything else | none — manual mode: user opens a fresh session per loop with the spawn prompt and picks the model from the active provider's tier-map | — | always works |
 
-Adapting to a new runtime ≈ 30 min: mirror the three executor bodies, translate the frontmatter, dry-run one padaria task.
+Adapting to a new runtime ≈ 30 min: mirror the three executor bodies, translate the frontmatter, dry-run one padaria
+task.
 
-**rtk note:** the rtk hook rewriting shell commands (`grep` → `rtk grep`, test runners, git) is compatible — verified that `grep executor` output passes through intact, and rtk's compression of test output is *aligned* with this flow's token economy. If any audit output looks over-filtered, bypass with `rtk proxy <cmd>`.
+**rtk note:** the rtk hook rewriting shell commands (`grep` → `rtk grep`, test runners, git) is compatible — verified
+that `grep executor` output passes through intact, and rtk's compression of test output is *aligned* with this flow's
+token economy. If any audit output looks over-filtered, bypass with `rtk proxy <cmd>`.

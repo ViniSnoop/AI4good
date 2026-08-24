@@ -3,7 +3,8 @@
 
 Fragments sourced by [`../roundup`](../roundup), the same shape
 [`../skills/mirror.sh`](../skills/mirror.sh) has for `sync-skills`: the caller keeps the sequence and
-the decisions, a fragment keeps the work one step does. Nothing here runs on its own — each relies on the caller's variables and would be
+the decisions, a fragment keeps the work one step does. Nothing here runs on its own — each relies on the caller's
+variables and would be
 meaningless without them.
 
 **One rule governs every artifact a close regenerates**: write it, then commit it — unless the tree

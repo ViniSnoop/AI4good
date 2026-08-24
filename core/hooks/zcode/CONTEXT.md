@@ -1,5 +1,6 @@
 # zcode
-> ZCode-side instruments: the hook-protocol probes, and the future home of the adapter if direct registration fails fidelity.
+> ZCode-side instruments: the hook-protocol probes, and the future home of the adapter if direct registration fails
+> fidelity.
 
 The registration itself lives outside this tree, in
 [`.zcode/config.json`](../../../.zcode/config.json) — direct spawns of the canonical gates,

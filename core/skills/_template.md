@@ -13,4 +13,5 @@ Arguments: $ARGUMENTS
 
 ## Protocol
 
-<!-- Describe the steps the agent must follow. Be explicit: read which files, run which commands, write to which files. -->
+<!-- Describe the steps the agent must follow. Be explicit: read which files, run which commands, write to which files.
+-->

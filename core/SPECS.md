@@ -64,7 +64,11 @@
   payload de Read e o caso passou *por não bloquear*. Um grep teria ficado verde; a execução falhou
   alto. Daí duas coisas: **caso de teste casa com o basename exato, nunca com sufixo**, e um teste
   que roda a coisa erra ruidosamente onde o proxy erra em silêncio.
-- **Um comando cujo status é um gate nunca vai para dentro de um pipe** (achado 2026-08-13, custou um falso "main pushed"). Em `a | tail && b`, o status é o do `tail`, não o do `a` — então `git merge --ff-only x 2>&1 | tail -1 && git push` executa o push mesmo com o merge abortado, e a sessão reporta sucesso de algo que não aconteceu. Para sequências onde cada passo autoriza o próximo: `set -e` e sem pipes, ou capturar o status explicitamente. Filtrar saída é para inspeção, não para decisão.
+- **Um comando cujo status é um gate nunca vai para dentro de um pipe** (achado 2026-08-13, custou um falso "main
+  pushed"). Em `a | tail && b`, o status é o do `tail`, não o do `a` — então `git merge --ff-only x 2>&1 | tail -1 &&
+  git push` executa o push mesmo com o merge abortado, e a sessão reporta sucesso de algo que não aconteceu. Para
+  sequências onde cada passo autoriza o próximo: `set -e` e sem pipes, ou capturar o status explicitamente. Filtrar
+  saída é para inspeção, não para decisão.
 - **Seção de `.md` se cita pelo nome, nunca pelo número** (achado 2026-08-15, custou 8 ponteiros
   quebrados em 6 arquivos). Um número é um ponteiro que envelhece na primeira seção inserida, e
   envelhece *em silêncio*: `[SETUP.md §6]` continuava resolvendo para um arquivo que existe, só que
@@ -72,16 +76,27 @@
   chegado a ter `§10` antes de `§9`. Referência boa: `[`SETUP-accounts.md`](SETUP-accounts.md) § Web search` — o texto
   âncora sobrevive a qualquer reordenação, e se a seção for renomeada a busca falha em vez de
   apontar para o lugar errado.
-- **Nome de arquivo: uma palavra só, e a palavra inteira** (preferência do Lucas, 2026-07-23). Truncação perde para a palavra completa: `architect` > `arch`, `literature` > `lit`. Nome que repete o namespace do pai é ruído — sob `research/`, `deepresearch.md` gagueja (`research deepresearch`), então virou `deep.md`. Nomes genéricos e óbvios devem ser **reservados** para o flow que realmente os merece: `explore` ficou com o loop de tentar ideias justamente para deixar `experiment` e `optimize` livres para flows futuros distintos.
+- **Nome de arquivo: uma palavra só, e a palavra inteira** (preferência do Lucas, 2026-07-23). Truncação perde para a
+  palavra completa: `architect` > `arch`, `literature` > `lit`. Nome que repete o namespace do pai é ruído — sob
+  `research/`, `deepresearch.md` gagueja (`research deepresearch`), então virou `deep.md`. Nomes genéricos e óbvios
+  devem ser **reservados** para o flow que realmente os merece: `explore` ficou com o loop de tentar ideias justamente
+  para deixar `experiment` e `optimize` livres para flows futuros distintos.
 - Nova skill (flat): copiar `core/skills/_template.md`, preencher frontmatter.
 - Nova skill (suite): criar `core/skills/<suite>/SKILL.md` + sub-arquivos `<slug>.md`.
 - Sub-skills relacionadas em pasta são sempre preferidas a skills flat com prefixo longo quando > 2 sub-skills.
-- Novos serviços Google: importar `auth/gauth.py`, definir `SCOPES` e o nome do serviço, seguir o padrão de `files/drive_core.py` (seam read+write, account-agnostic) — e registrar o comando de recuperação em `gauth._REAUTH_CMD` no mesmo commit em que a CLI ganha `--reauth`; um teste verifica que todo comando dessa tabela aponta para uma ferramenta que existe.
+- Novos serviços Google: importar `auth/gauth.py`, definir `SCOPES` e o nome do serviço, seguir o padrão de
+  `files/drive_core.py` (seam read+write, account-agnostic) — e registrar o comando de recuperação em
+  `gauth._REAUTH_CMD` no mesmo commit em que a CLI ganha `--reauth`; um teste verifica que todo comando dessa tabela
+  aponta para uma ferramenta que existe.
 - Novo provedor **sem** OAuth: seguir `notes/notion` — segredo guardado ao lado da ferramenta, toda
   falha imprimindo a instrução completa, segredo entrando por stdin (AD-12).
 - Tokens OAuth nunca commitados — ficam em `~/.config/workspace-*/`.
-- **Pasta `refs/` em skills**: quando uma skill acumular referências externas, criar `core/skills/<name>/refs/` (ou `core/skills/<suite>/refs/`) e manter todos os arquivos de referência lá. Não criar `refs/` dentro de `.opencode/skills/` ou `.claude/skills/` — esses são mirrors gerados automaticamente.
-- **Formato de arquivos em `refs/`**: notas de leitura, links rápidos e sumários informais vão em `*.md`. Referências estruturadas (papers com metadados, datasets com schema, configurações de ferramentas) vão em `*.yaml` com frontmatter ou schema claro. Preferir YAML para anything que uma skill vai parsear ou que precisa de schema.
+- **Pasta `refs/` em skills**: quando uma skill acumular referências externas, criar `core/skills/<name>/refs/` (ou
+  `core/skills/<suite>/refs/`) e manter todos os arquivos de referência lá. Não criar `refs/` dentro de
+  `.opencode/skills/` ou `.claude/skills/` — esses são mirrors gerados automaticamente.
+- **Formato de arquivos em `refs/`**: notas de leitura, links rápidos e sumários informais vão em `*.md`. Referências
+  estruturadas (papers com metadados, datasets com schema, configurações de ferramentas) vão em `*.yaml` com frontmatter
+  ou schema claro. Preferir YAML para anything que uma skill vai parsear ou que precisa de schema.
 
 <!-- routing:start -->
 ## Routing
