@@ -60,16 +60,48 @@
    own hazard note forbids. Both are refiled as work in
    [`core/ROADMAP.md`](core/ROADMAP.md) § Open, where the flow layer's internals live.
 
-   **What the run does NOT yet give you, and it is the half that matters most.** The verdict was
-   *padaria*, which prescribes zero delegation — so the run exercised the router, the trail and the
-   gates, but **never the file relay**. `craft.md`'s central claim is *N cheap short sessions
-   instead of one long expensive one*, and this run was one session at max tier, the exact opposite.
-   **Judging flows on this evidence would repeat the mistake the ruling above corrected**, so the
-   trial needs at least one `standard`-verdict row before anyone rules. Agents remain wholly
-   untried: the executor was a generic subagent, and its own report names what a workspace-authored
-   one would have carried instead — the three gates it spent six tool calls discovering, and the
-   epistemic norm that produced the run's single best decision.
-   → **tier: high**, with Lucas — several sittings, not one pass.
+   **The missing half arrived 2026-08-24: a `standard`-verdict row ran end to end on the relay.**
+   The `todo-type-retirement` chain (retiring `TODO.md` as a `.md` type — 73 lines folded into goal
+   backlogs) exercised what the *padaria* run could not. **Four distinct tiers actually paid for
+   their own loops**, which is the claim, not the intention:
+
+   | loop | tier | model |
+   |---|---|---|
+   | 0 clarify · 3 arch | max | orchestrator, opus-5 (Field Practice: inline when context is hot) |
+   | 1 plan | high | opus-4.8 |
+   | 2 ground · 6 ship | low | haiku-4.5 |
+   | 4a tests · 4b code | medium | sonnet-5 |
+
+   **The cost thesis holds on this row, with one caveat that decides how to read it.** Loop 4b —
+   the expensive loop — consumed **268k tokens over 125 tool calls in ~21 minutes on sonnet-5**,
+   never touching opus. That is the saving the flow exists for, and it is real. The caveat: the
+   chain died once mid-4b on a weekly limit and needed a **fresh orchestrator session** to resume,
+   costing a full re-grounding (read the trail, re-run acceptance, re-decide the branch). *N cheap
+   sessions* is true of the executors and **not** of the orchestrator, whose context is the thing
+   that actually ran out. Re-run `core/tools/wos/session/usage` rather than trusting this paragraph.
+
+   **Two defects in the relay, both found by running it, and agents are what would fix both.**
+   - **The medium executor obeyed a wrong instruction and falsified history.** Loop 1 (opus-4.8)
+     wrote a task telling Loop 4b to change *"Collapsing four ledgers into one"* to *"three"* in a
+     roadmap header. That sentence is a **past-tense record** of a collapse that really involved
+     four. The executor rewrote it to satisfy a grep — and the plan's own § History section, three
+     screens above, forbids exactly that. **A generic executor follows the plan; it has no standing
+     to doubt one.**
+   - **The low-tier ship executor reverted uncommitted work it did not own.** Loop 6 was told the
+     dirty-tree fence, and still discarded an orchestrator edit to this very file that was sitting
+     uncommitted while it ran. Nothing was lost (it was re-applied from context), but a chain that
+     runs against a shared worktree can destroy the orchestrator's own work, and only the
+     orchestrator noticing saved it.
+
+   The norm both needed (*never edit a true statement about the past to make a check pass*; *never
+   revert what you did not write*) exists in this workspace and was in neither executor's head.
+   That is the sharpest argument yet for workspace-authored agents, and it is evidence rather than
+   opinion.
+
+   **What is now tried, and what is still not.** Flows: tried twice, both verdicts, relay confirmed.
+   Agents: **still wholly untried** — every executor in both runs was a generic subagent. The trial
+   is not complete and no ruling on the agent layer should be taken from it.
+   → **tier: high**, with Lucas — the remaining sitting is the agent layer, not the flow layer.
 7. 🟡 **show context growth continuously, not just at two thresholds.** Lucas, same capture:
    *"gostaria de ver o crescimento da janela de contexto em tempo real, o claude code no vs code
    não mostra. tem alguma forma barata de me mostrar isso?"*
