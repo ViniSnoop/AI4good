@@ -110,6 +110,30 @@ way today, which is why the claim could drift unnoticed for as long as both dire
 
 **Repro:** `ls core/hooks/entropy/ core/tools/test/law/entropy/` and compare the stems.
 
+## B8 — the `!code/<repo>/CONTEXT.md` allowlist block is dead config
+
+**Symptom:** `.gitignore` lines ~48–56 carefully re-allow the `CONTEXT.md` of four nested repos
+(`gira`, `laplata`, `cria`, and `freeai` when it was added) with the `!code/<repo>/` +
+`code/<repo>/*` + `!code/<repo>/CONTEXT.md` triple. **None of them is tracked.** The wholesale
+`code/<repo>` entries in the nested-repo list further down the file (~line 182 onward) come later
+and win, so every line in that block is inert.
+
+**Repro:** `git ls-files code/gira/CONTEXT.md code/laplata/CONTEXT.md code/cria/CONTEXT.md
+code/freeai/CONTEXT.md` → returns nothing. Verified 2026-08-24.
+
+**Why it matters:** it is config that reads as if it works. Someone adding the fifth repo will copy
+a pattern that has never once had an effect, and the `code/` routing table's claim to describe
+nested repos rests on files git cannot see.
+
+**Root cause is known; the fix is a decision, not a patch.** Either the block is dead and should be
+deleted outright, or the two blocks are in the wrong order and the nested-repo list should come
+*before* the allowlist. Which one depends on whether a nested repo's `CONTEXT.md` is meant to be
+visible to the workspace repo at all — and that question is `ROADMAP-portability.md`'s (it is the
+same boundary the `code/aiwbot` absorb ruling just moved). Do not reorder blindly: making four
+`CONTEXT.md` files suddenly tracked changes what the Tier 0 corpus contains.
+
+Found by a parallel `zcode` session, 2026-08-21; confirmed by hand 2026-08-24.
+
 <!-- entropy:start -->
 ## Entropy
 

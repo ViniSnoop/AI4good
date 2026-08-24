@@ -59,6 +59,9 @@ Comece escrevendo **uma** semana-padrão: o que a quarta faz, o que a sexta faz.
 > [ ] [arxiv-visuals] achar e testar o arXiv Visuals (paper → explainer animado; link é comment-gated, então achar por fora) — ref em `academy/refs/REFS.md`; teste honesto: rodar num paper que você conhece a fundo e ver se a ordem "conceito mais difícil primeiro" se sustenta ou se é sumarização com narração; se sustentar, decidir dois usos separados: leitura própria e material de aula (INBOX 2026-08-17, *"this IS for me"*)  
 > [ ] [or-gate-shape] OR gate body ainda ausente no deck de portas lógicas; investigar o tipo `CUSTOM` no grupo do slide 23, depois decidir se vale seguir debugando  
 > [ ] [calendario-ufrpe] baixar o calendário acadêmico da UFRPE para ajudar no planejamento das aulas (INBOX 2026-08-18)  
+> [ ] [acessibilidade-edson] preparar uma versão acessível das missões E do site da disciplina para o Edson — os dois artefatos, não só um (INBOX 2026-08-24)  
+> [ ] [slides-pesquisa] material (talvez slides) que apresente aos alunos os conceitos dos projetos de pesquisa: dobra, cria, texpace/spacemantics — serve de ponte entre a disciplina e a pesquisa própria (INBOX 2026-08-24)  
+> [ ] [ai4good-revisao-sobras] sobras da revisão dos decks História/ML/MLP + Prática MLP (2026-08-21): (1) checar visualmente a timeline da parte 3 — cobre Dartmouth 1956, inverno da IA, backprop 1986, AlexNet 2012? decidir se sobe pra parte 1 ou ganha recap; (2) slide-ponte no fim da aula amarrando os dois decks; (3) o único slide de resultados restante é da turma anterior — rotular "turma 2026.1" ou remover; (4) depois de aprovar, deletar os slides marcados "SKIPPED —" nos dois decks; (5) o slide "impacto das funções de ativação" (ex-163) foi deletado junto com sua cópia corrigida — se era pra manter, refazer a correção de pontuação  
 
 ## done
 
@@ -71,10 +74,10 @@ last-touch: 2026-08-24  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |      26 |
-| trimester   |      40 |
-| semester    |      40 |
-| year        |      40 |
-| 2-year      |      40 |
-| 4-year      |      40 |
+| month       |      27 |
+| trimester   |      41 |
+| semester    |      41 |
+| year        |      41 |
+| 2-year      |      41 |
+| 4-year      |      41 |
 <!-- stats:end -->

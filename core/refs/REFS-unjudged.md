@@ -9,6 +9,26 @@ cited or used to justify a decision. Promote a winner by moving its line up into
 with a tier marker; kill the rest by deleting the line.
 
 ### Frameworks / methods
+- [arXiv 2608.15089](https://arxiv.org/pdf/2608.15089) — **captured twice** (INBOX 2026-08-21 and
+  again 2026-08-24), which is itself the signal. Lucas's two notes together: *"adicionar aos refs e
+  testar"* and *"paper que pode ser importante pra gente, pra trazer um setup alternativo gratuito"*.
+  So the assessment is not "is it good" but **does it yield a free setup we do not already have** —
+  which makes it `code/freeai`'s question, not the scaffold's. Nothing here has been read yet; the
+  title is not even recorded, so step one is opening it.
+- [akitaonrails — "harness/loop/graph engineering são
+  bullshit"](https://akitaonrails.com/2026/08/18/hot-take-harness-loop-engineering-graph-engineering-sao-bullshit/)
+  · [his LLM benchmark
+  post](https://akitaonrails.com/2026/08/15/llm-benchmarks-qwen-3-8-glm-5-3-gemini-3-7/) — a hostile
+  read of exactly what this workspace is. Lucas (INBOX 2026-08-21): *"vamo aproveitar a provocação,
+  estudar com carinho"*, then classify every WOS feature as useful or noise **in levels** (leve /
+  médio / alto). Assessment task lives on `ROADMAP-measurement.md` item 1 — it is ablation input,
+  not a separate study. **Read the benchmark post as a method, not as numbers**: model ids in it
+  went stale the week it was written.
+- [akitaonrails/ai-memory](https://github.com/akitaonrails/ai-memory) — captured with one question
+  attached (Lucas, same capture): does it *help* the WOS or *duplicate* it? `brain/memory/` already
+  has a measured answer to the fold-it-away question
+  (`core/experiments/context-window.md`), so the honest comparison is against that, not against
+  nothing. Assessment task: same roadmap row.
 - [weft](https://github.com/WeaveMindAI/weft) · [node docs](https://weavemind.ai/docs/nodes) — node
   language; test the principles or the language itself. **Captured a second time 2026-08-19** —
   Lucas: *"weave again, we should at least try it at some point"*; the repeat is itself the signal.

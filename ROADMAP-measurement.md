@@ -65,6 +65,33 @@
    exactly this and found stripping system prompts can leave the model *slightly more intelligent*,
    instructions constraining rather than helping. Secondhand and uncitable as it stands; the ref and
    its provenance are in [`academy/papers/wos-ablation/refs/REFS.md`](academy/papers/wos-ablation/refs/REFS.md).
+
+   **Four captures drained here 2026-08-24, because each is the same instrument asked for from a
+   different side.** They are one row, not four, and reading them together changes the design:
+   - *"to com uma sensação de que o WOS tá induzindo agentes a lerem 30 mil arquivos em circuitos
+     complexos"* — a **read-volume** claim. `core/tools/wos/session/reads` already measures read
+     amplification, so this one is checkable **before** the ablation and should be: if it is true,
+     it is the largest single cost in the workspace and it is not a feature-toggle question.
+   - *"medir completamente o consumo de tokens. quando cada feature nossa do wos consome. será que
+     tem como fazer isso automaticamente?"* — **per-feature cost**, which is exactly the
+     "subtraction instrument" framing above, asked as a build rather than a study. The honest answer
+     to *automaticamente* is partly no: an in-process switch measures a feature that runs, and a
+     feature whose whole cost is text loaded at session start has no runtime to instrument.
+   - *"gostaria de ver a cada sessão algumas métricas: quantas linhas foram deletadas e de onde,
+     quantas adicionadas e onde… se estamos melhorando, deixando mais conciso, ou deixando ele mais
+     confuso"* — a **per-session delta**, and the cheapest of the four by a wide margin: it is
+     `git diff --stat` grouped by directory, and it needs no ablation at all. Candidate for
+     `core/tools/wos/roundup` to print alongside its three state lines. **Do not let it wait on this
+     row** — it is separable and it answers the "is the WOS getting worse" question directly.
+   - The **akitaonrails provocation** (*"harness/loop/graph engineering são bullshit"*) plus his own
+     accounting: *"usei já quase 2 semanas inteiras de Opus 5 aqui no claude code só pra refinar o
+     WOS e vencer o ROADMAP infinito que não acaba, só aumenta."* His ruling on how to use it:
+     *"vamos aprender o máximo possível com o post"*, then classify every WOS feature as naturally
+     useful or noise **in levels** — leve, médio, alto — and **close the WOS before the ablation**
+     rather than cutting preliminarily. Links, the benchmark post, and `akitaonrails/ai-memory` (to
+     judge whether it helps or duplicates the WOS) are captured in
+     [`core/refs/REFS-unjudged.md`](core/refs/REFS-unjudged.md); the *"corte preliminar"* he
+     considered and declined is recorded under § Rejected below.
    → **tier: high** for the design, medium to run it.
 
 ---
@@ -141,3 +168,11 @@ so it is filed as a specimen and not as a candidate mechanism. Ref and provenanc
 
 The rule this cost six bugs to learn is [`core/SPECS.md`](core/SPECS.md) § Conventions: **a check
 that proves something *happened* beats one that proves it did not error.**
+
+## Rejected
+
+- **A preliminary cut of WOS features before the ablation runs** — considered by Lucas 2026-08-21
+  reading the akitaonrails provocation (*"não sei se vale a pena um corte já preliminar…"*) and
+  declined in the same breath: *"o caminho que vejo pra nós ainda é fechar o WOS e fazer o estudo de
+  ablação."* Cutting on a hostile blog post and a hunch is the guess the instrument exists to
+  replace.

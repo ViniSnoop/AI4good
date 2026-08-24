@@ -15,6 +15,20 @@ No flow is privileged — the exemplar is `flows/_template.md` (see [SCHEMA.md](
 
 ## Open
 
+- [ ] **A craft executor may revert uncommitted work it did not write, and nothing stops it.**
+      Found by running the `standard`-verdict chain on 2026-08-24: the Loop 6 (ship, `craft-low`)
+      executor discarded an uncommitted orchestrator edit to `ROADMAP-cost.md` that was sitting in
+      the shared worktree while it ran. It had been handed the dirty-tree fence and reverted anyway.
+      Nothing was lost — the orchestrator still held the text — but only because it checked.
+      The fence is currently **prose in a spawn prompt**, which is the weakest form a rule can take:
+      `craft.md` § Field Practice says to *name* the contaminated paths, and names no consequence
+      for touching them. Two candidate shapes, and the choice is the work: make Loop 6 operate on an
+      explicit path list (it knows what the chain touched — the plan's `files` column) rather than
+      on the whole tree, or have the orchestrator stash-and-restore around any spawn. The first is
+      narrower and does not fight parallel sessions. Related: `craft.md` § Field Practice already
+      names "two loops, one repo = worktree fight" as a known hazard; this is the same hazard
+      between an executor and its own orchestrator, which that bullet does not cover.
+
 - [ ] **The craft router has no home for a measurement, and the shortcut it falls back to
       contradicts itself.** Both found by *running* the flow on 2026-08-24 (the trial funded by
       [`ROADMAP-cost.md`](../ROADMAP-cost.md)), not by reading it — which is the point of having

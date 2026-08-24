@@ -18,6 +18,8 @@ Achar no SIGEPE ou no contracheque a data da última progressão e anotar aqui. 
 > [ ] [renda-map] levantar opções legais de renda extra na carreira UFRPE (fundação de apoio, bolsas, cursos, consultoria) — cruza com a pesquisa legal da sessão instituto (`core/prompts/fable-instituto.md`)  
 > [ ] [bolsa-ic] bolsa IC — NÃO submetido, bloqueado por 2 pré-requisitos: (1) projeto de pesquisa aprovado no CTA, (2) nomes dos alunos candidatos; só faz sentido mexer depois disso (2026-07-23)  
 > [ ] [progressao-cta] relatar/assinar processo de progressão CTA — processo **23082.018263/2026-55** (Lenina inseriu no GT CTA); assina seg/ter, pauta de terça (INBOX 2026-07-23)  
+> [ ] [pagina-notion] atualizar a página profissional no Notion — `core/tools/notes/notion` já lê e escreve, então é conteúdo, não ferramenta (INBOX 2026-08-24)  
+> [ ] [lattes-skill] avaliar se dá para ter uma skill que atualiza o Lattes — a pergunta real é se a Plataforma Lattes tem qualquer entrada que não seja o formulário web; se não tiver, o item morre aqui e isso é a resposta (INBOX 2026-08-24)  
 
 ## done
 
@@ -26,14 +28,14 @@ Achar no SIGEPE ou no contracheque a data da última progressão e anotar aqui. 
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-22  ·  trend: stalled
+last-touch: 2026-08-24  ·  trend: decelerating
 
 | period      | touches |
 |-------------|----------|
-| month       |       0 |
-| trimester   |       6 |
-| semester    |       6 |
-| year        |       6 |
-| 2-year      |       6 |
-| 4-year      |       6 |
+| month       |       1 |
+| trimester   |       7 |
+| semester    |       7 |
+| year        |       7 |
+| 2-year      |       7 |
+| 4-year      |       7 |
 <!-- stats:end -->

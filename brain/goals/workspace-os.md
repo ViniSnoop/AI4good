@@ -73,6 +73,8 @@ fallback · iterate — MVP can always be extended*
 > [ ] [plan-mode-default] deixar o plan mode como default de sessão nova na extensão VSCode do Claude Code (INBOX 2026-08-16) — config do harness, não do workspace: checar se há setting em `.claude/settings.json` ou se é só na UI da extensão; se for setting, é one-liner e a skill `update-config` cobre. Casa com a mudança do `/roundup`, que agora fecha pedindo *plan*, não *continue*  
 > [ ] [security-gates] decidir quais dos 20 itens da checklist pré-lançamento viram gate de verdade para os projetos que vão pro ar (gira, voti, ppc) — vários já cobertos (secret-scan no pre-commit, skill `security-review`); o que sobra é auth server-side, RLS, rate-limit e headers, que nenhum gate nosso vê. Ref em `core/refs/REFS-unjudged.md` § Shipping an agent-written app (INBOX 2026-08-13)  
 > [ ] [jcode-custo] averiguar o JCode — reimplementação em Rust do harness do Claude Code, com multi-agente no mesmo projeto; duas perguntas separadas, e a segunda vale mais: (1) a ferramenta presta? (2) é mesmo o harness que deixa tudo caro, ou o custo é do modelo? — a (2) dá pra medir aqui sem instalar nada, comparando tokens de scaffolding vs tokens de conteúdo numa sessão nossa. Ref em `core/refs/REFS-tooling.md` § Comparable systems (INBOX 2026-07-31)  
+> [ ] [zcode-trust] aceitar o trust do workspace no ZCode (Settings, ou o prompt ao abrir /mnt/workspace) — **só o Lucas pode**; sem isso os hooks do shim ficam inertes. Depois abrir sessão nova e re-rodar a sonda de `core/experiments/zcode-hook-protocol.md`, que decide se o registro direto fica ou vira adaptador (INBOX 2026-08-21)  
+> [ ] [ferramentas-obsoletas] de tempos em tempos, checar se alguma ferramenta nossa deve ser atualizada ou abandonada porque os modelos e harnesses melhoraram — o WOS existe para contornar fraquezas do modelo, então cada fraqueza corrigida upstream é código nosso que virou peso morto. Mesmo raciocínio do estudo de ablação, em cadência menor (INBOX 2026-08-21)  
 
 ## done
 
@@ -88,10 +90,10 @@ last-touch: 2026-08-24  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |     268 |
-| trimester   |     357 |
-| semester    |     377 |
-| year        |     377 |
-| 2-year      |     377 |
-| 4-year      |     377 |
+| month       |     271 |
+| trimester   |     360 |
+| semester    |     380 |
+| year        |     380 |
+| 2-year      |     380 |
+| 4-year      |     380 |
 <!-- stats:end -->

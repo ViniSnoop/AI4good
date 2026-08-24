@@ -34,6 +34,8 @@ O passo seguinte, `[drive-sync-method]`, é decisão e não clique — deixe par
 > [ ] [fila-triagem] as 2 linhas de `### triage (do last)`: a pasta `Unorganized/` e os arquivos soltos da raiz. Os **recovery codes** estão entre os arquivos soltos, então esta linha amarra direto em `[auth-recovery]`  
 > [ ] [calendar-migrar] migrar o calendar de lsf@cin.ufpe.br para lsf.cin@gmail.com — `core/tools/calendar/gcalendar` já lê as três contas, então a migração é de dados e de conta padrão, não de ferramenta (INBOX 2026-08-18)  
 > [ ] [auth-recovery] backup/recovery do Google Authenticator — várias contas com 2FA nele; se o celular quebrar/sumir, como recuperar? Mapear códigos de recuperação por conta + método de restauração antes que vire pesadelo (INBOX 2026-07-24)  
+> [ ] [aulas-para-pessoal] transferir todas as aulas do Drive do cin para o pessoal, e só então deletar os slides e materiais do lado do cin — a deleção é o último passo, nunca simultânea (INBOX 2026-08-24)  
+> [ ] [notion-links-simples] mudar o padrão de links no Notion: link simples no calendário em vez de "Mention" em seção separada, apontando já para os slides do Drive pessoal — depende de `[aulas-para-pessoal]`, senão os links novos apontam para o Drive que vai morrer (INBOX 2026-08-24)  
 
 ## done
 
@@ -46,10 +48,10 @@ last-touch: 2026-08-24  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       1 |
-| trimester   |       1 |
-| semester    |       1 |
-| year        |       1 |
-| 2-year      |       1 |
-| 4-year      |       1 |
+| month       |       2 |
+| trimester   |       2 |
+| semester    |       2 |
+| year        |       2 |
+| 2-year      |       2 |
+| 4-year      |       2 |
 <!-- stats:end -->
