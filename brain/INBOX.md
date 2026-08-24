@@ -9,6 +9,47 @@
 
 <!-- add entries below, newest first -->
 
+to com uma sensação de que o WOS tá induzindo agentes a lerem 30 mil arquivos em circuitos complexos
+
+medir completamente o consumo de tokens. quando cada feature nossa do wos consome. será que tem como fazer isso automaticamente?
+— via aiwbot · 2026-08-24
+
+https://www.instagram.com/p/DcZW29CnMmx/?img_index=3&igsi=MTMzNGlkaHVlbXI3MQ==
+pro free ai. no free ai ter um padrão, pra cada setup ter informações padronizadas, o passo a passo, a quantidade e forma de uso, a precisão/ qualidade, fornecer a fonte, dizer quando isso foi observado e a cada commit checar se o setup ainda está free ou se foi alterado, ter uma versão um pt-br e outra em en-us... rankear eles por recomendação. lembrar que o glm 5.3 tá free, que o ox alpha via opencode tbm.
+— via aiwbot · 2026-08-24
+
+https://www.usemitra.com.br/produtos?utm_medium=paid&utm_source=ig&utm_id=120247342335620133&utm_content=120247342335580133&utm_term=120247342335590133&utm_campaign=120247342335620133&fbclid=PAaWdyZAT4ExBwZG9mAmV4dG4DYWVtATAAYWRpZAGrNFIgEwUVc3J0YwZhcHBfaWQPNTY3MDY3MzQzMzUyNDI3AAGnHkLlTris8xoRYyaFDZK3tobCLvAKfVyfgrymOnA8lsfJx50uvowAfUiiiX4_aem_W7i1QSnZgfoKNcJgLS7HXA
+comprar camisas
+— via aiwbot · 2026-08-24
+
+transferir todas as minhas aulas do drive do cin pro no pessoal. mudar o padrão de links usado no notion para usar links simples no calendario ao invés de links "Mention" em seção separada e aí linkar já com os slides do drive pessoal
+finalmente, deletar slides e outros materiais do drive do cin
+— via aiwbot · 2026-08-24
+
+https://www.instagram.com/reel/Dbd8XDWSM1A/?igsi=MXZhejkwZWF0ZzFncw==
+colocar um alguma das minhas aulas de ai4good
+— via aiwbot · 2026-08-24
+
+montar uma lista de indicações de jogos, filmes, séries, artistas/bandas, álbuns, livros e quadrinhos. na lista ter links, preços, notas uma mini descrição e talvez algum outro critério de classificação
+https://www.instagram.com/reel/DcRMVoSxpNY/?igsi=MThmdjA0eGcxcW54eA==
+— via aiwbot · 2026-08-24
+
+https://www.instagram.com/p/Db8TS-UFC8N/?img_index=7&igsi=bHFpNGJsbzhmdHQ0
+solarpunk é a vibe de ai4good
+— via aiwbot · 2026-08-24
+
+https://www.instagram.com/p/DcY8rf9jUY7/?img_index=5&igsi=MTBtZTRjOGpxc3lmMw==
+talvez seja útil pro texpace e spacemantics
+— via aiwbot · 2026-08-24
+
+revisão ai4good 2026-08-21 — sobras da sessão de revisão dos decks História/ML/MLP + Prática MLP
+1. checar visualmente a imagem de timeline (aula, parte 3): ela cobre Dartmouth 1956, inverno da IA, backprop 1986, AlexNet 2012? decidir se sobe pra parte 1 ou ganha recap explícito na parte 3
+2. slide-ponte no fim da aula: "na prática vocês constroem o que esse playground mostra" — amarra os dois decks
+3. prática: o único slide de resultados que restou é da turma anterior — rotular como "turma 2026.1" ou remover
+4. limpeza: após aprovar as correções, deletar os slides marcados "SKIPPED —" nos dois decks (são os originais não-corrigidos; git mental = histórico)
+5. nota: o slide "impacto das funções de ativação" (ex-163) foi deletado por você durante a sessão junto com sua cópia corrigida — se era pra manter, a correção de pontuação precisa ser refeita
+— task: today · 2026-08-21
+
 https://www.instagram.com/reel/DY2wj1svR_m/?igsi=MTAwb2dxYWJ3amRkYQ==
 — via aiwbot · 2026-08-21
 
@@ -51,3 +92,5 @@ gostaria de ver a cada sessão algumas métricas. 1 quantas linhas foram deletad
 https://arxiv.org/pdf/2608.15089
 paper que pode ser importante pra gente. pra trazer um setup alternativo gratuito
 suporte ZCode entró no workspace: shim de hooks registrado (.zcode/config.json, espelho 1:1 do .claude/settings.json), espelho de skills (.zcode/skills, 14 skills), ISSUES B6/B7, experimento core/experiments/zcode-hook-protocol.md. **uma ação manual pendente, só você pode**: aceitar o trust do workspace no ZCode (Settings/prompt ao abrir /mnt/workspace) — sem isso os hooks ficam inertes; depois abrir sessão nova pra re-rodar a sonda (responde stdin/exit-2 e decide se o registro direto fica ou vira adaptador). — via zcode (sessão feature/zcode-shim) · 2026-08-21
+
+o bloco de allowlist `!code/<repo>/CONTEXT.md` no .gitignore (~linhas 48-56, gira/laplata/cria e agora freeai) é inerte: a entrada wholesale `code/<repo>` da lista de nested repos vem depois e ganha — nenhum CONTEXT de repo aninhado é tracked (git ls-files vazio). Ou é dead config a deletar, ou a ordem dos blocos está trocada. — via zcode (sessão feature/zcode-shim) · 2026-08-21

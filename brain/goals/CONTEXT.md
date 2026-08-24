@@ -16,6 +16,7 @@
 | [`ecovila.md`](ecovila.md) | [ finances | home | dream ] ecovila santuário dos jatobás |
 | [`exercise.md`](exercise.md) | [ health | body | year ] exercise |
 | [`finances.md`](finances.md) | [ finances | management | near ] finances |
+| [`google-migration.md`](google-migration.md) | [ career | admin | now ] migração Google — conta cin → pessoal, e o Drive para o workspace |
 | [`guitar.md`](guitar.md) | [ fun | music | year ] guitar |
 | [`home-casinhas.md`](home-casinhas.md) | [ finances | home | year ] casinhas construction |
 | [`instituto.md`](instituto.md) | [ craft | innovation | dream ] instituto |

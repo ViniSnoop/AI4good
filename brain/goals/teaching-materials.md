@@ -42,7 +42,7 @@ Comece escrevendo **uma** semana-padrão: o que a quarta faz, o que a sexta faz.
 
 ## backlog
 
-> [ ] [metodologia-tecedu] semana-padrão, as 9 etapas mapeadas nos 34 encontros, avaliação nova, dashboard que substitui as duas planilhas Google, e o padrão MODELO+EXEMPLO em toda entrega; ver task na semana em `brain/TODO.md`  
+> [ ] [metodologia-tecedu] semana-padrão (quarta e sexta com papéis fixos, uma pergunta e um produto por encontro), as 9 etapas mapeadas nos 34 encontros reais (números em `academy/teaching/tecnologias-na-educacao/CONTEXT.md`), avaliação nova, dashboard que substitui as duas planilhas Google, e o padrão MODELO+EXEMPLO em toda entrega  
 > [ ] [pesquisa-que-falta] gamificação séria (sem infantilizar), specs/contract grading, mecanismos de avaliação por pares com propriedades verificáveis, e venues de publicação alcançáveis por graduandos em um semestre  
 > [ ] [notion-write] WOS edita a página da turma — o CLI lê; escrever a metodologia nova lá é o que fecha o ciclo para os alunos  
 > [ ] [excalidraw-vs-miro] veredito sobre trocar o Miro: a colaboração ao vivo do Excalidraw é efêmera e morre com a aba de quem abriu. Decidir **com a evidência da aula de 2026-08-19**, não antes  
@@ -58,14 +58,14 @@ Comece escrevendo **uma** semana-padrão: o que a quarta faz, o que a sexta faz.
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-19  ·  trend: advancing
+last-touch: 2026-08-20  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |      28 |
-| trimester   |      38 |
-| semester    |      38 |
-| year        |      38 |
-| 2-year      |      38 |
-| 4-year      |      38 |
+| month       |      25 |
+| trimester   |      39 |
+| semester    |      39 |
+| year        |      39 |
+| 2-year      |      39 |
+| 4-year      |      39 |
 <!-- stats:end -->

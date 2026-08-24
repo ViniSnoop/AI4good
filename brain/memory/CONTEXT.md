@@ -52,6 +52,7 @@ enough to be worth folding was tested and **rejected on the numbers** —
 | [`project_casinhas.md`](project_casinhas.md) | Obra das casinhas (7 casas + 3 salas, Várzea/Recife, com o pai) — home em branches/casinhas, cockpit obrigatório, plano de sessões S2..S12 |
 | [`project_core_schema.md`](project_core_schema.md) | core/ agent-library soundness work — enforced frontmatter contract, tier unification, deferred sweep |
 | [`project_dobra.md`](project_dobra.md) | Dobra — context folding + SLM runner project (code/dobra) with paper twin (academy/papers/2027-ICLR-dobra); founded 2026-07-03 |
+| [`project_freeai.md`](project_freeai.md) | freeai project — docs-only repo público, PT-BR: tabelas comparativas de opções gratuitas de IA para codar (harnesses, IDE, provedores, modelos) |
 | [`project_hybrid_ideation.md`](project_hybrid_ideation.md) | cria — workflow de ideação híbrida humano-IA como mechanism design; AI4Good 2026.2, eletiva, 1º paper LIH.DD (CHI) |
 | [`project_instituto.md`](project_instituto.md) | Programa do instituto tem cockpit em branches/instituto/ — 5 núcleos de fluxo de dinheiro + motor de ideação; ler o cockpit antes de qualquer sessão do tema |
 | [`project_isoroll_scene.md`](project_isoroll_scene.md) | isoroll scene-creation program state — frozen renderer seam, MVP-first milestones, where the live plan lives |

@@ -4,14 +4,14 @@
 <!-- stats:start -->
 <!-- data:start -->
 ## attention dashboard  _(auto-updated on every commit)_
-last-updated: 2026-08-20 11:00
+last-updated: 2026-08-24 10:42
 
 >**areas** — last 14 days  
 ```
-health       ██████████   211 touches
-career       █░░░░░░░░░   25 touches
+health       ██████████   222 touches
+career       █░░░░░░░░░   27 touches
 finances     ░░░░░░░░░░   12 touches
-fun          ░░░░░░░░░░   17 touches
+fun          ░░░░░░░░░░   19 touches
 spiritual    ░░░░░░░░░░   0 touches
 ```
 
@@ -21,12 +21,13 @@ CONTEXT                  ░░░░░░░░░░   4 touches
 burocracia-academica     ░░░░░░░░░░   6 touches
 career-ufrpe             ░░░░░░░░░░   0 touches
 corporal-expressiveness  ░░░░░░░░░░   0 touches
-craft-flows              █░░░░░░░░░   22 touches
+craft-flows              █░░░░░░░░░   23 touches
 cria                     ░░░░░░░░░░   4 touches
 dance                    ░░░░░░░░░░   1 touches
 ecovila                  ░░░░░░░░░░   4 touches
 exercise                 ░░░░░░░░░░   2 touches
 finances                 ░░░░░░░░░░   0 touches
+google-migration         ░░░░░░░░░░   1 touches
 guitar                   ░░░░░░░░░░   0 touches
 home-casinhas            ░░░░░░░░░░   9 touches
 instituto                ░░░░░░░░░░   1 touches
@@ -40,11 +41,11 @@ paper-megatruth          ░░░░░░░░░░   0 touches
 paper-scattercode        ░░░░░░░░░░   0 touches
 prompt-opt-automation    ░░░░░░░░░░   1 touches
 reading                  ░░░░░░░░░░   0 touches
-rpg-isoroll              ░░░░░░░░░░   15 touches
+rpg-isoroll              ░░░░░░░░░░   17 touches
 sleep-regularity         ░░░░░░░░░░   0 touches
 smartphone-addiction     ░░░░░░░░░░   0 touches
 spacemantics             ░░░░░░░░░░   6 touches
-spec-driven-development  ░░░░░░░░░░   5 touches
+spec-driven-development  ░░░░░░░░░░   6 touches
 startapps-apptime        ░░░░░░░░░░   4 touches
 startapps-arede          ░░░░░░░░░░   0 touches
 startapps-batituque      ░░░░░░░░░░   0 touches
@@ -67,7 +68,7 @@ teaching-materials       ░░░░░░░░░░   19 touches
 travel                   ░░░░░░░░░░   1 touches
 vipassana                ░░░░░░░░░░   0 touches
 voice                    ░░░░░░░░░░   0 touches
-workspace-os             ██████████   211 touches
+workspace-os             ██████████   222 touches
 yoga                     ░░░░░░░░░░   0 touches
 ```
 <!-- data:end -->
@@ -101,6 +102,7 @@ yoga                     ░░░░░░░░░░   0 touches
 | ecovila santuário dos jatobás | finances | dream | — | [org-docs] organizar a papelada da associação em `branc… | [→](goals/ecovila.md) |
 | exercise | health | year | — | [map-recife] research climbing gyms and alternative spo… | [→](goals/exercise.md) |
 | finances | finances | near | none external | [map-numbers] map current monthly income and fixed expe… | [→](goals/finances.md) |
+| migração Google — conta cin → pessoal, e o Drive para o workspace | career | now | — | [brave-conta-padrao] mudar a conta Google padrão do Bra… | [→](goals/google-migration.md) |
 | guitar | fun | year | — | [free-play] pick up guitar and improvise for 10 minutes… | [→](goals/guitar.md) |
 | casinhas construction | finances | year | Marcelo | [averbacao-terreno] fazer averbação do terreno na matrí… | [→](goals/home-casinhas.md) |
 | instituto | craft | dream | none external — th… | [coffee-1] text one trusted person from the board list … | [→](goals/instituto.md) |
