@@ -9,7 +9,16 @@
 
 <!-- add entries below, newest first -->
 
-fazer esses exercícios depois da corrida
+https://www.instagram.com/reel/Dcdw08PNlPy/?igsi=eWZrNTVrOW9zbGk3
+talvez ele esteja certo
+hooks > skills > agents > loops/flows
+— via aiwbot · 2026-08-25
+
+https://www.instagram.com/p/DcURStsG5o8/?utm_source=ig_web_copy_link&igsi=NTc4MTIwNjQ2YQ==
+— via aiwbot · 2026-08-25
+
+https://www.instagram.com/reel/Dcbm_z0REi5/?utm_source=ig_web_copy_link&igsi=NTc4MTIwNjQ2YQ==
+aprender essa
 — via aiwbot · 2026-08-24
 
 jogar na lixeira o deck `__probe_delete_me` no Drive pessoal (sonda de auth, criada por engano)

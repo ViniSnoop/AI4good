@@ -16,6 +16,16 @@
 
 ## Shape — does the tree still look like what we say it does
 
+**🟢 the scaffold is still most of a lean workspace away from lean**
+*What* — root + `core/` + `brain/` at **≤170 `.md` files and ≤10,000 lines**, from 278 and 17,559.
+Six `SETUP-*.md` become one; five `core/SCHEMA-*.md` and five `SPECS-*.md` become two;
+`core/hooks`' four `SPECS` become one; `ISSUES.md`'s hand-written half fits a screen; `brain/` sheds
+19 MB of bot attachments, its project-state memories and most of its 54 goal files.
+*Why* — the norm that produced this mass now says cut, and nothing has been cut yet. A `.md` line in
+this tree is re-read by every session that touches the subtree.
+*Done when* — both numbers are met with `verify-fast` green. **Check before cutting any `.md`
+whether code parses it**: `core/SCHEMA.md`, `core/norms/*.md` and `ROADMAP*.md` are data, not prose.
+
 **🟢 the corpus is half Portuguese and the rule is English**
 *What* — one language across the durable `.md` corpus, with Lucas's quoted words left as he said them.
 *Why* — two languages in one document costs tokens and readers; he ruled English for docs.

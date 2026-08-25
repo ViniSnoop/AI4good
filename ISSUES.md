@@ -68,6 +68,24 @@ of investigation per occurrence, which is the same silent-failure shape
 
 **Root cause:** unknown. Which path exits quietly is unestablished; the size gate is not it.
 
+## B5 — the scatter writes 26 local ledgers and nobody has ever committed one
+
+**Symptom:** every nested repo carries an untracked `ISSUES.md` (and often `ARCHITECTURE.html`).
+`git -C code/voti status` shows both as `??`, and the same holds across all 26. Found 2026-08-25
+while checking what `make entropy` had dirtied; the files predate this session.
+
+**Why it matters:** the scatter's whole premise is that *each repo keeps its own ledger and fixes its
+own findings* — the reason the root header stopped charging itself for 571 findings it cannot act on.
+An untracked ledger is not a ledger: it is invisible to that repo's clones, to its own history, and
+to anyone who did not run the dashboard locally. So the 571 findings are addressed to readers who
+cannot see them, and the design reads as working because the generator rewrites the files each run.
+
+**Repro:** `for r in $(find . -name .git -maxdepth 4); do git -C ${r%/.git} status --short; done`.
+
+**Root cause:** the dashboard writes the local ledgers but nothing stages or commits them, and each
+one is a commit this repo may not make. Whether the fix is the scatter committing in each repo, a
+`/roundup` step, or one sweep is undecided.
+
 <!-- entropy:start -->
 ## Entropy
 
@@ -270,7 +288,7 @@ Clean.
 
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
-- . — feature/wos-lean is 3 ahead of main
+- . — feature/wos-lean is 4 ahead of main
 
 ### Remote branches already merged into their base
 

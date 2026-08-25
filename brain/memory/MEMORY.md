@@ -58,5 +58,7 @@
   one word; language IS the system when the reader is an LLM; say what a session decided alone
 - [Feedback: concise WOS](feedback_concise_wos.md) — cada sessão deve deixar MENOS linhas do que
   achou; feature nova paga com o corte que a financia; nunca resumir uma lei até ela deixar de valer
-- [WOS: zerar o roadmap](project_wos_zero_roadmap.md) — zerar = SHIPPAR tudo, não deletar; realocar sim, cortar não;
-  drain strategy = spend opus only on opus-only rows (the count that matters)
+- [WOS: zerar o roadmap](project_wos_zero_roadmap.md) — trabalho vivo se realoca, a PROSA em volta se
+  corta (corrigido 2026-08-25); drain strategy = gastar opus só nas linhas só-opus
+- [Feedback: multiharness essencial](feedback_multiharness_essential.md) — nunca excluir um harness (otimizar a cópia,
+  não a função); e nenhum hook morre sem placar de disparos

@@ -45,6 +45,7 @@ enough to be worth folding was tested and **rejected on the numbers** —
 | [`feedback_explore_before_cutting.md`](feedback_explore_before_cutting.md) | while a design question is still open, keep every variant; delete only after Lucas rules — the exploration-phase exception to delete-weak-features |
 | [`feedback_full_workflow_thinking.md`](feedback_full_workflow_thinking.md) | plan isoroll (and similar) work from the full user workflow, not from artifacts — loose ends are the recurring failure |
 | [`feedback_inbox_ref_task_pairing.md`](feedback_inbox_ref_task_pairing.md) | /inbox — an actionable ref must also spawn an assessment task, never land as ref-only |
+| [`feedback_multiharness_essential.md`](feedback_multiharness_essential.md) | Multi-harness é ESSENCIAL para Lucas — otimizar a cópia, nunca excluir um harness; e nenhum hook morre sem dado |
 | [`feedback_parallel_sessions.md`](feedback_parallel_sessions.md) | How to work safely when multiple Claude/opencode sessions edit /mnt/workspace at once |
 | [`feedback_plain_language.md`](feedback_plain_language.md) | Write WOS in plain words — Lucas loses the thread when jargon accumulates, and language IS the system when the reader is an LLM |
 | [`feedback_provider_agnostic_naming.md`](feedback_provider_agnostic_naming.md) | Never put provider/model names (NB, Gemini, etc.) in file names, verbs, or dirs — workspace is provider-agnostic |
@@ -61,7 +62,7 @@ enough to be worth folding was tested and **rejected on the numbers** —
 | [`project_spacemantics.md`](project_spacemantics.md) | spacemantics project — verifiable spatial DSL giving LLMs spatial capability; 4 houses (goal+code+paper+skills); read code+paper CONTEXT before any session |
 | [`project_verify_roadmap.md`](project_verify_roadmap.md) | Workspace verification/enforcement roadmap lives at code/ROADMAP-verify.md — check status there before verification/testing/hooks work |
 | [`project_wos_fanout_split.md`](project_wos_fanout_split.md) | core/hooks and core/tools split into families 2026-07-31 (every CLI path changed); a fanout split only counts once each new dir has its own CONTEXT.md |
-| [`project_wos_zero_roadmap.md`](project_wos_zero_roadmap.md) | Zerar o ROADMAP do WOS = SHIPPAR tudo, não deletar — pós-v1 Lucas rejeitou explicitamente a leitura de "corta o que não paga |
+| [`project_wos_zero_roadmap.md`](project_wos_zero_roadmap.md) | Zerar o ROADMAP do WOS = shippar o trabalho, mas a PROSA em volta se corta — regra corrigida por Lucas em 2026-08-25 |
 | [`reference_linuz90_bot.md`](reference_linuz90_bot.md) | linuz90/claude-telegram-bot source read — the reference design for aiwbot; how it does session lineage + its UX feature set |
 | [`reference_texpace_is_spacemantics.md`](reference_texpace_is_spacemantics.md) | texpace" routes to the spacemantics project — same thing for /inbox routing |
 | [`user_profile.md`](user_profile.md) | Lucas — read before any Brain task. |
