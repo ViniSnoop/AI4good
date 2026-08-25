@@ -87,9 +87,13 @@
     - **`AGENTS.md` cannot satisfy the cap** while `test_norms` reads the published block line by
       line — see § Rejected. Either that test rejoins continuations, or the most-read file in the
       workspace keeps three findings forever.
-    - **~25 findings live in `academy/papers/*`**, which are their own repos with Overleaf as the
-      authority. The dashboard counts them; this repo cannot fix them. Work that shows in the total
-      and appears nowhere it can be done. → **tier: medium**.
+    - **The scatter rule reaches `code/` and nothing else**, which is the whole of "work that shows
+      in the total and appears nowhere it can be done". `entropy_corpus._LOCAL_LEDGERS` is the
+      literal `code/*/ISSUES.md`, so the ten `academy/papers/*` repos plus `branches/casinhas` and
+      `branches/instituto` — twelve nested repos, each with its own `.git` — have every finding
+      charged to the ROOT count with no local ledger to fix it in. Decide whether the rule
+      generalises to any nested repo or those twelve are declared out of scope; the `core/`+`brain/`
+      rejection below does not answer it, because neither of those is a repo. → **tier: medium**.
 
 9. 🟢 **the corpus is half Portuguese and the rule is English.** Lucas (INBOX 2026-08-17): *"somente
    o meu texto é em português, as conversas nas sessões, mas o resto, os docs, tudo em inglês
