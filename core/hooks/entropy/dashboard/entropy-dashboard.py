@@ -10,7 +10,7 @@
 # Nothing here blocks. The cap that does live in checks/pre-edit.py; this file reports what the
 # tree already carries, including the files a ratchet let through before the cap reached them.
 # Crossing a threshold asks for a CUT, never for a summary — forced brevity is the trap, and
-# core/SCHEMA-outgrowing.md § A type that outgrows the cap is cut says what a cut may
+# core/SCHEMA.md § A type that outgrows the cap is cut says what a cut may
 # not throw away.
 import sys
 from importlib.util import module_from_spec, spec_from_file_location

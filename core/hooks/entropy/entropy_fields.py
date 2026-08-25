@@ -2,7 +2,7 @@
 # Does a header field that names our own code name something that exists? Zero-token, deterministic.
 #
 # The rule, why a field rather than prose, and the limits it accepts:
-# core/SCHEMA-outgrowing.md § Every field that names our own code is verified.
+# core/SCHEMA.md § Every field that names our own code is verified.
 #
 # Total, like entropy_stores.py: no allowlist, no ratchet inside the module. The ratchet is the
 # CALLER's — type-gate.py asks only about files a commit adds, the dashboard asks about all of them.
@@ -131,7 +131,7 @@ def field_hits(files: list, mixed: bool = True) -> list:
                     registry = _declared()
                 hits += [f'{path}: `{field}: {token}` is not declared in core/features.txt.\n'
                          f'   The field names an install step or a feature the registry carries\n'
-                         f'   (core/SCHEMA-outgrowing.md § the field table). A word that is\n'
+                         f'   (core/SCHEMA.md § Every field that names our own code is verified). A word that is\n'
                          f'   neither is a claim about this workspace the registry does not make.'
                          for token in _items(value, field) if token not in registry]
                 continue
@@ -141,10 +141,10 @@ def field_hits(files: list, mixed: bool = True) -> list:
                         continue  # prose in a mixed list; not this check's business
                     hits.append(f'{path}: `{field}: {token}` is not a path.\n'
                                 f'   Every item in this field names a file or a directory\n'
-                                f'   (core/SCHEMA-outgrowing.md § the field table).')
+                                f'   (core/SCHEMA.md § Every field that names our own code is verified).')
                 elif not _resolves(path, token):
                     hits.append(f'{path}: `{field}` names {token}, which does not exist.\n'
                                 f'   A field naming our own code is a claim about our own tree,\n'
                                 f'   and it is checked so it cannot be inherited as fact\n'
-                                f'   (core/SCHEMA-outgrowing.md § the field table).')
+                                f'   (core/SCHEMA.md § Every field that names our own code is verified).')
     return hits

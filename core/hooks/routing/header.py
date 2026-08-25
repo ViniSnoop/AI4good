@@ -6,7 +6,7 @@
 # and slugs a field names exist). Two readers of one shape is the moment a second copy gets written,
 # and a second copy of the law inside a checker is the exact drift the checkers exist to catch.
 #
-# The shape it parses: core/SCHEMA-outgrowing.md § What a shard publishes about itself.
+# The shape it parses: core/SCHEMA.md § What a shard publishes about itself.
 import re
 
 # `> key: value` under the H1 — the shape CONTEXT.md already uses for `> spec:`, so no new parser
@@ -19,7 +19,7 @@ def header_fields(lines: list) -> dict:
 
     A WRAPPED FIELD IS ONE FIELD. A `>` line that is not itself a `key:` continues the field above
     it, because a value long enough to need a second line is exactly where this matters:
-    core/SCHEMA-vocabulary.md names three enforcers, the third sits on the wrapped line, and it was
+    core/SCHEMA.md names three enforcers, the third sits on the wrapped line, and it was
     dropped — so the index published two enforcers for a law that declares three, and the check
     below would have verified two of three while reporting the field clean.
 

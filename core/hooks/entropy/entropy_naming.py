@@ -7,7 +7,7 @@
 # about the corpus we write, so it checks the corpus we write.
 #
 # "Full words, not truncations" is NOT here: it is undecidable in general, so it is
-# enforced by declaration instead — core/SCHEMA-vocabulary.md § Retired tokens, checked by
+# enforced by declaration instead — core/SCHEMA.md § Retired tokens, checked by
 # entropy_ledger.py. A truncation becomes catchable the moment someone retires it.
 import re
 from pathlib import Path

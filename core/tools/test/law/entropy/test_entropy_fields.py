@@ -1,4 +1,4 @@
-# T0 the header-field check (core/SCHEMA-outgrowing.md § the field table): a field naming our own
+# T0 the header-field check (core/SCHEMA.md § Every field that names our own code is verified): a field naming our own
 # code names something that is there. Zero-token, runs in verify-fast.
 #
 # The boundary IS the design here, the same way it is for every check in this directory: a path and
@@ -40,7 +40,7 @@ def test_every_item_in_the_list_is_checked(tmp_path):
 
 
 def test_a_wrapped_field_is_one_field(tmp_path):
-    """The specimen that opened this: core/SCHEMA-vocabulary.md names three enforcers and the third
+    """The specimen that opened this: core/SCHEMA.md names three enforcers and the third
     sits on the wrapped line, where the parser dropped it — so the field read clean while a third of
     it was never looked at."""
     hits = _doc(tmp_path, f'> enforced-by: {GATE},\n> core/hooks/checks/no-such-gate.py')

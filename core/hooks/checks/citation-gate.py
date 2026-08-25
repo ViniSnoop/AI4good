@@ -30,7 +30,7 @@ import feature_law  # noqa: E402
 CITATION = re.compile(r'(?<!\w)Front \d+(?:\.\d+[a-z]?)?(?!\w)')
 
 # The pre-2026-08-16 spelling. This check owns the rename rather than
-# core/SCHEMA-vocabulary.md § Retired tokens, because that table matches a bare word and
+# core/SCHEMA.md § Retired tokens, because that table matches a bare word and
 # `frente` is an
 # ordinary Portuguese noun — it means a work front, and `branches/casinhas/CONTEXT.md` uses it
 # that way in a table header about construction. A retired-token row would have failed on
@@ -98,7 +98,7 @@ def citation_hits(files: list, exempt: set) -> list:
             hits.append(
                 f'{path}: cites {match.group(0)!r} (line {line}).\n'
                 f'   `Frente` was renamed to `Front` 2026-08-16 —\n'
-                f'   core/SCHEMA-vocabulary.md § Vocabulary.\n'
+                f'   core/SCHEMA.md § Vocabulary.\n'
                 f'   Rename it, then apply the rule below: a number is legal only in ROADMAP*.md.')
             continue
         if LEDGER_NAMES.match(path.name):

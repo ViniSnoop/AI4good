@@ -6,7 +6,7 @@
 - **PROVIDER-AGNOSTIC STORAGE: the workspace owns its state, never a harness.** Agnostic to provider, company and harness — so nothing that matters is written to a vendor's private directory. If a harness insists on its own path, symlink that path into the repo. Live case: `~/.claude/projects/<slug>/memory` → `brain/memory/`, so what the agent writes lands in git.
 - IMPROVE WORKSPACE at any opportunity. WRITE ISSUES DOWN at the end of INBOX.md
 - DON'T ASSUME, interview user if in doubt about his idea or intent.
-- EXPAND ACRONYMS on first use. Aliases: [`core/SCHEMA-vocabulary.md`](core/SCHEMA-vocabulary.md) § Vocabulary.
+- EXPAND ACRONYMS on first use. Aliases: [`core/SCHEMA.md`](core/SCHEMA.md) § Vocabulary.
 - EDIT > CREATE: refine / improve / reduce **wins over** creating new, except for prototyping. Avoid scattering.
 - A FILE OVER THE CAP IS CUT, NOT SPLIT. A `TYPE-<slug>.md` sibling is a last resort, and Lucas's call.
 - SYMMETRY IS A CORE VALUE, semantic and structural. When you find an asymmetry, write it down.

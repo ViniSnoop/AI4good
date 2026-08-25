@@ -1,4 +1,4 @@
-# T0 corpus ratchets (core/SCHEMA-placement.md § Placement): the .md corpus may not accumulate more of the three
+# T0 corpus ratchets (core/SCHEMA.md § Placement): the .md corpus may not accumulate more of the three
 # defects no link-checker can see. Zero-token, runs in verify-fast.
 #
 # These sit here rather than beside the checks they call because they assert something
@@ -19,7 +19,7 @@ from file_law import load_limits
 
 HEAD_WARN = load_limits()['CONTEXT_HEAD_WARN']
 
-# Inherited backlog: corpses and trapped heads (core/SCHEMA-placement.md § Placement) plus generator markers.
+# Inherited backlog: corpses and trapped heads (core/SCHEMA.md § Placement) plus generator markers.
 # The wos half of the corpse and head queues is drained; what remains in both is nested-repo
 # work, which cannot ride a wos commit — so these two stop falling here.
 #
@@ -78,7 +78,7 @@ def test_constraints_in_context_heads_do_not_grow():
     assert live <= MISPLACED_CEILING, (
         f'{live} constrained heads, up from {MISPLACED_CEILING}. CONTEXT.md is the only '
         f'enforced-read type — move the contract to a sibling SPECS.md and leave one '
-        f'pointer (core/SCHEMA-placement.md § Placement)')
+        f'pointer (core/SCHEMA.md § Placement)')
 
 
 def test_the_ceilings_are_not_stale():

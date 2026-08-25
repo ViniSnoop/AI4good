@@ -72,7 +72,7 @@ def failures_for(path: Path, allowed: set, exempt: set, scopes: dict,
             # the discipline or does not arrive (core/SPECS-discipline.md § AD-16 band 1).
             + experiment_hits([path]) + ref_tier_hits([path])
             # A header field naming our own code is a claim about our own tree, and the tree is
-            # right here (core/SCHEMA-outgrowing.md § the field table). Total like the stores above:
+            # right here (core/SCHEMA.md § Every field that names our own code is verified). Total like the stores above:
             # the declarations are clean today, so a new one arrives resolving or does not arrive.
             # `governs` is left to the dashboard — its list mixes paths with prose, and a token
             # misread there would stop a commit instead of printing a line.

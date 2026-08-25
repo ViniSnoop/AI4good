@@ -64,7 +64,7 @@ Keep this list short: it is what a re-sync with upstream has to reconcile.
    not describe them. One line each, above the first import; nothing else moved.
 7. **`SKILL.md`'s `description:` was shortened to fit `hoist.DESC_LIMIT`** (360), which the routing
    table truncates past — and a truncated description is a finding, not a rendering
-   (`core/SCHEMA-outgrowing.md` § What a description must say). What was cut is the enumeration of
+   (`core/SCHEMA.md` § What a description must say). What was cut is the enumeration of
    the six levels and six sub-commands, which this router documents below anyway; every **trigger
    phrase** the harness matches on was kept, since those are what the field is for.
 8. **`scripts/benchmark.py` glob mode is dead** and was left alone. It resolves

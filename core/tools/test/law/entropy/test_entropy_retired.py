@@ -1,4 +1,4 @@
-# T0 the retired-token check (core/SCHEMA-vocabulary.md § Retired tokens): a rename is finished only
+# T0 the retired-token check (core/SCHEMA.md § Retired tokens): a rename is finished only
 # when its old spelling appears nowhere. Zero-token, runs in verify-fast.
 #
 # Split from test_entropy_ledger.py 2026-08-24 at the 200-line cap. The seam was already there —

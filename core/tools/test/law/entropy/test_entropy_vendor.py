@@ -1,4 +1,4 @@
-# T0 the vendor-name guard (core/SCHEMA-vocabulary.md): a ledger assigns a TIER, never a model.
+# T0 the vendor-name guard (core/SCHEMA.md): a ledger assigns a TIER, never a model.
 # Zero-token, runs in verify-fast.
 #
 # The boundary is the whole check, so it is what these cases are about. A model name is legitimate

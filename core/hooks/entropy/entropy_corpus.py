@@ -85,11 +85,10 @@ def is_generated_mirror(path: Path) -> bool:
 # a retired token too. That is a real loosening and it is the honest one, because an issue is often
 # ABOUT a name that should no longer exist.
 #
-# `core/SCHEMA-vocabulary.md` is the table itself — § Retired tokens moved there when SCHEMA.md
-# sharded, and the exemption did not follow, which nothing noticed because the shard was untracked
-# until 2026-08-20 (ISSUES.md § B2). Only the vocabulary shard is listed: the other three have no
-# business naming a retired token.
-ENFORCEMENT = ('core/SCHEMA.md', 'core/SCHEMA-vocabulary.md', 'ISSUES.md')
+# `core/SCHEMA.md` holds § Retired tokens itself, so it is the one law file that must be able to
+# name what it retires. The vocabulary shard came home 2026-08-25 and its separate exemption went
+# with it; `SCHEMA-layers.md` has no business naming a retired token and is deliberately absent.
+ENFORCEMENT = ('core/SCHEMA.md', 'ISSUES.md')
 
 # The ledger check's own tests, found by name instead of by path. Spelling the path out is
 # what broke this exemption the moment core/tools/test was split (2026-07-31) — the same

@@ -105,7 +105,7 @@ session sits on it; and a third store would be the scatter this workspace forbid
 self-description and confident-wrongness are one problem or three.
 *Why* — the feature registry, the group rename and the vocabulary sweep were all downstream attempts
 at a legibility problem nobody had named, which is why each only helped for a while.
-*Done when* — survivors are defined in `core/SCHEMA-vocabulary.md` and the rest replaced across the
+*Done when* — survivors are defined in `core/SCHEMA.md` and the rest replaced across the
 corpus. The most precise word wins, simpler breaks the tie, and the fix is subtraction.
 
 **🟡 the health picture: keep what Lucas reads at a glance, cut the rest**

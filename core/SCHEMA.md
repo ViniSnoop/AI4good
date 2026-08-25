@@ -1,18 +1,17 @@
 # Core Library Schema
-> The enforced frontmatter contract for skills, flows, and agents, plus the workspace-wide `.md`
-> type system. Drift from this is a bug.
+> The law about `.md` documents: which types exist, where a file belongs, how one that outgrew the cap
+> is cut, and which words are canonical. The **tables here are load-bearing** —
+> [`schema_law.py`](hooks/schema_law.py) parses them and no checker restates them. Drift is a bug.
+> answers: what type a file is, where it lives, how it splits, what a word means
+> enforced-by: core/hooks/checks/type-gate.py, core/hooks/entropy/entropy_naming.py,
+> core/hooks/entropy/entropy_ledger.py, core/tools/wos/skills/validate.sh
 
 ## The `.md` type system
 
-> Decided 2026-07-30. Lucas: *"delimit precisely where one file ends and another begins, so there is
-> no conceptual intersection."*
-
 **`UPPERCASE.md` is a type. `lowercase.md` is an instance.** A type means the same thing in every
-subtree; an instance is content, named freely. Uppercase names are therefore a **closed set** —
-inventing a type must be a deliberate act (one line added below), never an accident.
-
-Each type answers exactly one question. If you cannot say which question a file answers, it does not
-get a new type.
+subtree, so uppercase names are a **closed set** — inventing one is a deliberate act (one line added
+below), never an accident. Each type answers exactly one question; if you cannot say which, it does
+not get a type.
 
 | Type | The one question it answers |
 |------|------------------------------|
@@ -32,101 +31,193 @@ get a new type.
 | `STATUS.md` | Is this craft chain still running, and where did it stop? (`.craft/<slug>/` only) |
 | `SCHEMA.md` | This file: the law about types. |
 
-Anything else is rejected: *"add it to the allowlist if you mean it."*
-
-**`STATUS.md` joined 2026-08-20, and it was already mandatory before it was legal.**
-[`core/flows/craft/craft-ship.md`](flows/craft/craft-ship.md) § Status declares one per chain —
-Loop 0 creates it, Loop 6 mutates it, and `/craft --status` reads them all to find abandoned runs.
-The type gate rejected the name for as long as the rule existed, so the flow was asking for a file
-the law forbade. It is scoped to `.craft/<slug>/`: a status **anywhere else** is a roadmap item or an
-issue, and the two ledgers already answer that question. Note the shape it must keep — one line of
-present-tense state, never a completion report, or it collides with *done work is deleted*.
-
-### Boundaries where types nearly touch
-
-The three real conflicts, with the resolving rule:
-
-| Conflict | Rule |
-|----------|------|
-| `CONTEXT.md` vs its own routing block | CONTEXT **never hand-lists files**; the generated routing block owns inventory. A hand-written File Map is a bug — as a bullet list *or* a table, both counted by `entropy_context.check_inventory`. **But ask why it was written before deleting it**: `core/hooks/CONTEXT.md` hand-listed `limits.env` and three siblings because the generator could not *reach* them, and cutting the table would have cut three real pointers. Fix the generator first, then the list is redundant. |
-| `CONTEXT.md` vs `SPECS.md` | Rules that *constrain code* → SPECS. What the directory *is* → CONTEXT. |
-| `ROADMAP.md` vs `ISSUES.md` | ISSUES owns the issue text; ROADMAP references it by id and never restates it. Intent vs. state: a roadmap item leaves the list when deprioritised, an issue does not stop being true. |
-| `ISSUES.md` hand-written vs generated | The hand-written issues come first; every generated measurement lives inside its own delimited block (`entropy:start`, `verify:start`) exactly as the routing block does inside `CONTEXT.md`. Never hand-edit inside a block, and never write a measured number outside one — a copied count is the drift these checks exist to catch. The FIXED gate governs the hand-written half only. |
+Anything else is rejected: *"add it to the allowlist if you mean it."* `STATUS.md` must stay one line
+of present-tense state; `MEMORY.md` is the one type the agent writes rather than authors, and is
+checked like any other file. **Where types nearly touch:** `CONTEXT.md` **never hand-lists files** —
+but ask why a hand list was written before deleting it, since it may point at what the generator
+cannot reach. Rules that *constrain code* go to `SPECS.md`, what the directory *is* stays in
+`CONTEXT.md`. `ISSUES.md` owns the issue text and `ROADMAP.md` cites it by id. Inside `ISSUES.md` the
+hand-written issues come first and every measurement sits in its own block — **never hand-edit inside
+a block, never write a measured number outside one.**
 
 ### The one exception: transient initiative docs
 
-A **cross-project rollout** with cited anchor ids and a defined death date is a real thing, but
-**it is not a new type** — ruled 2026-08-14 by Lucas: *"unify, use the semantic symmetry strategy,
-guarantee coverage and precision with zero conceptual intersection between those files… and make
-sure as well that we do not create a new .md file for each specific minor thing."*
-
-The resolution follows from the type table itself. A rollout is *intent, plan, and what we rejected*,
-scoped to one initiative — which is precisely the question ROADMAP answers. It never needed a name
-of its own; it needed a **scope suffix**. So a structural plan lives inline in the target project's
-roadmap **or as a referenced ROADMAP-\<slug\>.md** — that sanction is this table's, enforced by
-`checks/type-gate.py` against the exempt set closed at four. The conceptual intersection with ROADMAP
-disappears (there was one: both answer *what do we intend to do*), and the type count does not grow.
-**Five differently-named files were the symptom of a missing suffix, not of a missing type.**
-
-**A session plan is not a roadmap, and the type system does not reach it** (ruled 2026-08-17, Lucas:
-*"session plans and roadmaps are two different things… I am not even sure we need to keep that
-directive"*). They differ in kind, not in placement: a roadmap is **structural, mid- and long-term**
-and is re-read every few sessions; a session plan is **ephemeral, short-term, detailed execution**,
-alive for one sitting. So a harness that writes a session plan to its own scratch path creates no
-conflict with anything here — there is nothing to track, and the roadmap is not forgotten because a
-plan sat elsewhere for an afternoon. The workspace-root rules used to carry a `PLANS LIVE IN ROADMAPS`
-directive that read as a conflict precisely because it conflated the two; it was **deleted** rather
-than given an exception, since placement of the structural kind is already blocked by the gate above
-and the ephemeral kind was never in scope.
-
-Membership **only shrinks** and each survivor has a route.
+A **cross-project rollout** is **not a new type** (ruled 2026-08-14, Lucas): it is intent, plan and
+what we rejected scoped to one initiative, which is the ROADMAP question, so it needs a **scope
+suffix** rather than a name. A **session plan** is a third thing the type system does not reach: a
+roadmap is structural, a session plan lives one sitting. Membership **only shrinks**, and each
+survivor owes a death condition on line 3.
 
 | File | Route | Why |
 |---|---|---|
 | `code/ROADMAP-spec-drive.md` | → ROADMAP-spec-drive.md | same shape, no anchor citations |
-| `code/dobra/DECISIONS.md` | → that project's SPECS.md | **not a roadmap at all** — decisions are *what must be true and why*, which is the SPECS question. It sat in this list by naming accident |
-
-**A rename preserves every anchor id**, so a doc cited by anchor from source comments (`W1`, `G5`,
-`I2`) costs only its paths. A row leaves this table the day its rename lands, because the suffix
-shape is recognised on its own by [`entropy_naming.py`](hooks/entropy/entropy_naming.py) — the
-exemption covers the *old* name and nothing else.
+| `code/dobra/DECISIONS.md` | → that project's SPECS.md | **not a roadmap at all** — decisions are *what must be true and why*, the SPECS question |
 
 **Every backticked `.md` name in this section is parsed as an exemption**, so naming a retired file
-here to explain its history puts it straight back on the list. Say the name without backticks, or
-leave it to git.
+here to explain its history puts it straight back on the list.
 
-Until each rename lands, these stay exempt from the allowlist **and** carry an obligation: each
-must state its own death condition on line 3, and be deleted when its rollout completes. They are the
-only `.md` files allowed to be temporary, so a stale one is the most expensive kind of clutter.
+## Placement and routing
 
----
+### Placement: tier × read-frequency
 
-## Enforcement
+The first test is **is it still true?** — against code, tests and `git log`, never memory; an untrue
+ESSENTIAL is the most expensive object here. Then tier, per *section*: **ESSENTIAL** = work comes out
+wrong · **IMPORTANT** = work comes out slower · **DESIRABLE** = nothing changes, git holds it.
+Read-frequency is a property of the enforcement layer, not a guess: **HOT** = `CONTEXT.md` (the only
+enforced-read type), `AGENTS.md` and `MEMORY.md` (system prompt), `GOALS.md` and `ROADMAP.md`
+(induced-hot by the root `README.md`); **COLD** = everything else; **MACHINE-READ** = `SCHEMA.md`.
+Where the axes meet: hot+essential **KEEP** · cold+essential **PROMOTE**, it is arriving too late to
+prevent the error · hot+important **REDIRECT** behind one pointer line · cold+important **KEEP** ·
+desirable **CUT**. **A provider's own directory is not a placement, it is an escape** — no type owns
+it, no check reads it, and it dies with the harness; symlink it in and it is an instance again.
 
-`core/tools/wos/sync-skills --check` parses frontmatter and fails on violations; it is wired into
-`core/hooks/pre-commit`. All three layers are live:
-- **skill:** frontmatter present, `name:` + `description:`, non-skills rejected.
-- **flow:** `description:` + `args:` present, `type ∈ {research-brief, utility, domain}`,
-  `confirm ∈ {plan, none}`. Exempt: `CONTEXT.md` and everything under `flows/craft/` — the
-  engineering cluster is exempted **by path**, which is why `tree.md` needs no separate mention.
-  Validation is **recursive** — it walks `flows/<skill>/` subfolders, not just the flat root.
-- **composition:** every `uses:` target resolves to a real flow, and the `uses:` graph is a **DAG**
-  (three-colour DFS; a path returning to its own start fails the check). The exemption list does
-  *not* apply here — every flow file is a node, so an engineering flow cannot smuggle in a cycle.
-  The **runtime iteration cap** is the other half of this guard and is *not* statically checkable:
-  any flow with an execution loop must declare a numeric cap plus an exit condition in prose
-  (wording in [`flows/_template.md`](flows/_template.md) § Execution Loops). Do not try to enforce
-  it with the DAG check — that check forbids cycles; the cap is what *permits* them, bounded.
-- **agent:** `name:` + `description:` present, `tier ∈ {low, medium, high, max}`, `model:`/`thinking:`
-  forbidden in source, workers (everyone but `lead`) must carry `tools:` + `output:`.
+**The REDIRECT recipe, in order**, and the order is what pays: (1) delete what a hook already enforces
+— except a number that changes how you write *before* the hook can speak, so the 150/200 caps stay;
+(2) move constraints to a sibling `SPECS.md`; (3) move data out; (4) delete stale claims; (5) keep
+identity and navigation only. **Open the child `CONTEXT.md` and the file's own routing block first** —
+most of what looks movable is already written better elsewhere. What replaces a moved section is one
+thin pointer line, never an instruction; the check fires on an over-size head *and* a modal. **A
+constraint sitting in a `CONTEXT.md` head is the standard defect.** Compression is last and nearly
+worthless: a pilot moved the worst offender 0.22% for a full model call. Placement beats phrasing.
+
+### No archive types
+
+`ARCHIVE.md`, `HISTORY.md` and `.log/done.md` are **deleted, not renamed** — a file that is "never
+auto-loaded, ask explicitly" is doing git's job. The rule applies *inside* a file too: **a completed
+`ROADMAP.md` item is cut, not ticked**; keep a line only when the next session needs it to *extend*
+the work, as present-tense state. The one thing git cannot hold is an approach *tried and rejected*:
+one line under `## Rejected` in the relevant `ROADMAP.md`, or `## Ditched` in `brain/GOALS.md`.
+
+## Routing depth and locality (structural policy)
+
+Four axes, **deliberately separate** — conflating them produced the wrong "flatten everything" call.
+
+| Axis | Rule | Enforced by |
+|---|---|---|
+| **locality** | many small local `CONTEXT.md` = good, never consolidate to "reduce clutter" — granularity is what makes weak models navigate | judgement |
+| **depth** | cap hops to content, not file count; **measure** before adding a routing level | judgement |
+| **fanout** | `WARN_FILES=7` asks for a look, `BLOCK_FILES=10` is the cap | `entropy_fanout.py`, dashboard |
+| **document size** | `BLOCK_LINES=200` caps one authored `.md`; a root that sheds shards routes to them | `pre-edit.py`, dashboard |
+
+Splitting an over-full directory *adds a hop*, so fanout and depth trade directly: pay the hop only
+when the split removes more table than it adds — a directory in the dozens pays, one at 8-9 files does
+not. Numbers live in [`limits.env`](hooks/limits.env), never in a second copy; offenders live in
+[`ISSUES.md`](../ISSUES.md). Prose is capped at the same number as code, but a shard's readers are
+*sessions deciding whether to read it*, so the index must carry enough to decide without opening
+anything. Also: **no session reads the corpus, it reads a chain**, so the real cost of a routing table
+is row *count* per chain — which is why a generated column empty on every row is not emitted.
+
+## When a document outgrows its type
+
+### The four disposal routes
+
+An off-allowlist `UPPERCASE.md` is *unclassified*, not wrong. **Ask *is this still true* before *what
+type is this*.** Route what survives: **generated** or **hand-authored content** → lowercase instance ·
+**hand-authored constraint** → `SPECS.md` · **a question no type answers** → a new type, which only
+`SETUP.md` ever qualified for.
+
+**A generated measurement goes where its question already has a type**, so the entropy report is a
+block inside the root `ISSUES.md` — at the root because `outputs/` is gitignored and **a ratchet that
+is not tracked cannot ratchet**. **A declaration table takes none of these routes:** `features.txt`,
+`profile.txt`, `limits.env`, `deps.txt`, `vendored.txt`, `generated.txt` and `extensionless.txt` are
+hand-authored data read by exactly one law module, **never prose**. **The extension names the shape:**
+`.tsv` for a table with a header row, `.txt` for one value per line, `.env` for `key=value`.
+
+### A type that outgrows the cap is cut
+
+**Cutting is the rule; a sibling file is the exception and needs Lucas's explicit OK** — the
+[`cap`](norms/cap.md) norm, stated once here for every type. Delete what repeats, what nobody reads,
+and what a generator already derives: a split preserves the mass across more files, which is how this
+workspace reached nine roadmaps. Two traps: a deleted file's row in the transient table keeps its
+exemption alive, and the document you are deleting can be the sole record of something live. **An
+approved sibling is `TYPE-<slug>.md` with the unsuffixed file as the index**, slug lowercase kebab-case
+— three gates assume that shape (`type-gate.py` reads `^[A-Z][A-Z0-9_.-]*\.md$` as a type name,
+`entropy_naming.TYPE_SLUG` accepts only `[a-z0-9]+(?:-[a-z0-9]+)*`, `citation-gate.LEDGER_NAMES`
+matches `^ROADMAP(-[a-z0-9-]+)?\.md$`). The index keeps what is true of every sibling, any list the
+type's rule says lives in one place, and the generated routing table. The check that makes "as small as
+possible" checkable: **a reader who has read only the index names the sibling that answers their
+question, and is never wrong.**
+
+### What a shard publishes about itself
+
+A shard's header exists for one reader — the index's generated table — and every field answers *should
+I open this file?*, never *what does it say?* **The two errors are not symmetric:** skipping a shard
+that held what the task needed is silent, opening one that was not is a visible read, so a field that
+only saves a read is cut. **The header is `>` lines under the H1, not YAML frontmatter**, and **a
+wrapped field is one field**: a `>` line that is not itself a `key:` continues the one above it, parsed
+for everyone by [`routing/header.py`](hooks/routing/header.py). Every shard opens with two to three
+sentences and no key; then `priority` and `blocked-by` on ROADMAP, `answers` on SCHEMA, `governs` on
+SPECS (the same job as a `> spec:` line), `feature` on SETUP, `enforced-by` on both.
+
+#### Every field that names our own code is verified
+
+`enforced-by`, `blocked-by`, `governs` and `spec` name paths; `feature` names the registry.
+[`entropy_fields.py`](hooks/entropy/entropy_fields.py) checks each against the tree — blocking on what
+a commit adds, reporting on everything. Numbers already had *"re-run it, never quote it"*; claims about
+our own tree had nothing. It never reaches prose, and inside `governs` reads only path-shaped tokens.
+
+### What a description must say
+
+Three rules: **name the question the file answers, not its topic** — a topic makes the open-or-skip
+decision a coin flip; **add the discriminator**, what is in here as opposed to the file next door;
+**two to three sentences**, bounded by `hoist.DESC_LIMIT`, prose first and `key:` fields after. **A
+truncated description is a finding, not a rendering** — fix the source, never the cut. **Everything
+countable is counted, never declared**, because a hand-kept count in `ROADMAP.md` went stale four
+times. And **the table names the marker in words, not the emoji.**
+
+## Vocabulary
+
+**Data, not a rule** — which is why it lives here and not in the always-loaded `AGENTS.md`.
+**workspace-os** is also written `wos` · `WOS` · `w-os` · `W-OS`; **craft flow** means the `/craft`
+skill and `core/flows/craft/`; **Front** is a top-level workstream in `ROADMAP.md`. **A Front number is
+not a citable identifier:** closed items are deleted, so `Front 4.1` is a dead pointer the day the work
+lands. Numbering is legal only inside `ROADMAP.md` / `ROADMAP-<slug>.md`, and in commit messages.
+
+### Terms with one meaning
+
+| Term | Definition |
+|------|------------|
+| **feature** | Something **this workspace authors** that can be switched off in-process, declared in [`features.txt`](features.txt) — one layer or a combination. Third-party machine state is not a feature; it is a `SETUP.md` step plus a `deps.txt` line. The test: if switching it off leaves nothing running to observe the difference, it is substrate |
+| **layer** | One of `hooks · tools · skills · agents · flows · norms` — each names a directory under `core/`, except `norms` |
+| **norm** | A rule that exists only as written words and is obeyed rather than enforced — the INDUCED half of the line whose ENFORCED half is `file_law.py` / `schema_law.py` / `feature_law.py`. A norm that acquires a checker becomes a hook |
+
+### Retired tokens
+
+**A rename is finished when its old token appears nowhere.** This table *is* the assertion:
+`entropy_ledger.py` fails if any token below survives in a tracked file, this file excepted. Add a row
+the moment a rename lands, and delete the prose that would otherwise explain it.
+
+| Retired token | Replacement | Retired |
+|---------------|-------------|---------|
+| `loop-engineering` | `craft` | 2026-07-23 |
+| `loop-router` | `route` | 2026-07-23 |
+| `loop-architecture` | `architect` | 2026-07-23 |
+| `LOOP-TREE` | `tree.md` | 2026-07-23 |
+| `KNOWN-BUGS` | `ISSUES.md` | 2026-07-30 |
+| `/loops` | `/craft` | 2026-08-17 |
+| `BUGS.md` | `ISSUES.md` | 2026-08-19 |
+| `WATCHLIST.md` | `core/refs/REFS-unjudged.md` | 2026-08-20 |
+| `.loop` | `.craft` | 2026-08-20 |
+| `parsed-by` | — retired unfilled | 2026-08-25 |
+
+**A rename whose old spelling is also a real word needs a shape, not a token.** `loops` is ordinary
+English, so what is retired is the command `/loops` and the state dir `.loop`; "Loop 0..6" stays.
+`Frente`→`Front` is not a row at all — `citation-gate.py` matches the *citation shape* `Frente <n>`
+instead, because a row that fails on correct prose trains people to ignore the check. Not yet swept,
+so not yet listed: `SPEC.md`→`SPECS.md`.
+
+### A vendor's model name is data, never a directive
+
+**Ruled 2026-08-17 (Lucas): *"nothing in WOS should be tied to a specific vendor/company/model."*** A
+ledger assigns a **tier** — `low` · `medium` · `high` — and which model fills it is data, in
+[`flows/craft/routing.md`](flows/craft/routing.md) and nowhere else. **A shape, not a token:**
+`**model: opus**` is a directive and forbidden; `` `model: opus` `` in prose reporting a measurement is
+data. `entropy_vendor.py` matches the bolded assignment and nothing else.
 
 <!-- routing:start -->
 ## Routing
 
 | Shard | Description | Answers | Enforced by |
 |-------|-------------|---------|-------------|
-| [`SCHEMA-layers.md`](SCHEMA-layers.md) | The frontmatter every skill, agent, norm and flow declares, and how they compose. | what fields each layer requires, which layer may point at which | core/tools/wos/skills/validate.sh |
-| [`SCHEMA-outgrowing.md`](SCHEMA-outgrowing.md) | Where an unclassified name goes, and how a type that passed the cap splits. | what to do with an off-allowlist name, how a type shards, what an index keeps | core/hooks/checks/type-gate.py, core/hooks/checks/pre-edit.py, core/hooks/entropy/entropy_fields.py |
-| [`SCHEMA-placement.md`](SCHEMA-placement.md) | Which directory a file belongs in, and how deep the routing may go. | where a file lives, how many hops to content, when a directory splits | core/hooks/entropy/entropy_naming.py, core/hooks/entropy/entropy_fanout.py |
-| [`SCHEMA-vocabulary.md`](SCHEMA-vocabulary.md) | One word per idea, one idea per word, and every token a rename retired. | which spelling is canonical, what a term means, what may no longer be written | core/hooks/entropy/entropy_ledger.py, core/hooks/entropy/entropy_vendor.py, core/hooks/checks/citation-gate.py |
+| [`SCHEMA-layers.md`](SCHEMA-layers.md) | The frontmatter every skill, agent, norm and flow declares, and how they compose. The document law — types, placement, cutting, vocabulary — is the index, [`SCHEMA.md`](SCHEMA.md); this shard is the prompt-loaded half, because a `.md` a session reads and a frontmatter block a runtime parses are two different contracts. | what fields each layer requires, which layer may point at which | core/tools/wos/skills/validate.sh |
 <!-- routing:end -->

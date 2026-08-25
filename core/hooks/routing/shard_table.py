@@ -6,7 +6,7 @@
 # the cap. render_table came with it: both builders drop a column that is empty on every row, and
 # that rule was about to exist twice.
 #
-# The law it serves: core/SCHEMA-outgrowing.md § What a shard publishes about itself.
+# The law it serves: core/SCHEMA.md § What a shard publishes about itself.
 import re
 from pathlib import Path
 
@@ -56,7 +56,7 @@ def shard_facts(path: Path) -> dict:
     """What a shard publishes about itself, plus what can be counted instead of published.
 
     The declared half is the `> key: value` lines; the derived half is everything countable, by
-    core/SCHEMA-outgrowing.md § Everything countable is counted, never declared.
+    core/SCHEMA.md § Everything countable is counted, never declared.
     """
     try:
         text = path.read_text(encoding='utf-8', errors='ignore')

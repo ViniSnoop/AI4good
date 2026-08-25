@@ -77,7 +77,7 @@ def check_inventory(path: Path) -> str | None:
 
 # A constraint reads as an obligation, which is the SPECS question. Answering it in a
 # CONTEXT.md head charges every session in the subtree, because this is the only
-# enforced-read type — core/SCHEMA-placement.md § Placement, the REDIRECT cell.
+# enforced-read type — core/SCHEMA.md § Placement, the REDIRECT cell.
 CONSTRAINT = re.compile(
     r'\b(?:must|never|always|required|forbidden|blocked|do not|don\'t)\b', re.I)
 
@@ -111,7 +111,7 @@ def check_misplaced_answer(path: Path, head_warn: int) -> str | None:
     return (f'{path}: head is {tokens} tok carrying {modals} constraint(s).\n'
             f'   CONTEXT.md is the only enforced-read type, so this is charged to every\n'
             f'   session in the subtree. {verb} sibling SPECS.md and leave one pointer\n'
-            f'   (core/SCHEMA-placement.md § Placement, REDIRECT).')
+            f'   (core/SCHEMA.md § Placement, REDIRECT).')
 
 
 def check_description(path: Path) -> str | None:
@@ -137,7 +137,7 @@ def check_truncation(path: Path) -> str | None:
     """A `…` inside a generated routing block means an author wrote past `hoist.DESC_LIMIT`.
 
     The twin of check_description, and the same rule section
-    (core/SCHEMA-outgrowing.md § What a description must say): that one catches a row with nothing
+    (core/SCHEMA.md § What a description must say): that one catches a row with nothing
     in it, this one a row with half a sentence in it. **Fix the source, never the cut** — the
     generator is doing exactly what it was told, so editing the table just regenerates the ellipsis
     on the next commit.
