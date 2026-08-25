@@ -1,7 +1,7 @@
+# [ area | subarea | horizon ] goal title
 <!-- area can be health, craft, finances, fun, or spiritual -->
 <!-- subarea can be anything, patterns will stablish with usage -->
 <!-- horizon can be now / near / year / dream -->
-# [ area | subarea | horizon ] goal title
 <!-- 
 paths
 related list of subfolders

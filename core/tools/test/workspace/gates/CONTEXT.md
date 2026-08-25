@@ -1,14 +1,14 @@
 # gates
-> What a blocking gate must say, and who it must fire for. Mirrors `core/hooks/gates/`.
+> What a blocking gate must say, and who it must fire for. Named for `core/hooks/gates/` and
+> deliberately wider than it.
 
-Three questions, one per file, and they are independent — a hook can block the right agent for the
-wrong reason, the wrong agent with a perfect message, or rewrite shell it had no business touching.
+**Not a mirror, and the name is the drift.** It also holds the tests for hooks in `read/`, `checks/`,
+`git/` and `compact/`; the split that would retire the mismatch is named in
+[`test_entropy_fanout.py`](../../law/entropy/test_entropy_fanout.py)'s BASELINE.
 
-| File | The one question it answers |
-|------|-----------------------------|
-| [`test_gate_messages.py`](test_gate_messages.py) | When a gate blocks, does it say **why**, on stderr? |
-| [`test_subagent_gate.py`](test_subagent_gate.py) | **Who** is gated — and who is deliberately not? |
-| [`test_bash_compact_rewrite.py`](test_bash_compact_rewrite.py) | When a hook rewrites, does it leave **unreadable shell alone**? |
+The questions here are independent, which is why they are separate files: a hook can block the right
+agent for the wrong reason, the wrong agent with a perfect message, or rewrite shell it had no
+business touching.
 
 Why each one exists, and the one place a test reads source instead of running it: [`SPECS.md`](SPECS.md).
 
