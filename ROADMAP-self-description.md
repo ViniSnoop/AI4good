@@ -52,6 +52,48 @@ where the answer is already on disk and simply was not read.
    a glossary prevents at source (`core/SCHEMA.md` § Vocabulary defines three terms).
    **Bring evidence, not intuition**: the specimens above are dated and re-checkable, and the first
    work is deciding what a *provable* claim about our own code looks like.
+
+   **The grounding is done and the sitting still owes its ruling.** Each finding below was probed by
+   the command that would refute it, which is the front's own standard applied to the session that
+   opened it.
+
+   - **The adversarial-step candidate is off the list.** `grep -rn "adversarial" core/flows/craft/*.md`
+     — Loop 1 reviews the plan, Loop 3 the architecture, and
+     [`core/flows/craft/SPECS.md`](core/flows/craft/SPECS.md) § Adversarial review already ruled on it.
+     Its lesson transfers whole: *the checkable shape is the inverse of the one proposed* — demanding
+     the step builds a death loop, demanding the **bound** is greppable and zero-token. So the open
+     question is not how to demand proof. It is **where a claim is allowed to live**.
+   - **A keyword check over prose is the switched-off-in-a-week case, and this workspace has written
+     that down twice already.** `entropy_vendor.py` matches the bolded assignment rather than the
+     model name, and `checks/citation-gate.py` matches the citation shape rather than the word, both
+     because the bare token is honest English elsewhere. *"Nothing calls X"* and *"Z is unbuilt"* are
+     ordinary English. **Match a shape, not a token** is the hard constraint on every candidate.
+   - **A claim check joins an existing family rather than opening a new capability.** Most modules
+     under `core/hooks/entropy/` already read prose — `grep -ln "re\.compile\|re\.search"` over the
+     directory — and `entropy_stores.py` is the nearest ancestor: it charges `core/experiments/` for a
+     runnable `Method` and a `Limitations` that is never omitted, which is AD-16 band 1 → band 2 on a
+     small closed store.
+   - **`enforced-by:` already exists and nothing reads it.**
+     [`core/SCHEMA-vocabulary.md`](core/SCHEMA-vocabulary.md) names three checkers as its enforcers in
+     a header field — a structural claim about our own code, sitting where a parser could verify it
+     today, unverified.
+
+   **The specimens sort into three groups and the sort is what the ruling turns on.** Four sit in
+   fields that already exist — the registry's enforcement column, its authored-vs-third-party column,
+   its header, and the needs-Lucas count now that a generator owns it — so a check reaches them with
+   no new discipline to remember. Three sit in prose (a handoff, an AD section, a roadmap row) and are
+   reachable only by a marker written at authoring time, which catches nothing not marked and so has
+   no retroactive reach. One — four reports made against a directory the tool does not write to — is a
+   claim spoken in a turn, and AD-16 band 3 already ruled that unchargeable.
+
+   **What the sitting rules on, stated as the choice rather than the survey:** whether a structural
+   claim must move into a field a parser already reads (widest retroactive reach, no new habit, misses
+   prose); or carry a falsifying command at the point it is written (the only option reaching prose,
+   zero retroactive reach, depends on a remembered discipline — the REFS-tier bargain); or be guarded
+   only where it is amplified, since `/handoff` writes one file and that file is how a false claim
+   reached a later session pre-loaded as fact; or be graded by a fresh cheap session that reads the
+   artifact and not the reasoning behind it — the highest-recall option, already built at craft Loops
+   3 and 6, and the one that loses to *automatic + zero-token* wherever a deterministic option exists.
    → **tier: high**, with Lucas, in a session about this and nothing else.
 ## Front 16 — post-v1, and the ledger is open again on purpose
 
