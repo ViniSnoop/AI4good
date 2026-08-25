@@ -135,7 +135,10 @@ def main() -> int:
     collected = here + sum(counts.values())
     # A bare count is how "flat" got written every session while the real number climbed —
     # re-derive the baseline from git history every run rather than trusting yesterday's memory.
-    trend = format_trend(collected, baseline(WORKSPACE_ROOT))
+    # Trend on `here`, the number the header prints: baseline() reads that same wording back out of
+    # git, so trending `collected` against it subtracts two different scopes and prints nonsense
+    # (34 findings with a "+571 over 0 days" beside it, the first run after the header changed).
+    trend = format_trend(here, baseline(WORKSPACE_ROOT))
     block = render(mine, len(files), WORKSPACE_ROOT, index=counts, trend=trend)
     REPORT.write_text(replace_block(text, block, START, END), encoding="utf-8")
     print(f'entropy dashboard → {_rel(REPORT)} ({collected} findings, '

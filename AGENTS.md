@@ -8,7 +8,7 @@
 - DON'T ASSUME, interview user if in doubt about his idea or intent.
 - EXPAND ACRONYMS on first use. Aliases: [`core/SCHEMA-vocabulary.md`](core/SCHEMA-vocabulary.md) § Vocabulary.
 - EDIT > CREATE: refine / improve / reduce **wins over** creating new, except for prototyping. Avoid scattering.
-- A FILE OVER THE CAP IS CUT, NOT SPLIT. Delete what repeats, what nobody reads, and what a generator already derives. A `TYPE-<slug>.md` sibling is the last resort and needs Lucas's explicit OK — a split preserves the mass across more files, which is the fix that only looks like one.
+- A FILE OVER THE CAP IS CUT, NOT SPLIT. A `TYPE-<slug>.md` sibling is a last resort, and Lucas's call.
 - SYMMETRY IS A CORE VALUE, semantic and structural. When you find an asymmetry, write it down.
 - **DONE WORK IS DELETED. GIT IS THE HISTORY.** No strikethrough, no annotated corpses.
 - USE OUR TOOLS / FLOWS: we want those to be useful and perfected.

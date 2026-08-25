@@ -88,6 +88,22 @@ def test_the_header_charges_this_repo_for_its_own_findings_only() -> None:
     assert '| **collected** | **98** |' in block
 
 
+def test_the_trend_is_measured_on_the_number_the_header_prints() -> None:
+    """The header and its baseline must be the same scope, or the delta is between two scales.
+
+    First run after the header changed printed `**34 findings here** (2026-08-25: 33 · +571 over 0
+    days)`: the trend was still computed on the collected total while the header showed this repo's
+    own. baseline() reads the header's own wording back out of git, so the two cannot diverge again
+    without this failing.
+    """
+    from entropy_trend import _COUNT
+    from entropy_report import SECTIONS, render
+    findings = {key: [] for key, _, _ in SECTIONS}
+    findings['size'] = ['core/a.md: over', 'core/b.md: over']
+    block = render(findings, scanned=10, root=Path('/x'), index={'code/one': 500})
+    assert int(_COUNT.search(block).group(1)) == 2
+
+
 def test_partition_loses_no_finding() -> None:
     findings = {'size': ['code/aiwbot/a.py x', 'core/b.md y'], 'naming': ['code/dobra/c: z']}
     repos = ['code/aiwbot', 'code/dobra']
