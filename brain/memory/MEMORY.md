@@ -56,5 +56,7 @@
   problema e tradeoffs na própria pergunta e em cada opção; ele "passa direto" no que não está ali
 - [Feedback: plain language](feedback_plain_language.md) — plain words over jargon (ledger/seam/probe are out); one idea
   one word; language IS the system when the reader is an LLM; say what a session decided alone
+- [Feedback: concise WOS](feedback_concise_wos.md) — cada sessão deve deixar MENOS linhas do que
+  achou; feature nova paga com o corte que a financia; nunca resumir uma lei até ela deixar de valer
 - [WOS: zerar o roadmap](project_wos_zero_roadmap.md) — zerar = SHIPPAR tudo, não deletar; realocar sim, cortar não;
   drain strategy = spend opus only on opus-only rows (the count that matters)

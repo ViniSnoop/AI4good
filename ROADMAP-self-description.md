@@ -43,58 +43,38 @@ the tree"*. Those are strictly **cheaper** to verify than any number — one `gr
 on the *outside world*, where the fix is search and a knowledge store. This is **self-description**,
 where the answer is already on disk and simply was not read.
 
-1. 🔴 **Open with a research and design sitting, and build nothing before it.** Ruled 2026-08-17: it
-   gets its own front and its own session. Candidate mechanisms, none chosen — picking one from a
-   wind of thought would be the same failure the front exists to name: a structural claim must carry
-   the command that falsifies it; handoffs may not restate a claim without its probe (the handoff is
-   the *amplifier* — it is how the seam claim reached today's session pre-loaded as fact); an
-   adversarial step in the flows; a defined vocabulary, since several of these were category errors
-   a glossary prevents at source (`core/SCHEMA.md` § Vocabulary defines three terms).
-   **Bring evidence, not intuition**: the specimens above are dated and re-checkable, and the first
-   work is deciding what a *provable* claim about our own code looks like.
+**Ruled 2026-08-24 (Lucas), and built the same session: a structural claim must live in a field a
+parser already reads.** The rule and the reasoning behind the choice live in
+[`core/SCHEMA-outgrowing.md`](core/SCHEMA-outgrowing.md) § Every field that names our own code is
+verified; the check is `core/hooks/entropy/entropy_fields.py`, blocking on what a commit adds and
+reporting on everything. It charged ~100 declarations the day it landed and three were false,
+including this front's own claim that `enforced-by` was read by nothing — it is rendered into every
+sharded index — and the field table's claim that the generator checked `blocked-by`, which nothing
+did.
 
-   **The grounding is done and the sitting still owes its ruling.** Each finding below was probed by
-   the command that would refute it, which is the front's own standard applied to the session that
-   opened it.
+**What the ruling deliberately does not reach: prose.** Three of the eight specimens live in a
+paragraph — a handoff, an AD section, a roadmap row — and they stay unchecked. That was the price of
+the option that needs no new habit and reaches backwards, weighed against a marker written at
+authoring time (reaches prose, catches nothing already written, depends on a discipline nobody
+enforces), a guard at `/handoff` alone (one file, and a skippable ritual), and a fresh cheap session
+grading the artifact (highest recall, but *automatic + zero-token* wins wherever a deterministic
+option exists — and here one did). The front stays open on the prose half.
 
-   - **The adversarial-step candidate is off the list.** `grep -rn "adversarial" core/flows/craft/*.md`
-     — Loop 1 reviews the plan, Loop 3 the architecture, and
-     [`core/flows/craft/SPECS.md`](core/flows/craft/SPECS.md) § Adversarial review already ruled on it.
-     Its lesson transfers whole: *the checkable shape is the inverse of the one proposed* — demanding
-     the step builds a death loop, demanding the **bound** is greppable and zero-token. So the open
-     question is not how to demand proof. It is **where a claim is allowed to live**.
-   - **A keyword check over prose is the switched-off-in-a-week case, and this workspace has written
-     that down twice already.** `entropy_vendor.py` matches the bolded assignment rather than the
-     model name, and `checks/citation-gate.py` matches the citation shape rather than the word, both
-     because the bare token is honest English elsewhere. *"Nothing calls X"* and *"Z is unbuilt"* are
-     ordinary English. **Match a shape, not a token** is the hard constraint on every candidate.
-   - **A claim check joins an existing family rather than opening a new capability.** Most modules
-     under `core/hooks/entropy/` already read prose — `grep -ln "re\.compile\|re\.search"` over the
-     directory — and `entropy_stores.py` is the nearest ancestor: it charges `core/experiments/` for a
-     runnable `Method` and a `Limitations` that is never omitted, which is AD-16 band 1 → band 2 on a
-     small closed store.
-   - **`enforced-by:` already exists and nothing reads it.**
-     [`core/SCHEMA-vocabulary.md`](core/SCHEMA-vocabulary.md) names three checkers as its enforcers in
-     a header field — a structural claim about our own code, sitting where a parser could verify it
-     today, unverified.
+1. 🟡 **Charge the semantic half of a field, not only the path.** A gate that exists and does not
+   enforce what its row claims is still a false claim: the registry called `heredoc-gate` a
+   `blocks` when running it both ways shows it warns and returns 0. Existence is checked; behaviour
+   is not. The nearest built answer is `test_features_wiring.py`, which runs a feature both ways and
+   fails unless the observable moves — so the question is which fields can carry a probe that cheap,
+   not whether the idea works. → **tier: medium**.
+2. 🟡 **`parsed-by` is declared and used by nothing — use it or retire it.** The field table names it
+   for SCHEMA shards, and `grep -rn "^> parsed-by:"` returns zero declarations while `enforced-by`
+   returns eight. A field nobody fills is either a rule that was never adopted or one word too many;
+   both are decided by writing the declarations or cutting the row. → **tier: medium**.
+3. 🟡 **Count the prose specimens before reopening the ruling.** The accepted cost above is only
+   acceptable while prose stops producing them. The specimen list in this front is dated and
+   re-checkable, so the next one written into a paragraph gets added here with its date — and the
+   ruling is revisited on a count, never on the feeling that it keeps happening. → **tier: medium**.
 
-   **The specimens sort into three groups and the sort is what the ruling turns on.** Four sit in
-   fields that already exist — the registry's enforcement column, its authored-vs-third-party column,
-   its header, and the needs-Lucas count now that a generator owns it — so a check reaches them with
-   no new discipline to remember. Three sit in prose (a handoff, an AD section, a roadmap row) and are
-   reachable only by a marker written at authoring time, which catches nothing not marked and so has
-   no retroactive reach. One — four reports made against a directory the tool does not write to — is a
-   claim spoken in a turn, and AD-16 band 3 already ruled that unchargeable.
-
-   **What the sitting rules on, stated as the choice rather than the survey:** whether a structural
-   claim must move into a field a parser already reads (widest retroactive reach, no new habit, misses
-   prose); or carry a falsifying command at the point it is written (the only option reaching prose,
-   zero retroactive reach, depends on a remembered discipline — the REFS-tier bargain); or be guarded
-   only where it is amplified, since `/handoff` writes one file and that file is how a false claim
-   reached a later session pre-loaded as fact; or be graded by a fresh cheap session that reads the
-   artifact and not the reasoning behind it — the highest-recall option, already built at craft Loops
-   3 and 6, and the one that loses to *automatic + zero-token* wherever a deterministic option exists.
-   → **tier: high**, with Lucas, in a session about this and nothing else.
 ## Front 16 — post-v1, and the ledger is open again on purpose
 
 **Ruled 2026-08-16 (Lucas), after all four v1 criteria went green.** The governing constraint
@@ -104,7 +84,7 @@ into `core/ROADMAP.md` or leave them in the INBOX. So v1 is a milestone, not a s
 **but the filter that got us here still applies to what enters**: an item another repo owns is
 refiled there, and a finding worth keeping goes into the `SPECS.md` section that owns the rule.
 
-2. 🟡 **measure which `UPPERCASE.md` files are actually read, and what they cost.** Lucas, INBOX
+4. 🟡 **measure which `UPPERCASE.md` files are actually read, and what they cost.** Lucas, INBOX
    2026-08-16: *"sinto que arquivos de objetivos (goals) são pouco usados. roadmaps são muito
    usados. gostaria de primeiro ter esse monitoramento de forma automática (zero-token) de quais
    arquivos UPPERCASE.md são lidos e com que frequência (e se possível o custo em tokens de leitura
@@ -117,11 +97,11 @@ refiled there, and a finding worth keeping goes into the `SPECS.md` section that
    per-type rollup, not a new measurement. Results belong in
    [`core/experiments/`](core/experiments/CONTEXT.md), never in this file.
    → **tier: medium**.
-3. 🟡 **then reinforce the goal↔roadmap link, possibly enforced.** Same capture, and deliberately
+5. 🟡 **then reinforce the goal↔roadmap link, possibly enforced.** Same capture, and deliberately
    second: *"depois gostaria de reforçar a conexão entre os goals e os roadmaps, não sei se tem
    como, talvez até algo ENFORCED"*. Every goal file already carries an `>**owns**` block and every
    plan is supposed to live in a `ROADMAP.md`; what is missing is anything asserting the two agree.
-   **Do not design this before item 2 reports** — if goal files turn out to be read rarely, the fix
+   **Do not design this before item 4 reports** — if goal files turn out to be read rarely, the fix
    is not a stronger link to them.
 
    **A mechanism proposed, 2026-08-20 (Lucas, INBOX), and it is his own hedge:** *"definitivamente
@@ -134,7 +114,7 @@ refiled there, and a finding worth keeping goes into the `SPECS.md` section that
    The *"talvez, talvez!"* is doing real work: **warn, never block.** A gate that stops a commit
    because a goal file was not touched would train people to write empty goal updates.
    → **tier: medium**.
-4. 🟡 **audit the goal file format against what actually drives follow-through.** Lucas, 2026-08-20
+6. 🟡 **audit the goal file format against what actually drives follow-through.** Lucas, 2026-08-20
    (INBOX), on a summary of fifty years of motivation research: *"podemos talvez aproveitar essas
    máximas no design do WOS, dos goals."* The six named: specific goals beat vague intentions
    (Locke & Latham); visible progress sustains effort (Amabile's progress principle); self-directed
@@ -149,7 +129,7 @@ refiled there, and a finding worth keeping goes into the `SPECS.md` section that
    the format is built for *stating* goals and not for *resuming* them, which is also Lucas's
    recurring complaint about goals feeling unused.
 
-   **Ordered behind item 2, deliberately**, for the same reason item 3 is: if goal files turn out to
+   **Ordered behind item 4, deliberately**, for the same reason item 5 is: if goal files turn out to
    be read rarely, redesigning their fields is the wrong move. Secondhand summary, uncitable as it
    stands — the named researchers are the citable trail, and the ref is in
    [`core/refs/REFS-unjudged.md`](core/refs/REFS-unjudged.md). → **tier: medium**.
