@@ -17,10 +17,17 @@
 ## Shape — does the tree still look like what we say it does
 
 **🟢 the scaffold is still most of a lean workspace away from lean**
-*What* — root + `core/` + `brain/` at **≤170 `.md` files and ≤10,000 lines**, from 278 and 17,559.
-Six `SETUP-*.md` become one; five `core/SCHEMA-*.md` and five `SPECS-*.md` become two;
-`core/hooks`' four `SPECS` become one; `ISSUES.md`'s hand-written half fits a screen; `brain/` sheds
+*What* — root + `core/` + `brain/` at **≤170 `.md` files and ≤10,000 lines**, from 278 and 17,211.
+Six `SETUP-*.md` become one; five `SPECS-*.md` become one; `core/hooks`' four `SPECS` become one;
+`core/refs`' six shards fold into `REFS.md` and `core/experiments/` keeps conclusions only;
+`ISSUES.md`'s hand-written half fits a screen; each top-level skill reaches ~45 lines; `brain/` sheds
 19 MB of bot attachments, its project-state memories and most of its 54 goal files.
+`core/flows/` and `core/agents/` are **out of scope** — agents and flows wait, so the number to drive
+is 245 files / 14,776 lines with those excluded.
+The `SCHEMA` family is done: five files → two, 787 → 292 lines. A merge that fits one file is the
+default, but **when only law is left the seam wins over the cut** — `SCHEMA-layers.md` survives
+because a frontmatter block a runtime parses is not a `.md` a session reads. Expect the same call on
+`SPECS` and `SETUP`, and expect the merged index to land slightly over the cap before it lands under.
 *Why* — the norm that produced this mass now says cut, and nothing has been cut yet. A `.md` line in
 this tree is re-read by every session that touches the subtree.
 *Done when* — both numbers are met with `verify-fast` green. **Check before cutting any `.md`
@@ -185,5 +192,10 @@ what they say. If the warning is built: warn, never block, or it trains empty go
 - **A global terseness rule, and `effort` as a *length* lever** — a wrong token budget degrades the
   answer. Effort as a *cost* lever stays open above.
 - **A second compaction shim for copilot** — no copilot session has ever run here.
+- **Raising `BLOCK_LINES` to 300 for every format** — weighed 2026-08-25 when the merged `SCHEMA.md`
+  would not fit 200. Nothing in the tree sits between 201 and 306, and ~30 files are parked at
+  190-200: that is a queue at the light, not a distribution. A higher cap moves the queue to 290-300
+  and buys +3000 lines of headroom in the work whose whole point is losing 4776. The one file that
+  genuinely needed room needed a **seam**, not a taller ceiling.
 - **`core/` and `brain/` getting their own `ISSUES.md`** — both are WOS, and between them they hold
   no hand-written bug at all.
