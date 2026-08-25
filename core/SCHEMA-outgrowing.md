@@ -44,13 +44,11 @@ already answers. If the hand-written half outgrows a screen it shards like any o
 **A declaration table is a fifth thing, and it takes none of these routes** (ruled 2026-08-16).
 `core/features.txt` and `core/profile.txt` join `core/hooks/limits.env`, `core/tools/deps.txt`,
 `core/hooks/vendored.txt`, `core/hooks/generated.txt` and `core/hooks/extensionless.txt`:
-tab-separated or `key=value` data,
-authored by hand, read by exactly one law module, and **never prose**. It is not an
-`UPPERCASE.md` awaiting classification — the type allowlist stays closed and untouched, which is
-the whole reason the shape is worth naming. The two at `core/` root rather than beside their
-reader are there for the same reason `core/SCHEMA.md` is: they are read by `core/hooks/`, but they
-govern the whole workspace, and a file that governs everything does not live inside one of the
-things it governs.
+tab-separated or `key=value` data, authored by hand, read by exactly one law module, and **never
+prose**. It is not an `UPPERCASE.md` awaiting classification — the type allowlist stays closed and
+untouched, which is the whole reason the shape is worth naming. The two sitting at `core/` root
+rather than beside their reader are placed by the rule above: they govern everything, so they do not
+live inside one of the things they govern.
 
 **The extension names the shape** (ruled 2026-08-17, Lucas: *"`.txt` seems too naive"*). The class
 is one idea but not one format, and `.txt` was carrying three jobs while saying "unstructured text"
@@ -124,7 +122,6 @@ unlike frontmatter, one that renders where a human can see it.
 | `answers` | — | ✅ | — | — | the questions this law settles |
 | `governs` | — | — | ✅ | — | the paths or modules it constrains, same job as a `> spec:` line |
 | `feature` | — | — | — | ✅ | an install step or feature the registry carries — the join `SETUP.md` already declares |
-| `parsed-by` | — | ✅ | — | — | code that reads this law, so an edit here is known to have code consequences |
 | `enforced-by` | — | ✅ | ✅ | — | the gates that apply it |
 
 **A wrapped field is one field** — a `>` line that is not itself a `key:` continues the one above it.
@@ -134,7 +131,7 @@ shape for everyone, [`core/hooks/routing/header.py`](hooks/routing/header.py).
 
 #### Every field that names our own code is verified
 
-**Ruled 2026-08-24 (Lucas).** `enforced-by`, `parsed-by`, `blocked-by`, `governs` and `spec` name
+**Ruled 2026-08-24 (Lucas).** `enforced-by`, `blocked-by`, `governs` and `spec` name
 paths; `feature` names the registry. [`entropy_fields.py`](hooks/entropy/entropy_fields.py) checks
 each against the tree — blocking through `type-gate.py` on what a commit adds, reporting through the
 dashboard on everything. Numbers already had *"re-run it, never quote it"*; claims about our own

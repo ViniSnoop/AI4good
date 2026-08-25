@@ -66,14 +66,16 @@ option exists — and here one did). The front stays open on the prose half.
    is not. The nearest built answer is `test_features_wiring.py`, which runs a feature both ways and
    fails unless the observable moves — so the question is which fields can carry a probe that cheap,
    not whether the idea works. → **tier: medium**.
-2. 🟡 **`parsed-by` is declared and used by nothing — use it or retire it.** The field table names it
-   for SCHEMA shards, and `grep -rn "^> parsed-by:"` returns zero declarations while `enforced-by`
-   returns eight. A field nobody fills is either a rule that was never adopted or one word too many;
-   both are decided by writing the declarations or cutting the row. → **tier: medium**.
-3. 🟡 **Count the prose specimens before reopening the ruling.** The accepted cost above is only
+2. 🟡 **Count the prose specimens before reopening the ruling.** The accepted cost above is only
    acceptable while prose stops producing them. The specimen list in this front is dated and
    re-checkable, so the next one written into a paragraph gets added here with its date — and the
-   ruling is revisited on a count, never on the feeling that it keeps happening. → **tier: medium**.
+   ruling is revisited on a count, never on the feeling that it keeps happening.
+
+   **Specimens, 2026-08-25** (both in `ROADMAP-entropy.md`, both refuted by one command, both cut):
+   item 8 said the workspace repo's own 200-line half was done while `ROADMAP.md` sat at 204; item 11
+   said the goal files' `done` blocks were *"full of finished work"* and *"permanent residue"* while
+   they hold 118 lines across 53 files — empty markers, nothing to cut. **Running count: 5 prose
+   specimens.** → **tier: medium**.
 
 ## Front 16 — post-v1, and the ledger is open again on purpose
 

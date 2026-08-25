@@ -89,10 +89,7 @@
       workspace keeps three findings forever.
     - **~25 findings live in `academy/papers/*`**, which are their own repos with Overleaf as the
       authority. The dashboard counts them; this repo cannot fix them. Work that shows in the total
-      and appears nowhere it can be done.
-    - **The goal files' `<!-- done:start -->` blocks** are full of finished work that
-      *completion is deletion* would cut. The wrap will not touch a generated block, so it is
-      permanent residue until someone cuts it. → **tier: medium**.
+      and appears nowhere it can be done. → **tier: medium**.
 
 9. 🟢 **the corpus is half Portuguese and the rule is English.** Lucas (INBOX 2026-08-17): *"somente
    o meu texto é em português, as conversas nas sessões, mas o resto, os docs, tudo em inglês

@@ -51,13 +51,11 @@ fills a tier is data and lives in [`core/flows/craft/routing.md`](core/flows/cra
 never here** — a ledger that names a vendor's model goes stale the day that model does.
 🔴 needs Lucas · 🟡 pilot on one subtree first · 🟢 mechanical.
 
-**How many steps need Lucas is in the § Routing table below, per shard, counted from the marks.**
-Nobody keeps that number: a hand-kept one was wrong four times, twice while the paragraph asking to
-keep it true sat directly above it, and once as *two lists of the same set* — here and in
-§ Sequencing — naming different threes and both claiming three. The generator counts marks in item
-position, which is also what the phrase means: **🔴 is "Lucas decides", never "this is hard"**; an
-item a high-tier agent can rule on alone is 🟡. Every one of them is a research-and-discussion item
-rather than a question with options attached, which is what he has asked for in every case.
+**How many steps need Lucas is in the § Routing table below, per shard, counted from the marks** —
+derived, never hand-kept, and named in exactly one place. The generator counts marks in item position,
+which is also what the phrase means: **🔴 is "Lucas decides", never "this is hard"**; an item a
+high-tier agent can rule on alone is 🟡. Every one is a research-and-discussion item rather than a
+question with options attached, which is what he has asked for in every case.
 
 **Never cite an item number outside the roadmap family** — enforced on every commit by
 `checks/citation-gate.py` ([`core/hooks/SPECS.md`](core/hooks/SPECS-gates.md) § Git pre-commit), which
@@ -86,8 +84,7 @@ coupled to paid ones.** Deterministic scripts per-commit; human judgment on dema
 not earn its keep is a candidate for *Rejected*, not the backlog.
 
 **The plan is four tracks, named rather than numbered.** An item number is a moving target under a
-delete-on-completion policy, and this section is where the two-lists asymmetry has bitten twice — so
-it points at work by name and at people by mark, never by number.
+delete-on-completion policy, so this section points at work by name and at people by mark.
 
 **Track A — wire the registry to zero.** Drained 2026-08-18 down to one row, whose blocker is a
 decision rather than work; what is left of the track is [`ROADMAP-portability.md`](ROADMAP-portability.md)
@@ -108,19 +105,13 @@ named there too.
 of [`ROADMAP-self-description.md`](ROADMAP-self-description.md), plus the declaration-table rename to
 `.tsv` ([`core/SCHEMA.md`](core/SCHEMA.md) § The `.md` type system).
 
-**Nothing in this track waits on a word from Lucas any more, and this paragraph claimed two things
-did for longer than either was true** — a specimen of the front directly below, found by one probe
-on 2026-08-24. `CTX_LOUD` was ruled on 2026-08-17 (show both crossings, to both readers, at the end
-of a response); the state-dir rename landed, so no run record carries the old name and the exemption
-question had nothing left to be about. Frozen run records were ruled the same day: a finished chain's
-trail is deleted like any other done work, and git is its history.
+**Nothing in this track waits on a word from Lucas.**
 
 **Track D — the sittings.** The 🔴 rows, plus the thinking-effort measurement, which additionally
 needs Track A finished because it runs on the registry.
 
-**Needing Lucas: the list is in § How to read this and only there.** It used to be restated here and
-the two copies named different threes, each missing a different item, both claiming three. **Two
-lists of the same set is the asymmetry; the count is only its symptom.**
+**Needing Lucas: the § Routing table counts it, and nothing else states it.** A second list of the
+same set is the asymmetry; a wrong count is only its symptom.
 
 ## Model-switching guide
 
@@ -142,7 +133,7 @@ low). Which model fills each tier is data in that file, never in this one.
 | [`ROADMAP-legibility.md`](ROADMAP-legibility.md) | Can Lucas still read the thing he owns — its words, its decisions, its shape? A standing front that never closes: the jargon audit, the pictures that show the workspace at a glance, and the rule that a session may not decide quietly. Open it when something is UNREADABLE or was decided without him, not when it is broken. | essential | 6 | 1 | — | — |
 | [`ROADMAP-measurement.md`](ROADMAP-measurement.md) | Does any of this scaffold actually help, and what catches the agent being confidently wrong? Two halves with one cause: the ablation that would measure whether a rule earns its keep, and the gates that would make a claim carry its evidence. Open it before trusting a number or a technical opinion; the experiment's design lives in its paper twin. | important | 3 | 2 | ROADMAP-portability.md | — |
 | [`ROADMAP-portability.md`](ROADMAP-portability.md) | Would this workspace work on a machine that is not Lucas's? Every dependency is declared and `SETUP.md` is an executed procedure, so what is left is the public scaffold repo his students will clone and the one feature that cannot be switched off. Open it for anything crossing the line between what is general and what is his. | essential | 2 | 1 | — | — |
-| [`ROADMAP-self-description.md`](ROADMAP-self-description.md) | Why does this workspace keep asserting things about its own code that one command would refute? Holds the discipline problem — a structural claim written into a durable file with no probe attached — and the routing descriptions a reader meets first. Open it when the workspace says something false ABOUT ITSELF; the outside world is measurement's. | important | 6 | — | — | — |
+| [`ROADMAP-self-description.md`](ROADMAP-self-description.md) | Why does this workspace keep asserting things about its own code that one command would refute? Holds the discipline problem — a structural claim written into a durable file with no probe attached — and the routing descriptions a reader meets first. Open it when the workspace says something false ABOUT ITSELF; the outside world is measurement's. | important | 5 | — | — | — |
 
 ### What is open, per shard
 
@@ -196,7 +187,6 @@ low). Which model fills each tier is data in that file, never in this one.
 **[`ROADMAP-self-description.md`](ROADMAP-self-description.md)**
 
 - 🟡 Charge the semantic half of a field, not only the path.
-- 🟡 `parsed-by` is declared and used by nothing — use it or retire it.
 - 🟡 Count the prose specimens before reopening the ruling.
 - 🟡 measure which `UPPERCASE.md` files are actually read, and what they cost.
 - 🟡 then reinforce the goal↔roadmap link, possibly enforced.
