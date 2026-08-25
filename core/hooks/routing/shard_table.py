@@ -16,11 +16,12 @@ from hoist import hoist, md_blurb
 # An open item is a NUMBERED one — `1.`, `10b.` — which is the shape a roadmap actually uses and
 # the same one entropy_ledger.TICKED_ITEM recognises. Counting `[slug]` instead would have read
 # most fronts as empty: the bracketed id is optional and most items carry prose alone.
-# The MARK IS PART OF THE SHAPE, and requiring it corrected two counts on 2026-08-19. Without it
-# this matched `1. **Fold**` — a nested sub-step inside one ledger item — and the two numbered
-# rules inside a legibility front's opening paragraph, so the index advertised 6 open where 4 were
-# and 8 where 6 were. A numbered line in prose looks exactly like an item; a marked one does not,
-# and ROADMAP.md § How to read this requires the mark on every item. LUCAS_ITEM already assumed it.
+#
+# THE MARK IS PART OF THE SHAPE, and every pattern in this file requires it for one reason: a
+# numbered line in prose looks exactly like an item, and a marked one does not. Without it these
+# matched `1. **Fold**` — a nested sub-step inside one ledger item — and the two numbered rules
+# inside a legibility front's opening paragraph, so the index advertised 6 open where 4 were and 8
+# where 6 were (corrected 2026-08-19). ROADMAP.md § How to read this requires the mark on every item.
 ITEM = re.compile(r'^\d+[a-z]?\.[ \t]*[🔴🟡🟢]', re.M)
 # The marker counts only in ITEM position. A bare substring count read 13 where the ledger holds
 # 12, because one shard has a sentence ABOUT the count with the marker inside it — the same
@@ -39,17 +40,14 @@ EMPTY_CELL = {'—', '-', ''}
 # question. Bold is not decoration here: every item in the family opens with it, so it is an
 # authored one-line summary and the generator never has to write prose.
 #
-# The MARK IS REQUIRED and the item must start at column 0, which is what separates an item from
-# prose that merely looks like one. Without both, this listed `1. **Fold**` — a nested sub-step
-# inside one item — and `1. **Language is the thing.**`, two numbered rules inside a front's
-# opening paragraph. Every real item carries a mark by ROADMAP.md § How to read this, and
-# LUCAS_ITEM above already depends on that being true.
+# Carries the mark requirement above, plus a start at column 0 — the same separation for the same
+# reason.
 ITEM_HEADLINE = re.compile(r'^(\d+[a-z]?)\.[ \t]*([🔴🟡🟢])[ \t]*\*\*(.+?)\*\*', re.M | re.S)
 
 # Column order is reading order: what it is, then how much is live, then what stops you.
 SHARD_COLUMNS = (('Shard', None), ('Description', 'description'), ('Prio', 'priority'),
                  ('Open', 'open'), ('Needs Lucas', 'needs-lucas'), ('Answers', 'answers'),
-                 ('Governs', 'governs'), ('Feature', 'feature'), ('Parsed by', 'parsed-by'),
+                 ('Governs', 'governs'), ('Feature', 'feature'),
                  ('Enforced by', 'enforced-by'), ('Blocked by', 'blocked-by'),
                  ('Items', 'items'))
 
@@ -57,9 +55,8 @@ SHARD_COLUMNS = (('Shard', None), ('Description', 'description'), ('Prio', 'prio
 def shard_facts(path: Path) -> dict:
     """What a shard publishes about itself, plus what can be counted instead of published.
 
-    The declared half is the `> key: value` lines. The derived half is everything countable,
-    because a declared count is a second copy of a fact: ROADMAP.md kept one by hand and it went
-    stale four times, twice while the paragraph asking to keep it true sat above it.
+    The declared half is the `> key: value` lines; the derived half is everything countable, by
+    core/SCHEMA-outgrowing.md § Everything countable is counted, never declared.
     """
     try:
         text = path.read_text(encoding='utf-8', errors='ignore')
@@ -121,9 +118,8 @@ def index_for(path: Path) -> Path | None:
 def item_headlines(path: Path) -> list:
     """`(mark, headline)` per open item — what the index needs so a shard can be skipped.
 
-    Only for a sharded ROADMAP, for the same reason the counts are: a numbered list in prose is
-    shaped exactly like a numbered item, and headlines for those would be noise presented as an
-    index. Whitespace is collapsed because a headline may wrap across lines in the source.
+    ROADMAP-only for the same reason the counts are, and headlines for a prose list would be noise
+    presented as an index. Whitespace is collapsed: a headline may wrap across lines in the source.
     """
     if path.stem.split('-')[0] != 'ROADMAP':
         return []
@@ -140,9 +136,7 @@ def item_headlines(path: Path) -> list:
 def build_open_items(shards: list) -> str:
     """The open items of every shard, one line each, under the table that names the shards.
 
-    A list rather than a table cell: fourteen headlines in one cell is not something anybody
-    reads, and this section is the whole point — it is what lets a session answer a question
-    without opening a shard, which the Description column alone never did.
+    A list rather than a table cell: fourteen headlines in one cell is not something anybody reads.
     """
     blocks = []
     for shard in shards:

@@ -1,22 +1,8 @@
 #!/usr/bin/env python3
 # Does a header field that names our own code name something that exists? Zero-token, deterministic.
 #
-# Ruled 2026-08-24 (Lucas): a structural claim about our own tree must live in a FIELD A PARSER
-# ALREADY READS. Every specimen behind that ruling — "nothing calls X", "there is nowhere
-# to put Y", "Z is unbuilt", "these groups match the tree" — was written into a durable file, refuted
-# by one grep, and then inherited by a later session as settled fact. The header fields are the half
-# of that claim-space a parser can reach today: shard_table.py already renders `enforced-by`,
-# `governs`, `feature` and `blocked-by` into every sharded index, and nothing ever asked whether what
-# they name is there. Chosen for RETROACTIVE reach — it charges all ~100 declarations the day it
-# lands, and asks nobody to remember a new habit.
-#
-# WHAT IT CANNOT DO, said here so it is not rediscovered as a gap: it never reaches prose. A claim
-# written into a paragraph stays unchecked, which is the price of the option that needs no discipline.
-#
-# MATCH A SHAPE, NOT A TOKEN — the constraint every candidate had to meet, for the reason
-# entropy_vendor.py and checks/citation-gate.py already carry: "Z is unbuilt" is ordinary English, so
-# a keyword check over prose is switched off within a week. This reads only declared fields, and
-# inside `governs` only the tokens SHAPED like paths; prose there is skipped in silence, by design.
+# The rule, why a field rather than prose, and the limits it accepts:
+# core/SCHEMA-outgrowing.md § Every field that names our own code is verified.
 #
 # Total, like entropy_stores.py: no allowlist, no ratchet inside the module. The ratchet is the
 # CALLER's — type-gate.py asks only about files a commit adds, the dashboard asks about all of them.
@@ -34,10 +20,8 @@ from header import header_fields  # noqa: E402
 
 WORKSPACE_ROOT = _HOOKS.parents[1]
 
-# Fields whose every comma item is a path to something we author. `parsed-by` carries no
-# declarations at all today and is checked anyway: a field that is charged from the day it is
-# declared never accumulates the backlog the charged ones had.
-PATH_FIELDS = ('enforced-by', 'parsed-by', 'blocked-by', 'spec')
+# Fields whose every comma item is a path to something we author.
+PATH_FIELDS = ('enforced-by', 'blocked-by', 'spec')
 # `governs` mixes paths with prose in one list — `engine/runtime/, libraries/` beside
 # `frontend/ streaming` and `every file under code/`. Only the first token of an item can be a path,
 # and only if it is shaped like one; the rest is a human qualifier and is none of this check's

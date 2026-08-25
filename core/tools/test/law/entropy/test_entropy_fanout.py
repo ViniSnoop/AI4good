@@ -22,45 +22,37 @@ from file_law import load_limits  # noqa: E402
 WARN = load_limits()['WARN_FILES']
 
 # Inherited fanout, each a directory that owes a split. Nothing else may join.
+#
+# MOST ROWS BELOW READ THE SAME WAY, stated once here rather than per row: the directory's NAME has
+# not drifted — every file in it really does the one job the directory claims — so the count is the
+# cost of that design working, not a responsibility problem. Each keeps the SEAM it would split on,
+# because a row with no named retirement is a threshold that quietly rises. COST THE HOP BEFORE
+# TAKING IT: the split rejected for `core/hooks/entropy/` was rejected for removing less table than
+# it added, and a new directory is a CONTEXT.md the whole tree pays to read.
 BASELINE = {
     'core/skills/caveman/scripts',
     'core/skills/caveman/hooks',
     'academy/administration/coordenacao-lc/novo-ppc-bcc/ementas',
-    # Joined 2026-08-19, and it owes a split that is already named. `gates/` is supposed to mirror
-    # `core/hooks/gates/`, but it holds tests for hooks from read/, checks/, git/ and compact/ as
-    # well — so the directory's NAME has drifted from its contents, which is the responsibility
-    # problem the fanout signal exists to surface rather than a count to wave through. Retired by
-    # splitting it the way `law/entropy/` and `workspace/generators/` already are: one test
-    # directory per hook directory it covers.
+    # The exception — this name HAS drifted. `gates/` is supposed to mirror `core/hooks/gates/`, but
+    # it holds tests for hooks from read/, checks/, git/ and compact/ as well, which is the
+    # responsibility problem the signal exists to surface rather than a count to wave through.
+    # Retired the way `law/entropy/` and `workspace/generators/` already are: one test directory per
+    # hook directory it covers.
     'core/tools/test/workspace/gates',
-    # Joined 2026-08-24 with `wrap`, the eighth tool acting on the workspace itself. The name has
-    # not drifted — every file here really is a CLI that operates on this repo — so the count is
-    # the cost of a family directory doing its job, the same reading `core/hooks/entropy` gets
-    # below. Retired by splitting on what each tool TOUCHES: the ledgers it reads (`spec-scan`,
-    # `spec-contract-check`, `features`, `deps`) against the files it rewrites (`wrap`,
-    # `sync-skills`, `sync-global-skills`, `roundup`). Cost the hop before taking it — the split
-    # rejected for `core/hooks/entropy/` was rejected for removing less table than it added.
+    # Seam: what each tool TOUCHES — the ledgers it reads (`spec-scan`, `spec-contract-check`,
+    # `features`, `deps`) against the files it rewrites (`wrap`, `sync-skills`,
+    # `sync-global-skills`, `roundup`).
     'core/tools/wos',
-    # Joined 2026-08-20 with the eighth one-question check (entropy_size, entropy_vendor). Unlike
-    # the row above, the NAME has not drifted — every module here really does answer one question
-    # about the corpus, which is the directory's stated design, so the count is the cost of that
-    # design working rather than a responsibility problem. Retired by splitting on what each check
-    # READS: the tree's shape (corpus, naming, fanout, size) against its text (context, ledger,
-    # stores, vendor). Named in ROADMAP-entropy.md so it is a decision someone makes, not a
-    # threshold that quietly rises. Its coverage directory mirrors it one word apart and crossed on
-    # the same commit for the same reason, so the two split together or not at all — which is the
-    # property that mirroring buys and the argument for keeping it.
+    # Seam: what each check READS — the tree's shape (corpus, naming, fanout, size) against its text
+    # (context, ledger, stores, vendor). Costed and REJECTED 2026-08-24 (Lucas); the directory holds
+    # over the signal on purpose and its own CONTEXT.md carries the reason.
     'core/hooks/entropy',
+    # Over the BLOCK cap, not the warn, and the only row whose retirement is still an open question:
+    # it is described as a mirror of `core/hooks/entropy/` and is not one — ISSUES.md B5.
     'core/tools/test/law/entropy',
-    # Joined 2026-08-24 with `header.py`, extracted when the `> key: value` parser gained a second
-    # reader — the field check next door, not just the index generator. The name has not drifted:
-    # every module here is machinery for the generated blocks inside authored documents, which is
-    # this directory's stated job, so the count is that design working. Retired by splitting on
-    # WHAT EACH MODULE DOES TO A DOCUMENT: reads it (`header`, `hoist`, `workspace_meta`,
+    # Seam: what each module DOES TO A DOCUMENT — reads it (`header`, `hoist`, `workspace_meta`,
     # `workspace_scanner`) against writes into it (`blocks`, `context_synchronizer`, `norms`,
-    # `shard_table`). Cost the hop before taking it — the same split was rejected for
-    # `core/hooks/entropy/` for removing less table than it added, and a new directory is a
-    # CONTEXT.md the whole tree pays to read.
+    # `shard_table`). Same verdict as `core/hooks/entropy/` for the same reason, in its CONTEXT.md.
     'core/hooks/routing',
 }
 
