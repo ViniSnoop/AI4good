@@ -41,6 +41,25 @@ live in goal files (AGENTS.md).
 > list, not the backlog**; and a finding worth keeping goes into the `SPECS.md` or `SCHEMA.md`
 > section that owns the rule, because writing the rule there is what closing an item *is*. The
 > scaffold is a means. Time spent on it past v1 is time not spent on the work it exists to serve.
+>
+> **Sharpened 2026-08-25, and this is the version to read first.** Lucas: *"semanas completas
+> estourando o uso do claude code com o opus 5 para um progresso duvidoso… realmente vejo que o WOS
+> virou um problema por si só."* The measurement backs the feeling: 50 commits in 30 days, nearly all
+> in `core/` and the roadmaps, **zero in `code/`**. The scaffold spent the month maintaining itself.
+>
+> **What v1.0 means from here, in his words:** zero loose ends · minimum coupling · hooks and tools
+> working as advertised on zero-token strategies · small `.md` files · roadmaps small enough that a
+> sibling file is an exception. **Agents, flows and loops wait**; v1 is the `AGENTS.md`/`CONTEXT.md`
+> tree, hooks, tools and `brain/`.
+>
+> **The two rules he gave that change how sessions write:** a roadmap item carries *what*, *why* and
+> *the verification*, and **never the how** — that is the job of the session that takes the item, and
+> writing it here is what made the roadmaps long and stale at once. And *"LLMs are good at writing
+> even when it isn't useful"*, so length is never evidence of care.
+>
+> **Two things he ruled are NOT on the table**, both because they cut capability rather than fat:
+> deleting a harness (multi-harness is essential — optimise the copy, never the function) and cutting
+> any hook before a scoreboard of what it actually blocked exists.
 
 **ease-start**  
 **All four v1 criteria are green, and nothing in the ledger is waiting on you.** The drain is agent
@@ -121,14 +140,14 @@ fallback · iterate — MVP can always be extended*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-24  ·  trend: advancing
+last-touch: 2026-08-25  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |     273 |
-| trimester   |     362 |
-| semester    |     382 |
-| year        |     382 |
-| 2-year      |     382 |
-| 4-year      |     382 |
+| month       |     297 |
+| trimester   |     388 |
+| semester    |     408 |
+| year        |     408 |
+| 2-year      |     408 |
+| 4-year      |     408 |
 <!-- stats:end -->
