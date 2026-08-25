@@ -1,1 +1,1 @@
-/mnt/workspace/core/skills/handoff.md
+../../../core/skills/handoff.md

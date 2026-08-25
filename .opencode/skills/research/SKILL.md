@@ -1,1 +1,1 @@
-/mnt/workspace/core/skills/research.md
+../../../core/skills/research.md

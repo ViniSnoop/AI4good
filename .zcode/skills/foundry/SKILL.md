@@ -1,1 +1,1 @@
-/mnt/workspace/core/skills/foundry.md
+../../../core/skills/foundry.md

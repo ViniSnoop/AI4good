@@ -1,1 +1,1 @@
-/mnt/workspace/core/skills/drive.md
+../../../core/skills/drive.md

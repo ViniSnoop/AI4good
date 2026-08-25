@@ -105,3 +105,27 @@ def test_clean_fixture_has_no_failures(tmp_path):
     (tmp_path / "target.md").write_text("target\n", encoding="utf-8")
     (tmp_path / "CONTEXT.md").write_text("see [target](target.md).\n", encoding="utf-8")
     assert check_pointers(tmp_path, tmp_path / "no-memory-here") == []
+
+
+def test_no_committed_symlink_carries_an_absolute_path():
+    """A symlink is committed by its TEXT, so an absolute one names this machine and no other.
+
+    Found 2026-08-25: all 42 skill mirrors under .claude/, .opencode/ and .zcode/ read
+    `/mnt/workspace/core/skills/<name>.md`, so a student cloning anywhere else got 42 dangling
+    links and no skills in any harness — while criterion 4, clonable by a student, read as met.
+    Same class as a dangling `](path)`: a pointer that resolves only where it was written.
+    """
+    import subprocess
+
+    listing = subprocess.run(
+        ["git", "-C", str(WORKSPACE_ROOT), "ls-files", "-s"],
+        capture_output=True, text=True, check=True).stdout
+    absolute = []
+    for line in listing.splitlines():
+        mode, _, _, path = line.split(maxsplit=3)
+        if mode != "120000":
+            continue
+        target = (WORKSPACE_ROOT / path).readlink()
+        if target.is_absolute():
+            absolute.append(f"{path} -> {target}")
+    assert not absolute, "Committed symlinks with an absolute target:\n" + "\n".join(absolute)

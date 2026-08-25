@@ -1,1 +1,1 @@
-/mnt/workspace/core/skills/dedup.md
+../../../core/skills/dedup.md

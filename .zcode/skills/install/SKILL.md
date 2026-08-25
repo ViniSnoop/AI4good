@@ -1,1 +1,1 @@
-/mnt/workspace/core/skills/install.md
+../../../core/skills/install.md

@@ -1,1 +1,1 @@
-/mnt/workspace/core/skills/inbox.md
+../../../core/skills/inbox.md

@@ -1,1 +1,1 @@
-/mnt/workspace/core/skills/compass.md
+../../../core/skills/compass.md

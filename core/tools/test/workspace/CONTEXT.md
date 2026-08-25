@@ -13,7 +13,7 @@ are one word apart: [`gates/`](gates/CONTEXT.md) and [`generators/`](generators/
 
 | Subdirectory | Description |
 |--------------|-------------|
-| [`gates/`](gates/CONTEXT.md) | What a blocking gate must say, and who it must fire for. Mirrors `core/hooks/gates/`. |
+| [`gates/`](gates/CONTEXT.md) | What a blocking gate must say, and who it must fire for. Named for `core/hooks/gates/` and deliberately wider than it. |
 | [`generators/`](generators/CONTEXT.md) | What the generators must produce, and what they must never produce. Mirrors `core/hooks/generators/`. |
 | [`harness/`](harness/CONTEXT.md) | The suite's own preconditions: nothing about the workspace, everything about the runner. |
 

@@ -1,1 +1,1 @@
-/mnt/workspace/core/skills/roundup.md
+../../../core/skills/roundup.md

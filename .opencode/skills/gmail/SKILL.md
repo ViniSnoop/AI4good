@@ -1,1 +1,1 @@
-/mnt/workspace/core/skills/gmail.md
+../../../core/skills/gmail.md

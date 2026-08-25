@@ -1,1 +1,1 @@
-/mnt/workspace/core/skills/calendar.md
+../../../core/skills/calendar.md

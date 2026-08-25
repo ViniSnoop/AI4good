@@ -60,23 +60,32 @@ list_commands() {
   done < <(list_skills)
 }
 
+# The link is RELATIVE, and that is the whole point of this function rather than a style choice:
+# a symlink is committed by its text, so an absolute one carries THIS machine's path into every
+# clone. Until 2026-08-25 all 42 mirrors read `/mnt/workspace/core/skills/<name>.md`, so a student
+# cloning anywhere else got 42 dangling links and no skills in any of the three harnesses — while
+# the workspace claimed criterion 4, clonable by a student, as met. Relative, the same committed
+# text resolves in every checkout.
+link_target() {
+  realpath --relative-to="$(dirname "$1")" "$WORKSPACE/core/skills/$2.md"
+}
+
 sync_mirror() {
   local mirror="$1"
   mkdir -p "$mirror"
-  local name target link
+  local name link
   while IFS= read -r name; do
-    target="$WORKSPACE/core/skills/$name.md"
     mkdir -p "$mirror/$name"
     link="$mirror/$name/SKILL.md"
-    ln -sfn "$target" "$link"
+    ln -sfn "$(link_target "$link" "$name")" "$link"
   done < <(list_skills)
 }
 
 check_mirror() {
   local mirror="$1" rc=0 name link target existing
   while IFS= read -r name; do
-    target="$WORKSPACE/core/skills/$name.md"
     link="$mirror/$name/SKILL.md"
+    target="$(link_target "$link" "$name")"
     if [[ ! -L "$link" ]]; then
       echo "MISSING link: $link"; rc=1
     else

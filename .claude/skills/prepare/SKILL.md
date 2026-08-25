@@ -1,1 +1,1 @@
-/mnt/workspace/core/skills/prepare.md
+../../../core/skills/prepare.md

@@ -1,1 +1,1 @@
-/mnt/workspace/core/skills/iso-visual.md
+../../../core/skills/iso-visual.md

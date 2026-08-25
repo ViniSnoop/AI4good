@@ -1,1 +1,1 @@
-/mnt/workspace/core/skills/craft.md
+../../../core/skills/craft.md
