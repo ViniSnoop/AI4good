@@ -142,6 +142,10 @@ in passing while cleaning up.
   frontmatter from a private list of its own, so the exemption existed and only the law was
   silent — granting it moved a rule into the law rather than adding one, and deleted the copy.
 
+- **Cutting `entropy_fields.py` and `shard_table.py` under the 150-line warn** (2026-08-25). Both
+  came down — 166→150 and 175→169 — by deleting narrative the law already carried. What is left in
+  each is rationale that exists nowhere else, so reaching the number meant summarizing a rule to hit
+  it. The signal asked for a review; the review is this line. Do not re-cut them.
 - **Wrapping `core/norms/*.md` to the column cap** (2026-08-24). A norm is one line by contract:
   `norms.py` publishes each rule as a `- ` line into `AGENTS.md` and `test_norms` reads the block
   back the same way, so a wrapped rule loses its continuation and vanishes from the published set.
