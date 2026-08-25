@@ -71,8 +71,9 @@ fi
 #    entropy_trend.py derives that trend from git every run; roundup used to compute a second delta
 #    of its own, against the session immediately before it — where the delta really is +-1. That is
 #    how "flat" got written into hand-off after hand-off while the real number climbed 95 -> 645.
-#    A second way of saying how the count moved is a second way to say it wrongly, so there is one.
-findings() { grep -oE '\*\*[0-9]+ findings\*\*( \([^)]*\))?' ISSUES.md 2>/dev/null | head -1 | tr -d '*'; }
+#    Matched to the closing stars, never at the word: the header says "**N findings here**", and a
+#    pattern anchored on "findings**" silently printed no entropy line at all (fixed 2026-08-25).
+findings() { grep -oE '\*\*[0-9]+ findings[^*]*\*\*( \([^)]*\))?' ISSUES.md 2>/dev/null | head -1 | tr -d '*'; }
 ENTROPY=""
 if [ "$ROOT" = "$WORKSPACE" ]; then
   WAS_CLEAN=0; git diff --quiet ISSUES.md 2>/dev/null && WAS_CLEAN=1

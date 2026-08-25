@@ -16,7 +16,10 @@ ROUNDUP = WORKSPACE_ROOT / 'core/tools/wos/roundup'
 # The fake entropy target writes a BLOCK through the real writer, exactly as the dashboard does.
 # A target that clobbered the file would pass while hiding the thing worth guarding: roundup writes
 # the verify block first, so an entropy regen that does not preserve its neighbours destroys it.
-_REGEN = '@echo "**7 findings**" | python3 core/hooks/routing/blocks.py ISSUES.md entropy'
+# The header is the REAL dashboard shape, trend and all: the fake used to write
+# "**7 findings**", and that difference is exactly what hid a pattern matching nothing.
+_HEAD = '**7 findings here** (2026-08-24: 9 · -2 over 1 days)'
+_REGEN = f'@echo "{_HEAD}" | python3 core/hooks/routing/blocks.py ISSUES.md entropy'
 MAKEFILE = f'verify-fast:\n\t@echo "3 passed"\n\nentropy:\n\t{_REGEN}\n'
 RED_MAKEFILE = f'verify-fast:\n\t@exit 1\n\nentropy:\n\t{_REGEN}\n'
 
@@ -122,7 +125,10 @@ def test_clean_tree_still_commits_entropy(tmp_path):
     ws = _workspace(tmp_path)
     r = _run(ws)
     assert r.returncode == 0, r.stdout
-    assert '7 findings' in r.stdout and 'not committed' not in r.stdout
+    # The label too: a count the script cannot parse drops the whole entropy line, and a bare
+    # substring assertion would still have passed on the header it happened to commit.
+    assert 'entropy: 7 findings here' in r.stdout and 'not committed' not in r.stdout
+    assert '-2 over 1 days' in r.stdout, 'the trend is read out of the header, never recomputed'
     assert 'chore(issues)' in _git(ws, 'log', '--oneline', 'main').stdout
 
 
@@ -137,7 +143,7 @@ def test_the_two_blocks_and_the_hand_written_issues_coexist(tmp_path):
     assert _run(ws).returncode == 0
     text = (ws / 'ISSUES.md').read_text(encoding='utf-8')
     assert '## B1 — a hand-written issue' in text, 'the hand-written half must survive both writers'
-    assert '**7 findings**' in text and '**9 findings**' not in text
+    assert '**7 findings here**' in text and '**9 findings**' not in text
     assert '<!-- verify:start -->' in text and 'green (3 passed)' in text
 
 
