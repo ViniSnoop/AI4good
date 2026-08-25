@@ -73,11 +73,13 @@ def _index(counts: dict, here: int) -> list:
 
     The sum is computed from the counts the same run just wrote, so it cannot disagree with them.
     A repo may not write into it — that is the copied-count drift these checks exist to catch.
+    The collected total lives HERE and not in the header: it is context for choosing which repo
+    to open next, never this repo's debt.
     """
     scattered = sum(counts.values())
     out = ['', '### Findings per code repo', '',
-           '*Each repo keeps its own `ISSUES.md`; this table is the index and the sum. '
-           'Open the repo to see what its findings are.*', '',
+           '*Each repo keeps its own `ISSUES.md` and fixes its own findings; this table only says '
+           'which one to open next.*', '',
            '| Repo | Findings |', '|------|----------|']
     out += [f'| [`{repo}`]({repo}/ISSUES.md) | {counts[repo]} |' for repo in sorted(counts)]
     return out + [f'| **collected** | **{scattered + here}** |']
@@ -87,7 +89,11 @@ def render(findings: dict, scanned: int, root, name: str = '', index: dict = Non
            trend: str = '') -> str:
     total = sum(len(findings[key]) for key, _, _ in SECTIONS)
     scope = f'`{name}`' if name else 'the whole tree'
-    collected = total + sum(index.values()) if index else total
+    # The headline is THIS repo's count, never the collected one. A reader can act on the number
+    # in front of them and on nothing else: a nested repo's findings are fixed by opening that
+    # repo, so charging them to this header made the figure grow with the number of repos scanned
+    # rather than with this repo's debt (603 vs 33 on 2026-08-25) and nobody could act on either.
+    scattered = sum(index.values()) if index else 0
     out = [START,
            '## Entropy',
            '',
@@ -96,8 +102,9 @@ def render(findings: dict, scanned: int, root, name: str = '', index: dict = Non
            'number is the drift these checks exist to catch.',
            '',
            f'{date.today().isoformat()} · {scanned} tracked files scanned · '
-           f'**{collected} findings**{trend}'
-           + (f', {total} of them here' if index else ''), '',
+           f'**{total} findings here**{trend}'
+           + (f' · {scattered} more across {len(index)} nested repos, each in its own ISSUES.md'
+              if index else ''), '',
            '| Check | Findings |', '|-------|----------|']
     out += [f'| {title} | {len(findings[key])} |' for key, title, _ in SECTIONS]
     if index:

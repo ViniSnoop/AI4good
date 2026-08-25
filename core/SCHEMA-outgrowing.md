@@ -66,40 +66,29 @@ had leaked into enforcement, so the `> spec:` convention, `core/hooks/pre-commit
 `core/hooks/read/spec-read-gate.py`, `core/hooks/read/context-tracker.py`, `core/tools/wos/spec-scan` and
 `core/tools/wos/spec-contract-check` all move with it.
 
-### A type that outgrows the cap shards
+### A type that outgrows the cap is cut
 
-**One type may occupy several files: `TYPE-<slug>.md`, with the unsuffixed file as the index.**
-The slug is lowercase kebab-case, and that is not a style preference — three independent gates
-already assume this exact shape and reject any other. `type-gate.py` reads
-`^[A-Z][A-Z0-9_.-]*\.md$` as a *type name* and sends it to this allowlist, so `ROADMAP-F4.md` is
+**Cutting is the rule; a sibling file is the exception and needs Lucas's explicit OK** — the
+[`cap`](norms/cap.md) norm, stated once here for every type. Delete what repeats, what nobody
+reads, and what a generator already derives. A split preserves the mass across more files, which
+is the fix that only looks like one, and it is how this workspace reached nine roadmaps.
+
+Two traps when cutting: a deleted file's row in the transient-exemption table keeps its exemption
+alive, because every backticked name there is parsed as one; and the document you are deleting can
+be the sole record of something live, so read it out before it goes.
+
+**When a sibling is approved it is `TYPE-<slug>.md`, with the unsuffixed file as the index**, slug
+in lowercase kebab-case. That shape is not a style preference — three gates assume it and reject
+any other. `type-gate.py` reads `^[A-Z][A-Z0-9_.-]*\.md$` as a *type name*, so `ROADMAP-F4.md` is
 rejected as an unknown type while `ROADMAP-entropy.md` passes as an instance;
 `entropy_naming.TYPE_SLUG` accepts a suffix only as `[a-z0-9]+(?:-[a-z0-9]+)*`; and
-`citation-gate.LEDGER_NAMES` matches `^ROADMAP(-[a-z0-9-]+)?\.md$`, which is what lets a shard
-number its own items — a suffix it does not match turns every `Front N` inside the shard into a
-blocking violation. The citation gate was written for this case before any shard existed: *"matched
-on filename, not path, so a `ROADMAP-<slug>.md` in any repo under the workspace is covered without
-enumeration."*
+`citation-gate.LEDGER_NAMES` matches `^ROADMAP(-[a-z0-9-]+)?\.md$` on filename rather than path,
+so a suffix it does not match turns every item number inside the sibling into a blocking violation.
 
-**What the index keeps, and nothing else** — the rule the [`split`](norms/split.md) norm publishes,
-stated once here for every type:
-
-1. **What is true of every shard** — the whole-document rules.
-2. **Any list the type's own rule says lives in exactly one place.** A list that exists precisely so
-   it is not duplicated cannot be pushed into one shard.
-3. **The generated routing table** over the shards.
-
-The test that makes "as small as possible" checkable rather than a matter of taste: **a reader who
-has read only the index names the shard that answers their question, and is never wrong.** Wrong
-means a line is missing from the index; right without needing a given paragraph means that paragraph
-belongs in a shard.
-
-**Look for the second copy before reaching for a split, and for finished work before either.** Both
-files that cleared the cap on 2026-08-24 got there without one: the mass was duplication and slack —
-the same five standing rules stated in two rows, eleven lines of pointers wrapped around one live
-instruction. A split preserves mass across more files, which is the superficial fix. Two traps on
-that path: a deleted file's row in the transient-exemption table keeps its exemption alive, because
-every backticked name there is parsed as one; and the document you are deleting can be the sole
-record of something live, so read it out before it goes.
+The index then keeps three things and nothing else: what is true of every sibling, any list the
+type's own rule says lives in exactly one place, and the generated routing table. The check that
+makes "as small as possible" checkable: **a reader who has read only the index names the sibling
+that answers their question, and is never wrong.**
 
 ### What a shard publishes about itself
 

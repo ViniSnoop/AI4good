@@ -127,7 +127,7 @@ the same number code is held to, because the trade is the same shape: a shard ad
 only when it sheds more than the routing row it costs. What makes prose different from a directory
 is that the shard's readers are *sessions deciding whether to read it*, so shedding content is only
 half the move — the index has to carry enough to make that decision without opening anything. The
-shape of the split is § A type that outgrows the cap shards; the fields a shard publishes so the
+shape of the split is § A type that outgrows the cap is cut; the fields a shard publishes so the
 index can route to it are § Layer: shard.
 
 The evidence this axis was added on (2026-08-18, `core/tools/wos/session/reads` over 89 transcripts):

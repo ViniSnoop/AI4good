@@ -13,17 +13,18 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[5] / 'hooks/entropy/dash
 from entropy_scatter import ledger_repos, owner, partition  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[5].parent
-# One definition for both numbers the header can carry, so a header change (like the dated
-# baseline entropy_trend.py inserts between the count and "of them here") is fixed once here
-# rather than in two regexes that can drift apart. `here` is absent on a local ledger's own
-# header (no index there), which is exactly what the optional group is for.
-HEADER = re.compile(r'\*\*(?P<collected>\d+) findings\*\*(?:.*?, (?P<here>\d+) of them here)?')
+# Every ledger's header states ITS OWN count and nothing else (changed 2026-08-25): a reader can
+# only act on the repo in front of them, so charging the root header for the whole tree made the
+# figure grow with the number of repos scanned. The collected total survives in one place, the
+# index table's last row, and these two patterns are the only readers of either number.
+HEADER = re.compile(r'\*\*(?P<here>\d+) findings here\*\*')
+COLLECTED = re.compile(r'\| \*\*collected\*\* \| \*\*(?P<collected>\d+)\*\* \|')
 
 
 def _reported(ledger: Path) -> int:
     """The finding count a ledger states in its own generated block."""
     match = HEADER.search(ledger.read_text(encoding='utf-8'))
-    return int(match.group('collected')) if match else 0
+    return int(match.group('here')) if match else 0
 
 
 def test_every_nested_repo_has_its_own_ledger() -> None:
@@ -34,9 +35,8 @@ def test_every_nested_repo_has_its_own_ledger() -> None:
 def test_the_root_total_equals_the_sum_of_the_local_ledgers() -> None:
     repos = ledger_repos(ROOT)
     root_text = (ROOT / 'ISSUES.md').read_text(encoding='utf-8')
-    match = HEADER.search(root_text)
-    collected = int(match.group('collected'))
-    here = int(match.group('here'))
+    here = int(HEADER.search(root_text).group('here'))
+    collected = int(COLLECTED.search(root_text).group('collected'))
     scattered = sum(_reported(ROOT / repo / 'ISSUES.md') for repo in repos)
     assert collected == here + scattered
 
@@ -71,6 +71,21 @@ def test_core_and_brain_stay_with_the_workspace_repo() -> None:
     repos = ledger_repos(ROOT)
     assert owner('core/SCHEMA.md: finding', ROOT, repos) == ''
     assert owner('brain/GOALS.md: finding', ROOT, repos) == ''
+
+
+def test_the_header_charges_this_repo_for_its_own_findings_only() -> None:
+    """Ruled 2026-08-25. The header read `**603 findings**, 33 of them here` and the 603 was what
+    every reader took away — a figure that grew with the number of repos scanned rather than with
+    this repo's debt, and that nobody could act on from here. The nested total is context for
+    picking the next repo, so it stays in the index and out of the headline."""
+    from entropy_report import SECTIONS, render
+    findings = {key: [] for key, _, _ in SECTIONS}
+    findings['size'] = ['core/a.md: 3 lines over']
+    block = render(findings, scanned=10, root=Path('/x'), index={'code/one': 90, 'code/two': 7})
+    assert '**1 findings here**' in block
+    assert '97 more across 2 nested repos' in block
+    assert '**98 findings' not in block
+    assert '| **collected** | **98** |' in block
 
 
 def test_partition_loses_no_finding() -> None:

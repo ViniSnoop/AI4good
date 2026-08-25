@@ -23,6 +23,7 @@ every session's prompt rather than merely marking it inactive.
 | File | Description |
 |------|-------------|
 | [`acronyms.md`](acronyms.md) | An acronym is expanded the first time a session uses it, so no reader is left decoding. |
+| [`cap.md`](cap.md) | A file over the cap is cut, not split; a sibling file needs Lucas's explicit OK. |
 | [`deletion.md`](deletion.md) | Finished work is cut out rather than ticked, because git already holds the history. |
 | [`dogfood.md`](dogfood.md) | The workspace's own tools and flows get used, which is what makes them worth having. |
 | [`edit.md`](edit.md) | Refining an existing file beats adding one, so the tree stops scattering. |
@@ -30,7 +31,6 @@ every session's prompt rather than merely marking it inactive.
 | [`improve.md`](improve.md) | Every session leaves the workspace better than it found it, and files what it could not fix. |
 | [`interview.md`](interview.md) | Doubt about intent is resolved by asking Lucas, never by guessing. |
 | [`one-action.md`](one-action.md) | Agent-facing text names exactly one action, because it is read mid-thread and not studied. |
-| [`split.md`](split.md) | A file over the cap splits into siblings its root routes to, so a reader decides what to open without opening it. |
 | [`storage.md`](storage.md) | The workspace owns its state; nothing that matters is written to a vendor's private directory. |
 | [`symmetry.md`](symmetry.md) | Semantic and structural symmetry is a value, and every asymmetry found gets written down. |
 <!-- routing:end -->

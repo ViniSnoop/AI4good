@@ -48,13 +48,13 @@ def test_no_matching_revision_is_no_baseline(repo):
 
 
 def test_a_revision_outside_the_window_is_not_a_baseline(repo):
-    commit(repo, {'entropy.md': '50 findings\n'}, days_ago=15)
+    commit(repo, {'entropy.md': '50 findings here\n'}, days_ago=15)
     assert baseline(repo, window_days=12) is None
 
 
 def test_the_oldest_revision_inside_the_window_is_the_baseline(repo):
-    commit(repo, {'entropy.md': '50 findings\n'}, days_ago=10)
-    commit(repo, {'entropy.md': '80 findings\n'}, days_ago=5)
+    commit(repo, {'entropy.md': '50 findings here\n'}, days_ago=10)
+    commit(repo, {'entropy.md': '80 findings here\n'}, days_ago=5)
     found_date, found_count = baseline(repo, window_days=12)
     assert found_date == (date.today() - timedelta(days=10)).isoformat()
     assert found_count == 50
@@ -63,9 +63,9 @@ def test_the_oldest_revision_inside_the_window_is_the_baseline(repo):
 def test_the_baseline_spans_the_rename_from_entropy_md_to_issues_md(repo):
     """The count lived in entropy.md until 2026-08-19 and in ISSUES.md after — a window that
     stops at the rename would report a baseline from the wrong side of it."""
-    commit(repo, {'entropy.md': '50 findings\n'}, days_ago=10)
+    commit(repo, {'entropy.md': '50 findings here\n'}, days_ago=10)
     git(repo, 'rm', '-q', 'entropy.md')
-    commit(repo, {'ISSUES.md': '80 findings\n'}, days_ago=5)
+    commit(repo, {'ISSUES.md': '80 findings here\n'}, days_ago=5)
     found_date, found_count = baseline(repo, window_days=12)
     assert found_date == (date.today() - timedelta(days=10)).isoformat()
     assert found_count == 50
@@ -73,13 +73,13 @@ def test_the_baseline_spans_the_rename_from_entropy_md_to_issues_md(repo):
 
 def test_issues_md_wins_over_entropy_md_in_the_same_revision(repo):
     """Where a single commit carries both, the live name states the current number."""
-    commit(repo, {'entropy.md': '999 findings\n', 'ISSUES.md': '50 findings\n'}, days_ago=5)
+    commit(repo, {'entropy.md': '999 findings here\n', 'ISSUES.md': '50 findings here\n'}, days_ago=5)
     _, found_count = baseline(repo, window_days=12)
     assert found_count == 50
 
 
 def test_a_smaller_window_excludes_a_revision_the_default_keeps(repo):
-    commit(repo, {'entropy.md': '50 findings\n'}, days_ago=10)
+    commit(repo, {'entropy.md': '50 findings here\n'}, days_ago=10)
     assert baseline(repo) is not None
     assert baseline(repo, window_days=3) is None
 
@@ -105,7 +105,7 @@ def test_the_trend_flows_into_the_rendered_header():
     findings = {key: [] for key, _, _ in SECTIONS}
     block = render(findings, scanned=10, root=Path('/x'),
                    trend=' (2026-08-13: 94 · +672 over 11 days)')
-    assert '**0 findings** (2026-08-13: 94 · +672 over 11 days)' in block
+    assert '**0 findings here** (2026-08-13: 94 · +672 over 11 days)' in block
 
 
 def test_no_trend_argument_leaves_the_bare_count_unwriteable_as_flat():
@@ -114,4 +114,4 @@ def test_no_trend_argument_leaves_the_bare_count_unwriteable_as_flat():
     from entropy_report import SECTIONS, render
     findings = {key: [] for key, _, _ in SECTIONS}
     block = render(findings, scanned=10, root=Path('/x'))
-    assert '**0 findings**\n' in block
+    assert '**0 findings here**\n' in block

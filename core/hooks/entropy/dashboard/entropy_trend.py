@@ -14,7 +14,12 @@ from datetime import date, datetime
 from pathlib import Path
 
 WINDOW_DAYS = 12
-_COUNT = re.compile(r'(\d+) findings')
+# "findings here", not "findings": the header stopped charging this repo for the whole tree's
+# count on 2026-08-25, and a baseline read in the old scope would print a 570-finding "drop" that
+# nothing did. Revisions older than that state no comparable count, so the window returns None and
+# the header prints a bare count until 12 days of same-scope history exist — which is this
+# module's documented behaviour for a baseline it cannot compare against, not a regression.
+_COUNT = re.compile(r'(\d+) findings here')
 # ISSUES.md first: it is where the count lives today, and a commit that touches both in one
 # revision states the current number there.
 _PATHS = ('ISSUES.md', 'entropy.md')
