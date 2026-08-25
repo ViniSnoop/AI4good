@@ -213,7 +213,7 @@ Clean.
 - brain/goals/home-casinhas.md — 3 line(s) over the 120-column cap (first at line 53)
 - brain/goals/spacemantics.md — 2 line(s) over the 120-column cap (first at line 57)
 - brain/goals/spec-driven-development.md — 1 line(s) over the 120-column cap (first at line 46)
-- brain/goals/workspace-os.md — 3 line(s) over the 120-column cap (first at line 118)
+- brain/goals/workspace-os.md — 3 line(s) over the 120-column cap (first at line 137)
 - core/norms/CONTEXT.md — 1 line(s) over the 120-column cap (first at line 5)
 - core/norms/one-action.md — 1 line(s) over the 120-column cap (first at line 6)
 - core/norms/storage.md — 1 line(s) over the 120-column cap (first at line 6)
@@ -288,7 +288,7 @@ Clean.
 
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
-- . — feature/wos-lean is 5 ahead of main
+- . — feature/wos-lean is 1 ahead of main
 
 ### Remote branches already merged into their base
 
