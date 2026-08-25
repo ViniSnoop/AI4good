@@ -128,11 +128,11 @@ low). Which model fills each tier is data in that file, never in this one.
 |-------|-------------|------|------|-------------|------------|-------|
 | [`ROADMAP-archive.md`](ROADMAP-archive.md) | What is NOT being worked on, and what would change that? Three kinds: blocked on a named trigger, parked as out of scope, killed outright — each keeping its reason so a dead idea cannot return looking new. Read it before proposing something that sounds obvious; nothing here counts toward the drain, so Open reads empty. | — | — | — | — | `gdrive-integration` `offline-resilience` `task-metric` |
 | [`ROADMAP-cost.md`](ROADMAP-cost.md) | What does a session cost, and which of that is avoidable? Holds which tier runs what, what loads at session start, and what fills the context window. Open it for what we intend to change about spend; every measured number lives in `core/experiments/`, so re-run the instrument for what spend actually is. | important | 6 | 1 | — | — |
-| [`ROADMAP-entropy.md`](ROADMAP-entropy.md) | Does the tree still have the shape we said it has, and does anything check? Holds the Tier 0 checks, the ratchet that makes their count shrink, and rules declared in a `SPECS.md` with no implementation. Open it for a check, a drifted name or an unenforced limit — never for what the drift *means*, which is legibility's. | essential | 8 | — | — | — |
+| [`ROADMAP-entropy.md`](ROADMAP-entropy.md) | Does the tree still have the shape we said it has, and does anything check? Holds the Tier 0 checks, the ratchet that makes their count shrink, and rules declared in a `SPECS.md` with no implementation. Open it for a check, a drifted name or an unenforced limit — never for what the drift *means*, which is legibility's. | essential | 7 | — | — | — |
 | [`ROADMAP-ledger.md`](ROADMAP-ledger.md) | Where does a piece of writing belong, and is it written down twice? Holds the `.md` type system's unfinished migrations and the rule that an item lives in exactly one ledger. Open it when a file's NAME or PLACE is the question; the law itself is `core/SCHEMA.md` and the checks that catch a breach are entropy's. | essential | 2 | — | — | — |
 | [`ROADMAP-legibility.md`](ROADMAP-legibility.md) | Can Lucas still read the thing he owns — its words, its decisions, its shape? A standing front that never closes: the jargon audit, the pictures that show the workspace at a glance, and the rule that a session may not decide quietly. Open it when something is UNREADABLE or was decided without him, not when it is broken. | essential | 6 | 1 | — | — |
 | [`ROADMAP-measurement.md`](ROADMAP-measurement.md) | Does any of this scaffold actually help, and what catches the agent being confidently wrong? Two halves with one cause: the ablation that would measure whether a rule earns its keep, and the gates that would make a claim carry its evidence. Open it before trusting a number or a technical opinion; the experiment's design lives in its paper twin. | important | 3 | 2 | ROADMAP-portability.md | — |
-| [`ROADMAP-portability.md`](ROADMAP-portability.md) | Would this workspace work on a machine that is not Lucas's? Every dependency is declared and `SETUP.md` is an executed procedure, so what is left is the public scaffold repo his students will clone and the one feature that cannot be switched off. Open it for anything crossing the line between what is general and what is his. | essential | 2 | 1 | — | — |
+| [`ROADMAP-portability.md`](ROADMAP-portability.md) | Would this workspace work on a machine that is not Lucas's? Every dependency is declared and `SETUP.md` is an executed procedure, so what is left is the public scaffold repo his students will clone and the one feature that cannot be switched off. Open it for anything crossing the line between what is general and what is his. | essential | 3 | 1 | — | — |
 | [`ROADMAP-self-description.md`](ROADMAP-self-description.md) | Why does this workspace keep asserting things about its own code that one command would refute? Holds the discipline problem — a structural claim written into a durable file with no probe attached — and the routing descriptions a reader meets first. Open it when the workspace says something false ABOUT ITSELF; the outside world is measurement's. | important | 5 | — | — | — |
 
 ### What is open, per shard
@@ -150,11 +150,10 @@ low). Which model fills each tier is data in that file, never in this one.
 
 **[`ROADMAP-entropy.md`](ROADMAP-entropy.md)**
 
-- 🟡 CONTEXT.md hand-written inventories is the whole drift story, and nobody has looked at it.
 - 🟢 drain the entropy dashboard.
-- 🟢 sweep this repo's first-line-comment markers now that the gate is shut.
-- 🟡 Five `.md` files are still over the 200-line cap, and the gate cannot go live until none are.
-- 🟡 What the drain hit on the way, still true.
+- 🟡 the 200-line cap gate waits on five `.md` files, and every one is in a nested repo.
+- 🟡 Two rules that never met the corpus they govern.
+- 🟢 a type that shards has no check that its siblings are tracked.
 - 🟢 the corpus is half Portuguese and the rule is English.
 - 🟢 roundup compares the declared model split against the actual one.
 - 🟢 import the auto-trigger.
@@ -181,6 +180,7 @@ low). Which model fills each tier is data in that file, never in this one.
 
 **[`ROADMAP-portability.md`](ROADMAP-portability.md)**
 
+- 🟡 `.gitignore` says both about whether a nested repo's `CONTEXT.md` is visible here.
 - 🟡 the public scaffold repo and its one-way sync.
 - 🔴 `code/aiwbot` lives in its own repo and that is why one feature cannot be switched off.
 

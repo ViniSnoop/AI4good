@@ -1,5 +1,5 @@
-# T0 the entropy scatter (ruled 2026-08-20): every code repo keeps its own ledger and the root sums
-# them. Zero-token, runs in verify-fast.
+# T0 the entropy scatter (ruled 2026-08-25): every nested repo keeps its own ledger and the root
+# sums them. Zero-token, runs in verify-fast.
 #
 # The sum is the thing to get right. A collected number any repo could write into is the
 # copied-count drift these checks exist to catch, so the test reads every local ledger BACK OFF
@@ -8,11 +8,11 @@ import re
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[4] / 'hooks/entropy/dashboard'))
+sys.path.insert(0, str(Path(__file__).resolve().parents[5] / 'hooks/entropy/dashboard'))
 
-from entropy_scatter import code_repos, owner, partition  # noqa: E402
+from entropy_scatter import ledger_repos, owner, partition  # noqa: E402
 
-ROOT = Path(__file__).resolve().parents[4].parent
+ROOT = Path(__file__).resolve().parents[5].parent
 # One definition for both numbers the header can carry, so a header change (like the dated
 # baseline entropy_trend.py inserts between the count and "of them here") is fixed once here
 # rather than in two regexes that can drift apart. `here` is absent on a local ledger's own
@@ -26,13 +26,13 @@ def _reported(ledger: Path) -> int:
     return int(match.group('collected')) if match else 0
 
 
-def test_every_code_repo_has_its_own_ledger() -> None:
-    for repo in code_repos(ROOT):
+def test_every_nested_repo_has_its_own_ledger() -> None:
+    for repo in ledger_repos(ROOT):
         assert (ROOT / repo / 'ISSUES.md').exists(), f'{repo} has no local ISSUES.md'
 
 
 def test_the_root_total_equals_the_sum_of_the_local_ledgers() -> None:
-    repos = code_repos(ROOT)
+    repos = ledger_repos(ROOT)
     root_text = (ROOT / 'ISSUES.md').read_text(encoding='utf-8')
     match = HEADER.search(root_text)
     collected = int(match.group('collected'))
@@ -43,7 +43,7 @@ def test_the_root_total_equals_the_sum_of_the_local_ledgers() -> None:
 
 def test_the_index_lists_every_repo_that_has_a_ledger() -> None:
     root_text = (ROOT / 'ISSUES.md').read_text(encoding='utf-8')
-    for repo in code_repos(ROOT):
+    for repo in ledger_repos(ROOT):
         assert f'({repo}/ISSUES.md)' in root_text, f'{repo} is missing from the root index'
 
 
@@ -57,16 +57,18 @@ def test_the_innermost_repo_wins_when_one_nests_inside_another() -> None:
     assert owner('code/outer/inner/thing.py: finding', ROOT, repos) == 'code/outer/inner'
 
 
-def test_papers_and_branches_stay_pooled_at_the_root() -> None:
-    """Lucas's ruling: they are not code and their findings are few."""
-    repos = code_repos(ROOT)
-    assert owner('academy/papers/wos-ablation/PLAN.md: finding', ROOT, repos) == ''
-    assert owner('branches/casinhas/PROJETO.md: finding', ROOT, repos) == ''
+def test_papers_and_branches_own_their_findings() -> None:
+    """Ruled 2026-08-25: having a .git is the declaration, not sitting under code/. Until then these
+    charged the root for findings no reader there could act on."""
+    repos = ledger_repos(ROOT)
+    assert owner('academy/papers/wos-ablation/PLAN.md: finding', ROOT, repos) == 'academy/papers/wos-ablation'
+    assert owner('branches/casinhas/PROJETO.md: finding', ROOT, repos) == 'branches/casinhas'
 
 
 def test_core_and_brain_stay_with_the_workspace_repo() -> None:
-    """Ruled 2026-08-24: both are parts of WOS, so its own ledger covers them — 14 ledgers, not 16."""
-    repos = code_repos(ROOT)
+    """Ruled 2026-08-24 and unchanged by the generalisation: neither is a repo, so WOS's own ledger
+    covers both."""
+    repos = ledger_repos(ROOT)
     assert owner('core/SCHEMA.md: finding', ROOT, repos) == ''
     assert owner('brain/GOALS.md: finding', ROOT, repos) == ''
 

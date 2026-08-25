@@ -1,19 +1,18 @@
 # entropy
-> What each entropy check counts, and where it must stay silent. Named one word apart from
-> `core/hooks/entropy/`, but not a complete mirror of it — see the gap below.
+> What each entropy check counts, and where it must stay silent. **One file per check, not one per
+> module** — so a name here answers to a question, and only sometimes to a file next door.
 
-Split from `law/` 2026-08-15 at 8 files, the same way `test/workspace/` split into `gates/` and
-`generators/`: a surface and its coverage stay one word apart, so the file that tests
-`entropy_ledger.py` is found by knowing the name of the thing it tests.
+Split from `law/` 2026-08-15, one word apart from the surface it covers — and that naming holds only
+where a module IS one check (ruled 2026-08-25, after `ISSUES.md` carried the shortfall as a bug for
+calling this a mirror it never was). `entropy_ledger.py` and `entropy_context.py` each answer several
+questions, so `inventory`, `placeholders` and `retired` are named for the check. `entropy_corpus.py`
+and `entropy_size.py` have no file because neither is a check — one picks the files the others may
+look at, the other measures what they find — so both are reached through the tests importing them.
 
-These own whether each check **fires correctly** — the boundaries are the design, and every one of
-them is a case where two things look identical and mean opposite things: a tick is a corpse in a
-ledger and a legend marker in a spec, a date without a completion verb is a citation, a generator's
-unfilled marker is a question rather than history. Whether the **backlog is shrinking** is a
-different question, owned by the ratchets in [`../../workspace/`](../../workspace/CONTEXT.md).
-
-The mirror is incomplete — two modules next door have no test file here, two tests here cover
-surfaces that live elsewhere. Recorded as a bug in [`ISSUES.md`](../../../../../ISSUES.md).
+These own whether each check **fires correctly**, and the boundaries are the design: every one is a
+case where two things look identical and mean opposite things — a tick is a corpse in a ledger and a
+legend marker in a spec. Whether the **backlog is shrinking** is a different question, owned by the
+ratchets in [`../../workspace/`](../../workspace/CONTEXT.md).
 
 Write the glyphs these checks hunt for **only inside a test**, never in this head: the checks read
 prose literally, and a `CONTEXT.md` quoting a marker is indistinguishable from one that never
@@ -23,18 +22,20 @@ it is the same ambiguity the reader has.
 <!-- routing:start -->
 ## Routing
 
-| File | Interface | API | Description |
-|------|-----------|-----|-------------|
-| [`test_entropy_context.py`](test_entropy_context.py) | [`test_entropy_context.pyi`](test_entropy_context.pyi) | — | T0 CONTEXT.md rules (Tier 0, law in core/SCHEMA.md). Zero-token, runs in verify-fast. |
-| [`test_entropy_fanout.py`](test_entropy_fanout.py) | [`test_entropy_fanout.pyi`](test_entropy_fanout.pyi) | — | T0 directory fanout (Tier 0, law in core/SCHEMA.md). Zero-token, runs in verify-fast. |
-| [`test_entropy_fields.py`](test_entropy_fields.py) | [`test_entropy_fields.pyi`](test_entropy_fields.pyi) | — | T0 the header-field check (core/SCHEMA-outgrowing.md § the field table): a field naming our own code names something that is there. Zero-token, runs in verify-fast. |
-| [`test_entropy_inventory.py`](test_entropy_inventory.py) | [`test_entropy_inventory.pyi`](test_entropy_inventory.pyi) | — | T0 no-hand-inventory rule (Tier 0, law in core/SCHEMA.md). Zero-token, runs in verify-fast. |
-| [`test_entropy_ledger.py`](test_entropy_ledger.py) | [`test_entropy_ledger.pyi`](test_entropy_ledger.pyi) | — | T0 ledger and vocabulary checks (Tier 0, law in core/SCHEMA.md). Zero-token, runs in verify-fast. |
-| [`test_entropy_naming.py`](test_entropy_naming.py) | [`test_entropy_naming.pyi`](test_entropy_naming.pyi) | — | T0 naming and placement (Tier 0, law in core/SCHEMA.md). Zero-token, runs in verify-fast. |
-| [`test_entropy_placeholders.py`](test_entropy_placeholders.py) | [`test_entropy_placeholders.pyi`](test_entropy_placeholders.pyi) | — | T0 unanswered scaffold placeholders (first-line-comment rule, core/hooks/SPECS.md). Zero-token, runs in verify-fast. |
-| [`test_entropy_retired.py`](test_entropy_retired.py) | [`test_entropy_retired.pyi`](test_entropy_retired.pyi) | — | T0 the retired-token check (core/SCHEMA-vocabulary.md § Retired tokens): a rename is finished only when its old spelling appears nowhere. Zero-token, runs in verify-fast. |
-| [`test_entropy_scatter.py`](test_entropy_scatter.py) | [`test_entropy_scatter.pyi`](test_entropy_scatter.pyi) | — | T0 the entropy scatter (ruled 2026-08-20): every code repo keeps its own ledger and the root sums them. Zero-token, runs in verify-fast. |
-| [`test_entropy_stores.py`](test_entropy_stores.py) | [`test_entropy_stores.pyi`](test_entropy_stores.pyi) | — | T0 the two doubt stores (core/SPECS-discipline.md § AD-16 band 1): an experiment states its own format, and a judged reference carries a source tier. Zero-token, runs in verify-fast. |
-| [`test_entropy_trend.py`](test_entropy_trend.py) | [`test_entropy_trend.pyi`](test_entropy_trend.pyi) | `git`, `commit`, `repo` | T0 the entropy trend (core/hooks/entropy/dashboard/entropy_trend.py): a bare count let every session write "flat" while the real number climbed, so the header carries a baseline instead. Zero-token, runs in verify-fast. |
-| [`test_entropy_vendor.py`](test_entropy_vendor.py) | [`test_entropy_vendor.pyi`](test_entropy_vendor.pyi) | — | T0 the vendor-name guard (core/SCHEMA-vocabulary.md): a ledger assigns a TIER, never a model. Zero-token, runs in verify-fast. |
+| Subdirectory | Description |
+|--------------|-------------|
+| [`dashboard/`](dashboard/CONTEXT.md) | The two checks that are about the REPORT rather than about the tree: who owns a finding, and what the count was last time. |
+
+| File | Interface | Description |
+|------|-----------|-------------|
+| [`test_entropy_context.py`](test_entropy_context.py) | [`test_entropy_context.pyi`](test_entropy_context.pyi) | T0 CONTEXT.md rules (Tier 0, law in core/SCHEMA.md). Zero-token, runs in verify-fast. |
+| [`test_entropy_fanout.py`](test_entropy_fanout.py) | [`test_entropy_fanout.pyi`](test_entropy_fanout.pyi) | T0 directory fanout (Tier 0, law in core/SCHEMA.md). Zero-token, runs in verify-fast. |
+| [`test_entropy_fields.py`](test_entropy_fields.py) | [`test_entropy_fields.pyi`](test_entropy_fields.pyi) | T0 the header-field check (core/SCHEMA-outgrowing.md § the field table): a field naming our own code names something that is there. Zero-token, runs in verify-fast. |
+| [`test_entropy_inventory.py`](test_entropy_inventory.py) | [`test_entropy_inventory.pyi`](test_entropy_inventory.pyi) | T0 no-hand-inventory rule (Tier 0, law in core/SCHEMA.md). Zero-token, runs in verify-fast. |
+| [`test_entropy_ledger.py`](test_entropy_ledger.py) | [`test_entropy_ledger.pyi`](test_entropy_ledger.pyi) | T0 ledger and vocabulary checks (Tier 0, law in core/SCHEMA.md). Zero-token, runs in verify-fast. |
+| [`test_entropy_naming.py`](test_entropy_naming.py) | [`test_entropy_naming.pyi`](test_entropy_naming.pyi) | T0 naming and placement (Tier 0, law in core/SCHEMA.md). Zero-token, runs in verify-fast. |
+| [`test_entropy_placeholders.py`](test_entropy_placeholders.py) | [`test_entropy_placeholders.pyi`](test_entropy_placeholders.pyi) | T0 unanswered scaffold placeholders (first-line-comment rule, core/hooks/SPECS.md). Zero-token, runs in verify-fast. |
+| [`test_entropy_retired.py`](test_entropy_retired.py) | [`test_entropy_retired.pyi`](test_entropy_retired.pyi) | T0 the retired-token check (core/SCHEMA-vocabulary.md § Retired tokens): a rename is finished only when its old spelling appears nowhere. Zero-token, runs in verify-fast. |
+| [`test_entropy_stores.py`](test_entropy_stores.py) | [`test_entropy_stores.pyi`](test_entropy_stores.pyi) | T0 the two doubt stores (core/SPECS-discipline.md § AD-16 band 1): an experiment states its own format, and a judged reference carries a source tier. Zero-token, runs in verify-fast. |
+| [`test_entropy_vendor.py`](test_entropy_vendor.py) | [`test_entropy_vendor.pyi`](test_entropy_vendor.pyi) | T0 the vendor-name guard (core/SCHEMA-vocabulary.md): a ledger assigns a TIER, never a model. Zero-token, runs in verify-fast. |
 <!-- routing:end -->

@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 # Which repo owns a finding, and the local ledger it is written into.
 #
-# Ruled 2026-08-20 (Lucas): every CODE repo keeps its own ISSUES.md, because the reader who can fix
-# a finding is the one already inside that repo. Papers and branches/ stay pooled at the root —
-# they are not code and their findings are few. core/ and brain/ are parts of WOS itself, so the
-# workspace repo's own ledger covers them (his call, 2026-08-24). Fourteen ledgers, not twenty-six.
+# Ruled 2026-08-25 (Lucas): every NESTED REPO keeps its own ISSUES.md, because the reader who can
+# fix a finding is the one already inside that repo. The rule was code/-only until then, which left
+# the papers and branches/ repos charging the root for findings no reader there could act on — of
+# 107 charged here, five were actionable. Having a .git is the declaration now, not sitting under
+# code/. core/ and brain/ are parts of WOS itself and neither is a repo, so the workspace repo's own
+# ledger covers them (his call, 2026-08-24) — that half of the earlier ruling stands.
 #
 # The root SUMS, and the sum is recomputed here from the same scan that writes the locals — never
 # hand-carried. A collected number that any repo could write into is precisely the copied-count
@@ -15,15 +17,9 @@ from blocks import replace_block
 from entropy_corpus import nested_repos
 from entropy_report import END, START, local_seed, render
 
-# Only code repos scatter. The directory is the declaration: a repo under code/ is a software
-# project with its own verify suite, which is what makes a local ledger actionable there.
-CODE = 'code'
-
-
-def code_repos(root: Path) -> list:
+def ledger_repos(root: Path) -> list:
     """The repos that get a local ledger, as paths relative to the workspace root."""
-    rels = [str(repo.relative_to(root)) for repo in nested_repos(root)]
-    return sorted(rel for rel in rels if rel.split('/')[0] == CODE)
+    return sorted(str(repo.relative_to(root)) for repo in nested_repos(root))
 
 
 def _head(finding: str, root: Path) -> str:
@@ -74,7 +70,7 @@ def scatter(findings: dict, root: Path, files: list) -> tuple:
     workspace-wide total would make each local file state something false about itself, which is
     the failure the self-description front exists to name.
     """
-    repos = code_repos(root)
+    repos = ledger_repos(root)
     mine, per_repo = partition(findings, root, repos)
     scanned = {repo: 0 for repo in repos}
     for path in files:

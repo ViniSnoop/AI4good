@@ -6,8 +6,9 @@
 
 ### The four disposal routes
 
-An off-allowlist `UPPERCASE.md` is not automatically wrong — it is *unclassified*. Route it, so a new
-name resolves without a decision meeting (decided 2026-07-30):
+An off-allowlist `UPPERCASE.md` is not automatically wrong — it is *unclassified*. **Ask *is this
+still true* before *what type is this***: a name that looks like it needs an allowlist entry is often
+done work, or a type its own repo already spells right. Route what survives (decided 2026-07-30):
 
 | Route | When |
 |-------|------|
@@ -17,23 +18,17 @@ name resolves without a decision meeting (decided 2026-07-30):
 | new type | answers a question **no type answers** — `SETUP.md` is the only one that ever qualified |
 
 **A generated measurement that is also a ratchet is tracked, at the root** (ruled 2026-08-17,
-resited 2026-08-19). The entropy report used to take the first route as a file of its own; it now
-takes **no** route, because it is not a file — it is a block inside the root
-[`ISSUES.md`](../ISSUES.md), written by
-[`core/hooks/entropy/dashboard/entropy-dashboard.py`](hooks/entropy/dashboard/entropy-dashboard.py) beside a
-verify block written by [`core/tools/wos/roundup`](tools/wos/roundup). **The question a generated
-measurement answers decides where it goes, and "what is currently untrue that we know about" already
-has a type.** A drift finding, a red suite and a hand-written bug are three answers to it, so they
-share one file and are kept apart by markers rather than by filenames. What looked like an
-oversight was its **placement** — every other generated artifact lives beside its generator or under
-`outputs/`, and this one sat at the workspace root.
-Its host still does, for the reason that always applied: `outputs/` is gitignored and **a ratchet
-that is not tracked cannot ratchet**;
-the whole use of the number is being diffable commit over commit, which is what makes "the count
-must shrink" a check rather than a feeling. So the untracked route is not available to it, and of
-the tracked ones the root is right for the same reason `core/SCHEMA.md` sits at `core/` root rather
-than inside `core/hooks/` — it measures the whole workspace, and a file that measures everything
-does not live inside one of the things it measures.
+resited 2026-08-19). **The question a generated measurement answers decides where it goes**, and the
+entropy report therefore takes no route at all: "what is currently untrue that we know about" already
+has a type, so it is a *block* inside the root [`ISSUES.md`](../ISSUES.md) — written by
+[`core/hooks/entropy/dashboard/entropy-dashboard.py`](hooks/entropy/dashboard/entropy-dashboard.py)
+beside a verify block written by [`core/tools/wos/roundup`](tools/wos/roundup). A drift finding, a red
+suite and a hand-written bug are three answers to one question, kept apart by markers rather than by
+filenames. It sits at the root rather than beside its generator because `outputs/` is gitignored and
+**a ratchet that is not tracked cannot ratchet** — being diffable commit over commit is what makes
+"the count must shrink" a check rather than a feeling — and because a file that measures the whole
+workspace does not live inside one of the things it measures, the same rule that puts
+`core/SCHEMA.md` at `core/` root rather than in `core/hooks/`.
 
 **The host is half authored, and that is the one cost this shape carries.** `ISSUES.md` is named in
 [`core/hooks/generated.txt`](hooks/generated.txt), which waives the line cap for the whole file
@@ -97,6 +92,14 @@ The test that makes "as small as possible" checkable rather than a matter of tas
 has read only the index names the shard that answers their question, and is never wrong.** Wrong
 means a line is missing from the index; right without needing a given paragraph means that paragraph
 belongs in a shard.
+
+**Look for the second copy before reaching for a split, and for finished work before either.** Both
+files that cleared the cap on 2026-08-24 got there without one: the mass was duplication and slack —
+the same five standing rules stated in two rows, eleven lines of pointers wrapped around one live
+instruction. A split preserves mass across more files, which is the superficial fix. Two traps on
+that path: a deleted file's row in the transient-exemption table keeps its exemption alive, because
+every backticked name there is parsed as one; and the document you are deleting can be the sole
+record of something live, so read it out before it goes.
 
 ### What a shard publishes about itself
 

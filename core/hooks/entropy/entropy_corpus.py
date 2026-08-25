@@ -102,12 +102,13 @@ _CHECKER_TESTS = ('core/tools/test/**/test_entropy_ledger.py*',
 # moves — which is exactly what happened when the hooks moved into `core/` (2026-07-31).
 _CHECKER = ('entropy_ledger.py', 'entropy_ledger.pyi')
 
-# Since the entropy scatter (ruled 2026-08-20) every code repo's ledger carries the same generated
-# block the root's does, so the exemption that followed the report into ISSUES.md has to follow it
-# into all of them. This is not a courtesy: the report's own section notes name a retired token and
-# spell `[[slug]]` literally, so a ledger left unexempt is flagged by the very text the tool wrote
-# into it — the check reporting on its own output.
-_LOCAL_LEDGERS = 'code/*/ISSUES.md'
+# Since the entropy scatter every nested repo's ledger carries the same generated block the root's
+# does, so the exemption that followed the report into ISSUES.md has to follow it into all of them.
+# This is not a courtesy: the report's own section notes name a retired token and spell `[[slug]]`
+# literally, so a ledger left unexempt is flagged by the very text the tool wrote into it — the
+# check reporting on its own output. Derived from nested_repos rather than a `code/*` glob, which
+# is how the exemption stayed correct when the scatter generalised (2026-08-25).
+_LOCAL_LEDGER = 'ISSUES.md'
 
 
 def enforcement_paths(root: Path) -> set:
@@ -115,7 +116,7 @@ def enforcement_paths(root: Path) -> set:
     return ({(root / name).resolve() for name in ENFORCEMENT}
             | {here / name for name in _CHECKER}
             | {p.resolve() for pattern in _CHECKER_TESTS for p in root.glob(pattern)}
-            | {p.resolve() for p in root.glob(_LOCAL_LEDGERS)})
+            | {(repo / _LOCAL_LEDGER).resolve() for repo in nested_repos(root)})
 
 
 # brain/memory holds cross-session agent memory, and its `[[slug]]` names ANOTHER MEMORY rather

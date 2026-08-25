@@ -68,6 +68,16 @@ points. Decide that before building, because the pointer rewrite is the whole co
 path, and a frontmatter mistake breaks spawning until something catches it. → **tier: medium**,
 agents first, flows after the pointer question is answered.
 
+4. 🟡 **`.gitignore` says both about whether a nested repo's `CONTEXT.md` is visible here.**
+   Lines ~48–56 re-allow the `CONTEXT.md` of `gira`, `laplata`,
+   `cria` and `freeai` with the `!code/<repo>/` + `code/<repo>/*` + `!code/<repo>/CONTEXT.md` triple;
+   the wholesale `code/<repo>` entries at ~line 182 come later and win, so **not one of the four is
+   tracked** and every line in that block is inert. It reads as if it works, which is how the fifth
+   repo will copy it. Either delete the block or put the nested-repo list before it — the answer is
+   the same boundary the `code/aiwbot` absorb ruling moved, which is why the row is here rather than
+   in [`ISSUES.md`](ISSUES.md). **Do not reorder blindly:** making four `CONTEXT.md` files suddenly
+   tracked changes what the Tier 0 corpus contains. → **tier: medium**.
+
 5. 🟡 **the public scaffold repo and its one-way sync.** A **separate public repository**, not a
    branch — personal history never leaves this repo, where a branch would carry every commit that
    ever touched `brain/`. That is what makes the general/Lucas-specific line checkable on every run

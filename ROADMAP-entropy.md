@@ -12,15 +12,6 @@
 > the agent library has [core/SCHEMA.md](core/SCHEMA.md). Nothing yet governs the shape of the
 > workspace itself.
 
-2. 🟡 **CONTEXT.md hand-written inventories is the whole drift story, and nobody has looked at it.**
-   Separating scope from rot ([`core/experiments/entropy-scope-vs-rot.md`](core/experiments/entropy-scope-vs-rot.md),
-   2026-08-24) answered the question this item used to ask and left a smaller one standing. Of the
-   climb from 95 to 604, 97% is checks that did not exist before; on the nine checks that did, the
-   tree **improved by 9 findings** — except `inventories`, which went 4 → 29 and swamps them all.
-   **What is not known is whether that is 25 new hand-written inventories or a check that widened**,
-   and the experiment says so in its own limitations rather than guessing. Read the check's history
-   first; only if it did not widen is this a real cleanup. → **tier: medium**.
-
 3. 🟢 **drain the entropy dashboard.** `make entropy` → [`ISSUES.md`](ISSUES.md) § Entropy, the whole
    workspace and its nested repos in seconds. Read the report; never re-scan the tree. **Never copy
    its counts into this file** — a copied number is the drift these checks exist to catch, and the
@@ -32,68 +23,34 @@
    (retired tokens, duplicate slugs); where it is not, `test_entropy_naming.py` holds a named
    **baseline** so a new violation fails the build and a fixed one must leave the list.
 
-6. 🟢 **sweep this repo's first-line-comment markers now that the gate is shut.** The hole is closed:
-   `entropy_context.check_description` blocks at commit through the Tier 0 gate, ratcheted to what a
-   commit adds, and asks the routing generator rather than a table of its own
-   ([`core/hooks/SPECS.md`](core/hooks/SPECS-generators.md) § First-line descriptions). What is left is the
-   standing queue the ratchet deliberately does not
-   charge anyone for. **Size it against [`ISSUES.md`](ISSUES.md) § Entropy, and re-run the generator before
-   measuring** — every marker drained so far was a file the generator could already describe.
-   **Scope here is this repo only**; the nested-repo majority is under § Blocked. → **tier: medium**.
-8. 🟡 **Five `.md` files are still over the 200-line cap, and the gate cannot go live until none are.**
-   Ten on 2026-08-19 morning; Lucas's rulings that afternoon closed five of them and **none of the
-   five left is workspace work**:
-   - **Three belong to `code/spacemantics`** — `dsl/SPEC.md`, `dsl/EXAMPLES.md`, `dsl/LEXICON.md`.
-     Renaming them is that repo's design question and is already filed in its own roadmap. Nothing
-     here moves until it rules.
-   - **Two were filed as blocked on a live session** holding staged changes to
-     `code/isoroll-content/ROADMAP.md` and `code/isoroll-module/ROADMAP.md`. **That diagnosis is
-     wrong.** Both worktrees are clean of those files and both files are still over the cap — the
-     staging was never what held them there. Read the current numbers from
-     [`ISSUES.md`](ISSUES.md) § Entropy, which also shows *why*: both carry ticked items and one
-     carries strikethrough, so the mass is undeleted finished work.
+8. 🟡 **the 200-line cap gate waits on five `.md` files, and every one is in a nested repo.**
+   Three are `code/spacemantics`' — `dsl/SPEC.md`, `dsl/EXAMPLES.md`,
+   `dsl/LEXICON.md` — and renaming them is that repo's design question, filed in its own roadmap.
+   Two are `code/isoroll-content/ROADMAP.md` and `code/isoroll-module/ROADMAP.md`, whose mass is
+   undeleted finished work: **cut under *completion is deletion* first, split only what is still
+   over** (Lucas's ruling). Since the scatter generalised, each repo's own `ISSUES.md` carries its
+   numbers. Nothing here moves until they do, so the gate flip is the last step and this row is a
+   watch rather than work. → **tier: medium**.
 
-     **Cut, then split only what is still over** (Lucas's ruling, item 13): apply *completion is
-     deletion* to both files first and re-measure. A roadmap that long under a delete-on-completion
-     policy is mostly finished work, and sharding it would preserve the mass across more files —
-     the superficial fix rather than the root-cause one.
-
-   `s3_batch.sh` at 209 is code, not `.md`, and predates the rule. The `outputs/*.md` files the raw
-   line count surfaces are **not** violations — `core/hooks/generated.txt` excludes them, which is
-   worth knowing before someone re-derives the list by hand and reports nine.
-
-   **What the closing session learned, and the next one should expect.** The two names that looked
-   like they needed an allowlist entry needed neither: `UI_SPEC.md` needed the `SPECS.md` name its own
-   repo already used nine times, and `REFACTOR.md` was **done work** whose branch no longer existed.
-   Reach for *is this still true* before *what type is this*. Two traps fired on the way: a deleted
-   file's row in `core/SCHEMA.md`'s transient-exemption table keeps its exemption alive, because every
-   backticked name there is parsed as one; and a document being deleted can be the sole record of
-   something live — `REFACTOR.md` held the only copy of bug B29, which `ISSUES.md` was supposed to have.
-   **The workspace repo's own half is done (2026-08-24) and every file left is in a nested repo.**
-   `core/ROADMAP.md` (203) and `ROADMAP-legibility.md` (216) both cleared. Neither carried a tick or
-   a strikethrough, so *completion is deletion* had nothing to cut and the work was editorial — and
-   what it found is the reusable part: the mass was **duplication and slack**, not finished work.
-   `ROADMAP-legibility.md` stated the same five standing rules for a generated picture twice, in two
-   different rows; `core/ROADMAP.md`'s ablation section was eleven lines pointing at content already
-   moved out, wrapped around one live instruction. Look for the second copy before reaching for a
-   split. → **tier: medium**, and the gate flip is the last step, not the first.
-
-11. 🟡 **What the drain hit on the way, still true.** Filed 2026-08-24, kept in one item
-    because they share a cause — a rule that never met the corpus it governs.
+11. 🟡 **Two rules that never met the corpus they govern.** Filed 2026-08-24, one item because they
+    share that cause.
     - **The two caps pull against each other.** Wrapping
       `academy/administration/coordenacao-lc/novo-ppc-bcc/ROADMAP-ementas.md` took it from 195 to
       270 lines, past the hard 200. Reverted: it trades one finding for another and blocks the
       commit. Nothing says which cap wins when a file sits near the other.
     - **`AGENTS.md` cannot satisfy the cap** while `test_norms` reads the published block line by
       line — see § Rejected. Either that test rejoins continuations, or the most-read file in the
-      workspace keeps three findings forever.
-    - **The scatter rule reaches `code/` and nothing else**, which is the whole of "work that shows
-      in the total and appears nowhere it can be done". `entropy_corpus._LOCAL_LEDGERS` is the
-      literal `code/*/ISSUES.md`, so the ten `academy/papers/*` repos plus `branches/casinhas` and
-      `branches/instituto` — twelve nested repos, each with its own `.git` — have every finding
-      charged to the ROOT count with no local ledger to fix it in. Decide whether the rule
-      generalises to any nested repo or those twelve are declared out of scope; the `core/`+`brain/`
-      rejection below does not answer it, because neither of those is a repo. → **tier: medium**.
+      workspace keeps three findings forever. → **tier: medium**.
+
+12. 🟢 **a type that shards has no check that its siblings are tracked.** Live mechanism, found
+    2026-08-20: `.gitignore` allowlists `core/` file by file under a `core/*` deny, so all eight
+    `core/SCHEMA-*.md` and `core/SPECS-*.md` shards were untracked and a fresh clone got an index
+    pointing at files not in the repo. Three checks were green through it — pointer integrity
+    resolves against the **working tree**, `entropy_naming` sees a legal name in a legal place, and
+    the `.gitignore` self-heal only re-allows a *directory* that gains a `CONTEXT.md`. The allowlist
+    now names the shards by shape (`!core/SCHEMA-*.md`), but that was a hand-edit and the next type
+    to shard at a domain root that is not `core/` lands in the same hole. The durable fix is a Tier 0
+    check asserting that a file passing `entropy_naming.TYPE_SLUG` is not ignored. → **tier: medium**.
 
 9. 🟢 **the corpus is half Portuguese and the rule is English.** Lucas (INBOX 2026-08-17): *"somente
    o meu texto é em português, as conversas nas sessões, mas o resto, os docs, tudo em inglês

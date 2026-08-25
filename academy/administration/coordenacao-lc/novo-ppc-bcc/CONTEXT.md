@@ -1,5 +1,6 @@
 # novo-ppc-bcc
-> ← add description
+> The new BCC Projeto Pedagógico do Curso: the curricular constraints it must satisfy, the proposed
+> grade, and the ementa pipeline that renders one SIGAA-shaped document per discipline.
 
 <!-- routing:start -->
 ## Routing

@@ -32,8 +32,11 @@ core/tools/wos/diagram/architecture --out /tmp/x.html
 core/tools/wos/diagram/architecture --repos      # one picture per code repo, into its own root
 ```
 
-**Every code repo carries its own document too** (ruled 2026-08-20, on the same scope line as
-`ISSUES.md`), and building it named the first real difference between the two kinds of picture.
+**Every code repo carries its own document too** (ruled 2026-08-20), and building it named the first
+real difference between the two kinds of picture. It shared a scope line with `ISSUES.md` until the
+entropy scatter generalised to every nested repo (2026-08-25) and this did not follow — `--repos`
+still walks `code/` alone. Left as an asymmetry rather than closed in passing: a repo's page needs
+declarations a paper repo does not have, so widening it is a question, not a loop bound.
 Only *routing* and *mass* transferred — both already took a root argument. The other four drawings
 read [`core/features.txt`](../../../features.txt) and the hook registrations, which exist once, for
 the enforcement layer. So **the workspace's picture is about what fires and what is wired; a repo's
