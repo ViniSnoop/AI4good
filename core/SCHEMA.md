@@ -126,7 +126,7 @@ only `.md` files allowed to be temporary, so a stale one is the most expensive k
 | Shard | Description | Answers | Enforced by |
 |-------|-------------|---------|-------------|
 | [`SCHEMA-layers.md`](SCHEMA-layers.md) | The frontmatter every skill, agent, norm and flow declares, and how they compose. | what fields each layer requires, which layer may point at which | core/tools/wos/skills/validate.sh |
-| [`SCHEMA-outgrowing.md`](SCHEMA-outgrowing.md) | Where an unclassified name goes, and how a type that passed the cap splits. | what to do with an off-allowlist name, how a type shards, what an index keeps | core/hooks/checks/type-gate.py, core/hooks/checks/pre-edit.py |
+| [`SCHEMA-outgrowing.md`](SCHEMA-outgrowing.md) | Where an unclassified name goes, and how a type that passed the cap splits. | what to do with an off-allowlist name, how a type shards, what an index keeps | core/hooks/checks/type-gate.py, core/hooks/checks/pre-edit.py, core/hooks/entropy/entropy_fields.py |
 | [`SCHEMA-placement.md`](SCHEMA-placement.md) | Which directory a file belongs in, and how deep the routing may go. | where a file lives, how many hops to content, when a directory splits | core/hooks/entropy/entropy_naming.py, core/hooks/entropy/entropy_fanout.py |
-| [`SCHEMA-vocabulary.md`](SCHEMA-vocabulary.md) | One word per idea, one idea per word, and every token a rename retired. | which spelling is canonical, what a term means, what may no longer be written | core/hooks/entropy/entropy_ledger.py, core/hooks/entropy/entropy_vendor.py, |
+| [`SCHEMA-vocabulary.md`](SCHEMA-vocabulary.md) | One word per idea, one idea per word, and every token a rename retired. | which spelling is canonical, what a term means, what may no longer be written | core/hooks/entropy/entropy_ledger.py, core/hooks/entropy/entropy_vendor.py, core/hooks/checks/citation-gate.py |
 <!-- routing:end -->

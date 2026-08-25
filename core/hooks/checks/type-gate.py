@@ -26,6 +26,7 @@ from entropy_context import (check_description, check_goal_link,  # noqa: E402
                              check_inventory)
 from entropy_corpus import (enforcement_paths, staged_added_files,  # noqa: E402
                             wiki_exempt_paths)
+from entropy_fields import field_hits  # noqa: E402
 from entropy_ledger import (finished_work_hits, goal_vocabulary,  # noqa: E402
                             wiki_link_hits)
 from entropy_naming import check_dirs, check_placement, check_shape  # noqa: E402
@@ -69,7 +70,13 @@ def failures_for(path: Path, allowed: set, exempt: set, scopes: dict,
             # The two doubt stores are small, closed and clean today, so this one goes in total
             # rather than on a ratchet: a new experiment or a newly judged reference arrives with
             # the discipline or does not arrive (core/SPECS-discipline.md § AD-16 band 1).
-            + experiment_hits([path]) + ref_tier_hits([path]))
+            + experiment_hits([path]) + ref_tier_hits([path])
+            # A header field naming our own code is a claim about our own tree, and the tree is
+            # right here (core/SCHEMA-outgrowing.md § the field table). Total like the stores above:
+            # the declarations are clean today, so a new one arrives resolving or does not arrive.
+            # `governs` is left to the dashboard — its list mixes paths with prose, and a token
+            # misread there would stop a commit instead of printing a line.
+            + field_hits([path], mixed=False))
 
 
 def main() -> int:

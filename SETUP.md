@@ -100,9 +100,9 @@ cannot be inferred from its code carries its own `SETUP.md`.
 
 | Shard | Description | Feature |
 |-------|-------------|---------|
-| [`SETUP-accounts.md`](SETUP-accounts.md) | Everything needing a credential: web search, Exa, Google, the Telegram bot. | web-search, exa, google-auth, forms, telegram-capture |
+| [`SETUP-accounts.md`](SETUP-accounts.md) | Everything needing a credential: web search, Exa, Google, the Telegram bot. | web-search, google-auth, forms, telegram-capture |
 | [`SETUP-caveman.md`](SETUP-caveman.md) | The compression mode and the shell helper that switches it per session. | caveman |
 | [`SETUP-rtk.md`](SETUP-rtk.md) | Tool-output compaction, and registering it with each agent runtime that hooks. | rtk-compaction |
 | [`SETUP-toolchain.md`](SETUP-toolchain.md) | Interface generators and linters: stubgen, tsc, ESLint/Prettier, LaTeX. | interface-stubs, lint-typescript, latex |
-| [`SETUP-workspace.md`](SETUP-workspace.md) | The path, the venv, the declared deps, the git hook and the executable bits. | substrate — nothing else runs until these do |
+| [`SETUP-workspace.md`](SETUP-workspace.md) | The path, the venv, the declared deps, the git hook and the executable bits. Nothing else runs until these do: the first two steps install what every feature RUNS ON and so join to no registry row, which is what `> substrate: yes` declares. | declared-deps, git-hooks |
 <!-- routing:end -->

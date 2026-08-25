@@ -10,11 +10,9 @@
 import re
 from pathlib import Path
 
+from header import header_fields
 from hoist import hoist, md_blurb
 
-# `> key: value` under the H1 — the shape CONTEXT.md already uses for `> spec:`, so no new parser
-# and, unlike frontmatter, it renders where a person can see it.
-SHARD_FIELD = re.compile(r'^>\s*([a-z][a-z-]*):\s*(.+)$')
 # An open item is a NUMBERED one — `1.`, `10b.` — which is the shape a roadmap actually uses and
 # the same one entropy_ledger.TICKED_ITEM recognises. Counting `[slug]` instead would have read
 # most fronts as empty: the bracketed id is optional and most items carry prose alone.
@@ -69,11 +67,7 @@ def shard_facts(path: Path) -> dict:
         return {}
     lines = text.splitlines()
     facts = {'lines': str(len(lines))}
-    for line in lines[2:]:
-        if not line.startswith('>'):
-            break
-        if match := SHARD_FIELD.match(line.strip()):
-            facts[match.group(1)] = match.group(2).strip()
+    facts.update(header_fields(lines[2:]))
     # The three counts are ROADMAP-only, as core/SCHEMA.md's field table says. Deriving them for
     # every type read a SPECS shard as having 13 open items, because a numbered list in prose looks
     # exactly like a numbered item — a count that is meaningless is worse than no column.

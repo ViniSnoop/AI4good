@@ -31,6 +31,7 @@ from entropy_context import (check_goal_link,  # noqa: E402
 from entropy_corpus import (enforcement_paths, tracked_files,  # noqa: E402
                             wiki_exempt_paths)
 from entropy_fanout import fanout_signals  # noqa: E402
+from entropy_fields import field_hits  # noqa: E402
 from entropy_ledger import (duplicate_slugs, finished_work_hits,  # noqa: E402
                             goal_vocabulary, retired_hits,
                             unanswered_placeholders, wiki_link_hits)
@@ -114,6 +115,7 @@ def collect(files: list) -> dict:
     findings['undescribed'] = unanswered_placeholders(files, exempt)
     findings['stores'] = experiment_hits(files) + ref_tier_hits(files)
     findings['vendor'] = vendor_directive_hits(files, exempt)
+    findings['fields'] = field_hits(files)
     # One directory-level finding is reported by every file under it; dedupe so a count
     # means "things to fix", not "files touched by a thing to fix".
     findings['naming'] = sorted(set(findings['naming']))

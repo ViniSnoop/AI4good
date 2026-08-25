@@ -1,7 +1,8 @@
 # When a document outgrows its type
 > Where an unclassified name goes, and how a type that passed the cap splits.
 > answers: what to do with an off-allowlist name, how a type shards, what an index keeps
-> enforced-by: core/hooks/checks/type-gate.py, core/hooks/checks/pre-edit.py
+> enforced-by: core/hooks/checks/type-gate.py, core/hooks/checks/pre-edit.py,
+> core/hooks/entropy/entropy_fields.py
 
 ### The four disposal routes
 
@@ -112,20 +113,37 @@ against the silent error, and a field that only saves a read is cut.
 **The header is `>` lines under the H1, not YAML frontmatter.** Frontmatter is the contract for the
 agent-library *layers* — skill, flow, agent, norm — which are loaded as prompts. A shard belongs to
 the document family, and every type in it declares itself the same way `CONTEXT.md` does: `#` name,
-then `> ` description, then `> key: value`. `hoist.md_blurb` already reads that second line and
-`code/`'s `> spec:` already rides on the same shape, so the convention costs no new parser and,
-unlike frontmatter, renders where a human can see it.
+then `> ` description, then `> key: value` — the shape `code/`'s `> spec:` already rides on, and,
+unlike frontmatter, one that renders where a human can see it.
 
 | field | ROADMAP | SCHEMA | SPECS | SETUP | value |
 |-------|:---:|:---:|:---:|:---:|-------|
 | line 2 onward, no key | ✅ | ✅ | ✅ | ✅ | **two to three sentences** — see § What a description must say |
 | `priority` | ✅ | — | — | — | `essential` \| `important` \| `desirable` |
-| `blocked-by` | ✅ | — | — | — | shard filenames, comma list; the generator checks each one exists |
+| `blocked-by` | ✅ | — | — | — | shard filenames, comma list |
 | `answers` | — | ✅ | — | — | the questions this law settles |
 | `governs` | — | — | ✅ | — | the paths or modules it constrains, same job as a `> spec:` line |
-| `feature` | — | — | — | ✅ | the registry slugs these steps install — the join `SETUP.md` already declares |
+| `feature` | — | — | — | ✅ | an install step or feature the registry carries — the join `SETUP.md` already declares |
 | `parsed-by` | — | ✅ | — | — | code that reads this law, so an edit here is known to have code consequences |
 | `enforced-by` | — | ✅ | ✅ | — | the gates that apply it |
+
+**A wrapped field is one field** — a `>` line that is not itself a `key:` continues the one above it.
+It did not until 2026-08-24: the third enforcer `SCHEMA-vocabulary.md` names sat on the wrapped line
+and was dropped, so the index published two where the law declares three. One parser reads this
+shape for everyone, [`core/hooks/routing/header.py`](hooks/routing/header.py).
+
+#### Every field that names our own code is verified
+
+**Ruled 2026-08-24 (Lucas).** `enforced-by`, `parsed-by`, `blocked-by`, `governs` and `spec` name
+paths; `feature` names the registry. [`entropy_fields.py`](hooks/entropy/entropy_fields.py) checks
+each against the tree — blocking through `type-gate.py` on what a commit adds, reporting through the
+dashboard on everything. Numbers already had *"re-run it, never quote it"*; claims about our own
+tree, cheaper to check than any number, had nothing and kept being inherited as fact. A field a
+parser already reads needs **no new habit and reaches backwards**: it charged every declaration the
+day it landed, and three were wrong — including this table's own line claiming the generator checked
+`blocked-by`. **Its accepted limits:** it never reaches prose, the price of the option nobody has to
+remember, and inside `governs`, which mixes paths with qualifiers, only path-shaped tokens are read
+— matching a shape rather than a word is what keeps a check like this from being switched off.
 
 ### What a description must say
 

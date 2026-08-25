@@ -1,6 +1,8 @@
 # Workspace substrate
-> The path, the venv, the declared deps, the git hook and the executable bits.
-> feature: substrate — nothing else runs until these do
+> The path, the venv, the declared deps, the git hook and the executable bits. Nothing else runs
+> until these do: the first two steps install what every feature RUNS ON and so join to no registry
+> row, which is what `> substrate: yes` declares.
+> feature: declared-deps, git-hooks
 
 <!-- steps:start -->
 

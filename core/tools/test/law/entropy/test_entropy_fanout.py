@@ -52,6 +52,16 @@ BASELINE = {
     # property that mirroring buys and the argument for keeping it.
     'core/hooks/entropy',
     'core/tools/test/law/entropy',
+    # Joined 2026-08-24 with `header.py`, extracted when the `> key: value` parser gained a second
+    # reader — the field check next door, not just the index generator. The name has not drifted:
+    # every module here is machinery for the generated blocks inside authored documents, which is
+    # this directory's stated job, so the count is that design working. Retired by splitting on
+    # WHAT EACH MODULE DOES TO A DOCUMENT: reads it (`header`, `hoist`, `workspace_meta`,
+    # `workspace_scanner`) against writes into it (`blocks`, `context_synchronizer`, `norms`,
+    # `shard_table`). Cost the hop before taking it — the same split was rejected for
+    # `core/hooks/entropy/` for removing less table than it added, and a new directory is a
+    # CONTEXT.md the whole tree pays to read.
+    'core/hooks/routing',
 }
 
 

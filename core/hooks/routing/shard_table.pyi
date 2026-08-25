@@ -1,7 +1,6 @@
 from _typeshed import Incomplete
 from pathlib import Path
 
-SHARD_FIELD: Incomplete
 ITEM: Incomplete
 LUCAS_ITEM: Incomplete
 SLUG: Incomplete

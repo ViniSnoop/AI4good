@@ -54,6 +54,9 @@ SECTIONS = (
      'carries a source tier'),
     ('vendor', 'Ledgers naming a model where they mean a tier',
      'which model fills a tier is data — core/flows/craft/routing.md'),
+    ('fields', 'Header fields naming code that is not there',
+     'a field naming our own tree is a claim, and it is checked before a later session inherits '
+     'it as fact — core/SCHEMA-outgrowing.md § the field table'),
     ('truncated', 'Truncated routing descriptions',
      'the source wrote past the bound — shorten it there, never edit the table'),
     ('misplaced', 'Constraints trapped in a CONTEXT.md head',

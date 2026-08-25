@@ -1,6 +1,6 @@
 # Accounts and keys
 > Everything needing a credential: web search, Exa, Google, the Telegram bot.
-> feature: web-search, exa, google-auth, forms, telegram-capture
+> feature: web-search, google-auth, forms, telegram-capture
 
 <!-- steps:start -->
 
