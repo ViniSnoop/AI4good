@@ -80,7 +80,7 @@ be the sole record of something live, so read it out before it goes.
 **When a sibling is approved it is `TYPE-<slug>.md`, with the unsuffixed file as the index**, slug
 in lowercase kebab-case. That shape is not a style preference — three gates assume it and reject
 any other. `type-gate.py` reads `^[A-Z][A-Z0-9_.-]*\.md$` as a *type name*, so `ROADMAP-F4.md` is
-rejected as an unknown type while `ROADMAP-entropy.md` passes as an instance;
+rejected as an unknown type while `ROADMAP-verify.md` passes as an instance;
 `entropy_naming.TYPE_SLUG` accepts a suffix only as `[a-z0-9]+(?:-[a-z0-9]+)*`; and
 `citation-gate.LEDGER_NAMES` matches `^ROADMAP(-[a-z0-9-]+)?\.md$` on filename rather than path,
 so a suffix it does not match turns every item number inside the sibling into a blocking violation.

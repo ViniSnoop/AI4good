@@ -67,7 +67,7 @@ one, for three reasons that each defeat it on their own:
 - **Per-read cost does not separate the two eras.** One post-split session read the root 3x for 7k
   chars; a **pre**-split session (08-17) read it 4x for 4k. `Read` takes offset and limit, so what a
   read costs depends on how it was asked for, and that variance is larger than the effect.
-- **The shards are one day old.** None of `ROADMAP-entropy.md`, `-ledger.md`, `-legibility.md`,
+- **The shards are one day old.** None of `ROADMAP.md`, `-ledger.md`, `-legibility.md`,
   `-cost.md`, `-measurement.md`, `-portability.md` or `-self-description.md` appears in the top 60
   re-read files. There is not enough of them in the population to measure.
 
@@ -80,7 +80,7 @@ watches one member cannot see whether the total fell.
 a reader skip a shard: its `Description` column names a topic rather than the questions inside, and
 its `Items` column is empty for every shard but one — although the generator already parses each
 shard's items to produce the `Open` and `Needs Lucas` counts. That is a fix, not a hypothesis, and it
-is filed in [`/ROADMAP-self-description.md`](../../ROADMAP-self-description.md).
+is filed in [`/ROADMAP.md`](../../ROADMAP.md).
 
 ## What changed
 

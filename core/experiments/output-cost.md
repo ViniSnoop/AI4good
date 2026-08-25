@@ -5,7 +5,7 @@ Opened by two captures on 2026-08-15: *"de forma geral output tokens são bem ma
 tokens. estudar formas de reduzirmos"* and the Claude Code usage report. Lucas set the method:
 research, brainstorm, then repeat refining — *"isso é crítico e deve ser feito com excelência. Não
 vamos ser ingênuos."* The plan built on it lived in a side roadmap until 2026-08-17, when the plan
-was drained into [/ROADMAP-cost.md](../../ROADMAP-cost.md) and this file absorbed every
+was drained into [/ROADMAP.md](../../ROADMAP.md) and this file absorbed every
 number it carried. **This is now the only home for the measurement**, and the ledger holds only what
 is still intended.
 

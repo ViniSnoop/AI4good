@@ -27,7 +27,7 @@
 
 ## Output cost & the interface an agent acts through
 
-> The evidence behind [/ROADMAP-cost.md](../../ROADMAP-cost.md); the measurement it may
+> The evidence behind [/ROADMAP.md](../../ROADMAP.md); the measurement it may
 > not contradict is [`core/experiments/output-cost.md`](../experiments/output-cost.md).
 
 - `[A]` [SWE-agent: Agent-Computer Interfaces Enable Automated Software

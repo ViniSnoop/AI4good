@@ -50,7 +50,7 @@ findings over 11 days**. CONTEXT.md hand-written inventories is the entire drift
 
 ## What changed
 
-- `ROADMAP-entropy.md` item 2 is deleted — it asked this question and the answer is here.
+- `ROADMAP.md` item 2 is deleted — it asked this question and the answer is here.
 - Its stated hypothesis was **wrong in its mechanism** and the correction is the reusable part: it
   said the jump day was "also the day the scan went `nested=True`". Nested scanning was already on
   — that day's scan covered 2132 files, and `tracked_files(nested=False)` returns 707 today, so a

@@ -70,7 +70,7 @@
   on-demand skills, tool definitions deferred behind `ToolSearch`. **The post itself flags that the
   80%/no-loss claim is self-reported with no published benchmark — not independently verifiable,
   never cite the number.** The framework is testable on our own docs, which is the part worth
-  having; assessment task in [/ROADMAP-cost.md](../../ROADMAP-cost.md) § Memory and always-loaded
+  having; assessment task in [/ROADMAP.md](../../ROADMAP.md) § Memory and always-loaded
   context. Lucas: *"ver se é verdade e se for estudar como aproveitar no wos"*.
 
 ### What this evidence actually settles for us (2026-07-30)

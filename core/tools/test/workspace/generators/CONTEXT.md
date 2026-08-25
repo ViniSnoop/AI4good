@@ -7,7 +7,7 @@ these tests ask *"what does this produce, and is it there?"* rather than watchin
 
 Every case here is a bug that shipped. The JS declaration path emitted nothing **for years**, and
 stubgen wrote into a mirror of its own path; neither ever failed loudly. See
-[/ROADMAP-measurement.md](../../../../../ROADMAP-measurement.md) § *Silent failure is the
+[/ROADMAP.md](../../../../../ROADMAP.md) § *Silent failure is the
 failure mode this workspace actually has*.
 
 <!-- routing:start -->

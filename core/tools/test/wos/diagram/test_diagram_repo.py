@@ -1,4 +1,4 @@
-# T1 the per-repo picture (ROADMAP-legibility.md, ruled 2026-08-20): every code repo draws itself
+# T1 the per-repo picture (ROADMAP.md, ruled 2026-08-20): every code repo draws itself
 # from the sources it actually has. Zero-token, no network, no browser.
 #
 # The interesting assertions are the NEGATIVE ones. Sameness was the starting point and the shared

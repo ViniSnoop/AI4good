@@ -21,7 +21,7 @@ with a tier marker; kill the rest by deleting the line.
   post](https://akitaonrails.com/2026/08/15/llm-benchmarks-qwen-3-8-glm-5-3-gemini-3-7/) — a hostile
   read of exactly what this workspace is. Lucas (INBOX 2026-08-21): *"vamo aproveitar a provocação,
   estudar com carinho"*, then classify every WOS feature as useful or noise **in levels** (leve /
-  médio / alto). Assessment task lives on `ROADMAP-measurement.md` item 1 — it is ablation input,
+  médio / alto). Assessment task lives on `ROADMAP.md` item 1 — it is ablation input,
   not a separate study. **Read the benchmark post as a method, not as numbers**: model ids in it
   went stale the week it was written.
 - [akitaonrails/ai-memory](https://github.com/akitaonrails/ai-memory) — captured with one question
@@ -75,7 +75,7 @@ with a tier marker; kill the rest by deleting the line.
 - [Echo](https://www.instagram.com/reel/Db1fYnbyoAX/) — claims it beat Claude Fable on a coding
   benchmark at 40% less cost by running several open-weight models at once, allocating compute
   dynamically and merging outputs. Lucas: *"será que vale um teste?"* ⚠ vendor claim relayed by a
-  third-party account, no benchmark named — assessment task tracked in `/ROADMAP-cost.md`
+  third-party account, no benchmark named — assessment task tracked in `/ROADMAP.md`
 - [seven open-source releases, week of 2026-08-17](https://www.instagram.com/reel/DcJ3PUDyIvS/) —
   relayed claim of a Chinese Opus-level model running fully local and free, plus releases from Meta,
   xAI, Zhipu and Alibaba; watermark removal and browser-driven site cloning among the tools. Lucas:
@@ -154,11 +154,11 @@ Lucas can open them in a browser and paste the content, which is the only path t
   cues over resolve (Wood), social accountability, and implementation intentions — *if this happens,
   then I will* (Gollwitzer). Lucas: *"podemos talvez aproveitar essas máximas no design do WOS, dos
   goals."* ⚠ a reel summarising six literatures; **the named researchers are the citable trail, this
-  link is not** — assessment task tracked in `/ROADMAP-self-description.md`
+  link is not** — assessment task tracked in `/ROADMAP.md`
 - [repeated claims read as independent confirmation](https://www.instagram.com/reel/DcNQt9juXpA/) —
   claim that the model counts the same assertion across many sites as many confirmations even when all
   copies trace to one anonymous source. ⚠ no study cited, and its proposed fix is a prompt line, which
-  `/ROADMAP-measurement.md` already rejects as INDUCED — kept as a specimen of the failure, never as
+  `/ROADMAP.md` already rejects as INDUCED — kept as a specimen of the failure, never as
   a candidate cure
 
 ### Offline resilience (parked, see /ROADMAP.md)
