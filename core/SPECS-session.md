@@ -47,6 +47,16 @@ Fecha as frentes 9.1 e 9.2 do [`ROADMAP.md`](../ROADMAP.md) raiz. Duas camadas, 
    branch, sozinha, em paralelo com a sessão viva: divergência comprada ao preço de um `/handoff`.
    Prepara-se o artefato; a atenção o Lucas move sozinho.
 
+8. **O fechamento CONTA a INBOX; quem drena é a sessão seguinte** (2026-08-25). Drenar abre links
+   com as ferramentas de vídeo e web — o trabalho mais caro daqui — no turno mais caro. Um close
+   drenou zero *por causa* do preço e deixou 19 entradas. A contagem já chega de graça pelo
+   `INBOX-NUDGE` do SessionStart; o close só a repassa como `Next action` do `/handoff`.
+
+9. **Qual linha o script imprime é assunto do script.** As skills copiam verbatim e não nomeiam
+   nenhuma: uma lista de rótulos em prosa é segunda cópia que apodrece sem quebrar nada — as duas
+   prometiam três linhas enquanto o script imprimia seis. O que a sessão custou e se o workspace
+   encolheu vêm primeiro; o resto é estado para a próxima sessão.
+
 Guardas: 20 testes em [`core/tools/test/wos/`](tools/test/wos/CONTEXT.md) — a ferramenta contra
 workspaces descartáveis, as skills contra reinlinar o trabalho que o script assumiu.
 

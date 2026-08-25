@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # SessionStart — warn Lucas + agent when brain/INBOX.md has piled up past a threshold,
-# so capture doesn't silently grow and scatter. Paired with the /roundup session-end drain.
+# so capture doesn't silently grow and scatter. The drain runs HERE, at session start where context
+# is cheap — /roundup only counts, and hands /inbox to the next session (core/skills/roundup.md § Phase 3).
 import os
 import re
 import sys
@@ -57,8 +58,7 @@ def main():
     lines = []
     lines.append(f'INBOX-NUDGE [{level}]: brain/INBOX.md holds {n} untriaged entries '
                  f'(threshold {WARN_AT}; last touched {age_days:.0f}d ago).')
-    lines.append('Tell Lucas at the start of your reply and offer to run /inbox, '
-                 'or fold a drain into /roundup at session end.')
+    lines.append('Tell Lucas at the start of your reply and offer to run /inbox.')
     sys.stdout.write('\n'.join(lines) + '\n')
     return 0
 

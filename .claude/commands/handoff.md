@@ -39,10 +39,11 @@ one read; a thread dropped silently costs the session that re-derives it.
 
 ## Gather state
 
-**If [`core/tools/wos/roundup`](../../core/tools/wos/roundup) ran this session, its three printed lines
-*are* the State block — copy them verbatim and gather nothing.** They are the same facts, already
+**If [`core/tools/wos/roundup`](../../core/tools/wos/roundup) ran this session, every line it printed *is*
+the State block — copy them verbatim and gather nothing.** They are the same facts, already
 paid for. Re-deriving them costs a second round of git at the session's most expensive turn, and
-lets the two disagree.
+lets the two disagree. Which lines it prints is the script's business, never this file's: naming
+them here is a copy that goes stale without failing anything.
 
 Only when it did not run (`/handoff` invoked mid-session, standalone):
 
@@ -103,7 +104,7 @@ Print the block between the `---` markers:
 [Discussed but unresolved — dead ends and what was tried. Omit the whole section if there are none.]
 
 ### State
-[The three lines core/tools/wos/roundup printed — verify: / entropy: / sync: — verbatim.
+[Every line core/tools/wos/roundup printed this session, verbatim, in its order.
  If it did not run this session, one line: "roundup not run".]
 [≤2 files worth opening first, one line each, only if not obvious from ROADMAP.]
 ```

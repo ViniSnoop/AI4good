@@ -10,6 +10,7 @@ from conftest import WORKSPACE_ROOT
 
 ROUNDUP_SKILL = (WORKSPACE_ROOT / 'core/skills/roundup.md').read_text(encoding='utf-8')
 HANDOFF_SKILL = (WORKSPACE_ROOT / 'core/skills/handoff.md').read_text(encoding='utf-8')
+TOOL = (WORKSPACE_ROOT / 'core/tools/wos/roundup').read_text(encoding='utf-8')
 
 
 def _blocks(text):
@@ -76,13 +77,47 @@ def test_the_template_has_no_placeholder_to_fill():
     assert 'Omit the whole section' in template
 
 
-def test_the_state_block_is_the_tools_three_lines():
-    """Re-deriving them costs a second round of git at the most expensive turn, and lets the two
-    disagree — last session's block and the script's output already differed."""
+def test_the_state_block_is_whatever_the_tool_printed():
+    """Re-deriving the facts costs a second round of git at the most expensive turn, and lets the
+    two disagree. Naming the lines is the same defect one level up: both skills promised three
+    (`verify:`/`entropy:`/`sync:`) while the script printed six, and nothing failed. So the skills
+    name none, and this asserts they name none — the label list lives only in the script."""
+    printed = set(re.findall(r"printf '([a-z]+): ", TOOL))
+    assert printed, 'core/tools/wos/roundup no longer prints a labelled state line'
     state = _template().split('### State')[-1]
-    for line in ('verify:', 'entropy:', 'sync:'):
-        assert line in state, f'{line} missing from the State block'
     assert 'verbatim' in state
+    for skill, text in (('roundup.md', ROUNDUP_SKILL), ('handoff.md', HANDOFF_SKILL)):
+        named = {lbl for lbl in printed if f'`{lbl}:`' in text or f'{lbl}: /' in text}
+        assert not named, (
+            f'core/skills/{skill} names {sorted(named)} — the script owns that list; '
+            'a copy in prose goes stale without failing anything')
+
+
+def test_what_the_session_cost_prints_before_the_state():
+    """Ruled 2026-08-25: the cost line printed fifth and was read last, though it is the fact that
+    opened the whole cost frente. What the session spent and whether the workspace shrank lead;
+    verify/sync/entropy follow, because those are for the next session rather than for Lucas."""
+    printed = []
+    for line in TOOL.splitlines():
+        if 'printf' not in line:
+            continue
+        labelled = re.search(r"printf '([a-z]+): ", line)
+        if labelled:
+            printed.append(labelled.group(1))
+        elif re.search(r"printf '%s\\n' \"\$(COST|SIZE)\"", line):
+            printed.append(re.search(r'\$(COST|SIZE)', line).group(1).lower())
+    assert printed[:2] == ['cost', 'size'], f'the close no longer leads with what it cost: {printed}'
+    assert printed[2:4] == ['verify', 'sync'], printed
+
+
+def test_the_inbox_phase_counts_instead_of_draining():
+    """Ruled 2026-08-25: a drain opens links with the video and web tools — the most expensive
+    work here — at the most expensive turn. The close hands /inbox to the next session, where the
+    same work costs a fraction. A phase that starts triaging again is the regression."""
+    phase = ROUNDUP_SKILL.split('## Phase 3')[-1].split('## Phase 4')[0]
+    assert 'Next action' in phase, 'Phase 3 no longer hands the drain to the next session'
+    for reinlined in ('triage them now', 'get confirmation'):
+        assert reinlined not in phase, f'{reinlined!r} is back: Phase 3 counts, it does not drain'
 
 
 def test_the_template_caps_what_it_repeats():

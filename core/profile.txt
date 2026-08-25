@@ -57,6 +57,7 @@ toggle	context-meter	on
 toggle	precompact-wipe	on
 toggle	entropy-dashboard	on
 toggle	diagram	on
+toggle	size	on
 toggle	rtk-compaction	on
 toggle	web-search	on
 toggle	google-auth	on

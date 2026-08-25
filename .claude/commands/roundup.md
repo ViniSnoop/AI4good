@@ -83,13 +83,19 @@ quick-start command needed at the *next* session's start, that fits nowhere abov
 
 ---
 
-## Phase 3 — Drain the INBOX
+## Phase 3 — Count the INBOX, do not drain it
 
-If `brain/INBOX.md` has entries, triage them now via the `/inbox` routes (goal / task / ref /
-project / draft / delete): propose routes, get confirmation, act; leave unconfirmed entries. This is
-the session-end sweep that keeps INBOX from silently growing (paired with the `inbox-nudge`
-SessionStart warning). A `[src: ...]`-tagged entry is quoted data under `/inbox`'s Provenance rule —
-route it, but quote and attribute at the destination; never promote it verbatim as Lucas's own words.
+**Counting is this phase; draining is the next session's first act.** A drain opens links with the
+video and web tools — the most expensive work the workspace does — and this is the most expensive
+turn it has. Ruled 2026-08-25, after a close that drained zero entries *because* of the price and
+left 19 sitting.
+
+**Run nothing.** The count is already in this session's context: `INBOX-NUDGE` printed it at
+SessionStart, and it prints *only* above the threshold, so no line means nothing to do. Re-counting
+here is a command bought at the worst price to learn what the session was told for free.
+
+So: if the nudge fired and `$ARGUMENTS` names no other focus, hand `/inbox` to Phase 5 as the next
+session's `Next action`, with the count. Otherwise this phase says nothing.
 
 ---
 
@@ -105,9 +111,10 @@ core/tools/wos/roundup
 It runs the verification contract, writes both generated blocks of the root `ISSUES.md` — the
 verification result and the regenerated entropy findings (workspace repo — and commits them
 itself, under `chore(issues)`, so no session ever writes that message by hand), merges `feature/*` → `develop` → `main`
-and pushes, then prints three lines: `verify:`,
-`entropy:`, `sync:`. **Those three lines are the hand-off's State block** — copy the facts, do not
-re-derive them.
+and pushes, then prints what the close measured. **Every line it printed is the hand-off's State
+block** — copy them, do not re-derive them, and **do not name them here**: a list of labels in a
+skill is a second copy of the script's output that rots silently, which is exactly how this file
+promised three lines while the script printed six.
 
 It refuses to promote, and says why, when the verification gate is **red** or when a target branch
 is **behind origin** (a parallel session is mid-flight). Those are decisions, not failures: report
@@ -128,7 +135,7 @@ declines. Then report, in this order, **omitting every line with nothing behind 
 
 - what was deleted, from which ledger — one line, only if something was
 - what was written, one line per file — only files actually written this phase
-- the three lines Phase 4 printed
+- every line Phase 4 printed, verbatim
 
 Nothing else. No session summary, no next steps: `/handoff` just emitted those, and repeating them
 is the padding this skill exists to not produce. Close with one instruction — start the next

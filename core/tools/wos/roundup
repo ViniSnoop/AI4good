@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
 # Usage: core/tools/wos/roundup [--no-promote <reason>] [--leave-dirty] — the deterministic half of the /roundup ritual
-# Verification gate, entropy regen, branch promotion. Prints the three state facts /handoff needs
-# and anything that needs a decision; nothing else.
+# Verification gate, entropy regen, branch promotion. Prints the state facts /handoff copies and
+# anything that needs a decision; nothing else.
+#
+# WHICH lines print is this file's business alone. The skills copy them and never name them: a
+# label list in prose is a second copy that rots without failing anything, which is how both
+# skills promised three lines while this printed six (fixed 2026-08-25).
 #
 # Same name as core/skills/roundup.md on purpose: one ritual, two layers. Judgment — what to delete,
 # where knowledge goes, what the INBOX means — stays in the skill; everything with one right answer
@@ -170,6 +174,7 @@ fi
 SLUG="$(printf '%s' "$ROOT" | sed 's|/|-|g')"
 SID="$(ls -t "$HOME/.claude/projects/$SLUG"/*.jsonl 2>/dev/null | head -1 | xargs -r basename | sed 's/\.jsonl$//')"
 COST=""; COMPACT=""
+SIZE="$("$SCRIPT_DIR/size" ${SID:+--session "$SID"} 2>/dev/null)" || SIZE=""
 if [ -n "$SID" ]; then
   COST="$("$SCRIPT_DIR/session/usage" --session "$SID" 2>/dev/null)" || COST=""
   TSV="/tmp/claude_rtk_compact_$SID.tsv"
@@ -179,11 +184,15 @@ if [ -n "$SID" ]; then
     printf "%d%% of %d bash calls rewritten", (r*100)/n, n}' "$TSV")"
 fi
 
+# What the session cost and whether the workspace shrank lead, because they are the two facts
+# Lucas reads the block for; the rest is state the next session needs. Ruled 2026-08-25 — cost
+# printed fifth and was read last.
+[ -n "$COST" ] && printf '%s\n' "$COST"
+[ -n "$SIZE" ] && printf '%s\n' "$SIZE"
 printf 'verify: %s\n' "$VERIFY"
+printf 'sync: %s\n' "$SYNC"
 [ -n "$ENTROPY" ] && printf 'entropy: %s\n' "$ENTROPY"
 [ -n "$DIAGRAM" ] && printf 'diagram: %s\n' "$DIAGRAM"
-printf 'sync: %s\n' "$SYNC"
-[ -n "$COST" ] && printf '%s\n' "$COST"
 [ -n "$COMPACT" ] && printf 'compaction: %s\n' "$COMPACT"
 [ "$VERIFY" = "red" ] && { echo "--- verify tail ---"; tail -20 "$LOG"; }
 exit $RC

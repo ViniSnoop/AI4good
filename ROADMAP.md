@@ -74,11 +74,6 @@ measured before wiring rather than assumed free.
 *Done when* — one task has run at two effort levels with billed output *and* correctness compared.
 No behaviour change before the number exists: a wrong budget degrades the answer.
 
-**🟢 every session reports whether the workspace got smaller**
-*What* — `/roundup` prints `.md` files, `.md` lines and this repo's entropy findings at each close.
-*Why* — Lucas asked to see per-session deltas to know if we are getting more concise or more confused.
-*Done when* — the three numbers print from the existing tool and a session whose numbers rose says why.
-
 ## Measurement — does any of this earn its keep
 
 **🟡 no hook has ever been measured, so no hook can be cut on evidence**
