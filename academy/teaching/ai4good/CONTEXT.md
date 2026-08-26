@@ -12,8 +12,8 @@ tirar 28/10 e 20/11, que são feriado. Publicado na página do Notion
 nomeado inline em **Apresentação** e **Especificação**.
 
 Conferido contra o calendário oficial em 2026-08-26, quando o calendário desta disciplina somava
-35 encontros: **20/11 estava marcado como aula** e é feriado nacional. A Feira de Profissões de
-**07 e 08/10** também não aparecia, e 07/10 é quarta de aula.
+35 encontros: **20/11 estava marcado como aula** e é feriado nacional. A Feira de Profissões cai
+em 07 e 08/10 e **não derruba aula** — decisão de Lucas, igual no TE.
 
 ## Um passo a mais
 

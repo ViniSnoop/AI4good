@@ -4,7 +4,7 @@
 <!-- stats:start -->
 <!-- data:start -->
 ## attention dashboard  _(auto-updated on every commit)_
-last-updated: 2026-08-26 17:46
+last-updated: 2026-08-26 18:38
 
 >**areas** — last 14 days  
 ```
@@ -64,7 +64,7 @@ startapps-virada         ░░░░░░░░░░   1 touches
 startapps-voti           ░░░░░░░░░░   2 touches
 startapps-xacomigo       ░░░░░░░░░░   1 touches
 surf                     ░░░░░░░░░░   1 touches
-teaching-materials       █░░░░░░░░░   27 touches
+teaching-materials       █░░░░░░░░░   28 touches
 travel                   ░░░░░░░░░░   1 touches
 vipassana                ░░░░░░░░░░   1 touches
 voice                    ░░░░░░░░░░   1 touches

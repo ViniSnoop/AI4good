@@ -28,6 +28,13 @@ O passo seguinte, `[drive-sync-method]`, é decisão e não clique — deixe par
 
 ## backlog
 
+> [ ] [migrar-11-disciplinas] as disciplinas que sobraram no Drive do cin — **298 arquivos sem par no
+> pessoal**, levantados em 2026-08-26: 89 imagens, 49 forms, 44 fontes Java, 34 documentos, 33 planilhas,
+> 19 PDFs, 0,13 GB no total. P2 é a pior (29 de 206 migrados), depois PI1 (24/52) e P1 (41/70). A migração
+> de junho só copiava apresentação, que é a razão de todas as lacunas. **Antes de deletar qualquer uma:
+> copiar um Google Form cria um form vazio** — as respostas vivem na planilha vinculada, e é ela que
+> precisa vir junto. TE e AI4Good já foram, e estão na lixeira do cin desde 2026-08-26  
+
 > [ ] [brave-conta-padrao] mudar a conta Google padrão do Brave para lsf.cin@gmail.com — primeiro passo da migração, e o
 > único que não depende de decidir nada (INBOX 2026-08-18)  
 > [ ] [drive-sync-method] decidir a forma de sincronizar a pasta local com o gdrive na parte acadêmica, principalmente
@@ -51,13 +58,6 @@ O passo seguinte, `[drive-sync-method]`, é decisão e não clique — deixe par
 > como recuperar? Mapear códigos de recuperação por conta + método de restauração antes que vire pesadelo (INBOX
 > 2026-07-24)  
 
-> [ ] [aulas-para-pessoal] deletar os slides e materiais do lado do cin — **o único passo que resta da migração**.
-> Em 2026-08-26 as duas disciplinas ficaram inteiras no pessoal (TE 21 arquivos, AI4Good 24) e os dois calendários
-> do Notion apontam só para lá: 18 links no TE, 11 no AI4Good, zero id do cin. Precisa de
-> `core/tools/files/gdrive auth cin --write --reauth` — o token de escrita do cin está morto e o consentimento é clique
-> de Lucas, no navegador, como `lsf@cin.ufpe.br`. Vai para a lixeira e não para a deleção definitiva, e derruba todo
-> link antigo que ainda aponte para lá — Notion de semestres passados, favoritos de aluno (INBOX 2026-08-24)  
-
 ## done
 
 <!-- done:start -->
@@ -69,10 +69,10 @@ last-touch: 2026-08-26  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       6 |
-| trimester   |       6 |
-| semester    |       6 |
-| year        |       6 |
-| 2-year      |       6 |
-| 4-year      |       6 |
+| month       |       7 |
+| trimester   |       7 |
+| semester    |       7 |
+| year        |       7 |
+| 2-year      |       7 |
+| 4-year      |       7 |
 <!-- stats:end -->
