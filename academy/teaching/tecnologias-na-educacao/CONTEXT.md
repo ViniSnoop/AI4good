@@ -13,9 +13,10 @@ encontros.**
 
 Semanas quebradas, onde a presença cai: 07/09 seg · 12/10 seg · 02/11 seg · 08/12 ter (feriado
 municipal do Recife, e a última quarta do semestre, 09/12, cai logo depois). Marcos da universidade
-que competem por atenção: **07 e 08/10 Feira de Profissões — e 07/10 é quarta de aula** ·
-19/11 Fórum de Internacionalização · 03/12 Cantata Natalina. O Dia do Professor, 15/10, mantém
-aulas: o calendário oficial diz isso com todas as letras.
+que competem por atenção: 07 e 08/10 Feira de Profissões · 19/11 Fórum de Internacionalização ·
+03/12 Cantata Natalina. **Nenhum deles derruba aula** — 07/10 é quarta letiva e Lucas mantém aula
+nas duas disciplinas; o Dia do Professor, 15/10, o calendário oficial já manda manter com todas as
+letras.
 
 Conferido linha a linha contra o Calendário de Graduação UFRPE 2026 em 2026-08-26. A Feira estava
 registrada aqui como 27/10, que é dia nenhum.
@@ -25,6 +26,22 @@ registrada aqui como 27/10, que é dia nenhum.
 `DD|DIA⇥Rótulo | Tema`, com o link nomeado inline. Os rótulos são **Apresentação** (aula nova),
 **Especificação** (a sexta) e **Status Report**, e cada um aponta para o deck no **Drive pessoal**.
 Quarta é a aula; **sexta carrega produto e artigo ao mesmo tempo** — é onde a publicação vive.
+
+## Um passo a mais
+
+Requisito da disciplina desde 2026-08-26, e **o AI4Good tem o mesmo**: ao definir o problema e ao
+definir a solução, a equipe é obrigada a sair do óbvio. Sete alavancas — inverter um componente,
+trocar a persona, juntar dois pontos não-usuais, inverter o objetivo, restrição dura como motor,
+trocar quem faz o trabalho, mudar o momento.
+
+**O que o torna corrigível em vez de decorativo:** a equipe declara, na entrega, *qual alavanca
+usou e qual era o óbvio que abandonou*. Sem esse par, o passo não foi dado. Mora embutido nos
+passos 3 e 4 da seção `Processo` da página do Notion — não em seção própria, porque a exigência
+tem de ser lida no momento da decisão, não num lugar que se visita uma vez.
+
+O argumento para a turma é [Doshi & Hauser](../../refs/REFS.md): ideias vindas de LLM deixam cada
+texto mais criativo **e todos mais parecidos entre si**. Ancoragem institucional: o *Dark Horse
+Prototype* do Stanford ME310.
 
 ## Material da aula
 

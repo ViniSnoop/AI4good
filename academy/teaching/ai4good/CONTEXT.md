@@ -15,6 +15,14 @@ Conferido contra o calendário oficial em 2026-08-26, quando o calendário desta
 35 encontros: **20/11 estava marcado como aula** e é feriado nacional. A Feira de Profissões de
 **07 e 08/10** também não aparecia, e 07/10 é quarta de aula.
 
+## Um passo a mais
+
+Mesmo requisito de [`tecnologias-na-educacao`](../tecnologias-na-educacao/CONTEXT.md), que o
+descreve por inteiro, aqui redigido para projeto de pesquisa: ao fechar o problema e ao fechar a
+abordagem, deslocar um dos dois com uma das sete alavancas, e **declarar qual alavanca e qual era o
+óbvio abandonado**. Num artigo isso tem nome — é a diferença entre mais um resultado e uma
+contribuição. Mora dentro da seção `Metodologia` da página do Notion.
+
 ## Material da aula
 
 Os decks moram no Drive pessoal, em `material/aulas`
