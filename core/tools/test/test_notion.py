@@ -158,7 +158,7 @@ def test_the_cli_routes_its_entrypoint_through_run(tmp_path):
         "import os, pathlib, sys\n"
         f"sys.path.insert(0, {str(TOOLS_ROOT / 'notes')!r})\n"
         "import notion_core\n"
-        "def _rec(main_fn):\n"
+        "def _rec(main_fn, *also):\n"
         "    pathlib.Path(os.environ['RUN_PROBE']).write_text('called')\n"
         "    raise SystemExit(0)\n"
         "notion_core.run = _rec\n", encoding="utf-8")

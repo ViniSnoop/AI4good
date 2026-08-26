@@ -116,11 +116,14 @@ def rows(alias: str, database_id: str, limit: int = 50) -> list:
     return paged(alias, "POST", f"/databases/{normalize_id(database_id)}/query", {}, limit)
 
 
-def run(main_fn) -> None:
-    """Entrypoint wrapper: a token or sharing failure prints its own fix, not a traceback."""
+def run(main_fn, *also) -> None:
+    """Entrypoint wrapper: a token or sharing failure prints its own fix, not a traceback.
+
+    `also` takes the caller's own refusals — a malformed batch is the tool answering, not a crash.
+    """
     try:
         main_fn()
-    except (notion_auth.AuthMissing, notion_auth.NotShared, ApiRefused) as exc:
+    except (notion_auth.AuthMissing, notion_auth.NotShared, ApiRefused, *also) as exc:
         sys.exit(str(exc))
     except requests.RequestException as exc:
         sys.exit(f"NOTION UNREACHABLE: {exc}")

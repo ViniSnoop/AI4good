@@ -1,11 +1,11 @@
 #!/mnt/workspace/.venv/bin/python3
-# Usage: core/tools/notes/notion <cmd> [args] — Notion CLI: auth, whoami, list, search, read
+# Usage: core/tools/notes/notion <cmd> [args] — Notion CLI: auth, whoami, list, search, read, apply, text
 import sys, json, getpass, pathlib, argparse
 
 _HERE = pathlib.Path(__file__).resolve().parent
 sys.path.insert(0, str(_HERE))
 sys.path.insert(0, str(_HERE.parent))  # tools root: the shared feature switch
-import notion_auth, notion_core, notion_outline
+import notion_auth, notion_core, notion_outline, notion_write
 import tool_law
 
 
@@ -71,6 +71,31 @@ def cmd_read(account: str, ident: str, depth: int, limit: int, as_json: bool,
           else notion_outline.outline(obj, content, verbose))
 
 
+def _write(account: str, operations: list, dry_run: bool, done_line: str) -> None:
+    """Both write commands end here, so --dry-run means the same thing in each."""
+    if dry_run:
+        print(f"── {len(operations)} operation(s), nothing sent ──")
+        for method, path, body in notion_write.plan(operations):
+            payload = f"  {json.dumps(body, ensure_ascii=False)}"[:160] if body else ""
+            print(f"  {method} {path}{payload}")
+        return
+    notion_write.apply(account, operations)
+    print(done_line)
+
+
+def cmd_apply(account: str, path: str, dry_run: bool) -> None:
+    """The general seam: a JSON array of operations, each one an id-addressed write."""
+    operations = notion_write.load(path)
+    _write(account, operations, dry_run, f"Applied {len(operations)} operation(s) on {account}")
+
+
+def cmd_text(account: str, block_id: str, source: str, dry_run: bool) -> None:
+    """Replace one block's text from a file written with **bold** and [label](url)."""
+    text = pathlib.Path(source).read_text(encoding="utf-8").rstrip("\n")
+    _write(account, [notion_write.text_op(account, block_id, text)], dry_run,
+           f"Rewrote block {block_id} from {source}\n  {notion_core.url(block_id)}")
+
+
 def main():
     tool_law.require('notes-notion')  # before argparse: off means off, including --help
     p = argparse.ArgumentParser(prog="notion")
@@ -101,6 +126,18 @@ def main():
     pr.add_argument("--verbose", action="store_true", help="include blocks that carry no text")
     pr.add_argument("target", help="page/database id, or a pasted Notion URL")
 
+    pap = sub.add_parser("apply", help="a JSON array of update/append/delete operations")
+    pap.add_argument("--account", default="personal")
+    pap.add_argument("--dry-run", dest="dry_run", action="store_true",
+                     help="print the calls the batch would make, and send none of them")
+    pap.add_argument("operations_json")
+
+    pt = sub.add_parser("text", help="rewrite one block from **bold** / [label](url) source")
+    pt.add_argument("--account", default="personal")
+    pt.add_argument("--dry-run", dest="dry_run", action="store_true")
+    pt.add_argument("block_id")
+    pt.add_argument("source", help="file whose text REPLACES the block's own")
+
     args = p.parse_args()
     if   args.cmd == "auth":   cmd_auth(args.alias)
     elif args.cmd == "whoami": cmd_whoami(args.account)
@@ -108,8 +145,10 @@ def main():
     elif args.cmd == "search": cmd_search(args.account, args.query, args.kind, args.limit)
     elif args.cmd == "read":   cmd_read(args.account, args.target, args.depth, args.limit,
                                         args.as_json, args.verbose)
+    elif args.cmd == "apply":  cmd_apply(args.account, args.operations_json, args.dry_run)
+    elif args.cmd == "text":   cmd_text(args.account, args.block_id, args.source, args.dry_run)
     else:                      p.print_help()
 
 
 if __name__ == "__main__":
-    notion_core.run(main)
+    notion_core.run(main, notion_write.OpRefused)
