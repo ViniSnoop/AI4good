@@ -13,8 +13,18 @@ encontros.**
 
 Semanas quebradas, onde a presença cai: 07/09 seg · 12/10 seg · 02/11 seg · 08/12 ter (feriado
 municipal do Recife, e a última quarta do semestre, 09/12, cai logo depois). Marcos da universidade
-que competem por atenção: 27/10 Feira de Profissões · 19/11 Fórum de Internacionalização ·
-03/12 Cantata Natalina.
+que competem por atenção: **07 e 08/10 Feira de Profissões — e 07/10 é quarta de aula** ·
+19/11 Fórum de Internacionalização · 03/12 Cantata Natalina. O Dia do Professor, 15/10, mantém
+aulas: o calendário oficial diz isso com todas as letras.
+
+Conferido linha a linha contra o Calendário de Graduação UFRPE 2026 em 2026-08-26. A Feira estava
+registrada aqui como 27/10, que é dia nenhum.
+
+**O calendário 2026.2 publicado é o da página do Notion**
+(`0bd17453-ea83-4019-ba38-22a79d0114ce`), cinco parágrafos, um por mês, no formato do AI4Good:
+`DD|DIA⇥Rótulo | Tema`, com o link nomeado inline. Os rótulos são **Apresentação** (aula nova),
+**Especificação** (a sexta) e **Status Report**, e cada um aponta para o deck no **Drive pessoal**.
+Quarta é a aula; **sexta carrega produto e artigo ao mesmo tempo** — é onde a publicação vive.
 
 ## Material da aula
 
@@ -31,7 +41,9 @@ O quadro colaborativo da aula 02 é [`aula02-problemas.excalidraw`](aula02-probl
 gerado por [`build_excalidraw.py`](build_excalidraw.py) — um frame por equipe mais um frame de
 EXEMPLO preenchido. **A colaboração ao vivo do Excalidraw é efêmera e ancorada em quem abriu a
 sala**: fechar a aba mata o trabalho da turma, então o arquivo tem de ser salvo antes do fim da aula.
-O Miro persiste sozinho; este não.
+
+**Excalidraw é o padrão da disciplina** (veredito de 2026-08-26, depois da aula de 19/08). O Miro
+foi removido da página do Notion e de toda menção aqui — se um dia fizer falta, o git tem.
 
 Questionários são specs versionados, aplicados por [`gforms`](../../../core/tools/forms/CONTEXT.md):
 

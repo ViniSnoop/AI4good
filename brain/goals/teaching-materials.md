@@ -34,13 +34,20 @@ de verdade num deck real de aula** — 20 slides intercalados e 3 refinados no d
 Thinking, na véspera da aula. `[roundtrip-one]` está feito. A ordem "alcançar → organizar → só
 depois trocar o formato" avançou uma casa: o próximo degrau é **organizar**, não conectar.
 
+**O WOS escreve no Notion desde 2026-08-26**, e a primeira coisa que escreveu foi o calendário
+2026.2 de Tecnologias na Educação: 34 encontros conferidos contra o calendário oficial da UFRPE,
+com link nomeado em cada linha, apontando para o Drive pessoal. As três seções de chips mudos
+morreram junto. O que o ciclo revelou é o próximo gargalo: **a migração de Drive de junho
+congelou, e o trabalho de agosto ficou do lado do cin nas duas disciplinas.**
+
 ## selected next achievement
-    [metodologia-tecedu] desenhar a metodologia completa de Tecnologias na Educação e fechar o calendário 2026.2
+    [drive-refresh] recopiar do cin para o pessoal todo deck que o cin tem mais novo, e religar os links
 
 **ease-start**  
-Abra `academy/teaching/tecnologias-na-educacao/CONTEXT.md` e `academy/refs/REFS.md` § disciplinas
-project-based. Os 34 encontros já estão contados e o padrão de missão do ME310 já está descrito.
-Comece escrevendo **uma** semana-padrão: o que a quarta faz, o que a sexta faz.
+São 2 decks no TE e 4 no AI4Good, listados em [google-migration](google-migration.md)
+`[drive-refresh]`. Comece pelo mais urgente: `Tec. p/ Educação - Aula - Tecnologias Emergentes na
+Educação`, editado no cin em 26/08, é a aula de 26/08 — e o link publicado aponta para a cópia
+pessoal de junho.
 
 ## backlog
 
@@ -49,10 +56,7 @@ Comece escrevendo **uma** semana-padrão: o que a quarta faz, o que a sexta faz.
 > nova, dashboard que substitui as duas planilhas Google, e o padrão MODELO+EXEMPLO em toda entrega  
 > [ ] [pesquisa-que-falta] gamificação séria (sem infantilizar), specs/contract grading, mecanismos de avaliação por
 > pares com propriedades verificáveis, e venues de publicação alcançáveis por graduandos em um semestre  
-> [ ] [notion-write] WOS edita a página da turma — o CLI lê; escrever a metodologia nova lá é o que fecha o ciclo para
-> os alunos  
-> [ ] [excalidraw-vs-miro] veredito sobre trocar o Miro: a colaboração ao vivo do Excalidraw é efêmera e morre com a aba
-> de quem abriu. Decidir **com a evidência da aula de 2026-08-19**, não antes  
+
 > [ ] [research-tools] research best current teaching tools — interactive slides, animations, open formats — start from
 > the animation entries in `core/refs/REFS-unjudged.md` (claude-code+remotion, Claude Code UI-animation skills).
 > **Reescopado 2026-08-14:** o WOS agora lê e edita os decks direto no Google Slides (`core/tools/slides/gslides`), e
@@ -102,14 +106,14 @@ Comece escrevendo **uma** semana-padrão: o que a quarta faz, o que a sexta faz.
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-24  ·  trend: advancing
+last-touch: 2026-08-25  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |      28 |
-| trimester   |      42 |
-| semester    |      42 |
-| year        |      42 |
-| 2-year      |      42 |
-| 4-year      |      42 |
+| month       |      29 |
+| trimester   |      45 |
+| semester    |      45 |
+| year        |      45 |
+| 2-year      |      45 |
+| 4-year      |      45 |
 <!-- stats:end -->

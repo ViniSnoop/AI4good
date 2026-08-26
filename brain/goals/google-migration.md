@@ -50,11 +50,24 @@ O passo seguinte, `[drive-sync-method]`, é decisão e não clique — deixe par
 > [ ] [auth-recovery] backup/recovery do Google Authenticator — várias contas com 2FA nele; se o celular quebrar/sumir,
 > como recuperar? Mapear códigos de recuperação por conta + método de restauração antes que vire pesadelo (INBOX
 > 2026-07-24)  
-> [ ] [aulas-para-pessoal] transferir todas as aulas do Drive do cin para o pessoal, e só então deletar os slides e
-> materiais do lado do cin — a deleção é o último passo, nunca simultânea (INBOX 2026-08-24)  
-> [ ] [notion-links-simples] mudar o padrão de links no Notion: link simples no calendário em vez de "Mention" em seção
-> separada, apontando já para os slides do Drive pessoal — depende de `[aulas-para-pessoal]`, senão os links novos
-> apontam para o Drive que vai morrer (INBOX 2026-08-24)  
+> [ ] [drive-refresh] **a cópia de junho congelou e o semestre continuou do lado do cin.** Recopiar para o pessoal todo
+> arquivo que o cin tem mais novo, deletar a cópia velha e reapontar o link. Levantado em 2026-08-26 — TE: `Aula -
+> Abertura, Perfis, Equipes` (cin 19/08) e `Aula - Tecnologias Emergentes` (cin 26/08, **e é a aula de 26/08**);
+> AI4Good: `Aula - AE, CNN, GNN, RNN` (26/08), `Aula - Abertura` (13/08), `Aula - História, ML, MLP` (21/08), `Prática -
+> MLP` (22/08). Ainda só-no-cin: `Aula - Configuração`, `Aula - GAN, Distillation e Transformers`, `Prática - GAN,
+> Distillation, Diffusion e Transformers`, `Aula - Transformers`, `Prática - Brainwriting`, `Prática - Solução com IA`,
+> `Prática extra para abono de faltas`, `Planilha de Notas`, `formato das aulas` — os 5 últimos não são apresentação, e
+> por isso o migrador nunca os viu  
+> [ ] [drive-renomeados] decidir o par de 3 decks que o cin renomeou depois da cópia: cin `Aula - GAN, Distillation e
+> Transformers` vs pessoal `Aula - GAN, Teacher-Student` + `Aula - Transformers, Diffusion`; e cin `Prática - GAN,
+> Distillation, Diffusion e Transformers` vs pessoal `Prática - GAN, Teacher-Student` + `Prática - Transformers`. É
+> renome ou divisão em duas aulas? Só Lucas sabe, e o mapeamento automático por nome não alcança  
+> [ ] [aulas-para-pessoal] deletar os slides e materiais do lado do cin — **último passo**, depois de `[drive-refresh]`
+> verificado. Precisa de `core/tools/files/gdrive auth cin --write --reauth` (o token de escrita do cin está morto), vai
+> para a lixeira e não para a deleção definitiva, e derruba todo link antigo que ainda aponte para lá (INBOX 2026-08-24)  
+> [ ] [notion-links-ai4good] o calendário do AI4Good ainda linka ids do cin, e tem `20|SEX` marcado como aula sendo
+> feriado nacional (por isso soma 35 encontros, não 34), e não sinaliza a Feira de Profissões de 07/10. Depende de
+> `[drive-refresh]`: religar antes de recopiar aponta a turma para decks de junho  
 
 ## done
 
@@ -67,10 +80,10 @@ last-touch: 2026-08-24  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       3 |
-| trimester   |       3 |
-| semester    |       3 |
-| year        |       3 |
-| 2-year      |       3 |
-| 4-year      |       3 |
+| month       |       5 |
+| trimester   |       5 |
+| semester    |       5 |
+| year        |       5 |
+| 2-year      |       5 |
+| 4-year      |       5 |
 <!-- stats:end -->
