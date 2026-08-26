@@ -22,9 +22,9 @@ pyyaml	pip	yaml	.venv/bin/python3 -c "import yaml"	latex	core/tools/paper/terms 
 requests	pip	requests	.venv/bin/python3 -c "import requests"	notes-notion	core/tools/notes/notion cannot reach the API
 anthropic	pip	anthropic	.venv/bin/python3 -c "import anthropic"	mail-triage	gmail attachment + triage paths lose their model calls
 pillow	pip	PIL	.venv/bin/python3 -c "import PIL"	asset-inspect	core/tools/assets/inspect cannot open an image; the video OCR and VLM paths lose frame handling
-google-auth	pip	google	.venv/bin/python3 -c "import google.oauth2.credentials"	google-auth	every Google-backed tool (mail, calendar, files, slides, forms) fails before it reaches the network
+google-auth	pip	google	.venv/bin/python3 -c "import google.oauth2.credentials"	google-auth	every Google-backed tool (mail, calendar, files, slides, forms, docs) fails before it reaches the network
 google-auth-oauthlib	pip	google_auth_oauthlib	.venv/bin/python3 -c "import google_auth_oauthlib"	google-auth	the first-run OAuth consent flow cannot start, so no account can be added
-google-api-python-client	pip	googleapiclient	.venv/bin/python3 -c "import googleapiclient"	google-auth	mail, calendar, files, slides and forms have no API client to call
+google-api-python-client	pip	googleapiclient	.venv/bin/python3 -c "import googleapiclient"	google-auth	mail, calendar, files, slides, forms and docs have no API client to call
 yt-dlp	pip	-	.venv/bin/yt-dlp --version	video-text	core/tools/video/video returns nothing for every video link
 gallery-dl	pip	-	.venv/bin/gallery-dl --version	video-text	image posts and Instagram carousels fall back to yt-dlp, which reports "No video formats found" — reads like an auth failure, is not one
 secretstorage	pip	-	.venv/bin/python3 -c "import secretstorage"	video-text	yt-dlp cannot decrypt the Brave cookie DB and fails with "failed to decrypt cookie (AES-CBC) ... Possibly the key is wrong?" — reads like a wrong password, is a missing module. Cost a full session to diagnose.
