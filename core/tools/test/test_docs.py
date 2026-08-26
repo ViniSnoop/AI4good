@@ -131,6 +131,34 @@ def test_no_revision_means_no_writecontrol_key_at_all():
     assert "writeControl" not in docs_core.batch_body(docs_core.insert_text(1, "oi"))
 
 
+def test_a_refusal_reaches_the_operator_as_a_message_not_a_traceback():
+    """Found live 2026-08-26: check_order fired correctly and its message — which names
+    the fix — came out under sixteen lines of stack. A named refusal exits like one."""
+    import gcli
+
+    def refuse():
+        raise docs_core.IndexOrderError("HIGHEST index first")
+
+    with pytest.raises(SystemExit) as caught:
+        gcli.run(refuse, docs_core.IndexOrderError)
+    assert "HIGHEST index first" in str(caught.value.code)
+
+
+def test_comment_text_is_decoded_before_anyone_reads_it():
+    """Drive HTML-escapes comments. In Portuguese that is most anchors, so an undecoded
+    one is mojibake in the terminal and a wrong quote back to Lucas."""
+    import docs_drive
+
+    decoded = docs_drive._unescaped({
+        "content": "a&#231;&#227;o",
+        "quotedFileContent": {"value": "Se&#231;&#227;o dois"},
+        "replies": [{"content": "cora&#231;&#227;o"}],
+    })
+    assert decoded["content"] == "ação"
+    assert decoded["quotedFileContent"]["value"] == "Seção dois"
+    assert decoded["replies"][0]["content"] == "coração"
+
+
 def test_replace_needs_no_index_and_so_needs_no_document_read():
     request = docs_core.replace_all_text("velho", "novo")[0]
     assert docs_core.request_index(request) == -1

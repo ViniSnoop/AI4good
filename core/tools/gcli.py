@@ -13,6 +13,21 @@ _sys.path.insert(0, str(_pathlib.Path(__file__).resolve().parent / 'auth'))
 import gauth  # noqa: E402
 
 
+def run(main_fn, *refusals) -> None:
+    """`gauth.run`, plus this CLI's own refusals printed as their message.
+
+    gauth already converts a dead token and a rejected API call into one readable line,
+    on the principle that a message naming its own fix is worth nothing inside a
+    traceback. A tool that refuses work *before* the network — gdocs rejecting a batch
+    whose indices run the wrong way — produces exactly that kind of message and had
+    exactly that problem, so it takes the same exit.
+    """
+    try:
+        gauth.run(main_fn)
+    except refusals as exc:
+        _sys.exit(str(exc))
+
+
 def fanout(account: str) -> list:
     """Which aliases a command runs over: one named account, or every configured one."""
     return gauth.primary_aliases() if account == "all" else [gauth.resolve_alias(account)]

@@ -50,6 +50,26 @@ while carrying twenty open objections. `gdocs comments` hides resolved threads b
 `quotedFileContent` — the text each thread is anchored to — because a comment without its anchor is
 usually unreadable.
 
+**Drive returns comment text HTML-escaped, anchors included.** A thread anchored to `Seção dois`
+comes back as `Se&#231;&#227;o dois` (confirmed 2026-08-26). In Portuguese that is most anchors, and
+left alone it reaches the agent as mojibake and gets quoted back to Lucas wrong. `_unescaped`
+decodes content, anchor and replies in one place.
+
+## What a real round trip did to the smoke document
+
+Measured 2026-08-26, not predicted. Survived: headings, bold, italic, link, nested bullet, ordered
+list, table content, blockquote, and every accent. Lost or changed:
+
+- **The blank line between an unordered list and the ordered list after it.** They come back as
+  adjacent blocks, so two lists become one run.
+- **Ordered and unordered lists are both `bullet` in the outline.** Docs stores an ordered list as a
+  bullet with a numbered glyph, and `paragraphStyle` does not distinguish them. `read` (markdown)
+  does — use it when the numbering matters.
+- **A markdown `#` becomes `HEADING_1`, never `TITLE`.** `TITLE` exists but the importer does not
+  produce it, so a document created by `push` has no title style to address.
+- **A blockquote comes back as `NORMAL_TEXT`** with an indent, not as a style an outline can name.
+- Tables gain an explicit alignment row (`| :---- |`) on export.
+
 ## Auth
 
 Two grants, `docs` (`documents.readonly`) and `docs-write` (`documents`), the same split as
@@ -84,3 +104,10 @@ it is not the project `gdocs` authenticates against.
 `comments`) worked immediately, because the Drive API was already on. Only the Docs API half
 (`read --outline`, `read --json`, `apply`, `text`, `replace`) was refused. A family half-working
 this way is the signature of a disabled API, not of a bad grant — do not spend a re-auth on it.
+
+**Resolved by moving the service, not by hunting the project.** `workspace-gmail-499605` was no
+longer reachable in Lucas's console, so `docs` got its own `credentials.json` — a copy of the
+`workspace-os-506016` one that `forms` uses, where the Docs API is on. `gauth._credentials_file`
+prefers `~/.config/workspace-docs/` over the gmail fallback, so the move is two file copies plus one
+fresh consent, because the OAuth client changed. Anything that re-mints these tokens must find that
+credential in place, or it silently falls back to the project that does not work.

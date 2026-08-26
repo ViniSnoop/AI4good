@@ -1,6 +1,6 @@
 #!/mnt/workspace/.venv/bin/python3
 # docs_drive.py — the half of a Google Doc that the Docs API cannot reach: listing, markdown, comments
-import pathlib, sys
+import html, pathlib, sys
 
 _HERE = pathlib.Path(__file__).resolve().parent
 sys.path.insert(0, str(_HERE))
@@ -95,6 +95,23 @@ def comments(alias: str, document_id: str, include_resolved: bool = False) -> li
         token = res.get("nextPageToken")
         if not token:
             break
-    if include_resolved:
-        return found
-    return [c for c in found if not c.get("resolved")]
+    if not include_resolved:
+        found = [c for c in found if not c.get("resolved")]
+    return [_unescaped(c) for c in found]
+
+
+def _unescaped(comment: dict) -> dict:
+    """Drive returns comment text HTML-escaped, anchors included.
+
+    Confirmed 2026-08-26: a thread anchored to "Seção dois" comes back as
+    "Se&#231;&#227;o dois". Left alone it reaches the agent as mojibake, and any quote of
+    it back to Lucas is wrong — so the decoding happens here, once, rather than at each
+    of the places that render a comment.
+    """
+    comment["content"] = html.unescape(comment.get("content", ""))
+    anchor = comment.get("quotedFileContent")
+    if anchor:
+        anchor["value"] = html.unescape(anchor.get("value", ""))
+    for reply in comment.get("replies", []):
+        reply["content"] = html.unescape(reply.get("content", ""))
+    return comment
