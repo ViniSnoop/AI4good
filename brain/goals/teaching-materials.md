@@ -41,13 +41,14 @@ morreram junto. O que o ciclo revelou é o próximo gargalo: **a migração de D
 congelou, e o trabalho de agosto ficou do lado do cin nas duas disciplinas.**
 
 ## selected next achievement
-    [drive-refresh] recopiar do cin para o pessoal todo deck que o cin tem mais novo, e religar os links
+    [metodologia-tecedu] desenhar a metodologia completa de Tecnologias na Educação
 
 **ease-start**  
-São 2 decks no TE e 4 no AI4Good, listados em [google-migration](google-migration.md)
-`[drive-refresh]`. Comece pelo mais urgente: `Tec. p/ Educação - Aula - Tecnologias Emergentes na
-Educação`, editado no cin em 26/08, é a aula de 26/08 — e o link publicado aponta para a cópia
-pessoal de junho.
+O calendário já está fechado e publicado, e é ele que dá o esqueleto: 17 quartas de
+**Apresentação**/**Status Report** e 17 sextas de **Especificação**, cada sexta carregando produto
+e artigo ao mesmo tempo. Abra a página do Notion e escreva **uma** sexta por inteiro — o que cada
+perfil da equipe (hacker, hustler, hipster) entrega naquele encontro. As outras dezesseis copiam
+o formato.
 
 ## backlog
 
@@ -106,14 +107,14 @@ pessoal de junho.
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-25  ·  trend: advancing
+last-touch: 2026-08-26  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |      29 |
-| trimester   |      45 |
-| semester    |      45 |
-| year        |      45 |
-| 2-year      |      45 |
-| 4-year      |      45 |
+| month       |      30 |
+| trimester   |      46 |
+| semester    |      46 |
+| year        |      46 |
+| 2-year      |      46 |
+| 4-year      |      46 |
 <!-- stats:end -->

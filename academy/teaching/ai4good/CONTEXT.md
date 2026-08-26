@@ -3,6 +3,29 @@
 
 Aulas 2026.2: quarta 20h10 e sexta 18h30.
 
+## Calendário 2026.2
+
+Mesmos números fixos de [`tecnologias-na-educacao`](../tecnologias-na-educacao/CONTEXT.md), que os
+registra por inteiro: início 10/08 · término 12/12 · finais 14–18/12, e **34 encontros** depois de
+tirar 28/10 e 20/11, que são feriado. Publicado na página do Notion
+`25d1656e-2069-803e-a564-d510d9db8307`, um parágrafo por mês, `DD|DIA⇥Rótulo | Tema`, com o link
+nomeado inline em **Apresentação** e **Especificação**.
+
+Conferido contra o calendário oficial em 2026-08-26, quando o calendário desta disciplina somava
+35 encontros: **20/11 estava marcado como aula** e é feriado nacional. A Feira de Profissões de
+**07 e 08/10** também não aparecia, e 07/10 é quarta de aula.
+
+## Material da aula
+
+Os decks moram no Drive pessoal, em `material/aulas`
+(`11XkvpRtaougD_Bs726E97lS-PE1auLa6`) — o mesmo arranjo de `tecnologias-na-educacao`, que antes
+não valia aqui: os arquivos estavam soltos em `material/`.
+
+**A cópia de junho tinha congelado.** Todo o trabalho de agosto seguiu no Drive do cin, então em
+2026-08-26 seis decks foram recopiados e nove arquivos que nunca tinham sido migrados vieram junto
+— entre eles as três planilhas, o documento e o form, que o migrador ignorava por não serem
+apresentação. As cópias velhas estão na lixeira do Drive, não deletadas.
+
 Questionários são specs versionados, aplicados por [`gforms`](../../../core/tools/forms/CONTEXT.md):
 
 ```bash

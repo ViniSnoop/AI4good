@@ -22,10 +22,16 @@ from drive_core import (  # noqa: F401
 
 CIN_DISCIPLINAS_ID = "1xihkjDlbpIxjRmAJeCWIrBvFT37Qe6IM"
 
+# Named for slides because that is all it copied until 2026-08-26, when the AI4Good migration
+# came up nine files short: three spreadsheets, a document and a form were never presentations,
+# so the filter never saw them. A discipline's material is not only its decks.
 SLIDE_MIMETYPES = {
     "application/vnd.google-apps.presentation",               # native Google Slides
     "application/vnd.openxmlformats-officedocument.presentationml.presentation",  # .pptx
     "application/vnd.ms-powerpoint",                          # .ppt
+    "application/vnd.google-apps.document",                   # native Google Docs
+    "application/vnd.google-apps.spreadsheet",                # native Google Sheets
+    "application/vnd.google-apps.form",                       # native Google Forms
 }
 
 FOLDER_MAP = {

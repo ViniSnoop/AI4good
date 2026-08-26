@@ -4,12 +4,12 @@
 <!-- stats:start -->
 <!-- data:start -->
 ## attention dashboard  _(auto-updated on every commit)_
-last-updated: 2026-08-26 17:35
+last-updated: 2026-08-26 17:45
 
 >**areas** — last 14 days  
 ```
 health       ██████████   265 touches
-career       █░░░░░░░░░   36 touches
+career       █░░░░░░░░░   37 touches
 finances     ░░░░░░░░░░   15 touches
 fun          ░░░░░░░░░░   22 touches
 spiritual    ░░░░░░░░░░   1 touches
@@ -27,7 +27,7 @@ dance                    ░░░░░░░░░░   2 touches
 ecovila                  ░░░░░░░░░░   7 touches
 exercise                 ░░░░░░░░░░   3 touches
 finances                 ░░░░░░░░░░   2 touches
-google-migration         ░░░░░░░░░░   5 touches
+google-migration         ░░░░░░░░░░   6 touches
 guitar                   ░░░░░░░░░░   1 touches
 home-casinhas            ░░░░░░░░░░   11 touches
 instituto                ░░░░░░░░░░   2 touches
@@ -64,7 +64,7 @@ startapps-virada         ░░░░░░░░░░   1 touches
 startapps-voti           ░░░░░░░░░░   2 touches
 startapps-xacomigo       ░░░░░░░░░░   1 touches
 surf                     ░░░░░░░░░░   1 touches
-teaching-materials       ░░░░░░░░░░   25 touches
+teaching-materials       ░░░░░░░░░░   26 touches
 travel                   ░░░░░░░░░░   1 touches
 vipassana                ░░░░░░░░░░   1 touches
 voice                    ░░░░░░░░░░   1 touches
@@ -158,7 +158,7 @@ to INBOX.
 | voti | craft | year | — | [data-research] research available open data: Câmara do… | [→](goals/startapps-voti.md) |
 | xacomigo | craft | year | — | [value-prop] write the core value proposition in 2 sent… | [→](goals/startapps-xacomigo.md) |
 | surf | fun | year | — | [find-school] find a surf school in Recife — Boa Viagem… | [→](goals/surf.md) |
-| teaching materials paradigm | craft | near | — | [drive-refresh] recopiar do cin para o pessoal todo dec… | [→](goals/teaching-materials.md) |
+| teaching materials paradigm | craft | near | — | [metodologia-tecedu] desenhar a metodologia completa de… | [→](goals/teaching-materials.md) |
 | travel | fun | near | — | [one-trip] escolher UMA viagem para os próximos 12 mese… | [→](goals/travel.md) |
 | vipassana | spiritual | year | none external | [sit-5] sit in silence for 5 minutes — no guidance, no … | [→](goals/vipassana.md) |
 | voice | spiritual | near | — | [voice-map] identify one scenario where not being heard… | [→](goals/voice.md) |
