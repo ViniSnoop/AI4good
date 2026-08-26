@@ -54,9 +54,9 @@ core/tools/web/search "test query" --n 3           # auto-picks Exa when the key
 ## Google account access
 > feature: `google-auth` · agent: no
 
-Shared OAuth for `mail/gmail`, `calendar/gcalendar`, `files/gdrive`, `slides/gslides` and
-`forms/gforms`. Tokens live at `~/.config/workspace-<service>/`, dir `700` / file `600`. Drive,
-Slides and Forms each keep a separate write token from their read one.
+Shared OAuth for `mail/gmail`, `calendar/gcalendar`, `files/gdrive`, `slides/gslides`,
+`docs/gdocs` and `forms/gforms`. Tokens live at `~/.config/workspace-<service>/`, dir `700` /
+file `600`. Drive, Slides, Docs and Forms each keep a separate write token from their read one.
 
 **Precondition**
 ```bash
@@ -107,6 +107,22 @@ himself as test user), then create an **OAuth client → Desktop app** and downl
 agent does everything after the download. Live since 2026-08-19: project `workspace-os-506016`,
 which also has gmail, calendar, docs, slides and sheets switched on — the successor to
 `workspace-gmail-499605` for anything that ever needs a console again.
+
+**Which APIs are on is a fact about a project, not about the workspace.** `forms` and `docs` read
+their own credential and run on `workspace-os-506016`; everything else falls back to the
+`workspace-gmail` one and runs on `workspace-gmail-499605`. Reading the line above as "docs works"
+cost a session on 2026-08-25: the consent succeeded and the Docs API answered `has not been used in
+project 1048141740528 … or it is disabled`. **Enable an API in the project the tool actually
+authenticates against.**
+
+**A 403 names a project by NUMBER, and the console lists projects by ID.** `1048141740528` is
+`workspace-gmail-499605`, and searching the console for the number finds nothing — Lucas spent a
+round trip on 2026-08-26 looking for a project that was in front of him. Resolve the number through
+`project_id` in the matching `credentials.json` before sending anyone to the console. When the
+project that owns a credential is no longer reachable, **dropping the working project's
+`credentials.json` into `~/.config/workspace-<service>/` moves that service across** — `gauth`
+prefers the service directory over the gmail fallback — at the cost of one fresh consent, since the
+OAuth client changes. That is how `docs` ended up beside `forms`.
 
 **One project serves every account.** The project owns the *app*; an account only consents to it.
 A second account needs no second project — just a row under *Audience → Test users*, and an
