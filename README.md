@@ -84,7 +84,7 @@ a rule that gets switched off.
 [`core/tools/`](core/tools/CONTEXT.md) holds CLI tools callable from any agent's bash — no MCP, no
 per-agent wiring. **The directory is the feature, the file is the provider**, so swapping a
 vendor changes a leaf and never a family: `mail/gmail`, `calendar/gcalendar`, `files/gdrive`,
-`slides/gslides`, `notes/notion`, `web/search`, `paper/papers`, `video/video`.
+`slides/gslides`, `docs/gdocs`, `notes/notion`, `web/search`, `paper/papers`, `video/video`.
 
 ## Agent support
 

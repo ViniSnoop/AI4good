@@ -20,12 +20,16 @@ EXPORT_MIME = {
 # an editable format instead of the PDF default (e.g. reading tables verbatim).
 EXPORT_MIME_OVERRIDES = {
     ("application/vnd.google-apps.document", "docx"): "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    # Markdown is the format an agent can actually read, and Drive converts it back on
+    # upload — so this row is what makes a repo .md and a live Doc the same document.
+    ("application/vnd.google-apps.document", "md"): "text/markdown",
 }
 
 EXPORT_EXT = {
     "application/pdf": ".pdf",
     "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": ".xlsx",
     "application/vnd.openxmlformats-officedocument.wordprocessingml.document": ".docx",
+    "text/markdown": ".md",
 }
 
 FILE_FIELDS = "id,name,mimeType,modifiedTime,size,parents,webViewLink"

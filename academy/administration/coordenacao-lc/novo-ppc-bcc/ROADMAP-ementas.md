@@ -71,6 +71,10 @@ Convenções: checkbox `( X )` marcado; defaults `NÃO TEM`; código `NOVA` para
 
 ## Caminho de escrita em Google Docs (decisão do Lucas = "Docs direto", automatizado)
 
+**`core/tools/docs/gdocs` existe (2026-08-25) e NÃO substitui este pipeline.** Ele escreve markdown,
+que não carrega a tabela em `sdt` do MODELO SIGAA nem a cópia verbatim das células. O que ele agrega
+aqui é a *conferência*: `gdocs read <id>` lê a ementa já convertida sem exportar `.docx`.
+
 **Escrita EXISTE no workspace** — não é só read-only. O `core/tools/files/gdrive` é read-only (scope `drive.readonly`), MAS `core/tools/files/drive_migrate_core.py` usa **`SCOPES_WRITE = ["https://www.googleapis.com/auth/drive"]`** (escrita total) com token separado `drive-write`, e já criou pastas/copiou arquivos antes (`find_or_create_folder`, `copy_file`).
 
 Estado dos tokens de escrita (`~/.config/workspace-drive-write/`):

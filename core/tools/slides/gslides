@@ -3,28 +3,20 @@
 import sys, json, pathlib, argparse
 
 _HERE = pathlib.Path(__file__).resolve().parent
-# Seams sit beside the CLI; gauth is its own family, shared by every provider tool.
+# Seams sit beside the CLI; gauth and gcli are shared, one hop up.
 sys.path.insert(0, str(_HERE))
+sys.path.insert(0, str(_HERE.parent))
 sys.path.insert(0, str(_HERE.parent / 'auth'))
-import slides_core, slides_outline, gauth
+import slides_core, slides_outline, gauth, gcli
 
 
 def cmd_auth(alias: str, write: bool, reauth: bool) -> None:
-    primary = gauth.resolve_alias(alias)
     kind = "slides-write" if write else "slides"
-    token = gauth.config_dir(kind) / f"{primary}.token.json"
-    if reauth and token.exists():
-        # drop the stale token so a revoked/expired one can't dead-end on refresh
-        token.unlink()
-        print(f"Removed stale token: {token}")
-    print(f"Opening browser for OAuth — {kind} ({primary})...")
-    slides_core.get_service(primary, write=write)
-    print(f"Done. Token saved: {token}")
+    gcli.auth_command(kind, alias, lambda a: slides_core.get_service(a, write=write), reauth)
 
 
 def cmd_list(account: str, name: str) -> None:
-    aliases = gauth.primary_aliases() if account == "all" else [gauth.resolve_alias(account)]
-    for alias in aliases:
+    for alias in gcli.fanout(account):
         print(f"\n── Presentations ({alias}) ──")
         found = slides_core.list_presentations(alias, name)
         if not found:

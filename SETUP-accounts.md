@@ -54,9 +54,9 @@ core/tools/web/search "test query" --n 3           # auto-picks Exa when the key
 ## Google account access
 > feature: `google-auth` · agent: no
 
-Shared OAuth for `mail/gmail`, `calendar/gcalendar`, `files/gdrive`, `slides/gslides` and
-`forms/gforms`. Tokens live at `~/.config/workspace-<service>/`, dir `700` / file `600`. Drive,
-Slides and Forms each keep a separate write token from their read one.
+Shared OAuth for `mail/gmail`, `calendar/gcalendar`, `files/gdrive`, `slides/gslides`,
+`docs/gdocs` and `forms/gforms`. Tokens live at `~/.config/workspace-<service>/`, dir `700` /
+file `600`. Drive, Slides, Docs and Forms each keep a separate write token from their read one.
 
 **Precondition**
 ```bash
@@ -107,6 +107,13 @@ himself as test user), then create an **OAuth client → Desktop app** and downl
 agent does everything after the download. Live since 2026-08-19: project `workspace-os-506016`,
 which also has gmail, calendar, docs, slides and sheets switched on — the successor to
 `workspace-gmail-499605` for anything that ever needs a console again.
+
+**Which APIs are on is a fact about a project, not about the workspace.** Only `forms` reads the
+`workspace-os-506016` credential; every other Google tool falls back to the `workspace-gmail` one
+and therefore runs on `workspace-gmail-499605`. Reading the line above as "docs works" cost a
+session on 2026-08-25: the consent succeeded and the Docs API answered `has not been used in
+project 1048141740528 … or it is disabled`. **Enable an API in the project the tool actually
+authenticates against.**
 
 **One project serves every account.** The project owns the *app*; an account only consents to it.
 A second account needs no second project — just a row under *Audience → Test users*, and an

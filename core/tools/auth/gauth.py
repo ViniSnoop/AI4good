@@ -29,6 +29,8 @@ _REAUTH_CMD = {
     "calendar": "core/tools/calendar/gcalendar auth {alias} --reauth",
     "slides": "core/tools/slides/gslides auth {alias} --reauth",
     "slides-write": "core/tools/slides/gslides auth {alias} --write --reauth",
+    "docs": "core/tools/docs/gdocs auth {alias} --reauth",
+    "docs-write": "core/tools/docs/gdocs auth {alias} --write --reauth",
 }
 
 
