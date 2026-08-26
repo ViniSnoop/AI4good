@@ -37,8 +37,10 @@ depois trocar o formato" avançou uma casa: o próximo degrau é **organizar**, 
 **O WOS escreve no Notion desde 2026-08-26**, e a primeira coisa que escreveu foi o calendário
 2026.2 de Tecnologias na Educação: 34 encontros conferidos contra o calendário oficial da UFRPE,
 com link nomeado em cada linha, apontando para o Drive pessoal. As três seções de chips mudos
-morreram junto. O que o ciclo revelou é o próximo gargalo: **a migração de Drive de junho
-congelou, e o trabalho de agosto ficou do lado do cin nas duas disciplinas.**
+morreram junto, e o AI4Good levou o mesmo tratamento. O ciclo achou e pagou uma dívida escondida:
+**a cópia de Drive de junho tinha congelado e o semestre continuou do lado do cin** — seis decks
+recopiados, nove arquivos que nunca haviam sido migrados. As duas disciplinas estão inteiras no
+pessoal; o que resta é deletar do lado do cin, em [google-migration](google-migration.md).
 
 ## selected next achievement
     [metodologia-tecedu] desenhar a metodologia completa de Tecnologias na Educação
@@ -87,8 +89,7 @@ o formato.
 > separados: leitura própria e material de aula (INBOX 2026-08-17, *"this IS for me"*)  
 > [ ] [or-gate-shape] OR gate body ainda ausente no deck de portas lógicas; investigar o tipo `CUSTOM` no grupo do slide
 > 23, depois decidir se vale seguir debugando  
-> [ ] [calendario-ufrpe] baixar o calendário acadêmico da UFRPE para ajudar no planejamento das aulas (INBOX
-> 2026-08-18)  
+
 > [ ] [acessibilidade-edson] preparar uma versão acessível das missões E do site da disciplina para o Edson — os dois
 > artefatos, não só um (INBOX 2026-08-24)  
 > [ ] [slides-pesquisa] material (talvez slides) que apresente aos alunos os conceitos dos projetos de pesquisa: dobra,
@@ -111,10 +112,10 @@ last-touch: 2026-08-26  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |      30 |
-| trimester   |      46 |
-| semester    |      46 |
-| year        |      46 |
-| 2-year      |      46 |
-| 4-year      |      46 |
+| month       |      31 |
+| trimester   |      47 |
+| semester    |      47 |
+| year        |      47 |
+| 2-year      |      47 |
+| 4-year      |      47 |
 <!-- stats:end -->
