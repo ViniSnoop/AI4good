@@ -43,7 +43,8 @@ two competing `updatedInput` values for a payload both could rewrite, with no do
 
 Registering globally also covers sessions started **inside nested `code/*` repos**, which carry no
 project settings of their own and would otherwise get line-1-only compaction. The one-line
-registration and the probe that verifies it: [`SETUP-rtk.md`](../../../SETUP-rtk.md) § RTK.
+registration and the probe that verifies it: [`SETUP.md`](../../../SETUP.md) § RTK — Claude Code
+registration.
 
 ## Three undocumented harness facts this rests on
 

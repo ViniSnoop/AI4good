@@ -18,11 +18,12 @@
 
 **🟢 the scaffold is still most of a lean workspace away from lean**
 *What* — root + `core/` + `brain/` at **≤170 `.md` files and ≤10,000 lines**, from 273 and 17,074.
-Six `SETUP-*.md` become one; `core/refs`' six shards fold into `REFS.md` and `core/experiments/` keeps
+`core/refs`' six shards fold into `REFS.md` and `core/experiments/` keeps
 conclusions only; `ISSUES.md`'s hand-written half fits a screen; each top-level skill reaches ~45
 lines; `brain/` sheds 19 MB of bot attachments, its project-state memories and most of its 54 goal
 files. `core/flows/` and `core/agents/` **wait** — out of scope, so the number to drive is 237 / 14,141.
-Three families are done — `SCHEMA` five files → two, `SPECS` five → one, `core/hooks`' four → one.
+Four families are done — `SCHEMA` five files → two, `SPECS` five → one, `core/hooks`' four → one,
+`SETUP` six → one.
 **A seam has to be a second parser, not a heavy section**: `SCHEMA-layers.md` survives because a
 runtime parses it, and nothing parses a `SPECS` file, so all five merged. **A merged index lands over
 the cap** — 223, 267, 331 — because what survives such a cut is rulings and tables. Same on `SETUP`.

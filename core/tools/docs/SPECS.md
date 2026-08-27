@@ -108,9 +108,11 @@ Google Docs API has not been used in project 1048141740528 before or it is disab
 
 The token was fine — the **API** was off. `gdocs` has no `credentials.json` of its own, so
 `gauth._credentials_file` falls back to `~/.config/workspace-gmail/`, which is project
-`workspace-gmail-499605`. `SETUP-accounts.md` records that `workspace-os-506016` has docs switched
-on; that is the **forms** project, reached only by the second credential in `workspace-forms/`, and
-it is not the project `gdocs` authenticates against.
+`workspace-gmail-499605`. `workspace-os-506016` does have docs switched on, but that is the
+**forms** project, reached only by the second credential in `workspace-forms/`, and it is not the
+project `gdocs` authenticates against. A 403 names a project by number: `1048141740528` is
+`workspace-gmail-499605`, and the console lists ids, so resolve it through `project_id` in the
+matching `credentials.json` before sending anyone looking.
 
 **So the split matters:** everything Drive-backed (`list`, `read`, `push`, `new --from`,
 `comments`) worked immediately, because the Drive API was already on. Only the Docs API half
