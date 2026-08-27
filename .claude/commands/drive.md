@@ -39,7 +39,8 @@ core/tools/files/gdrive auth ufrpe
 
 1. User asks about a Drive file → run `search` or `recent`.
 2. Found file → show name, date, link. Ask if should download.
-3. Download → file lands in `~/Downloads/workspace-drive/`. Google Docs/Slides exported as PDF; Sheets as .xlsx.
+3. Download → file lands in `/mnt/workspace/Downloads/workspace-drive/`. Google Docs/Slides exported as PDF; Sheets as .xlsx.
+   To **read** a Google Doc as text, use `core/tools/docs/gdocs read` instead — a PDF of a document is a worse read than its markdown.
 4. If file needs processing (PDF, text) → read and summarize.
 
 ## Accounts

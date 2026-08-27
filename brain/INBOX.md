@@ -9,6 +9,24 @@
 
 <!-- add entries below, newest first -->
 
+estudar uma forma de 
+
+acho que vale a pena mudar o momento do aviso do limite da "context window" pra aparecer sempre no final de cada resposta de forma que eu, usuário, veja ela. 
+
+https://www.instagram.com/reel/DcimG9JtYGp/?utm_source=ig_web_copy_link
+talvez ajude como estratégia pra analisar e simplificar o WOS
+— via aiwbot · 2026-08-27
+
+https://www.instagram.com/reel/DcbkoD5R3U4/?utm_source=ig_web_copy_link
+tem a ver com ideias de startapps minhas
+— via aiwbot · 2026-08-27
+
+terminar o port dos materiais das aulas (teaching) do drive do cin para o drive pessoal
+
+quero fazer isso
+https://askubuntu.com/questions/1368874/can-google-drive-desktop-be-used-on-ubuntu
+para ter o gdrive pessoal linkado com o WOS nas pastas relevantes, acho que principalmente a academy. tem que estudar como fazer esse setup direitinho e principalmente conceitualmente, como vai funcionar esse "versionamento híbrido", WOS, subpastas, github-gdrive, etc...
+
 https://www.instagram.com/reel/Dcdw08PNlPy/?igsi=eWZrNTVrOW9zbGk3
 talvez ele esteja certo
 hooks > skills > agents > loops/flows
@@ -85,3 +103,17 @@ será que texpace e spacemantics tem a ver com essa semantic layer?
 https://www.instagram.com/p/DbiVrYngBiV/?img_index=3&igsi=MXBud3JkZjIwdnl2aQ==
 headroom parece ressoar com a ideia que dei de mipmaps e 3d model lod pra contextos de llm
 — via aiwbot · 2026-08-21
+
+tokens OAuth do Google estão 664 e os diretórios 775 — legíveis por qualquer usuário da máquina.
+vale um chmod 700/600 em ~/.config/workspace-{drive,drive-write,gmail,docs,forms}. não mexi porque
+tightening de permissão pode quebrar outra ferramenta rodando com outro usuário — decisão sua.
+— sessão checkpoints de pesquisa · 2026-08-26
+
+doc de sonda de formato ficou no Drive pessoal: "probe-formato-checkpoints". a CLI do gdocs não tem
+delete. ou apaga na mão, ou vale um `gdocs trash` na ferramenta.
+— sessão checkpoints de pesquisa · 2026-08-26
+
+o repositório público que os alunos clonam (ROADMAP 🟡) virou dependência real: a faixa "com o WOS"
+do passo a passo dos checkpoints está escrita e inerte até ele existir. enquanto isso o prazo de
+1 mês do LOOP A depende de uma ferramenta que o aluno não tem.
+— sessão checkpoints de pesquisa · 2026-08-26

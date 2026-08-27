@@ -70,6 +70,18 @@ list, table content, blockquote, and every accent. Lost or changed:
 - **A blockquote comes back as `NORMAL_TEXT`** with an indent, not as a style an outline can name.
 - Tables gain an explicit alignment row (`| :---- |`) on export.
 
+Three more, measured 2026-08-26 against `academy/lab/`'s 750-line document:
+
+- **`- [ ]` becomes a real Google Docs checkbox**, in both directions. The importer eats the
+  brackets — the outline shows a `bullet` whose text no longer contains them — and the exporter puts
+  them back. 104 boxes survived a push-read-push cycle unchanged. A document can therefore carry
+  clickable state that a repo `.md` also holds.
+- **A fenced code block loses its fence** and lands as `NORMAL_TEXT`. The content survives, the
+  monospace does not. Inline backticks do survive, so a command belongs inline.
+- **Consecutive lines collapse into one paragraph**, as Markdown says they should. Anything the
+  author means to be four separate lines has to be a list or four paragraphs — this is the one that
+  silently ruins a hand-shaped block.
+
 ## Auth
 
 Two grants, `docs` (`documents.readonly`) and `docs-write` (`documents`), the same split as
