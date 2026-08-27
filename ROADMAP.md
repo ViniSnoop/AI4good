@@ -17,17 +17,16 @@
 ## Shape — does the tree still look like what we say it does
 
 **🟢 the scaffold is still most of a lean workspace away from lean**
-*What* — root + `core/` + `brain/` at **≤170 `.md` files and ≤10,000 lines**, from 278 and 17,211.
-Six `SETUP-*.md` become one; five `SPECS-*.md` become one; `core/hooks`' four `SPECS` become one;
-`core/refs`' six shards fold into `REFS.md` and `core/experiments/` keeps conclusions only;
-`ISSUES.md`'s hand-written half fits a screen; each top-level skill reaches ~45 lines; `brain/` sheds
-19 MB of bot attachments, its project-state memories and most of its 54 goal files.
-`core/flows/` and `core/agents/` are **out of scope** — agents and flows wait, so the number to drive
-is 245 files / 14,776 lines with those excluded.
-The `SCHEMA` family is done: five files → two, 787 → 292 lines. A merge that fits one file is the
-default, but **when only law is left the seam wins over the cut** — `SCHEMA-layers.md` survives
-because a frontmatter block a runtime parses is not a `.md` a session reads. Expect the same call on
-`SPECS` and `SETUP`, and expect the merged index to land slightly over the cap before it lands under.
+*What* — root + `core/` + `brain/` at **≤170 `.md` files and ≤10,000 lines**, from 273 and 17,074.
+Six `SETUP-*.md` become one; `core/refs`' six shards fold into `REFS.md` and `core/experiments/`
+keeps conclusions only; `ISSUES.md`'s hand-written half fits a screen; each top-level skill reaches
+~45 lines; `brain/` sheds 19 MB of bot attachments, its project-state memories and most of its 54
+goal files. `core/flows/` and `core/agents/` are **out of scope** — agents and flows wait, so the
+number to drive is 237 files / 14,141 lines with those excluded.
+Three families are done — `SCHEMA` five files → two, `SPECS` five → one, `core/hooks`' four → one.
+**A seam has to be a second parser, not a heavy section**: `SCHEMA-layers.md` survives because a
+runtime parses it, and nothing parses a `SPECS` file, so all five merged. **A merged index lands over
+the cap** — 223, 267, 331 — because what survives such a cut is rulings and tables. Same on `SETUP`.
 *Why* — the norm that produced this mass now says cut, and nothing has been cut yet. A `.md` line in
 this tree is re-read by every session that touches the subtree.
 *Done when* — both numbers are met with `verify-fast` green. **Check before cutting any `.md`
