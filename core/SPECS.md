@@ -1,110 +1,267 @@
 # Core SPECS
 > Architecture decisions and conventions for the Core agent library.
 
----
-
 ## Conventions
 
-- **Um arquivo não-rastreado não apenas fica sem backup — ele opta por sair de todo check que o
-  workspace tem** (achado 2026-08-15). `code/ROADMAP-spec-drive.md` caía na regra `code/*` do
-  `.gitignore`, então cada edição ficou presa numa máquina só e ninguém viu que o rollout tinha
-  parado de andar. No instante em que entrou no corpus, falhou `verify-fast` em três tokens
-  retirados no rename `loops`→`flows` de julho: a varredura da época passou por todos os outros
-  arquivos e não podia enxergar este. Por um mês ele seguiu mandando o leitor para um arquivo de
-  flow que já tinha outro nome. **Um arquivo invisível continua dando instruções enquanto apodrece**
-  — é exatamente isso que a disciplina de allowlist no `.gitignore` compra.
-- **Sequencie a proibição ANTES do rename, nunca depois** (achado 2026-08-16, e a ordem inversa
-  custaria um sweep de 50 arquivos). Proibir citar número de item e renomear `Frente`→`Front`
-  pareciam a mesma varredura. Não eram: **91 das 160 menções eram citações que a proibição deleta
-  de saída**, então fazer a proibição primeiro reduziu o rename a três arquivos. Na ordem inversa,
-  91 ponteiros teriam sido cuidadosamente movidos e depois apagados. Corolário do mesmo achado:
-  **uma regra que só um leitor cuidadoso aplica é uma regra que o corpus ultrapassa** — em quinze
-  dias de prosa, o corpus acumulou 91 citações numeradas, duas delas dentro dos próprios checks
-  cujo trabalho é achar ponteiro morto, e duas apontando para frentes que nunca existiram.
-- **Um achado com mais de uma semana é hipótese, não fato — re-rode antes de gastar uma decisão
-  nele** (achado 2026-08-14, e o custo foi quase uma frente inteira de trabalho inventado). Uma
-  auditoria de integridade git listou quatro problemas; re-checados quinze dias depois, **três dos
-  quatro tinham se resolvido sozinhos** — o `Makefile` estava não-rastreado em *zero* repos (os três
-  citados haviam ido para `.Trash-1000`), a árvore duplicada do `shortvid` foi junto, e dos dois
-  repos ditos RED um passa 225 testes e o outro virou spec com a implementação deletada. O quarto o
-  Lucas deletou na mesma sessão. **Os achados de uma auditoria apodrecem mais rápido que o ledger que
-  os guarda**, então o ledger guarda o comando que os produziu, nunca a lista.
-- **`make entropy` é o que verifica um rename; `git grep` só encontra por onde começar** (achado
-  2026-08-17, e foi assim que um rename foi declarado pronto **duas vezes**). `git grep` da raiz lê
-  *este* repo apenas — cada projeto em `code/` é um repo git separado e é invisível para ele. O
-  dashboard de entropia caminha nos repos aninhados; o `git grep` não. Corolário que generaliza:
-  **um rename incompleto é indistinguível de entropia nas folhas, e só é consertável no gerador.**
-- **Um check que prova que algo *aconteceu* vence um que prova que não deu erro** (achado 2026-08-14,
-  sobre seis bugs drenados de uma vez). **Todos os seis eram silenciosos**: saíam com status 0,
-  bloqueavam sem mensagem, ou escreviam um arquivo que ninguém relia — o caminho de declaração JS não
-  emitia nada *havia anos*, `pre-edit.py` recusava edições sem dizer por quê, o stubgen escrevia
-  dentro de um espelho do próprio caminho. Um bug que se anuncia é consertado no dia em que nasce, então
-  **o que sobrevive num tree é selecionado por ser mudo**, e o único detector era o olho do Lucas. Ao
-  caçar o próximo, pergunte *"o que isto produz, e está lá?"* antes de ler o código atrás de uma
-  exceção — e prefira o check transversal ao check de um arquivo só (nenhum stub gerado dentro de um
-  caminho duplicado; nenhum gate que bloqueia sem escrever em stderr).
-- **A afirmação descreve o TEXTO ou a EXECUÇÃO?** (regra do Lucas, 2026-08-24, depois do sweep que
-  começou com `test_features_wiring` passando por acidente na palavra *asymmetry*, num comentário,
-  num arquivo que nunca mencionou a norma.) Um check que procura um nome não é evidência de que
-  algo aconteceu — e a pergunta que decide qual instrumento usar é essa, não "grep é proibido".
-  - **Afirmação textual** — *"este módulo não guarda uma segunda cópia da lei"* é uma afirmação
-    sobre o texto e nada mais. Pode usar grep, mas **o assert negativo é o check**: `f'= {WARN}'
-    not in source`, `"'agent_id'" not in body`. O assert positivo é testemunha fraca (prova só que
-    o import existe). Um check que lê fonte e só tem assert positivo é defeito.
-  - **Afirmação de runtime** — *"este gate consulta o registry"*, *"este bloqueio chega ao
-    usuário"*. Aí substring é proxy, e um proxy desses já foi pego passando errado. **Rode a
-    coisa e observe.** Se o alvo não puder ser executado direto (fragmento shell sourced, lib,
-    plugin node), leia a fonte **sem comentários** — não é o mesmo que rodar, e o comentário no
-    check tem que dizer isso.
-  Sem meta-test que força a regra: um check varrendo a suíte atrás de asserts sem par negativo
-  seria, ele próprio, um grep provando uma afirmação sobre testes — exatamente o cheiro que a
-  regra existe para nomear.
-  **A regra se demonstrou sozinha na hora de aplicá-la**: `"bash-context-gate.py".endswith(
-  "context-gate.py")` é `True`, então o primeiro rascunho do harness entregou ao gate de Bash um
-  payload de Read e o caso passou *por não bloquear*. Um grep teria ficado verde; a execução falhou
-  alto. Daí duas coisas: **caso de teste casa com o basename exato, nunca com sufixo**, e um teste
-  que roda a coisa erra ruidosamente onde o proxy erra em silêncio.
-- **Um comando cujo status é um gate nunca vai para dentro de um pipe** (achado 2026-08-13, custou um falso "main
-  pushed"). Em `a | tail && b`, o status é o do `tail`, não o do `a` — então `git merge --ff-only x 2>&1 | tail -1 &&
-  git push` executa o push mesmo com o merge abortado, e a sessão reporta sucesso de algo que não aconteceu. Para
-  sequências onde cada passo autoriza o próximo: `set -e` e sem pipes, ou capturar o status explicitamente. Filtrar
-  saída é para inspeção, não para decisão.
-- **Seção de `.md` se cita pelo nome, nunca pelo número** (achado 2026-08-15, custou 8 ponteiros
-  quebrados em 6 arquivos). Um número é um ponteiro que envelhece na primeira seção inserida, e
-  envelhece *em silêncio*: `[SETUP.md §6]` continuava resolvendo para um arquivo que existe, só que
-  para a seção errada — nenhum check de integridade de link pega isso. O root `SETUP.md` tinha
-  chegado a ter `§10` antes de `§9`. Referência boa: `[`SETUP-accounts.md`](SETUP-accounts.md) § Web search` — o texto
-  âncora sobrevive a qualquer reordenação, e se a seção for renomeada a busca falha em vez de
-  apontar para o lugar errado.
-- **Nome de arquivo: uma palavra só, e a palavra inteira** (preferência do Lucas, 2026-07-23). Truncação perde para a
-  palavra completa: `architect` > `arch`, `literature` > `lit`. Nome que repete o namespace do pai é ruído — sob
-  `research/`, `deepresearch.md` gagueja (`research deepresearch`), então virou `deep.md`. Nomes genéricos e óbvios
-  devem ser **reservados** para o flow que realmente os merece: `explore` ficou com o loop de tentar ideias justamente
-  para deixar `experiment` e `optimize` livres para flows futuros distintos.
-- Nova skill (flat): copiar `core/skills/_template.md`, preencher frontmatter.
-- Nova skill (suite): criar `core/skills/<suite>/SKILL.md` + sub-arquivos `<slug>.md`.
-- Sub-skills relacionadas em pasta são sempre preferidas a skills flat com prefixo longo quando > 2 sub-skills.
-- Novos serviços Google: importar `auth/gauth.py`, definir `SCOPES` e o nome do serviço, seguir o padrão de
-  `files/drive_core.py` (seam read+write, account-agnostic) — e registrar o comando de recuperação em
-  `gauth._REAUTH_CMD` no mesmo commit em que a CLI ganha `--reauth`; um teste verifica que todo comando dessa tabela
-  aponta para uma ferramenta que existe.
-- Novo provedor **sem** OAuth: seguir `notes/notion` — segredo guardado ao lado da ferramenta, toda
-  falha imprimindo a instrução completa, segredo entrando por stdin (AD-12).
-- Tokens OAuth nunca commitados — ficam em `~/.config/workspace-*/`.
-- **Pasta `refs/` em skills**: quando uma skill acumular referências externas, criar `core/skills/<name>/refs/` (ou
-  `core/skills/<suite>/refs/`) e manter todos os arquivos de referência lá. Não criar `refs/` dentro de
-  `.opencode/skills/` ou `.claude/skills/` — esses são mirrors gerados automaticamente.
-- **Formato de arquivos em `refs/`**: notas de leitura, links rápidos e sumários informais vão em `*.md`. Referências
-  estruturadas (papers com metadados, datasets com schema, configurações de ferramentas) vão em `*.yaml` com frontmatter
-  ou schema claro. Preferir YAML para anything que uma skill vai parsear ou que precisa de schema.
+- **An untracked file opts out of every check this workspace has** (2026-08-15) — and keeps giving
+  instructions while it rots. That is what the `.gitignore` allowlist discipline buys.
+- **Sequence the prohibition BEFORE the rename** (2026-08-16): the ban deletes most of the citations
+  outright, so doing it first shrinks the sweep instead of moving pointers that are about to vanish.
+  Corollary: **a rule only a careful reader applies is one the corpus outruns.**
+- **A finding older than a week is a hypothesis — re-run it before spending a decision on it**
+  (2026-08-14). **A ledger keeps the command that produced a finding, never the list.**
+- **`make entropy` verifies a rename; `git grep` only finds where to start** (2026-08-17), because
+  `git grep` reads *this* repo and every project under `code/` is a separate one. Corollary: **an
+  incomplete rename is indistinguishable from entropy in the leaves, and is fixable only in the
+  generator.**
+- **A check proving something *happened* beats one proving nothing errored** (2026-08-14). Bugs that
+  exit 0, block with no message, or write a file nobody re-reads survive precisely by being mute, so
+  ask *"what does this produce, and is it there?"* before reading code behind an exception.
+- **Does the claim describe the TEXT or the EXECUTION?** (Lucas, 2026-08-24.) That question picks the
+  instrument, not *"grep is forbidden"*. For a **textual** claim grep is fine, but **the negative
+  assert is the check** — source-reading with only positive asserts is defective. For a **runtime**
+  claim a substring is a proxy that has already been caught passing wrongly, so **run it and watch**;
+  if it cannot be run, read the source with comments stripped and say so in the check. Hence also **a
+  test case matches the exact basename, never a suffix**: `endswith` let a harness hand the Bash gate
+  a Read payload, and the case passed *by not blocking*.
+- **A command whose exit status is a gate never goes inside a pipe** (2026-08-13): in `a | tail && b`
+  the status is `tail`'s, so a failed merge still pushes. Use `set -e` and no pipes, or capture the
+  status — filtering output is for inspection, never for decision.
+- **A `.md` section is cited by name, never by number** (2026-08-15). A number ages on the first
+  section inserted and ages *silently*, still resolving but to the wrong section, and no link check
+  catches that. Good reference: ``[`SETUP.md`](SETUP.md) § Web search``.
+- **A filename is one word, and the whole word** (Lucas, 2026-07-23): `architect` > `arch`. A name
+  repeating its parent's namespace is noise, and generic names are reserved for the flow that earns
+  them.
+- New skill, flat: copy `core/skills/_template.md`. As a suite: `core/skills/<suite>/SKILL.md` plus
+  `<slug>.md` subfiles — always preferred to flat skills with a long prefix past two of them.
+- New Google service: import `auth/gauth.py`, define `SCOPES` and the service name, follow
+  `files/drive_core.py`, and register the recovery command in `gauth._REAUTH_CMD` in the same commit
+  the CLI gains `--reauth` — a test checks every command in that table names a tool that exists. A
+  provider **without** OAuth follows `notes/notion` (AD-12). Tokens live in `~/.config/workspace-*/`
+  and are never committed.
+- **A skill's `refs/` folder** sits beside the skill file, never inside the generated `.opencode/` or
+  `.claude/` mirrors. Reading notes go in `*.md`; references a skill will parse go in `*.yaml`.
 
-<!-- routing:start -->
-## Routing
+### AD-01 — AGENTS.md as the universal entrypoint (2026-06-18)
+`WORKSPACE.md` became `AGENTS.md`. Every runtime reads it natively or through `@AGENTS.md` in
+`CLAUDE.md`, which removes the discovery fork between agents.
 
-| Shard | Description | Governs | Enforced by |
-|-------|-------------|---------|-------------|
-| [`SPECS-discipline.md`](SPECS-discipline.md) | What an always-loaded rule must prove, when doubt costs, when to delegate. | AGENTS.md, core/norms/, core/agents/, core/flows/craft/ | — |
-| [`SPECS-features.md`](SPECS-features.md) | What counts as a feature, what its columns mean, and what may not be undeclared. | core/features.txt, core/profile.txt | core/hooks/feature_law.py, core/tools/wos/features |
-| [`SPECS-library.md`](SPECS-library.md) | How the agent library is arranged, and how a tool family and its auth attach. | core/skills/, core/flows/, core/tools/, core/agents/ | — |
-| [`SPECS-session.md`](SPECS-session.md) | How a session closes, and who carries context when work is handed off. | core/skills/roundup.md, core/hooks/session/, core/hooks/read/agent-context.py | — |
-<!-- routing:end -->
+### AD-02 — A `description:` frontmatter is mandatory on skills (2026-06-18)
+Every `core/skills/*.md` carries YAML frontmatter with `name:` and `description:`.
+`context_synchronizer.py` reads `description:` (block scalars included) to populate the routing table,
+so a missing one is a skill the table cannot describe.
+
+### AD-03 — `auth/gauth.py` is the shared auth module (2026-06-18, moved 2026-08-14)
+Google OAuth2 is centralized in `core/tools/auth/gauth.py`, imported by every Google-backed tool, with
+tokens per service in `~/.config/workspace-{service}/{alias}.token.json` and one credentials file
+serving them all. It sits in `auth/` because four families import it — a threshold, not an address
+(AD-12).
+
+### AD-04 — Slides are edited in place, with no local format (2026-08-14, revokes Slidev)
+**Revokes the 2026-06-18 decision for Slidev and the Google Slides → Slidev port**, which rested on the
+source of truth not being agent-editable. It **is**: `batchUpdate` writes and repositions elements
+remotely, and motion authors as a generated slide sequence that survives PDF export — the requirement
+Lucas named. The port therefore only produced a second copy to keep in sync, so Slidev was **deleted**,
+not demoted, and course material stays where the students see it. Tool: `core/tools/slides/gslides`;
+API facts: `core/tools/slides/SPECS.md`.
+
+### AD-06 — A skill's `refs/` folder sits beside the skill (2026-07-05)
+Any skill accumulating external references keeps `refs/` at the **same level as the skill file**, and
+it is **excluded from the sync** — `sync-skills` copies `<name>.md` and generates the symlink, never
+touching subfolders.
+
+### AD-07 — Sub-skills group into a suite folder (2026-07-05)
+Skills sharing a namespace group into `core/skills/<suite>/` with `SKILL.md` as parent router. The
+parent lists sub-skills with `When to load`, carries the routing block, and **never implements
+operational logic**. Sub-skills drop the suite prefix and each carries complete frontmatter — nothing
+is inherited. `sync-skills` mirrors the parent alone.
+
+### AD-08 — Flows: ownership, composition and cycles (2026-07-23)
+Extends AD-07 to the flow layer; the full contract is [`SCHEMA-layers.md`](SCHEMA-layers.md) §
+*Composition and cycles* and only the decision is here. **Ownership decides placement**: a flow owned
+by a dispatcher skill lives in `core/flows/<skill>/` with its filename equal to the command tail; an
+unowned flow stays flat. The axis is **independence of invocation**, not composition. **"Flow" is the
+canonical word** — a loop runs end to start with one exit, while our procedures branch, escape and
+compose. **No flow is privileged**: the exemplar is `flows/_template.md`, and realism comes from
+validation running over every flow, the template included (Lucas: *"a template should be a template.
+just that."*).
+
+### AD-09 — Session close: judgment in the skill, determinism in the script (2026-08-14)
+`core/tools/wos/roundup` and `core/skills/roundup.md` are one ritual a level apart; a second word for
+the same thing *is* the drift. Judgment stays in the skill, anything with a right answer stays in the
+script, where it costs one call instead of reasoned prose in the session's most expensive turns. Which
+lines the script prints is the script's business — the skills copy verbatim and name none.
+
+- **A phase with nothing to say contributes no line**, and that applies to the hand-off itself: with
+  the work finished, emitting a resume prompt fabricates one, so `/handoff` may refuse — and refusing
+  **deletes** `outputs/handoff.md`. **The file existing means exactly one thing, that work is open.**
+- **Dirt in the working tree has two possible owners and the script cannot tell them apart**, so it
+  prints the paths and **asks** rather than asserting; `--leave-dirty` answers "not mine".
+- **Promotion fast-forwards without checkout** (`git fetch . <src>:<dst>`), so it never touches the
+  working tree — that, and no general claim about merges, is what makes it safe over someone else's
+  dirt.
+- **The script refuses and says why** (red verify, target behind origin). A branch incoherent on its
+  own enters through `--no-promote "<reason>"`; an unfinished milestone is not one, because green
+  partial work belongs on `develop`.
+- **No session spawns its successor** — an agent cannot move the terminal Lucas types in, so a
+  successor would only work the same branch in parallel with the live one.
+- **The close COUNTS the inbox; the next session drains it** (2026-08-25), because draining opens links
+  with the video and web tools in the most expensive turn of all.
+
+Guards: 20 tests in `core/tools/test/wos/` — the tool against throwaway workspaces, the skills against
+re-inlining work the script already owns.
+
+### AD-10 — `core/tools/` classifies by capability; the provider is the leaf (2026-08-14)
+**Directory = what the tool does, file = who provides it** (`mail/gmail`, `files/gdrive`), so changing
+provider changes a leaf and never a family; a folder named for a manufacturer classifies on the wrong
+axis, which is why no rename of one ever feels right. Two refinements stop it becoming a fanout
+own-goal: **create the family only when the tool arrives**, and **write a `CONTEXT.md` only from the
+second file on**, since the routing generator folds a sub-threshold directory into its parent unless
+it declares itself. Declared cost: this was the **second** time every `core/tools/` path changed, and
+a third is not free.
+
+### AD-11 — A read uses the strongest consent the account has already given (2026-08-14)
+When an alias holds a write token the read path uses **it** and never asks for a second. Edit consent
+already contains read consent, so another trip to the browser buys no security — it only creates two
+tokens that die independently, which is what happened. Accounts granted read alone stay untouched.
+
+### AD-12 — A provider without OAuth keeps its auth beside the tool (2026-08-14)
+`notes/notion` authenticates by integration secret, so it does not import `auth/gauth.py` and the
+module holding the secret lives **in the family**. Not an exception to AD-10: it is the locality rule —
+*a module imported by exactly one family lives beside the tool* — meeting the auth rule. Two
+consequences the CLI carries:
+
+1. **The split is the Google split; what changes is which half belongs to whom.** For any provider,
+   **Lucas does only what has no command form** — a click in the provider's UI, a consent screen, a
+   secret minted inside his account (his correction, 2026-08-14: *"run it for me and ask me to do only
+   what only I myself can do"*). The secret enters through **stdin** via a builtin pipe, never as an
+   argument: argv is readable by any process of the user and survives in shell history.
+2. **A 404 is a sharing failure until proven otherwise**, because the same code means "not connected to
+   this integration" and "no such id" and the first is far more common — content is *invisible* to the
+   integration, not forbidden. The message says so in that order.
+
+### AD-13 — A subagent skips the context gate; whoever invokes it delivers the context (2026-08-15)
+A worker handed **an explicit path** never needed the `CONTEXT.md` chain: forcing it costs ~2k tokens
+on a 17.8k start, re-read every turn. The rule is in `hook_input.is_subagent`, keyed on `agent_id` —
+the only field distinguishing a worker from the main thread — and it replaces an exemption that already
+existed by accident, since a worker inheriting its parent's seen-set skipped the gate only in subtrees
+the parent happened to have visited. The gate protecting contracts still fires for everyone.
+
+The duty moved to the orchestrator and a hook discharges it: `read/agent-context.py` reads the paths
+cited in the `Agent` prompt and hands the worker each subtree's `>` line. **It induces, never blocks.**
+The two-event split is measured — `PreToolUse:Agent` sees the prompt but has no `agent_id`, while
+`SubagentStart` injects into the worker but cannot see the prompt. `prompt_id` is the join key, which
+makes the briefing **per turn**: several workers in one turn get the union of cited paths. Too broad,
+never wrong, and unsolvable otherwise — the worker's only id is born after the prompt has passed.
+Measurement: `core/experiments/subagent-context-chain.md`.
+
+### AD-14 — A capability that cannot be switched off is a finding, not a feature (2026-08-16)
+The ablation bench ran once and produced **no** signal, for one reason: nothing could be switched off
+one at a time. While that stays true nothing here is measurable. So the registry is the **instrument**,
+not a configuration system: `core/features.txt` declares each capability, `core/profile.txt` holds this
+machine's answers, and `feature_law.py` is the third law module — `file_law.py` says what a file
+**is**, `schema_law.py` what a name **may be**, this one what is **on**. It **names** which hook, skill
+or tool is wired and never restates the rule that hook applies.
+
+- **The `wired` column is honest or it is useless.** It names the file calling `is_enabled()`, and a
+  `-` is counted by `core/tools/wos/features --findings`. A row claiming a switch it does not have
+  would make the ablation report "no effect" for something never switched off.
+- **`is_enabled` fails OPEN on an unknown slug**, so a gate never stops enforcing because someone
+  mistyped a data line; at worst it behaves as it did before the module existed.
+- **`WOS_FEATURES_OFF` only subtracts.** There is no `WOS_FEATURES_ON`: an ablation run answers *what
+  does this workspace cost without X*, and switching something on is a versioned decision in the
+  profile, not a variable that dies with the shell.
+
+**The ablation runs OUTSIDE the workspace** (Lucas, 2026-08-17) — a system does not run the experiment
+on itself. The harness builds **variants** of a checkout, one capability missing from each, from the
+public repository, which makes that repo a **hard precondition** and forces a synthetic task suite.
+Hence two shutdown routes, and `wired` knows only the first:
+
+| route | how it switches off | who uses it |
+|---|---|---|
+| in-process switch | `is_enabled()` in the file applying the rule | `WOS_FEATURES_OFF`, the profile, every gate |
+| clone variant | the variant is built without it | the ablation harness alone |
+
+**Every capability is ablatable; not every one has an in-process switch** (Lucas: *"ALL features of the
+WOS should be toggleable"*). `n/a` in `wired` means *"no in-process switch"*, never *"exempt"*, and the
+column has been **empty since 2026-08-17**, so the target of zero has no exceptions. **What is
+measurable is decided by the wiring point, never by the group** — classifying by group would have
+discarded the registry's highest-signal row, a compaction feature wired in a hook and running on every
+Bash call.
+
+**The column holds ALL paths, comma-separated** (2026-08-17), or a capability living in several files
+is **half switched off**. `latex` forced it: a pre-commit gate **plus** the tool family that gate calls,
+so a switch stopping only the tool makes the gate read the tool's refusal (exit 69) as a terminology
+violation and **block the very commit the shutdown existed to allow**. A feature crossing layers is
+honest only when every layer consults the law.
+
+**The honesty test asks ONE question — would switching this off change anything? — and answers it the
+strongest way each row allows**, because searching for the literal slug inside the named file forces
+one call site per row and had nowhere to land for 25 of them. A group with **an invokable seam** gets a
+behaviour probe: run both sides, normal and under `WOS_FEATURES_OFF=<slug>`, and fail if the observable
+does not move — that is what **makes a shared wiring point legal**, and it is stronger than grep, which
+passes on a guard in an unreachable branch. A row with **its own call site** keeps the older form. A
+tool guards at its **entrypoint**, before argparse, so being off covers `--help`, and exits
+`EX_UNAVAILABLE` (69) rather than 1: an ablation arm must distinguish *off* from *ran and failed*.
+
+### AD-15 — What an always-loaded rule must prove to keep its place (2026-08-17)
+Applies to text loaded in **every session**: `AGENTS.md`, `CONTEXT.md` heads, always-listed skills. The
+question is **not length**. It is: *could this be a tool parameter, an enum, or a hook's error message
+instead of prose?*
+
+| column | when | what happens |
+|---|---|---|
+| **delete** | a **blocking, ratcheted** gate already applies it | the prose goes; the hook is the rule |
+| **move** | a check *could* apply it, but none does today | **stays in the prose** until a gate blocks |
+| **keep** | judgment no check can hold | stays, and its reason stays with it |
+
+**The discriminator between `delete` and `move` is blocking, not the existence of a detector.**
+`UPPERCASE.md = a type` left `AGENTS.md` because `type-gate.py` stops the commit; `DONE WORK IS
+DELETED` stayed, because `entropy_ledger.py` owns the finished-work detector but `type-gate.py` imports
+only its wiki-link half — deleting prose on the strength of a report trades enforcement for nothing.
+
+**Counterweights, because indiscriminate pruning is the one way this makes things worse:** context is
+never cruft, and **no deletion is justified by character count alone**. This governs **always-loaded**
+text only, and it is **not a cost item** — `AGENTS.md` is a single-digit fraction of turn 1
+([`experiments/context-window.md`](experiments/context-window.md), re-run it rather than quoting from
+here), so the gain is enforcement, not tokens.
+
+### AD-16 — Doubt is not charged when asserting; it is charged when storing (2026-08-17)
+Asking for doubt in prose is the cheap half and has already been tried: this workspace is thick with
+*re-run it, never quote it*, and that prevented neither the wrong number that steered a front for three
+weeks nor four asserted-then-retracted explanations of one hook. The question is not how to request
+caution but **where caution becomes a gate**. Three bands:
+
+1. **Rule written, nothing checking — the cheap win.** The `core/experiments/` discipline and
+   `core/refs/REFS.md`'s tier markers are the two rules this workspace cites as proof it knows how to
+   doubt, and for months nothing verified either — INDUCED wearing ENFORCED's costume.
+   `entropy_stores.py` charges for them now, total rather than ratcheted, because a ratchet is for an
+   inherited backlog and there was none.
+2. **Enforced by construction.** Write the claim **where a parser already reads** and it is audited on
+   every commit for free. That is what law-in-data does, which makes *"a checker that restates the law
+   is the drift checkers exist to catch"* a doubt rule at heart.
+3. **Not chargeable — stop trying.** The truth of a fresh technical claim, spoken in a turn. What the
+   workspace does instead is **make the error cheap and its discovery fast**.
+
+**Corollary: a claim about our own enforcement layer is checked at the call site, never at the
+module.** Owning a detector and charging for it are separate facts.
+
+### AD-17 — Delegation is mandatory where an executor reads the assignment; elsewhere it is advice (2026-08-17)
+The ask: *"gostaria que ele delegasse mais ao sonnet pra economizar… seria ótimo se tivesse uma forma
+mais garantida"*, with the **plan** as the trigger — the moment work is cut into tasks is the cheap
+point to decide who executes each one. **That trigger is already built**: the Loop 1 plan table in
+`core/flows/craft/craft.md` carries `tier` and `effort` per task row, and the same loop's adversarial
+review charges that each row be executable by its assigned tier.
+
+**What is missing is an executor that reads it.** Inside `/craft` there is one; outside it nothing
+reads the tag, so it is advice. **Hence the reading of the expensive-tier-heavy split: it measures how
+much work bypasses the flow that routes**, not per-task indiscipline. The lever is routing more work
+through `/craft`, not building a second router beside it. **Delegating ≠ parallelising**, and
+conflating them is what makes the proposal feel risky — offered a shape with parallel workers Lucas
+chose **no parallelism** (2026-08-17), and the common case is sequential anyway.
+
+**The chargeable half is cheap:** `core/tools/wos/roundup` already prints the per-session split at
+every close, so have the plan **declare its expected split** and roundup compare declared against
+actual. It forces nobody to delegate; it makes deviation **visible and dated**. That is band 1 → 2 of
+AD-16, and needs no new instrument.

@@ -1,4 +1,4 @@
-# T0 the session-close skills (core/SPECS-session.md § AD-09): what bash cannot assert about the other layer.
+# T0 the session-close skills (core/SPECS.md § AD-09): what bash cannot assert about the other layer.
 # Zero-token, no network.
 #
 # The split only holds if the skill keeps *not* doing the script's work. Prose has no compiler, so

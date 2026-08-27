@@ -123,4 +123,4 @@ whose subject is *what is about to happen on disk* should still block.
   `heredoc-gate.py` and running one heredoc write in the same session; the context arrived.
 
 Why a subagent is exempt from the context gate, and why the briefing needs two events to work:
-[`../SPECS-session.md`](../SPECS-session.md) § AD-13.
+[`../SPECS.md`](../SPECS.md) § AD-13.

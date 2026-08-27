@@ -71,7 +71,7 @@ it, with no block to carry across by hand, which is why
 at `CTX_LOUD`. Overwrite it: the newest hand-off is the only one worth resuming, and `outputs/`
 is gitignored, so nothing durable is lost.
 
-**Never spawn a successor session.** Decided 2026-08-13 ([`core/SPECS-session.md`](../../core/SPECS-session.md) § AD-09):
+**Never spawn a successor session.** Decided 2026-08-13 ([`core/SPECS.md`](../../core/SPECS.md) § AD-09):
 `claude --bg`
 can start a fresh-context agent but cannot move the terminal Lucas types into, so a spawned
 successor would work the same branch *unattended, in parallel with the live session*. Prepare

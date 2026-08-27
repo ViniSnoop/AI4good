@@ -23,7 +23,7 @@ workspace.
 
 | File | Interface | Description |
 |------|-----------|-------------|
-| [`test_roundup.py`](test_roundup.py) | [`test_roundup.pyi`](test_roundup.pyi) | T1 roundup tool (core/SPECS-session.md § AD-09): the deterministic half of the session-close ritual. Zero-token, no network — every case builds its own throwaway repo. |
-| [`test_roundup_skills.py`](test_roundup_skills.py) | [`test_roundup_skills.pyi`](test_roundup_skills.pyi) | T0 the session-close skills (core/SPECS-session.md § AD-09): what bash cannot assert about the other layer. Zero-token, no network. |
+| [`test_roundup.py`](test_roundup.py) | [`test_roundup.pyi`](test_roundup.pyi) | T1 roundup tool (core/SPECS.md § AD-09): the deterministic half of the session-close ritual. Zero-token, no network — every case builds its own throwaway repo. |
+| [`test_roundup_skills.py`](test_roundup_skills.py) | [`test_roundup_skills.pyi`](test_roundup_skills.pyi) | T0 the session-close skills (core/SPECS.md § AD-09): what bash cannot assert about the other layer. Zero-token, no network. |
 | [`test_size.py`](test_size.py) | [`test_size.pyi`](test_size.pyi) | T1 size tool (ROADMAP.md § Cost): whether the workspace got smaller this session, and where. Zero-token, no network — every case builds its own throwaway repo. |
 <!-- routing:end -->

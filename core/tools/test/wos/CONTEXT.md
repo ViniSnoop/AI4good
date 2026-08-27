@@ -10,11 +10,11 @@ fanout split.
 sets, [`test_features_wiring.py`](test_features_wiring.py) asks whether a row claiming a switch has
 one. Data and behaviour are different questions with different failure modes — a row can be
 perfectly well-formed and still name a file that never reads the law, which is the failure that cost
-the first ablation run its entire signal ([`core/SPECS-features.md`](../../../SPECS-features.md) § AD-14).
+the first ablation run its entire signal ([`core/SPECS.md`](../../../SPECS.md) § AD-14).
 
 **The ritual** moved into [`close/`](close/CONTEXT.md) 2026-08-25, at the fanout signal: what a
 session close does is a different question from what the workspace declares about itself, and
-[`core/SPECS-session.md`](../../../SPECS-session.md) § AD-09 governs it alone.
+[`core/SPECS.md`](../../../SPECS.md) § AD-09 governs it alone.
 
 Zero-token, no network. Each test builds its own repo and bare origin; nothing touches the real
 workspace.
@@ -31,8 +31,8 @@ workspace.
 | File | Interface | Description |
 |------|-----------|-------------|
 | [`test_deps.py`](test_deps.py) | [`test_deps.pyi`](test_deps.pyi) | T0 declared dependencies (core/tools/SPECS.md § Declared dependencies): a third-party import the tool surface uses must be declared, and every tool must run under the workspace venv. |
-| [`test_features.py`](test_features.py) | [`test_features.pyi`](test_features.pyi) | T0 the feature registry's declaration half (core/SPECS-features.md § AD-14): every feature is declared, answered, and inside the closed sets its columns may draw from. |
-| [`test_features_wiring.py`](test_features_wiring.py) | [`test_features_wiring.pyi`](test_features_wiring.pyi) | T0 the feature registry's honesty half (core/SPECS-features.md § AD-14): a row claiming a switch must really have one, and throwing the switch must move the observable. |
+| [`test_features.py`](test_features.py) | [`test_features.pyi`](test_features.pyi) | T0 the feature registry's declaration half (core/SPECS.md § AD-14): every feature is declared, answered, and inside the closed sets its columns may draw from. |
+| [`test_features_wiring.py`](test_features_wiring.py) | [`test_features_wiring.pyi`](test_features_wiring.pyi) | T0 the feature registry's honesty half (core/SPECS.md § AD-14): a row claiming a switch must really have one, and throwing the switch must move the observable. |
 | [`test_flow_loops.py`](test_flow_loops.py) | [`test_flow_loops.pyi`](test_flow_loops.pyi) | T0 the flow layer's loop bound (core/flows/CONTEXT.md § Rules that hold for every flow): a step that declares a loop must declare its numeric cap. Zero-token, no network. |
 | [`test_norms.py`](test_norms.py) | [`test_norms.pyi`](test_norms.pyi) | T0 the norms layer (core/SCHEMA-layers.md § Layer: norm): the always-loaded rule block is generated, and generating it is what makes a rule switchable. |
 <!-- routing:end -->

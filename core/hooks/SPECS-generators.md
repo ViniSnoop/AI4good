@@ -117,5 +117,5 @@ every commit. That split is the rule for every Tier 0 check here, not a concessi
 a gate that fails on the day it lands trains its reader to ignore it.
 
 Completion is deletion (`core/SCHEMA.md` § No archive types), and
-[`core/SPECS-discipline.md`](../SPECS-discipline.md) § AD-15 makes blocking — not the mere existence of a detector —
+[`core/SPECS.md`](../SPECS.md) § AD-15 makes blocking — not the mere existence of a detector —
 what licenses deleting the prose.

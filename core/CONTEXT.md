@@ -34,10 +34,6 @@ Ported from Feynman (https://github.com/companion-inc/feynman), adapted for prov
 | [`ROADMAP.md`](ROADMAP.md) | Core Library Roadmap |
 | [`SCHEMA-layers.md`](SCHEMA-layers.md) | The frontmatter every skill, agent, norm and flow declares, and how they compose. The document law — types, placement, cutting, vocabulary — is the index, [`SCHEMA.md`](SCHEMA.md); this shard is the prompt-loaded half, because a `.md` a session reads and a frontmatter block a runtime parses are two different contracts. |
 | [`SCHEMA.md`](SCHEMA.md) | The law about `.md` documents: which types exist, where a file belongs, how one that outgrew the cap is cut, and which words are canonical. The **tables here are load-bearing** — [`schema_law.py`](hooks/schema_law.py) parses them and no checker restates them. Drift is a bug. |
-| [`SPECS-discipline.md`](SPECS-discipline.md) | What an always-loaded rule must prove, when doubt costs, when to delegate. |
-| [`SPECS-features.md`](SPECS-features.md) | What counts as a feature, what its columns mean, and what may not be undeclared. |
-| [`SPECS-library.md`](SPECS-library.md) | How the agent library is arranged, and how a tool family and its auth attach. |
-| [`SPECS-session.md`](SPECS-session.md) | How a session closes, and who carries context when work is handed off. |
 | [`SPECS.md`](SPECS.md) | Architecture decisions and conventions for the Core agent library. |
 | [`features.txt`](features.txt) | Every toggleable feature this workspace has, declared: what group it belongs to, how hard it enforces, whether it is general or Lucas-specific, and whether it can actually be switched off. Read by core/hooks/feature_law.py; the answers live in core/profile.txt. |
 | [`profile.txt`](profile.txt) | Which features are switched on for THIS machine, and the settings that are not switches. The registry is core/features.txt; this file holds only the answers. Read by core/hooks/feature_law.py, edited through `core/tools/wos/features --on|--off <slug>`. |

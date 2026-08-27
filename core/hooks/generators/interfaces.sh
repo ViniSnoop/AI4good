@@ -3,7 +3,7 @@
 # it shares $STAGED and may `exit` to reject the commit. Order is fixed by the dispatcher.
 #
 # `interface-stubs` names TWO paths in core/features.txt — this one and postedit/interfaces.sh
-# (core/SPECS-features.md § AD-14). Not a duplicate trigger: this one stages the stub into the commit
+# (core/SPECS.md § AD-14). Not a duplicate trigger: this one stages the stub into the commit
 # and sweeps stubless siblings, post-edit keeps the stub current inside the session so
 # read/pre-read.sh never serves a stale interface. Guarding one would leave the other writing.
 if python3 /mnt/workspace/core/hooks/feature_law.py --enabled interface-stubs; then

@@ -1,4 +1,4 @@
-# T0 the feature registry's declaration half (core/SPECS-features.md § AD-14): every feature is declared,
+# T0 the feature registry's declaration half (core/SPECS.md § AD-14): every feature is declared,
 # answered, and inside the closed sets its columns may draw from.
 #
 # The other half — whether a row that CLAIMS a switch really has one — is behaviour, not data, and

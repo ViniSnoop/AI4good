@@ -28,7 +28,7 @@ is_command() {
   return 0
 }
 
-# The whole `skills` group's wiring point (core/SPECS-features.md § AD-14). A skill is markdown and calls
+# The whole `skills` group's wiring point (core/SPECS.md § AD-14). A skill is markdown and calls
 # no function, so its only real "off" is the mirror declining to publish it — which means one
 # filter here switches all fourteen rows, and the honesty test is a behavioural probe rather than
 # a grep for a call site that could not exist. Queried once, not once per skill: `--disabled` is

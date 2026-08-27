@@ -69,7 +69,7 @@ def failures_for(path: Path, allowed: set, exempt: set, scopes: dict,
             + finished_work_hits([path], enforcement_paths(WORKSPACE_ROOT))
             # The two doubt stores are small, closed and clean today, so this one goes in total
             # rather than on a ratchet: a new experiment or a newly judged reference arrives with
-            # the discipline or does not arrive (core/SPECS-discipline.md § AD-16 band 1).
+            # the discipline or does not arrive (core/SPECS.md § AD-16 band 1).
             + experiment_hits([path]) + ref_tier_hits([path])
             # A header field naming our own code is a claim about our own tree, and the tree is
             # right here (core/SCHEMA.md § Every field that names our own code is verified). Total like the stores above:

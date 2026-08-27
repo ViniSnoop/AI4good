@@ -1,4 +1,4 @@
-# T1 roundup tool (core/SPECS-session.md § AD-09): the deterministic half of the session-close ritual.
+# T1 roundup tool (core/SPECS.md § AD-09): the deterministic half of the session-close ritual.
 # Zero-token, no network — every case builds its own throwaway repo.
 #
 # The one thing worth guarding hardest is the dirty stop. It used to assert that uncommitted work

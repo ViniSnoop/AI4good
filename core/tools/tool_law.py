@@ -6,7 +6,7 @@
 # sys.path hop from a tool to core/hooks, so a tool's entrypoint spends one line on
 # being switchable instead of six.
 #
-# WHY A TOOL GUARDS AT ITS ENTRYPOINT. core/SPECS-features.md § AD-14 groups skills and
+# WHY A TOOL GUARDS AT ITS ENTRYPOINT. core/SPECS.md § AD-14 groups skills and
 # tools together as the rows with nowhere to put a call, and for skills that is
 # exactly true: a skill is markdown, calls no function, and the only real way to switch it
 # off is the mirror refusing to publish it. A tool is not markdown. It is a CLI this

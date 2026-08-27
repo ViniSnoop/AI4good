@@ -2,7 +2,7 @@
 # Sourced by core/hooks/pre-commit — a FRAGMENT, not a standalone script:
 # it shares $STAGED and may `exit` to reject the commit. Order is fixed by the dispatcher.
 
-# ── Feature switches (core/SPECS-features.md § AD-14) ──────────────────────────────────
+# ── Feature switches (core/SPECS.md § AD-14) ──────────────────────────────────
 # THREE features live in this one file — verify-contract, verify-suite, project-contract —
 # so the slug-names-the-file rule cannot apply here and three registry rows name this path.
 # Asked ONCE at the top, never per call site, and read as a flag rather than acted on: a

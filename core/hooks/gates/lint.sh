@@ -3,7 +3,7 @@
 # it shares $STAGED and may `exit` to reject the commit. Order is fixed by the dispatcher.
 
 # ── 10. ESLint hard block — TypeScript projects under code/ with eslint.config.js ──
-# `lint-typescript` names TWO paths (core/SPECS-features.md § AD-14) — this one blocks the commit,
+# `lint-typescript` names TWO paths (core/SPECS.md § AD-14) — this one blocks the commit,
 # postedit/lint.sh prettier-writes and warns while editing. Different jobs, one switch.
 TS_CODE_STAGED=$(echo "$STAGED" | grep -E '^code/[^/]+/.*\.(ts|tsx)$' | grep -v '\.d\.ts$' || true)
 python3 /mnt/workspace/core/hooks/feature_law.py --enabled lint-typescript || TS_CODE_STAGED=""

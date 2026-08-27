@@ -23,7 +23,7 @@ fi
 # section calls carries the same switch, so without this check a disabled `latex` would make
 # core/tools/paper/terms exit 69 and the `if !` below would read that refusal as a terminology
 # violation — blocking the very commit the switch was thrown to relax. A feature spanning two
-# layers is only honest when both layers consult the law (core/SPECS-features.md § AD-14).
+# layers is only honest when both layers consult the law (core/SPECS.md § AD-14).
 TEX_STAGED=$(echo "$STAGED" | grep '\.tex$' || true)
 if ! python3 /mnt/workspace/core/hooks/feature_law.py --enabled latex; then
   TEX_STAGED=""

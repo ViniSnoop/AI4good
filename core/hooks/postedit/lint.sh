@@ -3,7 +3,7 @@
 # it relies on $file, $dir, $TSC and find_tsconfig from the caller.
 
 # ── ESLint + Prettier for TypeScript projects under code/ (R1-R6) ─────────────
-# The edit-time half of `lint-typescript` (core/SPECS-features.md § AD-14); gates/lint.sh is the
+# The edit-time half of `lint-typescript` (core/SPECS.md § AD-14); gates/lint.sh is the
 # commit-time half that blocks. Prettier WRITES the file, so this is the half a switched-off
 # feature must really stop — a warn left running would be harmless, a rewrite is not.
 if [[ "$file" == /mnt/workspace/code/* ]] && [[ "$file" == *.ts ]] && [[ "$file" != *.d.ts ]] \

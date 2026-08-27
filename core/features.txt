@@ -61,7 +61,7 @@
 #                that cannot be switched off is entangled with the scaffold rather than sitting on
 #                it, and the target for that count is ZERO.
 #                `n/a` means NO IN-PROCESS SWITCH, never "exempt" — the feature is still ablatable,
-#                by building a clone variant without it (core/SPECS-features.md § AD-14). NO ROW USES `n/a`
+#                by building a clone variant without it (core/SPECS.md § AD-14). NO ROW USES `n/a`
 #                as of 2026-08-17. The four that carried it were third-party machine state this
 #                workspace does not author — the .venv, the absolute shebang, flutter — and left as
 #                a SETUP.md step plus a deps.txt line, which is the codeburn ruling applied

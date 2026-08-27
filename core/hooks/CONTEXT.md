@@ -17,7 +17,7 @@ A fourth question — **when** a switched-on feature fires — is answered the s
 down, in [`trigger/`](trigger/CONTEXT.md).
 
 Which gates consult `feature_law`, and why a row that does not is a finding:
-[`core/SPECS-features.md`](../SPECS-features.md) § AD-14.
+[`core/SPECS.md`](../SPECS.md) § AD-14.
 
 **A checker that restates any of these is the drift the checkers exist to catch.** Two
 incidents that shape this rule, and the test that guards the first: [`SPECS.md`](SPECS.md).

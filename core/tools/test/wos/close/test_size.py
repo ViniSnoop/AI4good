@@ -30,7 +30,7 @@ def _repo(tmp_path):
     for name in ('file_law.py', 'feature_law.py', 'vendored.txt', 'generated.txt', 'limits.env'):
         shutil.copy(LAW / name, ws / 'core/hooks' / name)
     # The switch travels with the tool: a fixture without it would let a row claiming a switch
-    # pass while the tool never asks (core/SPECS-features.md § AD-14).
+    # pass while the tool never asks (core/SPECS.md § AD-14).
     shutil.copy(WORKSPACE_ROOT / 'core/tools/tool_law.py', ws / 'core/tools')
     for name in ('features.txt', 'profile.txt'):
         shutil.copy(WORKSPACE_ROOT / 'core' / name, ws / 'core' / name)
