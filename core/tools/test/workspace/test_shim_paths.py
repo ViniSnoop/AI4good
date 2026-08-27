@@ -1,4 +1,4 @@
-# T0 the shim contract (core/hooks/SPECS-shim.md): every canonical script a provider shim spawns
+# T0 the shim contract (core/hooks/SPECS.md): every canonical script a provider shim spawns
 # must exist. Zero-token, verify-fast.
 #
 # WHAT THIS PROVES, AND WHAT IT DOES NOT. It proves a path RESOLVES. It does not prove the gate

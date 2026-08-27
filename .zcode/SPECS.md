@@ -7,7 +7,7 @@ not (`core/SCHEMA.md` § Placement). The head keeps the pointer; the contract li
 
 What this must satisfy — the canonical gates, the shim contract, the coverage table — is
 [`core/hooks/SPECS.md`](../core/hooks/SPECS.md) (shim specifics:
-[`SPECS-shim.md`](../core/hooks/SPECS-shim.md)); the install check is [`SETUP.md`](../SETUP.md)
+[`SPECS.md`](../core/hooks/SPECS.md)); the install check is [`SETUP.md`](../SETUP.md)
 § Already wired. Measured protocol findings:
 [`core/experiments/zcode-hook-protocol.md`](../core/experiments/zcode-hook-protocol.md).
 

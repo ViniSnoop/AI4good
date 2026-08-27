@@ -8,7 +8,7 @@ mirroring `.claude/settings.json` one-to-one (no adapter, no second copy of a ru
 true of it, including the measured trust gate that holds it inert and the open protocol
 questions: [`../../../.zcode/CONTEXT.md`](../../../.zcode/CONTEXT.md) and the experiment
 [`experiments/zcode-hook-protocol.md`](../../experiments/zcode-hook-protocol.md). The shim
-contract every runtime owes: [`SPECS-shim.md`](../SPECS-shim.md).
+contract every runtime owes: [`SPECS.md`](../SPECS.md).
 
 <!-- routing:start -->
 ## Routing

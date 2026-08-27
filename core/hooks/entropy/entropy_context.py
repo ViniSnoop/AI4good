@@ -118,7 +118,7 @@ def check_description(path: Path) -> str | None:
     """A file the routing table will list must give it something to write.
 
     Asks the generator, never a second pattern table — why, and what it cost the one time the
-    two were allowed to disagree: core/hooks/SPECS-generators.md § First-line descriptions.
+    two were allowed to disagree: core/hooks/SPECS.md § First-line descriptions.
     """
     if not feature_law.is_enabled('first-line-comment'):
         return None

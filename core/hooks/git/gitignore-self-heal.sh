@@ -61,7 +61,7 @@ done
 #
 # The alternative was to `git add` the missing files here so one commit always suffices.
 # Rejected 2026-08-19 (Lucas): a commit hook that stages files the caller did not stage is
-# worse than the bug it fixes. Fail loud instead. Contract: core/hooks/SPECS-gates.md.
+# worse than the bug it fixes. Fail loud instead. Contract: core/hooks/SPECS.md.
 [ -n "$HEALED" ] || exit 0
 
 MISSING=""

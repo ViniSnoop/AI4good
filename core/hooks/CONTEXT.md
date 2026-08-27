@@ -42,9 +42,8 @@ Python modules in a subdirectory reach the root law with
 `sys.path.insert(0, str(Path(__file__).resolve().parents[1]))`. The test suite gets the same
 path set once, from `core/tools/test/conftest.py`, derived by scanning this directory.
 
-Gate behavior is [`SPECS-gates.md`](SPECS-gates.md), what the hooks write is
-[`SPECS-generators.md`](SPECS-generators.md), and the agent-shim contract is
-[`SPECS-shim.md`](SPECS-shim.md); [`SPECS.md`](SPECS.md) indexes them. Why the `code/` gates
+Gate behavior, what the hooks write, and the agent-shim contract all live in
+[`SPECS.md`](SPECS.md). Why the `code/` gates
 exist: [`code/ROADMAP-verify.md`](../../code/ROADMAP-verify.md). Installing the toolchain they depend on:
 [`SETUP.md`](../../SETUP.md).
 
@@ -72,10 +71,7 @@ exist: [`code/ROADMAP-verify.md`](../../code/ROADMAP-verify.md). Installing the 
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
-| [`SPECS-gates.md`](SPECS-gates.md) | — | — | What each blocking gate rejects, at commit time and at edit time. |
-| [`SPECS-generators.md`](SPECS-generators.md) | — | — | What the hooks write rather than reject, and what must be true of each artifact. |
-| [`SPECS-shim.md`](SPECS-shim.md) | — | — | One canonical behaviour, and what a new agent runtime must do to get it. |
-| [`SPECS.md`](SPECS.md) | — | — | What must be true of the enforcement layer, and why: what each gate blocks, and the contract a new agent's shim must satisfy. |
+| [`SPECS.md`](SPECS.md) | — | — | What must be true of the enforcement layer, and why: what each gate blocks, what the hooks write, and the contract a new agent's shim must satisfy. |
 | [`extensionless.txt`](extensionless.txt) | — | — | Files allowed to have no extension because something OUTSIDE this workspace dictates the name. Everything else without an extension must be an executable carrying a shebang — enforced by test_every_extensionless_tracked_file_is_explained. |
 | [`feature_law.py`](feature_law.py) | [`feature_law.pyi`](feature_law.pyi) | `load_registry`, `slugs`, `load_profile`, `is_enabled`, `setting` | What is switched ON. The third law module: file_law.py says what a file IS, schema_law.py says what a name MAY BE, this one says which features are live. Like schema_law.py it reads its answer out of core/ rather than holding one — the registry is core/features.txt, the answers are core/profile.txt, and neither is restated here. |
 | [`file_law.py`](file_law.py) | [`file_law.pyi`](file_law.pyi) | `is_code_file`, `load_limits`, `allowed_extensionless`, `is_vendored`, `is_generated_artifact` | What a file IS, and which rules apply to it. The numeric-law sibling of schema_law.py: that module parses core/SCHEMA.md, this one owns the file-shape law every size, fanout and line-count check reads. |

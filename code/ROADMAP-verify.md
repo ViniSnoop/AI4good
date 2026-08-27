@@ -11,7 +11,7 @@ and this file is deleted (git keeps it).
 
 **Scope note:** the workspace-wide hook infrastructure this plan once carried (context-gate,
 bash-gate) is the enforcement layer's own contract now —
-[`core/hooks/SPECS-gates.md`](../core/hooks/SPECS-gates.md) — and not tracked here. What this
+[`core/hooks/SPECS.md`](../core/hooks/SPECS.md) — and not tracked here. What this
 file scopes is the `code/` testing-pyramid rollout: brain/ and academy/ have no `verify:fast`
 concept.
 
@@ -94,7 +94,7 @@ After isoroll road. Contract + T1 first; T2 adapter designed against apptime's a
 
 `I4 → A1` is what remains; § Status Log holds the dated record of everything before them.
 The workspace-wide half of the rollout is the enforcement layer's own contract
-([`core/hooks/SPECS-gates.md`](../core/hooks/SPECS-gates.md)), not a phase of this plan.
+([`core/hooks/SPECS.md`](../core/hooks/SPECS.md)), not a phase of this plan.
 
 ## Status Log
 

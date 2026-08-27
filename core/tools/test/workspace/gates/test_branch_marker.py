@@ -1,4 +1,4 @@
-# T0 the branch-drift warning (core/hooks/SPECS-gates.md § Branch drift): HEAD moving under a session
+# T0 the branch-drift warning (core/hooks/SPECS.md § Branch drift): HEAD moving under a session
 # must be said out loud, exactly once, and must never block.
 #
 # The silence cases are the ones that decide whether this survives. A warning that repeats on every
