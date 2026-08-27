@@ -9,6 +9,65 @@
 
 <!-- add entries below, newest first -->
 
+LINHA DE BASE do port, medida hoje em Windows sem bash nenhum: 433 passam, 138 falham, 1 skip de 572.
+E a categoria das falhas mudou meu entendimento do trabalho: só 96 são exec/shebang (OSError +
+FileNotFoundError, esperadas). As outras 150 são AssertionError de UM padrão só — o código emite
+`C:\Users\lucas\workspace\academy\papers` onde o teste espera `academy/papers`. O pathlib resolveu o
+SISTEMA DE ARQUIVOS e não resolveu o VOCABULÁRIO DE PATH: toda vez que um path vira texto (linha de
+routing table, chave de registry, linha do ISSUES.md, comparação com features.txt) ele sai no
+separador do SO. Proposta: barra normal, sempre, para todo path que é DADO — `.as_posix()` no
+boundary, Path só para tocar disco. É o que o git faz internamente há 20 anos. E não é concessão a
+Windows: torna routing table e entropy dashboard byte-idênticos entre máquinas, que é justamente o
+que `test_the_output_is_deterministic` já pede. proj: os-agnostic-port
+— sessão port agnóstico de SO · 2026-08-27
+
+6 falhas de UnicodeDecodeError: parte do código abre arquivo sem `encoding='utf-8'` e pega o default
+do SO (cp1252 no Windows brasileiro). Todo `.md` do workspace é UTF-8, então o default do SO nunca é
+a resposta certa em lugar nenhum — inclusive em Linux, onde só funciona por acidente de locale.
+proj: os-agnostic-port
+— sessão port agnóstico de SO · 2026-08-27
+
+os hooks NÃO ativam sozinhos depois de um clone, e o SETUP.md afirma que sim. `.claude/settings.json`
+e `.zcode/config.json` são versionados com `/mnt/workspace/...` hardcoded em ~20 comandos, e o passo
+"Workspace path" só reescreve shebang de core/tools. Em qualquer clone fora daquele path a camada de
+enforcement inteira fica morta em silêncio — o modo de falha exato que o deps.txt existe pra eliminar.
+Vale pro Windows e vale pro aluno que clonar em ~/wos. proj: os-agnostic-port
+— sessão port agnóstico de SO · 2026-08-27
+
+as três bifurcações por-SO do WOS estão todas quebradas, e isso é argumento e não coincidência:
+start-session.ps1 imprime WORKSPACE.md (arquivo que não existe; o real é AGENTS.md) enquanto o .sh
+imprime AGENTS.md e ainda se descreve como "Neutral session-start entrypoint"; .agentrc.json aponta
+start_session_windows pro .ps1 quebrado; caveman/hooks/activate.js escolhe caveman-statusline.ps1 no
+Windows e esse arquivo não existe no repo. A correção não é consertar os .ps1, é deletá-los. Um
+entrypoint que roda nos dois. proj: os-agnostic-port
+— sessão port agnóstico de SO · 2026-08-27
+
+a convenção de segredo "dir 700 / file 600" (SETUP-accounts.md, e a entrada de 26/08 sobre os tokens
+664/775) não tem equivalente escrito pra nenhum sistema sem modo POSIX. No Windows a permissão é ACL,
+não modo. Isso não é um passo de install, é uma pergunta do seam de plataforma: secure_dir() /
+secure_file() ao lado de interpretador e package manager. E o Lucas tem razão que deveria vir cedo —
+um segredo escrito frouxo não fica seguro depois. proj: os-agnostic-port
+— sessão port agnóstico de SO · 2026-08-27
+
+deps.txt não tem como dizer "esta dep só existe neste sistema", e o caso do secretstorage é pior do
+que parece. Medido no Windows hoje: `pip install secretstorage` sai 0 e `import secretstorage` sai 0
+— ou seja, a probe declarada em deps.txt fica VERDE. Mas o Secret Service é D-Bus, que só existe em
+Linux, então a dep está presente e inútil ao mesmo tempo. É um falso verde, que é pior que um falso
+vermelho: a coluna `breaks` promete avisar quando a feature some, e aqui ela não avisa. O redesenho
+do `kind` precisa de um teto de aplicabilidade por sistema, e a probe precisa medir função e não
+importação. proj: os-agnostic-port
+— sessão port agnóstico de SO · 2026-08-27
+
+o permissions.allow do .claude/settings.json versionado é todo `Bash(git -C * log *)`. Numa máquina
+onde o agente chama a tool PowerShell, nenhum desses padrões casa e o usuário leva prompt de permissão
+em tudo. Mesma classe do /mnt/workspace: config versionada assumindo um ambiente. proj: os-agnostic-port
+— sessão port agnóstico de SO · 2026-08-27
+
+README.md descreve um WOS que não existe mais: diz que "the registry that would let you switch one off
+is unbuilt … Today it is all or nothing", mas features.txt (76 features), profile.txt e
+`wos/features --on|--off` estão lá e funcionam. proj: os-agnostic-port
+— sessão port agnóstico de SO · 2026-08-27
+
 estudar uma forma de 
 
 acho que vale a pena mudar o momento do aviso do limite da "context window" pra aparecer sempre no final de cada resposta de forma que eu, usuário, veja ela. 
