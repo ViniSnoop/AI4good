@@ -18,11 +18,10 @@
 
 **🟢 the scaffold is still most of a lean workspace away from lean**
 *What* — root + `core/` + `brain/` at **≤170 `.md` files and ≤10,000 lines**, from 273 and 17,074.
-Six `SETUP-*.md` become one; `core/refs`' six shards fold into `REFS.md` and `core/experiments/`
-keeps conclusions only; `ISSUES.md`'s hand-written half fits a screen; each top-level skill reaches
-~45 lines; `brain/` sheds 19 MB of bot attachments, its project-state memories and most of its 54
-goal files. `core/flows/` and `core/agents/` are **out of scope** — agents and flows wait, so the
-number to drive is 237 files / 14,141 lines with those excluded.
+Six `SETUP-*.md` become one; `core/refs`' six shards fold into `REFS.md` and `core/experiments/` keeps
+conclusions only; `ISSUES.md`'s hand-written half fits a screen; each top-level skill reaches ~45
+lines; `brain/` sheds 19 MB of bot attachments, its project-state memories and most of its 54 goal
+files. `core/flows/` and `core/agents/` **wait** — out of scope, so the number to drive is 237 / 14,141.
 Three families are done — `SCHEMA` five files → two, `SPECS` five → one, `core/hooks`' four → one.
 **A seam has to be a second parser, not a heavy section**: `SCHEMA-layers.md` survives because a
 runtime parses it, and nothing parses a `SPECS` file, so all five merged. **A merged index lands over
@@ -46,7 +45,8 @@ finding; and `test_norms` reads the rule block line by line, so a wrapped norm l
 **🟢 a type's sibling files can be gitignored and nothing notices**
 *What* — a Tier 0 check that a file passing `entropy_naming.TYPE_SLUG` is tracked.
 *Why* — eight `core/SCHEMA-*.md` / `SPECS-*.md` sat untracked with three checks green, so a clone got
-an index pointing at nothing. The allowlist was hand-patched; the next type elsewhere falls in again.
+an index pointing at nothing. The allowlist was hand-patched and it happened again 2026-08-27:
+`academy/lab/CONTEXT.md` links `CHECKPOINTS.md`, which `academy/lab/*` keeps out of git.
 *Done when* — the check fails on an ignored sibling and passes on this tree.
 
 **🟢 the `SPEC.md` → `SPECS.md` retyping**
