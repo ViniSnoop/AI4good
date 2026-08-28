@@ -61,11 +61,15 @@ def test_an_agent_runnable_step_has_all_three_parts():
 
 
 def test_a_step_an_agent_cannot_finish_says_what_to_ask_for():
-    """`agent: no` is a handover, not a dead end. It must name the thing only Lucas can supply."""
+    """`agent: no` is a handover, not a dead end -- it must name the one thing the human does.
+
+    The marker is person-neutral on purpose: this file is read by whoever cloned the workspace,
+    and a step addressed to its author by name tells everyone else it is not for them.
+    """
     for name, body in _steps():
         if '· agent: no' not in body:
             continue
-        assert '**Needs Lucas:**' in body, (
+        assert '**Needs you:**' in body, (
             f'step "{name}" is marked agent: no but never says what to ask for')
 
 

@@ -236,3 +236,17 @@ a saída das nossas ferramentas quebra acento no console do Windows: `permission
 `permissions: open � rendered config matches`. o port declarou encoding na leitura e escrita de
 arquivo, mas `sys.stdout` ainda herda o cp1252 do console.
 — sessão permissões + push · 2026-08-28
+
+as quatro linhas `apt` do `core/tools/deps.txt` (poppler-utils, ffmpeg, tesseract-ocr, ddgr) seguem
+POSIX-only: o `wos/deps` imprime `sudo apt-get` pra elas, que não roda aqui. o `kind: system` novo
+resolve pelo platform_law, mas não migrei essas quatro — cada uma precisa que alguém verifique que o
+mesmo nome resolve nos três gerenciadores, que foi o que fiz pro `gh` e custa uma sonda por linha.
+migrar sem verificar seria afirmar uma portabilidade que ninguém mediu.
+— sessão permissões + push · 2026-08-28
+
+o `bash -n` do verify-fast só cobre `core/hooks/*.sh` e `*/*.sh`. os três arquivos de shell com o
+maior raio de dano do workspace — `pre-commit`, `post-commit` e o `run` novo — não têm extensão
+porque o git dita os dois primeiros nomes, então eram exatamente os três que nada checava. cobri num
+teste; o alvo do Makefile continua estreito.
+— sessão permissões + push · 2026-08-28
+

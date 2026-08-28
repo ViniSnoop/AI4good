@@ -29,6 +29,7 @@ WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 
 # The one place a platform question is answered by name. Every other module asks a function here.
 _WINDOWS = sys.platform == 'win32'
+_DARWIN = sys.platform == 'darwin'
 
 
 def interpreter() -> str:
@@ -41,6 +42,28 @@ def interpreter() -> str:
     it needs no PATH to be right.
     """
     return sys.executable
+
+
+def package_install(name: str) -> list:
+    """The command that installs a system package, whichever manager this machine actually has.
+
+    THE POINT IS THAT `name` DOES NOT CHANGE. core/tools/deps.txt says a dependency's name is spelled
+    "exactly as the install command spells it" -- a contract that was only ever true because one kind
+    of machine had read the file. Three managers, three spellings, and the row would have to fork.
+    So the seam absorbs the difference and the registry keeps one name per dependency.
+
+    WHY THE WINDOWS ARM PINS ITS SOURCE. `winget install gh` is ambiguous and refuses: the msstore
+    source offers unrelated apps matching those letters, and winget exits asking the caller to refine
+    rather than installing anything. Pinning --source winget makes the moniker exact -- verified
+    against the live index, not assumed -- and it also skips the Store's terms prompt, which is
+    interactive and would hang a non-interactive install.
+    """
+    if _WINDOWS:
+        return ['winget', 'install', '--moniker', name, '--source', 'winget',
+                '--accept-source-agreements', '--accept-package-agreements']
+    if _DARWIN:
+        return ['brew', 'install', name]
+    return ['sudo', 'apt-get', 'install', '-y', name]
 
 
 def posix(path) -> str:

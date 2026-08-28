@@ -42,3 +42,4 @@ nodejs	binary	-	node --version	opencode-plugin	the opencode policy plugin cannot
 typescript	npm	-	tsc --version	interface-stubs	.d.ts stubs stop regenerating for TypeScript projects
 jscpd	npx	-	npx --yes jscpd --version	duplication-gate	the copy-paste gate SKIPS instead of blocking, printing one warning line that is easy to miss — a gate that silently stops gating
 rtk	binary	-	rtk --version	rtk-compaction	tool output reaches the context raw; nothing breaks, the session just costs 60-90% more
+gh	system	-	gh auth status	github-auth	auto-push fails on every feature/* commit, /roundup cannot promote, and the agent loses PRs and issues

@@ -20,8 +20,20 @@ this file for agents that support skills; it adds nothing, and this file never d
 | **Install** | idempotent. Running it twice must be a no-op, never a second copy |
 | **Verify** | a command proving the thing works. **A step is done when its probe passes, never when its config looks right** |
 
-`agent: no` marks the short list an agent cannot finish alone — an API key, a consent screen, a
-device pairing. Each says exactly what to ask for. Everything else, run without asking.
+`agent: no` marks the short list an agent cannot finish **alone** — an API key, a consent screen, a
+device pairing. It has never meant the agent steps back. **Every step here is agent-guided,
+including the ones the agent cannot finish**: it runs everything it can, and then hands the human
+the one remaining part, already set up and named as a single action.
+
+That last part takes whichever of two shapes the thing itself has. When it is a **secret**, ask for
+the secret and write the config yourself — never hand over a command to run for something you could
+have run. When it is an **act only a person can perform** — authorising in a browser, accepting a
+consent screen, choosing between options only they can weigh — give the exact command or click,
+say what will happen next, and then verify the result yourself.
+
+What never changes is that the human receives **one action, not an investigation**. A step that
+leaves someone reading documentation to work out what to do has not been installed; it has been
+delegated. Everything else, run without asking.
 
 Two steps are `substrate`, and the distinction is the ablation's, not bookkeeping (2026-08-17):
 switching off the interpreter the switch itself runs on produces no signal, and a shebang a clone
@@ -143,6 +155,45 @@ core/tools/wos/deps            # every dep, ok/MISSING, with the install line fo
 row to Lucas, naming the package and the `breaks` line printed beside it.
 
 **Verify** `core/tools/wos/deps --check` — exit 0 means nothing is missing.
+
+## GitHub account
+> feature: `github-auth` · agent: no
+
+Runs next to the git hook because that hook is what makes it urgent: `core/hooks/post-commit`
+auto-pushes every `feature/*` branch, so an unauthenticated clone finds out at its first commit.
+`/roundup` cannot promote either, and the agent loses PRs and issues — it ends up asking you to
+paste output from a browser, which is the shape this whole file exists to avoid.
+
+**Precondition**
+```bash
+gh auth status                     # a logged-in host means this step is done
+```
+
+**Install** — the agent installs the CLI, and **`gh auth login` is the one part it cannot do**: the
+device flow needs a terminal it can type into. There is nothing to choose and nothing to paste back.
+```bash
+core/tools/wos/deps --feature github-auth    # prints the install line for THIS machine's manager
+```
+
+**Needs you:** one command, in your own terminal, and nothing else — hand over exactly this:
+
+> Run `gh auth login`. Pick **GitHub.com**, then **HTTPS**, then **Login with a web browser**. It
+> shows an eight-character code, opens GitHub, and you paste the code and approve.
+
+Wait for them, then finish it yourself — this part is not theirs:
+```bash
+gh auth setup-git                  # registers gh as git's credential helper, which fixes push
+```
+
+**Verify** — both halves, because authentication and pushing fail separately:
+```bash
+gh auth status
+git push --dry-run origin HEAD
+```
+
+`gh` is a declared dependency, so its absence is reported by `core/tools/wos/deps` like any other,
+and its probe is `gh auth status` rather than `gh --version` on purpose: a CLI installed but not
+logged in breaks every line of the `breaks` column just as completely as one that is missing.
 
 ## Git hook
 > feature: `git-hooks` · agent: yes
@@ -415,7 +466,7 @@ sudo apt install -y ddgr                           # or: pipx install ddgr
 
 Optional. Upgrades search quality; without it ddgr serves every call.
 
-**Needs Lucas:** an API key from the [Exa dashboard](https://exa.ai). Ask for the key itself and
+**Needs you:** an API key from the [Exa dashboard](https://exa.ai). Ask for the key itself and
 write it yourself — never hand him a command.
 
 **Install** — once he pastes the key:
@@ -435,7 +486,7 @@ Slides, Docs and Forms keep a write token separate from their read one. An expir
 own fix — relay it verbatim: [`core/tools/SPECS.md`](core/tools/SPECS.md) § An auth failure names
 its own fix.
 
-**Needs Lucas:** the consent screen is a browser interaction nobody can click for him. Run the
+**Needs you:** the consent screen is a browser interaction nobody can click for him. Run the
 install, hand him the URL it prints, ask for the code it returns. Everything either side is yours.
 
 **Precondition** `core/tools/calendar/gcalendar upcoming --days 1` — a listing means auth is live.
@@ -457,7 +508,7 @@ tool actually authenticates against** — `forms` and `docs` read their own cred
 [`core/tools/forms/SPECS.md`](core/tools/forms/SPECS.md) and
 [`core/tools/docs/SPECS.md`](core/tools/docs/SPECS.md).
 
-**Needs Lucas:** in console.cloud.google.com as `lsf.cin@gmail.com` — create a project, enable
+**Needs you:** in console.cloud.google.com as `lsf.cin@gmail.com` — create a project, enable
 **Google Forms API** and **Google Drive API**, configure the auth platform (External, himself as
 test user), create an **OAuth client → Desktop app**, download its JSON. A 403 names a project by
 *number* while the console lists ids, so resolve it through `project_id` in the matching
@@ -479,7 +530,7 @@ The Telegram bridge lives in [`code/aiwbot`](code/aiwbot/CONTEXT.md) as the syst
 `aiwbot`: it captures text, photo, voice and document into `brain/INBOX.md` and drives coding agents
 remotely.
 
-**Needs Lucas:** a bot token from BotFather, and the pairing — he must message the bot once so its
+**Needs you:** a bot token from BotFather, and the pairing — he must message the bot once so its
 `allowed_chat_id` is captured. Tokens are guessable by username, so that allowlist is the only thing
 between a stranger and writes into `brain/INBOX.md`. Ask for the token; write
 `~/.config/workspace-aiwbot/config.json` yourself, dir `700` / file `600`.

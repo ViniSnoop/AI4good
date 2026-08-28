@@ -11,20 +11,38 @@ ROOT = Path(__file__).resolve().parents[3]
 DECLARED = ROOT / 'core' / 'tools' / 'deps.txt'
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+sys.path.insert(0, str(ROOT / 'core' / 'hooks'))
+import platform_law  # noqa: E402
 import tool_law  # noqa: E402
 
+# `apt` names one machine's package manager and `system` asks which one is here. Both are kept: the
+# rows still spelled `apt` were declared before this tool could tell the difference, and rewriting
+# them blind would claim a portability nobody probed. A row moves to `system` when someone verifies
+# the same name resolves on all three managers, which is exactly what `gh` needed.
 INSTALL = {
     'pip': '.venv/bin/pip install {name}',
     'apt': 'sudo apt-get install -y {name}',
+    'system': None,   # resolved per machine by platform_law — see _install_line
     'npm': 'npm install -g {name}',
     'npx': 'npx --yes {name}   # no install needed, but the first run must reach the registry',
     'binary': 'see SETUP.md — {name} has its own installer',
 }
 
 
+def _install_line(row: dict) -> str:
+    """What to run to install this dependency, on THIS machine.
+
+    A printed install line that cannot run is worse than none: it reads as an answer, gets pasted,
+    and fails somewhere the reader does not connect back to here.
+    """
+    if row['kind'] == 'system':
+        return ' '.join(platform_law.package_install(row['name']))
+    return INSTALL[row['kind']].format(name=row['name'])
+
+
 def rows() -> list[dict]:
     """Parse deps.txt: '#' comments dropped, first surviving line is the header."""
-    lines = [ln.rstrip('\n') for ln in DECLARED.read_text().splitlines()
+    lines = [ln.rstrip('\n') for ln in DECLARED.read_text(encoding='utf-8').splitlines()
              if ln.strip() and not ln.startswith('#')]
     header = lines[0].split('\t')
     return [dict(zip(header, ln.split('\t'))) for ln in lines[1:]]
@@ -62,7 +80,7 @@ def main() -> int:
         print(f'\n{len(missing)} missing — install, then re-run this command:\n')
         for r in missing:
             print(f"  # {r['name']}: {r['breaks']}")
-            print(f"  {INSTALL[r['kind']].format(name=r['name'])}\n")
+            print(f"  {_install_line(r)}\n")
     else:
         print(f'\nall {len(wanted)} declared dependencies present.')
 
