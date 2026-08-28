@@ -44,6 +44,10 @@ fallback · even a partial map beats starting from zero again*
 > [ ] [portoes-garagem] retomar com Marcelo os portões de garagem, que ficaram fora da aprovação  
 > [ ] [recotar] pedir revisão das 3 cotações depois de fechar projeto (comportas + 40 cm + portões) — todas estão
 > vencidas, Rubão cobrou isso em 12/08  
+> [ ] [email-cartorio] trazer a troca de e-mails com o 7º RGI (atendimento@7rirecife.com.br) para conversas/ — bloqueado:
+> token do Gmail `personal` expirado, precisa de consentimento no navegador  
+> [ ] [limpar-drive-cin] inventariar e limpar as duas pastas antigas da obra no Drive do cin — bloqueado pelo mesmo tipo
+> de consentimento; a planilha viva de finanças mora lá e não pode ser tocada  
 > [ ] [obra-system] executar S2..S7 do plano (branches/casinhas/ROADMAP.md): CLI `obra`, EAP+orçamento SINAPI,
 > comparação de cotações, slides destilados  
 > [ ] [contractor-quotes] 5 construtores mapeados (Inova ~R$1,30mi; Pedra Verde/Rubão R$896k tijolo ecológico; SPS
