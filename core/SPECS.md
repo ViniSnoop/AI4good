@@ -40,8 +40,6 @@
   the CLI gains `--reauth` — a test checks every command in that table names a tool that exists. A
   provider **without** OAuth follows `notes/notion` (AD-12). Tokens live in `~/.config/workspace-*/`
   and are never committed.
-- **A skill's `refs/` folder** sits beside the skill file, never inside the generated `.opencode/` or
-  `.claude/` mirrors. Reading notes go in `*.md`; references a skill will parse go in `*.yaml`.
 
 ### AD-01 — AGENTS.md as the universal entrypoint (2026-06-18)
 `WORKSPACE.md` became `AGENTS.md`. Every runtime reads it natively or through `@AGENTS.md` in
@@ -67,9 +65,10 @@ not demoted, and course material stays where the students see it. Tool: `core/to
 API facts: `core/tools/slides/SPECS.md`.
 
 ### AD-06 — A skill's `refs/` folder sits beside the skill (2026-07-05)
-Any skill accumulating external references keeps `refs/` at the **same level as the skill file**, and
-it is **excluded from the sync** — `sync-skills` copies `<name>.md` and generates the symlink, never
-touching subfolders.
+Any skill accumulating external references keeps `refs/` at the **same level as the skill file**,
+never inside the generated `.opencode/` or `.claude/` mirrors, and it is **excluded from the sync** —
+`sync-skills` copies `<name>.md` and generates the symlink, never touching subfolders. Reading notes
+go in `*.md`; references a skill will parse go in `*.yaml`.
 
 ### AD-07 — Sub-skills group into a suite folder (2026-07-05)
 Skills sharing a namespace group into `core/skills/<suite>/` with `SKILL.md` as parent router. The

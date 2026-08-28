@@ -8,18 +8,11 @@ Installing the toolchain these gates depend on: [`SETUP.md`](../../SETUP.md).
 ## The law lives in file_law.py / schema_law.py / limits.env, never in a checker
 
 A checker that restates any of these is the drift the checkers exist to catch, and it has bitten
-three times. Five definitions of "a code file" existed across checkers before they were unified
-behind `file_law.is_code_file`. `entropy_corpus.py` once spelled out a sibling path by hand, which
-stops exempting the retired-token checker the moment `core/hooks` moves; both are derived from
-`Path(__file__)` now.
-
-**The third (2026-08-24) is the one worth recognising by shape, because it never looked like drift.**
-`core/tools/wos/wrap` carried a private exemption for YAML frontmatter and said so in its own
-docstring. It was honest, documented, and still wrong: the law kept flagging those lines while the
-tool refused to touch them, so the count charged for a rule nothing intended to enforce, and the
-disagreement was invisible because each file read correctly alone. **A tool that knows it is
-overriding the law has found a gap in the law, not a special case of its own** — the tell is a
-checker whose docstring explains why it disagrees with what it just asked.
+three times. **The dangerous shape never looks like drift: a tool that knows it is overriding the
+law has found a gap in the law, not a special case of its own.** The tell is a checker whose
+docstring explains why it disagrees with what it just asked — `core/tools/wos/wrap` carried exactly
+that for YAML frontmatter, honest and documented and still wrong, because the law kept flagging
+lines the tool refused to touch and each file read correctly alone.
 
 ## What a working install looks like
 
@@ -73,10 +66,9 @@ workspace.
 
 ### Branch drift
 
-**HEAD is shared mutable state between parallel sessions, and until this existed nothing said so.**
-Observed 2026-08-14: a session began on one branch, a parallel session switched the shared checkout
-mid-flight, and the first session's commit landed on *their* branch and was auto-pushed there.
-**The branch read correct at session start**, which is why no start-of-session check can catch it.
+**HEAD is shared mutable state between parallel sessions.** A parallel session switches the shared
+checkout mid-flight and your commit lands on *their* branch, auto-pushed there. **The branch reads
+correct at session start**, which is why no start-of-session check can catch it.
 
 [`git/branch-marker.sh`](git/branch-marker.sh) records the branch at `SessionStart` and the
 pre-commit path warns when HEAD no longer matches. Three properties carry the design: **warn, never
@@ -163,19 +155,15 @@ operation, revert. Both `checks/pre-edit.py` and `checks/check-line-counts.sh` r
 
 ### A file a tool writes is not a file anyone authored
 
-`ARCHITECTURE.html` forced the third answer (2026-08-18). Until then a file was either **ours and
-authored** — every size, shape and first-line rule applies — or **vendored** and exempt because
-upstream chose its layout. A generated page is neither: `.html` is in `CODE_EXTS`, so the 200-line cap
-blocked the commit that first carried it, and filing our own output under "third-party we did not
-author" would have bought the exemption with a lie.
+A file is **authored** — every size, shape and first-line rule applies — or **vendored** and exempt
+because upstream chose its layout, or **generated**, which is neither and needed its own answer.
 
-So [`generated.txt`](generated.txt) declares what our tools write, on the same contract as its sibling
+[`generated.txt`](generated.txt) declares what our tools write, on the same contract as its sibling
 — a **named, reviewed glob list, never a heuristic**, each entry naming its generator — and
-`file_law.is_authored()` is the one question every size and shape gate asks. It replaced the same
-condition spelled out at four call sites, which is where the answers would otherwise have started
-disagreeing. **Why the exemption is safe here and not in general:** the artifact has a test that its
-generator reproduces it byte for byte (`--check`). An entry without that property is a hand-edited
-file wearing a generated file's coat.
+`file_law.is_authored()` is the one question every size and shape gate asks. **Why the exemption is
+safe here and not in general:** the artifact has a test that its generator reproduces it byte for
+byte (`--check`). An entry without that property is a hand-edited file wearing a generated file's
+coat.
 
 ### The `CONTEXT.md` routing block
 
@@ -193,11 +181,6 @@ parent directory) and every commit, keeping each directory's `## Routing` block 
 **Never edit inside the `<!-- routing:start/end -->` sentinels** — the next sync overwrites it.
 **Renames are not tracked**: the old entry disappears and the new file arrives with a placeholder.
 
-**A `← add` marker is a claim about the generator before it is a claim about the file.** Four times
-out of four (2026-08-15) the text was already there and the scanner was not reaching for it. **Check
-the extension's entry in `routing/workspace_meta.py` before writing a description by hand** — when a
-whole extension is undescribable, fix it there, because a sweep re-fills.
-
 **Hoisted text is bounded and rebased; authored text is not.** A `.md` blurb and a subdirectory blurb
 were written to sit under their own heading, so [`routing/hoist.py`](routing/hoist.py) rebases their
 links and cuts them at `DESC_LIMIT`. A code file's first-line comment goes in untouched: it was
@@ -210,18 +193,18 @@ the canonical description. Enforced at **Write** (`pre-edit.py` blocks), at **Ed
 prints, the edit stands), and at **commit** — `entropy_context.check_description`, run by
 `checks/type-gate.py` over the files the commit adds.
 
-**The commit gate is the load-bearing one, and it was the missing one.** `pre-edit.py` only fires
-under `if not os.path.exists(file_path)`, so it covers creation through Edit/Write and nothing else: a
-file written by a generator, a shell heredoc, `git checkout`, or an agent not running our hooks was
-never asked. **An edit-time check only covers the harness path; the staged set is what covers
-everyone.**
+**The commit gate is the load-bearing one.** `pre-edit.py` only fires under
+`if not os.path.exists(file_path)`, so it covers creation through Edit/Write and nothing else: a file
+written by a generator, a shell heredoc, `git checkout`, or an agent not running our hooks is never
+asked. **An edit-time check only covers the harness path; the staged set is what covers everyone.**
 
 **The check asks the generator, never its own pattern table.** `check_description` calls
 `workspace_meta.file_description()` — the same call whose empty return makes the generator write the
 placeholder — and `workspace_scanner.is_scanned()` to decide who is asked, so the gate's scope and the
-table's scope are one definition. The alternative was tried by accident and cost a session: 59
-well-commented files were marked undescribable because two lists disagreed. **A marker is not evidence
-of a discipline problem until the generator has been asked whether it can answer it.**
+table's scope are one definition. **A marker is not evidence of a discipline problem until the
+generator has been asked whether it can answer it**: check the extension's entry in
+`routing/workspace_meta.py` before writing any description by hand, because a hand sweep gets
+re-filled.
 
 **A file that cannot carry a comment gets its description written into the table instead.**
 `parse_preserved_files` keeps any non-placeholder description across a re-sync, so the row is the
@@ -314,18 +297,11 @@ trust gate above holds the zcode column inert, and it flips only when a post-tru
 row. Event remaps: no `SubagentStart` in zcode, so `agent-context.py` rides PreToolUse `Agent|Task`;
 no `PreCompact`, so `precompact-wipe.sh` rides SessionStart `^compact$`.
 
-## A ✅ in that table is a claim, and until 2026-08-19 nothing checked it
+## A ✅ in that table is a claim, and `test_shim_paths.py` is what checks it
 
-**Every path a shim spawns must resolve, and `test_shim_paths.py` asserts it.** The 2026-07-31 split
-moved scripts into `read/`, `checks/` and `facade/`; all eleven of opencode's spawns kept pointing at
-`core/hooks/<script>` and were dead for weeks with every row above still reading ✅. Writing the test
-immediately found **three more, in the Copilot shim, from the same split** — which is to say the
-facade-scan, facade-gate and post-read facade-tracker rows were ✅ for a runtime that could not reach
-any of them. **Two shims, one cause, found a day apart is the argument for the check rather than for
-another careful reading.**
+Every path a shim spawns must resolve, and that test asserts it — its own header carries why, and
+what the check does *not* buy: it proves a path **resolves**, never that the gate **fires**.
 
-What the check buys is bounded and the test says so in its own first lines: it proves a path
-*resolves*, never that the gate *fires*. **So a new runtime's shim owes two things**, not one: the
-contract above, and an entry in `SHIMS` in `core/tools/test/workspace/test_shim_paths.py` naming its
-files and how a spawn names a script. A shim with no entry is unchecked, which is the state opencode
-and Copilot were both in.
+**So a new runtime's shim owes two things**, not one: the contract above, and an entry in `SHIMS` in
+`core/tools/test/workspace/test_shim_paths.py` naming its files and how a spawn names a script. A
+shim with no entry is unchecked, which is the state opencode and Copilot were both in.
