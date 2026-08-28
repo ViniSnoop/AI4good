@@ -4,13 +4,13 @@
 <!-- stats:start -->
 <!-- data:start -->
 ## attention dashboard  _(auto-updated on every commit)_
-last-updated: 2026-08-28 15:52
+last-updated: 2026-08-28 15:54
 
 >**areas** — last 14 days  
 ```
-health       ██████████   242 touches
+health       ██████████   243 touches
 career       █░░░░░░░░░   32 touches
-finances     ░░░░░░░░░░   10 touches
+finances     ░░░░░░░░░░   11 touches
 fun          ░░░░░░░░░░   20 touches
 spiritual    ░░░░░░░░░░   1 touches
 ```
@@ -29,7 +29,7 @@ exercise                 ░░░░░░░░░░   3 touches
 finances                 ░░░░░░░░░░   2 touches
 google-migration         ░░░░░░░░░░   8 touches
 guitar                   ░░░░░░░░░░   1 touches
-home-casinhas            ░░░░░░░░░░   7 touches
+home-casinhas            ░░░░░░░░░░   8 touches
 instituto                ░░░░░░░░░░   1 touches
 lih-dd                   ░░░░░░░░░░   2 touches
 local-ai                 ░░░░░░░░░░   13 touches
@@ -68,7 +68,7 @@ teaching-materials       ░░░░░░░░░░   23 touches
 travel                   ░░░░░░░░░░   1 touches
 vipassana                ░░░░░░░░░░   1 touches
 voice                    ░░░░░░░░░░   1 touches
-workspace-os             ██████████   242 touches
+workspace-os             ██████████   243 touches
 yoga                     ░░░░░░░░░░   1 touches
 ```
 <!-- data:end -->

@@ -25,8 +25,8 @@ Mandar UMA mensagem pra Tecsolo Sondagens cobrando o orçamento que eles promete
 (81) 99180-5024, (81) 98801-5824. 2 minutos, e é o passo que destrava a Licença de Instalação.
 
 >**timing**  
-*target · DAM pago hoje; cartório resolvido esta semana  
-anchor · Marcelo cobrou em 06/07 — processo parado até pagar  
+*target · orçamento da Tecsolo esta semana; laudo do solo em setembro  
+anchor · Marcelo cobrou o teste em 15/08, 19/08, 24/08 e 28/08 — a Licença de Instalação não anda sem ele  
 closure · casinhas built, functional, fulfilling what they were designed for  
 tolerance · long project — any clarity now helps  
 fallback · even a partial map beats starting from zero again*
@@ -58,9 +58,10 @@ fallback · even a partial map beats starting from zero again*
 
 <!-- done:start -->
 
+
+- [x] 2026-08-28 [averbacao-terreno] processo 45.992 no 7º RGI (titularidade → demarcação) protocolado 22/07 e em exame; emolumentos R$ 5.803,08 pagos; exigência da certidão de endereço paga 28/08
+- [x] 2026-08-28 [gastos-catalogar] finanças catalogadas: R$ 15.699,06 somados por script, com os 4 pagamentos que faltavam na planilha em gastos-pendentes.csv
 - [x] 2026-07-06 [project-map] branches/casinhas/ mapeado e estruturado: CONTEXT.md (cockpit) + projeto.md + material todo ingerido (plantas V03, docs burocráticos, conversa Marcelo, 3 cotações)
-- [x] 2026-07-06 [stages-map] etapas.md: timeline completa de 15 etapas com status/fonte, extraída da conversa com Marcelo
-- [x] 2026-07-06 [create-project] projeto arquitetônico (Marcelo) aprovado na prefeitura em 15/04/2026; terreno aprovado 09/04/2026
 <!-- done:end -->
 
 ## stats
@@ -69,10 +70,10 @@ last-touch: 2026-08-28  ·  trend: steady
 
 | period      | touches |
 |-------------|----------|
-| month       |      13 |
-| trimester   |      28 |
-| semester    |      28 |
-| year        |      28 |
-| 2-year      |      28 |
-| 4-year      |      28 |
+| month       |      14 |
+| trimester   |      29 |
+| semester    |      29 |
+| year        |      29 |
+| 2-year      |      29 |
+| 4-year      |      29 |
 <!-- stats:end -->
