@@ -214,3 +214,6 @@ code/statem
 # ZCode session artifacts — config.json, CONTEXT.md and the skills/ mirror are tracked.
 .zcode/plans/
 !branches/google-migration/
+
+# The workspace venv. Local to one machine, never versioned.
+.venv/
