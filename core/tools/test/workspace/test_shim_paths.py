@@ -35,12 +35,22 @@ SHIMS = {
          HOOKS / 'copilot/copilot_shared.py'],
         re.compile(r'["\']((?:[A-Za-z0-9_-]+/)+[A-Za-z0-9_-]+\.(?:py|sh))["\']'),
     ),
-    # Direct registration, no adapter: the config spawns canonical scripts by absolute path
-    # (mirroring .claude/settings.json). Inert until workspace trust — see
+    # Direct registration, no adapter: both configs spawn canonical scripts through
+    # core/hooks/run, which resolves this clone's interpreter. `${CLAUDE_PROJECT_DIR}` is expanded
+    # by the harness, so the same string is correct on every machine and neither file is rewritten
+    # at install time. ZCode's registration is additionally inert until workspace trust — see
     # core/experiments/zcode-hook-protocol.md — but the paths it names must resolve regardless.
+    #
+    # `.claude/settings.json` was NOT in this table until 2026-08-28, and that gap is why it could
+    # carry twenty commands naming a directory that existed on one machine only. The shim this file
+    # was written to guard was the one shim it did not read.
+    'claude': (
+        [WORKSPACE_ROOT / '.claude/settings.json'],
+        re.compile(r'\$\{CLAUDE_PROJECT_DIR\}/core/hooks/(?:run )?([A-Za-z0-9_./-]+\.(?:py|sh))'),
+    ),
     'zcode': (
         [WORKSPACE_ROOT / '.zcode/config.json'],
-        re.compile(r'/mnt/workspace/core/hooks/([A-Za-z0-9_./-]+\.(?:py|sh))'),
+        re.compile(r'\$\{CLAUDE_PROJECT_DIR\}/core/hooks/(?:run )?([A-Za-z0-9_./-]+\.(?:py|sh))'),
     ),
 }
 
@@ -77,3 +87,15 @@ def test_copilot_spawns_only_scripts_that_exist():
 def test_zcode_spawns_only_scripts_that_exist():
     dead = sorted(p for p in _spawned('zcode') if not (HOOKS / p).exists())
     assert not dead, f'zcode shim spawns paths that do not resolve: {dead}'
+
+
+def test_claude_spawns_only_scripts_that_exist():
+    dead = sorted(p for p in _spawned('claude') if not (HOOKS / p).exists())
+    assert not dead, f'claude shim spawns paths that do not resolve: {dead}'
+
+
+def test_the_launcher_every_shim_goes_through_is_there():
+    """Both direct shims name `core/hooks/run` before naming a gate, so its absence would break
+    every gate at once while each individual path above still resolved."""
+    launcher = HOOKS / 'run'
+    assert launcher.exists(), f'the shim launcher is gone -- {launcher}'

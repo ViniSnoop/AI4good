@@ -1,0 +1,38 @@
+#!/bin/sh
+# The one command a harness shim names: find this clone's interpreter, then run a gate with it.
+#
+# WHY A SHIM CANNOT JUST NAME THE INTERPRETER. A hooks config is data, read before any of our code
+# runs, so it cannot ask platform_law.py which Python to use -- the answer would have to be spelled
+# in the config, and the spelling differs per machine: `.venv/bin/python3` on POSIX,
+# `.venv/Scripts/python.exe` on Windows. A config carrying a per-machine value has to be rewritten
+# by an install step, and then a tracked file is dirty on every clone that is not the author's.
+# This file moves that one unknown behind a stable name, so every shim in the workspace can be
+# versioned verbatim and no install step touches them.
+#
+# WHY THE BARE WORD `python3` IS NOT AN OPTION, and what it cost: on Windows that name reaches a
+# Microsoft Store execution alias which prints an advert and exits 9009. The gate never runs and the
+# caller reads the advert as the gate's own output -- a silent pass wearing a failure's coat. Every
+# Claude Code and ZCode hook in this workspace was spelled that way, so on a Windows clone the
+# enforcement layer had never once fired while the config read as correct.
+#
+# WHY THIS IS NOT THE PER-OS FORK THE RATCHET FORBIDS. There is one file here, not a pair, and it
+# asks the filesystem which venv layout is present rather than asking which operating system this
+# is. The platform question itself is still answered in exactly one module, platform_law.py, and no
+# .ps1/.bat sibling sits beside a .sh. The list below is ordered, not branched: the first candidate
+# that exists wins.
+set -e
+
+root=$(CDPATH= cd -- "$(dirname -- "$0")/../.." && pwd)
+gate=$1
+[ -n "$gate" ] || { echo "core/hooks/run: names no gate" >&2; exit 1; }
+shift
+
+for py in "$root/.venv/bin/python3" "$root/.venv/Scripts/python.exe"; do
+    [ -x "$py" ] || continue
+    exec "$py" "$root/core/hooks/$gate" "$@"
+done
+
+# Exit 1, never 2: a missing interpreter is this workspace being half-installed, not the tool call
+# being wrong, and a PreToolUse hook that exits 2 blocks the call it was only meant to observe.
+echo "core/hooks/run: no interpreter under $root/.venv -- run /install" >&2
+exit 1

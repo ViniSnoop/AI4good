@@ -101,10 +101,16 @@ def test_the_ceilings_are_not_stale():
 # test pretending to check it would be the weaker kind this workspace names. AD-9's law (no text
 # read or write inheriting the OS encoding) is owed: the corpus is clean, but an exact check needs
 # the ast walk the codemod used, and that belongs with the pre-commit pipeline being ported next.
-MACHINE_PATH_CEILING = 130        # `mnt/workspace` hardcoded in a versioned file; S5 drives it to 0
-VENV_POSIX_CEILING = 73           # `.venv/bin`, which is `.venv/Scripts` elsewhere; S4 drives it to 0
+MACHINE_PATH_CEILING = 126        # `mnt/workspace` hardcoded in a versioned file; S5 drives it to 0
+VENV_POSIX_CEILING = 72           # `.venv/bin`, which is `.venv/Scripts` elsewhere; S4 drives it to 0
 
 SEAM = 'core/hooks/platform_law.py'
+
+# The venv seam, and exempt from the venv ceiling for the reason platform_law.py is exempt from the
+# sys.platform one: naming both layouts is this file's entire job. A hooks config is data, read
+# before any of our code runs, so it cannot ask a Python function which interpreter to use -- the
+# launcher is where that question gets answered once for every harness shim in the tree.
+LAUNCHER = 'core/hooks/run'
 
 
 def _git(*args) -> list:
@@ -155,7 +161,7 @@ def test_a_machine_path_does_not_spread():                                      
 
 
 def test_a_posix_only_venv_path_does_not_spread():                                           # I6
-    live = len(_git('grep', '-lF', '.venv/bin', '--'))
+    live = len([f for f in _git('grep', '-lF', '.venv/bin', '--') if f != LAUNCHER])
     assert live <= VENV_POSIX_CEILING, (
         f'{live} versioned files name .venv/bin, up from {VENV_POSIX_CEILING}. That directory is '
         f'.venv/Scripts on Windows, and {SEAM} owns the difference')

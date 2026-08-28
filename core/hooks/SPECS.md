@@ -93,8 +93,26 @@ record the deviations so a future re-sync knows what it is merging against.
 
 ## Agent lifecycle gates
 
-Bound by absolute path from `.claude/settings.json`, and by the equivalent registration in each other
-provider's shim.
+Bound from `.claude/settings.json`, and by the equivalent registration in each other provider's
+shim. Every one of them spawns through [`run`](run), which is the shim contract in one line:
+
+```
+sh ${CLAUDE_PROJECT_DIR}/core/hooks/run <gate-relative-to-core/hooks> [args]
+```
+
+**A shim carries no machine-specific string, and that is the whole reason `run` exists.** The
+harness expands `${CLAUDE_PROJECT_DIR}`, and `run` picks `.venv/bin/python3` or
+`.venv/Scripts/python.exe` by asking the filesystem which is there — so a shim is versioned verbatim
+and no install step rewrites it. It is also the only file besides `platform_law.py` allowed to know
+both venv layouts, and `test_corpus_ratchet.py` exempts it by name for that reason.
+
+**Why the bare word `python3` is banned here.** On Windows it reaches a Microsoft Store execution
+alias that prints an advert and exits 9009: the gate never runs, and the caller reads the advert as
+the gate's own output. Every hook in this workspace was spelled that way until 2026-08-28, so on a
+Windows clone the enforcement layer had never once fired while both configs read as correct. The
+paths a shim names are checked by `test_shim_paths.py`, which now reads `.claude/settings.json` too
+— it did not until that day, which is precisely how twenty dead commands survived in the one file
+the test existed to guard.
 
 | Script | Trigger | Behaviour |
 |--------|---------|-----------|

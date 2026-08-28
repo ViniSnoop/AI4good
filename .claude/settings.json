@@ -21,7 +21,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 /mnt/workspace/core/hooks/read/context-gate.py"
+            "command": "sh ${CLAUDE_PROJECT_DIR}/core/hooks/run read/context-gate.py"
           }
         ]
       },
@@ -30,11 +30,11 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 /mnt/workspace/core/hooks/read/bash-context-gate.py"
+            "command": "sh ${CLAUDE_PROJECT_DIR}/core/hooks/run read/bash-context-gate.py"
           },
           {
             "type": "command",
-            "command": "python3 /mnt/workspace/core/hooks/checks/heredoc-gate.py"
+            "command": "sh ${CLAUDE_PROJECT_DIR}/core/hooks/run checks/heredoc-gate.py"
           }
         ]
       },
@@ -43,23 +43,23 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 /mnt/workspace/core/hooks/checks/pre-edit.py"
+            "command": "sh ${CLAUDE_PROJECT_DIR}/core/hooks/run checks/pre-edit.py"
           },
           {
             "type": "command",
-            "command": "python3 /mnt/workspace/core/hooks/facade/facade-scan.py"
+            "command": "sh ${CLAUDE_PROJECT_DIR}/core/hooks/run facade/facade-scan.py"
           },
           {
             "type": "command",
-            "command": "python3 /mnt/workspace/core/hooks/facade/facade-gate.py"
+            "command": "sh ${CLAUDE_PROJECT_DIR}/core/hooks/run facade/facade-gate.py"
           },
           {
             "type": "command",
-            "command": "python3 /mnt/workspace/core/hooks/checks/issues-gate.py"
+            "command": "sh ${CLAUDE_PROJECT_DIR}/core/hooks/run checks/issues-gate.py"
           },
           {
             "type": "command",
-            "command": "python3 /mnt/workspace/core/hooks/read/spec-read-gate.py"
+            "command": "sh ${CLAUDE_PROJECT_DIR}/core/hooks/run read/spec-read-gate.py"
           }
         ]
       },
@@ -68,7 +68,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash /mnt/workspace/core/hooks/read/pre-read.sh"
+            "command": "bash ${CLAUDE_PROJECT_DIR}/core/hooks/read/pre-read.sh"
           }
         ]
       },
@@ -77,7 +77,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 /mnt/workspace/core/hooks/read/agent-context.py"
+            "command": "sh ${CLAUDE_PROJECT_DIR}/core/hooks/run read/agent-context.py"
           }
         ]
       }
@@ -88,7 +88,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash /mnt/workspace/core/hooks/post-edit.sh"
+            "command": "bash ${CLAUDE_PROJECT_DIR}/core/hooks/post-edit.sh"
           }
         ]
       },
@@ -97,11 +97,11 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 /mnt/workspace/core/hooks/facade/facade-tracker.py"
+            "command": "sh ${CLAUDE_PROJECT_DIR}/core/hooks/run facade/facade-tracker.py"
           },
           {
             "type": "command",
-            "command": "python3 /mnt/workspace/core/hooks/read/context-tracker.py"
+            "command": "sh ${CLAUDE_PROJECT_DIR}/core/hooks/run read/context-tracker.py"
           }
         ]
       }
@@ -111,7 +111,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 /mnt/workspace/core/hooks/session/context-meter.py"
+            "command": "sh ${CLAUDE_PROJECT_DIR}/core/hooks/run session/context-meter.py"
           }
         ]
       }
@@ -121,7 +121,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash /mnt/workspace/core/hooks/session/precompact-wipe.sh"
+            "command": "bash ${CLAUDE_PROJECT_DIR}/core/hooks/session/precompact-wipe.sh"
           }
         ]
       }
@@ -131,19 +131,19 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash /mnt/workspace/core/hooks/session/session-prune.sh"
+            "command": "bash ${CLAUDE_PROJECT_DIR}/core/hooks/session/session-prune.sh"
           },
           {
             "type": "command",
-            "command": "bash /mnt/workspace/core/hooks/git/branch-marker.sh record"
+            "command": "bash ${CLAUDE_PROJECT_DIR}/core/hooks/git/branch-marker.sh record"
           },
           {
             "type": "command",
-            "command": "python3 /mnt/workspace/core/hooks/session/inbox-nudge.py"
+            "command": "sh ${CLAUDE_PROJECT_DIR}/core/hooks/run session/inbox-nudge.py"
           },
           {
             "type": "command",
-            "command": "python3 /mnt/workspace/core/hooks/session/compass-nudge.py"
+            "command": "sh ${CLAUDE_PROJECT_DIR}/core/hooks/run session/compass-nudge.py"
           }
         ]
       }
@@ -154,7 +154,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 /mnt/workspace/core/hooks/read/agent-context.py"
+            "command": "sh ${CLAUDE_PROJECT_DIR}/core/hooks/run read/agent-context.py"
           }
         ]
       }
