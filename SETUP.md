@@ -58,6 +58,41 @@ core/tools/wos/features --off <slug>    # one you do not want; its install step 
 
 <!-- steps:start -->
 
+## Agent permissions
+> feature: `permissions` · agent: yes
+
+**This step runs first, and its position is the point.** Every step below is an agent editing files
+and running commands; how often it has to stop and ask is decided here. Left unset, the newcomer
+answers that question one prompt at a time, under time pressure, by approving whatever is in front
+of them — which is how the allowlist on the machine that wrote this step came to hold nine entries
+that were whole command lines, matching nothing and asking again every time.
+
+The levels and what each one costs are declared in [`core/permissions.txt`](core/permissions.txt),
+in one sentence each. **Read them out and let the person choose**; never summarise them here, or
+this file becomes a second copy that disagrees with the first.
+
+**Precondition**
+```bash
+core/tools/wos/permissions --check     # exit 0 = a level is answered and rendered
+```
+
+**Install** — idempotent. It installs the safest level **without asking**, so a clone with nobody
+watching still ends up configured, and only then offers the choice:
+```bash
+core/tools/wos/permissions --set guarded    # safe default, no question asked
+core/tools/wos/permissions                  # print the levels; offer to raise it
+```
+
+**Verify**
+```bash
+core/tools/wos/permissions --check
+```
+
+The policy is versioned; the rendered config is not. `core/permissions.txt` is in git so a reviewer
+can read what this workspace permits, while `.claude/settings.local.json` is git-ignored because it
+is an answer about one machine — a versioned `bypassPermissions` would arrive switched on for
+whoever cloned next.
+
 ## Workspace path
 > substrate: yes · agent: yes
 

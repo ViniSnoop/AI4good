@@ -205,3 +205,34 @@ foi à mão. e `caveman` não está em `core/hooks/vendored.txt`, apesar de o pl
 estava quarentenado ali. ou entra na lista, ou para de ser chamado de vendored.
 — sessão port os-agnostic S2 · 2026-08-28
 
+os gates do workspace nunca rodaram nesta máquina, e agora rodam — mas ainda não bloqueiam. o shim
+estava quebrado em duas camadas: `/mnt/workspace` não existe aqui, e `python3` cai no alias da Store.
+consertei as duas com `core/hooks/run`. o que sobra é a lógica dos gates, e tem dois bugs:
+`context-gate.py:45` compara path como texto (`str(target).startswith(str(WORKSPACE) + '/')`), e no
+Windows o alvo tem `\` contra um prefixo com `/`, então nunca casa e todo acesso retorna 0 cedo —
+passa em silêncio, o mesmo modo de falha do anúncio da Store. são 3 sítios (`chain.py:53`,
+`context-gate.py:45`, `spec-read-gate.py:79`).
+— sessão permissões + push · 2026-08-28
+
+e o segundo, que é o que impede consertar o primeiro sozinho: os marcadores de sessão vivem em `/tmp`
+literal, em 15 arquivos. do Python nativo `/tmp` é `C:\tmp`, que não existe; do Git Bash é o `/tmp`
+do MINGW. shell e Python discordam sobre onde estão os marcadores, e `pre-read.sh` (shell) lê
+marcadores que `context-tracker.py` (Python) escreve. consertar só a comparação faria o gate bloquear
+sem nunca poder ser satisfeito — o workspace ficaria inutilizável aqui. os dois precisam ir juntos, e
+isso é a migração de-bash.
+— sessão permissões + push · 2026-08-28
+
+`test_shim_paths.py` guardava opencode, copilot e zcode — nunca `.claude/settings.json`. o shim que o
+teste existia para guardar era o único que ele não lia, e foi ali que 20 comandos mortos sobreviveram.
+adicionei. a lição não é o arquivo faltando, é que a tabela de shims era escrita à mão e ninguém
+comparou com `ls` das configs que existem.
+— sessão permissões + push · 2026-08-28
+
+as duas máquinas commitam com e-mails diferentes: `lsf@cin.ufpe.br` aqui, `lucas.sfigueiredo@ufrpe.br`
+na outra. mesmo Lucas, dois autores no GitHub. não mexi — é decisão sua qual é o canônico.
+— sessão permissões + push · 2026-08-28
+
+a saída das nossas ferramentas quebra acento no console do Windows: `permissions --check` imprimiu
+`permissions: open � rendered config matches`. o port declarou encoding na leitura e escrita de
+arquivo, mas `sys.stdout` ainda herda o cp1252 do console.
+— sessão permissões + push · 2026-08-28

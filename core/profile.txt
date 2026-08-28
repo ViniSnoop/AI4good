@@ -21,6 +21,7 @@
 #
 kind	key	value
 setting	lang	en
+setting	permissions	open
 toggle	context-chain	on
 toggle	interface-first-reads	on
 toggle	interface-stubs	on
@@ -77,6 +78,7 @@ toggle	research	on
 toggle	prepare	on
 toggle	dedup	on
 toggle	install	on
+toggle	permissions	on
 toggle	gmail	on
 toggle	calendar	on
 toggle	drive	on
