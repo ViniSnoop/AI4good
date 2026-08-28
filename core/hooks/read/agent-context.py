@@ -47,7 +47,7 @@ def collect(data: dict) -> int:
 	if not lines:
 		return 0
 	target = blob_file(str(data.get('prompt_id') or ''))
-	existing = target.read_text().splitlines() if target.exists() else []
+	existing = target.read_text(encoding='utf-8').splitlines() if target.exists() else []
 	fresh = [line for line in lines if line not in existing]
 	if fresh:
 		with target.open('a') as handle:
@@ -60,7 +60,7 @@ def inject(data: dict) -> int:
 	target = blob_file(str(data.get('prompt_id') or ''))
 	if not target.exists():
 		return 0
-	lines = [line for line in target.read_text().splitlines() if line.strip()][:MAX_LINES]
+	lines = [line for line in target.read_text(encoding='utf-8').splitlines() if line.strip()][:MAX_LINES]
 	if not lines:
 		return 0
 	body = ('Context for the paths your task names — the subtrees you are working in, one line '

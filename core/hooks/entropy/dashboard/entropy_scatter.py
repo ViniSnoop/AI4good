@@ -16,10 +16,11 @@ from pathlib import Path
 from blocks import replace_block
 from entropy_corpus import nested_repos
 from entropy_report import END, START, local_seed, render
+from platform_law import rel
 
 def ledger_repos(root: Path) -> list:
     """The repos that get a local ledger, as paths relative to the workspace root."""
-    return sorted(str(repo.relative_to(root)) for repo in nested_repos(root))
+    return sorted(rel(repo, root) for repo in nested_repos(root))
 
 
 def _head(finding: str, root: Path) -> str:
@@ -30,7 +31,7 @@ def _head(finding: str, root: Path) -> str:
     follows it.
     """
     token = finding.splitlines()[0].split()[0] if finding.split() else ''
-    return token.replace(f'{root}/', '').rstrip(':').lstrip('./')
+    return rel(token, root).rstrip(':').lstrip('./')
 
 
 def owner(finding: str, root: Path, repos: list) -> str:

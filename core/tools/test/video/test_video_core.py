@@ -32,7 +32,7 @@ class FakeMedia:
 
 
 def test_probe_parses_dump():
-    dump = (FIX / "ytdlp_dump.json").read_text()
+    dump = (FIX / "ytdlp_dump.json").read_text(encoding='utf-8')
     meta = vc.probe("http://x", runner=lambda a: FakeProc(stdout=dump))
     assert meta["ok"]
     assert meta["title"] == "Test Clip"
@@ -47,7 +47,7 @@ def test_probe_failure_no_crash():
 
 
 def test_clean_vtt():
-    assert vc.clean_vtt((FIX / "sample.vtt").read_text()) == "Hello world\nthis is a test"
+    assert vc.clean_vtt((FIX / "sample.vtt").read_text(encoding='utf-8')) == "Hello world\nthis is a test"
 
 
 def test_assemble_stops_at_metadata():
@@ -130,7 +130,7 @@ def test_save_no_overwrite(tmp_path):
     b2 = vc.assemble("http://x", save=True, base=tmp_path, _probe=lambda u: meta)
     p1, p2 = pathlib.Path(b1["saved_path"]), pathlib.Path(b2["saved_path"])
     assert p1.exists() and p2.exists() and p1 != p2
-    assert "body" in p1.read_text()
+    assert "body" in p1.read_text(encoding='utf-8')
 
 
 def test_cli_usage_exits_1():

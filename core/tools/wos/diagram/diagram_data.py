@@ -19,6 +19,7 @@ import trigger_law  # noqa: E402
 from context_synchronizer import RE as ROUTING_END  # noqa: E402
 from context_synchronizer import RS as ROUTING_START  # noqa: E402
 from entropy_corpus import nested_repos, tracked_files  # noqa: E402
+from platform_law import rel as _rel  # noqa: E402
 from schema_law import WORKSPACE_ROOT  # noqa: E402
 from workspace_scanner import parse_preserved_subs  # noqa: E402
 
@@ -141,7 +142,7 @@ def _routing_files(root: Path) -> list:
 
 
 def _rel_dir(path: Path, root: Path) -> str:
-    rel = str(path.parent.relative_to(root))
+    rel = _rel(path.parent, root)
     return '' if rel == '.' else rel
 
 
@@ -157,7 +158,7 @@ def containment(root: Path = WORKSPACE_ROOT) -> tuple:
     for path in files:
         inner = _routing_inner(path.read_text(encoding='utf-8', errors='replace'))
         if inner is None:
-            unparsed.append(str(path.relative_to(root)))
+            unparsed.append(_rel(path, root))
             continue
         parent = _rel_dir(path, root)
         for name in sorted(parse_preserved_subs(inner)):

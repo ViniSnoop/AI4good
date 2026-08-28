@@ -85,7 +85,7 @@ def test_the_install_skill_is_a_door_not_a_copy():
     setup_blocks = re.findall(r'```(?:bash|powershell)\n(.*?)```', _procedure(), re.S)
     setup_lines = {ln.strip() for b in setup_blocks for ln in b.splitlines()
                    if ln.strip() and not ln.strip().startswith('#')}
-    skill_blocks = re.findall(r'```(?:bash|powershell)\n(.*?)```', INSTALL_SKILL.read_text(), re.S)
+    skill_blocks = re.findall(r'```(?:bash|powershell)\n(.*?)```', INSTALL_SKILL.read_text(encoding='utf-8'), re.S)
     skill_lines = {ln.strip() for b in skill_blocks for ln in b.splitlines()
                    if ln.strip() and not ln.strip().startswith('#')}
     copied = setup_lines & skill_lines
@@ -95,5 +95,5 @@ def test_the_install_skill_is_a_door_not_a_copy():
 
 
 def test_the_skill_sends_the_agent_to_the_file():
-    assert 'SETUP.md' in INSTALL_SKILL.read_text(), (
+    assert 'SETUP.md' in INSTALL_SKILL.read_text(encoding='utf-8'), (
         'the /install skill never names the procedure it is a door to')

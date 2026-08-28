@@ -18,6 +18,7 @@ from conftest import WORKSPACE_ROOT  # the depth lives in one file, not nine
 import entropy_fanout  # noqa: E402
 import entropy_ledger  # noqa: E402
 from file_law import load_limits  # noqa: E402
+from platform_law import rel  # noqa: E402
 
 WARN = load_limits()['WARN_FILES']
 
@@ -60,7 +61,7 @@ BASELINE = {
 def _live() -> set:
     counts = entropy_fanout.fanout_counts(
         entropy_ledger.tracked_files(WORKSPACE_ROOT), WORKSPACE_ROOT)
-    return {str(d).replace(f'{WORKSPACE_ROOT}/', '')
+    return {rel(d, WORKSPACE_ROOT)
             for d, n in counts.items() if n > WARN}
 
 

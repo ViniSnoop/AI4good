@@ -68,6 +68,6 @@ def test_every_form_lucas_applies_still_compiles():
     """
     assert SPECS, 'no form spec found under academy/teaching/*/'
     for path in SPECS:
-        spec = json.loads(path.read_text())
+        spec = json.loads(path.read_text(encoding='utf-8'))
         reqs = forms_spec.requests(spec)
         assert len(reqs) == len(spec["items"]) + 1, path  # every item, plus the description

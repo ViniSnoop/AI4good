@@ -29,7 +29,7 @@ def token_path(alias: str) -> pathlib.Path:
 def save_token(alias: str, token: str) -> pathlib.Path:
     """Store the secret readable by nobody else. This file is the only copy we keep."""
     path = token_path(alias)
-    path.write_text(json.dumps({"token": token.strip()}, indent=2) + "\n")
+    path.write_text(json.dumps({"token": token.strip()}, indent=2) + "\n", encoding='utf-8')
     path.chmod(0o600)
     return path
 
@@ -38,7 +38,7 @@ def load_token(alias: str) -> str:
     path = token_path(alias)
     token = ""
     if path.exists():
-        token = json.loads(path.read_text()).get("token", "").strip()
+        token = json.loads(path.read_text(encoding='utf-8')).get("token", "").strip()
     if not token:
         raise AuthMissing(setup_text(alias))
     return token

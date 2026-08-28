@@ -18,6 +18,7 @@ import diagram_data as data  # noqa: E402
 import feature_law  # noqa: E402
 from diagram_data import WORKSPACE_ROOT  # noqa: E402
 from entropy_corpus import tracked_files  # noqa: E402
+from platform_law import rel as _rel  # noqa: E402
 
 
 def harness_owned(rel: str) -> bool:
@@ -42,7 +43,7 @@ def orphans(root: Path = WORKSPACE_ROOT) -> list:
     routed, _edges, _coverage = data.containment(root)
     counts: dict = {}
     for path in tracked_files(root):
-        rel = str(path.relative_to(root).parent)
+        rel = _rel(path.parent, root)
         if rel != '.' and not harness_owned(rel):
             counts[rel] = counts.get(rel, 0) + 1
     return sorted((d, n) for d, n in counts.items() if d not in routed)

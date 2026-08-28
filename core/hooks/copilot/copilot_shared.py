@@ -7,6 +7,7 @@ import subprocess
 import sys
 from pathlib import Path
 from typing import Any
+from platform_law import interpreter
 
 READ_HINTS = ("read", "open", "view", "inspect", "search")
 EDIT_HINTS = ("edit", "write", "create", "replace", "insert", "delete", "patch", "apply")
@@ -112,7 +113,7 @@ def run_script(script: Path, payload: dict[str, Any], tool_name: str, workspace_
     if via_env:
         env["CLAUDE_TOOL_INPUT"] = serialized
     return subprocess.run(
-        ["python3", str(script)] if script.suffix == ".py" else ["bash", str(script)],
+        [interpreter(), str(script)] if script.suffix == ".py" else ["bash", str(script)],
         input=None if via_env else serialized,
         text=True,
         capture_output=True,

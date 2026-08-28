@@ -15,6 +15,7 @@ import subprocess
 from pathlib import Path
 
 from entropy_corpus import nested_repos
+from platform_law import rel
 
 # In base order. `master` is not legacy noise here: branches/instituto is on it, and a repo whose
 # base is master has the same question asked of it as one on main.
@@ -28,7 +29,7 @@ def _git(repo: Path, *args) -> str:
 
 
 def _rel(repo: Path, root: Path) -> str:
-    return '.' if repo == root else str(repo).replace(f'{root}/', '')
+    return '.' if repo == root else rel(repo, root)
 
 
 def _base_of(repo: Path) -> str:

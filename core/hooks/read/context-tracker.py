@@ -15,7 +15,7 @@ IFACE_SUFFIXES = ('.d.ts', '.pyi', '.dart.api', '.texif', '.csvif')
 def _record_iface(session_id: str, path: str) -> None:
 	marker = Path(f'/tmp/claude_iface_seen_{session_id}.txt')
 	try:
-		seen = set(marker.read_text().splitlines()) if marker.exists() else set()
+		seen = set(marker.read_text(encoding='utf-8').splitlines()) if marker.exists() else set()
 	except OSError:
 		seen = set()
 	if path not in seen:

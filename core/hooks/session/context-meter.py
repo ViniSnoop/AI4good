@@ -29,7 +29,7 @@ def state_file(session_id: str) -> str:
 
 def announced(session_id: str) -> int:
 	try:
-		with open(state_file(session_id)) as f:
+		with open(state_file(session_id), encoding='utf-8') as f:
 			return int(f.read().strip() or 0)
 	except (OSError, ValueError):
 		return 0
@@ -37,7 +37,7 @@ def announced(session_id: str) -> int:
 
 def mark(session_id: str, threshold: int) -> None:
 	try:
-		with open(state_file(session_id), 'w') as f:
+		with open(state_file(session_id), 'w', encoding='utf-8') as f:
 			f.write(str(threshold))
 	except OSError:
 		pass

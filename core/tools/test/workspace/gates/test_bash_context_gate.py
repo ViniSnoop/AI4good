@@ -13,6 +13,7 @@ import json
 import subprocess
 
 from conftest import WORKSPACE_ROOT
+from platform_law import interpreter
 
 GATE = WORKSPACE_ROOT / 'core/hooks/read/bash-context-gate.py'
 # A subtree whose CONTEXT.md a fresh session has certainly not read, named inside a message.
@@ -26,7 +27,7 @@ def _run(command: str, session: str) -> subprocess.CompletedProcess:
         'session_id': session,
         'cwd': str(WORKSPACE_ROOT),
     })
-    return subprocess.run(['python3', str(GATE)], input=payload,
+    return subprocess.run([interpreter(), str(GATE)], input=payload,
                           capture_output=True, text=True, check=False)
 
 

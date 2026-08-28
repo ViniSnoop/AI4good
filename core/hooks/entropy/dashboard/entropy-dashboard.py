@@ -43,6 +43,7 @@ from entropy_trend import baseline, format_trend  # noqa: E402
 from entropy_stores import experiment_hits, ref_tier_hits  # noqa: E402
 from entropy_vendor import vendor_directive_hits  # noqa: E402
 from file_law import load_limits  # noqa: E402
+from platform_law import rel  # noqa: E402
 from schema_law import (SCHEMA, WORKSPACE_ROOT, load_law,  # noqa: E402
                         load_retired, load_scopes)
 
@@ -71,7 +72,7 @@ def _gate(name: str):
 
 
 def _rel(path) -> str:
-    return str(path).replace(f'{WORKSPACE_ROOT}/', '')
+    return rel(path, WORKSPACE_ROOT)
 
 
 def collect(files: list) -> dict:

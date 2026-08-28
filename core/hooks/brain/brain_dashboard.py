@@ -15,7 +15,7 @@ def bar(count, max_val, width=10):
 
 
 def area_from_file(path):
-    with open(path) as f:
+    with open(path, encoding='utf-8') as f:
         for line in f:
             m = re.match(r'^# \[ *(\w+) ', line)
             if m:
@@ -43,7 +43,7 @@ def timing_display(text):
 
 
 def parse_goal_file(path):
-    content = path.read_text()
+    content = path.read_text(encoding='utf-8')
     lines   = content.splitlines()
     result  = {}
 
@@ -125,10 +125,10 @@ def update_goals_table(goal_files):
         "<!-- goals:end -->"
     )
 
-    content = GOALS_FILE.read_text()
+    content = GOALS_FILE.read_text(encoding='utf-8')
     result  = replace_block(content, "<!-- goals:start -->", "<!-- goals:end -->", new_table)
     if result and result != content:
-        GOALS_FILE.write_text(result)
+        GOALS_FILE.write_text(result, encoding='utf-8')
         print("[Brain] GOALS.md active goals updated")
 
 
@@ -173,7 +173,7 @@ def update_goals_md(goal_files, attention):
         "<!-- data:end -->"
     )
 
-    content = GOALS_FILE.read_text()
+    content = GOALS_FILE.read_text(encoding='utf-8')
 
     # Prefer data markers (preserves agent-written pareto/gap sections)
     result = replace_block(content, "<!-- data:start -->", "<!-- data:end -->", new_data)
@@ -192,5 +192,5 @@ def update_goals_md(goal_files, attention):
         result = replace_block(content, "<!-- stats:start -->", "<!-- stats:end -->", full_block)
 
     if result and result != content:
-        GOALS_FILE.write_text(result)
+        GOALS_FILE.write_text(result, encoding='utf-8')
         print("[Brain] GOALS.md updated")

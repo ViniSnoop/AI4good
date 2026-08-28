@@ -71,6 +71,6 @@ def download(service, alias: str, email_id: str, attachment: dict, email_meta: d
     filepath.write_bytes(data)
 
     summary = _summarize(filepath, {**email_meta, "alias": alias})
-    (filepath.parent / f"{filepath.stem}.summary.md").write_text(summary)
+    (filepath.parent / f"{filepath.stem}.summary.md").write_text(summary, encoding='utf-8')
 
     return filepath

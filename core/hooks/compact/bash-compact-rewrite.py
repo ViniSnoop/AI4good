@@ -77,7 +77,7 @@ def record(session_id: str, verdict: str, lines: int) -> None:
 	# and so a harness that owns its own state directory can point this at it.
 	directory = os.environ.get('RTK_COMPACT_DIR', '/tmp')
 	try:
-		with open(f'{directory}/claude_rtk_compact_{session_id}.tsv', 'a') as handle:
+		with open(f'{directory}/claude_rtk_compact_{session_id}.tsv', 'a', encoding='utf-8') as handle:
 			handle.write(f'{verdict}\t{lines}\n')
 	except OSError:
 		pass  # counting must never be able to break the command being counted

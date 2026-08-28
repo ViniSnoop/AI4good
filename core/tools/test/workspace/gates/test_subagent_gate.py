@@ -15,6 +15,7 @@ import uuid
 import pytest
 
 from conftest import WORKSPACE_ROOT
+from platform_law import interpreter
 
 CONTEXT_GATE = WORKSPACE_ROOT / 'core/hooks/read/context-gate.py'
 BASH_GATE = WORKSPACE_ROOT / 'core/hooks/read/bash-context-gate.py'
@@ -26,7 +27,7 @@ def _run(gate, payload: dict) -> subprocess.CompletedProcess:
 	# A fresh session id every call, so the marker file cannot exist and the whole chain is unseen.
 	payload.setdefault('session_id', f'test-{uuid.uuid4()}')
 	payload.setdefault('cwd', str(WORKSPACE_ROOT))
-	return subprocess.run(['python3', str(gate)], input=json.dumps(payload),
+	return subprocess.run([interpreter(), str(gate)], input=json.dumps(payload),
 	                      capture_output=True, text=True)
 
 

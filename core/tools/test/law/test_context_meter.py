@@ -42,7 +42,7 @@ def test_thresholds_come_from_limits_env():
     """The meter reads the numbers; it must not carry a copy of them."""
     limits = context_meter.load_limits()
     assert limits['CTX_WARN'] < limits['CTX_LOUD']
-    source = (WORKSPACE_ROOT / 'core/hooks/session/context-meter.py').read_text()
+    source = (WORKSPACE_ROOT / 'core/hooks/session/context-meter.py').read_text(encoding='utf-8')
     for value in (limits['CTX_WARN'], limits['CTX_LOUD']):
         assert str(value) not in source, (
             f'{value} is hardcoded in context-meter.py — it belongs only in limits.env')

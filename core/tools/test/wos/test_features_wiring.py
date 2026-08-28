@@ -12,6 +12,7 @@ import subprocess
 
 import feature_law as law
 from conftest import WORKSPACE_ROOT
+from platform_law import interpreter
 
 SKILL_MIRROR = 'core/tools/wos/skills/mirror.sh'
 NORMS_GENERATOR = 'core/hooks/routing/norms.py'
@@ -108,10 +109,10 @@ def _asks_the_law(hook: str, tmp_path) -> set:
                           'cwd': str(WORKSPACE_ROOT),
                           'tool_input': {'command': 'ls', 'file_path': '/tmp/probe.py',
                                          'content': '# probe\n'}})
-    subprocess.run(['python3', str(WORKSPACE_ROOT / hook)], input=payload, text=True,
+    subprocess.run([interpreter(), str(WORKSPACE_ROOT / hook)], input=payload, text=True,
                    capture_output=True, timeout=60,
                    env={**os.environ, 'PYTHONPATH': str(shim), 'LAW_PROBE': str(log)})
-    return set(log.read_text().split())
+    return set(log.read_text(encoding='utf-8').split())
 
 
 def _strip_comments(body: str, target: str) -> str:

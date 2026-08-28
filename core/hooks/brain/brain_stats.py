@@ -128,7 +128,7 @@ def pre_commit():
     modified = []
 
     for slug, path in targets.items():
-        original = path.read_text()
+        original = path.read_text(encoding='utf-8')
         content  = original
 
         updated = replace_block(content, "<!-- stats:start -->", "<!-- stats:end -->",
@@ -141,7 +141,7 @@ def pre_commit():
         content, _ = compress_done(content, slug)
 
         if content != original:
-            path.write_text(content)
+            path.write_text(content, encoding='utf-8')
             modified.append(str(path))
             print(f"[Brain] {slug}: updated")
 
@@ -169,7 +169,7 @@ def check_compass_reminder():
         print("[Brain] ⚠ compass review never run — try /compass")
         return
     try:
-        last = date.fromisoformat(compass_log.read_text().strip())
+        last = date.fromisoformat(compass_log.read_text(encoding='utf-8').strip())
         days = (date.today() - last).days
         if days >= 30:
             print(f"[Brain] ⚠ no compass review in {days} days — run /compass")

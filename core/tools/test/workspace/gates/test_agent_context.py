@@ -15,12 +15,13 @@ from pathlib import Path
 import pytest
 
 from conftest import WORKSPACE_ROOT
+from platform_law import interpreter
 
 HOOK = WORKSPACE_ROOT / 'core/hooks/read/agent-context.py'
 
 
 def _run(payload: dict) -> subprocess.CompletedProcess:
-	return subprocess.run(['python3', str(HOOK)], input=json.dumps(payload),
+	return subprocess.run([interpreter(), str(HOOK)], input=json.dumps(payload),
 	                      capture_output=True, text=True)
 
 

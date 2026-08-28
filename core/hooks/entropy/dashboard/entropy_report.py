@@ -9,6 +9,8 @@
 # currently untrue that we know about (core/SCHEMA.md § The `.md` type system).
 from datetime import date
 
+from platform_law import rel
+
 START = '<!-- entropy:start -->'
 END = '<!-- entropy:end -->'
 
@@ -27,7 +29,7 @@ def local_seed(repo: str) -> str:
 
 
 def _rel(path, root) -> str:
-    return str(path).replace(f'{root}/', '')
+    return rel(path, root)
 
 
 SECTIONS = (

@@ -10,13 +10,15 @@ import re, sys
 from datetime import datetime, timezone
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from platform_law import rel as _rel  # noqa: E402
 from tex_interface_parser import parse_tex, find_paper_root  # noqa: E402
 
 
 def write_interface(tex_path: Path, data: dict, paper_root: Path | None) -> Path:
     out_path = tex_path.with_suffix('.texif')
     ts = datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
-    rel = str(tex_path.relative_to(paper_root)) if paper_root else tex_path.name
+    rel = _rel(tex_path, paper_root) if paper_root else tex_path.name
     lines = [
         f'<!-- INTERFACE: {rel} | LOC: {data["loc"]} | ~{data["words"]} words | {ts} -->',
         '<!-- Auto-generated — do not edit. Regenerated on every save of the source. -->',
@@ -90,7 +92,7 @@ def regenerate_labels(paper_root: Path) -> None:
             d = parse_tex(tf)
         except Exception:
             continue
-        rel = str(tf.relative_to(paper_root))
+        rel = _rel(tf, paper_root)
         all_def += [{**lbl, 'file': rel} for lbl in d['defined_labels']]
         all_used += [{**ref, 'file': rel} for ref in d['used_refs']]
     defined_set = {e['label'] for e in all_def}

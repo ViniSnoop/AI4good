@@ -19,7 +19,7 @@ def git(repo: Path, *args):
 
 
 def commit(repo: Path, name: str):
-	(repo / name).write_text(name)
+	(repo / name).write_text(name, encoding='utf-8')
 	git(repo, 'add', name)
 	git(repo, 'commit', '-qm', name, '--no-verify')
 

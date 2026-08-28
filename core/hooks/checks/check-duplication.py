@@ -7,6 +7,8 @@ import subprocess
 import sys
 import tempfile
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from platform_law import rel as _rel  # noqa: E402
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import feature_law  # noqa: E402
@@ -40,7 +42,7 @@ def main() -> int:
 		if not report_file.exists():
 			print(f'⚠  jscpd produced no report — duplication check skipped.\n{result.stderr[-300:]}')
 			return 0
-		report = json.loads(report_file.read_text())
+		report = json.loads(report_file.read_text(encoding='utf-8'))
 	except FileNotFoundError:
 		print('⚠  npx/jscpd not available — duplication check skipped.')
 		return 0
@@ -53,7 +55,7 @@ def main() -> int:
 	def rel(name: str) -> str:
 		p = Path(name)
 		try:
-			return str(p.resolve().relative_to(repo_root))
+			return _rel(p.resolve(), repo_root)
 		except ValueError:
 			return name
 

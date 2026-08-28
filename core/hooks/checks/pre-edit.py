@@ -73,7 +73,7 @@ if tool == 'Write':
 elif tool == 'Edit':
 	if not os.path.exists(file_path):
 		sys.exit(0)
-	current_lines = len(open(file_path).read().splitlines())
+	current_lines = len(open(file_path, encoding='utf-8').read().splitlines())
 	net       = data.get('new_string', '').count('\n') - data.get('old_string', '').count('\n')
 	new_lines = current_lines + net
 

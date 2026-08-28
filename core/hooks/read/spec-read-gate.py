@@ -29,7 +29,7 @@ def find_spec_module(target: Path):
 	while current != WORKSPACE and current != current.parent:
 		ctx = current / 'CONTEXT.md'
 		if ctx.is_file():
-			match = SPEC_LINE_RE.search(ctx.read_text(errors='ignore'))
+			match = SPEC_LINE_RE.search(ctx.read_text(errors='ignore', encoding='utf-8'))
 			if match:
 				spec_val = match.group(1).strip()
 				if spec_val.lower() == 'none':
@@ -38,7 +38,7 @@ def find_spec_module(target: Path):
 					spec_path = (current / spec_val).resolve()
 					status = 'draft'
 					if spec_path.is_file():
-						status_match = STATUS_RE.search(spec_path.read_text(errors='ignore'))
+						status_match = STATUS_RE.search(spec_path.read_text(errors='ignore', encoding='utf-8'))
 						if status_match:
 							status = status_match.group(1).lower()
 					result = (current, spec_path, status)

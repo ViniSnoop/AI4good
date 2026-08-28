@@ -18,6 +18,7 @@ for _dir in (HOOKS, HOOKS / 'entropy'):
     sys.path.insert(0, str(_dir))
 
 from entropy_corpus import tracked_files  # noqa: E402
+from platform_law import rel as _rel  # noqa: E402
 from schema_law import WORKSPACE_ROOT  # noqa: E402
 
 # A dispatcher names its stages through a shell variable, so no text match can follow it — those
@@ -60,7 +61,7 @@ def index(root: Path = WORKSPACE_ROOT) -> tuple:
     paths: dict = {}
     stems: dict = {}
     for path in tracked_files(root):
-        rel = str(path.relative_to(root))
+        rel = _rel(path, root)
         if not rel.startswith('core/') or path.suffix not in ('.py', '.sh', '.js'):
             continue
         token = '/'.join(rel.split('/')[-2:])

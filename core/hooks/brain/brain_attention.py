@@ -49,7 +49,7 @@ def parse_owns(path):
     alone would have left craft-flows contributing six of the nine.
     """
     owns, in_block = [], False
-    for line in path.read_text().splitlines():
+    for line in path.read_text(encoding='utf-8').splitlines():
         if re.match(r'^>?\s*\*\*owns\*\*', line.strip()):
             in_block = True
             continue
@@ -78,7 +78,7 @@ def governing_repo(rel_path):
     probe = target if target.is_dir() else target.parent
     while True:
         if (probe / ".git").exists():
-            within = str(target.relative_to(probe))
+            within = workspace_rel(target, probe)
             # Resolving to a repo is not the same as having history in it. `branches/*`
             # and `code/*` are gitignored by the workspace repo, so a path under one that
             # is not itself a repo would silently count zero forever — the exact failure

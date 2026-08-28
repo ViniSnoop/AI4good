@@ -11,12 +11,13 @@ import subprocess
 import sys
 
 from conftest import TOOLS, WORKSPACE_ROOT
+from platform_law import rel
 
 DECLARED = TOOLS / 'deps.txt'
 
 
 def _rows():
-    lines = [ln for ln in DECLARED.read_text().splitlines()
+    lines = [ln for ln in DECLARED.read_text(encoding='utf-8').splitlines()
              if ln.strip() and not ln.startswith('#')]
     header = lines[0].split('\t')
     return [dict(zip(header, ln.split('\t'))) for ln in lines[1:]]
@@ -46,7 +47,7 @@ def _local_modules():
 
 
 def _imports(path):
-    for node in ast.walk(ast.parse(path.read_text())):
+    for node in ast.walk(ast.parse(path.read_text(encoding='utf-8'))):
         if isinstance(node, ast.Import):
             for alias in node.names:
                 yield alias.name.split('.')[0]
@@ -63,7 +64,7 @@ def test_every_third_party_import_is_declared():
         for module in _imports(path):
             if module in sys.stdlib_module_names or module in local or module in declared:
                 continue
-            undeclared.setdefault(module, []).append(str(path.relative_to(WORKSPACE_ROOT)))
+            undeclared.setdefault(module, []).append(rel(path, WORKSPACE_ROOT))
     assert not undeclared, (
         'third-party imports missing from core/tools/deps.txt:\n' +
         '\n'.join(f'  {m}  <- {", ".join(f)}' for m, f in sorted(undeclared.items())))
@@ -86,8 +87,8 @@ def test_every_tool_runs_under_the_workspace_venv():
     a shebang cannot resolve a relative one — `SETUP.md` § Workspace path rewrites these on a
     clone that lives somewhere else, which is why this test reads the line from disk.
     """
-    wrong = [str(p.relative_to(WORKSPACE_ROOT)) for p in _python_files() if p.suffix == ''
-             and p.read_text().splitlines()[0].endswith('/usr/bin/env python3')]
+    wrong = [rel(p, WORKSPACE_ROOT) for p in _python_files() if p.suffix == ''
+             and p.read_text(encoding='utf-8').splitlines()[0].endswith('/usr/bin/env python3')]
     assert not wrong, (
         'these tools run under the system interpreter, which has none of the declared deps:\n  ' +
         '\n  '.join(wrong) + '\nUse the venv shebang, or run `SETUP.md` § Workspace path.')

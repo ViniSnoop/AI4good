@@ -6,6 +6,7 @@ import subprocess
 import pytest
 
 import notion_auth, notion_core, notion_outline
+from platform_law import interpreter
 
 TOOLS_ROOT = pathlib.Path(__file__).resolve().parents[1]
 WORKSPACE_ROOT = TOOLS_ROOT.parents[1]
@@ -162,7 +163,7 @@ def test_the_cli_routes_its_entrypoint_through_run(tmp_path):
         "    pathlib.Path(os.environ['RUN_PROBE']).write_text('called')\n"
         "    raise SystemExit(0)\n"
         "notion_core.run = _rec\n", encoding="utf-8")
-    subprocess.run(["python3", str(TOOLS_ROOT / "notes" / "notion")],
+    subprocess.run([interpreter(), str(TOOLS_ROOT / "notes" / "notion")],
                    capture_output=True, text=True, timeout=60,
                    env={**os.environ, "PYTHONPATH": str(shim), "RUN_PROBE": str(probe)})
     assert probe.exists(), "the notion CLI never reaches notion_core.run"

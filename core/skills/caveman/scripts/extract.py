@@ -19,7 +19,7 @@ PATH_REGEX = re.compile(r"(?:\./|\.\./|/|[A-Za-z]:\\)[\w\-/\\\.]+|[\w\-\.]+[/\\]
 
 
 def read_file(path: Path) -> str:
-    return path.read_text(errors="ignore")
+    return path.read_text(errors="ignore", encoding='utf-8')
 
 
 def extract_headings(text):

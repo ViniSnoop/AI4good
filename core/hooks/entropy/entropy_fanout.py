@@ -19,6 +19,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import feature_law  # noqa: E402
 from file_law import is_authored, load_limits  # noqa: E402
+from platform_law import rel as _rel  # noqa: E402
 
 
 def fanout_counts(files: list, root: Path) -> Counter:
@@ -53,7 +54,7 @@ def fanout_signals(files: list, root: Path, limit: int = None) -> list:
     for directory, count in fanout_counts(files, root).items():
         if count <= warn:
             continue
-        rel = str(directory).replace(f'{root}/', '')
+        rel = _rel(directory, root)
         level = 'over the BLOCK_FILES cap' if count > block else 'over the WARN_FILES signal'
         signals.append(f'{rel} — {count} code files in one directory, {level}; split by '
                        f'responsibility if the split removes more table than the hop adds')

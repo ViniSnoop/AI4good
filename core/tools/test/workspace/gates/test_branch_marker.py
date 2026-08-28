@@ -48,7 +48,7 @@ def test_a_session_that_stayed_on_its_branch_hears_nothing(repo):
 
 def test_head_moving_under_the_session_is_named_with_its_recovery(repo):
 	run(repo, 'record')
-	marker_path(repo).write_text('feature/someone-else\n')
+	marker_path(repo).write_text('feature/someone-else\n', encoding='utf-8')
 	out = run(repo, 'check')
 	assert 'feature/someone-else' in out and 'feature/mine' in out, out
 	# Naming one action is the contract for agent-facing text (AGENTS.md): the recovery is the
@@ -58,7 +58,7 @@ def test_head_moving_under_the_session_is_named_with_its_recovery(repo):
 
 def test_the_warning_fires_once_per_divergence_not_once_per_commit(repo):
 	run(repo, 'record')
-	marker_path(repo).write_text('feature/someone-else\n')
+	marker_path(repo).write_text('feature/someone-else\n', encoding='utf-8')
 	assert run(repo, 'check') != ''
 	assert run(repo, 'check') == '', 'a repeated warning is one people learn to skip'
 
@@ -70,7 +70,7 @@ def test_a_repo_with_no_marker_is_silent(repo):
 
 def test_a_detached_head_is_a_rebase_not_a_drift(repo):
 	"""Mid-rebase and mid-bisect HEAD is detached by design; a branch warning there is noise."""
-	(repo / 'f.txt').write_text('x')
+	(repo / 'f.txt').write_text('x', encoding='utf-8')
 	subprocess.run(['git', '-C', str(repo), 'add', 'f.txt'], check=True)
 	subprocess.run(['git', '-C', str(repo), 'commit', '-qm', 'x', '--no-verify'], check=True)
 	run(repo, 'record')

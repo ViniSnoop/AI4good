@@ -18,6 +18,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import feature_law  # noqa: E402
 from hook_input import parse_stdin
+from platform_law import rel  # noqa: E402
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[3]
 
@@ -81,7 +82,7 @@ def main() -> int:
 	paths = written_paths(str(tool_input.get('command', '')), cwd)
 	if not paths:
 		return 0
-	names = ', '.join(str(p.relative_to(WORKSPACE_ROOT)) for p in paths[:3])
+	names = ', '.join(rel(p, WORKSPACE_ROOT) for p in paths[:3])
 	print(json.dumps({'hookSpecificOutput': {
 		'hookEventName': 'PreToolUse',
 		'additionalContext': f'⚠ UNGATED WRITE — {names} was written by a shell heredoc, which '

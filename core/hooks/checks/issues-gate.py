@@ -47,7 +47,7 @@ def main() -> int:
 	else:
 		new_text = str(tool_input.get('new_string', ''))
 	old_text = str(tool_input.get('old_string', '')) if tool == 'Edit' else ''
-	current = file_path.read_text() if file_path.exists() else ''
+	current = file_path.read_text(encoding='utf-8') if file_path.exists() else ''
 
 	newly_fixed = fixed_ids(new_text) - fixed_ids(old_text) - fixed_ids(current)
 	if not newly_fixed:

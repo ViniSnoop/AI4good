@@ -8,6 +8,7 @@ import pytest
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
 import gauth
+from platform_law import interpreter
 
 
 ACCOUNTS = [
@@ -104,7 +105,7 @@ def _run_probe_shim(tmp_path, module: str, attr: str = "run"):
 
 def _reaches_wrapper(cli, tmp_path, module: str) -> bool:
     shim, probe = _run_probe_shim(tmp_path, module)
-    subprocess.run(["python3", str(cli)], capture_output=True, text=True, timeout=60,
+    subprocess.run([interpreter(), str(cli)], capture_output=True, text=True, timeout=60,
                    env={**os.environ, "PYTHONPATH": str(shim), "RUN_PROBE": str(probe)})
     return probe.exists()
 

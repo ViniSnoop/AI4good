@@ -16,13 +16,14 @@ from entropy_corpus import is_generated_mirror  # noqa: E402
 from file_law import (is_authored, is_authored_prose,  # noqa: E402
                       is_generated_artifact, is_vendored, load_limits,
                       over_column_cap)
+from platform_law import rel  # noqa: E402
 from schema_law import WORKSPACE_ROOT  # noqa: E402
 
 _STUB_FOR = {'.py': '.pyi', '.ts': '.d.ts', '.tsx': '.d.ts', '.js': '.d.ts'}
 
 
 def _rel(path) -> str:
-    return str(path).replace(f'{WORKSPACE_ROOT}/', '')
+    return rel(path, WORKSPACE_ROOT)
 
 
 def _added_by(path: Path) -> str:
@@ -30,7 +31,7 @@ def _added_by(path: Path) -> str:
     repo = next((p for p in path.parents if (p / '.git').exists()), WORKSPACE_ROOT)
     out = subprocess.run(
         ['git', '-C', str(repo), 'log', '--diff-filter=A', '--format=%h %an',
-         '-1', '--', str(path.relative_to(repo))],
+         '-1', '--', rel(path, repo)],
         capture_output=True, text=True).stdout.strip()
     return out or 'unknown'
 

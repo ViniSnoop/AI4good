@@ -26,6 +26,7 @@ for _dir in (HOOKS, HOOKS / 'entropy'):
 import feature_law  # noqa: E402
 import hook_reach  # noqa: E402
 from entropy_corpus import tracked_files  # noqa: E402
+from platform_law import rel as _rel  # noqa: E402
 from schema_law import WORKSPACE_ROOT  # noqa: E402
 
 # The canonical vocabulary, in the order a session runs it. OURS, not any harness's: each provider's
@@ -87,7 +88,7 @@ def registrations(root: Path = WORKSPACE_ROOT) -> list:
                 matcher = entry.get('matcher', '')
                 out += [{'command': hook.get('command', ''), 'matcher': matcher,
                          'moments': _moments(event, matcher),
-                         'source': str(path.relative_to(root))} for hook in entry.get('hooks', [])]
+                         'source': _rel(path, root)} for hook in entry.get('hooks', [])]
     return out
 
 
@@ -98,7 +99,7 @@ def sites(root: Path = WORKSPACE_ROOT) -> dict:
     seeds = {rel: list(moments) for rel, moments in GIT_ENTRYPOINTS.items()}
     for reg in registrations(root):
         for token in reg['command'].split():
-            rel = token.replace(f'{root}/', '')
+            rel = _rel(token, root)
             if (root / rel).is_file():
                 seeds.setdefault(rel, []).extend(reg['moments'])
     # A DIRECT REGISTRATION OUTRANKS BEING NAMED BY SOMEBODY ELSE. Both are declarations, but one

@@ -3,7 +3,11 @@
 
 import re
 import subprocess
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from platform_law import rel  # noqa: E402
 
 # Paths stay workspace-relative: the hooks run with cwd at the workspace root and git
 # reports --name-only against the same origin, so a relative path compares directly to
@@ -16,10 +20,14 @@ LOG_DIR    = BRAIN / ".log"        # runtime state only (compass-last.txt), neve
 GOALS_DIR  = BRAIN / "goals"
 
 
-def workspace_rel(path):
-    """`path` as a workspace-relative string, whether it arrived absolute or relative."""
-    p = Path(path)
-    return str(p.relative_to(WORKSPACE)) if p.is_absolute() else str(p)
+def workspace_rel(path, root=WORKSPACE):
+    """`path` relative to the workspace (or to `root`), in the one path vocabulary we write.
+
+    Kept as a name because brain/ reads better with it, but the answer now comes from
+    platform_law.rel — a second implementation of "make this path relative" is what let this one
+    hand back a backslash while every test it feeds compares against a forward slash.
+    """
+    return rel(path, root)
 
 PERIODS = [
     ("month",     30),

@@ -6,6 +6,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import tool_law  # noqa: E402
+from platform_law import rel as _rel  # noqa: E402
 
 try:
     import yaml
@@ -100,7 +101,7 @@ def main() -> int:
     if args.json:
         import json
         print(json.dumps([
-            {"file": str(f.relative_to(paper)), "line": n, "found": v, "should_be": c}
+            {"file": _rel(f, paper), "line": n, "found": v, "should_be": c}
             for f, n, v, c, _ in hits
         ], indent=2))
         return 0

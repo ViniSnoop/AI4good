@@ -21,6 +21,7 @@ SHIM = WORKSPACE_ROOT / 'core/hooks/compact/bash-compact-rewrite.py'
 # Mimics the real binary: reads the FIRST line only, and declines when that line is not its business.
 STUB = '''#!/usr/bin/env python3
 import json, sys
+from platform_law import interpreter
 HANDLED = {'git', 'ls', 'grep'}
 payload = json.load(sys.stdin)
 command = payload.get('tool_input', {}).get('command', '')
@@ -57,7 +58,7 @@ def _run(command: str, path: str, tool: str = 'Bash', counter: str = '') -> str:
 	env = {'PATH': path}
 	if counter:
 		env['RTK_COMPACT_DIR'] = counter
-	done = subprocess.run(['python3', str(SHIM)], input=json.dumps(payload),
+	done = subprocess.run([interpreter(), str(SHIM)], input=json.dumps(payload),
 	                      capture_output=True, text=True, env=env)
 	assert done.returncode == 0, done.stderr
 	return done.stdout.strip()
@@ -129,7 +130,7 @@ def _verdicts(counter, session: str = 'test') -> list[str]:
 	log = counter / f'claude_rtk_compact_{session}.tsv'
 	if not log.exists():
 		return []
-	return [line.split('\t')[0] for line in log.read_text().splitlines()]
+	return [line.split('\t')[0] for line in log.read_text(encoding='utf-8').splitlines()]
 
 
 def test_reaching_a_stranded_command_is_counted(rtk_path, tmp_path) -> None:

@@ -82,8 +82,8 @@ def _reject_bad_output(compressed: str, original_text: str) -> bool:
 
 def _write_verified_backup(backup_path: Path, original_text: str) -> bool:
     """Write the backup and read it back. A short write here would cost the original."""
-    backup_path.write_text(original_text)
-    if backup_path.read_text(errors="ignore") == original_text:
+    backup_path.write_text(original_text, encoding='utf-8')
+    if backup_path.read_text(errors="ignore", encoding='utf-8') == original_text:
         return True
     print(f"❌ Backup write verification failed: {backup_path}")
     print("   In-memory original differs from on-disk backup. Aborting before touching the input file.")
@@ -110,14 +110,14 @@ def _validate_with_retries(filepath: Path, backup_path: Path, compressed: str,
             print(f"   - {err}")
 
         if attempt == MAX_RETRIES - 1:
-            filepath.write_text(original_text)
+            filepath.write_text(original_text, encoding='utf-8')
             backup_path.unlink(missing_ok=True)
             print("❌ Failed after retries — original restored")
             return False
 
         print("Fixing with Claude...")
         compressed = call_claude(build_fix_prompt(original_text, compressed, result.errors))
-        filepath.write_text(compressed)
+        filepath.write_text(compressed, encoding='utf-8')
     return True
 
 
@@ -130,7 +130,7 @@ def compress_file(filepath: Path) -> bool:
         print("Skipping (not natural language)")
         return False
 
-    original_text = filepath.read_text(errors="ignore")
+    original_text = filepath.read_text(errors="ignore", encoding='utf-8')
     if not original_text.strip():
         print("❌ Refusing to compress: file is empty or whitespace-only.")
         return False
@@ -149,6 +149,6 @@ def compress_file(filepath: Path) -> bool:
 
     if not _write_verified_backup(backup_path, original_text):
         return False
-    filepath.write_text(compressed)
+    filepath.write_text(compressed, encoding='utf-8')
 
     return _validate_with_retries(filepath, backup_path, compressed, original_text)

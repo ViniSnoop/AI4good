@@ -18,6 +18,7 @@ from pathlib import Path
 import pytest
 
 from conftest import WORKSPACE_ROOT
+from platform_law import interpreter
 
 PRE_EDIT = WORKSPACE_ROOT / "core/hooks/checks/pre-edit.py"
 # Any file under a subtree carrying a CONTEXT.md chain; its content is irrelevant.
@@ -37,7 +38,7 @@ BLOCKING_GATES = (
 
 def _run(payload: dict) -> subprocess.CompletedProcess:
     return subprocess.run(
-        ["python3", str(PRE_EDIT)], input=json.dumps(payload),
+        [interpreter(), str(PRE_EDIT)], input=json.dumps(payload),
         capture_output=True, text=True,
     )
 
@@ -46,7 +47,7 @@ def _run_gate(gate: str, payload: dict) -> subprocess.CompletedProcess:
     payload.setdefault("session_id", f"test-{uuid.uuid4()}")
     payload.setdefault("cwd", str(WORKSPACE_ROOT))
     return subprocess.run(
-        ["python3", str(WORKSPACE_ROOT / gate)], input=json.dumps(payload),
+        [interpreter(), str(WORKSPACE_ROOT / gate)], input=json.dumps(payload),
         capture_output=True, text=True,
     )
 
@@ -145,7 +146,7 @@ def test_facade_scan_emits_valid_hook_json(tmp_path: Path) -> None:
     module.mkdir(parents=True)
     (module / "__init__.py").write_text("from .a import alpha, beta\n", encoding="utf-8")
     result = subprocess.run(
-        ["python3", str(WORKSPACE_ROOT / "core/hooks/facade/facade-scan.py")],
+        [interpreter(), str(WORKSPACE_ROOT / "core/hooks/facade/facade-scan.py")],
         input=json.dumps({"hook_event_name": "PreToolUse", "tool_name": "Write",
                           "tool_input": {"file_path": str(module / "new.py"),
                                          "content": "# new\n"}}),

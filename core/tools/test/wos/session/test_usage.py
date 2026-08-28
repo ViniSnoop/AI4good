@@ -42,7 +42,7 @@ def project(tmp_path, monkeypatch):
 		(root / 'proj').mkdir(parents=True)
 		for stem, records in sessions.items():
 			(root / 'proj' / f'{stem}.jsonl').write_text(
-				'\n'.join(json.dumps(r) for r in records) + '\n')
+				'\n'.join(json.dumps(r) for r in records) + '\n', encoding='utf-8')
 		monkeypatch.setattr(session_turns, 'ROOT', root)
 		return 'proj'
 	return build
@@ -120,7 +120,7 @@ def test_a_thinking_heavy_session_does_not_read_as_self_authored(tmp_path):
 	root.mkdir(parents=True)
 	records = [response(10_000 * n, 5_000, [thinking(), text('ok')], f'r{n}')
 	           for n in range(1, 11)]
-	(root / 's1.jsonl').write_text('\n'.join(json.dumps(r) for r in records) + '\n')
+	(root / 's1.jsonl').write_text('\n'.join(json.dumps(r) for r in records) + '\n', encoding='utf-8')
 	out = subprocess.run([sys.executable, str(USAGE), '--project', 'proj'],
 	                     capture_output=True, text=True, env={'HOME': str(tmp_path),
 	                                                          'PATH': '/usr/bin:/bin'})

@@ -16,11 +16,11 @@ DEPS = WORKSPACE_ROOT / 'core' / 'tools' / 'deps.txt'
 
 
 def _setup_slugs():
-    return set(re.findall(r'^> feature: `([a-z0-9-]+)`', SETUP.read_text(), re.M))
+    return set(re.findall(r'^> feature: `([a-z0-9-]+)`', SETUP.read_text(encoding='utf-8'), re.M))
 
 
 def _deps_slugs():
-    lines = [ln for ln in DEPS.read_text().splitlines()
+    lines = [ln for ln in DEPS.read_text(encoding='utf-8').splitlines()
              if ln.strip() and not ln.startswith('#')]
     header = lines[0].split('\t')
     return {dict(zip(header, ln.split('\t')))['feature'] for ln in lines[1:]}

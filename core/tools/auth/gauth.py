@@ -55,7 +55,7 @@ def _credentials_file(service: str) -> pathlib.Path:
 def get_accounts() -> list:
     """Read accounts.json from gmail config (canonical source for all Google services)."""
     f = _GMAIL_CONFIG / "accounts.json"
-    return json.loads(f.read_text()).get("accounts", []) if f.exists() else []
+    return json.loads(f.read_text(encoding='utf-8')).get("accounts", []) if f.exists() else []
 
 
 def primary_aliases() -> list:
@@ -140,6 +140,6 @@ def auth(alias: str, service: str, scopes: list) -> Credentials:
                 str(_credentials_file(service)), scopes
             )
             creds = flow.run_local_server(port=0)
-        token_path.write_text(creds.to_json())
+        token_path.write_text(creds.to_json(), encoding='utf-8')
 
     return creds

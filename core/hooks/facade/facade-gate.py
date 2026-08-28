@@ -18,7 +18,7 @@ TEST_RE      = re.compile(r'(?:^|/)(?:test_[^/]+|[^/]+_test|[^/]+\.(?:test|spec)
 
 def facades_read(session_id: str) -> set[str]:
 	sf = Path(f'/tmp/claude_facades_{session_id}.txt')
-	return set(sf.read_text().splitlines()) if sf.exists() else set()
+	return set(sf.read_text(encoding='utf-8').splitlines()) if sf.exists() else set()
 
 
 def find_nearest_facade(path: Path) -> Path | None:

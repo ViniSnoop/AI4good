@@ -11,6 +11,7 @@
 import fnmatch
 import sys
 from pathlib import Path
+from platform_law import rel as _rel
 
 HERE = Path(__file__).resolve().parent
 LIMITS_FILE = HERE / 'limits.env'
@@ -101,7 +102,7 @@ def is_vendored(path: Path, root: Path) -> bool:
     reviewed list, never a heuristic.
     """
     try:
-        rel = str(path.resolve().relative_to(root))
+        rel = _rel(path.resolve(), root)
     except ValueError:
         return False
     return any(fnmatch.fnmatch(rel, pattern) for pattern in _patterns())
@@ -118,7 +119,7 @@ def is_generated_artifact(path: Path, root: Path) -> bool:
     provenance we do.
     """
     try:
-        rel = str(path.resolve().relative_to(root))
+        rel = _rel(path.resolve(), root)
     except ValueError:
         return False
     return any(fnmatch.fnmatch(rel, pattern) for pattern in _generated_patterns())

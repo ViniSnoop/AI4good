@@ -13,6 +13,7 @@ import subprocess
 import pytest
 
 from conftest import WORKSPACE_ROOT
+from platform_law import interpreter
 
 GATE = WORKSPACE_ROOT / 'core/hooks/checks/heredoc-gate.py'
 
@@ -21,7 +22,7 @@ def run(command: str, tool: str = 'Bash') -> str:
 	"""The context the gate would inject, or '' when it stays silent."""
 	payload = json.dumps({'tool_name': tool, 'cwd': str(WORKSPACE_ROOT),
 	                      'tool_input': {'command': command}})
-	done = subprocess.run(['python3', str(GATE)], input=payload,
+	done = subprocess.run([interpreter(), str(GATE)], input=payload,
 	                      capture_output=True, text=True)
 	assert done.returncode == 0, f'the gate must never block: {done.stderr}'
 	if not done.stdout.strip():

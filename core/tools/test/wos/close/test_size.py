@@ -73,7 +73,7 @@ def test_a_vendored_or_generated_md_is_not_counted(tmp_path):
     (ws / 'doc.md').write_text('mine\n', encoding='utf-8')
     base = _commit(ws, 'seed')
 
-    generated = next(p for p in (LAW / 'generated.txt').read_text().splitlines()
+    generated = next(p for p in (LAW / 'generated.txt').read_text(encoding='utf-8').splitlines()
                      if p.strip() and not p.startswith('#') and p.strip().endswith('.md'))
     target = ws / generated.strip()
     target.parent.mkdir(parents=True, exist_ok=True)

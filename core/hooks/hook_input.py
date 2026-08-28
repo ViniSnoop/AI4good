@@ -63,12 +63,12 @@ def seen_file(session_id: str) -> str:
 
 def load_seen(session_id: str) -> set[str]:
 	try:
-		with open(seen_file(session_id)) as f:
+		with open(seen_file(session_id), encoding='utf-8') as f:
 			return {line.strip() for line in f if line.strip()}
 	except OSError:
 		return set()
 
 
 def mark_seen(session_id: str, path: str) -> None:
-	with open(seen_file(session_id), 'a') as f:
+	with open(seen_file(session_id), 'a', encoding='utf-8') as f:
 		f.write(path + '\n')

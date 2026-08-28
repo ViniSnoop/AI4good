@@ -23,11 +23,6 @@ if [ -z "$start_session" ]; then
 fi
 
 echo "Running workspace session-start: $start_session"
-# If PowerShell Core is available and a PS1 start file exists, use it.
-if command -v pwsh >/dev/null 2>&1 && [ -f "$workspace_root/core/hooks/session/start-session.ps1" ]; then
-  pwsh -NoProfile -File "$workspace_root/core/hooks/session/start-session.ps1"
-else
-  bash "$workspace_root/$start_session"
-fi
+bash "$workspace_root/$start_session"
 
 exit 0
