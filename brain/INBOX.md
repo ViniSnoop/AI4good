@@ -176,3 +176,32 @@ o repositório público que os alunos clonam (ROADMAP 🟡) virou dependência r
 do passo a passo dos checkpoints está escrita e inerte até ele existir. enquanto isso o prazo de
 1 mês do LOOP A depende de uma ferramenta que o aluno não tem.
 — sessão checkpoints de pesquisa · 2026-08-26
+
+o port do WOS pra Windows achou que o bloqueio real não era o bash. das 139 falhas da baseline, ~45
+eram uma coisa só: os testes spawnam `python3`, que no Windows não existe — o alias da Microsoft
+Store responde, imprime um anúncio e sai 9009. o gate nunca roda e quem chamou lê o anúncio como se
+fosse a saída do gate. uma função de 3 linhas (`platform_law.interpreter()`) devolveu 41 testes.
+eu tinha cortado ela do plano como "API sem caller" — os ~20 callers eram spawn sites, não imports,
+então procurar por uso não achava nada.
+— sessão port os-agnostic S2 · 2026-08-28
+
+o entropy dashboard vê um workspace menor nesta máquina: 713 arquivos escaneados contra 2368, e a
+metade dos repos aninhados some. um teste rodou o dashboard e reescreveu o bloco gerado do
+ISSUES.md com esse retrato parcial — revertido. duas assimetrias num achado só: um teste que suja
+arquivo rastreado, e uma medição que fica menor sem dizer que ficou.
+— sessão port os-agnostic S2 · 2026-08-28
+
+`.gitignore` não tinha `.venv/`. o venv entrou num `git add -A` meu e foram 6207 arquivos pro
+commit antes de eu pegar. adicionei a linha. o allowlist não nomear o venv pega o próximo também.
+— sessão port os-agnostic S2 · 2026-08-28
+
+o Bash do Git no Windows converte argumento que parece path POSIX absoluto: `git grep '/mnt/workspace'`
+devolve zero porque o MSYS reescreve o padrão pra `C:/Program Files/Git/mnt/...`. sem a barra
+inicial funciona. qualquer medição nossa que passe path absoluto por bash aqui mente calada.
+— sessão port os-agnostic S2 · 2026-08-28
+
+`core/tools/wos/roundup` é bash, então o ritual de fechamento não roda no Windows — este fechamento
+foi à mão. e `caveman` não está em `core/hooks/vendored.txt`, apesar de o plano do port afirmar que
+estava quarentenado ali. ou entra na lista, ou para de ser chamado de vendored.
+— sessão port os-agnostic S2 · 2026-08-28
+
