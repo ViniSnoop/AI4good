@@ -65,6 +65,7 @@ toggle	forms	on
 toggle	mail-triage	on
 toggle	notes-notion	on
 toggle	video-text	on
+toggle	wazip	on
 toggle	asset-inspect	on
 toggle	latex	on
 toggle	caveman	on
