@@ -35,4 +35,5 @@ open issues, the entropy findings, the last verification result: [`ISSUES.md`](I
 | [`code/`](code/CONTEXT.md) | Software projects developed under this workspace |
 | [`core/`](core/CONTEXT.md) | Agent library: skills, agents, prompts, flows, tools. Provider-agnostic. |
 | [`models/`](models/CONTEXT.md) | Local model checkpoints and weights used across research and code projects |
+| [`papers/`](papers/CONTEXT.md) | LaTeX papers, submissions, manuscript workflows |
 <!-- routing:end -->
