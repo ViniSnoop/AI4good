@@ -46,4 +46,5 @@ never edit it by hand.
 | [`SPECS.md`](SPECS.md) | — | Engineering conventions, architecture decisions, and process rules for all code/ projects. |
 | [`eslint.shared.js`](eslint.shared.js) | `localPlugin`, `sharedRules`, `countCallsInSubtree`, `getChainDepth` | Shared ESLint rules for all TypeScript/JavaScript projects under code/ — R1-R6 style enforcement. |
 | [`mlp-heart-disease/mlp_heart_disease.py`](mlp-heart-disease/mlp_heart_disease.py) | `MLP`, `generate_heart_data`, `balance_data`, `plot_network_animated`, `plot_metrics_realtime` | ← add first-line comment |
+| [`scaffold.sh`](scaffold.sh) | — | Scaffold a new code project with Git Flow and template files. Usage: ./scaffold.sh <project-name> |
 <!-- routing:end -->

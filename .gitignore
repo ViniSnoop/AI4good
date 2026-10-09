@@ -45,6 +45,7 @@ code/*
 !code/SPECS-*.md
 !code/ROADMAP-*.md
 !code/eslint.shared.js
+!code/scaffold.sh
 !code/laplata/
 code/laplata/*
 !code/laplata/CONTEXT.md
