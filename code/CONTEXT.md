@@ -35,6 +35,7 @@ never edit it by hand.
 |--------------|-------------|
 | [`_templates/`](_templates/CONTEXT.md) | Project scaffolding templates — CONTEXT.md, README.md, SPECS.md, ROADMAP.md skeletons |
 | [`mlp-heart-disease/`](mlp-heart-disease/CONTEXT.md) | Classificação de risco de doença cardíaca com MLP do zero e visualizador Streamlit |
+| [`multiagent-hitl/`](multiagent-hitl/CONTEXT.md) | Project scaffolding templates — CONTEXT.md, README.md, SPECS.md, ROADMAP.md skeletons |
 
 | File | API | Description |
 |------|-----|-------------|
