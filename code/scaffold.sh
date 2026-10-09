@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Scaffold a new code project with Git Flow and template files.
+# Scaffold a new code project directory with course template files.
 # Usage: ./scaffold.sh <project-name>
 
 set -e
@@ -22,7 +22,6 @@ echo "Creating new project: $PROJECT_NAME..."
 mkdir -p "$TARGET_DIR"
 
 cd "$TARGET_DIR"
-git init -b main
 
 TEMPLATES_DIR="$SCRIPT_DIR/_templates"
 
@@ -33,26 +32,9 @@ sed "s/\[Project Name\]/$PROJECT_NAME/g" "$TEMPLATES_DIR/ROADMAP.md" > ROADMAP.m
 sed "s/\[Project Name\]/$PROJECT_NAME/g" "$TEMPLATES_DIR/SETUP.md" > SETUP.md
 sed "s/\[Project Name\]/$PROJECT_NAME/g" "$TEMPLATES_DIR/ISSUES.md" > ISSUES.md
 
-cat > .gitignore << 'EOF'
-__pycache__/
-*.py[cod]
-.venv/
-venv/
-node_modules/
-dist/
-build/
-.env
-.DS_Store
-EOF
-
-git add .
-git commit -m "feat: initial project scaffold"
-
-git checkout -b develop
-
 python3 "$SCRIPT_DIR/../core/hooks/routing/context_synchronizer.py" "$SCRIPT_DIR/CONTEXT.md" 2>/dev/null || true
 
 echo "✓ Project '$PROJECT_NAME' created at $TARGET_DIR"
-echo "✓ Git initialized with 'main' and 'develop' branches"
 echo "✓ Scaffolding files ready: README.md, CONTEXT.md, SPECS.md, ROADMAP.md, SETUP.md, ISSUES.md"
 echo "✓ Routing synchronized in code/CONTEXT.md"
+echo "✓ Ready to stage in main repository: git add code/$PROJECT_NAME"

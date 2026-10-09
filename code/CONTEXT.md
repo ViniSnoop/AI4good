@@ -34,6 +34,7 @@ never edit it by hand.
 | Subdirectory | Description |
 |--------------|-------------|
 | [`_templates/`](_templates/CONTEXT.md) | Project scaffolding templates — CONTEXT.md, README.md, SPECS.md, ROADMAP.md skeletons |
+| [`mlp-heart-disease/`](mlp-heart-disease/CONTEXT.md) | Classificação de risco de doença cardíaca com MLP do zero e visualizador Streamlit |
 
 | File | API | Description |
 |------|-----|-------------|
@@ -45,6 +46,5 @@ never edit it by hand.
 | [`SPECS-style.md`](SPECS-style.md) | — | How a file is written, how big it may get, and when a directory splits. |
 | [`SPECS.md`](SPECS.md) | — | Engineering conventions, architecture decisions, and process rules for all code/ projects. |
 | [`eslint.shared.js`](eslint.shared.js) | `localPlugin`, `sharedRules`, `countCallsInSubtree`, `getChainDepth` | Shared ESLint rules for all TypeScript/JavaScript projects under code/ — R1-R6 style enforcement. |
-| [`mlp-heart-disease/mlp_heart_disease.py`](mlp-heart-disease/mlp_heart_disease.py) | `MLP`, `generate_heart_data`, `balance_data`, `plot_network_animated`, `plot_metrics_realtime` | ← add first-line comment |
-| [`scaffold.sh`](scaffold.sh) | — | Scaffold a new code project with Git Flow and template files. Usage: ./scaffold.sh <project-name> |
+| [`scaffold.sh`](scaffold.sh) | — | Scaffold a new code project directory with course template files. Usage: ./scaffold.sh <project-name> |
 <!-- routing:end -->
