@@ -6,12 +6,12 @@
 
 # Switched off: a disabled gate does not block, and does not pretend it ran. The CLI arm of
 # feature_law is used rather than a second reading of the registry — same law, one parser.
-python3 /mnt/workspace/core/hooks/feature_law.py --enabled gitflow-gate || exit 0
+python3 /home/vini/Downloads/AI4good/workspace/core/hooks/feature_law.py --enabled gitflow-gate || exit 0
 
 TOPLEVEL=$(git rev-parse --show-toplevel 2>/dev/null || true)
 case "$TOPLEVEL" in
-  /mnt/workspace/code/*) : ;;   # code project repos: enforce
-  /mnt/workspace)        : ;;   # workspace structural repo: enforce
+  /home/vini/Downloads/AI4good/workspace/code/*) : ;;   # code project repos: enforce
+  /home/vini/Downloads/AI4good/workspace)        : ;;   # workspace structural repo: enforce
   *) exit 0 ;;                  # academy/papers/*, branches/*, and any other repo: exempt
 esac
 

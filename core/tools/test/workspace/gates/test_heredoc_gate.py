@@ -31,10 +31,10 @@ def run(command: str, tool: str = 'Bash') -> str:
 
 
 @pytest.mark.parametrize('command', [
-	"cat > /mnt/workspace/brain/INBOX.md << 'EOF'\nx\nEOF",
-	"cat >> /mnt/workspace/HISTORY.md <<'EOF'\nx\nEOF",
-	"tee /mnt/workspace/notes.md <<'EOF'\nx\nEOF",
-	"tee -a /mnt/workspace/notes.md <<'EOF'\nx\nEOF",
+	"cat > /home/vini/Downloads/AI4good/workspace/brain/INBOX.md << 'EOF'\nx\nEOF",
+	"cat >> /home/vini/Downloads/AI4good/workspace/HISTORY.md <<'EOF'\nx\nEOF",
+	"tee /home/vini/Downloads/AI4good/workspace/notes.md <<'EOF'\nx\nEOF",
+	"tee -a /home/vini/Downloads/AI4good/workspace/notes.md <<'EOF'\nx\nEOF",
 	"cat > notes.md <<'EOF'\nx\nEOF",
 ])
 def test_a_heredoc_that_writes_a_workspace_file_is_named(command):
@@ -47,9 +47,9 @@ def test_a_heredoc_that_writes_a_workspace_file_is_named(command):
 	"python3 - 2>/dev/null <<'EOF'\nprint(1)\nEOF",
 	"bash <<'EOF'\nls\nEOF",
 	"cat <<'EOF'\njust printing\nEOF",
-	"grep x <<< '/mnt/workspace/a.md'",
+	"grep x <<< '/home/vini/Downloads/AI4good/workspace/a.md'",
 	'echo hi',
-	'cat /mnt/workspace/README.md',
+	'cat /home/vini/Downloads/AI4good/workspace/README.md',
 ])
 def test_analysis_and_ordinary_shell_stay_silent(command):
 	"""Nothing here writes a workspace file, and a false fire is what kills a warn-only gate."""
@@ -63,16 +63,16 @@ def test_a_write_outside_the_workspace_is_not_this_gate_s_business():
 
 def test_a_redirect_inside_the_heredoc_body_is_text_not_shell():
 	"""The body is data. Parsing it would fire on any script that merely mentions a path."""
-	assert run("python3 - <<'EOF'\nopen('> /mnt/workspace/z.md', 'w')\nEOF") == ''
+	assert run("python3 - <<'EOF'\nopen('> /home/vini/Downloads/AI4good/workspace/z.md', 'w')\nEOF") == ''
 
 
 def test_the_message_names_one_action():
 	"""AGENTS.md: agent-facing text names one flow. Two suggestions is a decision to improvise on."""
-	message = run("cat > /mnt/workspace/x.md <<'EOF'\nx\nEOF")
+	message = run("cat > /home/vini/Downloads/AI4good/workspace/x.md <<'EOF'\nx\nEOF")
 	assert 'Write tool' in message
 	assert message.count('Use ') == 1
 
 
 def test_a_non_bash_tool_is_not_touched():
 	"""Registered on Bash, but a shim may hand it anything; Edit and Write have their own gates."""
-	assert run("cat > /mnt/workspace/x.md <<'EOF'\nx\nEOF", tool='Write') == ''
+	assert run("cat > /home/vini/Downloads/AI4good/workspace/x.md <<'EOF'\nx\nEOF", tool='Write') == ''

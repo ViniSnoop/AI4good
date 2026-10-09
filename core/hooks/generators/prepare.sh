@@ -8,10 +8,10 @@
 # the workspace, and a cwd-relative path only happens to work in the one repo that has
 # brain/GOALS.md. The guard hid that, which is why it survived the 2026-07-31 split.
 if [ -f "brain/GOALS.md" ]; then
-  echo "$STAGED" | grep -q '^brain/goals/' && python3 /mnt/workspace/core/hooks/brain/brain_stats.py
+  echo "$STAGED" | grep -q '^brain/goals/' && python3 /home/vini/Downloads/AI4good/workspace/core/hooks/brain/brain_stats.py
 fi
 
 
 # ── 0b. Self-healing .gitignore allowlist (decided 2026-07-24) ─
-/mnt/workspace/core/hooks/git/gitignore-self-heal.sh .
+/home/vini/Downloads/AI4good/workspace/core/hooks/git/gitignore-self-heal.sh .
 

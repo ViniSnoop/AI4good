@@ -5,7 +5,7 @@
 # ── 1b. Duplication gate (jscpd) — blocks clones involving staged files ───────
 DUP_FILES=$(echo "$STAGED" | grep -E '\.(js|jsx|ts|tsx|py|dart)$' | grep -vE '\.(d\.ts|pyi|min\.js)$' || true)
 if [ -n "$DUP_FILES" ]; then
-  if ! echo "$DUP_FILES" | python3 /mnt/workspace/core/hooks/checks/check-duplication.py; then
+  if ! echo "$DUP_FILES" | python3 /home/vini/Downloads/AI4good/workspace/core/hooks/checks/check-duplication.py; then
     exit 1
   fi
 fi
@@ -13,7 +13,7 @@ fi
 # ── 2b. Facade boundary check ─────────────────────────────────────────────────
 FACADE_FILES=$(echo "$STAGED" | grep -E '\.(ts|tsx|js|jsx|py|dart)$' | grep -v '\.d\.ts$' || true)
 if [ -n "$FACADE_FILES" ]; then
-  if ! echo "$FACADE_FILES" | python3 /mnt/workspace/core/hooks/facade/check-facade-imports.py; then
+  if ! echo "$FACADE_FILES" | python3 /home/vini/Downloads/AI4good/workspace/core/hooks/facade/check-facade-imports.py; then
     exit 1
   fi
 fi
@@ -25,7 +25,7 @@ fi
 # violation — blocking the very commit the switch was thrown to relax. A feature spanning two
 # layers is only honest when both layers consult the law (core/SPECS.md § AD-14).
 TEX_STAGED=$(echo "$STAGED" | grep '\.tex$' || true)
-if ! python3 /mnt/workspace/core/hooks/feature_law.py --enabled latex; then
+if ! python3 /home/vini/Downloads/AI4good/workspace/core/hooks/feature_law.py --enabled latex; then
   TEX_STAGED=""
 fi
 if [ -n "$TEX_STAGED" ]; then
@@ -38,7 +38,7 @@ if [ -n "$TEX_STAGED" ]; then
     done
   done | sort -u)
   if [ -n "$PAPER_ROOTS" ]; then
-    TERMS_TOOL="/mnt/workspace/core/tools/paper/terms"
+    TERMS_TOOL="/home/vini/Downloads/AI4good/workspace/core/tools/paper/terms"
     while IFS= read -r paper_root; do
       if [ -x "$TERMS_TOOL" ]; then
         if ! "$TERMS_TOOL" "$paper_root" >/tmp/terms-check.$$ 2>&1; then

@@ -18,7 +18,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from hook_input import parse_stdin
 
-WORKSPACE = Path('/mnt/workspace')
+WORKSPACE = Path('/home/vini/Downloads/AI4good/workspace')
 FACADE_FOR = {
     '.ts': 'index.ts', '.tsx': 'index.tsx',
     '.js': 'index.js', '.jsx': 'index.jsx',

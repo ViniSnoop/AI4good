@@ -53,7 +53,7 @@ else
 fi
 
 # ── codegraph nudge — one-time per project per session ───────────────────────
-if [[ "$file" == /mnt/workspace/code/* ]]; then
+if [[ "$file" == /home/vini/Downloads/AI4good/workspace/code/* ]]; then
 	case "$file" in
 		*.pyi|*.d.ts|*.dart.api|*.texif|*.csvif) : ;;  # generated — skip
 		*.py|*.js|*.ts|*.tsx|*.dart|*.jsx)

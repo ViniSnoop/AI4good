@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Workspace pre-commit hook — the dispatcher.
-# Applied via: git config --global core.hooksPath /mnt/workspace/core/hooks
+# Applied via: git config --global core.hooksPath /home/vini/Downloads/AI4good/workspace/core/hooks
 #
 # Was 385 lines of 21 numbered sections that had drifted out of execution order
 # (1, 2, 1a, 1c, 1d, 1e, 1g, 1f, 1b, 2b, 3, 4 …). Split 2026-07-31 by responsibility:

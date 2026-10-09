@@ -20,7 +20,7 @@ if [ -n "$CTX_DIRTY" ]; then
     if [ -z "${_ctx_synced[$leaf_dir]+x}" ]; then
       _ctx_synced["$leaf_dir"]=1
       if [ -f "$leaf_dir/CONTEXT.md" ]; then
-        python3 /mnt/workspace/core/hooks/routing/context_synchronizer.py "$leaf_dir" 2>/dev/null \
+        python3 /home/vini/Downloads/AI4good/workspace/core/hooks/routing/context_synchronizer.py "$leaf_dir" 2>/dev/null \
           && git add "$leaf_dir/CONTEXT.md" 2>/dev/null || true
       fi
     fi
@@ -33,8 +33,8 @@ fi
 # WHICH norms publish and in WHAT ORDER, so a reordered features.txt with no norm edit still
 # moves the always-loaded file. The generator holds the group's feature switch itself.
 if echo "$STAGED" | grep -qE '^(core/norms/|core/features\.txt$|core/profile\.txt$)'; then
-  python3 /mnt/workspace/core/hooks/routing/norms.py \
-    && git add /mnt/workspace/AGENTS.md 2>/dev/null || true
+  python3 /home/vini/Downloads/AI4good/workspace/core/hooks/routing/norms.py \
+    && git add /home/vini/Downloads/AI4good/workspace/AGENTS.md 2>/dev/null || true
 fi
 
 # ── 5b. TeX → .texif interfaces ───────────────────────────────────────────────
@@ -42,7 +42,7 @@ TEX_FILES=$(echo "$STAGED" | grep '\.tex$' || true)
 if [ -n "$TEX_FILES" ]; then
   while IFS= read -r f; do
     [ -f "$f" ] || continue
-    if python3 /mnt/workspace/core/hooks/stubgen/tex-interface-gen.py "$f" 2>/dev/null; then
+    if python3 /home/vini/Downloads/AI4good/workspace/core/hooks/stubgen/tex-interface-gen.py "$f" 2>/dev/null; then
       texif="${f%.tex}.texif"
       [ -f "$texif" ] && git add "$texif"
     else

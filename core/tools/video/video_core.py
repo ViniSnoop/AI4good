@@ -1,4 +1,4 @@
-#!/mnt/workspace/.venv/bin/python3
+#!/home/vini/Downloads/AI4good/workspace/.venv/bin/python3
 # video_core.py — extract navigable text (metadata, captions, transcript) from video/image URLs; whisper/OCR backends are config data
 import json, re, shutil, subprocess, pathlib
 import sys as _sys, pathlib as _pathlib

@@ -1,4 +1,4 @@
-#!/mnt/workspace/.venv/bin/python3
+#!/home/vini/Downloads/AI4good/workspace/.venv/bin/python3
 # notion_outline.py — a page as navigable text: block ids, structure, and the words on them
 MARKERS = {
     "heading_1": "#", "heading_2": "##", "heading_3": "###",

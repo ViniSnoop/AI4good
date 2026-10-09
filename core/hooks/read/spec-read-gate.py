@@ -11,7 +11,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import feature_law  # noqa: E402
 from hook_input import load_seen, parse_stdin
 
-WORKSPACE = Path('/mnt/workspace')
+WORKSPACE = Path('/home/vini/Downloads/AI4good/workspace')
 CODE_ROOT = WORKSPACE / 'code'
 GATED_TOOLS = {'Edit', 'Write'}
 EXEMPT_NAMES = {'CONTEXT.md', 'AGENTS.md', 'CLAUDE.md', 'MEMORY.md', 'README.md'}

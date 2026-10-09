@@ -1,4 +1,4 @@
-#!/mnt/workspace/.venv/bin/python3
+#!/home/vini/Downloads/AI4good/workspace/.venv/bin/python3
 # slides_outline.py — a deck as navigable text: slide index, element ids, and the words on them
 import pathlib, sys
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))

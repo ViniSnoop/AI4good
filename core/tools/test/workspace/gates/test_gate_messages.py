@@ -86,7 +86,7 @@ def _blocking_case(gate: str, tmp_path: Path):
             "file_path": str(mod / "a.py"),
             "old_string": "1", "new_string": "2"}}, "READ FACADE FIRST"
     else:
-        # spec-read-gate.py hardcodes /mnt/workspace/code, so the probe module must really
+        # spec-read-gate.py hardcodes /home/vini/Downloads/AI4good/workspace/code, so the probe module must really
         # live there. code/* is gitignored, and the tree is restored however the test ends.
         mod = WORKSPACE_ROOT / "code" / f"_spec_gate_probe_{uuid.uuid4().hex[:8]}"
         mod.mkdir(parents=True)

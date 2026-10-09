@@ -1,4 +1,4 @@
-#!/mnt/workspace/.venv/bin/python3
+#!/home/vini/Downloads/AI4good/workspace/.venv/bin/python3
 # gauth.py — Google's leaf of the auth family: shared OAuth2 for every Google-backed tool
 import json, pathlib, sys
 

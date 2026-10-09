@@ -12,7 +12,7 @@
 # whether to `git add`, because that is the one thing the two paths really do differently.
 
 # shellcheck source=/dev/null
-source /mnt/workspace/core/hooks/stubgen/stub_paths.sh
+source /home/vini/Downloads/AI4good/workspace/core/hooks/stubgen/stub_paths.sh
 
 # emit_pyi <file> — mypy stubgen, into the output root stub_paths.sh computes.
 # $STUBGEN wins when the caller set it (post-edit names the venv binary by path); otherwise

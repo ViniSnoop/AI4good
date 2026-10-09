@@ -62,7 +62,7 @@ list_commands() {
 
 # The link is RELATIVE, and that is the whole point of this function rather than a style choice:
 # a symlink is committed by its text, so an absolute one carries THIS machine's path into every
-# clone. Until 2026-08-25 all 42 mirrors read `/mnt/workspace/core/skills/<name>.md`, so a student
+# clone. Until 2026-08-25 all 42 mirrors read `/home/vini/Downloads/AI4good/workspace/core/skills/<name>.md`, so a student
 # cloning anywhere else got 42 dangling links and no skills in any of the three harnesses — while
 # the workspace claimed criterion 4, clonable by a student, as met. Relative, the same committed
 # text resolves in every checkout.

@@ -10,9 +10,9 @@
 # silently take the sections after it down with it.
 # 1e (gitflow) and 1f (gitlink) delegate to scripts carrying their own guards — left alone.
 PC_VERIFY_CONTRACT=0; PC_VERIFY_SUITE=0; PC_PROJECT_CONTRACT=0
-python3 /mnt/workspace/core/hooks/feature_law.py --enabled verify-contract && PC_VERIFY_CONTRACT=1
-python3 /mnt/workspace/core/hooks/feature_law.py --enabled verify-suite && PC_VERIFY_SUITE=1
-python3 /mnt/workspace/core/hooks/feature_law.py --enabled project-contract && PC_PROJECT_CONTRACT=1
+python3 /home/vini/Downloads/AI4good/workspace/core/hooks/feature_law.py --enabled verify-contract && PC_VERIFY_CONTRACT=1
+python3 /home/vini/Downloads/AI4good/workspace/core/hooks/feature_law.py --enabled verify-suite && PC_VERIFY_SUITE=1
+python3 /home/vini/Downloads/AI4good/workspace/core/hooks/feature_law.py --enabled project-contract && PC_PROJECT_CONTRACT=1
 
 # ── 1a. Verification contract gate — every code/ project must declare + pass verify:fast ──
 # Discovery is stack-agnostic: npm script (package.json) or Makefile target — either
@@ -28,7 +28,7 @@ CODE_STAGED=$(echo "$STAGED" | grep -E '\.(js|jsx|ts|tsx|py|dart)$' | grep -v '\
 
 if [ -n "$CODE_STAGED" ]; then
   case "$TOPLEVEL" in
-    /mnt/workspace/code/*)
+    /home/vini/Downloads/AI4good/workspace/code/*)
       if [ "$PC_VERIFY_CONTRACT" = "1" ] \
          && [ "$HAS_NPM_CONTRACT" != "1" ] && [ "$HAS_MAKE_CONTRACT" != "1" ]; then
         printf "⛔ No verify:fast contract found — every code/ project needs one.\n"
@@ -56,7 +56,7 @@ fi
 
 # ── 1c. CONTEXT.md project-goal-link gate — code/<proj>/CONTEXT.md line 3 ─────
 case "$TOPLEVEL" in
-  /mnt/workspace/code/*)
+  /home/vini/Downloads/AI4good/workspace/code/*)
     if [ "$PC_PROJECT_CONTRACT" = "1" ] && echo "$STAGED" | grep -qx 'CONTEXT.md'; then
       GOAL_LINE3=$(sed -n '3p' "CONTEXT.md" 2>/dev/null)
       if ! printf '%s' "$GOAL_LINE3" | grep -qE '^>\s*goal:\s*(\[[^]]+\]\([^)]+\)|none)\s*$'; then
@@ -73,7 +73,7 @@ esac
 # are grandfathered). '> spec: <file>' must point to an existing SPEC.md; '> spec: none'
 # opts out. Mirrors the 1c goal-link convention. See code/ROADMAP-spec-drive.md.
 case "$TOPLEVEL" in
-  /mnt/workspace/code/*)
+  /home/vini/Downloads/AI4good/workspace/code/*)
     NEW_CONTEXTS=$(git diff --cached --name-only --diff-filter=A 2>/dev/null | grep -E '(^|/)CONTEXT\.md$' || true)
     if [ "$PC_PROJECT_CONTRACT" = "1" ] && [ -n "$NEW_CONTEXTS" ]; then
       while IFS= read -r ctx; do
@@ -99,13 +99,13 @@ case "$TOPLEVEL" in
 esac
 
 # ── 1e. Git Flow branch gate (code/ repos) ────────────────────────────────────
-if [ -x /mnt/workspace/core/hooks/git/gitflow-gate.sh ]; then
-  /mnt/workspace/core/hooks/git/gitflow-gate.sh || exit 1
+if [ -x /home/vini/Downloads/AI4good/workspace/core/hooks/git/gitflow-gate.sh ]; then
+  /home/vini/Downloads/AI4good/workspace/core/hooks/git/gitflow-gate.sh || exit 1
 fi
 
 # ── 1e2. Branch drift — HEAD moved since this session started (warn, never block) ──
-if [ -x /mnt/workspace/core/hooks/git/branch-marker.sh ]; then
-  /mnt/workspace/core/hooks/git/branch-marker.sh check
+if [ -x /home/vini/Downloads/AI4good/workspace/core/hooks/git/branch-marker.sh ]; then
+  /home/vini/Downloads/AI4good/workspace/core/hooks/git/branch-marker.sh check
 fi
 
 # ── 1g. Tier 0 type gate — .md type allowlist + CONTEXT.md hand-inventory ─────
@@ -113,18 +113,18 @@ fi
 # repo that inherited violations is not blocked on every commit. The allowlist is
 # parsed from core/SCHEMA.md, never restated. See core/hooks/SPECS.md.
 if [ "$PC_PROJECT_CONTRACT" = "1" ]; then
-  python3 /mnt/workspace/core/hooks/checks/type-gate.py || exit 1
+  python3 /home/vini/Downloads/AI4good/workspace/core/hooks/checks/type-gate.py || exit 1
 fi
 
 # ── 1h. Tier 0 citation gate — roadmap item numbers cited outside a roadmap ───
 # NOT a ratchet: the corpus was swept to zero, so every staged file is checked, not only
 # the ones a commit adds. A closed item is deleted, so its number becomes a dead pointer.
 if [ "$PC_PROJECT_CONTRACT" = "1" ]; then
-  python3 /mnt/workspace/core/hooks/checks/citation-gate.py || exit 1
+  python3 /home/vini/Downloads/AI4good/workspace/core/hooks/checks/citation-gate.py || exit 1
 fi
 
 # ── 1f. Nested-gitlink gate (workspace repo) ──────────────────────────────────
-if [ -x /mnt/workspace/core/hooks/git/nested-gitlink-gate.sh ]; then
-  /mnt/workspace/core/hooks/git/nested-gitlink-gate.sh || exit 1
+if [ -x /home/vini/Downloads/AI4good/workspace/core/hooks/git/nested-gitlink-gate.sh ]; then
+  /home/vini/Downloads/AI4good/workspace/core/hooks/git/nested-gitlink-gate.sh || exit 1
 fi
 

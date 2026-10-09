@@ -16,7 +16,7 @@ sudo apt-get install -y ffmpeg tesseract-ocr tesseract-ocr-por
 ## M4 — Instagram cookies (login-gated posts)
 `video_core._run` auto-attaches `--cookies <path>` when a cookies file exists at
 `~/.config/workspace-video/cookies.txt` (Netscape format, outside repo — never gitignore
-needed since it's outside `/mnt/workspace`). No file → tool behaves exactly as before.
+needed since it's outside `/home/vini/Downloads/AI4good/workspace`). No file → tool behaves exactly as before.
 
 To populate — **no browser extension needed**, yt-dlp reads the browser profile directly
 (Lucas is logged into Instagram in Brave, not Firefox):

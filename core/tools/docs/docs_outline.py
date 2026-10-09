@@ -1,4 +1,4 @@
-#!/mnt/workspace/.venv/bin/python3
+#!/home/vini/Downloads/AI4good/workspace/.venv/bin/python3
 # docs_outline.py — a document as navigable text: body indices, structure, and the words on them
 import pathlib, sys
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))

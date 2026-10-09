@@ -1,4 +1,4 @@
-#!/mnt/workspace/.venv/bin/python3
+#!/home/vini/Downloads/AI4good/workspace/.venv/bin/python3
 # gmail_attachments.py — download and summarize Gmail attachments for Core/tools/mail/gmail
 import base64, pathlib, subprocess
 import anthropic
@@ -6,14 +6,14 @@ import sys as _sys, pathlib as _pathlib
 _sys.path.insert(0, str(_pathlib.Path(__file__).resolve().parents[1]))  # tools root
 import attachments_util
 
-BRAIN_ATTACHMENTS = pathlib.Path("/mnt/workspace/brain/attachments")
+BRAIN_ATTACHMENTS = pathlib.Path("/home/vini/Downloads/AI4good/workspace/brain/attachments")
 
 
 def _extract_text(filepath: pathlib.Path) -> str:
     """Try to extract text from file using Core/tools/parse."""
     try:
         result = subprocess.run(
-            ["/mnt/workspace/core/tools/paper/parse", str(filepath)],
+            ["/home/vini/Downloads/AI4good/workspace/core/tools/paper/parse", str(filepath)],
             capture_output=True, text=True, timeout=30,
         )
         return result.stdout[:3000] if result.returncode == 0 else ""

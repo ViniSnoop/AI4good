@@ -6,7 +6,7 @@
 import re
 from pathlib import Path
 
-WORKSPACE = Path('/mnt/workspace')
+WORKSPACE = Path('/home/vini/Downloads/AI4good/workspace')
 # Freely readable: the deadlock guard, plus the docs that ARE the context.
 EXEMPT_NAMES = {'CONTEXT.md', 'AGENTS.md', 'CLAUDE.md', 'MEMORY.md'}
 SKIP_PARTS = {'.git', 'node_modules', 'dist', '.codegraph', '__pycache__', '.vscode', '.hooks'}

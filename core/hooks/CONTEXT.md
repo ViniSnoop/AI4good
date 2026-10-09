@@ -1,7 +1,7 @@
 # hooks
 > The enforcement layer: git hooks, agent lifecycle hooks, and the Tier 0 checks they run.
 
-Wired globally via `git config --global core.hooksPath /mnt/workspace/core/hooks`, so
+Wired globally via `git config --global core.hooksPath /home/vini/Downloads/AI4good/workspace/core/hooks`, so
 `pre-commit` fires in **every** repo under this workspace, and by absolute path from
 `.claude/settings.json` for the agent-side gates.
 
@@ -81,7 +81,7 @@ exist: [`code/ROADMAP-verify.md`](../../code/ROADMAP-verify.md). Installing the 
 | [`limits.env`](limits.env) | — | — | Every numeric limit in the workspace, in one file. Read by core/hooks/file_law.py (Python) and sourced directly by check-line-counts.sh (shell) — same file, one law. |
 | [`post-commit`](post-commit) | — | — | auto-push feature/* so work survives a dead session and reaches the other machine. main/develop are never auto-pushed: promoting them is a conscious gitflow merge, done in /roundup after the verification gate. Never blocks: post-commit exit status is ignored by git, and every failure is a warning. |
 | [`post-edit.sh`](post-edit.sh) | — | — | PostToolUse: Edit, Write — regenerates interfaces, checks first-line comment, syncs CONTEXT.md |
-| [`pre-commit`](pre-commit) | — | — | the dispatcher. Applied via: git config --global core.hooksPath /mnt/workspace/core/hooks |
+| [`pre-commit`](pre-commit) | — | — | the dispatcher. Applied via: git config --global core.hooksPath /home/vini/Downloads/AI4good/workspace/core/hooks |
 | [`schema_law.py`](schema_law.py) | [`schema_law.pyi`](schema_law.pyi) | `load_law`, `load_scopes`, `load_retired` | The law parser. Every Tier 0 check reads core/SCHEMA.md through this module, and none of them restates it — a second copy of the law inside a checker is the exact drift the checks exist to catch. |
 | [`vendored.txt`](vendored.txt) | — | — | Third-party files we did not author. Excluded from the line cap, the fanout signal and the size dashboard — holding someone else's code to our authoring rules produces findings nobody can act on. |
 <!-- routing:end -->

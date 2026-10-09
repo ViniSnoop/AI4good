@@ -11,7 +11,7 @@
 import { spawnSync } from "node:child_process"
 import { resolve } from "node:path"
 
-export const WORKSPACE = "/mnt/workspace"
+export const WORKSPACE = "/home/vini/Downloads/AI4good/workspace"
 export const HOOKS = `${WORKSPACE}/core/hooks`
 
 // opencode tool names -> Claude canonical env value + matcher group.

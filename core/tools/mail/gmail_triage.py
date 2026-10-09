@@ -1,4 +1,4 @@
-#!/mnt/workspace/.venv/bin/python3
+#!/home/vini/Downloads/AI4good/workspace/.venv/bin/python3
 # gmail_triage.py — Claude API email classification for Core/tools/mail/gmail
 import json, anthropic
 

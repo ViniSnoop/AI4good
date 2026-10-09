@@ -8,7 +8,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import feature_law
 from hook_input import parse_stdin
 
-WORKSPACE    = Path('/mnt/workspace')
+WORKSPACE    = Path('/home/vini/Downloads/AI4good/workspace')
 FACADE_NAMES = {'index.ts', 'index.tsx', 'index.js', 'index.jsx', '__init__.py', 'index.dart'}
 # NOT the file_law code set: this is "languages that have a facade convention", a genuinely
 # narrower question than "is this code". Named apart so the two never get conflated again.

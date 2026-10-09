@@ -1,4 +1,4 @@
-#!/mnt/workspace/.venv/bin/python3
+#!/home/vini/Downloads/AI4good/workspace/.venv/bin/python3
 # Usage: core/tools/wos/session/context [--project <slug>] [--top N] — what fills the context
 # window: what is already in it at turn 1, what the CONTEXT.md chain costs, what grows it turn over
 # turn, and what a subagent starts with. Reads the local transcripts; no network, no model.
@@ -15,7 +15,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from session_log import attribute, median, spread, walk
 
 ROOT = Path.home() / '.claude' / 'projects'
-WORKSPACE = Path('/mnt/workspace')
+WORKSPACE = Path('/home/vini/Downloads/AI4good/workspace')
 PROSE_RATE = 3.8  # chars/token for ordinary prose and code — the yardstick, not a measurement
 
 # Injected into the system prompt, invisible to the transcript, paid by every session in the tree.

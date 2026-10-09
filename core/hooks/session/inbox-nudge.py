@@ -11,7 +11,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import feature_law  # noqa: E402
 
-INBOX = '/mnt/workspace/brain/INBOX.md'
+INBOX = '/home/vini/Downloads/AI4good/workspace/brain/INBOX.md'
 WARN_AT = 15
 LOUD_AT = 25
 STALE_DAYS = 10

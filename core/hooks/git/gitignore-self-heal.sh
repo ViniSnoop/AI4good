@@ -14,14 +14,14 @@ set -euo pipefail
 
 # Switched off: the allowlist stops repairing itself. A generator that is disabled writes
 # nothing rather than writing an empty artifact, which would be worse than not running.
-python3 /mnt/workspace/core/hooks/feature_law.py --enabled gitignore-self-heal || exit 0
+python3 /home/vini/Downloads/AI4good/workspace/core/hooks/feature_law.py --enabled gitignore-self-heal || exit 0
 
 # Scoped to the workspace repo — this hook file is wired globally (core.hooksPath), but the
-# domain-denylist .gitignore pattern only exists at /mnt/workspace. Nested project repos
+# domain-denylist .gitignore pattern only exists at /home/vini/Downloads/AI4good/workspace. Nested project repos
 # (code/*, academy/papers/*, ...) have their own unrelated .gitignore; skip them.
 if [ $# -eq 0 ]; then
   TOPLEVEL=$(git rev-parse --show-toplevel 2>/dev/null || true)
-  [ "$TOPLEVEL" = "/mnt/workspace" ] || exit 0
+  [ "$TOPLEVEL" = "/home/vini/Downloads/AI4good/workspace" ] || exit 0
 fi
 
 ROOT="${1:-.}"

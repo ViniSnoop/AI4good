@@ -1,4 +1,4 @@
-#!/mnt/workspace/.venv/bin/python3
+#!/home/vini/Downloads/AI4good/workspace/.venv/bin/python3
 # gcli.py — the two things every Google-backed CLI does identically: consent, and fan out over accounts
 #
 # Shares the tools root with gauth's callers for the reason core/tools/SPECS.md gives: a module

@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 # Usage: core/tools/wos/sync-skills [--check] — regenerate skill mirrors from core/skills/*.md
 #
-# Source of truth:  /mnt/workspace/core/skills/<name>.md
+# Source of truth:  /home/vini/Downloads/AI4good/workspace/core/skills/<name>.md
 # Symlink mirrors (<name>/SKILL.md -> source):
-#   /mnt/workspace/.opencode/skills/<name>/SKILL.md   (opencode)
-#   /mnt/workspace/.claude/skills/<name>/SKILL.md     (Claude Code)
-#   /mnt/workspace/.zcode/skills/<name>/SKILL.md      (ZCode)
+#   /home/vini/Downloads/AI4good/workspace/.opencode/skills/<name>/SKILL.md   (opencode)
+#   /home/vini/Downloads/AI4good/workspace/.claude/skills/<name>/SKILL.md     (Claude Code)
+#   /home/vini/Downloads/AI4good/workspace/.zcode/skills/<name>/SKILL.md      (ZCode)
 # Command file copies (<name>.md — full copy of source, enables /<name> slash command):
-#   /mnt/workspace/.claude/commands/<name>.md         (Claude Code slash commands)
+#   /home/vini/Downloads/AI4good/workspace/.claude/commands/<name>.md         (Claude Code slash commands)
 #
 # Excluded from mirroring: _template.md, *.original.md, CONTEXT.md
 #

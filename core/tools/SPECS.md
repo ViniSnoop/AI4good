@@ -61,7 +61,7 @@ printf '%s\n' '<secret>' | core/tools/<family>/<tool> auth <alias>
    reader a routing table that says nothing — `auth/` is the live example of the cheap side.
 4. Add `# Usage: core/tools/<family>/<name> <args> — <description>` as the first comment line, after
    the shebang.
-5. Give it the **venv shebang**, `#!/mnt/workspace/.venv/bin/python3` — see § The interpreter below.
+5. Give it the **venv shebang**, `#!/home/vini/Downloads/AI4good/workspace/.venv/bin/python3` — see § The interpreter below.
 6. Declare any new third-party dependency in [`deps.txt`](deps.txt) — see § Declared dependencies.
 7. Save — the routing block regenerates automatically.
 
@@ -92,7 +92,7 @@ active — `core/tools/paper/terms` imports `yaml`, and the pre-commit term gate
 have skipped silently on a clean machine.
 
 The path is absolute because **a shebang cannot resolve a relative one**. That is a real cost: it
-hardcodes `/mnt/workspace`, so a clone living anywhere else needs the shebangs rewritten. That
+hardcodes `/home/vini/Downloads/AI4good/workspace`, so a clone living anywhere else needs the shebangs rewritten. That
 rewrite is a step in [`SETUP.md`](../../SETUP.md) § Workspace path rather than a caveat in prose —
 it is idempotent, it has a probe, and an agent performs it. The test asserts the *absence of the
 system shebang*, so it keeps passing on a relocated clone.

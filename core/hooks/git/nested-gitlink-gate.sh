@@ -6,11 +6,11 @@
 # in .gitmodules are allowed. Called from core/hooks/pre-commit.
 
 # Switched off: a disabled gate does not block, and does not pretend it ran.
-python3 /mnt/workspace/core/hooks/feature_law.py --enabled gitlink-gate || exit 0
+python3 /home/vini/Downloads/AI4good/workspace/core/hooks/feature_law.py --enabled gitlink-gate || exit 0
 
 # Only the workspace structural repo.
 TOPLEVEL=$(git rev-parse --show-toplevel 2>/dev/null || true)
-[ "$TOPLEVEL" = /mnt/workspace ] || exit 0
+[ "$TOPLEVEL" = /home/vini/Downloads/AI4good/workspace ] || exit 0
 
 # Newly-staged/modified gitlinks: --raw field 2 is the new mode.
 staged_gitlinks=$(git diff --cached --raw | awk '$2 == "160000" {print $NF}')

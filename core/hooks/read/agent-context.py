@@ -37,10 +37,10 @@ def collect(data: dict) -> int:
 	tool_input = data.get('tool_input') or {}
 	text = f"{tool_input.get('prompt', '')}\n{tool_input.get('description', '')}"
 	lines: list[str] = []
-	for path in sorted(paths_in(text, str(data.get('cwd') or '/mnt/workspace'))):
+	for path in sorted(paths_in(text, str(data.get('cwd') or '/home/vini/Downloads/AI4good/workspace'))):
 		for ctx in context_chain(path):
 			summary = summary_of(ctx)
-			rel = str(ctx).replace('/mnt/workspace/', '')
+			rel = str(ctx).replace('/home/vini/Downloads/AI4good/workspace/', '')
 			entry = f'- {rel} — {summary}' if summary else f'- {rel}'
 			if entry not in lines:
 				lines.append(entry)

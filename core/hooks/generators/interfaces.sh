@@ -6,10 +6,10 @@
 # (core/SPECS.md § AD-14). Not a duplicate trigger: this one stages the stub into the commit
 # and sweeps stubless siblings, post-edit keeps the stub current inside the session so
 # read/pre-read.sh never serves a stale interface. Guarding one would leave the other writing.
-if python3 /mnt/workspace/core/hooks/feature_law.py --enabled interface-stubs; then
+if python3 /home/vini/Downloads/AI4good/workspace/core/hooks/feature_law.py --enabled interface-stubs; then
 
 # shellcheck source=/dev/null
-source /mnt/workspace/core/hooks/stubgen/stub_one.sh
+source /home/vini/Downloads/AI4good/workspace/core/hooks/stubgen/stub_one.sh
 
 # ── 6. Python → .pyi stubs (mypy stubgen) ─────────────────────────────────────
 # Staged files, PLUS any stubless sibling in the same directories. A .py that entered the
@@ -110,7 +110,7 @@ DART_FILES=$(echo "$STAGED" | grep '\.dart$' || true)
 if [ -n "$DART_FILES" ]; then
   while IFS= read -r f; do
     [ -f "$f" ] || continue
-    if python3 /mnt/workspace/core/hooks/stubgen/dart-api-extract.py "$f" 2>/dev/null; then
+    if python3 /home/vini/Downloads/AI4good/workspace/core/hooks/stubgen/dart-api-extract.py "$f" 2>/dev/null; then
       dartapi="${f%.dart}.dart.api"
       [ -f "$dartapi" ] && git add "$dartapi"
     else

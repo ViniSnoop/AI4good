@@ -1,4 +1,4 @@
-#!/mnt/workspace/.venv/bin/python3
+#!/home/vini/Downloads/AI4good/workspace/.venv/bin/python3
 # slides_geom.py — Google Slides transform algebra: rotation, effective scale, composition, bounds
 import math
 

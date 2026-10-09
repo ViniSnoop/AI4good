@@ -6,15 +6,15 @@
 # keeps the stub current WITHIN a session; generators/interfaces.sh is what stages it into
 # the commit. Switch off only one and read/pre-read.sh silently stops enforcing, because it
 # blocks a source read only while the stub beside it is current.
-if python3 /mnt/workspace/core/hooks/feature_law.py --enabled interface-stubs; then
+if python3 /home/vini/Downloads/AI4good/workspace/core/hooks/feature_law.py --enabled interface-stubs; then
 
 # shellcheck source=/dev/null
-source /mnt/workspace/core/hooks/stubgen/stub_one.sh
+source /home/vini/Downloads/AI4good/workspace/core/hooks/stubgen/stub_one.sh
 
 # ── Interface regeneration ──────────────────────────────────────────────────────
 case "$file" in
 	*.py)
-		STUBGEN="/mnt/workspace/.venv/bin/stubgen"
+		STUBGEN="/home/vini/Downloads/AI4good/workspace/.venv/bin/stubgen"
 		emit_pyi "$file" && printf "✓ .pyi: ${file%.py}.pyi\n"
 		;;
 	*.js)
@@ -73,25 +73,25 @@ EOF
 		fi
 		;;
 	*.csv|*.tsv)
-		python3 /mnt/workspace/core/tools/assets/inspect "$file" 2>/dev/null \
+		python3 /home/vini/Downloads/AI4good/workspace/core/tools/assets/inspect "$file" 2>/dev/null \
 			&& printf "✓ .csvif: %sif\n" "$file"
 		;;
 	*.dart)
-		python3 /mnt/workspace/core/hooks/stubgen/dart-api-extract.py "$file" 2>/dev/null
+		python3 /home/vini/Downloads/AI4good/workspace/core/hooks/stubgen/dart-api-extract.py "$file" 2>/dev/null
 		;;
 	*.tex)
-		python3 /mnt/workspace/core/hooks/stubgen/tex-interface-gen.py "$file" 2>/dev/null
+		python3 /home/vini/Downloads/AI4good/workspace/core/hooks/stubgen/tex-interface-gen.py "$file" 2>/dev/null
 		# Term consistency check (warn-only; requires terms.yaml in paper root)
 		paper_root="$dir"
 		while [ "$paper_root" != "/" ] && [ ! -f "$paper_root/terms.yaml" ]; do
 			paper_root=$(dirname "$paper_root")
 		done
-		if [ -f "$paper_root/terms.yaml" ] && [ -x "/mnt/workspace/core/tools/paper/terms" ]; then
-			/mnt/workspace/core/tools/paper/terms "$paper_root" 2>/dev/null | grep -E "^[[:space:]]|^⚠" || true
+		if [ -f "$paper_root/terms.yaml" ] && [ -x "/home/vini/Downloads/AI4good/workspace/core/tools/paper/terms" ]; then
+			/home/vini/Downloads/AI4good/workspace/core/tools/paper/terms "$paper_root" 2>/dev/null | grep -E "^[[:space:]]|^⚠" || true
 		fi
 		;;
 	*.bib)
-		python3 /mnt/workspace/core/hooks/stubgen/tex-interface-gen.py --bib-check "$file" 2>/dev/null
+		python3 /home/vini/Downloads/AI4good/workspace/core/hooks/stubgen/tex-interface-gen.py --bib-check "$file" 2>/dev/null
 		;;
 esac
 

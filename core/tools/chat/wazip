@@ -1,4 +1,4 @@
-#!/mnt/workspace/.venv/bin/python3
+#!/home/vini/Downloads/AI4good/workspace/.venv/bin/python3
 # Usage: core/tools/chat/wazip <export.zip>... --out <dir> [--prompt-file <carrier.txt>] [--keep-media <dir>]
 # — a WhatsApp export becomes navigable text: audios transcribed inline, bot menus dropped, secrets redacted.
 #

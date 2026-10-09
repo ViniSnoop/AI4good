@@ -1,4 +1,4 @@
-#!/mnt/workspace/.venv/bin/python3
+#!/home/vini/Downloads/AI4good/workspace/.venv/bin/python3
 # docs_drive.py — the half of a Google Doc that the Docs API cannot reach: listing, markdown, comments
 import html, pathlib, sys
 

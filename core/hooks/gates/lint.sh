@@ -6,14 +6,14 @@
 # `lint-typescript` names TWO paths (core/SPECS.md § AD-14) — this one blocks the commit,
 # postedit/lint.sh prettier-writes and warns while editing. Different jobs, one switch.
 TS_CODE_STAGED=$(echo "$STAGED" | grep -E '^code/[^/]+/.*\.(ts|tsx)$' | grep -v '\.d\.ts$' || true)
-python3 /mnt/workspace/core/hooks/feature_law.py --enabled lint-typescript || TS_CODE_STAGED=""
+python3 /home/vini/Downloads/AI4good/workspace/core/hooks/feature_law.py --enabled lint-typescript || TS_CODE_STAGED=""
 if [ -n "$TS_CODE_STAGED" ]; then
   declare -A _eslint_proj_seen
   while IFS= read -r staged_file; do
     [ -f "$staged_file" ] || continue
     proj_name=$(echo "$staged_file" | cut -d/ -f2)
     [ -n "${_eslint_proj_seen[$proj_name]+x}" ] && continue
-    proj_dir="/mnt/workspace/code/$proj_name"
+    proj_dir="/home/vini/Downloads/AI4good/workspace/code/$proj_name"
     [ -f "$proj_dir/eslint.config.js" ] || continue
     _eslint_proj_seen["$proj_name"]=1
     ESLINT_BIN="$proj_dir/node_modules/.bin/eslint"

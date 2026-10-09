@@ -1,4 +1,4 @@
-#!/mnt/workspace/.venv/bin/python3
+#!/home/vini/Downloads/AI4good/workspace/.venv/bin/python3
 # notion_core.py — Notion REST seam (workspace-agnostic) for Core/tools/notes/notion
 import pathlib, re, sys
 import requests
