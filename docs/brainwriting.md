@@ -11,7 +11,7 @@
 |:-:|:--|
 | [ ] | perda do raciocínio crítico e alienação (*slop*) |
 | [ ] | a verdade sob mira e colapso epistêmico (*fakes*) |
-| [ ] | manipulação política e democracia (*bots*) |
+| [x] | manipulação política e democracia (*bots*) |
 | [ ] | crise ecológica da IA (água e energia) |
 | [ ] | alimentação com veneno e ultraprocessados (vs. feiras agroecológicas) |
 | [ ] | endividamento e dreno das *bets* |
@@ -19,7 +19,7 @@
 | [ ] | concentração de plataformas e trabalho |
 | [ ] | outra: [preencha: a crise, e em 1 linha por que é relevante] |
 
-por que esta crise: [preencha: 1 a 2 linhas]
+por que esta crise: Estamos em período eleitoral e vivenciando na prática o viés e a interferência de grandes empresas e suas IAs (como assimetrias na geração e moderação de propaganda política), distorcendo a equidade do debate e violando o processo democrático.
 
 **tecnologias de IA** (marque 3 e chame de A, B, C):
 
