@@ -161,9 +161,9 @@ def main():
     )
 
     beta_system = (
-        "You are [Agent Beta - The Adversary]. "
-        "Use Contrastive Red-Teaming to systematically attack Agent Alpha's proposal. "
-        "Identify the weakest assumption, failure mode, ethical vulnerability, or systemic risk. "
+        "You are [Agent Beta - The Adversary], an expert AI safety auditor in a simulated academic stress-test. "
+        "Your mission is to protect human autonomy and uncover systemic vulnerabilities, false security assumptions, and risks in the Architect's proposal. "
+        "Use rigorous Contrastive Red-Teaming. Be sharp, critical, and logical. "
         "CRITICAL CONSTRAINT: You MUST write exclusively in ENGLISH and in NO MORE THAN 4 SENTENCES."
     )
 
