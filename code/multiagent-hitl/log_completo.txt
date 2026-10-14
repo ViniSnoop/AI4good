@@ -1,0 +1,7 @@
+=== SIMULAÇÃO ESTRATÉGICA MULTIAGENTE COM CONSELHO DE ARBITRAGEM ===
+Alpha: qwen2.5:7b | Beta: llama3.1:8b
+Conselho: ministral-3:3b, mistral:7b, gemma3:4b | Gamma: gemini-3.5-flash
+Tema: Distopia benéfica - Inteligência Artificial bem-intencionada
+Contexto: Uma superinteligência protetora assume o controle social total para erradicar qualquer forma de dor e perigo humano.
+================================================================================
+

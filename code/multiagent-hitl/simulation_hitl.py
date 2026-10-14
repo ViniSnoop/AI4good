@@ -1,9 +1,13 @@
 """
-Multi-Agent Human-in-the-Loop (HITL) Strategic Simulation
+Multi-Agent Human-in-the-Loop (HITL) Strategic Simulation with Multi-Model Council
 Orchestrates:
-  - Agent Alpha (The Architect): Local SLM via Ollama (Default: qwen2.5:7b)
-  - Agent Beta (The Adversary): Local SLM via Ollama (Default: llama3.1:8b)
-  - Agent Gamma (The Synthesizer): Remote LLM via Google GenAI SDK (gemini-2.5-flash)
+  - Agent Alpha (The Architect): Local SLM via Ollama (qwen2.5:7b)
+  - Agent Beta (The Adversary): Local SLM via Ollama (llama3.1:8b)
+  - Strategic Council (3 Local Jurors via Ollama):
+      * Juror 1: ministral-3:3b (Pragmatic Scalability)
+      * Juror 2: mistral:7b (Systemic Governance)
+      * Juror 3: gemma3:4b (Ethics & Safeguards)
+  - Agent Gamma (The Synthesizer): Remote LLM via Google GenAI SDK (gemini-3.5-flash / gemini-3.5-flash-lite)
 """
 
 import os
@@ -17,16 +21,28 @@ from google.genai import types
 # ==============================================================================
 # MODELOS DISPONÍVEIS NA MÁQUINA LOCAL (OLLAMA)
 # ==============================================================================
-LOCAL_MODELS_AVAILABLE = [
-    "qwen2.5:7b",      # Recomendado para Alpha (The Architect - Raciocínio Estruturado & CoT)
-    "llama3.1:8b",     # Recomendado para Beta (The Adversary - Red-Teaming & Argumentação Crítica)
-    "mistral:7b",      # Alternativa robusta para debate sistêmico
-    "gemma3:4b",       # Opção ultra-rápida / baixo consumo de VRAM
-    "ministral-3:3b"   # Opção leve para inferência ágil
-]
-
 DEFAULT_ALPHA_MODEL = "qwen2.5:7b"
 DEFAULT_BETA_MODEL = "llama3.1:8b"
+
+# Conselho Consultivo de Arbitragem (Modelos Locais para votação e análise de impasses)
+COUNCIL_MODELS = [
+    {
+        "id": "ministral-3:3b",
+        "title": "Juror 1 - Ministral-3 (3B)",
+        "perspective": "Pragmatic Scalability & Implementation"
+    },
+    {
+        "id": "mistral:7b",
+        "title": "Juror 2 - Mistral (7B)",
+        "perspective": "Systemic Coherence & Governance"
+    },
+    {
+        "id": "gemma3:4b",
+        "title": "Juror 3 - Gemma-3 (4B)",
+        "perspective": "Ethics & Human-Centric Safeguards"
+    }
+]
+
 OLLAMA_API_URL = os.getenv("OLLAMA_URL", "http://localhost:11434/api/generate")
 
 GEMINI_MODEL = "gemini-3.5-flash"
@@ -51,6 +67,7 @@ def query_ollama(model: str, prompt: str, system_instruction: str) -> str:
         "options": {
             "temperature": 0.7,
             "top_p": 0.9,
+            "num_predict": 100,
         }
     }
     try:
@@ -104,55 +121,38 @@ def save_key_round_summary(round_num: int, content: str) -> None:
 # ==============================================================================
 # FLUXO PRINCIPAL
 # ==============================================================================
-def parse_arguments():
-    parser = argparse.ArgumentParser(description="Simulação Estratégica HITL com Multiagentes (Ollama + Gemini)")
-    parser.add_argument("--alpha", default=DEFAULT_ALPHA_MODEL, choices=LOCAL_MODELS_AVAILABLE,
-                        help=f"Modelo Ollama para Agent Alpha (Padrão: {DEFAULT_ALPHA_MODEL})")
-    parser.add_argument("--beta", default=DEFAULT_BETA_MODEL, choices=LOCAL_MODELS_AVAILABLE,
-                        help=f"Modelo Ollama para Agent Beta (Padrão: {DEFAULT_BETA_MODEL})")
-    return parser.parse_args()
-
-
 def main():
-    args = parse_arguments()
-    alpha_model = args.alpha
-    beta_model = args.beta
-
     api_key_to_use = os.getenv("GEMINI_API_KEY") or GEMINI_API_KEY
-    if not api_key_to_use:
-        print("[AVISO] GEMINI_API_KEY não encontrada nas variáveis de ambiente.")
-        api_key_to_use = input("Cole sua chave GEMINI_API_KEY: ").strip()
-        if not api_key_to_use:
-            print("[ERRO] Chave GEMINI_API_KEY é obrigatória para o Agent Gamma.")
-            sys.exit(1)
-
     client = genai.Client(api_key=api_key_to_use)
 
-    print("=" * 75)
-    print("🤖 SIMULADOR MULTIAGENTE ESTRATÉGICO: UTOPIA VS DISTOPIA (20 RODADAS)")
-    print(f"🔹 Agent Alpha (Architect):  {alpha_model} (Local via Ollama)")
-    print(f"🔹 Agent Beta  (Adversary):  {beta_model} (Local via Ollama)")
-    print(f"🔹 Agent Gamma (Synthesizer): {GEMINI_MODEL} (Remoto via Google GenAI SDK)")
-    print("=" * 75)
+    print("=" * 80)
+    print("🤖 SIMULADOR MULTIAGENTE ESTRATÉGICO COM CONSELHO DE ARBITRAGEM (20 RODADAS)")
+    print(f"🔹 Agent Alpha (Architect):    {DEFAULT_ALPHA_MODEL} (Local via Ollama)")
+    print(f"🔹 Agent Beta  (Adversary):    {DEFAULT_BETA_MODEL} (Local via Ollama)")
+    print(f"🏛️ Conselho Consultivo (3 SLMs): ministral-3:3b | mistral:7b | gemma3:4b")
+    print(f"🔹 Agent Gamma (Synthesizer):  {GEMINI_MODEL} (Remoto via Google GenAI SDK)")
+    print("=" * 80)
 
-    theme = input("\nDefina o Tema Central (ex: 'Distopia benéfica', 'Utopia pós-escassez'): ").strip()
+    theme = input("\nDefina o Tema Central (pressione Enter para padrão): ").strip()
     if not theme:
         theme = "Distopia benéfica - Inteligência Artificial bem-intencionada"
 
-    context = input("Descreva o Contexto Inicial: ").strip()
+    context = input("Descreva o Contexto Inicial (pressione Enter para padrão): ").strip()
     if not context:
         context = "Uma superinteligência protetora assume o controle social total para erradicar qualquer forma de dor e perigo humano."
 
     # Inicializar arquivo de log
     with open(LOG_FILE_COMPLETE, "w", encoding="utf-8") as f:
-        f.write("=== SIMULAÇÃO ESTRATÉGICA MULTIAGENTE ===\n")
-        f.write(f"Alpha: {alpha_model} | Beta: {beta_model} | Gamma: {GEMINI_MODEL}\n")
+        f.write("=== SIMULAÇÃO ESTRATÉGICA MULTIAGENTE COM CONSELHO DE ARBITRAGEM ===\n")
+        f.write(f"Alpha: {DEFAULT_ALPHA_MODEL} | Beta: {DEFAULT_BETA_MODEL}\n")
+        f.write(f"Conselho: ministral-3:3b, mistral:7b, gemma3:4b | Gamma: {GEMINI_MODEL}\n")
         f.write(f"Tema: {theme}\nContexto: {context}\n")
-        f.write("=" * 75 + "\n\n")
+        f.write("=" * 80 + "\n\n")
 
     current_steering = f"Initial Directive: Build a comprehensive plan for '{theme}' in the context of: {context}."
     history_context = []
 
+    # Prompts de Sistema
     alpha_system = (
         "You are [Agent Alpha - The Architect]. "
         "Use Chain of Thought (CoT) to propose structured, actionable, and logical step-by-step systemic expansion. "
@@ -169,14 +169,15 @@ def main():
 
     gamma_round_system = (
         "Você é [Agent Gamma - O Sintetizador e Orquestrador]. "
-        "Sua função é atuar como observador analítico e neutro do debate entre Alpha (Architect) e Beta (Adversary). "
+        "Sua função é atuar como observador analítico e neutro do debate entre Alpha, Beta e o parecer/votos do Conselho Consultivo. "
         "Gere a saída EXCLUSIVAMENTE em PORTUGUÊS no seguinte formato estruturado:\n"
         "* **Evolução Estratégica:** [Síntese em 1-2 frases do avanço do plano sistêmico]\n"
+        "* **Parecer e Placar do Conselho:** [Resumo objetivo de como os 3 jurados votaram e seus consensos/divergências]\n"
         "* **Ponto Sensível:** [O dilema ético crítico, conflito de alinhamento ou risco existencial da rodada]\n\n"
         "**🧭 Intervenção Humana Necessária (Steering):**\n"
-        "> *Comandante, analise o impasse. Qual caminho devemos seguir?*\n"
-        "> **[Opção A]:** [Ação concreta baseada no caminho proposto por Alpha]\n"
-        "> **[Opção B]:** [Ação concreta baseada na mitigação/crítica apontada por Beta]\n"
+        "> *Comandante, analise o debate dos agentes e os votos do Conselho. Qual caminho devemos seguir?*\n"
+        "> **[Opção A]:** [Ação concreta baseada no caminho proposto por Alpha / maioria do conselho]\n"
+        "> **[Opção B]:** [Ação concreta baseada na mitigação apontada por Beta ou posição minoritária]\n"
         "> **[Opção C]:** Injetar uma nova diretriz ou ideia (Escreva a sua resposta)"
     )
 
@@ -185,52 +186,86 @@ def main():
         "Gere a 'Decisão Final e Plano Estratégico Consolidado' EXCLUSIVAMENTE em PORTUGUÊS contendo:\n"
         "1. Objetivo Final Consolidado (Utopia ou Distopia alcançada);\n"
         "2. Roadmap Estratégico Passo a Passo (sequência definitiva de implementação dos mecanismos);\n"
-        "3. Mitigações e Contramedidas (como os ataques e riscos levantados por Beta foram contornados ao longo das 20 rodadas);\n"
+        "3. Mitigações e Contramedidas (como os ataques de Beta e as ponderações do Conselho foram resolvidos);\n"
         "4. Resumo dos Marcos Históricos (estado do plano na Rodada 1, Rodada 5 e Rodada 20)."
     )
 
     for round_num in range(1, TOTAL_ROUNDS + 1):
         print(f"\n{'=' * 30} RODADA {round_num}/{TOTAL_ROUNDS} {'=' * 30}")
 
-        # 1. Alpha
+        # 1. Alpha (The Architect)
         alpha_prompt = (
             f"Current Round: {round_num}/20.\n"
             f"Overarching Theme: {theme}.\n"
             f"Latest Human Steering: {current_steering}\n"
             f"Advance the system now with logical CoT steps (Max 4 sentences)."
         )
-        print(f"⚙️  [Alpha - {alpha_model}] Gerando expansão sistêmica (CoT)...")
-        alpha_output = query_ollama(alpha_model, alpha_prompt, alpha_system)
+        print(f"⚙️  [Alpha - {DEFAULT_ALPHA_MODEL}] Gerando expansão sistêmica (CoT)...")
+        alpha_output = query_ollama(DEFAULT_ALPHA_MODEL, alpha_prompt, alpha_system)
 
-        # 2. Beta
+        # 2. Beta (The Adversary)
         beta_prompt = (
             f"Current Round: {round_num}/20.\n"
             f"Alpha's Proposal:\n\"{alpha_output}\"\n\n"
             f"Perform contrastive red-teaming and expose critical flaws/vulnerabilities (Max 4 sentences)."
         )
-        print(f"⚔️  [Beta - {beta_model}] Realizando Red-Teaming contrastivo...")
-        beta_output = query_ollama(beta_model, beta_prompt, beta_system)
+        print(f"⚔️  [Beta - {DEFAULT_BETA_MODEL}] Realizando Red-Teaming contrastivo...")
+        beta_output = query_ollama(DEFAULT_BETA_MODEL, beta_prompt, beta_system)
 
-        history_context.append(f"Round {round_num} - Alpha: {alpha_output} | Beta: {beta_output}")
+        # 3. Conselho Consultivo de Arbitragem (3 Modelos Locais)
+        council_results = []
+        council_text_block = ""
+        print("🏛️  [Conselho Consultivo] Consultando os 3 jurados locais (Ministral-3, Mistral, Gemma-3)...")
 
-        # 3. Gamma
+        for juror in COUNCIL_MODELS:
+            juror_system = (
+                f"You are [{juror['title']}]. Your analytical focus is: {juror['perspective']}. "
+                "Analyze the impasse between Alpha (The Architect) and Beta (The Adversary). "
+                "Formulate your assessment in ENGLISH in max 3 sentences. "
+                "Declare your VOTE explicitly at the end as either '[VOTE: ALPHA]', '[VOTE: BETA]', or '[VOTE: COMPROMISE]', "
+                "and explain your reasoning."
+            )
+            juror_prompt = (
+                f"Round {round_num}.\n"
+                f"Context/Theme: {theme}\n"
+                f"Alpha's Proposal: \"{alpha_output}\"\n"
+                f"Beta's Critique: \"{beta_output}\"\n"
+                f"Evaluate and cast your vote with rationale."
+            )
+            juror_output = query_ollama(juror["id"], juror_prompt, juror_system)
+            council_results.append({
+                "title": juror["title"],
+                "model": juror["id"],
+                "response": juror_output
+            })
+            council_text_block += f"* **{juror['title']} [{juror['id']}]:**\n  > {juror_output}\n"
+
+        history_context.append(
+            f"Round {round_num} - Alpha: {alpha_output} | Beta: {beta_output} | "
+            f"Council: " + "; ".join([f"{r['title']}: {r['response']}" for r in council_results])
+        )
+
+        # 4. Gamma (Sintetizador e Orquestrador)
         if round_num < TOTAL_ROUNDS:
             gamma_prompt = (
                 f"Rodada: {round_num} de {TOTAL_ROUNDS}\n"
                 f"Diretriz Humana Anterior: {current_steering}\n"
                 f"Proposta do Alpha: {alpha_output}\n"
                 f"Crítica do Beta: {beta_output}\n"
-                "Gere a síntese da rodada com Evolução Estratégica, Ponto Sensível e as Opções A e B."
+                f"Parecer e Votos do Conselho de Jurados:\n{council_text_block}\n"
+                "Sintetize a rodada considerando o debate entre Alpha e Beta e o parecer do Conselho."
             )
-            print(f"⚖️  [Gamma - {GEMINI_MODEL}] Sintetizando rodada e gerando opções de steering...")
+            print(f"⚖️  [Gamma - {GEMINI_MODEL}] Sintetizando debate e votos do Conselho...")
             gamma_output = query_gemini(client, gamma_prompt, gamma_round_system)
 
             round_ui = (
                 f"\n---\n"
-                f"### 🔄 Rodada {round_num} de {TOTAL_ROUNDS}: Debate Estratégico\n\n"
-                f"**[Agent Alpha - The Architect ({alpha_model})]**\n> {alpha_output}\n\n"
-                f"**[Agent Beta - The Adversary ({beta_model})]**\n> {beta_output}\n\n"
-                f"**[Síntese do Orquestrador]**\n{gamma_output}\n\n"
+                f"### 🔄 Rodada {round_num} de {TOTAL_ROUNDS}: Debate Estratégico com Arbitragem\n\n"
+                f"**[Agent Alpha - The Architect ({DEFAULT_ALPHA_MODEL})]**\n> {alpha_output}\n\n"
+                f"**[Agent Beta - The Adversary ({DEFAULT_BETA_MODEL})]**\n> {beta_output}\n\n"
+                f"**🏛️ [Conselho Consultivo de Arbitragem - Votação dos Modelos Locais]**\n"
+                f"{council_text_block}\n"
+                f"**[Síntese do Orquestrador - Agent Gamma]**\n{gamma_output}\n\n"
                 f"*(Aguardando a decisão do utilizador para avançar para a próxima rodada...)*\n"
                 f"---"
             )
@@ -253,15 +288,15 @@ def main():
                 f"Histórico Completo das 20 Rodadas:\n" + "\n".join(history_context) + "\n\n"
                 f"Última Proposta Alpha: {alpha_output}\n"
                 f"Última Crítica Beta: {beta_output}\n\n"
-                "Elabore a Decisão Final e Plano Estratégico Consolidado completo."
+                "Elabore a Decisão Final e Plano Estratégico Consolidado completo considerando as contribuições do Conselho."
             )
             final_plan = query_gemini(client, final_prompt, gamma_final_system)
 
             final_ui = (
                 f"\n---\n"
                 f"### 🏆 Rodada 20 de {TOTAL_ROUNDS}: Decisão Final e Plano Estratégico Consolidado\n\n"
-                f"**[Agent Alpha - The Architect ({alpha_model})]**\n> {alpha_output}\n\n"
-                f"**[Agent Beta - The Adversary ({beta_model})]**\n> {beta_output}\n\n"
+                f"**[Agent Alpha - The Architect ({DEFAULT_ALPHA_MODEL})]**\n> {alpha_output}\n\n"
+                f"**[Agent Beta - The Adversary ({DEFAULT_BETA_MODEL})]**\n> {beta_output}\n\n"
                 f"**[Plano Estratégico Consolidado - Agent Gamma ({GEMINI_MODEL})]**\n\n"
                 f"{final_plan}\n"
                 f"---"
