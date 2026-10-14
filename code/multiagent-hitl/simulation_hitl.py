@@ -29,8 +29,9 @@ DEFAULT_ALPHA_MODEL = "qwen2.5:7b"
 DEFAULT_BETA_MODEL = "llama3.1:8b"
 OLLAMA_API_URL = os.getenv("OLLAMA_URL", "http://localhost:11434/api/generate")
 
-GEMINI_MODEL = "gemini-2.5-flash"
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+GEMINI_MODEL = "gemini-3.5-flash"
+GEMINI_FALLBACK_MODEL = "gemini-3.5-flash-lite"
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "AQ.Ab8RN6L6nvcrjmnHw_oinTOumZCcaWP0tU0Xt-SGH_NLCt8wog")
 
 TOTAL_ROUNDS = 20
 KEY_ROUNDS = [1, 5, 20]
@@ -66,21 +67,23 @@ def query_ollama(model: str, prompt: str, system_instruction: str) -> str:
 
 
 def query_gemini(client: genai.Client, prompt: str, system_instruction: str) -> str:
-    """Executa a síntese via Google Gemini API utilizando o SDK google-genai."""
-    try:
-        config = types.GenerateContentConfig(
-            system_instruction=system_instruction,
-            temperature=0.4,
-        )
-        response = client.models.generate_content(
-            model=GEMINI_MODEL,
-            contents=prompt,
-            config=config
-        )
-        return response.text.strip()
-    except Exception as e:
-        print(f"\n[ERRO] Falha na chamada ao Gemini API ({GEMINI_MODEL}): {e}")
-        return f"[Erro ao sintetizar via Gemini: {e}]"
+    """Executa a síntese via Google Gemini API utilizando o SDK google-genai com fallback automático."""
+    config = types.GenerateContentConfig(
+        system_instruction=system_instruction,
+        temperature=0.4,
+    )
+    for model_name in [GEMINI_MODEL, GEMINI_FALLBACK_MODEL]:
+        try:
+            response = client.models.generate_content(
+                model=model_name,
+                contents=prompt,
+                config=config
+            )
+            return response.text.strip()
+        except Exception as e:
+            print(f"\n[AVISO] Modelo {model_name} encontrou erro ({e}). Tentando fallback...")
+            continue
+    return "[Erro crítico: falha em todos os modelos Gemini disponíveis]"
 
 
 # ==============================================================================
@@ -115,16 +118,15 @@ def main():
     alpha_model = args.alpha
     beta_model = args.beta
 
-    if not GEMINI_API_KEY:
+    api_key_to_use = os.getenv("GEMINI_API_KEY") or GEMINI_API_KEY
+    if not api_key_to_use:
         print("[AVISO] GEMINI_API_KEY não encontrada nas variáveis de ambiente.")
-        key_input = input("Cole sua chave GEMINI_API_KEY (ou dê enter se configurada no sistema): ").strip()
-        if key_input:
-            os.environ["GEMINI_API_KEY"] = key_input
-        else:
+        api_key_to_use = input("Cole sua chave GEMINI_API_KEY: ").strip()
+        if not api_key_to_use:
             print("[ERRO] Chave GEMINI_API_KEY é obrigatória para o Agent Gamma.")
             sys.exit(1)
 
-    client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY"))
+    client = genai.Client(api_key=api_key_to_use)
 
     print("=" * 75)
     print("🤖 SIMULADOR MULTIAGENTE ESTRATÉGICO: UTOPIA VS DISTOPIA (20 RODADAS)")
