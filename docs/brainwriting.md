@@ -25,23 +25,23 @@ por que esta crise: Estamos em período eleitoral e vivenciando na prática o vi
 
 | | tecnologia de IA |
 |:-:|:--|
-| [ ] | modelos locais / no aparelho (*SLMs*, 1B–7B) |
-| [ ] | sistemas multiagente e agência (*tools*, MCP) |
+| [x] A | modelos locais / no aparelho (*SLMs*, 1B–7B) |
+| [x] B | sistemas multiagente e agência (*tools*, MCP) |
 | [ ] | visão computacional e OCR |
 | [ ] | voz (fala ↔ texto) e interfaces sem tela |
 | [ ] | grafos e RAG (redes de grafos, busca vetorial) |
-| [ ] | modelos de difusão / geração visual |
+| [x] C | modelos de difusão / geração visual |
 | [ ] | outra: [preencha] |
 
 **infraestruturas tradicionais** (marque 3 e chame de 1, 2, 3):
 
 | | infraestrutura |
 |:-:|:--|
-| [ ] | plataformas de dois lados (*matching*, como Uber) |
+| [x] 1 | plataformas de dois lados (*matching*, como Uber) |
 | [ ] | geolocalização, GPS e mapas |
 | [ ] | e-commerce, marketplaces e catálogos |
-| [ ] | mensageria leve e bots (WhatsApp, SMS) |
-| [ ] | redes sociais, feeds e comunidades |
+| [x] 2 | mensageria leve e bots (WhatsApp, SMS) |
+| [x] 3 | redes sociais, feeds e comunidades |
 | [ ] | pagamento instantâneo (Pix, moeda local) |
 | [ ] | crowdsourcing e curadoria coletiva |
 | [ ] | outra: [preencha] |
@@ -56,11 +56,11 @@ por que esta crise: Estamos em período eleitoral e vivenciando na prática o vi
 
 cada célula: **nome** · frase de até 20 palavras (quem usa, o que faz).
 
-| | 1 · [preencha: infra] | 2 · [preencha: infra] | 3 · [preencha: infra] |
+| | 1 · plataformas de dois lados | 2 · mensageria leve e bots | 3 · redes sociais e comunidades |
 |:--|:--|:--|:--|
-| **A · [preencha: IA]** | [preencha] | [preencha] | [preencha] |
-| **B · [preencha: IA]** | [preencha] | [preencha] | [preencha] |
-| **C · [preencha: IA]** | [preencha] | [preencha] | [preencha] |
+| **A · modelos locais (SLMs)** | [preencha] | [preencha] | [preencha] |
+| **B · sistemas multiagente (MCP)** | [preencha] | [preencha] | [preencha] |
+| **C · difusão / geração visual** | [preencha] | [preencha] | [preencha] |
 
 **as 9 no mapa impacto × viabilidade:**
 
