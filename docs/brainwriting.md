@@ -50,7 +50,11 @@ por que esta crise: Estamos em período eleitoral e vivenciando na prática o vi
 
 | clichê | o que acerta | onde fica raso |
 |:--|:--|:--|
-| [preencha] | | |
+| Checadores de fatos comunitários (ex: Notas da Comunidade do X/Twitter) | Busca corrigir desinformação com fontes abertas e descentralização da checagem. | Depende da iniciativa voluntária de usuários; demora para aprovar consensos em bolhas polarizadas e chega tarde demais. |
+| Moderação automatizada por IA para bloquear propagandas e conteúdos eleitorais enganosos | Reconhece a velocidade necessária para barrar desinformação massiva em escala de plataforma. | Torna-se ferramenta de censura e assimetria política opaca (como abusos corporativos de Big Techs bloqueando candidatos específicos). |
+| Obrigatoriedade de marcas d'água / selos criptográficos em mídias geradas por IA | Cria padrão técnico rastreável para atestar procedência de fotos e vídeos de campanhas. | Facilmente removido por modelos open source locais; gera falsa sensação de que mídias sem selo são necessariamente autênticas. |
+| Cartilhas e campanhas de letramento digital e conscientização do eleitor | Fortalece a autonomia crítica e o discernimento individual no longo prazo. | Desconsidera a sofisticação da micro-segmentação psicológica e o design viciante das redes, transferindo a culpa sistêmica para o indivíduo. |
+| Criação de uma "IA neutra oficial" ou assistente público para comparar candidatos | Visa oferecer acesso isonômico a propostas e planos de governo sem intermediários partidários. | Ilusão de neutralidade algorítmica; modelos herdam premissas e vieses de treinamento, sendo vulneráveis a pressões institucionais de quem os financia. |
 
 ## 3 · matriz 3 × 3 e a minha ideia
 
