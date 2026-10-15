@@ -62,22 +62,25 @@ cada célula: **nome** · frase de até 20 palavras (quem usa, o que faz).
 
 | | 1 · plataformas de dois lados | 2 · mensageria leve e bots | 3 · redes sociais e comunidades |
 |:--|:--|:--|:--|
-| **A · modelos locais (SLMs)** | [preencha] | [preencha] | [preencha] |
-| **B · sistemas multiagente (MCP)** | [preencha] | [preencha] | [preencha] |
-| **C · difusão / geração visual** | [preencha] | [preencha] | [preencha] |
+| **A · modelos locais (SLMs)** | **VotoLivre Local** · Eleitores e candidatos conectam prioridades reais via IA local no celular, cruzando desejos cidadãos com planos de governo sem expor dados. | **Sentinela Privada** · Cidadãos usam modelo offline no celular para analisar mensagens eleitorais recebidas sem enviar conversas para servidores corporativos. | **FiltroSoberano** · Usuários de redes sociais processam seus feeds localmente no smartphone, detectando narrativas coordenadas e manipulativas sem censura de Big Techs. |
+| **B · sistemas multiagente (MCP)** | **ConfrontaPropostas** · Eleitores conectam agentes de diferentes partidos para debaterem publicamente viabilidade de propostas e custos antes da decisão de voto. | **Conselho Aberto** · Grupos de mensagens acionam comitê de agentes com perspectivas plurais que checam fontes oficiais e esclarecem dúvidas em tempo real. | **Vigília de Redes** · Pesquisadores e ativistas usam enxames de agentes para rastrear bots coordenados e cartéis de impulsionamento em múltiplas redes simultaneamente. |
+| **C · difusão / geração visual** | **ProjetaBairro** · Moradores cadastram demandas locais e candidatos geram simulações visuais realistas de obras e soluções urbanas para comparação direta do eleitor. | **ContraProva Visual** · Cidadãos recebem infográficos e reconstituições visuais imediatas desmontando adulterações e deepfakes compartilhados em conversas privadas. | **Raio-X de Mídia** · Comunidades virtuais usam modelos visuais para expor adulterações e evidenciar manipulações em propagandas políticas direto no feed. |
 
 **as 9 no mapa impacto × viabilidade:**
 
 | | viabilidade alta | viabilidade baixa |
 |:--|:--|:--|
-| **impacto alto** | [preencha] | [preencha] |
-| **impacto baixo** | [preencha] | [preencha] |
+| **impacto alto** | VotoLivre Local, Conselho Aberto | FiltroSoberano, Vigília de Redes |
+| **impacto baixo** | Sentinela Privada, ContraProva Visual | ConfrontaPropostas, ProjetaBairro, Raio-X de Mídia |
 
-onde discordei da IA, e por quê: [preencha]
+onde discordei da IA, e por quê: Discordei do tom punitivista de termos como "Tribunal" e de jargões datados como "Zap", que geram rejeição ou estigma; além disso, rejeitei a proposta inicial genérica de "CampanhaAberta", optando por focar na resolução concreta de demandas comunitárias e na soberania de dados do eleitor via modelos locais (SLMs).
 
-**minha ideia escolhida:** [preencha: nome · frase]
+**minha ideia escolhida:** VotoLivre Local · Eleitores e candidatos conectam prioridades reais via IA local no celular, cruzando desejos cidadãos com planos de governo sem expor dados.
 
-**por que ela, sem IA, em até 3 linhas:** [preencha]
+**por que ela, sem IA, em até 3 linhas:**
+1. A população tem enorme dificuldade de analisar planos de governo extensos (com mais de 100 páginas), votando quase sempre por apelo de marketing superficial.
+2. O pareamento direto entre demandas prioritárias do cidadão e compromissos formais registrados eleva o patamar do debate político nacional.
+3. Quando a escolha do eleitor passa a ser orientada pelo conteúdo dos planos, os próprios candidatos são forçados a formular propostas sérias e viáveis, enfraquecendo a demagogia.
 
 ## 4 · motores
 
