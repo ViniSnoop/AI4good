@@ -124,5 +124,8 @@ por que sem ela não roda: Modelos centralizados em nuvem (APIs de Big Techs) re
 
 ## 7 · resumo, sem IA
 
-[preencha: em até 5 linhas, a crise, a ideia, como a IA entra, o que muda se todo mundo usasse,
-e por que cada pessoa usaria]
+1. Em um mundo onde bots alavancam perfis e desinformação se alastra violentamente, as eleições tornaram-se vitrine para figuras sem planos reais para o país que conquistam vitórias históricas com o apoio e algoritmos das redes sociais.
+2. O FiltroSoberano entra justamente como uma barreira protetora direta do cidadão contra essas tentativas contínuas de manipulação política e distorção do debate público.
+3. A IA entra através de modelos pequenos (SLMs) e bem treinados rodando localmente no aparelho, capazes de identificar padrões de manipulação e alertar o usuário contra os ataques em tempo real.
+4. Se todo mundo fizesse uso, o impacto de ataques estrangeiros e operações de guerra psicológica seria drasticamente reduzido, neutralizando o contágio de narrativas fabricadas.
+5. A adesão depende da vontade fundamental de cada pessoa de não ser enganada nem feita de fantoche, sem imposição forçada de uso e ciente das limitações de hardware em aparelhos mais fracos.
