@@ -10,7 +10,7 @@ from google import genai
 from google.genai import types
 
 OLLAMA_URL = "http://localhost:11434/api/generate"
-API_KEY = os.getenv("GEMINI_API_KEY", "AQ.Ab8RN6L6nvcrjmnHw_oinTOumZCcaWP0tU0Xt-SGH_NLCt8wog")
+API_KEY = os.getenv("GEMINI_API_KEY")
 client = genai.Client(api_key=API_KEY)
 
 def query_ollama(model: str, prompt: str, system_prompt: str) -> str:

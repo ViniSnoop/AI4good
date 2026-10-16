@@ -47,7 +47,7 @@ OLLAMA_API_URL = os.getenv("OLLAMA_URL", "http://localhost:11434/api/generate")
 
 GEMINI_MODEL = "gemini-3.5-flash"
 GEMINI_FALLBACK_MODEL = "gemini-3.5-flash-lite"
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "AQ.Ab8RN6L6nvcrjmnHw_oinTOumZCcaWP0tU0Xt-SGH_NLCt8wog")
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
 TOTAL_ROUNDS = 20
 KEY_ROUNDS = [1, 5, 20]
