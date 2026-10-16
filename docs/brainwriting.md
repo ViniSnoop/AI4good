@@ -98,13 +98,13 @@ onde discordei da IA, e por quê: Discordei do tom punitivista de termos como "T
 
 ## 5 · o que fica e o que sai
 
-**o que eu gostei:** [preencha]
+**o que eu gostei:** O funcionamento estritamente offline (sem permissão de rede). Como profissional da área de Segurança da Informação, tenho plena ciência dos riscos críticos de vazamento de dados sensíveis e vigilância centralizada, tornando a execução 100% local no dispositivo um requisito inegociável de soberania e privacidade.
 
-**o que achei interessante:** [preencha]
+**o que achei interessante:** A abordagem do "Escudo do Comunicador". Considerar um modo ou modelo local um pouco mais potente dedicado a criadores de conteúdo e comunicadores de grandes mídias para auditarem menções e narrativas suspeitas antes de repercuti-las agrega uma linha de defesa vital contra desinformação em larga escala.
 
-**o que eu descarto, e por quê:** [preencha]
+**o que eu descarto, e por quê:** Descarto *inverter* (Auditor Reverso), *canalizar* (Alerta Invasão), *reescalar* (Malha Imune Cívica) e *trocar o contexto* (Guarda-Costas do SO). Protocolos P2P ou exposição de relatórios ampliam desnecessariamente a superfície de ataque e o risco de vazamentos; já restringir o filtro a datas específicas ou modificar o SO inteiro cria barreiras de adoção e complexidade técnica excessiva.
 
-**minha ideia completa:** [preencha: nome, e de 3 a 5 linhas: quem usa, o que faz, que IA entra, o que muda na crise]
+**minha ideia completa:** **FiltroSoberano** · Cidadãos e comunicadores utilizam um aplicativo local no smartphone que monitora e analisa em tempo real os feeds das redes sociais, identificando padrões de coordenação inautêntica, retórica manipulativa e desinformação eleitoral. A solução opera via modelos de linguagem pequenos (SLMs de 1B a 3B parâmetros quantizados em 4-bit) rodando diretamente na CPU/NPU do dispositivo com permissões de internet bloqueadas, prevendo ainda um modelo ligeiramente mais potente para estações de trabalho de criadores de conteúdo. Ao devolver a capacidade de auditoria crítica ao usuário final sem intermediação das Big Techs, o sistema neutraliza operações de guerra psicológica e armas informacionais estrangeiras, blindando o processo democrático com garantia matemática de privacidade.
 
 ## 6 · refinamento
 
