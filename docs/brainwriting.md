@@ -108,19 +108,19 @@ onde discordei da IA, e por quê: Discordei do tom punitivista de termos como "T
 
 ## 6 · refinamento
 
-**a · e se todo mundo usasse?** [preencha: o efeito concreto na crise e o incentivo individualista, em até 80 palavras]
+**a · e se todo mundo usasse?** Se todos usassem, as redes de bots e operações de guerra psicológica perderiam o efeito de manada, inviabilizando campanhas desonestas. O incentivo é a autopreservação e a higiene mental: o usuário não quer ser feito de otário ou fantoche de narrativas fabricadas, manipulado emocionalmente por algoritmos opacos ou cair em fraudes eleitorais, reassumindo o controle soberano do que consome.
 
-**b · a IA que não pode faltar.** técnica: [preencha] · aula da disciplina: [preencha: título da aula]
+**b · a IA que não pode faltar.** técnica: Modelos de Linguagem Compactos (SLMs, 1B–3B parâmetros) quantizados em 4-bit e destilação de conhecimento para inferência offline no aparelho · aula da disciplina: Destilação de conhecimento e Arena dialética (distopia vs. utopia)
 
-por que sem ela não roda: [preencha]
+por que sem ela não roda: Modelos centralizados em nuvem (APIs de Big Techs) recriariam o próprio problema do viés corporativo, censura arbitrária e vazamento de privacidade do feed do usuário. Sem o processamento local soberano e destilado no aparelho, a premissa de segurança da informação e independência técnica cai por terra.
 
 **c · o cético e as saídas**
 
 | crítica | saída 1 | saída 2 | minha decisão |
 |:--|:--|:--|:--|
-| [preencha] | | | |
-| | | | |
-| | | | |
+| Bateria e Hardware: Rodar IA local no celular vai esquentar o aparelho e drenar a bateria rapidamente. | Usar quantização agressiva e só rodar quando o usuário clicar manualmente. | Usar SLM ultra-leve (1B) que analisa apenas o post que estiver parado no foco da tela em segundo plano. | **Saída 2:** SLM ultra-leve (1B 4-bit) com suspensão automática de inferência assim que o usuário para de rolar o feed. |
+| Apps Fechados: Redes sociais proprietárias não fornecem APIs abertas para ferramentas externas lerem o feed. | Forçar o usuário a usar clientes alternativos ou navegadores web. | Usar serviços de Acessibilidade nativos do Android para capturar o texto renderizado na tela. | **Saída 2:** Utilizar a API de Acessibilidade do sistema operacional para ler o texto visível em tela sem violar a integridade dos apps. |
+| Falsos Positivos e Alucinação: A IA local pode errar na classificação e virar ela mesma um instrumento de censura de opiniões. | A IA bloqueia ou oculta automaticamente qualquer post considerado suspeito. | A IA nunca bloqueia nada; apenas exibe um indicador sutil explicativo com as táticas retóricas encontradas. | **Saída 2:** Princípio de não-censura; a IA é apenas um copiloto analítico explicativo que alerta o usuário e preserva o livre arbítrio. |
 
 ## 7 · resumo, sem IA
 
