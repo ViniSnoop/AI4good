@@ -108,7 +108,7 @@ onde discordei da IA, e por quê: Discordei do tom punitivista de termos como "T
 
 ## 6 · refinamento
 
-**a · e se todo mundo usasse?** Se todos usassem, as redes de bots e operações de guerra psicológica perderiam o efeito de manada, inviabilizando campanhas desonestas. O incentivo é a autopreservação e a higiene mental: o usuário não quer ser feito de otário ou fantoche de narrativas fabricadas, manipulado emocionalmente por algoritmos opacos ou cair em fraudes eleitorais, reassumindo o controle soberano do que consome.
+**a · e se todo mundo usasse?** Se todos usassem, as operações de guerra psicológica perderiam o efeito de manada, inviabilizando campanhas desonestas. O incentivo individual é puramente egoísta: ninguém quer passar vergonha repassando mentiras, cair em golpes financeiros ou ser feito de massa de manobra por algoritmos opacos. Há também o ganho de ego no debate: o usuário baixa a ferramenta querendo desmascarar falácias do adversário, beneficiando-se da análise técnica de retórica que neutraliza manipulações de todos os lados.
 
 **b · a IA que não pode faltar.** técnica: Modelos de Linguagem Compactos (SLMs, 1B–3B parâmetros) quantizados em 4-bit e destilação de conhecimento para inferência offline no aparelho · aula da disciplina: Destilação de conhecimento e Arena dialética (distopia vs. utopia)
 
@@ -121,6 +121,7 @@ por que sem ela não roda: Modelos centralizados em nuvem (APIs de Big Techs) re
 | Bateria e Hardware: Rodar IA local no celular vai esquentar o aparelho e drenar a bateria rapidamente. | Usar quantização agressiva e só rodar quando o usuário clicar manualmente. | Usar SLM ultra-leve (1B) que analisa apenas o post que estiver parado no foco da tela em segundo plano. | **Saída 2:** SLM ultra-leve (1B 4-bit) com suspensão automática de inferência assim que o usuário para de rolar o feed. |
 | Apps Fechados: Redes sociais proprietárias não fornecem APIs abertas para ferramentas externas lerem o feed. | Forçar o usuário a usar clientes alternativos ou navegadores web. | Usar serviços de Acessibilidade nativos do Android para capturar o texto renderizado na tela. | **Saída 2:** Utilizar a API de Acessibilidade do sistema operacional para ler o texto visível em tela sem violar a integridade dos apps. |
 | Falsos Positivos e Alucinação: A IA local pode errar na classificação e virar ela mesma um instrumento de censura de opiniões. | A IA bloqueia ou oculta automaticamente qualquer post considerado suspeito. | A IA nunca bloqueia nada; apenas exibe um indicador sutil explicativo com as táticas retóricas encontradas. | **Saída 2:** Princípio de não-censura; a IA é apenas um copiloto analítico explicativo que alerta o usuário e preserva o livre arbítrio. |
+| Polarização e Rótulo Partidário: A direita vai dizer que é censura esquerdista e a esquerda vai dizer que a ferramenta favorece a oposição. | Criar conselhos consultivos partidários plurais para validar as regras do app. | A IA nunca emite veredito binário ("verdadeiro/falso"); analisa apenas a estrutura retórica formal (ex: apelo ao medo, espantalho) com código 100% aberto e auditável. | **Saída 2:** Neutralidade por design: a ferramenta nunca julga o mérito político nem emite selos de censura, apenas expõe a mecânica da falácia lógica, rodando offline sob código aberto. |
 
 ## 7 · resumo, sem IA
 
