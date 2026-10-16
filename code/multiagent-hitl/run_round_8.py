@@ -9,6 +9,17 @@ import requests
 from google import genai
 from google.genai import types
 
+def _load_env():
+    for env_file in [".env", "../.env", os.path.join(os.path.dirname(__file__), ".env")]:
+        if os.path.exists(env_file):
+            with open(env_file) as f:
+                for line in f:
+                    line = line.strip()
+                    if line and not line.startswith('#') and '=' in line:
+                        k, v = line.split('=', 1)
+                        os.environ.setdefault(k.strip(), v.strip())
+
+_load_env()
 OLLAMA_URL = "http://localhost:11434/api/generate"
 API_KEY = os.getenv("GEMINI_API_KEY")
 client = genai.Client(api_key=API_KEY)

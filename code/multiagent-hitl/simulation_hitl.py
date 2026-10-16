@@ -45,6 +45,17 @@ COUNCIL_MODELS = [
 
 OLLAMA_API_URL = os.getenv("OLLAMA_URL", "http://localhost:11434/api/generate")
 
+def _load_env():
+    for env_file in [".env", "../.env", os.path.join(os.path.dirname(__file__), ".env")]:
+        if os.path.exists(env_file):
+            with open(env_file) as f:
+                for line in f:
+                    line = line.strip()
+                    if line and not line.startswith('#') and '=' in line:
+                        k, v = line.split('=', 1)
+                        os.environ.setdefault(k.strip(), v.strip())
+
+_load_env()
 GEMINI_MODEL = "gemini-3.5-flash"
 GEMINI_FALLBACK_MODEL = "gemini-3.5-flash-lite"
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
