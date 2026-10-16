@@ -78,9 +78,9 @@ onde discordei da IA, e por quê: Discordei do tom punitivista de termos como "T
 **minha ideia escolhida:** FiltroSoberano · Usuários de redes sociais processam seus feeds localmente no smartphone, detectando narrativas coordenadas e manipulativas sem censura de Big Techs.
 
 **por que ela, sem IA, em até 3 linhas:**
-1. A curadoria algorítmica das Big Techs é uma caixa-preta desenhada para reter atenção via polarização e favorecer interesses corporativos, alienando o eleitor.
-2. Devolver a curadoria para o lado do cliente (client-side) resgata a autonomia do cidadão de escolher como filtrar e auditar a informação que consome.
-3. Elimina a necessidade de um "árbitro central da verdade", garantindo que a proteção contra a manipulação não se torne pretexto para censura política arbitrária.
+1. As redes sociais vêm sendo instrumentalizadas como armas de interferência e poder estrangeiro para desestabilizar o processo democrático e manipular eleições no Brasil.
+2. Já possuo experiência prática e planos de desenvolvimento com SLMs, o que viabiliza tecnicamente aplicar modelos eficientes e soberanos na ponta em prol da democracia.
+3. Se essa tecnologia se populariza como hábito digital, a sociedade cria uma barreira de proteção direta e descentralizada contra narrativas fabricadas e desinformação em massa.
 
 ## 4 · motores
 
