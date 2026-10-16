@@ -86,15 +86,15 @@ onde discordei da IA, e por quê: Discordei do tom punitivista de termos como "T
 
 | motor | nome | frase | o que mudou em relação à ideia |
 |:--|:--|:--|:--|
-| inverter | [preencha] | | |
-| canalizar | | | |
-| transplantar | | | |
-| reescalar | | | |
-| trocar a persona | | | |
-| trocar o contexto | | | |
-| trocar a tecnologia | | | |
-| juntar | | | |
-| restringir | | | |
+| inverter | **Auditor Reverso** | Usuários compilam relatórios locais de manipulações sofridas em seus feeds para expor publicamente táticas das plataformas. | De proteção passiva individual para auditoria e denúncia pública ativa do algoritmo. |
+| canalizar | **Alerta Invasão** | Cidadãos ativam detecção focada estritamente em operações psicológicas estrangeiras e picos anômalos na semana da eleição. | Canaliza toda a capacidade para operações coordenadas de agentes externos em momentos críticos. |
+| transplantar | **Lente Aberta de Vídeo** | Usuários de apps de vídeo curto (TikTok/Reels) analisam transcrições no aparelho para alertar sobre manipulação emocional velada. | Transplanta o filtro de feeds de texto para vídeos rápidos e transmissões ao vivo. |
+| reescalar | **Malha Imune Cívica** | Aparelhos compartilham assinaturas anônimas de narrativas maliciosas via rede ponto a ponto, criando imunidade coletiva sem servidores. | De defesa individual isolada para imunidade de rebanho descentralizada em malha P2P. |
+| trocar a persona | **Escudo do Comunicador** | Criadores de conteúdo e líderes comunitários usam o modelo para auditar tendências antes de repercutir temas suspeitos. | A persona passa a ser o difusor de opinião, estancando a desinformação na fonte. |
+| trocar o contexto | **Guarda-Costas do SO** | Usuários de sistemas móveis livres rodam o modelo na camada do sistema operacional, inspecionando qualquer app na tela. | Sai de um app isolado e vira um serviço nativo no sistema operacional do smartphone. |
+| trocar a tecnologia | **Detector Retórico Local** | Usuários cruzam o feed com uma base vetorial local compacta de técnicas de manipulação e falácias lógicas conhecidas. | Troca a SLM pura por SLM + busca vetorial local em catálogo de retórica manipulativa. |
+| juntar | **Escudo Multimodal** | Cidadãos analisam simultaneamente textos de posts e montagens visuais em memes políticos durante a rolagem do feed. | Junta o processamento textual da SLM à visão computacional local para cobrir memes. |
+| restringir | **Filtro Zero-Net** | Usuários rodam modelo ultra-leve de 1B parâmetros com permissão de internet bloqueada no Android para segurança total. | Restringe a conexão a zero, garantindo matematicamente sigilo absoluto do feed lido. |
 
 ## 5 · o que fica e o que sai
 
