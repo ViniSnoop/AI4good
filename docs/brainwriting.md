@@ -75,12 +75,12 @@ cada célula: **nome** · frase de até 20 palavras (quem usa, o que faz).
 
 onde discordei da IA, e por quê: Discordei do tom punitivista de termos como "Tribunal" e de jargões datados como "Zap", que geram rejeição ou estigma; além disso, rejeitei a proposta inicial genérica de "CampanhaAberta", optando por focar na resolução concreta de demandas comunitárias e na soberania de dados do eleitor via modelos locais (SLMs).
 
-**minha ideia escolhida:** VotoLivre Local · Eleitores e candidatos conectam prioridades reais via IA local no celular, cruzando desejos cidadãos com planos de governo sem expor dados.
+**minha ideia escolhida:** FiltroSoberano · Usuários de redes sociais processam seus feeds localmente no smartphone, detectando narrativas coordenadas e manipulativas sem censura de Big Techs.
 
 **por que ela, sem IA, em até 3 linhas:**
-1. A população tem enorme dificuldade de analisar planos de governo extensos (com mais de 100 páginas), votando quase sempre por apelo de marketing superficial.
-2. O pareamento direto entre demandas prioritárias do cidadão e compromissos formais registrados eleva o patamar do debate político nacional.
-3. Quando a escolha do eleitor passa a ser orientada pelo conteúdo dos planos, os próprios candidatos são forçados a formular propostas sérias e viáveis, enfraquecendo a demagogia.
+1. A curadoria algorítmica das Big Techs é uma caixa-preta desenhada para reter atenção via polarização e favorecer interesses corporativos, alienando o eleitor.
+2. Devolver a curadoria para o lado do cliente (client-side) resgata a autonomia do cidadão de escolher como filtrar e auditar a informação que consome.
+3. Elimina a necessidade de um "árbitro central da verdade", garantindo que a proteção contra a manipulação não se torne pretexto para censura política arbitrária.
 
 ## 4 · motores
 
