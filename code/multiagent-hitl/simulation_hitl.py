@@ -43,21 +43,14 @@ COUNCIL_MODELS = [
     }
 ]
 
+from dotenv import load_dotenv, find_dotenv
+
+load_dotenv(find_dotenv(usecwd=True), override=True)
+
 OLLAMA_API_URL = os.getenv("OLLAMA_URL", "http://localhost:11434/api/generate")
 
-def _load_env():
-    for env_file in [".env", "../.env", os.path.join(os.path.dirname(__file__), ".env")]:
-        if os.path.exists(env_file):
-            with open(env_file) as f:
-                for line in f:
-                    line = line.strip()
-                    if line and not line.startswith('#') and '=' in line:
-                        k, v = line.split('=', 1)
-                        os.environ.setdefault(k.strip(), v.strip())
-
-_load_env()
-GEMINI_MODEL = "gemini-3.5-flash"
-GEMINI_FALLBACK_MODEL = "gemini-3.5-flash-lite"
+GEMINI_MODELS = ["gemini-3.8-flash", "gemini-3.5-flash", "gemini-3.5-flash-lite"]
+GEMINI_MODEL = GEMINI_MODELS[0]
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
 TOTAL_ROUNDS = 20
@@ -100,7 +93,7 @@ def query_gemini(client: genai.Client, prompt: str, system_instruction: str) -> 
         system_instruction=system_instruction,
         temperature=0.4,
     )
-    for model_name in [GEMINI_MODEL, GEMINI_FALLBACK_MODEL]:
+    for model_name in GEMINI_MODELS:
         try:
             response = client.models.generate_content(
                 model=model_name,
