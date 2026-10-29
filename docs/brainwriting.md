@@ -19,32 +19,32 @@
 | [ ] | concentração de plataformas e trabalho |
 | [ ] | outra: [preencha: a crise, e em 1 linha por que é relevante] |
 
-por que esta crise: Estamos em período eleitoral e vivenciando na prática o viés e a interferência de grandes empresas e suas IAs (como assimetrias na geração e moderação de propaganda política), distorcendo a equidade do debate e violando o processo democrático.
+por que esta crise: Em períodos eleitorais, redes sociais e Big Techs amplificam manipulações e assimetrias algorítmicas (como no caso da Meta AI restringindo candidatos), sequestrando a atenção do eleitor por meio de pânico moral e guerras informacionais.
 
 **tecnologias de IA** (marque 3 e chame de A, B, C):
 
 | | tecnologia de IA |
 |:-:|:--|
 | [x] A | modelos locais / no aparelho (*SLMs*, 1B–7B) |
-| [x] B | sistemas multiagente e agência (*tools*, MCP) |
+| [ ] | sistemas multiagente e agência (*tools*, MCP) |
 | [ ] | visão computacional e OCR |
 | [ ] | voz (fala ↔ texto) e interfaces sem tela |
-| [ ] | grafos e RAG (redes de grafos, busca vetorial) |
-| [x] C | modelos de difusão / geração visual |
-| [ ] | outra: [preencha] |
+| [x] B | grafos e RAG (redes de grafos, busca vetorial) |
+| [ ] | modelos de difusão / geração visual |
+| [x] C | outra: modelos de decisão estruturada de "Sistema 1" (Laya: choice, score e noul em inferência local) |
 
 **infraestruturas tradicionais** (marque 3 e chame de 1, 2, 3):
 
 | | infraestrutura |
 |:-:|:--|
-| [x] 1 | plataformas de dois lados (*matching*, como Uber) |
+| [ ] | plataformas de dois lados (*matching*, como Uber) |
 | [ ] | geolocalização, GPS e mapas |
 | [ ] | e-commerce, marketplaces e catálogos |
-| [x] 2 | mensageria leve e bots (WhatsApp, SMS) |
-| [x] 3 | redes sociais, feeds e comunidades |
+| [x] 1 | mensageria leve e bots (WhatsApp Web, Telegram) |
+| [x] 2 | redes sociais, feeds e comunidades (X, Facebook, YouTube, Reddit) |
 | [ ] | pagamento instantâneo (Pix, moeda local) |
 | [ ] | crowdsourcing e curadoria coletiva |
-| [ ] | outra: [preencha] |
+| [x] 3 | outra: extensões e plugins de navegador (injeção no DOM via JavaScript / WebGPU local) |
 
 ## 2 · clichês
 
@@ -60,73 +60,104 @@ por que esta crise: Estamos em período eleitoral e vivenciando na prática o vi
 
 cada célula: **nome** · frase de até 20 palavras (quem usa, o que faz).
 
-| | 1 · plataformas de dois lados | 2 · mensageria leve e bots | 3 · redes sociais e comunidades |
+| | 1 · mensageria web | 2 · redes sociais e feeds web | 3 · extensões de navegador |
 |:--|:--|:--|:--|
-| **A · modelos locais (SLMs)** | **VotoLivre Local** · Eleitores e candidatos conectam prioridades reais via IA local no celular, cruzando desejos cidadãos com planos de governo sem expor dados. | **Sentinela Privada** · Cidadãos usam modelo offline no celular para analisar mensagens eleitorais recebidas sem enviar conversas para servidores corporativos. | **FiltroSoberano** · Usuários de redes sociais processam seus feeds localmente no smartphone, detectando narrativas coordenadas e manipulativas sem censura de Big Techs. |
-| **B · sistemas multiagente (MCP)** | **ConfrontaPropostas** · Eleitores conectam agentes de diferentes partidos para debaterem publicamente viabilidade de propostas e custos antes da decisão de voto. | **Conselho Aberto** · Grupos de mensagens acionam comitê de agentes com perspectivas plurais que checam fontes oficiais e esclarecem dúvidas em tempo real. | **Vigília de Redes** · Pesquisadores e ativistas usam enxames de agentes para rastrear bots coordenados e cartéis de impulsionamento em múltiplas redes simultaneamente. |
-| **C · difusão / geração visual** | **ProjetaBairro** · Moradores cadastram demandas locais e candidatos geram simulações visuais realistas de obras e soluções urbanas para comparação direta do eleitor. | **ContraProva Visual** · Cidadãos recebem infográficos e reconstituições visuais imediatas desmontando adulterações e deepfakes compartilhados em conversas privadas. | **Raio-X de Mídia** · Comunidades virtuais usam modelos visuais para expor adulterações e evidenciar manipulações em propagandas políticas direto no feed. |
+| **A · modelos locais (SLMs)** | **Sentinela Privada** · Cidadãos usam modelo offline no navegador para analisar mensagens eleitorais recebidas sem enviar conversas para servidores corporativos. | **FeedSoberano** · Usuários reescrevem manchetes apelativas e sensacionalistas em resumos factuais neutros diretamente no feed via SLM local. | **Explicador Local** · Usuários clicam em postagens sinalizadas para gerar explicações lógicas em duas linhas sobre as falácias detectadas. |
+| **B · grafos e RAG** | **Grafo de Disparos** · Usuários verificam se um texto recebido faz parte de campanha de disparos em massa catalogada na base vetorial. | **Mapeador de Bots** · Pesquisadores cruzam grafos de retuítes e menções para identificar fazendas de contas automatizadas em redes sociais. | **RAG Cívico** · Extensão cruza promessas de candidatos no feed com uma base vetorial local contendo os planos de governo oficiais. |
+| **C · modelos de decisão (Laya)** | **ZapAudit** · Usuários inspecionam mensagens no WhatsApp Web sob demanda com Laya gerando score de urgência artificial e golpe. | **Radar de Feed** · Leitores ativam classificação por atalho que pontua o nível de agressividade e apelo emocional de uma postagem. | **FiltroSoberano** · Usuários acionam inspeção sob demanda com Laya para diagnosticar marcadores de retórica apelativa e pânico moral no feed. |
 
 **as 9 no mapa impacto × viabilidade:**
 
 | | viabilidade alta | viabilidade baixa |
 |:--|:--|:--|
-| **impacto alto** | VotoLivre Local, Conselho Aberto | FiltroSoberano, Vigília de Redes |
-| **impacto baixo** | Sentinela Privada, ContraProva Visual | ConfrontaPropostas, ProjetaBairro, Raio-X de Mídia |
+| **impacto alto** | **FiltroSoberano** — inspeção sob demanda leve no navegador sem travar a interface; teste de viabilidade direta no semestre.<br>**Explicador Local** — fornece munição analítica sob demanda; viável acoplando SLM compacta ativada por clique. | **Mapeador de Bots** — alto potencial de inteligência pública; inviável no semestre por exigir acesso a APIs pagas e restritas de redes sociais.<br>**RAG Cívico** — conecta propostas a planos oficiais; mas manter base vetorial atualizada no navegador exige infraestrutura pesada. |
+| **impacto baixo** | **ZapAudit** — evita golpes rápidos, mas o WhatsApp Web dificulta injeção contínua no DOM; teste pequeno.<br>**Radar de Feed** — apenas pontua agressividade sem explicar; viável, mas muda pouco o comportamento crítico.<br>**Sentinela Privada** — analisa mensagens isoladas; fácil de testar, mas não resolve o fluxo massivo de feeds. | **Grafo de Disparos** — depende de sincronização comunitária de mensagens privadas para alimentar o grafo; atrito de adesão.<br>**FeedSoberano** — reescrever posts completos com SLM gera latência na rolagem e cansa o leitor; teste complexo. |
 
-onde discordei da IA, e por quê: Discordei do tom punitivista de termos como "Tribunal" e de jargões datados como "Zap", que geram rejeição ou estigma; além disso, rejeitei a proposta inicial genérica de "CampanhaAberta", optando por focar na resolução concreta de demandas comunitárias e na soberania de dados do eleitor via modelos locais (SLMs).
+**as duas perguntas: o argumento do interesse próprio e a alternativa sem IA:**
 
-**minha ideia escolhida:** FiltroSoberano · Usuários de redes sociais processam seus feeds localmente no smartphone, detectando narrativas coordenadas e manipulativas sem censura de Big Techs.
+| ideia | quem usa ganha, para si | o que custa a ele | o que resolve sem IA avançada | se sustenta? |
+|:--|:--|:--|:--|:--|
+| Sentinela Privada | descobre se uma mensagem no WhatsApp Web é suspeita | encaminhar ou copiar o texto para a ferramenta | um buscador de checagens prontas | **não**: buscar em agências de checagem resolve |
+| FeedSoberano | lê feeds sem o tom apelativo do sensacionalismo | espera de 2 a 3 segundos por post para reescrita | um leitor de modo texto / modo leitura sem anúncios | **não**: o custo de esperar a reescrita supera o ganho |
+| Explicador Local | entende a estrutura da manipulação para vencer debates | um clique no post suspeito para pedir explicação | uma lista estática de falácias lógicas | **sim** |
+| Grafo de Disparos | sabe se a corrente de mensagens é artificial | doar metadados de mensagens para a rede | estatísticas de frequência de envio | **não**: listas de correntes famosas já resolvem |
+| Mapeador de Bots | visualiza cartéis de impulsionamento na rede | configurar credenciais e parâmetros de coleta | scripts convencionais de análise de frequência | **não**: métricas comuns de repetição já acham bots |
+| RAG Cívico | descobre se a fala bate com o plano de governo | abrir painel lateral e esperar a busca semântica | buscar por palavra-chave no PDF do plano | **sim** |
+| ZapAudit | alerta imediato de golpe ou fraude financeira na conversa | instalar extensão e manter WhatsApp Web aberto | regras regex de palavras-chave suspeitas ("PIX", "urgente") | **não**: regras regex simples já alertam palavras de golpe |
+| Radar de Feed | vê score de polarização sem precisar ler a briga | processamento local de cada post | contadores de palavras agressivas pré-definidas | **não**: dicionários de palavras tóxicas já fazem score |
+| FiltroSoberano | diagnostica manipulação retórica com um clique sem lag | acionar a inspeção sob demanda com atalho ou clique | nada: a semântica contextual de apelo ao medo escapa de filtros regex | **sim** |
+
+onde discordei da IA, e por quê: A IA inicialmente tratava a análise contínua em tempo real de todo o feed como indispensável, o que travaria o navegador em hardwares comuns. Discordei e adotei a inspeção sob demanda: a extensão só aciona o Laya (modelo de decisão de Sistema 1, open-source) quando o usuário clica ou passa o cursor sobre um post específico. Isso viabiliza um teste de semestre real: consigo medir em laboratório a acurácia do Laya em identificar marcadores de apelo ao medo e ataques pessoais em 50 postagens reais com resposta em menos de 50 ms por clique.
+
+**minha ideia escolhida:** **FiltroSoberano** · Usuários acionam inspeção sob demanda com Laya para diagnosticar marcadores de retórica apelativa e pânico moral no feed.
 
 **por que ela, sem IA, em até 3 linhas:**
-1. As redes sociais vêm sendo instrumentalizadas como armas de interferência e poder estrangeiro para desestabilizar o processo democrático e manipular eleições no Brasil.
-2. Já possuo experiência prática e planos de desenvolvimento com SLMs, o que viabiliza tecnicamente aplicar modelos eficientes e soberanos na ponta em prol da democracia.
-3. Se essa tecnologia se populariza como hábito digital, a sociedade cria uma barreira de proteção direta e descentralizada contra narrativas fabricadas e desinformação em massa.
+A navegação nas redes virou um campo minado de manipulação emocional desenhada para gerar indignação rápida.
+A inspeção sob demanda com Laya viabiliza diagnóstico instantâneo no navegador sem travar a interface nem consumir recursos ociosos.
+A ferramenta devolve o controle crítico ao usuário na hora de ler postagens duvidosas, sem censura e com privacidade total.
 
 ## 4 · motores
 
-| motor | nome | frase | o que mudou em relação à ideia |
-|:--|:--|:--|:--|
-| inverter | **Auditor Reverso** | Usuários compilam relatórios locais de manipulações sofridas em seus feeds para expor publicamente táticas das plataformas. | De proteção passiva individual para auditoria e denúncia pública ativa do algoritmo. |
-| canalizar | **Alerta Invasão** | Cidadãos ativam detecção focada estritamente em operações psicológicas estrangeiras e picos anômalos na semana da eleição. | Canaliza toda a capacidade para operações coordenadas de agentes externos em momentos críticos. |
-| transplantar | **Lente Aberta de Vídeo** | Usuários de apps de vídeo curto (TikTok/Reels) analisam transcrições no aparelho para alertar sobre manipulação emocional velada. | Transplanta o filtro de feeds de texto para vídeos rápidos e transmissões ao vivo. |
-| reescalar | **Malha Imune Cívica** | Aparelhos compartilham assinaturas anônimas de narrativas maliciosas via rede ponto a ponto, criando imunidade coletiva sem servidores. | De defesa individual isolada para imunidade de rebanho descentralizada em malha P2P. |
-| trocar a persona | **Escudo do Comunicador** | Criadores de conteúdo e líderes comunitários usam o modelo para auditar tendências antes de repercutir temas suspeitos. | A persona passa a ser o difusor de opinião, estancando a desinformação na fonte. |
-| trocar o contexto | **Guarda-Costas do SO** | Usuários de sistemas móveis livres rodam o modelo na camada do sistema operacional, inspecionando qualquer app na tela. | Sai de um app isolado e vira um serviço nativo no sistema operacional do smartphone. |
-| trocar a tecnologia | **Detector Retórico Local** | Usuários cruzam o feed com uma base vetorial local compacta de técnicas de manipulação e falácias lógicas conhecidas. | Troca a SLM pura por SLM + busca vetorial local em catálogo de retórica manipulativa. |
-| juntar | **Escudo Multimodal** | Cidadãos analisam simultaneamente textos de posts e montagens visuais em memes políticos durante a rolagem do feed. | Junta o processamento textual da SLM à visão computacional local para cobrir memes. |
-| restringir | **Filtro Zero-Net** | Usuários rodam modelo ultra-leve de 1B parâmetros com permissão de internet bloqueada no Android para segurança total. | Restringe a conexão a zero, garantindo matematicamente sigilo absoluto do feed lido. |
+| motor | o que foi [verbo] | nome | frase | o que mudou em relação à ideia | o que quem usa ganha para si | se sustenta nas duas perguntas? |
+|:--|:--|:--|:--|:--|:--|:--|
+| inverter | o que foi invertido: o sentido da auditoria: em vez do usuário inspecionar o post, gera relatório da manipulação que o algoritmo tentou impor a ele. | **Dossiê Algorítmico** | Usuários geram relatórios semanais das táticas de manipulação mais frequentes em sua timeline para auditar as redes. | De proteção pontual sob demanda para compilação periódica de auditoria do feed. | Gera provas concretas de como o algoritmo direciona pautas para seu perfil. | **não**: exige esforço de compilação sem benefício prático imediato na navegação. |
+| canalizar | o que foi canalizado: a irritação com manchetes sensacionalistas, convertida em alerta pedagógico de urgência fabricada. | **Nudge de Serenidade** | Usuários ativam badge sutil que indica postagens com score de urgência artificial acima de 80% ao passar o mouse. | Canaliza a indignação para uma pausa reflexiva antes de reagir ao post. | Evita engajar por impulso em provocações vazias no feed. | **sim** |
+| transplantar | o que foi transplantado, e de onde: a ferramenta de "inspecionar elemento" dos desenvolvedores para a retórica política. | **Lupa Retórica** | Como um desenvolvedor inspeciona o código HTML, o leitor inspeciona a estrutura retórica de um post com um clique. | Transplanta a interface de inspeção técnica de navegadores para a crítica textual cidadã. | Vê os artifícios de linguagem usados no post em segundos. | **sim** |
+| reescalar | o que foi reescalado: a escala da decisão: de um usuário para uma redação de checagem ou sala de aula. | **Painel de Redação** | Estudantes e jornalistas analisam lotes de notícias simultâneas com Laya categorizando as falácias mais usadas. | De extensão individual de clique para ferramenta de análise de texto em lote. | Triagem rápida de dezenas de matérias sem leitura manual exaustiva. | **não**: planilhas com scripts de automação tradicionais atendem redações. |
+| trocar a persona | quem saiu, quem entrou: saiu o leitor casual, entraram influenciadores e debatedores de internet. | **Armadura do Debatedor** | Criadores de conteúdo usam atalho de teclado para diagnosticar a falácia do adversário e fundamentar sua resposta. | O usuário passa a ser o debatedor ativo que precisa rebater provocações públicas. | Desmonta armadilhas retóricas do adversário e vence discussões públicas. | **sim** |
+| trocar o contexto | de onde, para onde: de redes sociais abertas para portais de notícias corporativas e mercado financeiro. | **Filtro Corporativo** | Profissionais usam a extensão em portais de notícias para identificar sensacionalismo em matérias econômicas. | Transfere do contexto eleitoral para a análise de notícias financeiras. | Identifica alarmismo antes de tomar decisões de investimento. | **não**: o mercado já possui relatórios especializados de análise fundamentalista. |
+| trocar a tecnologia | de qual, para qual: de Laya puro para Laya combinado com regras simbólicas de pré-filtragem. | **Filtro Híbrido** | A extensão usa regras simbólicas para descartar texto curto neutro e aciona o Laya apenas quando há carga adjetiva forte. | Adiciona camada prévia de regras rápidas para economizar chamadas locais do modelo. | Resposta ainda mais instantânea no clique com consumo mínimo de memória. | **sim** |
+| juntar | o que foi juntado: classificação estruturada de Sistema 1 (Laya) + explicação didática de Sistema 2 (SLM destilada). | **FiltroSoberano Duo** | Laya classifica instantaneamente a técnica retórica no badge, e uma SLM local gera a explicação de duas linhas ao expandir. | Une a velocidade da decisão (<50ms) com a didática argumentativa da linguagem natural. | Entende o porquê da manipulação sem travar a navegação. | **sim** |
+| restringir | o que foi restringido: a conectividade; a extensão opera sem permissão de acesso à internet (`permissions: []` no manifest). | **Filtro Zero-Net** | A extensão funciona com modelo Laya embutido via WebGPU sem permissão de rede para envio de dados. | Restringe a zero o tráfego de saída, garantindo sigilo matemático sobre o histórico lido. | Certeza absoluta de que seus hábitos de leitura nunca serão monitorados. | **sim** |
 
 ## 5 · o que fica e o que sai
 
-**o que eu gostei:** O funcionamento estritamente offline (sem permissão de rede). Como profissional da área de Segurança da Informação, tenho plena ciência dos riscos críticos de vazamento de dados sensíveis e vigilância centralizada, tornando a execução 100% local no dispositivo um requisito inegociável de soberania e privacidade.
+**o que eu gostei:** Gostei da **inspeção sob demanda** via Laya (Sistema 1) combinada à SLM para explicações apenas sob clique (**FiltroSoberano Duo**): elimina totalmente o travamento do navegador, resolve o problema de memória do Manifest V3 e mantém a experiência ágil. Também aprovei o **Nudge de Serenidade**, que alerta sobre urgência artificial sem censurar nem esconder o conteúdo.
 
-**o que achei interessante:** A abordagem do "Escudo do Comunicador". Considerar um modo ou modelo local um pouco mais potente dedicado a criadores de conteúdo e comunicadores de grandes mídias para auditarem menções e narrativas suspeitas antes de repercuti-las agrega uma linha de defesa vital contra desinformação em larga escala.
+**o que achei interessante:** A **Armadura do Debatedor**: utilizar a detecção rápida de marcadores retóricos como ferramenta para fundamentar contra-argumentos atende diretamente ao desejo individual de não ser passado para trás em discussões na internet.
 
-**o que eu descarto, e por quê:** Descarto *inverter* (Auditor Reverso), *canalizar* (Alerta Invasão), *reescalar* (Malha Imune Cívica) e *trocar o contexto* (Guarda-Costas do SO). Protocolos P2P ou exposição de relatórios ampliam desnecessariamente a superfície de ataque e o risco de vazamentos; já restringir o filtro a datas específicas ou modificar o SO inteiro cria barreiras de adoção e complexidade técnica excessiva.
+**o que eu descarto, e por quê:** Descarto a **varredura passiva contínua de todo o feed** (inexequível em hardware médio e causadora de travamento de tela). Descarto tentar **checar fatos ou veracidade de notícias** (um modelo offline não tem conhecimento de mundo do dia). Descarto a **ocultação de postagens**, pois remover posts geraria acusação de censura e bolhas reversas; a ferramenta deve apenas orientar pedagogicamente.
 
-**minha ideia completa:** **FiltroSoberano** · Cidadãos e comunicadores utilizam um aplicativo local no smartphone que monitora e analisa em tempo real os feeds das redes sociais, identificando padrões de coordenação inautêntica, retórica manipulativa e desinformação eleitoral. A solução opera via modelos de linguagem pequenos (SLMs de 1B a 3B parâmetros quantizados em 4-bit) rodando diretamente na CPU/NPU do dispositivo com permissões de internet bloqueadas, prevendo ainda um modelo ligeiramente mais potente para estações de trabalho de criadores de conteúdo. Ao devolver a capacidade de auditoria crítica ao usuário final sem intermediação das Big Techs, o sistema neutraliza operações de guerra psicológica e armas informacionais estrangeiras, blindando o processo democrático com garantia matemática de privacidade.
+**minha ideia completa:** **FiltroSoberano · Extensão de Navegador**
+
+Leitores, debatedores e produtores de conteúdo utilizam uma extensão de navegador open-source para Chrome, Firefox e Brave ao navegar no X/Twitter, Reddit, YouTube e WhatsApp Web.  
+Em vez de varreduras pesadas em segundo plano, a extensão opera **sob demanda**: ao passar o mouse ou clicar em um botão de atalho em uma postagem suspeita, o modelo de decisão **Laya (Sistema 1, pesos abertos)** avalia em menos de 50 milissegundos a estrutura do texto via WebGPU/ONNX local.  
+O modelo não tenta adivinhar se o fato é verídico, mas afere objetivamente **marcadores de retórica apelativa**: pontua a intensidade de pânico moral e urgência fabricada (`score`) e diagnostica táticas formais como ataque pessoal (*ad hominem*) e generalização abusiva (`choice`), acionando uma SLM destilada apenas se o usuário solicitar uma explicação detalhada.  
+O post nunca é censurado ou ocultado; o usuário recebe um rótulo pedagógico (*nudge*) sutil com a técnica identificada, municiando-se de clareza crítica e argumentos frios para não reagir por impulso nem ser manipulado por narrativas de polarização artificial.
 
 ## 6 · refinamento
 
-**a · e se todo mundo usasse?** Se todos usassem, as operações de guerra psicológica perderiam o efeito de manada, inviabilizando campanhas desonestas. O incentivo individual é puramente egoísta: ninguém quer passar vergonha repassando mentiras, cair em golpes financeiros ou ser feito de massa de manobra por algoritmos opacos. Há também o ganho de ego no debate: o usuário baixa a ferramenta querendo desmascarar falácias do adversário, beneficiando-se da análise técnica de retórica que neutraliza manipulações de todos os lados.
+**a · e se todo mundo usasse?**
 
-**b · a IA que não pode faltar.** técnica: Modelos de Linguagem Compactos (SLMs, 1B–3B parâmetros) quantizados em 4-bit e destilação de conhecimento para inferência offline no aparelho · aula da disciplina: Destilação de conhecimento e Arena dialética (distopia vs. utopia)
+o tamanho da crise hoje:
+- 70% da população brasileira declara preocupação expressa com a dificuldade de distinguir conteúdos reais de notícias falsas e manipulações nas redes ([Reuters Institute / Oxford Digital News Report 2023](https://reutersinstitute.politics.ox.ac.uk/digital-news-report/2023/brazil)).
+- 63% dos brasileiros utilizam redes sociais e aplicativos de mensagens como principal fonte semanal de notícias e debate político ([Reuters Institute / Oxford Digital News Report 2023](https://reutersinstitute.politics.ox.ac.uk/digital-news-report/2023/brazil)).
+- Nas eleições brasileiras, o Sistema de Alertas de Desinformação Eleitoral (SIADE) do TSE já registrou mais de 30 mil denúncias formais de disparos coordenados e desinformação eleitoral ([Tribunal Superior Eleitoral - TSE](https://www.tse.jus.br/comunicacao/noticias/2022/Novembro/sistema-de-alerta-do-tse-recebeu-mais-de-30-mil-denuncias-nas-eleicoes-2022)).
+- Mais de R$ 250 milhões foram gastos oficialmente em impulsionamento pago de propaganda e conteúdo político em Big Techs nas eleições recentes, alimentando algoritmos que premiam engajamento polarizado ([Dados de Prestação de Contas - DivulgaCandContas TSE](https://divulgacandcontas.tse.jus.br/)).
 
-por que sem ela não roda: Modelos centralizados em nuvem (APIs de Big Techs) recriariam o próprio problema do viés corporativo, censura arbitrária e vazamento de privacidade do feed do usuário. Sem o processamento local soberano e destilado no aparelho, a premissa de segurança da informação e independência técnica cai por terra.
+se todo mundo usasse por 5 anos (a minha aposta):
+- se a extensão alcançasse 15% dos usuários que debatem e consomem política na web (cerca de 3 milhões de debatedores, jornalistas e formadores de opinião ativos no desktop), o contágio de campanhas polarizadas perderia a força de reverberação nos nós de maior influência da rede.
+- se a taxa de engajamento reativo por impulso caísse 50% entre esses usuários multiplicadores, o modelo de negócios de perfis sensacionalistas e fazendas de pânico moral perderia tração financeira, reduzindo a rentabilidade dos R$ 250 milhões investidos em impulsionamento tóxico.
+- as denúncias no SIADE do TSE por descontextualização deliberada seriam reduzidas significativamente, uma vez que a retórica apelativa seria identificada e desarmada publicamente nos próprios comentários antes de viralizar.
 
-**c · o cético e as saídas**
+por que cada pessoa usaria: o usuário casual usa por higiene mental (para não cair em armadilhas de urgência artificial e pânico moral); o debatedor de internet usa por ego e vaidade (para obter em segundos o diagnóstico da técnica retórica do adversário e fundamentar sua tréplica); o comunicador usa para não passar vergonha repercutindo narrativas distorcidas. Ninguém precisa de altruísmo cívico.
+
+**b · a IA que não pode faltar.** técnica: Modelos de Decisão de "Sistema 1" (Laya, pesos abertos Apache 2.0 com primitivas `choice` e `score` em forward pass único de <50ms via WebGPU/ONNX) integrados a uma SLM destilada local acionada sob demanda.
+
+por que sem ela não roda: Expressões regulares ou listas de palavras-chave ignoram o contexto semântico e geram falsos positivos grotescos (ex.: confundem uma denúncia séria com pânico moral). Por outro lado, LLMs generativos tradicionais demoram segundos e travam o navegador se executados continuamente. O Laya é insubstituível porque executa a decisão em milissegundos em uma única passagem matemática, avaliando a forma estilística do argumento sem demandar conexão externa. Sem essa IA local estruturada, a ideia ou travaria o hardware comum ou exigiria servidores corporativos que violariam a privacidade.
+
+**c · críticas de quem está de fora**
 
 | crítica | saída 1 | saída 2 | minha decisão |
 |:--|:--|:--|:--|
-| Bateria e Hardware: Rodar IA local no celular vai esquentar o aparelho e drenar a bateria rapidamente. | Usar quantização agressiva e só rodar quando o usuário clicar manualmente. | Usar SLM ultra-leve (1B) que analisa apenas o post que estiver parado no foco da tela em segundo plano. | **Saída 2:** SLM ultra-leve (1B 4-bit) com suspensão automática de inferência assim que o usuário para de rolar o feed. |
-| Apps Fechados: Redes sociais proprietárias não fornecem APIs abertas para ferramentas externas lerem o feed. | Forçar o usuário a usar clientes alternativos ou navegadores web. | Usar serviços de Acessibilidade nativos do Android para capturar o texto renderizado na tela. | **Saída 2:** Utilizar a API de Acessibilidade do sistema operacional para ler o texto visível em tela sem violar a integridade dos apps. |
-| Falsos Positivos e Alucinação: A IA local pode errar na classificação e virar ela mesma um instrumento de censura de opiniões. | A IA bloqueia ou oculta automaticamente qualquer post considerado suspeito. | A IA nunca bloqueia nada; apenas exibe um indicador sutil explicativo com as táticas retóricas encontradas. | **Saída 2:** Princípio de não-censura; a IA é apenas um copiloto analítico explicativo que alerta o usuário e preserva o livre arbítrio. |
-| Polarização e Rótulo Partidário: A direita vai dizer que é censura esquerdista e a esquerda vai dizer que a ferramenta favorece a oposição. | Criar conselhos consultivos partidários plurais para validar as regras do app. | A IA nunca emite veredito binário ("verdadeiro/falso"); analisa apenas a estrutura retórica formal (ex: apelo ao medo, espantalho) com código 100% aberto e auditável. | **Saída 2:** Neutralidade por design: a ferramenta nunca julga o mérito político nem emite selos de censura, apenas expõe a mecânica da falácia lógica, rodando offline sob código aberto. |
+| O processamento de modelos no navegador gera lentidão (*jank*) no scroll e colide com limites de memória do Manifest V3. | Executar o modelo na nuvem via API paga e devolver os resultados ao navegador. | Abandonar a varredura passiva contínua e acionar o Laya estritamente sob demanda (hover ou clique do usuário) no post em foco. | **saída 2**: o processamento ocorre apenas quando requisitado pelo usuário em um elemento individual, garantindo consumo de recursos próximo a zero em repouso e respeitando o ciclo de vida do navegador. |
+| Modelos offline congelados não possuem conhecimento de fatos recentes e confundem denúncias graves com pânico moral. | Integrar APIs de busca em tempo real para checagem fática em bases jornalísticas. | Restringir o escopo do modelo à análise de marcadores de retórica formal e apelo emocional (ad hominem, urgência artificial), sem julgar a veracidade do fato. | **saída 2**: o modelo avalia exclusivamente a forma do argumento (estilo e persuasão), deixando explícito ao usuário que a ferramenta analisa a retórica apelativa e não a verdade factual da notícia. |
+| A desinformação em massa no Brasil corre nos celulares (WhatsApp e TikTok nativos), tornando extensões desktop inócuas para a base do eleitorado. | Tentar desenvolver um teclado virtual customizado para interceptar conversas no Android. | Focar a ferramenta deliberadamente nos nós multiplicadores de opinião (jornalistas, ativistas, debatedores e criadores de conteúdo que operam no desktop). | **saída 2**: delimitação consciente de público; a extensão não tenta atingir toda a população mobile, mas sim blindar a camada de debatedores e comunicadores que desmascaram narrativas na origem antes de viralizarem. |
 
 ## 7 · resumo, sem IA
 
-1. Em um mundo onde bots alavancam perfis e desinformação se alastra violentamente, as eleições tornaram-se vitrine para figuras sem planos reais para o país que conquistam vitórias históricas com o apoio e algoritmos das redes sociais.
-2. O FiltroSoberano entra justamente como uma barreira protetora direta do cidadão contra essas tentativas contínuas de manipulação política e distorção do debate público.
-3. A IA entra através de modelos pequenos (SLMs) e bem treinados rodando localmente no aparelho, capazes de identificar padrões de manipulação e alertar o usuário contra os ataques em tempo real.
-4. Se todo mundo fizesse uso, o impacto de ataques estrangeiros e operações de guerra psicológica seria drasticamente reduzido, neutralizando o contágio de narrativas fabricadas.
-5. A adesão depende da vontade fundamental de cada pessoa de não ser enganada nem feita de fantoche, sem imposição forçada de uso e ciente das limitações de hardware em aparelhos mais fracos.
+1. Campanhas de desinformação utilizam pânico moral e retórica apelativa para sequestrar a atenção do eleitor e inflar figuras sem planos reais.
+2. O FiltroSoberano é uma extensão de navegador open-source para inspeção de técnicas retóricas sob demanda em postagens sociais no desktop.
+3. A IA entra com o Laya (modelo de decisão rápida de Sistema 1), que analisa instantaneamente marcadores estilísticos de manipulação via WebGPU local sem censurar conteúdos.
+4. Se todos os formadores de opinião usassem, as narrativas manipulativas seriam desarmadas na origem, desmontando a rentabilidade dos disparos em massa.
+5. Cada pessoa usa para preservar sua estabilidade emocional contra pânico fabricado e desmascarar artifícios retóricos de adversários em debates.
