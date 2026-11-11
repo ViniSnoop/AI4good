@@ -71,6 +71,6 @@ A comparação com a nuvem provou que, mesmo custando menos de R$ 0,10 por usuá
 | 3 · Arquitetura, dados e privacidade | NÃO PASSA | § 3: tabela de dados pessoais, retenção em RAM/DOM e afirmação de processamento local. | A arquitetura é coerente como intenção, mas não demonstra o comportamento real. Faltam download e cache dos pesos, dependências externas, inspeção de rede e verificação de logs. O diagrama não descreve todos os fluxos. A auditoria cega do § 5 está vazia. O commit indicado retornou 404. |
 
 **a minha resposta, sem IA:**
-1. 
-2. 
-3. 
+1. Auditor acertou: faltava alerta de texto curto e botão de discordar; regex é triagem, IA é que decide no feed.
+2. Memória real é ~420 MB (não 130), conta da nuvem agora separa entrada/saída, e o teste em inglês/CPU é só proxy — final é multilíngue.
+3. Commit já no GitHub, download do modelo é único e estático, análise do post roda local sem sair da máquina.
