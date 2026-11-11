@@ -10,7 +10,7 @@
 
 ## 1 · o fluxograma
 
-**o diagrama:** [arquitetura.md](../arquitetura.md)
+**o diagrama:** [arquitetura.md](../arquitetura.md), commit [edc7a6b](https://github.com/ViniSnoop/AI4good/commit/edc7a6b)
 
 | nº | passo | IA, regra ou pessoa | por que IA, e não uma regra (sem IA) |
 |:---|:---|:---|:---|
@@ -34,7 +34,7 @@
 
 ## 3 · a arquitetura: onde roda cada peça e para onde vão os dados
 
-**o diagrama, com as caixas de onde cada peça roda:** [arquitetura.md](../arquitetura.md)
+**o diagrama, com as caixas de onde cada peça roda:** [arquitetura.md](../arquitetura.md), commit [edc7a6b](https://github.com/ViniSnoop/AI4good/commit/edc7a6b)
 
 | dado pessoal / conteúdo | de quem é | onde fica | quem vê | por quanto tempo | quando é apagado |
 |:---|:---|:---|:---|:---|:---|
