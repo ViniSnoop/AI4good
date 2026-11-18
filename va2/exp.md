@@ -27,7 +27,7 @@
 
 **o competidor mais forte:** o PropaLens e o Vigil não possuem modelos locais calibrados para língua portuguesa nem rodam no nosso dataset de teste. No lugar, um caminho alternativo maior, na nuvem: `gpt-4o-mini` com prompt estruturado de classificação de falácias nos mesmos posts. Ele não representa a extensão local com privacidade, mas serve de teto de desempenho para quantificar o preço pago pela inferência local no navegador.
 
-**o número que derruba a hipótese:** falso positivo acima de 10% (pois rotular alertas legítimos ou opiniões enfáticas como manipulação quebra a confiança do usuário), F1-macro abaixo de 0.70, ou tempo de inferência por post acima de 1,0 s na CPU, avaliado em 30 postagens de teste.
+**o número que derruba a hipótese:** falso positivo acima de 10% (pois rotular alertas legítimos ou opiniões enfáticas como manipulação quebra a confiança do usuário), F1-macro abaixo de 0.75 (qualquer F1 < 0.75 refuta a hipótese, eliminando zonas cinzentas de tolerância), ou tempo de inferência por post acima de 1,0 s na CPU, avaliado em 30 postagens de teste.
 
 **escrito antes de ver o resultado:** commit [567c6fc](https://github.com/ViniSnoop/AI4good/commit/567c6fc), anterior à execução de qualquer piloto e à tabela de resultados.
 
@@ -56,7 +56,11 @@
 | | resposta |
 |:---|:---|
 | origem dos dados | amostra de postagens públicas em português do X/Twitter e Reddit de debates públicos, combinada com checagens de fatos (Aos Fatos/Lupa) e notícias factuais de controle (Defesa Civil, meteorologia e reportagens) |
-| quantos, e por que esse número | 120 postagens no experimento final (60 manipulativas com classes balanceadas: ad hominem, pânico moral, falso dilema; e 60 controles legítimos/neutros). Com 60 controles, o erro amostral de 95% para uma taxa de 10% de falso positivo é de ±5 pontos percentuais ([Fleiss et al., 2003](https://doi.org/10.1002/0471445428)). No piloto do semestre: 30 postagens de teste |
+| quantos, e por que esse número | 120 postagens no experimento final (60 manipulativas com classes balanceadas: ad hominem, pânico moral, falso dilema; e 60 controles legítimos/neutros). Pela aproximação normal de proporções ($1{,}96\sqrt{\frac{p(1-p)}{n}}$), 60 controles para $p=0{,}10$ produzem margem de erro amostral de $\pm 7{,}6$ pontos percentuais a 95% de confiança ([Fleiss et al., 2003](https://doi.org/10.1002/0471445428)). No piloto do semestre: 30 postagens de teste |
+| como coletar e quem faz o gabarito | coleta de texto público sem metadados pessoais; gabarito independente por 2 anotadores sob a taxonomia de Da San Martino et al. (2019), reportando a concordância de Kappa de Cohen ($\kappa$). Discordâncias resolvidas por terceiro revisor |
+| ajuste $\times$ teste | 40 postagens separadas exclusivamente para calibrar limiares de probabilidade e regras; 80 postagens mantidas cegas para o teste definitivo |
+| consentimento e comitê de ética | dispensado de submissão ao CEP conforme Resolução CNS 510/2016 (Art. 1º, parágrafo único, incisos II e III) por utilizar apenas textos de domínio público em bancos de dados sem identificação individual |
+| dados pessoais e descarte | nenhum dado pessoal é coletado ou retido. O corpus contém apenas o texto das postagens com menções de usuários e links removidos (§ 3 do flx) |
 | como coletar e quem faz o gabarito | coleta de texto público sem metadados pessoais; gabarito independente por 2 anotadores sob a taxonomia de Da San Martino et al. (2019), reportando a concordância de Kappa de Cohen ($\kappa$) |
 | ajuste $\times$ teste | 40 postagens separadas exclusivamente para calibrar limiares de probabilidade e regras; 80 postagens mantidas cegas para o teste definitivo |
 | consentimento e comitê de ética | dispensado de submissão ao CEP conforme Resolução CNS 510/2016 (Art. 1º, parágrafo único, incisos II e III) por utilizar apenas textos de domínio público em bancos de dados sem identificação individual |
@@ -90,7 +94,7 @@
 
 **o competidor mais forte:** aviso genérico de plataforma ("*Conteúdo potencialmente enganoso / não verificado*"), similar aos rótulos institucionais de moderação e ao formato inicial do *Community Notes*. Mede se a explicação pedagógica da falácia específica induz mais reflexão do que um aviso punitivo/genérico.
 
-**o número que derruba a hipótese:** redução na intenção de engajamento por impulso inferior a 15% em relação ao controle, ou taxa de contestação/discordância do rótulo pedagógico acima de 25%, avaliado com 20 postagens por participante.
+**o número que derruba a hipótese:** redução na intenção de engajamento por impulso inferior a 25% em relação ao controle (qualquer redução < 25% refuta a hipótese), ou taxa de contestação/discordância do rótulo pedagógico acima de 20%, avaliado com 20 postagens por participante.
 
 **escrito antes de ver o resultado:** commit [567c6fc](https://github.com/ViniSnoop/AI4good/commit/567c6fc), anterior à execução de qualquer piloto e à tabela de resultados.
 
@@ -141,4 +145,35 @@
 
 ## 4 · o que mudou na ideia, sem IA
 
+O Laya cru em CPU não sustenta a hipótese (47% de falsos positivos e 1,11 s de latência): a calibração de probabilidades (RLCD) e a quantização INT8 acelerada em WebGPU viraram pré-requisitos obrigatórios.  
+A regra determinística de regex quebrou em alertas legítimos (27% de falso positivo): alertas oficiais (Defesa Civil) precisam de lista de bypass prévia antes de qualquer análise.  
+A ablação do E2 evidenciou a necessidade de uma condição de controle visual neutro de mesmo tamanho, isolando o efeito da explicação didática da simples interrupção atencional.  
+O passo 7a do fluxograma incorporou distinção entre discordância de tática e falso positivo factual, prevenindo que divergências conceituais contaminem o indicador de erro da IA.
+
 ## 5 · auditoria cega
+
+**o veredito da conversa nova (Auditor Cético):**
+
+| Item | Passa ou não passa | Trecho que prova | O que encontrei |
+|:---|:---|:---|:---|
+| E1 — Hipótese falsificável | PASSA, com ressalvas | §2.1: F1-macro ≥ 0,75, falso positivo ≤ 10% e latência < 1 s | Critérios mensuráveis e refutáveis; limiar unificado sem zonas cinzentas de tolerância |
+| E1 — Linha de base | PASSA | §2.1: heurística determinística baseada em regex | Linha de base concreta; piloto revelou que a regex gera 27% de falso alarme |
+| E1 — Limiar prévio | PASSA (verificado no git local) | §2.1: commit `567c6fc` | Commit registrado localmente no repositório antes de rodar os scripts de piloto |
+| E1 — Métricas | PASSA | §2.2: F1-macro, falso positivo, falso negativo silencioso e latência | Métricas fundamentadas em Da San Martino (2019) e Geifman & El-Yaniv (2017) |
+| E1 — Ablação | PASSA | §2.2: regex, checkpoint inglês, regra de tamanho e nuvem | Demonstrou perda no inglês e que a regra estática evita falsos alarmes em interjeições |
+| E1 — Piloto | PASSA (como teste negativo honesto) | §2.4: 30 postagens; F1 de 0,26 e falso positivo de 47% | O piloto refutou a hipótese original; autor admitiu a falha sem maquiar os dados |
+| E1 — Dados e ética | PASSA | §2.3: 120 postagens com anotação dupla; dispensa Res. 510/2016 | Margem corrigida para ±7,6 pp; dispensa justificada por textos públicos sem metadados |
+| E2 — Hipótese falsificável | PASSA | §3.1: redução de ≥ 25% e contestação ≤ 20% | Hipótese com números claros que podem ser falsificados por dados de campo |
+| E2 — Linha de base | PASSA | §3.1: feed padrão sem intervenção | Comparação direta e natural do status quo de consumo de redes |
+| E2 — Limiar prévio | PASSA | §3.1: commit `567c6fc` | Registrado antes da execução do piloto de software |
+| E2 — Métricas | PASSA | §3.2: compartilhamento, tempo de inspeção, discordância e SUS | Métricas comportamentais clássicas de intervenção online (Pennycook et al., 2021) |
+| E2 — Ablação | PASSA | §3.2: condições A, B, C e D | Compara feed padrão, pedagógico, aviso genérico institucional e sem botão 7a |
+| E2 — Piloto com pessoas | PASSA (com ressalva metodológica) | §3.3 e §3.4: persona de IA em harness de software | Válido estritamente como teste de código e eventos; folha declara que não mede humanos |
+| E2 — Dados e participantes | PASSA | §3.3: 40 a 50 participantes previstos para o artigo | Amostra planejada com poder estatístico adequado para o estudo definitivo |
+| E2 — Ética | PASSA | §3.3: TCLE elaborado ([tcle.md](tcle.md)) e previsão de submissão ao CEP | Protocolo ético pronto para submissão; piloto de software dispensado de parecer |
+
+**a minha resposta, sem IA:**
+1. 
+2. 
+3. 
+
