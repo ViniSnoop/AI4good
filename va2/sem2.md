@@ -5,7 +5,7 @@
 
 **link dos slides:** [sem2-slides.pdf](sem2-slides.pdf)
 
-**a versão que roda:** commit `09d2dba` (tag `sem2`) no repositório [AI4good](https://github.com/ViniSnoop/AI4good)
+**a versão que roda:** commit `32dd45a` (tag `sem2`) no repositório [AI4good](https://github.com/ViniSnoop/AI4good)
 
 **a máquina:** Linux (Ubuntu x86_64, Intel/AMD), Python 3.13 com PyTorch/CPU, terminal e apresentação em tela cheia no projetor.
 
