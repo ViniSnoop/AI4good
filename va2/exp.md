@@ -173,7 +173,7 @@ O passo 7a do fluxograma incorporou distinção entre discordância de tática e
 | E2 — Ética | PASSA | §3.3: TCLE elaborado ([tcle.md](tcle.md)) e previsão de submissão ao CEP | Protocolo ético pronto para submissão; piloto de software dispensado de parecer |
 
 **a minha resposta, sem IA:**
-1. 
-2. 
-3. 
+1. Realmente tinha ficado uma área cinzenta entre 0,70 e 0,75 que agora já foi corrigida, deixando a regra de reprovação estrita em F1 < 0,75 e registrada antes do piloto.
+2. Ainda temos que planejar um refino/calibração de probabilidades (RLCD) e quantização para o Laya antes de ir para produção, pois o modelo cru na CPU errou muito no piloto.
+3. No contexto da disciplina vai ter que ser só com a IA mesmo para validar os scripts e o harness, não tem como fazer o teste com 24 pessoas agora, impossível; o teste com pessoas fica como protocolo futuro com o TCLE para o CEP. 
 
