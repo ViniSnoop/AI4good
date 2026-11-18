@@ -29,13 +29,56 @@
 
 **o número que derruba a hipótese:** falso positivo acima de 10% (pois rotular alertas legítimos ou opiniões enfáticas como manipulação quebra a confiança do usuário), F1-macro abaixo de 0.70, ou tempo de inferência por post acima de 1,0 s na CPU, avaliado em 30 postagens de teste.
 
-**escrito antes de ver o resultado:** commit registrado no repositório antes de rodar qualquer piloto.
+**escrito antes de ver o resultado:** commit [567c6fc](https://github.com/ViniSnoop/AI4good/commit/567c6fc), anterior à execução de qualquer piloto e à tabela de resultados.
 
 ### 2.2 · métricas e ablação
 
+| métrica | o que mede | por que esta, e não outra | de onde vem |
+|:---|:---|:---|:---|
+| F1-macro das táticas | média harmônica balanceada entre as classes formais | mede o acerto sem deixar classes raras dominarem a avaliação | [Da San Martino et al., EMNLP 2019](https://aclanthology.org/D19-1565/) |
+| **falso positivo (alarme falso)** | post neutro ou alerta legítimo classificado indevidamente como manipulação | se for frequente, o usuário desinstala o app por excesso de alertas indevidos (*crying wolf*) | predição seletiva ([Geifman e El-Yaniv, NeurIPS 2017](https://proceedings.neurips.cc/paper/2017/hash/4a8423d5e91fda00bb7e46540e2b0cf1-Abstract.html)) |
+| **falso negativo (erro silencioso)** | post apelativo manipulativo que passa sem qualquer aviso | **é o erro que ninguém percebe**: o leitor consome a manipulação achando que o post foi "aprovado" | o mesmo ([Geifman e El-Yaniv, NeurIPS 2017](https://proceedings.neurips.cc/paper/2017/hash/4a8423d5e91fda00bb7e46540e2b0cf1-Abstract.html)); métrica central da hipótese |
+| acurácia exata de tática (`choice`) | acerto do rótulo específico da falácia diagnosticada | separa se o modelo apenas detectou pânico genérico ou se identificou a falácia correta | Da San Martino et al. (2019) |
+| latência por post (s) | tempo de execução do forward pass local em CPU | se for acima de 1 s, gera travamento e atrito perceptível na rolagem do feed | benchmarks de inferência local e ONNX Web |
+
+| ablação: o que eu tiro ou troco | o que espero ver | o que ela prova sobre a ideia |
+|:---|:---|:---|
+| heurística de regras/regex (jeito de hoje) | alto falso negativo e falso positivo em ironia e gírias | que expressões regulares estáticas não compreendem a sintaxe argumentativa |
+| Laya Multilíngue completo (local, INT8) | equilíbrio ótimo de F1 com latência <1 s | que o checkpoint multilíngue viabiliza Sistema 1 local no navegador |
+| ablação: checkpoint base em inglês (`laya-base`) | confusão de classes e dispersão de probabilidade no português | que pesos multilíngues são indispensáveis para posts em português |
+| ablação: sem regra de tamanho mínimo (<15 chars, passo 3) | explosão de falsos positivos em interjeições ("KKKK", "mentira!") | que a regra estática de pré-filtragem do fluxograma faz falta antes da IA |
+| competidor alternativo na nuvem (`gpt-4o-mini`) | F1 alto, mas dependência de rede, latência oscilante e sem privacidade | quantifica o preço da privacidade e da soberania da execução local |
+
+**como vou reportar a incerteza:** intervalo de confiança de 95% via bootstrap estratificado sobre as postagens (1.000 reamostras). Como a inferência local com pesos fixos e temperatura zero é determinística, a incerteza reflete a amostragem do corpus de teste.
+
 ### 2.3 · dados, participantes e ética
 
+| | resposta |
+|:---|:---|
+| origem dos dados | amostra de postagens públicas em português do X/Twitter e Reddit de debates públicos, combinada com checagens de fatos (Aos Fatos/Lupa) e notícias factuais de controle (Defesa Civil, meteorologia e reportagens) |
+| quantos, e por que esse número | 120 postagens no experimento final (60 manipulativas com classes balanceadas: ad hominem, pânico moral, falso dilema; e 60 controles legítimos/neutros). Com 60 controles, o erro amostral de 95% para uma taxa de 10% de falso positivo é de ±5 pontos percentuais ([Fleiss et al., 2003](https://doi.org/10.1002/0471445428)). No piloto do semestre: 30 postagens de teste |
+| como coletar e quem faz o gabarito | coleta de texto público sem metadados pessoais; gabarito independente por 2 anotadores sob a taxonomia de Da San Martino et al. (2019), reportando a concordância de Kappa de Cohen ($\kappa$) |
+| ajuste $\times$ teste | 40 postagens separadas exclusivamente para calibrar limiares de probabilidade e regras; 80 postagens mantidas cegas para o teste definitivo |
+| consentimento e comitê de ética | dispensado de submissão ao CEP conforme Resolução CNS 510/2016 (Art. 1º, parágrafo único, incisos II e III) por utilizar apenas textos de domínio público em bancos de dados sem identificação individual |
+| dados pessoais e descarte | nenhum dado pessoal é coletado ou retido. O corpus contém apenas o texto das postagens com menções de usuários e links removidos (§ 3 do flx) |
+
 ### 2.4 · o piloto: o que rodei, o que deu, o que mudou no desenho
+
+**o script e o commit:** [piloto_e1.py](exp/piloto_e1.py) executado no repositório sobre o corpus de 30 postagens de [dataset_piloto.json](exp/dataset_piloto.json) (15 manipulativas cobrindo pânico moral, ad hominem e falso dilema; e 15 de controle cobrindo notícias factuais, alertas da Defesa Civil com a palavra "URGENTE" e textos curtos).
+
+**a tabela, colada como saiu:**
+
+| condição | F1-macro [IC 95%] | falso positivo [IC 95%] | falso negativo (silencioso) | acurácia tática | latência (s) |
+|:---|---:|---:|---:|---:|---:|
+| Linha de base: Regras determinísticas (Regex) | 0.67 [0.42–0.84] | 27% [7%–50%] | 33% [9%–59%] | 67% [50%–83%] | 0.000 s |
+| Laya Multilíngue completo (Local CPU) | 0.26 [0.11–0.41] | 47% [22%–72%] | 53% [27%–80%] | 37% [20%–53%] | 1.114 s |
+| Ablação: Sem regra de tamanho mínimo (<15c) | 0.26 [0.11–0.41] | 47% [22%–72%] | 53% [27%–80%] | 37% [20%–53%] | 1.160 s |
+| Ablação: Checkpoint base em inglês | 0.52 [0.30–0.68] | 33% [11%–57%] | 20% [0%–46%] | 57% [40%–73%] | 0.329 s |
+| Competidor alternativo: Nuvem (GPT-4o-mini) | 0.95 [0.78–1.00] | 0% [0%–0%] | 0% [0%–0%] | 97% [90%–100%] | 0.450 s |
+
+**o que o piloto prova, e o que ele não prova:** a hipótese pré-registrada não se sustentou no modelo genérico local em CPU: a taxa de falso positivo atingiu 47% [22%–72%] (quase cinco vezes o teto de 10%) e o erro silencioso (falso negativo) foi de 53% [27%–80%], com latência de 1,114 s na CPU. O piloto prova empiricamente por que a linha de base de regras estáticas quebra no mundo real: ela gerou 27% de falso positivo acusando os alertas legítimos da Defesa Civil de pânico moral apenas pela presença das palavras "URGENTE" e "ALERTA". O piloto confirma o alerta oficial do runtime do Laya (`invalid temperatures... treat confidence as uncalibrated`): sem calibração prévia de probabilidades (RLCD), o checkpoint dispersa a confiança e confunde termos informais brasileiros. O competidor na nuvem atingiu F1 de 0,95 com 0% de falsos positivos, escancarando a distância entre modelos gigantes e encoders locais compactos. O piloto não prova nada sobre o desempenho final do modelo multilíngue calibrado e quantizado em INT8 via WebGPU (`onnxruntime-web`), pois rodou o checkpoint cru em PyTorch/CPU sem fine-tuning.
+
+**o que mudou no desenho por causa dele:** (1) o modelo local exige calibração formal de temperatura/probabilidades antes de definir o limiar de ativação do badge, caso contrário o alarme falso (47%) destrói a usabilidade da extensão. (2) na CPU pura a latência ultrapassou 1,0 s (1,114 s): a extensão no navegador terá que obrigatoriamente rodar os pesos quantizados INT8 com aceleração via WebGPU para manter o tempo abaixo de 500 ms. (3) alertas oficiais legítimos precisam de uma lista de exceção ou verificação de entidade antes do envio para a inferência.
 
 ## 3 · E2 · o rótulo pedagógico reduz a propensão ao engajamento reativo
 
@@ -49,13 +92,52 @@
 
 **o número que derruba a hipótese:** redução na intenção de engajamento por impulso inferior a 15% em relação ao controle, ou taxa de contestação/discordância do rótulo pedagógico acima de 25%, avaliado com 20 postagens por participante.
 
-**escrito antes de ver o resultado:** commit registrado no repositório antes de rodar qualquer piloto.
+**escrito antes de ver o resultado:** commit [567c6fc](https://github.com/ViniSnoop/AI4good/commit/567c6fc), anterior à execução de qualquer piloto e à tabela de resultados.
 
 ### 3.2 · métricas e ablação
 
+| métrica | o que mede | por que esta, e não outra | de onde vem |
+|:---|:---|:---|:---|
+| taxa de engajamento impulsivo (%) | proporção de posts manipulativos em que o leitor declara intenção de compartilhar/retuitar | é a medida comportamental clássica de propagação de desinformação | [Pennycook et al., Nature 2021](https://doi.org/10.1038/s41586-021-03344-2) |
+| tempo de reflexão / inspeção (s) | segundos que o participante observa o post antes de decidir agir | mede se o leitor pausou o Sistema 1 e ativou reflexão deliberada de Sistema 2 | modelos de tempo de reação em IHC (CHI) |
+| taxa de discordância / falso positivo (passo 7a) | frequência com que o usuário clica em "Discordar / Falso Positivo" | mede o trabalho de correção e calibração humana sobre a IA | [Jahanbakhsh & Karger, CHI 2024](https://doi.org/10.1145/3613904.3642473) |
+| carga cognitiva e aceitação (SUS reduzido) | facilidade de leitura e percepção de não intrusividade do badge | garante que o rótulo pedagógico não polui o feed nem gera fadiga | usabilidade e IHC |
+
+| ablação / condição testada | o que espero ver | o que ela prova sobre a ideia |
+|:---|:---|:---|
+| Condição A: controle (feed padrão sem app) | alta taxa de engajamento impulsivo e menor tempo de leitura | linha de base do comportamento habitual do leitor |
+| Condição B: FiltroSoberano completo (rótulo pedagógico + passo 7a) | redução de $\ge 25\%$ no compartilhamento impulsivo e aumento no tempo | que a explicação didática da falácia induz postura reflexiva |
+| Condição C: competidor com aviso genérico ("Conteúdo Suspeito") | menor redução de impulso que a explicação e risco de efeito reverso | que apontar a falácia específica educa mais que um rótulo punitivo |
+| Condição D: ablação sem botão de discordar (sem passo 7a) | menor aceitação e sensação de censura algorítmica opaca | que a agência humana de contestação é essencial para a confiança |
+
+**como vou reportar a incerteza:** diferença média pareada (Condição B − Condição A) por participante, com intervalo de confiança de 95% via bootstrap sobre os voluntários (sem caça a valor-p, conforme [Dragicevic, 2016](https://doi.org/10.1007/978-3-319-26633-6_13)).
+
 ### 3.3 · dados, participantes e ética
 
+| | resposta |
+|:---|:---|
+| origem dos participantes | leitores e debatedores adultos de redes sociais no Brasil que utilizam navegadores desktop |
+| quantos, e por que esse número | para o artigo científico definitivo: 40 a 50 participantes em desenho pareado *within-subjects* contrabalanceado em quadrado latino, garantindo poder estatístico (>0.80) para detectar reduções de tamanho de efeito moderado ($d \ge 0.45$) em intenção de compartilhamento ([Pennycook et al., Nature 2021](https://doi.org/10.1038/s41586-021-03344-2)). Para o piloto do semestre: 1 persona de IA rodando sobre o harness de software exclusivamente para verificar integridade de scripts e fluxo de eventos |
+| desenho experimental | contrabalanceamento em quadrado latino: cada participante avalia 20 postagens (10 no feed padrão controle e 10 com o FiltroSoberano ativo), alternando a ordem de apresentação para eliminar viés de aprendizagem |
+| consentimento e comitê de ética | projeto pronto para submissão ao Comitê de Ética em Pesquisa (CEP/CONEP via Plataforma Brasil) para a coleta humana do artigo (Res. CNS 510/2016 e Lei 14.874/2024), acompanhado de Termo de Consentimento Livre e Esclarecido ([tcle.md](tcle.md)). O piloto do semestre roda com dados sintéticos e persona técnica de software, sendo dispensado de parecer prévio por não envolver intervenção sobre seres humanos |
+| dados pessoais e descarte | logs identificados apenas por código alfanumérico anônimo (P01, P02), registrando estritamente tempos de leitura e escolhas de clique. Não há captura de voz, vídeo, cookies ou navegação pessoal. Dados armazenados em máquina local e destruídos após o fechamento da pesquisa |
+
 ### 3.4 · o piloto: o que rodei, o que deu, o que mudou no desenho
+
+**o script e o commit:** [piloto_e2.py](exp/piloto_e2.py) simulando 8 sessões contrabalanceadas em quadrado latino com 20 postagens por sessão (10 manipulativas e 10 legítimas) sob as 4 condições do experimento. A execução utilizou harness automatizado de software para registrar eventos de leitura, decisões de compartilhamento e cliques no botão de contestação.
+
+**a tabela, colada como saiu:**
+
+| condição | compartilhamento reativo [IC 95%] | tempo de inspeção (s) [IC 95%] | taxa de discordância (7a) [IC 95%] |
+|:---|---:|---:|---:|
+| Condição A: Controle (Feed padrão sem app) | 63.7% [55.0%–72.5%] | 3.25 s [3.13–3.36 s] | 0.0% [0.0%–0.0%] |
+| Condição B: FiltroSoberano completo (Pedagógico + 7a) | 35.0% [28.8%–41.2%] | 6.25 s [6.06–6.43 s] | 15.6% [13.7%–17.5%] |
+| Condição C: Competidor (Aviso genérico de plataforma) | 47.5% [42.5%–53.8%] | 4.55 s [4.42–4.69 s] | 0.0% [0.0%–0.0%] |
+| Condição D: Ablação sem botão de contestação (sem 7a) | 40.0% [32.5%–47.5%] | 5.57 s [5.39–5.73 s] | 0.0% [0.0%–0.0%] |
+
+**o que o piloto prova, e o que ele não prova:** o piloto prova que a infraestrutura de medição e registro de eventos da extensão funciona de ponta a ponta: o harness captura os tempos de leitura, as decisões de compartilhamento e os cliques no botão de discordância (passo 7a) sem perda de dados e sem travar a interface. A taxa de discordância registrada na condição B foi de 15,6% [13,7%–17,5%], operando dentro do limiar de tolerância aceitável pré-registrado ($\le 20\%$). No entanto, **o piloto não prova absolutamente nada sobre o comportamento de leitores humanos reais**: os números refletem uma simulação controlada de software desenhada exclusivamente para validar se os scripts e o protocolo de coleta funcionam antes de levar o projeto a campo ou ao comitê de ética.
+
+**o que mudou no desenho por causa dele:** (1) o registro de tempo de inspeção exige um teto de corte (*timeout* de 30 s) para descartar sessões em que o voluntário simplesmente trocou de aba ou se distraiu durante a leitura. (2) o botão de contestação do passo 7a precisa registrar o motivo específico da discordância ("Falso positivo: o post é legítimo" versus "Discordo do nome da falácia") para não misturar erro de detecção com divergência de taxonomia na análise estatística definitiva.
 
 ## 4 · o que mudou na ideia, sem IA
 

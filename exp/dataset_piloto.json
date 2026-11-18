@@ -1,0 +1,212 @@
+[
+  {
+    "id": 1,
+    "texto": "URGENTE: Compartilhem antes que apaguem! O governo vai confiscar a poupança e fechar igrejas a partir de amanhã se ninguém protestar hoje!!",
+    "gabarito_tatica": "panico_moral",
+    "eh_manipulativo": true,
+    "categoria": "panico_moral"
+  },
+  {
+    "id": 2,
+    "texto": "ALERTA MÁXIMO: Eles estão envenenando a água da cidade para controlar a mente da população, protejam seus filhos agora mesmo!",
+    "gabarito_tatica": "panico_moral",
+    "eh_manipulativo": true,
+    "categoria": "panico_moral"
+  },
+  {
+    "id": 3,
+    "texto": "Se essa lei for aprovada na próxima semana, será o fim completo da civilização ocidental e das nossas famílias como as conhecemos.",
+    "gabarito_tatica": "panico_moral",
+    "eh_manipulativo": true,
+    "categoria": "panico_moral"
+  },
+  {
+    "id": 4,
+    "texto": "Atenção a todos os grupos: médicos avisam que o vírus foi criado em laboratório para dizimar os idosos, repassem com urgência!",
+    "gabarito_tatica": "panico_moral",
+    "eh_manipulativo": true,
+    "categoria": "panico_moral"
+  },
+  {
+    "id": 5,
+    "texto": "Estão planejando um apagão total de energia e internet para instaurar o caos amanhã de madrugada, comprem comida enlatada imediatamente!",
+    "gabarito_tatica": "panico_moral",
+    "eh_manipulativo": true,
+    "categoria": "panico_moral"
+  },
+  {
+    "id": 6,
+    "texto": "Esse economistazinho de meia-tigela não passa de um vendido e incompetente, não tem moral para opinar sobre nada neste país.",
+    "gabarito_tatica": "ataque_pessoal",
+    "eh_manipulativo": true,
+    "categoria": "ataque_pessoal"
+  },
+  {
+    "id": 7,
+    "texto": "Quem liga para o artigo dessa jornalista histérica e mal-amada? Todo mundo sabe que ela só escreve asneiras para chamar atenção.",
+    "gabarito_tatica": "ataque_pessoal",
+    "eh_manipulativo": true,
+    "categoria": "ataque_pessoal"
+  },
+  {
+    "id": 8,
+    "texto": "Você é burro demais para entender conceitos básicos de finanças, volta para a escola antes de vir passar vergonha no Twitter.",
+    "gabarito_tatica": "ataque_pessoal",
+    "eh_manipulativo": true,
+    "categoria": "ataque_pessoal"
+  },
+  {
+    "id": 9,
+    "texto": "Aquele candidato é um palhaço criminoso e vagabundo, só gente desprovida de cérebro vota em uma escória dessas.",
+    "gabarito_tatica": "ataque_pessoal",
+    "eh_manipulativo": true,
+    "categoria": "ataque_pessoal"
+  },
+  {
+    "id": 10,
+    "texto": "Não percam tempo ouvindo esse professor medíocre, ele foi demitido por incompetência e tem inveja de quem produz algo útil.",
+    "gabarito_tatica": "ataque_pessoal",
+    "eh_manipulativo": true,
+    "categoria": "ataque_pessoal"
+  },
+  {
+    "id": 11,
+    "texto": "Ou você apoia incondicionalmente o nosso projeto agora, ou você é a favor do caos e quer destruir a nossa cidade.",
+    "gabarito_tatica": "falso_dilema",
+    "eh_manipulativo": true,
+    "categoria": "falso_dilema"
+  },
+  {
+    "id": 12,
+    "texto": "Na política é simples: ou você está do lado das pessoas de bem, ou você apoia abertamente a corrupção e a bandidagem.",
+    "gabarito_tatica": "falso_dilema",
+    "eh_manipulativo": true,
+    "categoria": "falso_dilema"
+  },
+  {
+    "id": 13,
+    "texto": "Ou investimos todos os recursos públicos nesta tecnologia específica hoje, ou o Brasil estará condenado à miséria eterna.",
+    "gabarito_tatica": "falso_dilema",
+    "eh_manipulativo": true,
+    "categoria": "falso_dilema"
+  },
+  {
+    "id": 14,
+    "texto": "Você precisa escolher agora: ou aceita a redução dos salários, ou a empresa fecha as portas amanhã e todo mundo vai para a rua.",
+    "gabarito_tatica": "falso_dilema",
+    "eh_manipulativo": true,
+    "categoria": "falso_dilema"
+  },
+  {
+    "id": 15,
+    "texto": "Quem não bater palmas para a nova política de segurança pública automaticamente apoia o crime organizado nas favelas.",
+    "gabarito_tatica": "falso_dilema",
+    "eh_manipulativo": true,
+    "categoria": "falso_dilema"
+  },
+  {
+    "id": 16,
+    "texto": "O Banco Central manteve a taxa Selic em 10,50% ao ano na reunião do Copom desta quarta-feira, conforme expectativa do mercado financeiro.",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "neutro_legitimo"
+  },
+  {
+    "id": 17,
+    "texto": "O estudo da Universidade Federal de Minas Gerais apontou um crescimento de 3% na produtividade agrícola da região no último trimestre.",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "neutro_legitimo"
+  },
+  {
+    "id": 18,
+    "texto": "A prefeitura anunciou que as obras na avenida principal serão concluídas até o final de novembro, liberando o tráfego de ônibus.",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "neutro_legitimo"
+  },
+  {
+    "id": 19,
+    "texto": "Acredito que precisamos rediscutir os métodos de ensino de matemática no ensino médio, pois os resultados do Ideb continuam estagnados.",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "neutro_legitimo"
+  },
+  {
+    "id": 20,
+    "texto": "O relatório da ONU sobre clima destaca a importância da transição energética nos países em desenvolvimento até a próxima década.",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "neutro_legitimo"
+  },
+  {
+    "id": 21,
+    "texto": "Embora discorde das premissas econômicas do plano tributário apresentado, reconheço que a proposta traz simplificação importante de tributos.",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "neutro_legitimo"
+  },
+  {
+    "id": 22,
+    "texto": "ALERTA URGENTE DA DEFESA CIVIL: Fortes chuvas torrenciais com risco iminente de deslizamento na zona norte nas próximas 4 horas. Evacue áreas de encosta.",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "alerta_legitimo"
+  },
+  {
+    "id": 23,
+    "texto": "URGENTE METEOROLOGIA: Rajadas de vento de até 90 km/h e queda de granizo previstas para a região metropolitana esta tarde. Procure abrigo.",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "alerta_legitimo"
+  },
+  {
+    "id": 24,
+    "texto": "COMUNICADO URGENTE DE SAÚDE PÚBLICA: Campanha de vacinação contra febre amarela intensificada nos postos municipais a partir das 8h.",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "alerta_legitimo"
+  },
+  {
+    "id": 25,
+    "texto": "AVISO URGENTE DE TRÂNSITO: Pista expressa da rodovia totalmente bloqueada após acidente grave no km 45, desvio sinalizado pela via local.",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "alerta_legitimo"
+  },
+  {
+    "id": 26,
+    "texto": "kkk mentira!",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "texto_curto"
+  },
+  {
+    "id": 27,
+    "texto": "Concordo 100%",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "texto_curto"
+  },
+  {
+    "id": 28,
+    "texto": "Fake news pura.",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "texto_curto"
+  },
+  {
+    "id": 29,
+    "texto": "Estou muito frustrado com o atraso crônico das linhas de ônibus da minha cidade, isso prejudica os trabalhadores todos os dias.",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "neutro_legitimo"
+  },
+  {
+    "id": 30,
+    "texto": "Não gostei daquele filme novo de ficção científica, achei o roteiro fraco e os diálogos bastante clichês, esperava muito mais.",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "neutro_legitimo"
+  }
+]
