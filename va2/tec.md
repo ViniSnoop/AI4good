@@ -203,3 +203,13 @@ Resultado rigoroso: não passa nos três itens, embora o terceiro esteja substan
 Item 1: Não tem nada sobre "Entretanto, a SLM de apoio não tem nome, repositório, licença ou justificativa. WebGPU/ONNX também aparecem na descrição da arquitetura, mas não são documentados na tabela. Além disso, a comparação entre alternativas é apenas afirmada, sem evidência comparativa suficiente" até por que eu mesmo mandei tirar essa parte pessoalmente, o projeto não terá mais essa segunda etapa de slm local para não ficar pesado no navegador
 Item 2: Não conseguiu acessar por incapacidade, por que eu coloquei no drive e o link está funcionando perfeitamente, inclusive abri em janela anônima sem dificuldade nenhuma.
 Item 3: ELE ME REPROVOU PQ NÃO TEM A AUDITORIA CEGA QUE ELE MESMO ESTÁ FAZENDO E PELA FALTA DA RESPOSTA DELE???
+
+## 7 · atualização técnica pós-piloto experimental (exp)
+
+> **nota de engenharia decorrente do artefato `exp`:**  
+> A execução empírica do piloto técnico ([`exp/piloto_e1.py`](../exp/piloto_e1.py)) confirmou a advertência observada no runtime (`treat confidence as uncalibrated`): o checkpoint genérico do Laya sem fine-tuning apresentou 47% de falsos positivos e 53% de erro silencioso em postagens em português, além de latência de 1,114 s na CPU.  
+> Consequentemente, para a viabilidade do Sistema 1 local no navegador, o projeto adota como pré-requisitos técnicos obrigatórios:
+> 1. **Calibração de Probabilidades (RLCD / Platt Scaling):** calibração formal dos logits com dados em português para eliminar a dispersão de incerteza antes de disparar qualquer badge.
+> 2. **Quantização INT8 e WebGPU:** empacotamento dos pesos oficiais do `laya-multilingual` em ONNX INT8 via `onnxruntime-web`, garantindo que a inferência sob demanda fique abaixo de 500 ms no navegador.
+> 3. **Bypass de Alertas Oficiais:** lista determinística de exceção para entidades legítimas (Defesa Civil, órgãos de saúde), contornando os 27% de falsos positivos gerados por regras cegas de palavras-chave.
+

@@ -84,6 +84,8 @@
 
 **o que mudou no desenho por causa dele:** (1) o modelo local exige calibração formal de temperatura/probabilidades antes de definir o limiar de ativação do badge, caso contrário o alarme falso (47%) destrói a usabilidade da extensão. (2) na CPU pura a latência ultrapassou 1,0 s (1,114 s): a extensão no navegador terá que obrigatoriamente rodar os pesos quantizados INT8 com aceleração via WebGPU para manter o tempo abaixo de 500 ms. (3) alertas oficiais legítimos precisam de uma lista de exceção ou verificação de entidade antes do envio para a inferência.
 
+**plano de refino e calibração pós-piloto (emenda técnica):** para sanar a fragilidade apontada pela auditoria e responder à falha no piloto, o pipeline adota três etapas de refino antes do teste em larga escala: (a) *Calibração de Probabilidades:* aplicação de Platt Scaling / Temperature Scaling sobre os logits das 40 postagens do conjunto de ajuste para calibrar as probabilidades e extinguir a dispersão dos escores; (b) *Limiar Seletivo:* o badge pedagógico só é injetado se $P(\text{tática}) > 0{,}65$ e a classe for diferente de neutro/legítimo; e (c) *Quantização e WebGPU:* exportação dos pesos oficiais do `laya-multilingual` para ONNX INT8 e execução via `onnxruntime-web` para derrubar a latência de 1,114 s na CPU para menos de 500 ms no navegador.
+
 ## 3 · E2 · o rótulo pedagógico reduz a propensão ao engajamento reativo
 
 ### 3.1 · hipótese, linhas de base e o número que derruba
@@ -94,7 +96,7 @@
 
 **o competidor mais forte:** aviso genérico de plataforma ("*Conteúdo potencialmente enganoso / não verificado*"), similar aos rótulos institucionais de moderação e ao formato inicial do *Community Notes*. Mede se a explicação pedagógica da falácia específica induz mais reflexão do que um aviso punitivo/genérico.
 
-**o número que derruba a hipótese:** redução na intenção de engajamento por impulso inferior a 25% em relação ao controle (qualquer redução < 25% refuta a hipótese), ou taxa de contestação/discordância do rótulo pedagógico acima de 20%, avaliado com 20 postagens por participante.
+**o número que derruba a hipótese:** redução na intenção de engajamento por impulso inferior a 25% em relação ao controle (qualquer redução < 25% refuta a hipótese, eliminando zonas cinzentas de tolerância), ou taxa de contestação/discordância do rótulo pedagógico acima de 20%, avaliado com 20 postagens por participante.
 
 **escrito antes de ver o resultado:** commit [567c6fc](https://github.com/ViniSnoop/AI4good/commit/567c6fc), anterior à execução de qualquer piloto e à tabela de resultados.
 
@@ -113,6 +115,7 @@
 | Condição B: FiltroSoberano completo (rótulo pedagógico + passo 7a) | redução de $\ge 25\%$ no compartilhamento impulsivo e aumento no tempo | que a explicação didática da falácia induz postura reflexiva |
 | Condição C: competidor com aviso genérico ("Conteúdo Suspeito") | menor redução de impulso que a explicação e risco de efeito reverso | que apontar a falácia específica educa mais que um rótulo punitivo |
 | Condição D: ablação sem botão de discordar (sem passo 7a) | menor aceitação e sensação de censura algorítmica opaca | que a agência humana de contestação é essencial para a confiança |
+| Condição E: aviso neutro de controle visual (mesmo tamanho, sem falácia) | redução leve de impulso, menor que a pedagógica | isola o mero efeito atencional/visual da contribuição pedagógica do diagnóstico |
 
 **como vou reportar a incerteza:** diferença média pareada (Condição B − Condição A) por participante, com intervalo de confiança de 95% via bootstrap sobre os voluntários (sem caça a valor-p, conforme [Dragicevic, 2016](https://doi.org/10.1007/978-3-319-26633-6_13)).
 
