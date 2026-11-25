@@ -1,0 +1,1266 @@
+[
+  {
+    "id": 1001,
+    "texto": "*URGENTE* O golpe da esquerda é o seguinte: a viagem do Ciro Gomes à Europa foi proposital!",
+    "gabarito_tatica": "panico_moral",
+    "eh_manipulativo": true,
+    "categoria": "whatsapp_panico",
+    "fonte": "FakeWhatsApp.Br (Cabral et al., 2021)"
+  },
+  {
+    "id": 1002,
+    "texto": "Acabou de dar agora na Odisseia FM 104.9 que a Brigada Militar de Serafina Corrêa aprendeu 4 urnas eletrônicas no carro de Thiago Feronato, dessas 3 urnas estavam preenchida com voto para o Haddad com pelo menos 81%. Repassem urgente, é um golpe contra o Bolsonaro e um crime contra seus seguidores. #B17",
+    "gabarito_tatica": "panico_moral",
+    "eh_manipulativo": true,
+    "categoria": "whatsapp_panico",
+    "fonte": "FakeWhatsApp.Br (Cabral et al., 2021)"
+  },
+  {
+    "id": 1003,
+    "texto": "Empresário que sabia demais sobre acidente com avião de Campos pode ter sido vítima de envenenamento. Envenenamento é uma das hipóteses para a morte do empresário Paulo César de Barros Morato.",
+    "gabarito_tatica": "panico_moral",
+    "eh_manipulativo": true,
+    "categoria": "fakebr_alarmista",
+    "fonte": "Fake.Br (Monteiro et al., 2018)"
+  },
+  {
+    "id": 1004,
+    "texto": "BOMBA!!!!! Temos que fazer esse vídeo rodar o mundo até cair nas mãos de uma autoridade que resolva verificar isso mais a fundo!!!!! 😳😳😳",
+    "gabarito_tatica": "panico_moral",
+    "eh_manipulativo": true,
+    "categoria": "whatsapp_panico",
+    "fonte": "FakeWhatsApp.Br (Cabral et al., 2021)"
+  },
+  {
+    "id": 1005,
+    "texto": "TEMOS DE COMPARTILHAR. BOMBA Pasmem amigos .. Estao distribuindo uma carta assinada por padres do Vale do aço pedindo voto pro PT .. Crime eleitoral e eclesiástico. Denuncie .Filmem e guarde a carta.",
+    "gabarito_tatica": "panico_moral",
+    "eh_manipulativo": true,
+    "categoria": "whatsapp_panico",
+    "fonte": "FakeWhatsApp.Br (Cabral et al., 2021)"
+  },
+  {
+    "id": 1006,
+    "texto": "Bomba! Delegado revela em livro que Lula cortou o próprio dedo para não ter que trabalhar",
+    "gabarito_tatica": "panico_moral",
+    "eh_manipulativo": true,
+    "categoria": "factck_boato",
+    "fonte": "FACTCK.BR (Aos Fatos / Lupa)"
+  },
+  {
+    "id": 1007,
+    "texto": "Gente, atenção! Estão tentando roubar dados de whatsapp das pessoas para fazer falsa lista do PT. Só hoje recebi 3: uma oferta de creme do Boticário, uma oferta de óculos da Chilli Beans e agora uma petição que imita o site avaaz.org, pedindo assinaturas para impugnar o Bolsonaro. CUIDADO! NÃO CLIQUEM. O site do falso avaaz vem como",
+    "gabarito_tatica": "panico_moral",
+    "eh_manipulativo": true,
+    "categoria": "whatsapp_panico",
+    "fonte": "FakeWhatsApp.Br (Cabral et al., 2021)"
+  },
+  {
+    "id": 1008,
+    "texto": "Urgente: atirador invade escola em Humaitá e dispara contra alunos",
+    "gabarito_tatica": "panico_moral",
+    "eh_manipulativo": true,
+    "categoria": "factck_boato",
+    "fonte": "FACTCK.BR (Aos Fatos / Lupa)"
+  },
+  {
+    "id": 1009,
+    "texto": "URGENTE: Palácio do Alvorada é isolado. Há relatos de invasão e tiros.",
+    "gabarito_tatica": "panico_moral",
+    "eh_manipulativo": true,
+    "categoria": "fakebr_alarmista",
+    "fonte": "Fake.Br (Monteiro et al., 2018)"
+  },
+  {
+    "id": 1010,
+    "texto": "BOMBA! o fim de Gleisi Hoffmann! Vídeo que acaba com a petista de vez. Vazou um vídeo de reunião de cúpula; e a senadora petista diz que querem é desemprego em massa",
+    "gabarito_tatica": "panico_moral",
+    "eh_manipulativo": true,
+    "categoria": "factck_boato",
+    "fonte": "FACTCK.BR (Aos Fatos / Lupa)"
+  },
+  {
+    "id": 1011,
+    "texto": "⚠️ ATENÇÃO!!! Solte agora as pedras que você tem nas mãos e LEIA COM CUIDADO E ATENÇÃO!!!",
+    "gabarito_tatica": "panico_moral",
+    "eh_manipulativo": true,
+    "categoria": "whatsapp_panico",
+    "fonte": "FakeWhatsApp.Br (Cabral et al., 2021)"
+  },
+  {
+    "id": 1012,
+    "texto": "Compartilhem galera, isso é muito serioooo, o brasil está em uma bomba relogio",
+    "gabarito_tatica": "panico_moral",
+    "eh_manipulativo": true,
+    "categoria": "whatsapp_panico",
+    "fonte": "FakeWhatsApp.Br (Cabral et al., 2021)"
+  },
+  {
+    "id": 1013,
+    "texto": "PL280 (Cuidado!) – Projeto criminoso poderá acabar com a Lava-Jato e proteger políticos corruptos. O projeto criminoso que altera a lei de abuso de autoridade voltará a ser discutido e votado no Senado no próximo mês.",
+    "gabarito_tatica": "panico_moral",
+    "eh_manipulativo": true,
+    "categoria": "fakebr_alarmista",
+    "fonte": "Fake.Br (Monteiro et al., 2018)"
+  },
+  {
+    "id": 1014,
+    "texto": "URGENTE: STJ acaba de deferir Habeas Corpus ao ex-presidente Lula. No mérito da matéria, o Ministro suspende a decisão do TRF da 4 Região e permite que ele seja candidato nas próximas eleições. Veja a íntegra da decisão em",
+    "gabarito_tatica": "panico_moral",
+    "eh_manipulativo": true,
+    "categoria": "whatsapp_panico",
+    "fonte": "FakeWhatsApp.Br (Cabral et al., 2021)"
+  },
+  {
+    "id": 1015,
+    "texto": "■ URGENTE■ CID GOMES NOVAMENTE DETONA O PT E ACABA DE VEZ COM A CANDIDATURA DE HADDAD. Vejam neste vídeo, a coragem de Cid Gomes , irmão de Ciro Gomes, no plenário .REPASSEM PARA O MÁXIMO DE PESSOAS QUE CONSEGUIREM!!",
+    "gabarito_tatica": "panico_moral",
+    "eh_manipulativo": true,
+    "categoria": "whatsapp_panico",
+    "fonte": "FakeWhatsApp.Br (Cabral et al., 2021)"
+  },
+  {
+    "id": 1016,
+    "texto": "URGENTE: Velloso recusa convite de Temer para assumir Ministério da Justiça. .",
+    "gabarito_tatica": "panico_moral",
+    "eh_manipulativo": true,
+    "categoria": "fakebr_alarmista",
+    "fonte": "Fake.Br (Monteiro et al., 2018)"
+  },
+  {
+    "id": 1017,
+    "texto": "WALTER PAIVA O DONO DE GOIÂNIA APOIA A INTERVENÇÃO MILITAR E O MORÃO APOIA O FORO DE SÃO PAULO .",
+    "gabarito_tatica": "panico_moral",
+    "eh_manipulativo": true,
+    "categoria": "whatsapp_panico",
+    "fonte": "FakeWhatsApp.Br (Cabral et al., 2021)"
+  },
+  {
+    "id": 1018,
+    "texto": "[11:15, 8/10/2018] Agnaldo: BOLSONARO TEM QUE SE REBELAR E EXIGIR O VOTO IMPRESSO, OU ENTÃO NÃO COMPARECE A ELEIÇÃO. COM ESTAS URNAS VAMOS TODOS BOICOTAR. QUERO VER O STE SE JUSTIFICAR PERANTE O MUNDO. COMPARTILHEM",
+    "gabarito_tatica": "panico_moral",
+    "eh_manipulativo": true,
+    "categoria": "whatsapp_panico",
+    "fonte": "FakeWhatsApp.Br (Cabral et al., 2021)"
+  },
+  {
+    "id": 1019,
+    "texto": "👇 *URGENTE* 👇 *Melhor forma de combater a fraude comunista nas urnas* Pegue seu comprovante de votação, e coloque o número 17, nele contém seu número de inscrição.Tire uma foto, e envie para o Bolsonaro. Terminaremos assim com a fraude nesse país. FAREMOS ISSO! Temos que mandar rápido para todos nossos contatos. VIRALIZEM!",
+    "gabarito_tatica": "panico_moral",
+    "eh_manipulativo": true,
+    "categoria": "whatsapp_panico",
+    "fonte": "FakeWhatsApp.Br (Cabral et al., 2021)"
+  },
+  {
+    "id": 1020,
+    "texto": "Declaração \"gordofóbica\" de Pablo Vittar bomba nas redes sociais. Pabllo Vittar não é um artista qualquer [...] ele é péssimo, parece uma \"taquara rachada\" cantando.",
+    "gabarito_tatica": "panico_moral",
+    "eh_manipulativo": true,
+    "categoria": "fakebr_alarmista",
+    "fonte": "Fake.Br (Monteiro et al., 2018)"
+  },
+  {
+    "id": 1021,
+    "texto": "URGENTE: Ministério Público de SP pede a prisão preventiva de Lula e outros seis denunciados. .",
+    "gabarito_tatica": "panico_moral",
+    "eh_manipulativo": true,
+    "categoria": "fakebr_alarmista",
+    "fonte": "Fake.Br (Monteiro et al., 2018)"
+  },
+  {
+    "id": 1022,
+    "texto": "A Gang já tá planejando o falso atentado para por a culpa em Bolsonaro. ESPALHEM!",
+    "gabarito_tatica": "panico_moral",
+    "eh_manipulativo": true,
+    "categoria": "whatsapp_panico",
+    "fonte": "FakeWhatsApp.Br (Cabral et al., 2021)"
+  },
+  {
+    "id": 1023,
+    "texto": "👆🏻Olha o valentão aí, a Polícia fez um excelente trabalho. Jair Bolsonaro urgente no primeiro turno.",
+    "gabarito_tatica": "panico_moral",
+    "eh_manipulativo": true,
+    "categoria": "whatsapp_panico",
+    "fonte": "FakeWhatsApp.Br (Cabral et al., 2021)"
+  },
+  {
+    "id": 1024,
+    "texto": "Delcídio abre o jogo: \"Desde o mensalão, o PMDB é o principal aliado do PT. Vem muita bomba por aí\".",
+    "gabarito_tatica": "panico_moral",
+    "eh_manipulativo": true,
+    "categoria": "fakebr_alarmista",
+    "fonte": "Fake.Br (Monteiro et al., 2018)"
+  },
+  {
+    "id": 1025,
+    "texto": "😡Notícias URGENTE Jair messias Bolsonaro Falar a verdade Sobre O Adélio. Não acredita em lobo Solitário. O policial que Seguro o Braço do Adélio falou pro JÁIR MESSIAS BOLSONARO que ele foi espacando No local por pessoas que estava Fazendo a proteção do Adélio",
+    "gabarito_tatica": "panico_moral",
+    "eh_manipulativo": true,
+    "categoria": "whatsapp_panico",
+    "fonte": "FakeWhatsApp.Br (Cabral et al., 2021)"
+  },
+  {
+    "id": 1026,
+    "texto": "URGENTE: Jornalista afirma que cateterismo não funcionou e estado de saúde de Dona Marisa Letícia é grave. O jornalista petista Eduardo Guimarães, do Blog da Cidadania, publicou as seguintes mensagens em seu twitter:.",
+    "gabarito_tatica": "panico_moral",
+    "eh_manipulativo": true,
+    "categoria": "fakebr_alarmista",
+    "fonte": "Fake.Br (Monteiro et al., 2018)"
+  },
+  {
+    "id": 1027,
+    "texto": "👆🏻👆🏻👆🏻 2 carros Bomba tentando passar a fronteira do Paraguai 🇵🇾 para o Brasil 🇧🇷 essa noite. Vazou o áudio do atentado essa semana contra o Bolsonaro e ninguém acreditou olha ai a prova. O PT é capaz de Tudo, Repassem p/ desmascarar essa facção criminosa desfaçada de partido político, o povo não aceita mais o crime organizado na política.",
+    "gabarito_tatica": "panico_moral",
+    "eh_manipulativo": true,
+    "categoria": "whatsapp_panico",
+    "fonte": "FakeWhatsApp.Br (Cabral et al., 2021)"
+  },
+  {
+    "id": 1028,
+    "texto": "URGENTE! Aluno agredido e expulso da USP por apoiar Bolsonaro. A G1 não vai mostrar mas nós sim. Provavelmente isso não vai chocar👇👇👇👇",
+    "gabarito_tatica": "panico_moral",
+    "eh_manipulativo": true,
+    "categoria": "whatsapp_panico",
+    "fonte": "FakeWhatsApp.Br (Cabral et al., 2021)"
+  },
+  {
+    "id": 1029,
+    "texto": "Esse é o seminário LGBT para crianças que Bolsonaro citou no Jornal Nacional! Repassem, pois já tem jornal e revista dizendo que Bolsonaro estava inventando...",
+    "gabarito_tatica": "panico_moral",
+    "eh_manipulativo": true,
+    "categoria": "whatsapp_panico",
+    "fonte": "FakeWhatsApp.Br (Cabral et al., 2021)"
+  },
+  {
+    "id": 1030,
+    "texto": "URGENTÍSSIMO! UM GLOPE EM ANDAMENTO NO SENADO AGORA! Vamos divulgar ao máximo pelo amor de deus. .. urgente urgentíssimo divulgar e pressionar.",
+    "gabarito_tatica": "panico_moral",
+    "eh_manipulativo": true,
+    "categoria": "whatsapp_panico",
+    "fonte": "FakeWhatsApp.Br (Cabral et al., 2021)"
+  },
+  {
+    "id": 1101,
+    "texto": "feia nois não deixa baforaaaaaaaaaaaaaar kkkkkkkkkkkkkkkkkk",
+    "gabarito_tatica": "ataque_pessoal",
+    "eh_manipulativo": true,
+    "categoria": "toldbr_insulto",
+    "fonte": "ToLD-Br (Leite et al., 2020)"
+  },
+  {
+    "id": 1102,
+    "texto": "@bolsonarosp bozzo vermme, CADEIA NELE já",
+    "gabarito_tatica": "ataque_pessoal",
+    "eh_manipulativo": true,
+    "categoria": "hatebr_ad_hominem",
+    "fonte": "HateBR (Vargas et al., 2022)"
+  },
+  {
+    "id": 1103,
+    "texto": "Pelo que vejo grande parte do congresso legisla somente em causa própria, ladrões, corruptos não podem ser preso mas por fake news sim... Então a Globo está ferrada e PT nem se fala !",
+    "gabarito_tatica": "ataque_pessoal",
+    "eh_manipulativo": true,
+    "categoria": "hatebr_ad_hominem",
+    "fonte": "HateBR (Vargas et al., 2022)"
+  },
+  {
+    "id": 1104,
+    "texto": "E esse demônio se diz evangélico😬😬😬",
+    "gabarito_tatica": "ataque_pessoal",
+    "eh_manipulativo": true,
+    "categoria": "hatebr_ad_hominem",
+    "fonte": "HateBR (Vargas et al., 2022)"
+  },
+  {
+    "id": 1105,
+    "texto": "@usuario kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk para, escroto",
+    "gabarito_tatica": "ataque_pessoal",
+    "eh_manipulativo": true,
+    "categoria": "toldbr_insulto",
+    "fonte": "ToLD-Br (Leite et al., 2020)"
+  },
+  {
+    "id": 1106,
+    "texto": "eu podia estar com o mozão mas ele é um pau no cu e eu tô muito brava",
+    "gabarito_tatica": "ataque_pessoal",
+    "eh_manipulativo": true,
+    "categoria": "toldbr_insulto",
+    "fonte": "ToLD-Br (Leite et al., 2020)"
+  },
+  {
+    "id": 1107,
+    "texto": "piri, pipiri, piriguete, prova q me ama andando no meu chevette",
+    "gabarito_tatica": "ataque_pessoal",
+    "eh_manipulativo": true,
+    "categoria": "toldbr_insulto",
+    "fonte": "ToLD-Br (Leite et al., 2020)"
+  },
+  {
+    "id": 1108,
+    "texto": "eu tenho nojo desses meninos, mas não vou ser mal educada. por mim mandava todos pra puta que pariu",
+    "gabarito_tatica": "ataque_pessoal",
+    "eh_manipulativo": true,
+    "categoria": "toldbr_insulto",
+    "fonte": "ToLD-Br (Leite et al., 2020)"
+  },
+  {
+    "id": 1109,
+    "texto": "o tempo passa e vagabundo tá morrendo mais e construindo menos rio é foda, deu mole, ficou de exemplo 🎵🎶",
+    "gabarito_tatica": "ataque_pessoal",
+    "eh_manipulativo": true,
+    "categoria": "toldbr_insulto",
+    "fonte": "ToLD-Br (Leite et al., 2020)"
+  },
+  {
+    "id": 1110,
+    "texto": "Quem destrói jovens são pessoas como você... que se sentem escravocrata e não admite ver jovens formados e capacitados para nunca precisar de um desgraçado como você,veio da Havan realmente é um elogio a sua pessoa,na verdade ,você é o desgraça da Havan FDP!",
+    "gabarito_tatica": "ataque_pessoal",
+    "eh_manipulativo": true,
+    "categoria": "toldbr_insulto",
+    "fonte": "ToLD-Br (Leite et al., 2020)"
+  },
+  {
+    "id": 1111,
+    "texto": "@usuario kkkkkkkkkkkkkk caboca feia kkk",
+    "gabarito_tatica": "ataque_pessoal",
+    "eh_manipulativo": true,
+    "categoria": "toldbr_insulto",
+    "fonte": "ToLD-Br (Leite et al., 2020)"
+  },
+  {
+    "id": 1112,
+    "texto": "@usuario perdi maquiagem é coisa de puta",
+    "gabarito_tatica": "ataque_pessoal",
+    "eh_manipulativo": true,
+    "categoria": "toldbr_insulto",
+    "fonte": "ToLD-Br (Leite et al., 2020)"
+  },
+  {
+    "id": 1113,
+    "texto": "Ué? Cadê o @kimkataguiri nessa? Ele foi lá babar o ovo do francês mais cedo, essa era a hora dele foder com o povo. Cadê o Kim aí?",
+    "gabarito_tatica": "ataque_pessoal",
+    "eh_manipulativo": true,
+    "categoria": "hatebr_ad_hominem",
+    "fonte": "HateBR (Vargas et al., 2022)"
+  },
+  {
+    "id": 1114,
+    "texto": "@usuario você é burraaaaaaaaaasso hein... puta que pariu...",
+    "gabarito_tatica": "ataque_pessoal",
+    "eh_manipulativo": true,
+    "categoria": "toldbr_insulto",
+    "fonte": "ToLD-Br (Leite et al., 2020)"
+  },
+  {
+    "id": 1115,
+    "texto": "Aiii por favor, ela é uma pirralha mesmo....",
+    "gabarito_tatica": "ataque_pessoal",
+    "eh_manipulativo": true,
+    "categoria": "hatebr_ad_hominem",
+    "fonte": "HateBR (Vargas et al., 2022)"
+  },
+  {
+    "id": 1116,
+    "texto": "Essa senhora é uma currupta igual seus amiguinhos do PT.",
+    "gabarito_tatica": "ataque_pessoal",
+    "eh_manipulativo": true,
+    "categoria": "hatebr_ad_hominem",
+    "fonte": "HateBR (Vargas et al., 2022)"
+  },
+  {
+    "id": 1117,
+    "texto": "ALGUÉM PODERIA ME INFORMAR SE ESSE COISO É GENTE OU UM DEMÔNIO ENCORPORADO?",
+    "gabarito_tatica": "ataque_pessoal",
+    "eh_manipulativo": true,
+    "categoria": "hatebr_ad_hominem",
+    "fonte": "HateBR (Vargas et al., 2022)"
+  },
+  {
+    "id": 1118,
+    "texto": "Canalha,bandido falando em recuperar um país que ele destruiu,e alguns idiotas gritando,deve estar bêbado já.....",
+    "gabarito_tatica": "ataque_pessoal",
+    "eh_manipulativo": true,
+    "categoria": "hatebr_ad_hominem",
+    "fonte": "HateBR (Vargas et al., 2022)"
+  },
+  {
+    "id": 1119,
+    "texto": "Nojo eu tenho de meleca, o q sinto por esse asno não tem nome😡😡😡🤮🤮🤮🤮💩💩💩💩💩",
+    "gabarito_tatica": "ataque_pessoal",
+    "eh_manipulativo": true,
+    "categoria": "hatebr_ad_hominem",
+    "fonte": "HateBR (Vargas et al., 2022)"
+  },
+  {
+    "id": 1120,
+    "texto": "Esse tal de valente fracassado , aí de cima, é um completo imbecil. apenas mais de 40 mil pessoas discordam dele kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk",
+    "gabarito_tatica": "ataque_pessoal",
+    "eh_manipulativo": true,
+    "categoria": "hatebr_ad_hominem",
+    "fonte": "HateBR (Vargas et al., 2022)"
+  },
+  {
+    "id": 1121,
+    "texto": "@usuario Cara, vá tomar no seu cu, ser desprezível, irracional, ameba, filho de uma puta covarde que se esconde com fake, lixo! Que porra isso tem haver com política! Esse merda que faz isso com uma criança deveria ser empalado em praça pública!",
+    "gabarito_tatica": "ataque_pessoal",
+    "eh_manipulativo": true,
+    "categoria": "toldbr_insulto",
+    "fonte": "ToLD-Br (Leite et al., 2020)"
+  },
+  {
+    "id": 1122,
+    "texto": "Tenha pena de você mesma imbecil!!🤬",
+    "gabarito_tatica": "ataque_pessoal",
+    "eh_manipulativo": true,
+    "categoria": "hatebr_ad_hominem",
+    "fonte": "HateBR (Vargas et al., 2022)"
+  },
+  {
+    "id": 1123,
+    "texto": "Vcs não tem vergonha de mentir desta forma,",
+    "gabarito_tatica": "ataque_pessoal",
+    "eh_manipulativo": true,
+    "categoria": "hatebr_ad_hominem",
+    "fonte": "HateBR (Vargas et al., 2022)"
+  },
+  {
+    "id": 1124,
+    "texto": "É um gagá mesmo esse desgraçado defensor do Bozo.",
+    "gabarito_tatica": "ataque_pessoal",
+    "eh_manipulativo": true,
+    "categoria": "hatebr_ad_hominem",
+    "fonte": "HateBR (Vargas et al., 2022)"
+  },
+  {
+    "id": 1125,
+    "texto": "A TIME tb é mídia manipulada e dirigida por GRANA!",
+    "gabarito_tatica": "ataque_pessoal",
+    "eh_manipulativo": true,
+    "categoria": "hatebr_ad_hominem",
+    "fonte": "HateBR (Vargas et al., 2022)"
+  },
+  {
+    "id": 1126,
+    "texto": "Pq é uma PILANTRA do mesmo NÍVEL BAIXO de LULADRÃO E DIMANTA!",
+    "gabarito_tatica": "ataque_pessoal",
+    "eh_manipulativo": true,
+    "categoria": "hatebr_ad_hominem",
+    "fonte": "HateBR (Vargas et al., 2022)"
+  },
+  {
+    "id": 1127,
+    "texto": "@usuario mais uma canalha bloqueada direita unida, vida longa ao presidente @usuario",
+    "gabarito_tatica": "ataque_pessoal",
+    "eh_manipulativo": true,
+    "categoria": "toldbr_insulto",
+    "fonte": "ToLD-Br (Leite et al., 2020)"
+  },
+  {
+    "id": 1128,
+    "texto": "Acho que não vou nem dormir hj, preocupado com essa pirralha, vai fazer algo proveitoso e esquece o Brasil. Joice para de dar mídia pra essa sem noção.",
+    "gabarito_tatica": "ataque_pessoal",
+    "eh_manipulativo": true,
+    "categoria": "hatebr_ad_hominem",
+    "fonte": "HateBR (Vargas et al., 2022)"
+  },
+  {
+    "id": 1129,
+    "texto": "@usuario kkkkkkkkk porra mlq, isso é muita falta de abuso",
+    "gabarito_tatica": "ataque_pessoal",
+    "eh_manipulativo": true,
+    "categoria": "toldbr_insulto",
+    "fonte": "ToLD-Br (Leite et al., 2020)"
+  },
+  {
+    "id": 1130,
+    "texto": "que tenho tanto nojo daquela veia feia",
+    "gabarito_tatica": "ataque_pessoal",
+    "eh_manipulativo": true,
+    "categoria": "toldbr_insulto",
+    "fonte": "ToLD-Br (Leite et al., 2020)"
+  },
+  {
+    "id": 1201,
+    "texto": "Essa turma do Bolsonaro tem que se reunir para não entrar em contradição... Guedes diz que irá reduzir os subsídios para o agronegócio e o Mourão diz que aumentará os subsídios... Ou uma coisa ou outra...",
+    "gabarito_tatica": "falso_dilema",
+    "eh_manipulativo": true,
+    "categoria": "falso_dilema_real",
+    "fonte": "FakeWhatsApp.Br (Cabral et al., 2021)"
+  },
+  {
+    "id": 1202,
+    "texto": "Ou o governo corta pela metade o número de ministérios, ou todos os serviços de saúde pública vão colapsar por falta de verba.",
+    "gabarito_tatica": "falso_dilema",
+    "eh_manipulativo": true,
+    "categoria": "falso_dilema_canonico",
+    "fonte": "Debate Público PT-BR"
+  },
+  {
+    "id": 1203,
+    "texto": "Rapaziada... Vejam esse vídeo. Dá pra ter uma idéia da seriedade do assunto. Ou mudamos alguma coisa agora, ou vão nos censurar na internet tb. Já basta nossa mídia vendida!",
+    "gabarito_tatica": "falso_dilema",
+    "eh_manipulativo": true,
+    "categoria": "falso_dilema_real",
+    "fonte": "FakeWhatsApp.Br (Cabral et al., 2021)"
+  },
+  {
+    "id": 1204,
+    "texto": "*Russo* - Mas tá estranho isso. Eles não controlavam o exército ? Como o povo conseguiu isso ? Ou eles se armaram também, ou atacaram em grande número. De uma forma ou de outra deve ter sido a maior carnificina !",
+    "gabarito_tatica": "falso_dilema",
+    "eh_manipulativo": true,
+    "categoria": "falso_dilema_real",
+    "fonte": "FakeWhatsApp.Br (Cabral et al., 2021)"
+  },
+  {
+    "id": 1205,
+    "texto": "Quer mais um VERDADEIRO motivo pra ter a CERTEZA de seu voto???? Atenção.... não é brincadeira,,, não é fake.... apenas mais uma linha, pra decidir de que lado VOCÊ está 🙏🏼🙏🏼🙏🏼🙏🏼🙏🏼🙏🏼",
+    "gabarito_tatica": "falso_dilema",
+    "eh_manipulativo": true,
+    "categoria": "falso_dilema_real",
+    "fonte": "FakeWhatsApp.Br (Cabral et al., 2021)"
+  },
+  {
+    "id": 1206,
+    "texto": "Você tem que decidir de que lado está: ou fica com a polícia e a ordem, ou é cúmplice declarado de bandido e traficante.",
+    "gabarito_tatica": "falso_dilema",
+    "eh_manipulativo": true,
+    "categoria": "falso_dilema_canonico",
+    "fonte": "Debate Público PT-BR"
+  },
+  {
+    "id": 1207,
+    "texto": "OU NÓS PEDIMOS UMA INTERVENÇÃO MILITAR URGENTE OU ESTAMOS PERDIDOS, VOLTO A FALAR NÃO PODEMOS TER ELEIÇÃO, É TUDO QUÊ O SISTEMA PRECISA PARA CONCLUIR O COMUNISMO.",
+    "gabarito_tatica": "falso_dilema",
+    "eh_manipulativo": true,
+    "categoria": "falso_dilema_real",
+    "fonte": "FakeWhatsApp.Br (Cabral et al., 2021)"
+  },
+  {
+    "id": 1208,
+    "texto": "Ou o povo pede a saída desses BANDIDOS de toga, ou o império do STF ditará as regras.",
+    "gabarito_tatica": "falso_dilema",
+    "eh_manipulativo": true,
+    "categoria": "falso_dilema_real",
+    "fonte": "HateBR (Vargas et al., 2022)"
+  },
+  {
+    "id": 1209,
+    "texto": "O povo é culpado por eleger essas aberrações aí. Ou aprende a votar ou cifra trouxa pro resto da vida.",
+    "gabarito_tatica": "falso_dilema",
+    "eh_manipulativo": true,
+    "categoria": "falso_dilema_real",
+    "fonte": "HateBR (Vargas et al., 2022)"
+  },
+  {
+    "id": 1210,
+    "texto": "A verdade veio à tona e mostrou que o político honesto que a mídia socialista tanto escondeu agora tá em alta e na popularidade. Ou o povo endoidou ou realmente vale a pena investir na campanha de um candidato que vai nos dar retorno maior que os poucos reais gastos em seu favor.",
+    "gabarito_tatica": "falso_dilema",
+    "eh_manipulativo": true,
+    "categoria": "falso_dilema_real",
+    "fonte": "FakeWhatsApp.Br (Cabral et al., 2021)"
+  },
+  {
+    "id": 1211,
+    "texto": "....SOMOS SOLDADOS DO BRASIL!! CONVENCER O MAXIMO DE PESSOAS QUE O BOLSONARO É O PRIMEIRO PASSO, GANHAR NO 1 TURNO E TERAR CANETA NA MAO PARA PEDIR INTERVENCAO, CASO DE TUMULTO.....OU É AGORA, OU VIRA VENEZUELA....VAI SE ACORVARDAR AGORA????!!!",
+    "gabarito_tatica": "falso_dilema",
+    "eh_manipulativo": true,
+    "categoria": "falso_dilema_real",
+    "fonte": "FakeWhatsApp.Br (Cabral et al., 2021)"
+  },
+  {
+    "id": 1212,
+    "texto": "Esta, sem dúvida, é a grande manipulação eleitoral do dia: ou há vitória do PT, ou não há democracia.",
+    "gabarito_tatica": "falso_dilema",
+    "eh_manipulativo": true,
+    "categoria": "falso_dilema_real",
+    "fonte": "FakeWhatsApp.Br (Cabral et al., 2021)"
+  },
+  {
+    "id": 1213,
+    "texto": "Chega de falar de POLÍTICA. Vamos falar de POESIA: \"Quem NÃO gosta de Bolsonaro, BOM sujeito não é... Ou teve a cabeça FEITA pela Globo ou tem TORNOZELEIRA no pé!!\" 🤣🤣🤣",
+    "gabarito_tatica": "falso_dilema",
+    "eh_manipulativo": true,
+    "categoria": "falso_dilema_real",
+    "fonte": "FakeWhatsApp.Br (Cabral et al., 2021)"
+  },
+  {
+    "id": 1214,
+    "texto": "Ou ta na hora de fazer uma INTERVENCAO Constitucional ou uma Revolução Já⚔🔪☠🇧🇷🇧🇷👆",
+    "gabarito_tatica": "falso_dilema",
+    "eh_manipulativo": true,
+    "categoria": "falso_dilema_real",
+    "fonte": "FakeWhatsApp.Br (Cabral et al., 2021)"
+  },
+  {
+    "id": 1215,
+    "texto": "Ou o Banco Central reduz os juros na marra amanhã cedo, ou o desemprego em massa vai engolir a classe trabalhadora brasileira.",
+    "gabarito_tatica": "falso_dilema",
+    "eh_manipulativo": true,
+    "categoria": "falso_dilema_canonico",
+    "fonte": "Debate Público PT-BR"
+  },
+  {
+    "id": 1216,
+    "texto": "*\"Como desativar a fraude?* *Ajudem o Bolsonaro ganhar no PRIMEIRO TURNO! A fraude só funciona quando a escolha é binária (dois candidatos/segundo turno).\"* *#apuraçãosecretaéfraude*",
+    "gabarito_tatica": "falso_dilema",
+    "eh_manipulativo": true,
+    "categoria": "falso_dilema_real",
+    "fonte": "FakeWhatsApp.Br (Cabral et al., 2021)"
+  },
+  {
+    "id": 1217,
+    "texto": "Desculpa amigos Bolsonaro não é o melhor Ele É A ÚNICA OPÇÃO ou a gente vota nele e garante pelo menos a segurança do país Ou Vote aí nos 5% e veja o Lula saindo da cadeia e implementando censura e mais sofrimento para o povo",
+    "gabarito_tatica": "falso_dilema",
+    "eh_manipulativo": true,
+    "categoria": "falso_dilema_real",
+    "fonte": "FakeWhatsApp.Br (Cabral et al., 2021)"
+  },
+  {
+    "id": 1218,
+    "texto": "Foi isso que fizeram na Venezuela. É isso que o PT fará aqui. Não há outra alternativa para o partido sobreviver. Ou ele transforma o Brasil numa ditadura petista, ou o PT acaba.",
+    "gabarito_tatica": "falso_dilema",
+    "eh_manipulativo": true,
+    "categoria": "falso_dilema_real",
+    "fonte": "FakeWhatsApp.Br (Cabral et al., 2021)"
+  },
+  {
+    "id": 1219,
+    "texto": "Ora, encontramo-nos numa encruzilhada: ou votamos no Bolsonaro ou ajudaremos a eleger os comunistas, declaradamente contra a Igreja, a Família e à sociedade cristã.",
+    "gabarito_tatica": "falso_dilema",
+    "eh_manipulativo": true,
+    "categoria": "falso_dilema_real",
+    "fonte": "FakeWhatsApp.Br (Cabral et al., 2021)"
+  },
+  {
+    "id": 1220,
+    "texto": "A situação é clara: ou você apoia as medidas duras de segurança pública, ou quer ver o crime organizado tomando a sua casa.",
+    "gabarito_tatica": "falso_dilema",
+    "eh_manipulativo": true,
+    "categoria": "falso_dilema_canonico",
+    "fonte": "Debate Público PT-BR"
+  },
+  {
+    "id": 1301,
+    "texto": "Risco de registro urbano de febre amarela é pequeno, dizem especialistas. Esse tipo da doença não é visto desde 1942 e exigiria ainda mais mosquitos, muitos contaminados e insetos preparados para isso.",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "alerta_legitimo",
+    "fonte": "Fake.Br (Notícia de Saúde/Defesa Civil)"
+  },
+  {
+    "id": 1302,
+    "texto": "Indonésia testa em larga escala nova arma contra o Aedes . Insetos infectados com protozoários passam a ser usados contra o hospedeiro da dengue.",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "alerta_legitimo",
+    "fonte": "Fake.Br (Notícia de Saúde/Defesa Civil)"
+  },
+  {
+    "id": 1303,
+    "texto": "Febre amarela: Por que São Paulo virou área de risco para a OMS e o que isso implica para o Brasil . OMS recomenda vacina para viajantes que visitarem todo o estado de São Paulo; especialistas vêm ação como um alerta para expansão da vacinação, hoje com reforço em alguns municípios.",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "alerta_legitimo",
+    "fonte": "Fake.Br (Notícia de Saúde/Defesa Civil)"
+  },
+  {
+    "id": 1304,
+    "texto": "AVISO METEOROLÓGICO INMET (Perigo Potencial - Ventos Costeiros) para Rio Grande do Sul: Intensificação dos ventos nas regiões litorâneas, movimentando dunas de areia sobre construções na orla.",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "alerta_legitimo",
+    "fonte": "INMET Oficial (API Ativa)"
+  },
+  {
+    "id": 1305,
+    "texto": "ALERTA DE TRÂNSITO DER-SP: Interdição parcial na Rodovia dos Imigrantes no trecho de serra devido a baixa visibilidade e pista escorregadia.",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "alerta_legitimo",
+    "fonte": "Defesa Civil / Órgãos Públicos"
+  },
+  {
+    "id": 1306,
+    "texto": "ALERTA DA MARINHA DO BRASIL: Ressaca com ondas de até 3,5 metros entre Santos e Cabo Frio; navegação para pequenas embarcações desaconselhada.",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "alerta_legitimo",
+    "fonte": "Defesa Civil / Órgãos Públicos"
+  },
+  {
+    "id": 1307,
+    "texto": "Número de mortos após tremor na fronteira entre Iraque e Irã passa de 400. Terremoto de 7,3 de magnitude atingiu a região no domingo (12).",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "alerta_legitimo",
+    "fonte": "Fake.Br (Notícia de Saúde/Defesa Civil)"
+  },
+  {
+    "id": 1308,
+    "texto": "Aécio Neves cuspiu na cara de metade dos eleitores brasileiros: estes tiveram a ilusão de que ele seria o líder indicado para reconstruir o País depois da tempestade petista que assolou as contas públicas nacionais. Mas se dedicou ao ócio e à inutilidade após ter perdido a eleição por pouco para Dilma e Temer.",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "alerta_legitimo",
+    "fonte": "Fake.Br (Notícia de Saúde/Defesa Civil)"
+  },
+  {
+    "id": 1309,
+    "texto": "ALERTA URGENTE DA DEFESA CIVIL SP: Previsão de tempestade severa com risco de inundação e deslizamento na Baixada Santista nas próximas 6 horas.",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "alerta_legitimo",
+    "fonte": "Defesa Civil / Órgãos Públicos"
+  },
+  {
+    "id": 1310,
+    "texto": "Em três anos, Campinas triplica gastos em ações contra dengue, zika e chikungunya. Após duas epidemias de dengue, Prefeitura elevou recursos contra doenças transmitidas pelo Aedes aegypti.",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "alerta_legitimo",
+    "fonte": "Fake.Br (Notícia de Saúde/Defesa Civil)"
+  },
+  {
+    "id": 1311,
+    "texto": "AVISO METEOROLÓGICO INMET: Alerta de perigo potencial para chuvas intensas e rajadas de vento entre 60 e 100 km/h no norte do Rio Grande do Sul.",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "alerta_legitimo",
+    "fonte": "Defesa Civil / Órgãos Públicos"
+  },
+  {
+    "id": 1312,
+    "texto": "Prefeitura de Juiz de Fora mantém Museu Mariano Procópio fechado até maio. Macaco morto por febre amarela foi encontrado no local em janeiro.",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "alerta_legitimo",
+    "fonte": "Fake.Br (Notícia de Saúde/Defesa Civil)"
+  },
+  {
+    "id": 1313,
+    "texto": "Operação da PF investiga compra de tablets com verbas do Ministério da Saúde. Mandados de busca e apreensão são realizados em cinco cidades do estado de São Paulo.",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "alerta_legitimo",
+    "fonte": "Fake.Br (Notícia de Saúde/Defesa Civil)"
+  },
+  {
+    "id": 1314,
+    "texto": "Como execuções e decapitações transformaram a pacata Rio Branco em capital da violência. Número de homicídios subiu 86% entre 2015 e 2016, o maior aumento entre todas as capitais do país, segundo dados recém-divulgados pelo Ministério da Saúde; guerra entre facções explica avanço dos crimes..",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "alerta_legitimo",
+    "fonte": "Fake.Br (Notícia de Saúde/Defesa Civil)"
+  },
+  {
+    "id": 1315,
+    "texto": "ALERTA CEMADEN: Risco hidrológico moderado a alto para enxurradas rápidas e alagamentos urbanos na Região Metropolitana do Recife.",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "alerta_legitimo",
+    "fonte": "Defesa Civil / Órgãos Públicos"
+  },
+  {
+    "id": 1316,
+    "texto": "ALERTA DA POLÍCIA RODOVIÁRIA FEDERAL: Pista totalmente interditada na BR-101 após queda de barreira; motoristas devem buscar rotas alternativas.",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "alerta_legitimo",
+    "fonte": "Defesa Civil / Órgãos Públicos"
+  },
+  {
+    "id": 1317,
+    "texto": "COMUNICADO URGENTE CET-SP: Semáforos inoperantes no cruzamento da Avenida Paulista com Brigadeiro Luís Antônio provocam lentidão no tráfego.",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "alerta_legitimo",
+    "fonte": "Defesa Civil / Órgãos Públicos"
+  },
+  {
+    "id": 1318,
+    "texto": "Surto de febre amarela pode ser tiro de misericórdia para primatas ameaçados de extinção, dizem especialistas. Além de causar a maior epidemia da doença no país entre humanos, com 426 mortes, vírus teve expansão geográfica sem precedentes em florestas e matas, definido por especialistas como tragédia humana e ambiental..",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "alerta_legitimo",
+    "fonte": "Fake.Br (Notícia de Saúde/Defesa Civil)"
+  },
+  {
+    "id": 1319,
+    "texto": "comam lixo e bebam álcool crianças oq mata é o amor",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "social_civilizado",
+    "fonte": "ToLD-Br (Neutro Unânime 3/3)"
+  },
+  {
+    "id": 1320,
+    "texto": "@usuario Imagina mandar mensagem pro uber dizendo que vai levar o Luan Santana com vc kkkkkk #MPN #LuanSantana #Luanetes #LuanSantanaShow",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "social_civilizado",
+    "fonte": "ToLD-Br (Neutro Unânime 3/3)"
+  },
+  {
+    "id": 1321,
+    "texto": "será q um dia eu vou poder tweetar isso meu pai",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "social_civilizado",
+    "fonte": "ToLD-Br (Neutro Unânime 3/3)"
+  },
+  {
+    "id": 1322,
+    "texto": "Que orgulho de ter votado em Fernando Haddad em 2018. Um dia direi isso ao meu neto.",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "social_civilizado",
+    "fonte": "HateBR (Neutro Unânime 3/3)"
+  },
+  {
+    "id": 1323,
+    "texto": "@usuario hahahah verdade, o importante é cuidar o sorriso, se tiver ok tá tudo certo kkkk",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "social_civilizado",
+    "fonte": "ToLD-Br (Neutro Unânime 3/3)"
+  },
+  {
+    "id": 1324,
+    "texto": "Muito obrigada vs Experiência a senhora é a minha voz .",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "social_civilizado",
+    "fonte": "HateBR (Neutro Unânime 3/3)"
+  },
+  {
+    "id": 1325,
+    "texto": "quase comentei \"caramba você é igual a sua mãe!\" na foto de um colega mas é só ele e uma amiga",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "social_civilizado",
+    "fonte": "ToLD-Br (Neutro Unânime 3/3)"
+  },
+  {
+    "id": 1326,
+    "texto": "arrumar a minha mala pra ir pra casa da amiga que eu gosto hihihi",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "social_civilizado",
+    "fonte": "ToLD-Br (Neutro Unânime 3/3)"
+  },
+  {
+    "id": 1327,
+    "texto": "Não sabia que estavas em Poa! Se soubesse tinha ido te aplaudir. 👏👏👏🔝🔝🔝😘😘😘",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "social_civilizado",
+    "fonte": "HateBR (Neutro Unânime 3/3)"
+  },
+  {
+    "id": 1328,
+    "texto": "Parabéns @fernandohaddadoficial !! Que diferença, a fraseologia, a elegância, o comportamento... Vai ser nosso Presidente sim, estamos a mercê da maldade, nada pelo povo... 😔",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "social_civilizado",
+    "fonte": "HateBR (Neutro Unânime 3/3)"
+  },
+  {
+    "id": 1329,
+    "texto": "Negra, de cabelos curtos, com uma fala emponderada... Ela é linda!! Deu de \"padrãozinho\" e misses sempre iguais! Toda mulher pode ser linda!",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "social_civilizado",
+    "fonte": "HateBR (Neutro Unânime 3/3)"
+  },
+  {
+    "id": 1330,
+    "texto": "Meu Presidente ... merecido, parabéns!",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "social_civilizado",
+    "fonte": "HateBR (Neutro Unânime 3/3)"
+  },
+  {
+    "id": 1331,
+    "texto": "@gilberttsantos pra quem vive de doação sim meu querido!",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "social_civilizado",
+    "fonte": "HateBR (Neutro Unânime 3/3)"
+  },
+  {
+    "id": 1332,
+    "texto": "cara gente branca, quando um negro diz que algo é racista vc aceita e pronto, não fica dando seus achismos de pq isso não eh…",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "social_civilizado",
+    "fonte": "ToLD-Br (Neutro Unânime 3/3)"
+  },
+  {
+    "id": 1333,
+    "texto": "A Marnha Do Brasil está produzindo esses aparelhos Parabéns MARINHA DO BRASIL🇧🇷🇧🇷🇧🇷🇧🇷",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "social_civilizado",
+    "fonte": "HateBR (Neutro Unânime 3/3)"
+  },
+  {
+    "id": 1334,
+    "texto": "a gente diz que confia em deus. mas quando a gente precisa mudar e arriscar bate muito desespero. e aí? confia nele ou não?",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "social_civilizado",
+    "fonte": "ToLD-Br (Neutro Unânime 3/3)"
+  },
+  {
+    "id": 1335,
+    "texto": "Filha de negros sou branca por capricho da natureza. Mas faço questão de gritar. NEGRA SIM! NEGRA SOU!",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "social_civilizado",
+    "fonte": "HateBR (Neutro Unânime 3/3)"
+  },
+  {
+    "id": 1336,
+    "texto": "tempo muito feio, agora que fui ver",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "social_civilizado",
+    "fonte": "ToLD-Br (Neutro Unânime 3/3)"
+  },
+  {
+    "id": 1337,
+    "texto": "Ainda bem que na era das trevas, aparece seres iluminados...precisamos muito.👏👏👏👏👏💖",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "social_civilizado",
+    "fonte": "HateBR (Neutro Unânime 3/3)"
+  },
+  {
+    "id": 1338,
+    "texto": "Leda! A maravilha do nosso jornalismo!",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "social_civilizado",
+    "fonte": "HateBR (Neutro Unânime 3/3)"
+  },
+  {
+    "id": 1339,
+    "texto": "Seja patriota, se alie ao JB para ele nao se reeleger em 22",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "social_civilizado",
+    "fonte": "HateBR (Neutro Unânime 3/3)"
+  },
+  {
+    "id": 1340,
+    "texto": "Sem comentários. A avante a vitória Cristina. Com na Argentina o povo ler mais, espero que não Caim no pacote de fake que deve vir por ai.",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "social_civilizado",
+    "fonte": "HateBR (Neutro Unânime 3/3)"
+  },
+  {
+    "id": 1341,
+    "texto": "@zoo.master44 verdade foi assim que moro se tornou ministro da justiça 😉",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "social_civilizado",
+    "fonte": "HateBR (Neutro Unânime 3/3)"
+  },
+  {
+    "id": 1342,
+    "texto": "Não entendi direito a treta mas pelo visto: - A Jade tá falando que a tal da Carol anda traindo. - A menina tá falando que a Jade tá inventando pra acabar com seu namoro com o MC Rick - O MC Rick está tranquilo dando um tapa no cabelo",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "social_civilizado",
+    "fonte": "ToLD-Br (Neutro Unânime 3/3)"
+  },
+  {
+    "id": 1343,
+    "texto": "trabalhar pra comprar mansion of madness",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "social_civilizado",
+    "fonte": "ToLD-Br (Neutro Unânime 3/3)"
+  },
+  {
+    "id": 1344,
+    "texto": "Como? Não pode agora fazer mais nada?🇧🇷💚💛",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "social_civilizado",
+    "fonte": "HateBR (Neutro Unânime 3/3)"
+  },
+  {
+    "id": 1345,
+    "texto": "@marcianegalvao , sem sombra de dúvidas, a conscientização e empatia por essa causa é de extrema importância! Beijos 💚💛",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "social_civilizado",
+    "fonte": "HateBR (Neutro Unânime 3/3)"
+  },
+  {
+    "id": 1346,
+    "texto": "@usuario eu vi algo sobre mas nao entendi",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "social_civilizado",
+    "fonte": "ToLD-Br (Neutro Unânime 3/3)"
+  },
+  {
+    "id": 1347,
+    "texto": "Mais que merecido! Melhor ministro de educação que esse país já teve!",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "social_civilizado",
+    "fonte": "HateBR (Neutro Unânime 3/3)"
+  },
+  {
+    "id": 1348,
+    "texto": "Prejudicando o meio ambiente de novo ??! 🤪",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "social_civilizado",
+    "fonte": "HateBR (Neutro Unânime 3/3)"
+  },
+  {
+    "id": 1349,
+    "texto": "Muito orgulho por termos na Paraíba um representante do nível de @realrcoutinho",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "social_civilizado",
+    "fonte": "HateBR (Neutro Unânime 3/3)"
+  },
+  {
+    "id": 1350,
+    "texto": "Vitória do Brasil, tá de brincadeira né",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "social_civilizado",
+    "fonte": "HateBR (Neutro Unânime 3/3)"
+  },
+  {
+    "id": 1351,
+    "texto": "minha m茫e do nada solta um \"me deixa sem gra莽a... 贸 at茅 eu sei essas musica suas\"",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "social_civilizado",
+    "fonte": "ToLD-Br (Neutro Unânime 3/3)"
+  },
+  {
+    "id": 1352,
+    "texto": "@usuario o seu é muito lindo também 💖💖",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "social_civilizado",
+    "fonte": "ToLD-Br (Neutro Unânime 3/3)"
+  },
+  {
+    "id": 1353,
+    "texto": "Nenhuma lição aprendida pelo poder público, diz procurador após dois anos da tragédia de Mariana. Coordenador da força-tarefa do Ministério Público Federal, José Adércio Leite Sampaio, criticou a atuação do Executivo e do Legislativo, além das medidas reparadoras adotadas pela Samarco..",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "noticia_factual",
+    "fonte": "Fake.Br (Notícia Verificada)"
+  },
+  {
+    "id": 1354,
+    "texto": "Os jovens que vivem com a desconfiança de terem sido infectados de propósito com HIV. Embora isoladas dentro da população vivendo com HIV no Brasil, situações expõem dilema de soropositivos diante de preconceito e dificuldade de investigação..",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "noticia_factual",
+    "fonte": "Fake.Br (Notícia Verificada)"
+  },
+  {
+    "id": 1355,
+    "texto": "Constituição pacifista do Japão completa 70 anos em meio a tensões e possibilidade de reforma. Primeiro ministro Shinzo Abe disse que é o momento adequado para dar um passo histórico e alterar a Carta Magna do país.",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "noticia_factual",
+    "fonte": "Fake.Br (Notícia Verificada)"
+  },
+  {
+    "id": 1356,
+    "texto": "Castro quer atrair insatisfeitos com Cunha e Temer. Candidato do PMDB na disputa na Câmara votou contra o impeachment de Dilma e é desafeto do ex-presidente da Casa.",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "noticia_factual",
+    "fonte": "Fake.Br (Notícia Verificada)"
+  },
+  {
+    "id": 1357,
+    "texto": "O ex-presidente da Odebrecht e delator na Operação Lava Jato Pedro Novis afimou em depoimento à Polícia Federal que o senador José Serra (PSDB-SP) recebeu para si ou solicitou para o partido R$ 52,4 milhões entre 2002 e 2012. O executivo detalhou os valores para os investigadores.",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "noticia_factual_ou",
+    "fonte": "Fake.Br (Notícia Verificada)"
+  },
+  {
+    "id": 1358,
+    "texto": "Aécio pede ao STF para ter pedido de prisão julgado pelo plenário e não pela turma. Advogado argumenta que pedido de prisão é questão da mais alta relevância e gravidade.",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "noticia_factual",
+    "fonte": "Fake.Br (Notícia Verificada)"
+  },
+  {
+    "id": 1359,
+    "texto": "Candidatos pedem voto em discursos antes da eleição; saiba o que disseram. Seis candidatos disputam a presidência da Câmara dos Deputados para o biênio 2017-2018..",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "noticia_factual",
+    "fonte": "Fake.Br (Notícia Verificada)"
+  },
+  {
+    "id": 1360,
+    "texto": "Juiz mantém jovem que matou aluna em escola e comparsa presos, em Alexânia. Decisão foi tomada durante audiência de custódia, na qual família da vítima protestou; vídeo.",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "noticia_factual",
+    "fonte": "Fake.Br (Notícia Verificada)"
+  },
+  {
+    "id": 1361,
+    "texto": "Diocese de Caruaru realiza Missa dos Santos Óleos em Santa Cruz do Capibaribe . Celebração aconteceu na",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "noticia_factual",
+    "fonte": "Fake.Br (Notícia Verificada)"
+  },
+  {
+    "id": 1362,
+    "texto": "Exercícios físicos na infância evitam doenças crônicas e melhoram o desempenho escolar, diz pediatra. Associação Brasileira para o Estudo da Obesidade afirma que em torno de 15% das crianças brasileiras estão acima do peso, tem sobrepeso ou estão obesas.",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "noticia_factual_ou",
+    "fonte": "Fake.Br (Notícia Verificada)"
+  },
+  {
+    "id": 1363,
+    "texto": "Veja 5 efeitos econômicos da inflação baixa no seu bolso A inflação encerrou 2017 em 2,95%, divulgou o IBGE nesta quarta-feira (10), abaixo do piso da meta do governo, de 3%. A meta é de 4,5%, com margem de tolerância de 1,5 ponto percentual para cima ou para baixo.",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "noticia_factual_ou",
+    "fonte": "Fake.Br (Notícia Verificada)"
+  },
+  {
+    "id": 1364,
+    "texto": "Grupos paralisam atividades e protestam contra reformas e governo Temer em Juiz de Fora. Manifestantes fizeram passeata pelas vias centrais da cidade.",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "noticia_factual",
+    "fonte": "Fake.Br (Notícia Verificada)"
+  },
+  {
+    "id": 1365,
+    "texto": "Rocinha e outras 7 comunidades do Rio têm novos tiroteios. Pela manhã, criminosos atiraram contra policiais que faziam cerco à Rocinha, o que levou o governo do RJ a pedir reforço das Forças Armadas.",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "noticia_factual",
+    "fonte": "Fake.Br (Notícia Verificada)"
+  },
+  {
+    "id": 1366,
+    "texto": "Tônia Carrero é velada no Rio; veja a repercussão da morte da atriz. Um dos ícones do cinema, teatro e TV, artista estava com 95 anos; velório acontece no Teatro Municipal do Rio.",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "noticia_factual",
+    "fonte": "Fake.Br (Notícia Verificada)"
+  },
+  {
+    "id": 1367,
+    "texto": "Por que achamos que o mundo está pior do que realmente é. Pesquisa em 38 países mostra que nossas percepções sobre questões de peso na mídia ou características da população tendem a ser mais sombrias do que a realidade..",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "noticia_factual_ou",
+    "fonte": "Fake.Br (Notícia Verificada)"
+  },
+  {
+    "id": 1368,
+    "texto": "Moro ouve Bumlai como testemunha de acusação na 2ª ação da Lava Jato contra Lula. Depoimentos desta terça-feira (9) serão realizados por videoconferência de São Paulo e de São Bernardo do Campo (SP), com a Justiça Federal do Paraná, em Curitiba.",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "noticia_factual",
+    "fonte": "Fake.Br (Notícia Verificada)"
+  },
+  {
+    "id": 1369,
+    "texto": "Em 15 ou 20 anos, o câncer deverá ser uma doença controlada, como a Aids, diz pesquisador do Inca. Especialista em imunoterapia, um dos tratamentos mais avançados contra os tumores, João Viola fala sobre a evolução nas descobertas sobre a doença mais temida pelos brasileiros..",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "noticia_factual_ou",
+    "fonte": "Fake.Br (Notícia Verificada)"
+  },
+  {
+    "id": 1370,
+    "texto": "Anitta manda recado após críticas sobre ex-BBB Lucas: Já cansaram de fazer essas coisas e ficam aí na internet falando dos outros. Cantora usou as redes sociais para desabafo: Bem vendo as gatchenhas que já cansaram de fazer a Jéssica falando mal do fiel de Taubaté..",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "noticia_factual",
+    "fonte": "Fake.Br (Notícia Verificada)"
+  },
+  {
+    "id": 1371,
+    "texto": "Música, cinema, gastronomia, teatro, costura… O carnaval já passou e o ano começou pra valer. Por isso, montamos um roteiro com 20 cursos livres para você que quer aprender algo novo em 2018.",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "noticia_factual",
+    "fonte": "Fake.Br (Notícia Verificada)"
+  },
+  {
+    "id": 1372,
+    "texto": "Em conversa, Aécio defende aprovar lei de anistia ao caixa 2 e abuso de autoridade. Documentos da investigação da nova fase da Lava Jato revelam conteúdos de conversas de Aécio com Joesley Batista, dono do frigorífico JBS..",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "noticia_factual",
+    "fonte": "Fake.Br (Notícia Verificada)"
+  },
+  {
+    "id": 1373,
+    "texto": "Lula ingressa no STF com habeas corpus preventivo a fim de evitar prisão. Condenado no caso do triplex no Guarujá, ex-presidente corre o risco de ser preso depois que se esgotarem os recursos ao Tribunal Regional Federal da 4ª Região..",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "noticia_factual",
+    "fonte": "Fake.Br (Notícia Verificada)"
+  },
+  {
+    "id": 1374,
+    "texto": "Modificar células de tumor de fígado de forma que elas fiquem brilhantes sob determinadas condições pode parecer um truque interessante. Sim é mesmo, até sabermos que a faceta nada tem que ver como diagnóstico, detecção ou tratamento de câncer em humanos.",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "noticia_factual_ou",
+    "fonte": "Fake.Br (Notícia Verificada)"
+  },
+  {
+    "id": 1375,
+    "texto": "Que vergonha",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "texto_curto",
+    "fonte": "Redes Sociais (Coloquial <15c)"
+  },
+  {
+    "id": 1376,
+    "texto": "Verdade isso",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "texto_curto",
+    "fonte": "Redes Sociais (Coloquial <15c)"
+  },
+  {
+    "id": 1377,
+    "texto": "Parabéns!",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "texto_curto",
+    "fonte": "Redes Sociais (Coloquial <15c)"
+  },
+  {
+    "id": 1378,
+    "texto": "Sem dúvida",
+    "gabarito_tatica": "legitimo",
+    "eh_manipulativo": false,
+    "categoria": "texto_curto",
+    "fonte": "Redes Sociais (Coloquial <15c)"
+  }
+]
