@@ -316,9 +316,10 @@ Os cinco problemas mais graves:
 ```
 
 **a minha resposta, sem IA:**
-- [Pendência 1 · Introdução (contextualização com corpora brasileiros, moderação sobre concorrentes e escopo de E2)]: [escreva aqui com suas próprias palavras: o que mudou ou por que discorda]
-- [Pendência 2 · Trabalhos relacionados (categorização funcional, definições das colunas da tabela e ModernBERT)]: [escreva aqui com suas próprias palavras: o que mudou ou por que discorda]
-- [Pendência 3 · Método (hardware i7/RTX, ONNX Runtime Web v1.20, fórmula matemática de T* e zero rede na inferência)]: [escreva aqui com suas próprias palavras: o que mudou ou por que discorda]
-- [Pendência 4 · Desenho experimental (split 160 calibração vs 200 teste cego, deduplicação Levenshtein/hash e protocolo de anotação)]: [escreva aqui com suas próprias palavras: o que mudou ou por que discorda]
-- [Pendência 5 · Resultados e discussão (qualificação do IC 0,745 em H1, trade-off de abstenção FP vs FN e casos reais de erro)]: [escreva aqui com suas próprias palavras: o que mudou ou por que discorda]
-- [Pendência 6 · Pronto para submissão (atualização da auditoria, resumo/conclusão sem extrapolação e compilação em 11 páginas)]: [escreva aqui com suas próprias palavras: o que mudou ou por que discorda]
+- **Pendência 1 · Introdução:** A gente pegou o trabalho do Brady et al. e completou ele com os corpora brasileiros (Fake.Br, FACTCK.BR e HateBR). Nas críticas aos concorrentes, a gente pegou leve, só contextualizou sem atacar. E o E2 a gente definiu como uma simulação de interface, ou seja, é só um teste de tela, não um sistema rodando de verdade.
+- **Pendência 2 · Trabalhos relacionados:** A gente colocou o ModernBERT como a base de encoder (é o modelo que serve de "motor" pra representar o texto) e explicou direitinho o que cada coluna da tabela quer dizer, pra ficar claro como cada critério foi avaliado e a comparação ficar justa.
+- **Pendência 3 · Método:** A gente falou o hardware completo (i7 com RTX) e o ONNX Runtime Web v1.20, mostrou as fórmulas matemáticas do T (calibração seletiva) e da abstenção, e deixou claro que na hora de rodar a inferência não tem rede nenhuma (zero rede).
+- **Pendência 4 · Desenho experimental:** A gente separou os dados em duas partes que não se misturam: 160 pra calibração e 200 pro teste cego. Também checamos duplicatas com Levenshtein e SHA-256, e fizemos um manual de anotação com Kappa por classe (pra ver se os anotadores concordam entre si).
+- **Pendência 5 · Resultados e discussão:** Nesse a gente explicou com nossas palavras que o H1 se sustenta, mas com a ressalva do IC95% [0,745–0,866]. Justificamos o trade-off de abstenção dizendo que a gente prefere proteger os alertas oficiais (evitar deixar passar coisa grave) e incluímos casos reais de erro pra mostrar tudo com transparência.
+- **Pendência 6 · Pronto pra submissão:** Aqui a gente disse que a nova auditoria já foi incorporada, que o resumo e a conclusão não exageram nos resultados e que o texto no formato LNCS compila em 12 páginas sem erro.
+
