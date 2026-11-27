@@ -109,7 +109,7 @@ Para corrigir distorções de calibração, aplicamos \textit{Temperature Scalin
 \begin{equation}
 \mathbf{p}_{\text{calib}} = \text{Softmax}\left(\frac{\mathbf{z}}{T^*} + \mathbf{b}\right)
 \end{equation}
-onde os parâmetros ótimos obtidos via minimização da perda de entropia cruzada (NLL) por L-BFGS-B foram $T^* = 1{,}2759 \approx 1{,}28$ e $\mathbf{b} = [-0{,}2675, -0{,}3805, 0{,}1538, 0{,}4942]^T$, reduzindo o Erro de Calibração Esperado (ECE) de 24,8\% para 8,4\%.
+onde os parâmetros ótimos obtidos via minimização da perda NLL por L-BFGS-B foram $T^* = 1{,}28$ (exato $1{,}2759$) e viés $\mathbf{b} = [-0{,}268, -0{,}380, 0{,}154, 0{,}494]^T$, reduzindo o Erro de Calibração Esperado (ECE) de 24,8\% para 8,4\%.
 
 A regra de \textbf{decisão seletiva (abstenção calibrada)} para supressão de alarmes falsos é formulada como:
 \begin{equation}
